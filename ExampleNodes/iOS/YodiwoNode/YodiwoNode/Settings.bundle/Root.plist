@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>PreferenceSpecifiers</key>
+	<array>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Connection and pairing configuration</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Node UUID</string>
+			<key>Key</key>
+			<string>PairingParamsNodeUuid</string>
+			<key>DefaultValue</key>
+			<string>iYodiwoNode-0000</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Node name</string>
+			<key>Key</key>
+			<string>PairingParamsNodeName</string>
+			<key>DefaultValue</key>
+			<string>iYodiwoNode</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Server address</string>
+			<key>Key</key>
+			<string>ConnectionParamsServerAddress</string>
+			<key>DefaultValue</key>
+			<string>cyan.yodiwo.com</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Use secure connection</string>
+			<key>Key</key>
+			<string>ConnectionParamsSecureConnection</string>
+			<key>DefaultValue</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>MQTT configuration</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>MQTT broker address</string>
+			<key>Key</key>
+			<string>MqttParamsBrokerAddress</string>
+			<key>DefaultValue</key>
+			<string>cyan.yodiwo.com</string>
+		</dict>
+	</array>
+	<key>StringsTable</key>
+	<string>Root</string>
+</dict>
+</plist>
