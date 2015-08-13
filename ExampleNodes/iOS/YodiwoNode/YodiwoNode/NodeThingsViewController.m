@@ -208,14 +208,26 @@
     }
     else if ([thingName isEqualToString:ThingNameVirtualLight1]) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            self.thingOutVirtualLight1.backgroundColor =
-            [newState boolValue] ? [UIColor whiteColor] : [UIColor blackColor];
+            if ([newState boolValue]) {
+                self.thingOutVirtualLight1.backgroundColor = [UIColor whiteColor];
+                [self.thingOutVirtualLight1 setTitle:@"On" forState:UIControlStateNormal];
+            }
+            else {
+                self.thingOutVirtualLight1.backgroundColor = [UIColor blackColor];
+                [self.thingOutVirtualLight1 setTitle:@"Off" forState:UIControlStateNormal];
+            }
         });
     }
     else if ([thingName isEqualToString:ThingNameVirtualLight2]) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            self.thingOutVirtualLight2.backgroundColor =
-            [newState boolValue] ? [UIColor whiteColor] : [UIColor blackColor];
+            if ([newState boolValue]) {
+                self.thingOutVirtualLight2.backgroundColor = [UIColor whiteColor];
+                [self.thingOutVirtualLight2 setTitle:@"On" forState:UIControlStateNormal];
+            }
+            else {
+                self.thingOutVirtualLight2.backgroundColor = [UIColor blackColor];
+                [self.thingOutVirtualLight2 setTitle:@"Off" forState:UIControlStateNormal];
+            }
         });
     }
     else {
