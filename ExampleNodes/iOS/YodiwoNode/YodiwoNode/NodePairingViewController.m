@@ -63,7 +63,7 @@
 
 ///***** Functionality
 
-// Entry point
+// Entry points
 - (IBAction)startNodeButtonPressed:(UIButton *)sender {
     dispatch_async(dispatch_get_main_queue(), ^{
         [sender setEnabled:NO];
@@ -86,6 +86,14 @@
             [self performSegueWithIdentifier:@"nodePairedMoveToMainAppContent" sender:self];
         });
     }
+}
+
+- (IBAction)unpairNodeButtonPressed:(UIButton *)sender {
+    [[SettingsVault sharedSettingsVault] setIsNodePaired:NO];
+
+    [self alertUserWithTitle:@"Yodiwo Node info"
+              showingMessage:@"Node unpaired. Start node to initiate repairing."
+                 actionTitle:@"OK"];
 }
 
 // Delegates
