@@ -89,6 +89,12 @@
 }
 
 - (IBAction)unpairNodeButtonPressed:(UIButton *)sender {
+
+    [[NSURLCache sharedURLCache] removeAllCachedResponses];
+    for(NSHTTPCookie *cookie in [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies]) {
+        [[NSHTTPCookieStorage sharedHTTPCookieStorage] deleteCookie:cookie];
+    }
+
     [[SettingsVault sharedSettingsVault] setIsNodePaired:NO];
 
     [self alertUserWithTitle:@"Yodiwo Node info"
