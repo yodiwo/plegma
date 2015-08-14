@@ -163,4 +163,28 @@
      // Pass the selected object to the new view controller.
  }
 //******************************************************************************
+
+
+
+
+
+///***** Helpers
+
+-(void) alertUserWithTitle:(NSString *)title
+            showingMessage:(NSString *)message
+               actionTitle:(NSString *)action {
+
+    UIAlertController *sharingLevelInfoAlert =
+            [UIAlertController alertControllerWithTitle:title
+                                                message:message
+                                         preferredStyle:UIAlertControllerStyleAlert];
+
+    [sharingLevelInfoAlert addAction:[UIAlertAction actionWithTitle:action
+                                                              style:UIAlertActionStyleDefault
+                                                            handler:^(UIAlertAction * action) {}]];
+
+    [self presentViewController:sharingLevelInfoAlert animated:YES completion:nil];
+}
+//******************************************************************************
+
 @end
