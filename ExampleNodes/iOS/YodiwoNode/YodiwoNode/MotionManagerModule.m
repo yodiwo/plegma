@@ -19,6 +19,8 @@
 
 @property (strong, nonatomic) CMMotionActivityManager *motionActivityManager;
 
+@property (strong, nonatomic) CMPedometer *motionPedometer;
+
 @end
 
 
@@ -36,6 +38,22 @@
     return _motionRawManager;
 }
 
+-(CMMotionActivityManager *)motionActivityManager {
+
+    if(_motionActivityManager == nil) {
+        _motionActivityManager = [CMMotionActivityManager new];
+    }
+    return _motionActivityManager;
+}
+
+-(CMPedometer *)motionPedometer {
+
+    if(_motionPedometer == nil) {
+        _motionPedometer = [CMPedometer new];
+    }
+    return _motionPedometer;
+}
+
 //******************************************************************************
 
 
@@ -46,8 +64,7 @@
 - (void)start {
 
     // Raw motion sensors
-    BOOL canUseDeviceMotion = self.motionRawManager.deviceMotionAvailable;
-    if (canUseDeviceMotion){
+    if (self.motionRawManager.deviceMotionAvailable){
 
         self.motionRawManager.deviceMotionUpdateInterval = 10;
 
@@ -62,12 +79,13 @@
         NSLog(@"Device motion monitoring is not available");
     }
 
+
     // Activity manager
-    BOOL isActivityManagerAvailable = [CMMotionActivityManager isActivityAvailable];
-    if (isActivityManagerAvailable) {
+    if ([CMMotionActivityManager isActivityAvailable]) {
+
         [self.motionActivityManager startActivityUpdatesToQueue:[NSOperationQueue new]
                                  withHandler:^(CMMotionActivity *activity) {
-                                     if (activity.confidence  == CMMotionActivityConfidenceLow){
+                                     if (activity.confidence  == CMMotionActivityConfidenceHigh){
                                          NSLog(@"Quite probably a new activity.");
                                          NSDate *started = activity.startDate;
 
@@ -98,12 +116,11 @@
                                                                     ThingNameActivityTracker, @"thingName",
                                                                     userActivity, @"activity",
                                                                     nil];
-                                         [[NSNotificationCenter defaultCenter] postNotificationName:@"yodiwoUIUpdateNotification"
-                                                           object:self
-                                                         userInfo:notParams];
+                                         [[NSNotificationCenter defaultCenter]
+                                                postNotificationName:@"yodiwoUIUpdateNotification"
+                                                              object:self
+                                                            userInfo:notParams];
                                      }
-
-
                                  }];
     }
     else {

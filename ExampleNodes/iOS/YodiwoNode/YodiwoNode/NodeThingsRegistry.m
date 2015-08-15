@@ -43,7 +43,6 @@ NSString *const ThingNameVirtualLight2 = @"iOSLight2";
 
 
 - (void)populate {
-
     NSString *nodeKeyString = [[SettingsVault sharedSettingsVault] getPairingNodeKey];
     NodeKey *nodeKey = [[NodeKey alloc] initWithNodeKeyString:nodeKeyString];
     NSString *deviceName = [[UIDevice currentDevice].name stringByAppendingString:@" "];
