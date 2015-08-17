@@ -7,7 +7,7 @@
 //
 
 #import "PlegmaApi.h"
-
+#import "YodiwoApi.h"
 
 @implementation PlegmaApi
 
@@ -23,21 +23,46 @@
     static NSDictionary *_apiMsgNames = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
+
+        // TODO: Implement remaining api types and uncomment
         _apiMsgNames = [NSDictionary dictionaryWithObjectsAndKeys:
-                        [NSNumber numberWithInteger:EnumApiMessages_LoginReq], @"loginreq",
-                        [NSNumber numberWithInteger:EnumApiMessages_LoginRsp], @"loginrsp",
-                        [NSNumber numberWithInteger:EnumApiMessages_NodeInfoReq], @"nodeinforeq",
-                        [NSNumber numberWithInteger:EnumApiMessages_NodeInfoRsp], @"nodeinforsp",
-                        [NSNumber numberWithInteger:EnumApiMessages_ThingsReq], @"thingsreq",
-                        [NSNumber numberWithInteger:EnumApiMessages_ThingsRsp], @"thingsrsp",
-                        [NSNumber numberWithInteger:EnumApiMessages_PortEventMsg], @"porteventmsg",
-                        [NSNumber numberWithInteger:EnumApiMessages_PortStateReq], @"portstatereq",
-                        [NSNumber numberWithInteger:EnumApiMessages_PortStateRsp], @"portstatersp",
-                        [NSNumber numberWithInteger:EnumApiMessages_ActivePortKeysMsg], @"activeportkeysmsg",
+                        //@"loginreq", [LoginReq class],
+                        //@"loginrsp", [LoginRsp class],
+                        //@"nodeinforeq", [NodeInfoReq],
+                        //@"nodeinforsp", [NodeInfoRsp],
+                        @"thingsreq", [ThingsReq class],
+                        @"thingsrsp", [ThingsRsp class],
+                        @"porteventmsg", [PortEventMsg class],
+                        @"portstatereq", [PortStateReq class],
+                        @"portstatersp", [PortStateRsp class],
+                        @"activeportkeysmsg", [ActivePortKeysMsg class],
                         nil];
     });
 
     return _apiMsgNames;
+}
+
++(NSArray *)apiMessages {
+    static NSArray *_apiMessages = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+
+        // TODO: Implement remaining api types and uncomment
+        _apiMessages = [NSArray arrayWithObjects:
+                        //[LoginReq class],
+                        //[LoginRsp class],
+                        //[NodeInfoReq],
+                        //[NodeInfoRsp],
+                        [ThingsReq class],
+                        [ThingsRsp class],
+                        [PortEventMsg class],
+                        [PortStateReq class],
+                        [PortStateRsp class],
+                        [ActivePortKeysMsg class],
+                        nil];
+    });
+
+    return _apiMessages;
 }
 
 @end
