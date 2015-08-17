@@ -67,7 +67,7 @@
     }
 
     // GPS
-    self.locationManager.distanceFilter = 100.0f; // 100m accuracy
+    self.locationManager.distanceFilter = 300.0f; // 300m accuracy
     [self.locationManager startUpdatingLocation];
     //[self.locationManager startMonitoringSignificantLocationChanges];
 
