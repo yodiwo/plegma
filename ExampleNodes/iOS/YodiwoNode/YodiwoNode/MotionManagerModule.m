@@ -99,7 +99,7 @@
                                              userActivity = @"Running";
                                          } else if (activity.automotive){
                                              NSLog(@"Driving");
-                                             userActivity = @"Driving";
+                                             userActivity = @"";
                                          } else if (activity.walking){
                                              NSLog(@"Walking");
                                              userActivity = @"Walking";
