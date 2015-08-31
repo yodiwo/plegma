@@ -1,4 +1,4 @@
-package com.yodiwo.virtualgateway;
+package com.yodiwo.androidnode;
 
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;

@@ -1,6 +1,4 @@
-package com.yodiwo.virtualgateway;
-
-import java.util.Objects;
+package com.yodiwo.androidnode;
 
 // The Interface to interact with Yodiwo server
 public interface IServerAPI {

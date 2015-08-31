@@ -1,4 +1,4 @@
-package com.yodiwo.virtualgateway;
+package com.yodiwo.androidnode;
 
 
 import android.app.IntentService;
@@ -26,7 +26,6 @@ import com.yodiwo.plegma.eNodeType;
 import com.yodiwo.plegma.ePortStateOperation;
 import com.yodiwo.plegma.eThingsOperation;
 
-import java.sql.Struct;
 import java.util.HashMap;
 
 public class NodeService extends IntentService {

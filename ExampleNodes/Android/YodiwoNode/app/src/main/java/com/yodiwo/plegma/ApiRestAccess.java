@@ -32,22 +32,22 @@ public class ApiRestAccess {
     public interface PlegmaApi {
         @GET("/api")
         ArrayList<String>
-    ListApiCalls();
+        ListApiCalls();
 
-    @POST("/api/1/thingsrsp")
-    String SendNodeThings(@Body ThingsRsp things);
+        @POST("/api/1/thingsrsp")
+        String SendNodeThings(@Body ThingsRsp things);
 
-    @POST("/api/1/porteventmsg")
-    String SendPortEvent(@Body PortEventMsg portEventMsg);
+        @POST("/api/1/porteventmsg")
+        String SendPortEvent(@Body PortEventMsg portEventMsg);
 
-    @POST("/api/1/thingsreq")
-    ThingsRsp SendThingsReq(@Body ThingsReq thingsReq);
+        @POST("/api/1/thingsreq")
+        ThingsRsp SendThingsReq(@Body ThingsReq thingsReq);
 
-    // Pairing API
-    @POST("/pairing/1/gettokensreq")
-    PairingServerTokensResponse SendPairingGetTokens(@Body PairingNodeGetTokensRequest request);
+        // Pairing API
+        @POST("/pairing/1/gettokensreq")
+        PairingServerTokensResponse SendPairingGetTokens(@Body PairingNodeGetTokensRequest request);
 
-    @POST("/pairing/1/getkeysreq")
-    PairingServerKeysResponse SendPairingGetKeys(@Body PairingNodeGetKeysRequest request);
+        @POST("/pairing/1/getkeysreq")
+        PairingServerKeysResponse SendPairingGetKeys(@Body PairingNodeGetKeysRequest request);
     }
-    }
+}

@@ -1,4 +1,4 @@
-package com.yodiwo.virtualgateway;
+package com.yodiwo.androidnode;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

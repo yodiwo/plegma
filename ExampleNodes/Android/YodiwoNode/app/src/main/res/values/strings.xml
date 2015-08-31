@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Yodiwo Virtual Node</string>
+    <string name="app_name">Yodiwo Android Node</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_pairing">PairingActivity</string>
@@ -7,7 +7,7 @@
 
 
     <!-- UI Settings  -->
-    <string name="main_label">Virtual Node</string>
+    <string name="main_label">Android Node</string>
 
     <string name="pref_device_name_key">device_name</string>
     <string name="pref_device_name_default">Android</string>

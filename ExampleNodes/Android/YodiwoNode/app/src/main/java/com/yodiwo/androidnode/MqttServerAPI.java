@@ -1,18 +1,11 @@
-package com.yodiwo.virtualgateway;
+package com.yodiwo.androidnode;
 
 import android.content.Context;
 import android.util.Log;
 
 import com.google.gson.Gson;
-import com.yodiwo.plegma.LoginReq;
-import com.yodiwo.plegma.LoginRsp;
 import com.yodiwo.plegma.MqttAPIMessage;
-import com.yodiwo.plegma.NodeInfoReq;
 import com.yodiwo.plegma.PlegmaAPI;
-import com.yodiwo.plegma.PortEventMsg;
-import com.yodiwo.plegma.PortStateReq;
-import com.yodiwo.plegma.PortStateRsp;
-import com.yodiwo.plegma.ThingsReq;
 
 import org.eclipse.paho.android.service.MqttAndroidClient;
 import org.eclipse.paho.android.service.MqttTraceHandler;
@@ -24,10 +17,6 @@ import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.MqttSecurityException;
-
-import java.lang.reflect.Type;
-import java.sql.Struct;
-import java.util.HashMap;
 
 
 public class MqttServerAPI implements IServerAPI {
@@ -272,11 +261,10 @@ public class MqttServerAPI implements IServerAPI {
 
             Log.i(TAG, "MQTT recv topic:" + topic);
             if (mqttMessage != null) {
-                String mqttMsg = new String(mqttMessage.getPayload());
-                String apiMsg  = gson.fromJson(mqttMsg, MqttAPIMessage.class).Msg;
-                Log.i(TAG, "MQTT qos:" + mqttMessage.getQos() + " payload:" + apiMsg);
-
                 // Parse message
+                String mqttMsg = new String(mqttMessage.getPayload());
+                String apiMsg  = gson.fromJson(mqttMsg, MqttAPIMessage.class).Payload;
+                Log.i(TAG, "MQTT qos:" + mqttMessage.getQos() + " payload:" + apiMsg);
 
                 // Remove the preffix
                 String msgType = topic.replace(mqttSubTopicPrefix, "");

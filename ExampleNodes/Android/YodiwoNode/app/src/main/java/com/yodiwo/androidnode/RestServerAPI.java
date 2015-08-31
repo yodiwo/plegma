@@ -1,11 +1,9 @@
-package com.yodiwo.virtualgateway;
+package com.yodiwo.androidnode;
 
 import android.content.Context;
 import android.util.Log;
 
 import com.yodiwo.plegma.ApiRestAccess;
-import com.yodiwo.plegma.PortEventMsg;
-import com.yodiwo.plegma.ThingsReq;
 
 
 public class RestServerAPI implements IServerAPI {

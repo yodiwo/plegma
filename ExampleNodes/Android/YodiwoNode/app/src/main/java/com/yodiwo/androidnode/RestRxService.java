@@ -1,4 +1,4 @@
-package com.yodiwo.virtualgateway;
+package com.yodiwo.androidnode;
 
 
 import android.app.IntentService;
@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.yodiwo.plegma.PlegmaAPI;
 import com.yodiwo.plegma.ThingsReq;
 import com.yodiwo.plegma.eThingsOperation;
 

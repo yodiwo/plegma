@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.yodiwo.virtualgateway"
+    package="com.yodiwo.androidnode"
     android:largeHeap="true" >
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -19,7 +19,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".MainActivity"
+            android:name="com.yodiwo.androidnode.MainActivity"
             android:label="@string/main_label"
             android:screenOrientation="portrait" >
             <intent-filter>
@@ -29,45 +29,45 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SettingsActivity"
+            android:name="com.yodiwo.androidnode.SettingsActivity"
             android:label="@string/title_activity_settings"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName="com.yodiwo.androidnode.MainActivity"
             android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.yodiwo.virtualgateway.MainActivity" />
+                android:value="com.yodiwo.androidnode.MainActivity" />
         </activity>
         <activity
-            android:name=".PairingActivity"
+            android:name="com.yodiwo.androidnode.PairingActivity"
             android:label="@string/title_activity_pairing"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName="com.yodiwo.androidnode.MainActivity"
             android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.yodiwo.virtualgateway.MainActivity" />
+                android:value="com.yodiwo.androidnode.MainActivity" />
         </activity>
         <activity
-            android:name=".PairingWebActivity"
+            android:name="com.yodiwo.androidnode.PairingWebActivity"
             android:label="@string/title_activity_pairing_web"
-            android:parentActivityName=".PairingActivity" >
+            android:parentActivityName="com.yodiwo.androidnode.PairingActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.yodiwo.virtualgateway.PairingActivity" />
+                android:value="com.yodiwo.androidnode.PairingActivity" />
         </activity>
 
 
         <service
-            android:name=".PairingService"
+            android:name="com.yodiwo.androidnode.PairingService"
             android:enabled="true"
             android:exported="false" >
         </service>
         <service
-            android:name=".NodeService"
+            android:name="com.yodiwo.androidnode.NodeService"
             android:enabled="true"
             android:exported="false" >
         </service>
         <service
-            android:name=".RestRxService"
+            android:name="com.yodiwo.androidnode.RestRxService"
             android:enabled="true"
             android:exported="false" >
         </service>
