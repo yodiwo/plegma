@@ -1,18 +1,27 @@
 package com.yodiwo.plegma;
 
 /**
- * Created by ApiGenerator Tool (Java) on 3/8/2015 10:26:05 &#956;&#956;.
+ * Created by ApiGenerator Tool (Java) on 17/8/2015 3:43:30 &#956;&#956;.
  */
 
 public class PairingKeyLiterals {
 
-    public final String Uuid = "uuid";
+    public static final String Uuid;
 
-    public final String Token1 = "token1";
+    public static final String Token1;
 
-    public final String Token2 = "token2";
+    public static final String Token2;
 
-    public final String NodeKey = "nodekeystr";
+    public static final String NodeKey;
 
-    public final String SecretKey = "secretkey";
+    public static final String SecretKey;
+
+
+    static {
+        Uuid = "uuid";
+        Token1 = "token1";
+        Token2 = "token2";
+        NodeKey = "nodekeystr";
+        SecretKey = "secretkey";
+    }
 }

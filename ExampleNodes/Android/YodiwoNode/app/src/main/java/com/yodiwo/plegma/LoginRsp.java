@@ -1,7 +1,7 @@
 package com.yodiwo.plegma;
 
 /**
- * Created by ApiGenerator Tool (Java) on 3/8/2015 10:26:16 &#956;&#956;.
+ * Created by ApiGenerator Tool (Java) on 17/8/2015 3:43:43 &#956;&#956;.
  */
 
 /**
@@ -20,16 +20,16 @@ public class LoginRsp extends ApiMsg {
     public String SecretKey;
 
     public LoginRsp() {
-        this.Id = eApiType.Invalid;
+        this.Id = eApiType.LoginRsp;
     }
 
-    public LoginRsp(String NodeKey, String SecretKey, int Version, int SeqNo, int ResponseToSeqNo) {
-        this.NodeKey = NodeKey;
-        this.SecretKey = SecretKey;
-        this.Id = eApiType.Invalid;
+    public LoginRsp(int Version, int SeqNo, int ResponseToSeqNo, String NodeKey, String SecretKey) {
+        this.Id = eApiType.LoginRsp;
         this.Version = Version;
         this.SeqNo = SeqNo;
         this.ResponseToSeqNo = ResponseToSeqNo;
+        this.NodeKey = NodeKey;
+        this.SecretKey = SecretKey;
 
     }
 

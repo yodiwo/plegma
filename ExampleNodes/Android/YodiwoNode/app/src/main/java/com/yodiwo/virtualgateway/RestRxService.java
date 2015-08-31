@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.yodiwo.plegma.PlegmaAPI;
 import com.yodiwo.plegma.ThingsReq;
 import com.yodiwo.plegma.eThingsOperation;
 
@@ -81,14 +82,14 @@ public class RestRxService  extends IntentService {
         try {
             // Get the thing status
             ThingsReq req = new ThingsReq(
-                    null, // Request all things
-                    eThingsOperation.Get,
-                    null,
-                    NodeService.APIVersion,
+                    PlegmaAPI.APIVersion,
                     0,
-                    0);
+                    0,
+                    eThingsOperation.Get,
+                    "",
+                    null);
 
-            serverAPI.SendThingsReq(req);
+            serverAPI.Send(req);
 
             Log.d(TAG, "Loop time: " + (System.currentTimeMillis() - rxTimeStamp));
             rxTimeStamp = System.currentTimeMillis();

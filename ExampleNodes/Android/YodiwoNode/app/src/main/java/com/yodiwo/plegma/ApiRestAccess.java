@@ -1,10 +1,7 @@
 package com.yodiwo.plegma;
 
-import java.util.ArrayList;
-
 import retrofit.RestAdapter;
 import retrofit.http.Body;
-import retrofit.http.GET;
 import retrofit.http.POST;
 
     /*

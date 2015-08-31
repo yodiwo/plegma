@@ -5,7 +5,6 @@ import android.util.Log;
 
 import com.yodiwo.plegma.ApiRestAccess;
 import com.yodiwo.plegma.PortEventMsg;
-import com.yodiwo.plegma.ThingsMsg;
 import com.yodiwo.plegma.ThingsReq;
 
 
@@ -57,25 +56,9 @@ public class RestServerAPI implements IServerAPI {
     // ---------------------------------------------------------------------------------------------
 
     @Override
-    public boolean SendThingsMsg(ThingsMsg meg) {
+    public boolean Send(Object meg) {
         return false;
     }
-
-    // ---------------------------------------------------------------------------------------------
-
-    @Override
-    public boolean SendThingsReq(ThingsReq req) {
-        return false;
-    }
-
-    // ---------------------------------------------------------------------------------------------
-
-    @Override
-    public boolean SendPortEvent(PortEventMsg msg) {
-        return false;
-    }
-
-    // ---------------------------------------------------------------------------------------------
 
     @Override
     public void StartRx() {

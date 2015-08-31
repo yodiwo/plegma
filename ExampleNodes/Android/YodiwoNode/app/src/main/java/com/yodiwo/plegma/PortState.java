@@ -1,7 +1,7 @@
 package com.yodiwo.plegma;
 
 /**
- * Created by ApiGenerator Tool (Java) on 3/8/2015 10:26:23 &#956;&#956;.
+ * Created by ApiGenerator Tool (Java) on 17/8/2015 3:43:52 &#956;&#956;.
  */
 
 /**
@@ -21,7 +21,7 @@ public class PortState {
      */
     public int RevNum;
     /**
-     * Denotes whether the Port that this message's PortKey refers to is currently deployed in any server graphs
+     * Specifies the number of active graphs that this port is connected in
      */
     public Boolean IsDeployed;
 

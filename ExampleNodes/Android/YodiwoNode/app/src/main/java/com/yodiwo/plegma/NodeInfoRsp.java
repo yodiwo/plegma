@@ -1,15 +1,15 @@
 package com.yodiwo.plegma;
 
 /**
- * Created by ApiGenerator Tool (Java) on 3/8/2015 10:26:19 &#956;&#956;.
+ * Created by ApiGenerator Tool (Java) on 17/8/2015 3:43:48 &#956;&#956;.
  */
 
 /**
  * Node Info Response Message that contains gneral information about a node including supported Node Types and Capabilities
  * Direction: bidirectional (Node->Cloud and Cloud->Node)
- * In response to an Yodiwo.API.Plegma.NodeInfoReq
+ * In response to a Yodiwo.API.Plegma.NodeInfoReq
  */
-public class NodeInfoMsg extends ApiMsg {
+public class NodeInfoRsp extends ApiMsg {
     /**
      * Friendly name of responding Node
      */
@@ -27,19 +27,19 @@ public class NodeInfoMsg extends ApiMsg {
      */
     public NodeThingType[] ThingTypes;
 
-    public NodeInfoMsg() {
-        this.Id = eApiType.Invalid;
+    public NodeInfoRsp() {
+        this.Id = eApiType.NodeInfoRsp;
     }
 
-    public NodeInfoMsg(String Name, eNodeType Type, eNodeCapa Capabilities, NodeThingType[] ThingTypes, int Version, int SeqNo, int ResponseToSeqNo) {
+    public NodeInfoRsp(int Version, int SeqNo, int ResponseToSeqNo, String Name, eNodeType Type, eNodeCapa Capabilities, NodeThingType[] ThingTypes) {
+        this.Id = eApiType.NodeInfoRsp;
+        this.Version = Version;
+        this.SeqNo = SeqNo;
+        this.ResponseToSeqNo = ResponseToSeqNo;
         this.Name = Name;
         this.Type = Type;
         this.Capabilities = Capabilities;
         this.ThingTypes = ThingTypes;
-        this.Id = eApiType.Invalid;
-        this.Version = Version;
-        this.SeqNo = SeqNo;
-        this.ResponseToSeqNo = ResponseToSeqNo;
 
     }
 

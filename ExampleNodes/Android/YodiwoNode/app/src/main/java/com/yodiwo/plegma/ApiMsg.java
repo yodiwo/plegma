@@ -1,7 +1,7 @@
 package com.yodiwo.plegma;
 
 /**
- * Created by ApiGenerator Tool (Java) on 3/8/2015 10:26:15 &#956;&#956;.
+ * Created by ApiGenerator Tool (Java) on 17/8/2015 3:43:42 &#956;&#956;.
  */
 
 /**
@@ -24,4 +24,8 @@ public class ApiMsg {
      * for RPC responses only: sequence number of previous message that this message is responding to
      */
     public int ResponseToSeqNo;
+
+
+    static {
+    }
 }
