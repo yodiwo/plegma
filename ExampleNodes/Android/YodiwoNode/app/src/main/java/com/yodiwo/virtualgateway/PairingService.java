@@ -9,8 +9,8 @@ import android.util.Log;
 import com.yodiwo.plegma.ApiRestAccess;
 import com.yodiwo.plegma.PairingNodeGetKeysRequest;
 import com.yodiwo.plegma.PairingNodeGetTokensRequest;
-import com.yodiwo.plegma.PairingServerResponseKeys;
-import com.yodiwo.plegma.PairingServerResponseTokens;
+import com.yodiwo.plegma.PairingServerKeysResponse;
+import com.yodiwo.plegma.PairingServerTokensResponse;
 
 public class PairingService extends IntentService {
 
@@ -83,7 +83,7 @@ public class PairingService extends IntentService {
             req.uuid = settingsProvider.getNodeUUID();
             req.name = settingsProvider.getDeviceName();
 
-            PairingServerResponseTokens resp = apiRestAccess.service.SendPairingGetTokens(req);
+            PairingServerTokensResponse resp = apiRestAccess.service.SendPairingGetTokens(req);
             Log.d(TAG, "Tokens: " + resp.token1 + ", " + resp.token2);
 
             // Save tokens
@@ -116,7 +116,7 @@ public class PairingService extends IntentService {
             req.uuid = settingsProvider.getNodeUUID();
             req.token1 = settingsProvider.getNodeToken1();
 
-            PairingServerResponseKeys resp = apiRestAccess.service.SendPairingGetKeys(req);
+            PairingServerKeysResponse resp = apiRestAccess.service.SendPairingGetKeys(req);
             Log.d(TAG, "Keys: " + resp.nodeKey + ", " + resp.secretKey);
 
             // Save tokens

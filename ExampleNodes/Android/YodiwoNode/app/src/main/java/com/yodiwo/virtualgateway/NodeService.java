@@ -256,9 +256,7 @@ public class NodeService extends IntentService {
 
     private void SendNodes(SettingsProvider settingsProvider) {
         try {
-            ThingsReq msg = new ThingsReq(PlegmaAPI.APIVersion,
-                    GetSendSeqNum(),
-                    0,
+            ThingsReq msg = new ThingsReq(GetSendSeqNum(),
                     eThingsOperation.Overwrite,
                     "",
                     thingHashMap.values().toArray(new Thing[0]));
@@ -414,9 +412,7 @@ public class NodeService extends IntentService {
                         public void Handle(String topic, String json, Object msg) {
                             NodeInfoReq req = (NodeInfoReq)msg;
 
-                            NodeInfoRsp rsp = new NodeInfoRsp(PlegmaAPI.APIVersion,
-                                    GetSendSeqNum(),
-                                    req.SeqNo,
+                            NodeInfoRsp rsp = new NodeInfoRsp(GetSendSeqNum(),
                                     settingsProvider.getDeviceName(),
                                     eNodeType.TestEndpoint,
                                     eNodeCapa.None,
@@ -458,9 +454,8 @@ public class NodeService extends IntentService {
 
                             // Send the internal things of the node.
                             if(req.Operation == eThingsOperation.Get) {
-                                ThingsRsp rsp = new ThingsRsp(PlegmaAPI.APIVersion,
+                                ThingsRsp rsp = new ThingsRsp(
                                         GetSendSeqNum(),
-                                        req.SeqNo,
                                         req.Operation,
                                         true,
                                         thingHashMap.values().toArray(new Thing[0])

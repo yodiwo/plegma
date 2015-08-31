@@ -82,8 +82,6 @@ public class RestRxService  extends IntentService {
         try {
             // Get the thing status
             ThingsReq req = new ThingsReq(
-                    PlegmaAPI.APIVersion,
-                    0,
                     0,
                     eThingsOperation.Get,
                     "",
