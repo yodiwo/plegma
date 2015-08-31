@@ -4,29 +4,26 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * Created by ApiGenerator Tool (Java) on 28/08/2015 18:34:41.
+ * Created by ApiGenerator Tool (Java) on 28/08/2015 18:34:43.
  */
     /** 
- * Globally unique identifier of a GraphDescriptor
+ * Globally unique identifier of a TimelineDescriptor
  */
-        public class GraphDescriptorKey 
+        public class TimelineDescriptorKey 
         {
             
             public UserKey UserKey;
             
             public String Id;
             
-            public int Revision;
-            
-            public GraphDescriptorKey()
+            public TimelineDescriptorKey()
             {
             }
                 
-                public GraphDescriptorKey(UserKey UserKey,String Id,int Revision)
+                public TimelineDescriptorKey(UserKey UserKey,String Id)
                 {
                 		this.UserKey = UserKey;
 		this.Id = Id;
-		this.Revision = Revision;
 
                 }
                 

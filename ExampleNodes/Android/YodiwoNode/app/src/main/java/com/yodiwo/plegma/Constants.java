@@ -1,15 +1,19 @@
 package com.yodiwo.plegma;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 /**
- * Created by ApiGenerator Tool (Java) on 17/8/2015 3:43:40 &#956;&#956;.
+ * Created by ApiGenerator Tool (Java) on 28/08/2015 18:34:46.
  */
-
-public class Constants {
-
-    public static final int YPChannelPort;
-
-
-    static {
-        YPChannelPort = 5555;
-    }
-}
+    
+        public class Constants 
+        {
+            
+            public static final int YPChannelPort;
+            
+            
+            static {
+                    YPChannelPort = 5555;
+            }
+        }
