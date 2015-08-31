@@ -1,7 +1,7 @@
 package com.yodiwo.plegma;
 
 /**
- * Created by ApiGenerator Tool (Java) on 3/8/2015 10:26:22 &#956;&#956;.
+ * Created by ApiGenerator Tool (Java) on 28/08/2015 18:34:57.
  */
 
 /**
@@ -15,15 +15,11 @@ public class PortEventMsg extends ApiMsg {
     public PortEvent[] PortEvents;
 
     public PortEventMsg() {
-        this.Id = eApiType.PortEventMsg;
     }
 
-    public PortEventMsg(PortEvent[] PortEvents, int Version, int SeqNo, int ResponseToSeqNo) {
-        this.PortEvents = PortEvents;
-        this.Id = eApiType.PortEventMsg;
-        this.Version = Version;
+    public PortEventMsg(int SeqNo, PortEvent[] PortEvents) {
         this.SeqNo = SeqNo;
-        this.ResponseToSeqNo = ResponseToSeqNo;
+        this.PortEvents = PortEvents;
 
     }
 

@@ -1,7 +1,7 @@
 package com.yodiwo.plegma;
 
 /**
- * Created by ApiGenerator Tool (Java) on 3/8/2015 10:26:16 &#956;&#956;.
+ * Created by ApiGenerator Tool (Java) on 28/08/2015 18:34:50.
  */
 
 /**
@@ -12,10 +12,6 @@ public enum eNodeCapa {
      * no capabilities
      */
     None,
-    /**
-     * Node supports Synchronous RPC
-     */
-    SupportsRpc,
     /**
      * Node supports graph splitting
      */

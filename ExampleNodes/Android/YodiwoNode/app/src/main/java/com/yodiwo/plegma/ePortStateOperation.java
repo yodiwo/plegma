@@ -1,7 +1,7 @@
 package com.yodiwo.plegma;
 
 /**
- * Created by ApiGenerator Tool (Java) on 3/8/2015 10:26:22 &#956;&#956;.
+ * Created by ApiGenerator Tool (Java) on 28/08/2015 18:34:58.
  */
 
 /**
@@ -16,10 +16,6 @@ public enum ePortStateOperation {
      * request array of current state for the specified PortKey(s)
      */
     SpecificKeys,
-    /**
-     * request array of PortKeys of Ports currently deployed in graphs
-     */
-    ActivePortKeys,
     /**
      * request array of current states for ports currently deployed in graphs
      */

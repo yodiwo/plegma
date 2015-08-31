@@ -1,4 +1,4 @@
-package com.yodiwo.virtualgateway;
+package com.yodiwo.androidnode;
 
 
 import android.app.IntentService;
@@ -81,14 +81,12 @@ public class RestRxService  extends IntentService {
         try {
             // Get the thing status
             ThingsReq req = new ThingsReq(
-                    null, // Request all things
-                    eThingsOperation.Get,
-                    null,
-                    NodeService.APIVersion,
                     0,
-                    0);
+                    eThingsOperation.Get,
+                    "",
+                    null);
 
-            serverAPI.SendThingsReq(req);
+            serverAPI.Send(req);
 
             Log.d(TAG, "Loop time: " + (System.currentTimeMillis() - rxTimeStamp));
             rxTimeStamp = System.currentTimeMillis();

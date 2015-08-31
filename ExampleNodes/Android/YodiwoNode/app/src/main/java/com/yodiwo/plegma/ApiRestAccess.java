@@ -17,7 +17,7 @@ import retrofit.http.POST;
 
 public class ApiRestAccess {
 
-    public YodiwoPlegmaApi service;
+    public PlegmaApi service;
 
     public ApiRestAccess(String ApiTarget) {
         RestAdapter restAdapter = new RestAdapter.Builder()
@@ -25,33 +25,29 @@ public class ApiRestAccess {
                 .setEndpoint(ApiTarget)
                 .build();
 
-        service = restAdapter.create(YodiwoPlegmaApi.class);
+        service = restAdapter.create(PlegmaApi.class);
     }
 
-    public interface YodiwoPlegmaApi {
-        /*
-                @GET("/api")
-                ArrayList<String> ListApiCalls();
 
-                @POST("/api/nodethingsmsg")
-                String SendNodeThings(@Body NodeThingsMsg things);
+    public interface PlegmaApi {
+        @GET("/api")
+        ArrayList<String>
+        ListApiCalls();
 
-                @POST("/api/portevent")
-                String SendPortEvent(@Body PortEventMsg portEventMsg);
+        @POST("/api/1/thingsrsp")
+        String SendNodeThings(@Body ThingsRsp things);
 
-                @POST("/api/batchportevent")
-                String SendBatchPortEvent(@Body PortEventBatchMsg portEventMsg);
+        @POST("/api/1/porteventmsg")
+        String SendPortEvent(@Body PortEventMsg portEventMsg);
 
-                @POST("/api/nodethingsreq")
-                NodeThingsRsp SendNodeThingsReq(@Body NodeThingsReq portEventMsg);
-            */
+        @POST("/api/1/thingsreq")
+        ThingsRsp SendThingsReq(@Body ThingsReq thingsReq);
 
         // Pairing API
-        @POST("/pairing/gettokens")
-        PairingServerResponseTokens SendPairingGetTokens(@Body PairingNodeGetTokensRequest request);
+        @POST("/pairing/1/gettokensreq")
+        PairingServerTokensResponse SendPairingGetTokens(@Body PairingNodeGetTokensRequest request);
 
-        @POST("/pairing/getkeys")
-        PairingServerResponseKeys SendPairingGetKeys(@Body PairingNodeGetKeysRequest request);
-
+        @POST("/pairing/1/getkeysreq")
+        PairingServerKeysResponse SendPairingGetKeys(@Body PairingNodeGetKeysRequest request);
     }
 }

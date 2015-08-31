@@ -1,12 +1,9 @@
-package com.yodiwo.virtualgateway;
+package com.yodiwo.androidnode;
 
 import android.content.Context;
 import android.util.Log;
 
 import com.yodiwo.plegma.ApiRestAccess;
-import com.yodiwo.plegma.PortEventMsg;
-import com.yodiwo.plegma.ThingsMsg;
-import com.yodiwo.plegma.ThingsReq;
 
 
 public class RestServerAPI implements IServerAPI {
@@ -57,25 +54,14 @@ public class RestServerAPI implements IServerAPI {
     // ---------------------------------------------------------------------------------------------
 
     @Override
-    public boolean SendThingsMsg(ThingsMsg meg) {
+    public boolean Send(Object msg) {
         return false;
     }
-
-    // ---------------------------------------------------------------------------------------------
 
     @Override
-    public boolean SendThingsReq(ThingsReq req) {
+    public boolean SendRsp(Object msg, int RespToSeqNo) {
         return false;
     }
-
-    // ---------------------------------------------------------------------------------------------
-
-    @Override
-    public boolean SendPortEvent(PortEventMsg msg) {
-        return false;
-    }
-
-    // ---------------------------------------------------------------------------------------------
 
     @Override
     public void StartRx() {

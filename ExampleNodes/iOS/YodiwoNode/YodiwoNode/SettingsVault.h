@@ -28,6 +28,8 @@
 
 -(BOOL)isNodePaired;
 
+-(void)setIsNodePaired:(BOOL)state;
+
 -(NSString *)getMqttParamsBrokerAddress;
 
 -(NSInteger)getMqttParamsPort;
@@ -42,5 +44,9 @@
 -(void)setPairingToken1:(NSString *)token1;
 
 -(void)setNodePaired:(BOOL)status;
+
+-(NSString *)getIBeaconParamsMonitoredUUID1;
+
+-(NSString *)getIBeaconParamsMonitoredUUID2;
 
 @end

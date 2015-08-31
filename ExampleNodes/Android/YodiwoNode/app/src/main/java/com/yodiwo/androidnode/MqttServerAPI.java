@@ -1,18 +1,11 @@
-package com.yodiwo.virtualgateway;
+package com.yodiwo.androidnode;
 
 import android.content.Context;
 import android.util.Log;
 
 import com.google.gson.Gson;
-import com.yodiwo.plegma.LoginReq;
-import com.yodiwo.plegma.LoginRsp;
-import com.yodiwo.plegma.NodeInfoMsg;
-import com.yodiwo.plegma.NodeInfoReq;
-import com.yodiwo.plegma.PortEventMsg;
-import com.yodiwo.plegma.PortStateReq;
-import com.yodiwo.plegma.PortStateRsp;
-import com.yodiwo.plegma.ThingsMsg;
-import com.yodiwo.plegma.ThingsReq;
+import com.yodiwo.plegma.MqttAPIMessage;
+import com.yodiwo.plegma.PlegmaAPI;
 
 import org.eclipse.paho.android.service.MqttAndroidClient;
 import org.eclipse.paho.android.service.MqttTraceHandler;
@@ -24,8 +17,6 @@ import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.MqttSecurityException;
-
-import java.util.HashMap;
 
 
 public class MqttServerAPI implements IServerAPI {
@@ -52,7 +43,6 @@ public class MqttServerAPI implements IServerAPI {
 
     private Context context;
     private SettingsProvider settingsProvider;
-    private HashMap<Class<?>, String> ApiMsgNames;
     private Gson gson = new Gson();
 
     public MqttServerAPI(Context context) {
@@ -66,14 +56,27 @@ public class MqttServerAPI implements IServerAPI {
 
     // ---------------------------------------------------------------------------------------------
 
+    private boolean _Send(String topic, Object mqtt_msg) {
+        try {
+            if (publish(topic, 2, gson.toJson(mqtt_msg)))
+                return true;
+        } catch (Exception ex) {
+            Log.e(TAG, ex.getMessage());
+        }
+        return false;
+    }
+
     // =============================================================================================
     // Public API
 
+
     @Override
-    public boolean SendThingsMsg(ThingsMsg things) {
+    public boolean SendRsp(Object msg, int RespToSeqNo) {
         try {
-            String topic = mqttPubTopicPrefix + ApiMsgNames.get(things.getClass());
-            if (publish(topic, 2, gson.toJson(things)))
+            String topic = mqttPubTopicPrefix + PlegmaAPI.ApiMsgNames.get(msg.getClass());
+            MqttAPIMessage mqttAPIMessage = new MqttAPIMessage(RespToSeqNo, gson.toJson(msg));
+
+            if (_Send(topic, mqttAPIMessage))
                 return true;
         } catch (Exception ex) {
             Log.e(TAG, ex.getMessage());
@@ -81,27 +84,13 @@ public class MqttServerAPI implements IServerAPI {
         return false;
     }
 
-    // ---------------------------------------------------------------------------------------------
-
     @Override
-    public boolean SendThingsReq(ThingsReq things) {
+    public boolean Send(Object msg) {
         try {
-            String topic = mqttPubTopicPrefix + ApiMsgNames.get(things.getClass());
-            if (publish(topic, 2, gson.toJson(things)))
-                return true;
-        } catch (Exception ex) {
-            Log.e(TAG, ex.getMessage());
-        }
-        return false;
-    }
+            String topic = mqttPubTopicPrefix + PlegmaAPI.ApiMsgNames.get(msg.getClass());
+            MqttAPIMessage mqttAPIMessage = new MqttAPIMessage(0, gson.toJson(msg));
 
-    // ---------------------------------------------------------------------------------------------
-
-    @Override
-    public boolean SendPortEvent(PortEventMsg portEventMsg) {
-        try {
-            String topic = mqttPubTopicPrefix + ApiMsgNames.get(portEventMsg.getClass());
-            if (publish(topic, 2, gson.toJson(portEventMsg)))
+            if (_Send(topic, mqttAPIMessage))
                 return true;
         } catch (Exception ex) {
             Log.e(TAG, ex.getMessage());
@@ -189,18 +178,6 @@ public class MqttServerAPI implements IServerAPI {
         mqttPubTopicPrefix = "/api/in/" + settingsProvider.getUserKey() + "/" + settingsProvider.getNodeKey() + "/";
         mqttSubTopicPrefix = "/api/out/" + settingsProvider.getNodeKey() + "/";
 
-        // map the mqtt names
-        ApiMsgNames = new HashMap<Class<?>, String>();
-        ApiMsgNames.put(LoginReq.class, "loginreq");
-        ApiMsgNames.put(LoginRsp.class, "loginrsp");
-        ApiMsgNames.put(NodeInfoReq.class, "nodeinforeq");
-        ApiMsgNames.put(NodeInfoMsg.class, "nodeinfomsg");
-        ApiMsgNames.put(ThingsReq.class, "thingsreq");
-        ApiMsgNames.put(ThingsMsg.class, "thingsmsg");
-        ApiMsgNames.put(PortEventMsg.class, "porteventmsg");
-        ApiMsgNames.put(PortStateReq.class, "portstatereq");
-        ApiMsgNames.put(PortStateRsp.class, "portstatersp");
-
         Connect();
     }
 
@@ -237,13 +214,15 @@ public class MqttServerAPI implements IServerAPI {
 
     private boolean publish(String topic, int qos, String message) {
         try {
-            mqttClient.publish(topic,
-                    message.getBytes(),
-                    qos,
-                    false, // retainer
-                    null,
-                    new MqttActionListener(context, MqttAction.PUBLISH, topic));
-            return true;
+            if(connectionStatus == ConnectionStatus.CONNECTED) {
+                mqttClient.publish(topic,
+                        message.getBytes(),
+                        qos,
+                        false, // retainer
+                        null,
+                        new MqttActionListener(context, MqttAction.PUBLISH, topic));
+                return true;
+            }
         } catch (MqttSecurityException e) {
             Log.e(this.getClass().getCanonicalName(), "Failed to publish a message", e);
         } catch (MqttException e) {
@@ -272,6 +251,7 @@ public class MqttServerAPI implements IServerAPI {
 
                 // if we disconnected kill and the rx path
                 RxStarted = false;
+                NodeService.ReceiveConnStatus(context, false);
             }
         }
 
@@ -281,24 +261,16 @@ public class MqttServerAPI implements IServerAPI {
 
             Log.i(TAG, "MQTT recv topic:" + topic);
             if (mqttMessage != null) {
-                String msg = new String(mqttMessage.getPayload());
-                Log.i(TAG, "MQTT qos:" + mqttMessage.getQos() + " payload:" + msg);
-
                 // Parse message
+                String mqttMsg = new String(mqttMessage.getPayload());
+                String apiMsg  = gson.fromJson(mqttMsg, MqttAPIMessage.class).Payload;
+                Log.i(TAG, "MQTT qos:" + mqttMessage.getQos() + " payload:" + apiMsg);
 
                 // Remove the preffix
                 String msgType = topic.replace(mqttSubTopicPrefix, "");
-                switch (msgType) {
-                    case "porteventmsg":
-                        PortEventMsg portEventMsg = gson.fromJson(msg, PortEventMsg.class);
-                        NodeService.RxPortEventMsg(context, portEventMsg);
-                        break;
-                    case "portstatersp":
-                        PortStateRsp portStateRsp = gson.fromJson(msg, PortStateRsp.class);
-                        NodeService.RxPortStateRsp(context, portStateRsp);
-                        break;
-                }
 
+                // Send the message to node service
+                NodeService.RxMsg(context, msgType, apiMsg);
             }
         }
 
@@ -400,6 +372,7 @@ public class MqttServerAPI implements IServerAPI {
             connectionStatus = ConnectionStatus.CONNECTED;
             Log.d(TAG, "MQTT new status:" + connectionStatus);
 
+            NodeService.ReceiveConnStatus(context, true);
             // check for pending subscription
             if (RxEnabled) {
                 _startRx();
@@ -419,6 +392,7 @@ public class MqttServerAPI implements IServerAPI {
 
             // if we disconnected kill and the rx path
             RxStarted = false;
+            NodeService.ReceiveConnStatus(context, false);
         }
 
         private void disconnect(Throwable exception) {
@@ -427,6 +401,7 @@ public class MqttServerAPI implements IServerAPI {
 
             // if we disconnected kill and the rx path
             RxStarted = false;
+            NodeService.ReceiveConnStatus(context, false);
         }
 
         // -----------------------------------------------------------------------------------------

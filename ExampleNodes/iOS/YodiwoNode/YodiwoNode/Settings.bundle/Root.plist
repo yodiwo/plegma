@@ -14,7 +14,7 @@
 			<key>Type</key>
 			<string>PSTextFieldSpecifier</string>
 			<key>Title</key>
-			<string>Node UUID</string>
+			<string>Node UUID:</string>
 			<key>Key</key>
 			<string>PairingParamsNodeUuid</string>
 			<key>DefaultValue</key>
@@ -24,7 +24,7 @@
 			<key>Type</key>
 			<string>PSTextFieldSpecifier</string>
 			<key>Title</key>
-			<string>Node name</string>
+			<string>Node name:</string>
 			<key>Key</key>
 			<string>PairingParamsNodeName</string>
 			<key>DefaultValue</key>
@@ -34,7 +34,7 @@
 			<key>Type</key>
 			<string>PSTextFieldSpecifier</string>
 			<key>Title</key>
-			<string>Server address</string>
+			<string>Server address/port:</string>
 			<key>Key</key>
 			<string>ConnectionParamsServerAddress</string>
 			<key>DefaultValue</key>
@@ -60,11 +60,37 @@
 			<key>Type</key>
 			<string>PSTextFieldSpecifier</string>
 			<key>Title</key>
-			<string>MQTT broker address</string>
+			<string>Broker address:</string>
 			<key>Key</key>
 			<string>MqttParamsBrokerAddress</string>
 			<key>DefaultValue</key>
 			<string>cyan.yodiwo.com</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Monitored iBeacons</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>UUID1:</string>
+			<key>Key</key>
+			<string>IBeaconParamsMonitoredUUID1</string>
+			<key>DefaultValue</key>
+			<string>00000000-0000-0000-0000-000000000000</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>UUID2:</string>
+			<key>Key</key>
+			<string>IBeaconParamsMonitoredUUID2</string>
+			<key>DefaultValue</key>
+			<string>00000000-0000-0000-0000-000000000001</string>
 		</dict>
 	</array>
 	<key>StringsTable</key>

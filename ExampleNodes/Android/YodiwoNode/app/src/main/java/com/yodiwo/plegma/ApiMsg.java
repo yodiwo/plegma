@@ -1,7 +1,7 @@
 package com.yodiwo.plegma;
 
 /**
- * Created by ApiGenerator Tool (Java) on 3/8/2015 10:26:15 &#956;&#956;.
+ * Created by ApiGenerator Tool (Java) on 28/08/2015 18:34:48.
  */
 
 /**
@@ -9,19 +9,11 @@ package com.yodiwo.plegma;
  */
 public class ApiMsg {
     /**
-     * Id of message, of type Yodiwo.API.Plegma.eApiType
-     */
-    public eApiType Id;
-    /**
-     * Version of API, currently set to 0
-     */
-    public int Version;
-    /**
      * Sequence number of this message
      */
     public int SeqNo;
-    /**
-     * for RPC responses only: sequence number of previous message that this message is responding to
-     */
-    public int ResponseToSeqNo;
+
+
+    static {
+    }
 }

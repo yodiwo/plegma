@@ -1,11 +1,11 @@
 package com.yodiwo.plegma;
 
 /**
- * Created by ApiGenerator Tool (Java) on 3/8/2015 10:26:22 &#956;&#956;.
+ * Created by ApiGenerator Tool (Java) on 28/08/2015 18:34:58.
  */
 
 /**
- * Port Update Request. Will result in a response of type PortEventBatchMsg
+ * Port State Request. Will result in a response of type Yodiwo.API.Plegma.PortStateRsp
  * Direction: node->cloud
  */
 public class PortStateReq extends ApiMsg {
@@ -17,19 +17,15 @@ public class PortStateReq extends ApiMsg {
      * List of PortKeys that the server should send an update for (in conjuction with Yodiwo.API.Plegma.ePortStateOperation.SpecificKeys).
      * If set to null or an empty array then the server will send an update for all relevant PortKeys
      */
-    public PortKey[] Keys;
+    public String[] PortKeys;
 
     public PortStateReq() {
-        this.Id = eApiType.Invalid;
     }
 
-    public PortStateReq(ePortStateOperation Operation, PortKey[] Keys, int Version, int SeqNo, int ResponseToSeqNo) {
-        this.Operation = Operation;
-        this.Keys = Keys;
-        this.Id = eApiType.Invalid;
-        this.Version = Version;
+    public PortStateReq(int SeqNo, ePortStateOperation Operation, String[] PortKeys) {
         this.SeqNo = SeqNo;
-        this.ResponseToSeqNo = ResponseToSeqNo;
+        this.Operation = Operation;
+        this.PortKeys = PortKeys;
 
     }
 

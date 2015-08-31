@@ -1,4 +1,4 @@
-package com.yodiwo.virtualgateway;
+package com.yodiwo.androidnode;
 
 import android.app.Activity;
 import android.app.PendingIntent;
@@ -113,7 +113,8 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
             setupForegroundNFCDispatch(this, mNfcAdapter);
 
             // Request update location
-            locationManager.requestLocationUpdates(bestGPSProvider, 20000, 1, this);
+            if(locationManager!=null)
+                locationManager.requestLocationUpdates(bestGPSProvider, 20000, 1, this);
 
             // Request the state of the things in the cloud
             NodeService.RequesttUpdatedState(this);
@@ -202,7 +203,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
      * @param adapter  The {@link NfcAdapter} used for the foreground dispatch.
      */
     public static void setupForegroundNFCDispatch(final Activity activity, NfcAdapter adapter) {
-        if(adapter==null) {
+        if(adapter!=null) {
             final Intent intent = new Intent(activity.getApplicationContext(), activity.getClass());
             intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 

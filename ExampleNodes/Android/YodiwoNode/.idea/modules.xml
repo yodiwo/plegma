@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/VirtualGateway.iml" filepath="$PROJECT_DIR$/VirtualGateway.iml" />
+      <module fileurl="file://$PROJECT_DIR$/YodiwoNode.iml" filepath="$PROJECT_DIR$/YodiwoNode.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

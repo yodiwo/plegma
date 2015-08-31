@@ -9,6 +9,7 @@
 #import "NodeThingsViewController.h"
 #import "NodeController.h"
 #import "NodeThingsRegistry.h"
+#import "SettingsVault.h"
 
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
@@ -265,9 +266,22 @@
         });
     }
     else if ([thingName isEqualToString:ThingNameLocationBeacon]) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            self.iBeacon1ProximityLevelLabel.text = [notParams objectForKey:@"proximity"];
-        });
+        if ( [((NSString *)[notParams objectForKey:@"uuid"])
+              isEqualToString:[[SettingsVault sharedSettingsVault]
+                                        getIBeaconParamsMonitoredUUID1]]) {
+
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.iBeacon1ProximityLevelLabel.text = [notParams objectForKey:@"proximity"];
+            });
+        }
+        else if ( [((NSString *)[notParams objectForKey:@"uuid"])
+                   isEqualToString:[[SettingsVault sharedSettingsVault]
+                                    getIBeaconParamsMonitoredUUID2]]) {
+
+                       dispatch_async(dispatch_get_main_queue(), ^{
+                           self.iBeacon2ProximityLevelLabel.text = [notParams objectForKey:@"proximity"];
+                       });
+        }
     }
     else if ([thingName isEqualToString:ThingNameShakeDetector]) {
         dispatch_async(dispatch_get_main_queue(), ^{

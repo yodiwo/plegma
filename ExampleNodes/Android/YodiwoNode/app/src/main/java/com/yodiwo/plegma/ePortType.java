@@ -1,7 +1,7 @@
 package com.yodiwo.plegma;
 
 /**
- * Created by ApiGenerator Tool (Java) on 3/8/2015 10:26:11 &#956;&#956;.
+ * Created by ApiGenerator Tool (Java) on 28/08/2015 18:34:43.
  */
 
 /**
@@ -15,7 +15,7 @@ public enum ePortType {
     /**
      * integer values
      */
-    Scalar,
+    Integer,
     /**
      * single precision floating point values
      */

@@ -9,17 +9,12 @@
 #import "LocationManagerModule.h"
 #import "NodeThingsRegistry.h"
 #import "NodeController.h"
+#import "SettingsVault.h"
 #import "Beacon.h"
 
 #import <UIKit/UIKit.h>
 
 
-// TODO: This should become a List<string> in thing's config parameters and
-// set by the user in Cyan
-#define kIBEACON_TX1_NAME @"iBeaconTx_r00tb00t_4s"
-#define kIBEACON_TX1_UUID @"00000000-0000-0000-0000-000000000000"
-#define kIBEACON_TX1_MAJOR_VALUE 666
-#define kIBEACON_TX1_MINOR_VALUE 1
 
 @interface LocationManagerModule ()
 
@@ -72,21 +67,33 @@
     }
 
     // GPS
-    self.locationManager.distanceFilter = 100.0f; // 100m accuracy
+    self.locationManager.distanceFilter = 300.0f; // 300m accuracy
     [self.locationManager startUpdatingLocation];
     //[self.locationManager startMonitoringSignificantLocationChanges];
 
     // iBeacon
-    Beacon *b = [[Beacon alloc] initWithFriendlyName:kIBEACON_TX1_NAME
-                                    shortDescription:@"iPhone4s transmitted beacon"
-                                   iBeaconIdentifier:kIBEACON_TX1_NAME
-                                         iBeaconUUID:kIBEACON_TX1_UUID
-                                        iBeaconMajor:kIBEACON_TX1_MAJOR_VALUE
-                                        iBeaconMinor:kIBEACON_TX1_MINOR_VALUE];
+    Beacon *b1 = [[Beacon alloc] initWithFriendlyName:@"MonitoredUUID1"
+                                    shortDescription:@"Monitored beacon 1"
+                                   iBeaconIdentifier:@"MonitoredUUID1"
+                                         iBeaconUUID:[[SettingsVault sharedSettingsVault] getIBeaconParamsMonitoredUUID1]
+                                        iBeaconMajor:0
+                                        iBeaconMinor:0];
 
-    if([self isBeaconNameValid:b.ibeacon.identifier] &&
-       [self isBeaconUuidValid:b.ibeacon.proximityUUID.UUIDString]) {
-        [self.beaconsDict setObject:b forKey:b.ibeacon.proximityUUID.UUIDString];
+    if([self isBeaconNameValid:b1.ibeacon.identifier] &&
+       [self isBeaconUuidValid:b1.ibeacon.proximityUUID.UUIDString]) {
+        [self.beaconsDict setObject:b1 forKey:b1.ibeacon.proximityUUID.UUIDString];
+    }
+
+    Beacon *b2 = [[Beacon alloc] initWithFriendlyName:@"MonitoredUUID2"
+                                     shortDescription:@"Monitored beacon 2"
+                                    iBeaconIdentifier:@"MonitoredUUID2"
+                                          iBeaconUUID:[[SettingsVault sharedSettingsVault] getIBeaconParamsMonitoredUUID2]
+                                         iBeaconMajor:0
+                                         iBeaconMinor:0];
+
+    if([self isBeaconNameValid:b2.ibeacon.identifier] &&
+       [self isBeaconUuidValid:b2.ibeacon.proximityUUID.UUIDString]) {
+        [self.beaconsDict setObject:b2 forKey:b2.ibeacon.proximityUUID.UUIDString];
     }
 
     for (Beacon *b in [self.beaconsDict allValues]) {
@@ -171,67 +178,146 @@
 
     NSString *message = @"";
 
+    // TODO: Add this as thing's ConfigParameter and factor out common code
+    NSString *monitoringMode = @"all";
+
     if(beacons.count > 0) {
-        CLBeacon *nearestBeacon = beacons.firstObject;
+        if ([monitoringMode  isEqual: @"nearest"]) {
+            CLBeacon *nearestBeacon = beacons.firstObject;
 
-        // Check if beacon exists in our monitored beacons
-        Beacon *b = [self.beaconsDict objectForKey:nearestBeacon.proximityUUID.UUIDString];
-        if (b == nil) {
-            return;
-        }
-
-        // Check if proximity to this beacon has changed since last notification
-        if(nearestBeacon.proximity == b.lastProximity ||
-           nearestBeacon.proximity == CLProximityUnknown) {
-            return;
-        }
-
-        // Update proximity level of this beacon
-        b.lastProximity = nearestBeacon.proximity;
-        [self.beaconsDict setObject:b forKey:b.ibeacon.proximityUUID.UUIDString];
-
-        switch(nearestBeacon.proximity) {
-            case CLProximityFar:
-                message = @"Far";
-                break;
-            case CLProximityNear:
-                message = @"Near";
-                break;
-            case CLProximityImmediate:
-                message = @"Immediate";
-                break;
-            case CLProximityUnknown:
+            // Check if beacon exists in our monitored beacons
+            Beacon *b = [self.beaconsDict objectForKey:nearestBeacon.proximityUUID.UUIDString];
+            if (b == nil) {
                 return;
+            }
+
+            // Check if proximity to this beacon has changed since last notification
+            if(nearestBeacon.proximity == b.lastProximity) {
+                return;
+            }
+
+            // Update proximity level of this beacon
+            b.lastProximity = nearestBeacon.proximity;
+            [self.beaconsDict setObject:b forKey:b.ibeacon.proximityUUID.UUIDString];
+
+            switch(nearestBeacon.proximity) {
+                case CLProximityFar:
+                    message = @"Far";
+                    break;
+                case CLProximityNear:
+                    message = @"Near";
+                    break;
+                case CLProximityImmediate:
+                    message = @"Immediate";
+                    break;
+                case CLProximityUnknown:
+                    message = @"Unknown";
+                    break;
+            }
+
+            // Notify cloud service
+            NSString *beaconUUID = nearestBeacon.proximityUUID.UUIDString;
+            NSString *beaconMajor = [nearestBeacon.major stringValue];
+            NSString *beaconMinor = [nearestBeacon.minor stringValue];
+            NSString *proximity = message;
+            NSString *rssi = [NSString stringWithFormat:@"%ld",
+                              (long)nearestBeacon.rssi];
+
+            NSArray *data = [NSArray arrayWithObjects:
+                             beaconUUID,  // Port 0 update
+                             beaconMajor, // Port 1 update
+                             beaconMinor, // Port 2 update
+                             proximity,   // Port 3 update
+                             rssi,        // Port 4 update
+                             nil];
+            [[NodeController sharedNodeController] sendPortEventMsgFromThing:ThingNameLocationBeacon
+                                                                    withData:data];
+
+            [self sendLocalNotificationWithMessage:message];
+            NSLog(@"%@", message);
+
+            // Notify interested UIViewController
+            NSDictionary *notParams = [NSDictionary dictionaryWithObjectsAndKeys:
+                                       ThingNameLocationBeacon, @"thingName",
+                                       proximity, @"proximity", nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"yodiwoUIUpdateNotification"
+                                                                object:self
+                                                              userInfo:notParams];
         }
+        else if([monitoringMode  isEqual: @"all"]) {
 
-        // Notify cloud service
-        NSString *beaconUUID = nearestBeacon.proximityUUID.UUIDString;
-        NSString *beaconMajor = [nearestBeacon.major stringValue];
-        NSString *beaconMinor = [nearestBeacon.minor stringValue];
-        NSString *proximity = message;
-        NSString *rssi = [NSString stringWithFormat:@"%ld",
-                            (long)nearestBeacon.rssi];
+            // Loop through all ranged beacons
+            for (CLBeacon *rangedB in beacons) {
 
-        NSArray *data = [NSArray arrayWithObjects:
-                         beaconUUID,  // Port 0 update
-                         beaconMajor, // Port 1 update
-                         beaconMinor, // Port 2 update
-                         proximity,   // Port 3 update
-                         rssi,        // Port 4 update
-                         nil];
-        [[NodeController sharedNodeController] sendPortEventMsgFromThing:ThingNameLocationBeacon
-                                                                withData:data];
+                // Check if beacon exists in our monitored beacons
+                Beacon *b = [self.beaconsDict objectForKey:rangedB.proximityUUID.UUIDString];
+                if (b == nil) {
+                    return;
+                }
 
-        [self sendLocalNotificationWithMessage:message];
-        NSLog(@"%@", message);
+                // Check if proximity to this beacon has changed since last notification
+                if(rangedB.proximity == b.lastProximity) {
+                    return;
+                }
 
-        // Notify interested UIViewController
-        NSDictionary *notParams = [NSDictionary dictionaryWithObjectsAndKeys:
-                                   ThingNameLocationBeacon, @"thingName",
-                                   proximity, @"proximity", nil];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"yodiwoUIUpdateNotification"
-                                                            object:self
-                                                          userInfo:notParams];
+                // Update proximity level of this beacon
+                b.lastProximity = rangedB.proximity;
+                [self.beaconsDict setObject:b forKey:b.ibeacon.proximityUUID.UUIDString];
+
+                switch(rangedB.proximity) {
+                    case CLProximityFar:
+                        message = @"Far";
+                        break;
+                    case CLProximityNear:
+                        message = @"Near";
+                        break;
+                    case CLProximityImmediate:
+                        message = @"Immediate";
+                        break;
+                    case CLProximityUnknown:
+                        message = @"Unknown";
+                        break;
+                }
+
+                // Notify cloud service
+                NSString *beaconUUID = rangedB.proximityUUID.UUIDString;
+                NSString *beaconMajor = [rangedB.major stringValue];
+                NSString *beaconMinor = [rangedB.minor stringValue];
+                NSString *proximity = message;
+                NSString *rssi = [NSString stringWithFormat:@"%ld",
+                                  (long)rangedB.rssi];
+
+                NSArray *data = [NSArray arrayWithObjects:
+                                 beaconUUID,  // Port 0 update
+                                 beaconMajor, // Port 1 update
+                                 beaconMinor, // Port 2 update
+                                 proximity,   // Port 3 update
+                                 rssi,        // Port 4 update
+                                 nil];
+                [[NodeController sharedNodeController] sendPortEventMsgFromThing:ThingNameLocationBeacon
+                                                                        withData:data];
+                // Send local notification
+                NSString *localNotificationMsg = [[[@"Beacon: " stringByAppendingString:beaconUUID]
+                                                        stringByAppendingString:@", Proximity: "]
+                                                            stringByAppendingString:message];
+                [self sendLocalNotificationWithMessage:localNotificationMsg];
+
+                // Debug log
+                NSLog(@"%@", localNotificationMsg);
+
+                // Notify interested UIViewController
+                NSDictionary *notParams = [NSDictionary dictionaryWithObjectsAndKeys:
+                                           ThingNameLocationBeacon, @"thingName",
+                                           beaconUUID, @"uuid",
+                                           beaconMajor, @"major",
+                                           beaconMinor, @"minor",
+                                           rssi, @"rssi",
+                                           proximity, @"proximity", nil];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"yodiwoUIUpdateNotification"
+                                                                    object:self
+                                                                  userInfo:notParams];
+            }
+        }
     }
 }
 

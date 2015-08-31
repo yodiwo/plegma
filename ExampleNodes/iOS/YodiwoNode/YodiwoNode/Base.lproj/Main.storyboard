@@ -42,13 +42,38 @@
                                     <action selector="startNodeButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pOk-HH-dVs"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MXg-Y6-J8J">
+                                <rect key="frame" x="345" y="470" width="51" height="51"/>
+                                <color key="backgroundColor" red="0.054901960784313725" green="0.14117647058823529" blue="0.20392156862745098" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="51" id="VmT-1k-cZj"/>
+                                    <constraint firstAttribute="width" constant="51" id="k5a-Jy-2se"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="13"/>
+                                <state key="normal" title="Unpair">
+                                    <color key="titleColor" red="0.8901960784313725" green="0.92549019607843142" blue="0.70980392156862748" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="startNodeButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="2nE-BD-kck"/>
+                                    <action selector="unpairNodeButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="QRK-Py-P36"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="euB-Ju-ng7" firstAttribute="top" secondItem="FeW-0G-24G" secondAttribute="bottom" constant="-20" id="4eU-DC-Kkk"/>
                             <constraint firstItem="euB-Ju-ng7" firstAttribute="leading" secondItem="2zg-8f-Td2" secondAttribute="leading" id="CqZ-Jg-iF6"/>
                             <constraint firstAttribute="trailing" secondItem="euB-Ju-ng7" secondAttribute="trailing" id="dfd-zX-GL9"/>
+                            <constraint firstItem="MXg-Y6-J8J" firstAttribute="leading" secondItem="QwO-i5-4hg" secondAttribute="trailing" constant="-82" id="kCG-FI-maj"/>
                             <constraint firstItem="FSW-UH-UPg" firstAttribute="top" secondItem="euB-Ju-ng7" secondAttribute="bottom" id="kRd-u5-8jg"/>
+                            <constraint firstItem="MXg-Y6-J8J" firstAttribute="top" secondItem="QwO-i5-4hg" secondAttribute="bottom" constant="294" id="nG9-8P-TJU"/>
                             <constraint firstAttribute="centerX" secondItem="QwO-i5-4hg" secondAttribute="centerX" constant="-70" id="qjv-jH-NR5"/>
                             <constraint firstAttribute="centerY" secondItem="QwO-i5-4hg" secondAttribute="centerY" constant="180" id="sbd-i3-EWC"/>
                         </constraints>

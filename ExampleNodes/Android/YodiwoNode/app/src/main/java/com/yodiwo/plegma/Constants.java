@@ -1,10 +1,15 @@
 package com.yodiwo.plegma;
 
 /**
- * Created by ApiGenerator Tool (Java) on 3/8/2015 10:26:13 &#956;&#956;.
+ * Created by ApiGenerator Tool (Java) on 28/08/2015 18:34:46.
  */
 
 public class Constants {
 
-    public final int YPChannelPort = 5555;
+    public static final int YPChannelPort;
+
+
+    static {
+        YPChannelPort = 5555;
+    }
 }

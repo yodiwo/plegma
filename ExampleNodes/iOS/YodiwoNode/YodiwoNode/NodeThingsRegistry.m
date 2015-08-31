@@ -43,7 +43,6 @@ NSString *const ThingNameVirtualLight2 = @"iOSLight2";
 
 
 - (void)populate {
-
     NSString *nodeKeyString = [[SettingsVault sharedSettingsVault] getPairingNodeKey];
     NodeKey *nodeKey = [[NodeKey alloc] initWithNodeKeyString:nodeKeyString];
     NSString *deviceName = [[UIDevice currentDevice].name stringByAppendingString:@" "];
@@ -230,7 +229,7 @@ NSString *const ThingNameVirtualLight2 = @"iOSLight2";
         Port *port4 = [[Port  alloc] init];
         port4.name = @"RSSI";
         port4.ioDirection = EnumIOPortDirection_Output;
-        port4.type = EnumPortType_Decimal;
+        port4.type = EnumPortType_Integer;
         port4.portKey = [[[PortKey alloc] initWithThingKey:thingKey
                                                 andPortUid:@"4"] toString];
 

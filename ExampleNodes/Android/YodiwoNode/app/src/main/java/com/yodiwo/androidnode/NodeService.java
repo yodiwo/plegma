@@ -1,4 +1,4 @@
-package com.yodiwo.virtualgateway;
+package com.yodiwo.androidnode;
 
 
 import android.app.IntentService;
@@ -9,6 +9,9 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.yodiwo.plegma.NodeInfoReq;
+import com.yodiwo.plegma.NodeInfoRsp;
+import com.yodiwo.plegma.PlegmaAPI;
 import com.yodiwo.plegma.Port;
 import com.yodiwo.plegma.PortEvent;
 import com.yodiwo.plegma.PortEventMsg;
@@ -16,7 +19,10 @@ import com.yodiwo.plegma.PortState;
 import com.yodiwo.plegma.PortStateRsp;
 import com.yodiwo.plegma.Thing;
 import com.yodiwo.plegma.ThingKey;
-import com.yodiwo.plegma.ThingsMsg;
+import com.yodiwo.plegma.ThingsReq;
+import com.yodiwo.plegma.ThingsRsp;
+import com.yodiwo.plegma.eNodeCapa;
+import com.yodiwo.plegma.eNodeType;
 import com.yodiwo.plegma.ePortStateOperation;
 import com.yodiwo.plegma.eThingsOperation;
 
@@ -40,10 +46,6 @@ public class NodeService extends IntentService {
     private static final String EXTRA_PORT_DATA_ARRAY = "EXTRA_PORT_DATA_ARRAY";
     private static final String EXTRA_SERVICE_TYPE = "EXTRA_SERVICE_TYPE";
 
-    private static final String EXTRA_UPDATED_THINGS_TYPE = "EXTRA_UPDATED_THINGS_TYPE";
-    private static final String EXTRA_UPDATED_MSG = "EXTRA_UPDATED_MSG";
-
-
     public static final int REQUEST_SENDNODES = 0;
     public static final int REQUEST_ADDTHING = 1;
     public static final int REQUEST_CLEANTHINGS = 2;
@@ -52,11 +54,12 @@ public class NodeService extends IntentService {
     public static final int REQUEST_SERVICE_START = 5;
     public static final int REQUEST_SERVICE_STOP = 6;
 
-    public static final int REQUEST_RX_START = 10;
-    public static final int REQUEST_RX_STOP = 11;
-    public static final int REQUEST_RX_UPDATE = 12;
-    public static final int RECEIVE_RX_PORT_EVENT_MSG = 13;
-    public static final int RECEIVE_RX_PORT_STATE_RSP = 14;
+    private static final int REQUEST_RX_START = 10;
+    private static final int REQUEST_RX_STOP = 11;
+    private static final int REQUEST_RX_UPDATE = 12;
+    private static final int REQUEST_RX_MSG = 15;
+
+    public static final int RECEIVE_CONN_STATUS = 20;
 
     public static final String BROADCAST_THING_UPDATE = "NodeService.BROADCAST_THING_UPDATE";
 
@@ -67,8 +70,9 @@ public class NodeService extends IntentService {
     // This indicate that the update is event or a starting point
     public static final String EXTRA_UPDATED_ISEVENT = "EXTRA_UPDATED_ISEVENT";
 
+    public static final String EXTRA_RX_TOPIC = "EXTRA_REQUEST_TOPIC";
+    public static final String EXTRA_RX_MSG = "EXTRA_REQUEST_MSG";
 
-    public static final int APIVersion = 1;
     // =============================================================================================
 
     public static final String PortValue_Boolean_False = "False";
@@ -84,12 +88,19 @@ public class NodeService extends IntentService {
     private SettingsProvider settingsProvider;
     private static HashMap<String, Thing> thingHashMap = new HashMap<String, Thing>();
     private int SendSeqNum = 0;
+    private  int GetSendSeqNum() {
+        SendSeqNum++;
+        return SendSeqNum;
+    }
 
 
     private static HashMap<String, Thing> PortKeyToThingsHashMap = new HashMap<>();
     private static HashMap<String, Port> PortKeyToPortHashMap = new HashMap<>();
 
     private SensorsListener sensorsListener = null;
+
+    private Boolean serverIsConnected = false;
+    private static Boolean pendingSendNodes = false;
 
     public NodeService() {
         super("NodeService");
@@ -112,6 +123,9 @@ public class NodeService extends IntentService {
                 serverAPI = MqttServerAPI.getInstance(getApplicationContext());
         }
 
+        // Init RX handlers
+        InitRxHandles();
+
         if (sensorsListener == null)
             sensorsListener = SensorsListener.getInstance(getApplicationContext());
 
@@ -133,6 +147,7 @@ public class NodeService extends IntentService {
             // -------------------------------------
             case REQUEST_SENDNODES:
                 SendNodes(settingsProvider);
+                pendingSendNodes = true;
                 break;
             // -------------------------------------
             case REQUEST_CLEANTHINGS: {
@@ -145,12 +160,12 @@ public class NodeService extends IntentService {
                 Thing thing = new Gson().fromJson(bundle.getString(EXTRA_THING), Thing.class);
                 thingHashMap.put(thing.ThingKey, thing);
 
-                for(Port p : thing.Ports) {
-                    if(!PortKeyToThingsHashMap.containsKey(p.PortKey))
+                for (Port p : thing.Ports) {
+                    if (!PortKeyToThingsHashMap.containsKey(p.PortKey))
                         PortKeyToThingsHashMap.remove(p.PortKey);
                     PortKeyToThingsHashMap.put(p.PortKey, thing);
 
-                    if(!PortKeyToPortHashMap.containsKey(p.PortKey))
+                    if (!PortKeyToPortHashMap.containsKey(p.PortKey))
                         PortKeyToPortHashMap.remove(p.PortKey);
                     PortKeyToPortHashMap.put(p.PortKey, p);
                 }
@@ -174,15 +189,10 @@ public class NodeService extends IntentService {
             }
             break;
             // -------------------------------------
-            case RECEIVE_RX_PORT_EVENT_MSG: {
-                PortEventMsg msg = new Gson().fromJson(bundle.getString(EXTRA_UPDATED_MSG), PortEventMsg.class);
-                RxPortEventMsg(msg);
-            }
-            break;
-            // -------------------------------------
-            case RECEIVE_RX_PORT_STATE_RSP: {
-                PortStateRsp rsp = new Gson().fromJson(bundle.getString(EXTRA_UPDATED_MSG), PortStateRsp.class);
-                RxPortStateRsp(rsp);
+            case REQUEST_RX_MSG: {
+                String msg = bundle.getString(EXTRA_RX_MSG);
+                String topic = bundle.getString(EXTRA_RX_TOPIC);
+                HandleRxMsg(topic, msg);
             }
             break;
             // -------------------------------------
@@ -223,6 +233,19 @@ public class NodeService extends IntentService {
                 */
             }
             break;
+            // -----------------------------------
+            case RECEIVE_CONN_STATUS: {
+                Boolean isConnected = bundle.getBoolean(EXTRA_STATUS);
+                if (isConnected && !serverIsConnected) {
+                    serverIsConnected = isConnected;
+                    // Send pending msg
+                    if (pendingSendNodes) {
+                        SendNodes(settingsProvider);
+                    }
+                }
+
+            }
+            break;
         }
     }
 
@@ -232,13 +255,11 @@ public class NodeService extends IntentService {
 
     private void SendNodes(SettingsProvider settingsProvider) {
         try {
-            ThingsMsg msg = new ThingsMsg(eThingsOperation.Overwrite,
-                    true,
-                    thingHashMap.values().toArray(new Thing[0]),
-                    APIVersion,
-                    SendSeqNum++,
-                    0);
-            serverAPI.SendThingsMsg(msg);
+            ThingsReq msg = new ThingsReq(GetSendSeqNum(),
+                    eThingsOperation.Overwrite,
+                    "",
+                    thingHashMap.values().toArray(new Thing[0]));
+            serverAPI.Send(msg);
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
         }
@@ -260,7 +281,7 @@ public class NodeService extends IntentService {
 
             //Send REST API request
             try {
-                serverAPI.SendPortEvent(msg);
+                serverAPI.Send(msg);
             } catch (Exception e) {
                 Log.e(TAG, "Failed to send ports event for:" + thing.ThingKey);
             }
@@ -285,7 +306,7 @@ public class NodeService extends IntentService {
 
             //Send REST API request
             try {
-                serverAPI.SendPortEvent(msg);
+                serverAPI.Send(msg);
             } catch (Exception e) {
                 Log.e(TAG, "Failed to send ports event for:" + thing.ThingKey);
             }
@@ -296,10 +317,8 @@ public class NodeService extends IntentService {
 
     private void RxPortStateRsp(PortStateRsp rsp) {
 
-        if(rsp.Operation == ePortStateOperation.AllPortStates || rsp.Operation == ePortStateOperation.ActivePortStates)
-        {
-            for(PortState portState : rsp.PortStates)
-            {
+        if (rsp.Operation == ePortStateOperation.AllPortStates || rsp.Operation == ePortStateOperation.ActivePortStates) {
+            for (PortState portState : rsp.PortStates) {
                 // Get the local thing and check if we have new data
                 Port localP = PortKeyToPortHashMap.get(portState.PortKey);
                 Thing localT = PortKeyToThingsHashMap.get(portState.PortKey);
@@ -313,7 +332,7 @@ public class NodeService extends IntentService {
                 intent.putExtra(EXTRA_UPDATED_THING, localT.ThingKey);
                 intent.putExtra(EXTRA_UPDATED_THING_NAME, localT.Name);
                 intent.putExtra(EXTRA_UPDATED_PORT_ID, localT.Ports.indexOf(localP));
-                intent.putExtra(EXTRA_UPDATED_STATE, localP.State );
+                intent.putExtra(EXTRA_UPDATED_STATE, localP.State);
                 intent.putExtra(EXTRA_UPDATED_ISEVENT, false);
 
                 LocalBroadcastManager
@@ -360,7 +379,7 @@ public class NodeService extends IntentService {
             intent.putExtra(EXTRA_UPDATED_THING, localT.ThingKey);
             intent.putExtra(EXTRA_UPDATED_THING_NAME, localT.Name);
             intent.putExtra(EXTRA_UPDATED_PORT_ID, localT.Ports.indexOf(localP));
-            intent.putExtra(EXTRA_UPDATED_STATE, localP.State );
+            intent.putExtra(EXTRA_UPDATED_STATE, localP.State);
             intent.putExtra(EXTRA_UPDATED_ISEVENT, true);
 
             LocalBroadcastManager
@@ -369,6 +388,101 @@ public class NodeService extends IntentService {
         }
     }
 
+    // =============================================================================================
+    // RX Handling
+
+    private HashMap<String, RxHandler> rxHandlers = null;
+    private HashMap<String, Class<?>> rxHandlersClass = null;
+
+    interface RxHandler {
+        void Handle(String topic, String json, Object msg);
+    }
+
+    private void InitRxHandles() {
+        if (rxHandlers == null) {
+            rxHandlers = new HashMap<>();
+            rxHandlersClass = new HashMap<>();
+
+            // ---------------------> NodeInfoReq
+            rxHandlersClass.put(PlegmaAPI.ApiMsgNames.get(NodeInfoReq.class), NodeInfoReq.class);
+            rxHandlers.put(PlegmaAPI.ApiMsgNames.get(NodeInfoReq.class),
+                    new RxHandler() {
+                        @Override
+                        public void Handle(String topic, String json, Object msg) {
+                            NodeInfoReq req = (NodeInfoReq)msg;
+
+                            NodeInfoRsp rsp = new NodeInfoRsp(GetSendSeqNum(),
+                                    settingsProvider.getDeviceName(),
+                                    eNodeType.TestEndpoint,
+                                    eNodeCapa.None,
+                                    null);
+
+                            serverAPI.SendRsp(rsp, req.SeqNo);
+                        }
+                    });
+
+            // ---------------------> PortEventMsg
+            rxHandlersClass.put(PlegmaAPI.ApiMsgNames.get(PortEventMsg.class), PortEventMsg.class);
+            rxHandlers.put(PlegmaAPI.ApiMsgNames.get(PortEventMsg.class),
+                    new RxHandler() {
+                        @Override
+                        public void Handle(String topic, String json, Object msg) {
+                            PortEventMsg portEventMsg = (PortEventMsg)msg;
+                            RxPortEventMsg(portEventMsg);
+                        }
+                    });
+
+            // ---------------------> PortStateRsp
+            rxHandlersClass.put(PlegmaAPI.ApiMsgNames.get(PortStateRsp.class), PortStateRsp.class);
+            rxHandlers.put(PlegmaAPI.ApiMsgNames.get(PortStateRsp.class),
+                    new RxHandler() {
+                        @Override
+                        public void Handle(String topic, String json, Object msg) {
+                            PortStateRsp portStateRsp = (PortStateRsp)msg;
+                            RxPortStateRsp(portStateRsp);
+                        }
+                    });
+
+            // ---------------------> ThingsReq
+            rxHandlersClass.put(PlegmaAPI.ApiMsgNames.get(ThingsReq.class), ThingsReq.class);
+            rxHandlers.put(PlegmaAPI.ApiMsgNames.get(ThingsReq.class),
+                    new RxHandler() {
+                        @Override
+                        public void Handle(String topic, String json, Object msg) {
+                            ThingsReq req = (ThingsReq)msg;
+
+                            // Send the internal things of the node.
+                            if(req.Operation == eThingsOperation.Get) {
+                                ThingsRsp rsp = new ThingsRsp(
+                                        GetSendSeqNum(),
+                                        req.Operation,
+                                        true,
+                                        thingHashMap.values().toArray(new Thing[0])
+                                        );
+
+                                serverAPI.SendRsp(rsp, req.SeqNo);
+                            }
+                        }
+                    });
+
+
+            // TODO: Adnn ActivePortKeysMsg
+
+        }
+    }
+
+    private void HandleRxMsg(String topic, String msg) {
+
+        RxHandler handler = rxHandlers.get(topic);
+        if (handler != null) {
+            try {
+                Object obj = new Gson().fromJson(msg, rxHandlersClass.get(topic));
+                handler.Handle(topic, msg, obj);
+            } catch (Exception ex) {
+                Log.e(TAG, ex.getMessage());
+            }
+        }
+    }
     // =============================================================================================
     // Periodic Updating
 
@@ -454,20 +568,13 @@ public class NodeService extends IntentService {
 
     // ---------------------------------------------------------------------------------------------
 
-    public static void RxPortStateRsp(Context context, PortStateRsp rsp) {
+    public static void RxMsg(Context context, String topic, String json) {
         Intent intent = new Intent(context, NodeService.class);
-        intent.putExtra(EXTRA_REQUEST_TYPE, RECEIVE_RX_PORT_STATE_RSP);
-        intent.putExtra(EXTRA_UPDATED_MSG, new Gson().toJson(rsp));
+        intent.putExtra(EXTRA_REQUEST_TYPE, REQUEST_RX_MSG);
+        intent.putExtra(EXTRA_RX_TOPIC, topic);
+        intent.putExtra(EXTRA_RX_MSG, json);
         context.startService(intent);
-    }
 
-    // ---------------------------------------------------------------------------------------------
-
-    public static void RxPortEventMsg(Context context, PortEventMsg msg) {
-        Intent intent = new Intent(context, NodeService.class);
-        intent.putExtra(EXTRA_REQUEST_TYPE, RECEIVE_RX_PORT_EVENT_MSG);
-        intent.putExtra(EXTRA_UPDATED_MSG, new Gson().toJson(msg));
-        context.startService(intent);
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -494,6 +601,17 @@ public class NodeService extends IntentService {
         context.startService(intent);
         Log.d(TAG, "DEBUG RX Update");
     }
+
+
+    // ---------------------------------------------------------------------------------------------
+
+    public static void ReceiveConnStatus(Context context, boolean connected) {
+        Intent intent = new Intent(context, NodeService.class);
+        intent.putExtra(EXTRA_REQUEST_TYPE, RECEIVE_CONN_STATUS);
+        intent.putExtra(EXTRA_STATUS, connected);
+        context.startService(intent);
+    }
+
 
     // =============================================================================================
 }

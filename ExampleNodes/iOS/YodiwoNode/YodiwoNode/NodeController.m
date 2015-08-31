@@ -14,6 +14,24 @@
 #import "LocationManagerModule.h"
 #import "MotionManagerModule.h"
 
+/*!
+ * @discussion Unavailable
+ */
+typedef NS_ENUM(NSInteger, EnumApiMessages)
+{
+    EnumApiMessages_LoginReq = 0,
+    EnumApiMessages_LoginRsp = 1,
+    EnumApiMessages_NodeInfoReq = 2,
+    EnumApiMessages_NodeInfoRsp = 3,
+    EnumApiMessages_ThingsReq = 4,
+    EnumApiMessages_ThingsRsp = 5,
+    EnumApiMessages_PortEventMsg = 6,
+    EnumApiMessages_PortStateReq = 7,
+    EnumApiMessages_PortStateRsp = 8,
+    EnumApiMessages_ActivePortKeysMsg = 9,
+};
+
+
 @interface NodeController ()
 
 @property (strong, nonatomic) MqttClient *mqttClient;
@@ -26,6 +44,7 @@
 
 @property (strong, nonatomic) dispatch_queue_t serialMqttClientPublishQueue;
 
+@property (strong, nonatomic) NSDictionary *apiMsgNameStrToIntHelperDict;
 @end
 
 @implementation NodeController
@@ -52,6 +71,31 @@
         _locaModule = [[LocationManagerModule alloc] init];
 
         _motionModule = [[MotionManagerModule alloc] init];
+
+        _apiMsgNameStrToIntHelperDict = [NSDictionary dictionaryWithObjectsAndKeys:
+
+                // TODO: Uncomment when implemented
+                /*[NSNumber numberWithInteger:EnumApiMessages_LoginReq],
+                                         [[PlegmaApi apiMsgNames] objectForKey:[LoginReq class]],
+                //[NSNumber numberWithInteger:EnumApiMessages_LoginRsp],
+                                         [[PlegmaApi apiMsgNames] objectForKey:[LoginRsp class]],
+                //[NSNumber numberWithInteger:EnumApiMessages_NodeInfoReq],
+                                         [[PlegmaApi apiMsgNames] objectForKey:[NodeInfoReq class]],
+                //[NSNumber numberWithInteger:EnumApiMessages_NodeInfoRsp],
+                                         [[PlegmaApi apiMsgNames] objectForKey:[NodeInfoRsp class]],*/
+                [NSNumber numberWithInteger:EnumApiMessages_ThingsReq],
+                                         [[PlegmaApi apiMsgNames] objectForKey:[ThingsReq class]],
+                [NSNumber numberWithInteger:EnumApiMessages_ThingsRsp],
+                                         [[PlegmaApi apiMsgNames] objectForKey:[ThingsRsp class]],
+                [NSNumber numberWithInteger:EnumApiMessages_PortEventMsg],
+                                         [[PlegmaApi apiMsgNames] objectForKey:[PortEventMsg class]],
+                [NSNumber numberWithInteger:EnumApiMessages_PortStateReq],
+                                         [[PlegmaApi apiMsgNames] objectForKey:[PortStateReq class]],
+                [NSNumber numberWithInteger:EnumApiMessages_PortStateRsp],
+                                         [[PlegmaApi apiMsgNames] objectForKey:[PortStateRsp class]],
+                [NSNumber numberWithInteger:EnumApiMessages_ActivePortKeysMsg],
+                                         [[PlegmaApi apiMsgNames] objectForKey:[ActivePortKeysMsg class]],
+                nil];
     }
 
     return self;
@@ -155,8 +199,7 @@
             NSString *apiMsgJson = [msg toJSONString];
             NSLog(@"Sending PortEventMsg: %@", apiMsgJson);
 
-            NSString *topic = [[[PlegmaApi apiMsgNames] allKeysForObject:
-                                [NSNumber numberWithInteger:EnumApiMessages_PortEventMsg]] lastObject];
+            NSString *topic = [[PlegmaApi apiMsgNames] objectForKey:[PortEventMsg class]];
             [self.mqttClient publishMessage:apiMsgJson
                                     inTopic:topic];
         });
@@ -180,8 +223,7 @@
     }
 
     // Send
-    NSString *topic = [[[PlegmaApi apiMsgNames] allKeysForObject:
-                        [NSNumber numberWithInteger:EnumApiMessages_ThingsReq]] lastObject];
+    NSString *topic = [[PlegmaApi apiMsgNames] objectForKey:[ThingsReq class]];
     [self.mqttClient publishMessage:[msg toJSONString]
                             inTopic:topic];
 }
@@ -192,7 +234,7 @@
 
     NSString *apiMsgName = [[topic componentsSeparatedByString:@"/"] lastObject];
 
-    switch ([[[PlegmaApi apiMsgNames] objectForKey:apiMsgName] integerValue]) {
+    switch ([[self.apiMsgNameStrToIntHelperDict objectForKey:apiMsgName] integerValue]) {
         case EnumApiMessages_LoginReq:
         {
             NSLog(@"Handler not implemented for ApiMessage of type: %@", apiMsgName);

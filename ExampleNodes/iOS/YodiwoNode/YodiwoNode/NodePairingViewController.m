@@ -63,7 +63,7 @@
 
 ///***** Functionality
 
-// Entry point
+// Entry points
 - (IBAction)startNodeButtonPressed:(UIButton *)sender {
     dispatch_async(dispatch_get_main_queue(), ^{
         [sender setEnabled:NO];
@@ -86,6 +86,20 @@
             [self performSegueWithIdentifier:@"nodePairedMoveToMainAppContent" sender:self];
         });
     }
+}
+
+- (IBAction)unpairNodeButtonPressed:(UIButton *)sender {
+
+    [[NSURLCache sharedURLCache] removeAllCachedResponses];
+    for(NSHTTPCookie *cookie in [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies]) {
+        [[NSHTTPCookieStorage sharedHTTPCookieStorage] deleteCookie:cookie];
+    }
+
+    [[SettingsVault sharedSettingsVault] setIsNodePaired:NO];
+
+    [self alertUserWithTitle:@"Yodiwo Node info"
+              showingMessage:@"Node unpaired. Start node to initiate repairing."
+                 actionTitle:@"OK"];
 }
 
 // Delegates
@@ -163,4 +177,28 @@
      // Pass the selected object to the new view controller.
  }
 //******************************************************************************
+
+
+
+
+
+///***** Helpers
+
+-(void) alertUserWithTitle:(NSString *)title
+            showingMessage:(NSString *)message
+               actionTitle:(NSString *)action {
+
+    UIAlertController *sharingLevelInfoAlert =
+            [UIAlertController alertControllerWithTitle:title
+                                                message:message
+                                         preferredStyle:UIAlertControllerStyleAlert];
+
+    [sharingLevelInfoAlert addAction:[UIAlertAction actionWithTitle:action
+                                                              style:UIAlertActionStyleDefault
+                                                            handler:^(UIAlertAction * action) {}]];
+
+    [self presentViewController:sharingLevelInfoAlert animated:YES completion:nil];
+}
+//******************************************************************************
+
 @end

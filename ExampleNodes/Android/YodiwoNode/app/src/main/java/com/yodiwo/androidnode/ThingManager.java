@@ -1,4 +1,4 @@
-package com.yodiwo.virtualgateway;
+package com.yodiwo.androidnode;
 
 import android.content.Context;
 import android.nfc.NfcAdapter;
@@ -9,6 +9,7 @@ import com.yodiwo.plegma.PortKey;
 import com.yodiwo.plegma.Thing;
 import com.yodiwo.plegma.ThingKey;
 import com.yodiwo.plegma.ThingUIHints;
+import com.yodiwo.plegma.ePortConf;
 import com.yodiwo.plegma.ePortType;
 import com.yodiwo.plegma.ioPortDirection;
 
@@ -117,13 +118,15 @@ public class ThingManager {
                 new ArrayList<Port>(),
                 "",
                 "",
-                new ThingUIHints("/Content/VirtualGateway/img/icon-thing-gobutton.png"));
-        thing.Ports.add(new Port("ButtonState",
-                ePortType.Boolean,
+                new ThingUIHints("/Content/VirtualGateway/img/icon-thing-gobutton.png", ""));
+        thing.Ports.add(new Port(PortKey.CreateKey(thingKey, "0"),
+                "ButtonState",
+                "",
                 ioPortDirection.Output,
-                PortKey.CreateKey(thingKey, "0"),
+                ePortType.Boolean,
+                NodeService.PortValue_Boolean_False,
                 0,
-                NodeService.PortValue_Boolean_False));
+                ePortConf.None));
         NodeService.AddThing(context, thing);
 
 
@@ -136,13 +139,16 @@ public class ThingManager {
                 new ArrayList<Port>(),
                 "",
                 "",
-                new ThingUIHints("/Content/VirtualGateway/img/switch.png"));
-        thing.Ports.add(new Port("ButtonState",
-                ePortType.Boolean,
+                new ThingUIHints("/Content/VirtualGateway/img/switch.png", ""));
+        thing.Ports.add(new Port(PortKey.CreateKey(thingKey, "0"),
+                "ButtonState",
+                "",
                 ioPortDirection.Output,
-                PortKey.CreateKey(thingKey, "0"),
+                ePortType.Boolean,
+                NodeService.PortValue_Boolean_False,
                 0,
-                NodeService.PortValue_Boolean_False));
+                ePortConf.None
+        ));
         NodeService.AddThing(context, thing);
 
 
@@ -155,20 +161,22 @@ public class ThingManager {
                 new ArrayList<Port>(),
                 "",
                 "",
-                new ThingUIHints("/Content/VirtualGateway/img/icon-thing-slider.png"));
-        thing.Ports.add(new Port("Value",
-                ePortType.Decimal,
+                new ThingUIHints("/Content/VirtualGateway/img/icon-thing-slider.png", ""));
+        thing.Ports.add(new Port(PortKey.CreateKey(thingKey, "0"),
+                "Value",
+                "",
                 ioPortDirection.Output,
-                PortKey.CreateKey(thingKey, "0"),
+                ePortType.Decimal,
+                "0",
                 0,
-                "0"));
+                ePortConf.None));
         NodeService.AddThing(context, thing);
 
 
         // ----------------------------------------------
         // Brightness
 
-        if(settingsProvider.getServiceBrightnessEnabled()) {
+        if (settingsProvider.getServiceBrightnessEnabled()) {
             thingKey = ThingKey.CreateKey(nodeKey, Brightness);
             thing = new Thing(thingKey,
                     Brightness,
@@ -176,19 +184,21 @@ public class ThingManager {
                     new ArrayList<Port>(),
                     "",
                     "",
-                    new ThingUIHints("/Content/VirtualGateway/img/brightness.png"));
-            thing.Ports.add(new Port("Value",
-                    ePortType.Decimal,
+                    new ThingUIHints("/Content/VirtualGateway/img/brightness.png", ""));
+            thing.Ports.add(new Port(PortKey.CreateKey(thingKey, "0"),
+                    "Value",
+                    "",
                     ioPortDirection.Output,
-                    PortKey.CreateKey(thingKey, "0"),
+                    ePortType.Decimal,
+                    "0",
                     0,
-                    "0"));
+                    ePortConf.None));
             NodeService.AddThing(context, thing);
         }
 
         // ----------------------------------------------
         // Accelerometer
-        if(settingsProvider.getServiceAccelerometerEnabled()) {
+        if (settingsProvider.getServiceAccelerometerEnabled()) {
             thingKey = ThingKey.CreateKey(nodeKey, Accelerometer);
             thing = new Thing(thingKey,
                     Accelerometer,
@@ -196,11 +206,11 @@ public class ThingManager {
                     new ArrayList<Port>(),
                     "",
                     "",
-                    new ThingUIHints("/Content/VirtualGateway/img/accelerometer.jpg"));
-            thing.Ports.add(new Port("X", ePortType.Decimal, ioPortDirection.Output, PortKey.CreateKey(thingKey, "0"), 0, "0"));
-            thing.Ports.add(new Port("Y", ePortType.Decimal, ioPortDirection.Output,  PortKey.CreateKey(thingKey, "1"), 0, "0"));
-            thing.Ports.add(new Port("Z", ePortType.Decimal, ioPortDirection.Output, PortKey.CreateKey(thingKey, "2"), 0, "0"));
-            thing.Ports.add(new Port("onShake", ePortType.Boolean, ioPortDirection.Output, PortKey.CreateKey(thingKey, "3"), 0, NodeService.PortValue_Boolean_False));
+                    new ThingUIHints("/Content/VirtualGateway/img/accelerometer.jpg", ""));
+            thing.Ports.add(new Port(PortKey.CreateKey(thingKey, "0"), "X", "", ioPortDirection.Output, ePortType.Decimal, "0", 0, ePortConf.None));
+            thing.Ports.add(new Port(PortKey.CreateKey(thingKey, "1"), "Y", "", ioPortDirection.Output, ePortType.Decimal, "0", 0, ePortConf.None));
+            thing.Ports.add(new Port(PortKey.CreateKey(thingKey, "2"), "Z", "", ioPortDirection.Output, ePortType.Decimal, "0", 0, ePortConf.None));
+            thing.Ports.add(new Port(PortKey.CreateKey(thingKey, "3"), "onShake", "", ioPortDirection.Output, ePortType.Boolean, NodeService.PortValue_Boolean_False, 0, ePortConf.IsTrigger));
             NodeService.AddThing(context, thing);
         }
 
@@ -216,13 +226,15 @@ public class ThingManager {
                     new ArrayList<Port>(),
                     "",
                     "",
-                    new ThingUIHints("/Content/VirtualGateway/img/nfc.png"));
-            thing.Ports.add(new Port("Value",
-                    ePortType.String,
+                    new ThingUIHints("/Content/VirtualGateway/img/nfc.png", ""));
+            thing.Ports.add(new Port(PortKey.CreateKey(thingKey, "0"),
+                    "Value",
+                    "",
                     ioPortDirection.Output,
-                    PortKey.CreateKey(thingKey, "0"),
+                    ePortType.String,
+                    "",
                     0,
-                    "0"));
+                    ePortConf.IsTrigger));
             NodeService.AddThing(context, thing);
         }
 
@@ -236,13 +248,15 @@ public class ThingManager {
                 new ArrayList<Port>(),
                 "",
                 "",
-                new ThingUIHints("/Content/VirtualGateway/img/gps.png"));
-        thing.Ports.add(new Port("Position",
-                ePortType.String,
+                new ThingUIHints("/Content/VirtualGateway/img/gps.png", ""));
+        thing.Ports.add(new Port(PortKey.CreateKey(thingKey, "0"),
+                "Position",
+                "",
                 ioPortDirection.Output,
-                PortKey.CreateKey(thingKey, "0"),
+                ePortType.String,
+                "",
                 0,
-                ""));
+                ePortConf.IsTrigger));
         NodeService.AddThing(context, thing);
 
         /*
@@ -297,13 +311,15 @@ public class ThingManager {
                 new ArrayList<Port>(),
                 "",
                 "",
-                new ThingUIHints("/Content/VirtualGateway/img/progress_bar.png"));
-        thing.Ports.add(new Port("Value",
-                ePortType.Decimal,
+                new ThingUIHints("/Content/VirtualGateway/img/progress_bar.png", ""));
+        thing.Ports.add(new Port(PortKey.CreateKey(thingKey, "0"),
+                "Value",
+                "",
                 ioPortDirection.Input,
-                PortKey.CreateKey(thingKey, "0"),
+                ePortType.Decimal,
+                "0",
                 0,
-                "0"));
+                ePortConf.None));
         NodeService.AddThing(context, thing);
 
 
@@ -316,13 +332,15 @@ public class ThingManager {
                 new ArrayList<Port>(),
                 "",
                 "",
-                new ThingUIHints("/Content/VirtualGateway/img/switch.png"));
-        thing.Ports.add(new Port("ButtonState",
-                ePortType.Boolean,
+                new ThingUIHints("/Content/VirtualGateway/img/switch.png", ""));
+        thing.Ports.add(new Port(PortKey.CreateKey(thingKey, "0"),
+                "ButtonState",
+                "",
                 ioPortDirection.Input,
-                PortKey.CreateKey(thingKey, "0"),
+                ePortType.Boolean,
+                NodeService.PortValue_Boolean_False,
                 0,
-                NodeService.PortValue_Boolean_False));
+                ePortConf.None));
         NodeService.AddThing(context, thing);
 
 
@@ -335,13 +353,15 @@ public class ThingManager {
                 new ArrayList<Port>(),
                 "",
                 "",
-                new ThingUIHints("/Content/VirtualGateway/img/icon-thing-genericlight.png"));
-        thing.Ports.add(new Port("ButtonState",
-                ePortType.Color,
+                new ThingUIHints("/Content/VirtualGateway/img/icon-thing-genericlight.png", ""));
+        thing.Ports.add(new Port(PortKey.CreateKey(thingKey, "0"),
+                "ButtonState",
+                "",
                 ioPortDirection.Input,
-                PortKey.CreateKey(thingKey, "0"),
+                ePortType.Color,
+                "",
                 0,
-                ""));
+                ePortConf.None));
         NodeService.AddThing(context, thing);
 
         // ----------------------------------------------
@@ -353,13 +373,15 @@ public class ThingManager {
                 new ArrayList<Port>(),
                 "",
                 "",
-                new ThingUIHints("/Content/VirtualGateway/img/android.png"));
-        thing.Ports.add(new Port("ButtonState",
-                ePortType.String,
+                new ThingUIHints("/Content/VirtualGateway/img/android.png", ""));
+        thing.Ports.add(new Port(PortKey.CreateKey(thingKey, "0"),
+                "ButtonState",
+                "",
                 ioPortDirection.Input,
-                PortKey.CreateKey(thingKey, "0"),
+                ePortType.String,
+                "",
                 0,
-                ""));
+                ePortConf.ReceiveAllEvents));
         NodeService.AddThing(context, thing);
     }
 

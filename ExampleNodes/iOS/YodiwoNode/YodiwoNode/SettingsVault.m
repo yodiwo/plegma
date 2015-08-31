@@ -117,6 +117,11 @@
     return [self.settings boolForKey:@"NodePairStatus"];
 }
 
+-(void)setIsNodePaired:(BOOL)state {
+
+    return [self.settings setBool:state forKey:@"NodePairStatus"];
+}
+
 -(NSString *)getMqttParamsBrokerAddress {
     
     return [self.settings stringForKey:@"MqttParamsBrokerAddress"];
@@ -138,6 +143,16 @@
     }
 
     return [self.settings boolForKey:@"ParamsSecureConnection"];
+}
+
+-(NSString *)getIBeaconParamsMonitoredUUID1 {
+
+    return [self.settings stringForKey:@"IBeaconParamsMonitoredUUID1"];
+}
+
+-(NSString *)getIBeaconParamsMonitoredUUID2 {
+
+    return [self.settings stringForKey:@"IBeaconParamsMonitoredUUID2"];
 }
 ///*****************************************************************************
 
