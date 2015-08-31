@@ -6,6 +6,7 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.yodiwo.plegma.LoginReq;
 import com.yodiwo.plegma.LoginRsp;
+import com.yodiwo.plegma.MqttAPIMessage;
 import com.yodiwo.plegma.NodeInfoReq;
 import com.yodiwo.plegma.PlegmaAPI;
 import com.yodiwo.plegma.PortEventMsg;
@@ -24,6 +25,8 @@ import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.MqttSecurityException;
 
+import java.lang.reflect.Type;
+import java.sql.Struct;
 import java.util.HashMap;
 
 
@@ -64,14 +67,41 @@ public class MqttServerAPI implements IServerAPI {
 
     // ---------------------------------------------------------------------------------------------
 
+    private boolean _Send(String topic, Object mqtt_msg) {
+        try {
+            if (publish(topic, 2, gson.toJson(mqtt_msg)))
+                return true;
+        } catch (Exception ex) {
+            Log.e(TAG, ex.getMessage());
+        }
+        return false;
+    }
+
     // =============================================================================================
     // Public API
+
+
+    @Override
+    public boolean SendRsp(Object msg, int RespToSeqNo) {
+        try {
+            String topic = mqttPubTopicPrefix + PlegmaAPI.ApiMsgNames.get(msg.getClass());
+            MqttAPIMessage mqttAPIMessage = new MqttAPIMessage(RespToSeqNo, gson.toJson(msg));
+
+            if (_Send(topic, mqttAPIMessage))
+                return true;
+        } catch (Exception ex) {
+            Log.e(TAG, ex.getMessage());
+        }
+        return false;
+    }
 
     @Override
     public boolean Send(Object msg) {
         try {
             String topic = mqttPubTopicPrefix + PlegmaAPI.ApiMsgNames.get(msg.getClass());
-            if (publish(topic, 2, gson.toJson(msg)))
+            MqttAPIMessage mqttAPIMessage = new MqttAPIMessage(0, gson.toJson(msg));
+
+            if (_Send(topic, mqttAPIMessage))
                 return true;
         } catch (Exception ex) {
             Log.e(TAG, ex.getMessage());
@@ -242,8 +272,9 @@ public class MqttServerAPI implements IServerAPI {
 
             Log.i(TAG, "MQTT recv topic:" + topic);
             if (mqttMessage != null) {
-                String msg = new String(mqttMessage.getPayload());
-                Log.i(TAG, "MQTT qos:" + mqttMessage.getQos() + " payload:" + msg);
+                String mqttMsg = new String(mqttMessage.getPayload());
+                String apiMsg  = gson.fromJson(mqttMsg, MqttAPIMessage.class).Msg;
+                Log.i(TAG, "MQTT qos:" + mqttMessage.getQos() + " payload:" + apiMsg);
 
                 // Parse message
 
@@ -251,7 +282,7 @@ public class MqttServerAPI implements IServerAPI {
                 String msgType = topic.replace(mqttSubTopicPrefix, "");
 
                 // Send the message to node service
-                NodeService.RxMsg(context, msgType, msg);
+                NodeService.RxMsg(context, msgType, apiMsg);
             }
         }
 

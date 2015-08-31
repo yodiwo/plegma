@@ -418,7 +418,7 @@ public class NodeService extends IntentService {
                                     eNodeCapa.None,
                                     null);
 
-                            serverAPI.Send(rsp);
+                            serverAPI.SendRsp(rsp, req.SeqNo);
                         }
                     });
 
@@ -461,7 +461,7 @@ public class NodeService extends IntentService {
                                         thingHashMap.values().toArray(new Thing[0])
                                         );
 
-                                serverAPI.Send(rsp);
+                                serverAPI.SendRsp(rsp, req.SeqNo);
                             }
                         }
                     });

@@ -56,7 +56,12 @@ public class RestServerAPI implements IServerAPI {
     // ---------------------------------------------------------------------------------------------
 
     @Override
-    public boolean Send(Object meg) {
+    public boolean Send(Object msg) {
+        return false;
+    }
+
+    @Override
+    public boolean SendRsp(Object msg, int RespToSeqNo) {
         return false;
     }
 
