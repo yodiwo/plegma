@@ -13,8 +13,6 @@
 
 @interface NodePairingService ()
 
-@property (strong, nonatomic) NSDictionary *pairingServerRoutesDict;
-
 @property (strong, nonatomic) void(^notifyViewControllerToTriggerWebLogin)(NSString *pairingWebLoginUrl);
 
 @end
