@@ -24,7 +24,6 @@ import com.yodiwo.plegma.ThingsRsp;
 import com.yodiwo.plegma.eNodeCapa;
 import com.yodiwo.plegma.eNodeType;
 import com.yodiwo.plegma.ePortStateOperation;
-import com.yodiwo.plegma.eThingsOperation;
 
 import java.util.HashMap;
 
@@ -452,7 +451,7 @@ public class NodeService extends IntentService {
                             ThingsReq req = (ThingsReq)msg;
 
                             // Send the internal things of the node.
-                            if(req.Operation == eThingsOperation.Get) {
+                            if(req.Operation == ThingsReq.Get) {
                                 ThingsRsp rsp = new ThingsRsp(
                                         GetSendSeqNum(),
                                         req.Operation,
