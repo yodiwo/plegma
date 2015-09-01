@@ -23,6 +23,7 @@
 		7963DC001B661E0600FDC59D /* YABPairingServerResponseKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = 7963DBFF1B661E0600FDC59D /* YABPairingServerResponseKeys.m */; };
 		7963DC041B66461100FDC59D /* NodePairingService.m in Sources */ = {isa = PBXBuildFile; fileRef = 7963DC031B66461100FDC59D /* NodePairingService.m */; };
 		7963DC081B667D5E00FDC59D /* SettingsVault.m in Sources */ = {isa = PBXBuildFile; fileRef = 7963DC071B667D5E00FDC59D /* SettingsVault.m */; };
+		796970DA1B9585EF00F70C7A /* Mqtt.m in Sources */ = {isa = PBXBuildFile; fileRef = 796970D91B9585EF00F70C7A /* Mqtt.m */; };
 		797BF7131B6F987A008F2887 /* NodeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 797BF7121B6F987A008F2887 /* NodeController.m */; };
 		797BF7181B723585008F2887 /* NodeThingsRegistry.m in Sources */ = {isa = PBXBuildFile; fileRef = 797BF7171B723585008F2887 /* NodeThingsRegistry.m */; };
 		799A0A9A1B7B3FEA00445F21 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 799A0A991B7B3FEA00445F21 /* MapKit.framework */; };
@@ -84,6 +85,8 @@
 		7963DC051B665B9800FDC59D /* YABNodePairing.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YABNodePairing.h; sourceTree = "<group>"; };
 		7963DC061B667D5E00FDC59D /* SettingsVault.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsVault.h; sourceTree = "<group>"; };
 		7963DC071B667D5E00FDC59D /* SettingsVault.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsVault.m; sourceTree = "<group>"; };
+		796970D81B9585EF00F70C7A /* Mqtt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mqtt.h; sourceTree = "<group>"; };
+		796970D91B9585EF00F70C7A /* Mqtt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Mqtt.m; sourceTree = "<group>"; };
 		797BF7111B6F987A008F2887 /* NodeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NodeController.h; sourceTree = "<group>"; };
 		797BF7121B6F987A008F2887 /* NodeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NodeController.m; sourceTree = "<group>"; };
 		797BF7161B723585008F2887 /* NodeThingsRegistry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NodeThingsRegistry.h; sourceTree = "<group>"; };
@@ -206,6 +209,8 @@
 				795299391B6E32560065CAEC /* YodiwoApi.h */,
 				7932E9A51B742F7700697018 /* PlegmaApi.h */,
 				7932E9A61B742F7700697018 /* PlegmaApi.m */,
+				796970D81B9585EF00F70C7A /* Mqtt.h */,
+				796970D91B9585EF00F70C7A /* Mqtt.m */,
 			);
 			name = YodiwoPlegmaApi;
 			sourceTree = "<group>";
@@ -466,6 +471,7 @@
 				797BF7181B723585008F2887 /* NodeThingsRegistry.m in Sources */,
 				7963DBF41B6541DA00FDC59D /* NodePairingViewController.m in Sources */,
 				7963DBFD1B661DD400FDC59D /* YABPairingServerResponseTokens.m in Sources */,
+				796970DA1B9585EF00F70C7A /* Mqtt.m in Sources */,
 				7952992F1B6D78C30065CAEC /* Thing.m in Sources */,
 				795299381B6E2ABB0065CAEC /* Keys.m in Sources */,
 				7932E9AD1B777D4200697018 /* Beacon.m in Sources */,
