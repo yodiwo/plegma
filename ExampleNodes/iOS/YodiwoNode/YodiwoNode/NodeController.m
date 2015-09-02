@@ -168,7 +168,7 @@ typedef NS_ENUM(NSInteger, EnumApiMessages)
                             thingName:thingName];
 
 
-    // Construct and send PortEventMsg to cloud service
+    // Construct PortEventMsg
     PortEventMsg *msg = [[PortEventMsg alloc] init];
     msg.PortEvents = (id)[NSMutableArray new];
 
@@ -193,10 +193,18 @@ typedef NS_ENUM(NSInteger, EnumApiMessages)
         portIndex++;
     }
 
+    // Convert to JSON for encapsulation
+    NSString *payload = [msg toJSONString];
+
+    // Construct final MqttAPIMessage
+    MqttAPIMessage *mqttMsg = [[MqttAPIMessage alloc] init];
+    mqttMsg.Payload = payload;
+    mqttMsg.ResponseToSeqNo = 0;
+
     // Send, unless none of the thing's ports is part of a deployed graph
     if (msg.PortEvents.count > 0) {
         dispatch_async(self.serialMqttClientPublishQueue, ^{
-            NSString *apiMsgJson = [msg toJSONString];
+            NSString *apiMsgJson = [mqttMsg toJSONString];
             NSLog(@"Sending PortEventMsg: %@", apiMsgJson);
 
             NSString *topic = [[PlegmaApi apiMsgNames] objectForKey:[PortEventMsg class]];
@@ -204,6 +212,11 @@ typedef NS_ENUM(NSInteger, EnumApiMessages)
                                     inTopic:topic];
         });
     }
+
+    // TODO: Move MqttAPIMessage construction within publishMessage:inTopic, changing
+    // it to publishMessageWithPayload:(NSString *)payload
+    //               asResponseToSeqNo:(NSInteger)seqNo
+    //                         inTopic:(NSString *)topic
 }
 
 - (void)sendNodeThingsMsg {
@@ -212,7 +225,7 @@ typedef NS_ENUM(NSInteger, EnumApiMessages)
         return;
     }
 
-    // Construct and send ThingsMsg to cloud service
+    // Construct ThingsMsg
     ThingsReq *msg = [[ThingsReq alloc] init];
     msg.Operation = EnumThingsOperation_Update;
     msg.Data = (id)[NSMutableArray new];
@@ -222,9 +235,17 @@ typedef NS_ENUM(NSInteger, EnumApiMessages)
         [msg.Data addObject:thing];
     }
 
+    // Convert to JSON for encapsulation
+    NSString *payload = [msg toJSONString];
+
+    // Construct final MqttAPIMessage
+    MqttAPIMessage *mqttMsg = [[MqttAPIMessage alloc] init];
+    mqttMsg.Payload = payload;
+    mqttMsg.ResponseToSeqNo = 0;
+
     // Send
     NSString *topic = [[PlegmaApi apiMsgNames] objectForKey:[ThingsReq class]];
-    [self.mqttClient publishMessage:[msg toJSONString]
+    [self.mqttClient publishMessage:[mqttMsg toJSONString]
                             inTopic:topic];
 }
 

@@ -101,8 +101,15 @@
 
     [self.mqttClient setMessageHandler:^(MQTTMessage *message) {
         NSLog(@"MQTT client: message received: %@", [message payloadString]);
-        [[NodeController sharedNodeController] handleMqttApiMsgWithPayload:message.payloadString
-                                                                   atTopic:message.topic retained:message.retained];
+
+        // Strip MqttAPIMessage and send encapsulated ApiMsg to NodeController
+        JSONModelError *error;
+        MqttAPIMessage *mqttMsg = [[MqttAPIMessage alloc] initWithString:message.payloadString
+                                                                   error:&error];
+
+        [[NodeController sharedNodeController] handleMqttApiMsgWithPayload:mqttMsg.Payload
+                                                                   atTopic:message.topic
+                                                                  retained:message.retained];
     }];
 }
 
