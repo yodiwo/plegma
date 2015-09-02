@@ -364,6 +364,7 @@
 				TargetAttributes = {
 					79DDAC951B619A03007AF94E = {
 						CreatedOnToolsVersion = 6.2;
+						DevelopmentTeam = U3ZEKYYN36;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -601,9 +602,12 @@
 			baseConfigurationReference = 11CA6D3E941E0B309870317F /* Pods-YodiwoNode.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Andreas Kotsopoulos (BAAJ55P987)";
 				INFOPLIST_FILE = YodiwoNode/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "6bf34440-1558-4fec-9a86-a5a080f3fed2";
 			};
 			name = Debug;
 		};
@@ -612,9 +616,12 @@
 			baseConfigurationReference = C222B611F10FD8A3DD1E687E /* Pods-YodiwoNode.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Andreas Kotsopoulos (BAAJ55P987)";
 				INFOPLIST_FILE = YodiwoNode/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "6bf34440-1558-4fec-9a86-a5a080f3fed2";
 			};
 			name = Release;
 		};
