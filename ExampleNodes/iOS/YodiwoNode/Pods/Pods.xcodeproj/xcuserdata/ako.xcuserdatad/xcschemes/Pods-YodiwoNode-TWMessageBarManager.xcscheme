@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7A7E2C4280FA9263FA04C2BD"
+               BlueprintIdentifier = "8ACE2BCCA4D06AFA8460680E"
                BuildableName = "libPods-YodiwoNode-TWMessageBarManager.a"
                BlueprintName = "Pods-YodiwoNode-TWMessageBarManager"
                ReferencedContainer = "container:Pods.xcodeproj">

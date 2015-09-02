@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "265C76D6FAEE3AF4A5BDBC7E"
+               BlueprintIdentifier = "C791B5FEECCFFE16BEA89EE7"
                BuildableName = "libPods-YodiwoNode.a"
                BlueprintName = "Pods-YodiwoNode"
                ReferencedContainer = "container:Pods.xcodeproj">

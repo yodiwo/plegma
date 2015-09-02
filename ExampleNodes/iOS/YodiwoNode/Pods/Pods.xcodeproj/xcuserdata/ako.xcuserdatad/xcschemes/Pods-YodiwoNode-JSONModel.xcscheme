@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "2179BD81E0F18933B4A0273E"
+               BlueprintIdentifier = "002923D31F032F4F794CA0CF"
                BuildableName = "libPods-YodiwoNode-JSONModel.a"
                BlueprintName = "Pods-YodiwoNode-JSONModel"
                ReferencedContainer = "container:Pods.xcodeproj">
