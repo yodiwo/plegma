@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -28,7 +28,7 @@
                                     <constraint firstAttribute="height" constant="112" id="D12-8n-hHC"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="thin" pointSize="18"/>
-                                <state key="normal" title="Start Node">
+                                <state key="normal" title="Start Hub">
                                     <color key="titleColor" red="0.16862745098039217" green="0.26666666666666666" blue="0.30980392156862746" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -87,7 +87,7 @@
             </objects>
             <point key="canvasLocation" x="-1134" y="-116"/>
         </scene>
-        <!--Options-->
+        <!--Info/About-->
         <scene sceneID="HdW-Mg-QcD">
             <objects>
                 <viewController id="GYV-Jw-4fC" sceneMemberID="viewController">
@@ -100,13 +100,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Options" image="icon_bar_settings" id="LOd-EZ-jfS"/>
+                    <tabBarItem key="tabBarItem" title="Info/About" image="icon-info.png" id="LOd-EZ-jfS"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7QQ-zt-sG8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="596" y="226"/>
         </scene>
-        <!--Node Things-->
+        <!--Hub Things-->
         <scene sceneID="xhU-Dx-dhp">
             <objects>
                 <viewController id="odO-no-J9y" customClass="NodeThingsViewController" sceneMemberID="viewController">
@@ -428,7 +428,7 @@
                             <constraint firstAttribute="trailingMargin" secondItem="XeZ-7y-FH1" secondAttribute="trailing" constant="9" id="zIg-Ix-y31"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Node Things" image="icon_bar_nodethings" id="fOl-j2-JGO"/>
+                    <tabBarItem key="tabBarItem" title="Hub Things" image="icon_bar_nodethings" id="fOl-j2-JGO"/>
                     <connections>
                         <outlet property="deviceMotionLabel" destination="Ncf-8U-8IV" id="2es-LW-Zxn"/>
                         <outlet property="gpsLocationMapView" destination="lRc-MN-Wcg" id="gyl-Sv-8MC"/>
@@ -470,7 +470,7 @@
     <resources>
         <image name="InternetOfThingsBackground" width="1600" height="900"/>
         <image name="NodeThingsBackground3" width="960" height="972"/>
+        <image name="icon-info.png" width="36" height="36"/>
         <image name="icon_bar_nodethings" width="40" height="40"/>
-        <image name="icon_bar_settings" width="40" height="40"/>
     </resources>
 </document>
