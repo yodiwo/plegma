@@ -4,22 +4,22 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>Pods-YodiwoNode-JSONModel.xcscheme</key>
+		<key>Pods-YodiwoHub-JSONModel.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-YodiwoNode-MQTTKit.xcscheme</key>
+		<key>Pods-YodiwoHub-MQTTKit.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-YodiwoNode-TWMessageBarManager.xcscheme</key>
+		<key>Pods-YodiwoHub-TWMessageBarManager.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-YodiwoNode.xcscheme</key>
+		<key>Pods-YodiwoHub.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>

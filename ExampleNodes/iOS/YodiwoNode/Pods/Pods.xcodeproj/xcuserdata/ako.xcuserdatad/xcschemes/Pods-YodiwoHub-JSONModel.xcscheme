@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "B9CFB71B003802B34A992942"
-               BuildableName = "libPods-YodiwoNode-MQTTKit.a"
-               BlueprintName = "Pods-YodiwoNode-MQTTKit"
+               BlueprintIdentifier = "002923D31F032F4F794CA0CF"
+               BuildableName = "libPods-YodiwoNode-JSONModel.a"
+               BlueprintName = "Pods-YodiwoNode-JSONModel"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -39,6 +39,15 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "002923D31F032F4F794CA0CF"
+            BuildableName = "libPods-YodiwoNode-JSONModel.a"
+            BlueprintName = "Pods-YodiwoNode-JSONModel"
+            ReferencedContainer = "container:Pods.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
