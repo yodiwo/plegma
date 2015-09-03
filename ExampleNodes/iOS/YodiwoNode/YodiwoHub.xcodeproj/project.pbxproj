@@ -99,7 +99,7 @@
 		79BF62381B6273FB00057140 /* YABPairingNodeGetTokensRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YABPairingNodeGetTokensRequest.m; sourceTree = "<group>"; };
 		79DBC8231B6A62640027B009 /* MqttClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MqttClient.h; sourceTree = "<group>"; };
 		79DBC8241B6A62640027B009 /* MqttClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MqttClient.m; sourceTree = "<group>"; };
-		79DDAC961B619A03007AF94E /* YodiwoNode.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YodiwoNode.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		79DDAC961B619A03007AF94E /* YodiwoHub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YodiwoHub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		79DDAC9A1B619A03007AF94E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		79DDAC9B1B619A03007AF94E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		79DDAC9D1B619A03007AF94E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -107,7 +107,7 @@
 		79DDACA41B619A03007AF94E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		79DDACA61B619A03007AF94E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		79DDACA91B619A03007AF94E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		79DDACAF1B619A03007AF94E /* YodiwoNodeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YodiwoNodeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		79DDACAF1B619A03007AF94E /* YodiwoHubTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YodiwoHubTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		79DDACB41B619A03007AF94E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		79DDACB51B619A03007AF94E /* YodiwoNodeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YodiwoNodeTests.m; sourceTree = "<group>"; };
 		C222B611F10FD8A3DD1E687E /* Pods-YodiwoNode.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YodiwoNode.release.xcconfig"; path = "Pods/Target Support Files/Pods-YodiwoNode/Pods-YodiwoNode.release.xcconfig"; sourceTree = "<group>"; };
@@ -248,8 +248,8 @@
 		79DDAC971B619A03007AF94E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				79DDAC961B619A03007AF94E /* YodiwoNode.app */,
-				79DDACAF1B619A03007AF94E /* YodiwoNodeTests.xctest */,
+				79DDAC961B619A03007AF94E /* YodiwoHub.app */,
+				79DDACAF1B619A03007AF94E /* YodiwoHubTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -315,9 +315,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		79DDAC951B619A03007AF94E /* YodiwoNode */ = {
+		79DDAC951B619A03007AF94E /* YodiwoHub */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 79DDACB91B619A03007AF94E /* Build configuration list for PBXNativeTarget "YodiwoNode" */;
+			buildConfigurationList = 79DDACB91B619A03007AF94E /* Build configuration list for PBXNativeTarget "YodiwoHub" */;
 			buildPhases = (
 				D3815CF69F5A5DCA773B39C8 /* Check Pods Manifest.lock */,
 				79DDAC921B619A03007AF94E /* Sources */,
@@ -329,14 +329,14 @@
 			);
 			dependencies = (
 			);
-			name = YodiwoNode;
+			name = YodiwoHub;
 			productName = YodiwoNode;
-			productReference = 79DDAC961B619A03007AF94E /* YodiwoNode.app */;
+			productReference = 79DDAC961B619A03007AF94E /* YodiwoHub.app */;
 			productType = "com.apple.product-type.application";
 		};
-		79DDACAE1B619A03007AF94E /* YodiwoNodeTests */ = {
+		79DDACAE1B619A03007AF94E /* YodiwoHubTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 79DDACBC1B619A03007AF94E /* Build configuration list for PBXNativeTarget "YodiwoNodeTests" */;
+			buildConfigurationList = 79DDACBC1B619A03007AF94E /* Build configuration list for PBXNativeTarget "YodiwoHubTests" */;
 			buildPhases = (
 				79DDACAB1B619A03007AF94E /* Sources */,
 				79DDACAC1B619A03007AF94E /* Frameworks */,
@@ -347,9 +347,9 @@
 			dependencies = (
 				79DDACB11B619A03007AF94E /* PBXTargetDependency */,
 			);
-			name = YodiwoNodeTests;
+			name = YodiwoHubTests;
 			productName = YodiwoNodeTests;
-			productReference = 79DDACAF1B619A03007AF94E /* YodiwoNodeTests.xctest */;
+			productReference = 79DDACAF1B619A03007AF94E /* YodiwoHubTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -377,7 +377,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 79DDAC911B619A03007AF94E /* Build configuration list for PBXProject "YodiwoNode" */;
+			buildConfigurationList = 79DDAC911B619A03007AF94E /* Build configuration list for PBXProject "YodiwoHub" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -390,8 +390,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				79DDAC951B619A03007AF94E /* YodiwoNode */,
-				79DDACAE1B619A03007AF94E /* YodiwoNodeTests */,
+				79DDAC951B619A03007AF94E /* YodiwoHub */,
+				79DDACAE1B619A03007AF94E /* YodiwoHubTests */,
 			);
 		};
 /* End PBXProject section */
@@ -494,7 +494,7 @@
 /* Begin PBXTargetDependency section */
 		79DDACB11B619A03007AF94E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 79DDAC951B619A03007AF94E /* YodiwoNode */;
+			target = 79DDAC951B619A03007AF94E /* YodiwoHub */;
 			targetProxy = 79DDACB01B619A03007AF94E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -605,8 +605,9 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Andreas Kotsopoulos (BAAJ55P987)";
 				INFOPLIST_FILE = YodiwoNode/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = YodiwoHub;
 				PROVISIONING_PROFILE = "6bf34440-1558-4fec-9a86-a5a080f3fed2";
 			};
 			name = Debug;
@@ -619,8 +620,9 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Andreas Kotsopoulos (BAAJ55P987)";
 				INFOPLIST_FILE = YodiwoNode/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = YodiwoHub;
 				PROVISIONING_PROFILE = "6bf34440-1558-4fec-9a86-a5a080f3fed2";
 			};
 			name = Release;
@@ -639,8 +641,8 @@
 				);
 				INFOPLIST_FILE = YodiwoNodeTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/YodiwoNode.app/YodiwoNode";
+				PRODUCT_NAME = YodiwoHubTests;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/YodiwoHub.app/YodiwoHub";
 			};
 			name = Debug;
 		};
@@ -654,15 +656,15 @@
 				);
 				INFOPLIST_FILE = YodiwoNodeTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/YodiwoNode.app/YodiwoNode";
+				PRODUCT_NAME = YodiwoHubTests;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/YodiwoHub.app/YodiwoHub";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		79DDAC911B619A03007AF94E /* Build configuration list for PBXProject "YodiwoNode" */ = {
+		79DDAC911B619A03007AF94E /* Build configuration list for PBXProject "YodiwoHub" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				79DDACB71B619A03007AF94E /* Debug */,
@@ -671,7 +673,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		79DDACB91B619A03007AF94E /* Build configuration list for PBXNativeTarget "YodiwoNode" */ = {
+		79DDACB91B619A03007AF94E /* Build configuration list for PBXNativeTarget "YodiwoHub" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				79DDACBA1B619A03007AF94E /* Debug */,
@@ -680,7 +682,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		79DDACBC1B619A03007AF94E /* Build configuration list for PBXNativeTarget "YodiwoNodeTests" */ = {
+		79DDACBC1B619A03007AF94E /* Build configuration list for PBXNativeTarget "YodiwoHubTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				79DDACBD1B619A03007AF94E /* Debug */,
