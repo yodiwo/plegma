@@ -67,9 +67,9 @@
     }
 
     // GPS
-    self.locationManager.distanceFilter = 100.0f; // 100m accuracy
+    self.locationManager.distanceFilter = 500.0f; // accuracy in meters
     [self.locationManager startUpdatingLocation];
-    [self.locationManager startMonitoringSignificantLocationChanges];
+    //[self.locationManager startMonitoringSignificantLocationChanges];
 
     // iBeacon
     Beacon *b1 = [[Beacon alloc] initWithFriendlyName:@"MonitoredUUID1"
@@ -166,7 +166,7 @@
                                                                            object:self
                                                                          userInfo:notParams];
 
-                       [self.locationManager stopUpdatingLocation]; // Only to get initial location
+                       //[self.locationManager stopUpdatingLocation]; // Only to get initial location
                    }];
 }
 
