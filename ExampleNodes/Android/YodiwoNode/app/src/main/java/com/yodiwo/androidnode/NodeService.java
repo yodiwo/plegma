@@ -255,7 +255,7 @@ public class NodeService extends IntentService {
     private void SendNodes(SettingsProvider settingsProvider) {
         try {
             ThingsReq msg = new ThingsReq(GetSendSeqNum(),
-                    eThingsOperation.Overwrite,
+                    ThingsReq.Overwrite,
                     "",
                     thingHashMap.values().toArray(new Thing[0]));
             serverAPI.Send(msg);
