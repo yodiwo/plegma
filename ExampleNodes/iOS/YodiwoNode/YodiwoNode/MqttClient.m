@@ -10,6 +10,7 @@
 #import "MQTTKit.h"
 #import "SettingsVault.h"
 #import "NodeController.h"
+#import "YodiwoApi.h"
 
 #define kMqttTopic_publish @"/api/in/"
 #define kMqttTopic_subscribe @"/api/out/"
@@ -30,15 +31,22 @@
     if (self = [super init]) {
         _mqttClient = [[MQTTClient alloc] initWithClientId:[[SettingsVault sharedSettingsVault] getPairingNodeKey] cleanSession:NO];
 
-        _subscribeTopic = [[kMqttTopic_subscribe
-                           stringByAppendingString:[[SettingsVault sharedSettingsVault] getPairingNodeKey]]
-                                                    stringByAppendingString:@"/#"];
 
-        _publishTopic = [[[[kMqttTopic_publish
-                                stringByAppendingString:[[SettingsVault sharedSettingsVault] getUserKey]]
-                                    stringByAppendingString:@"/"]
-                                        stringByAppendingString:[[SettingsVault sharedSettingsVault] getPairingNodeKey] ]
-                                            stringByAppendingString:@"/"];
+        // Add current API version to base subscribe/publish topics
+        NSString *baseSubscribeTopic = [[kMqttTopic_subscribe stringByAppendingString:[NSString stringWithFormat:@"%ld", (long)[PlegmaApi apiVersion]]]
+                                                              stringByAppendingString:@"/"];
+
+        NSString *basePublishTopic = [[kMqttTopic_publish stringByAppendingString:[NSString stringWithFormat:@"%ld", (long)[PlegmaApi apiVersion]]]
+                                                          stringByAppendingString:@"/"];
+
+
+        _subscribeTopic = [[baseSubscribeTopic stringByAppendingString:[[SettingsVault sharedSettingsVault] getPairingNodeKey]]
+                                               stringByAppendingString:@"/#"];
+
+        _publishTopic = [[[[basePublishTopic stringByAppendingString:[[SettingsVault sharedSettingsVault] getUserKey]]
+                                             stringByAppendingString:@"/"]
+                                             stringByAppendingString:[[SettingsVault sharedSettingsVault] getPairingNodeKey] ]
+                                             stringByAppendingString:@"/"];
     }
 
     return self;
