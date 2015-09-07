@@ -87,25 +87,6 @@
             </objects>
             <point key="canvasLocation" x="-1134" y="-116"/>
         </scene>
-        <!--Options-->
-        <scene sceneID="HdW-Mg-QcD">
-            <objects>
-                <viewController id="GYV-Jw-4fC" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="GtI-b1-UGg"/>
-                        <viewControllerLayoutGuide type="bottom" id="tKL-6b-f2A"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="emM-WA-cEV">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Options" image="icon_bar_settings" id="LOd-EZ-jfS"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="7QQ-zt-sG8" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="596" y="226"/>
-        </scene>
         <!--Hub Things-->
         <scene sceneID="xhU-Dx-dhp">
             <objects>
@@ -449,7 +430,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SMz-4Y-vFP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="596" y="-438"/>
+            <point key="canvasLocation" x="454" y="-8"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="agB-9c-XHK">
@@ -463,18 +444,16 @@
                     </tabBar>
                     <connections>
                         <segue destination="odO-no-J9y" kind="relationship" relationship="viewControllers" id="rz7-27-AgS"/>
-                        <segue destination="GYV-Jw-4fC" kind="relationship" relationship="viewControllers" id="hJT-BN-zIi"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BFa-8x-0B1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-224" y="-106"/>
+            <point key="canvasLocation" x="-348" y="-300"/>
         </scene>
     </scenes>
     <resources>
         <image name="InternetOfThingsBackground" width="1600" height="900"/>
         <image name="NodeThingsBackground3" width="960" height="972"/>
         <image name="icon_bar_nodethings" width="40" height="40"/>
-        <image name="icon_bar_settings" width="40" height="40"/>
     </resources>
 </document>
