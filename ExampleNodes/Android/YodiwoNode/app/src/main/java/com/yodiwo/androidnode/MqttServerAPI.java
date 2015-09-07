@@ -175,8 +175,8 @@ public class MqttServerAPI implements IServerAPI {
         mqttOpt.setKeepAliveInterval(10);
 
         // Define a topic prefix for this node
-        mqttPubTopicPrefix = "/api/in/" + settingsProvider.getUserKey() + "/" + settingsProvider.getNodeKey() + "/";
-        mqttSubTopicPrefix = "/api/out/" + settingsProvider.getNodeKey() + "/";
+        mqttPubTopicPrefix = "/api/in/1/" + settingsProvider.getUserKey() + "/" + settingsProvider.getNodeKey() + "/";
+        mqttSubTopicPrefix = "/api/out/1/" + settingsProvider.getNodeKey() + "/";
 
         Connect();
     }
