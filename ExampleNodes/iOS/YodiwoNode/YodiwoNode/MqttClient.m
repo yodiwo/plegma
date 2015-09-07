@@ -73,7 +73,7 @@
             NSLog(@"MQTT client: connected with id: %@", self.mqttClient.clientID);
         }
         else {
-            NSLog(@"MQTT client: error connecting to broker: %lu", code);
+            NSLog(@"MQTT client: error connecting to broker: %lu", (unsigned long)code);
         }
     }];
 }
