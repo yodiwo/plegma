@@ -108,7 +108,7 @@
 - (void)setMessageHandler {
 
     [self.mqttClient setMessageHandler:^(MQTTMessage *message) {
-        NSLog(@"MQTT client: message received: %@", [message payloadString]);
+        NSLog(@"MQTT client: message received: topic: %@ %@", [message topic], [message payloadString]);
 
         // Strip MqttAPIMessage and send encapsulated ApiMsg to NodeController
         JSONModelError *error;
@@ -130,7 +130,7 @@
                         retain:NO
              completionHandler:^(int mid){
 
-                 NSLog(@"Published message id: %d", mid);
+                 NSLog(@"Published message id: %d topic:%@ msg: %@", mid, topic, msg);
     }];
 }
 
