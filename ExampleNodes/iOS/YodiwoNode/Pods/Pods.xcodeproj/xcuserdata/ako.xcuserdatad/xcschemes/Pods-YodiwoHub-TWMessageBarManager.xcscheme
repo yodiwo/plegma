@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8ACE2BCCA4D06AFA8460680E"
-               BuildableName = "libPods-YodiwoNode-TWMessageBarManager.a"
-               BlueprintName = "Pods-YodiwoNode-TWMessageBarManager"
+               BlueprintIdentifier = "663F0FF908DE751647B95951"
+               BuildableName = "libPods-YodiwoHub-TWMessageBarManager.a"
+               BlueprintName = "Pods-YodiwoHub-TWMessageBarManager"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -39,15 +39,6 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "8ACE2BCCA4D06AFA8460680E"
-            BuildableName = "libPods-YodiwoNode-TWMessageBarManager.a"
-            BlueprintName = "Pods-YodiwoNode-TWMessageBarManager"
-            ReferencedContainer = "container:Pods.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
