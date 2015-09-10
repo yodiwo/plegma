@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		31052B165A159F9493144F79 /* libPods-YodiwoNode.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3619AFE9402CF79CB9F903E3 /* libPods-YodiwoNode.a */; };
 		7906F25A1B9EFAE600046771 /* Pods-YodiwoHub.debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 7906F2581B9EFAE600046771 /* Pods-YodiwoHub.debug.xcconfig */; };
 		7906F25B1B9EFAE600046771 /* Pods-YodiwoHub.release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 7906F2591B9EFAE600046771 /* Pods-YodiwoHub.release.xcconfig */; };
 		7932E9A71B742F7700697018 /* PlegmaApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 7932E9A61B742F7700697018 /* PlegmaApi.m */; };
@@ -53,7 +52,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		3619AFE9402CF79CB9F903E3 /* libPods-YodiwoNode.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-YodiwoNode.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		605FB11174B95C307FF89EB4 /* libPods-YodiwoHub.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-YodiwoHub.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7906F2581B9EFAE600046771 /* Pods-YodiwoHub.debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "Pods-YodiwoHub.debug.xcconfig"; path = "Pods/Target Support Files/Pods-YodiwoHub/Pods-YodiwoHub.debug.xcconfig"; sourceTree = "<group>"; };
 		7906F2591B9EFAE600046771 /* Pods-YodiwoHub.release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "Pods-YodiwoHub.release.xcconfig"; path = "Pods/Target Support Files/Pods-YodiwoHub/Pods-YodiwoHub.release.xcconfig"; sourceTree = "<group>"; };
@@ -123,7 +121,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				799A0A9A1B7B3FEA00445F21 /* MapKit.framework in Frameworks */,
-				31052B165A159F9493144F79 /* libPods-YodiwoNode.a in Frameworks */,
 				AC5B08A8A9A950A87612AEE1 /* libPods-YodiwoHub.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -312,7 +309,6 @@
 			isa = PBXGroup;
 			children = (
 				799A0A991B7B3FEA00445F21 /* MapKit.framework */,
-				3619AFE9402CF79CB9F903E3 /* libPods-YodiwoNode.a */,
 				605FB11174B95C307FF89EB4 /* libPods-YodiwoHub.a */,
 			);
 			name = Frameworks;
