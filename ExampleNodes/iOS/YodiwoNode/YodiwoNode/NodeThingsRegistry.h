@@ -24,6 +24,7 @@ extern NSString *const ThingNameActivityTracker;
 extern NSString *const ThingNameVirtualText;
 extern NSString *const ThingNameVirtualLight1;
 extern NSString *const ThingNameVirtualLight2;
+extern NSString *const ThingNameAVTorch;
 
 +(id)sharedNodeThingsRegistry;
 

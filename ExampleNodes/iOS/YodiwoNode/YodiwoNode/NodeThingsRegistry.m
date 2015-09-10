@@ -29,6 +29,8 @@ NSString *const ThingNameActivityTracker = @"iOSActivityTracker";
 NSString *const ThingNameVirtualText = @"iOSText";
 NSString *const ThingNameVirtualLight1 = @"iOSLight1";
 NSString *const ThingNameVirtualLight2 = @"iOSLight2";
+NSString *const ThingNameAVTorch = @"iOSTorchLight";
+
 
 +(id)sharedNodeThingsRegistry {
     static NodeThingsRegistry *internalSharedNodeThingsRegistry = nil;
@@ -423,6 +425,34 @@ NSString *const ThingNameVirtualLight2 = @"iOSLight2";
                                            config:nil
                                             ports:ports
                                              type:@"iOSVirtual"
+                                        blockType:@""
+                                          uiHints:uiHints]];
+    }
+
+    // Torch
+    {
+        NSString *thingUID = ThingNameAVTorch;
+        ThingKey *thingKey = [[ThingKey alloc] initWithNodeKey:nodeKey
+                                                   andThingUid:thingUID];
+
+        Port *port = [[Port  alloc] init];
+        port.name = @"Torch light state";
+        port.ioDirection = EnumIOPortDirection_Input;
+        port.type = EnumPortType_Boolean;
+        port.portKey = [[[PortKey alloc] initWithThingKey:thingKey
+                                               andPortUid:@"0"] toString];
+        NSMutableArray *ports = (id)[NSMutableArray new];
+        [ports addObject:port];
+
+        ThingUIHints *uiHints = [[ThingUIHints alloc] init];
+        uiHints.iconUri = @"/Content/VirtualGateway/img/icon-thing-generictorch.png";
+
+        [[NodeController sharedNodeController]
+         addThing:[[Thing alloc] initWithThingKey:[thingKey toString]
+                                             name:[deviceName stringByAppendingString:thingUID]
+                                           config:nil
+                                            ports:ports
+                                             type:@"iOSActuator"
                                         blockType:@""
                                           uiHints:uiHints]];
     }

@@ -13,7 +13,7 @@
 
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
-
+#import <AVFoundation/AVFoundation.h>
 
 @interface NodeThingsViewController ()
 
@@ -231,6 +231,9 @@
             }
         });
     }
+    else if ([thingName isEqualToString:ThingNameAVTorch]) {
+        [self turnTorch:[newState boolValue]];
+    }
     else {
         NSLog(@"****** Received yodiwoThingUpdateNotification for unknown thing *******");
     }
@@ -300,6 +303,34 @@
     }
     else {
         NSLog(@"****** Received yodiwoUIUpdateNotification for unknown thing *******");
+    }
+}
+
+//******************************************************************************
+
+
+
+///***** Helpers
+
+// TODO: Move this and all FlashLight related handling to dedicated AVDeviceManager
+- (void)turnTorch:(BOOL)state
+{
+    AVCaptureDevice *flashLight = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+    if ([flashLight isTorchAvailable] && [flashLight isTorchModeSupported:AVCaptureTorchModeOn])
+    {
+        BOOL success = [flashLight lockForConfiguration:nil];
+        if (success)
+        {
+            if (state)
+            {
+                [flashLight setTorchMode:AVCaptureTorchModeOn];
+            }
+            else
+            {
+                [flashLight setTorchMode:AVCaptureTorchModeOff];
+            }
+            [flashLight unlockForConfiguration];
+        }
     }
 }
 
