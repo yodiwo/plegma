@@ -54,7 +54,7 @@ NSString *const ThingNameAVTorch = @"iOSTorchLight";
 
     // Virtual switch
     {
-        NSString *thingUID = @"iOSSwitch";
+        NSString *thingUID = ThingNameVirtualSwitch;
         ThingKey *thingKey = [[ThingKey alloc] initWithNodeKey:nodeKey
                                                    andThingUid:thingUID];
 
@@ -82,7 +82,7 @@ NSString *const ThingNameAVTorch = @"iOSTorchLight";
 
     // Virtual slider
     {
-        NSString *thingUID = @"iOSSlider";
+        NSString *thingUID = ThingNameVirtualSlider;
         ThingKey *thingKey = [[ThingKey alloc] initWithNodeKey:nodeKey
                                                    andThingUid:thingUID];
 
@@ -110,7 +110,7 @@ NSString *const ThingNameAVTorch = @"iOSTorchLight";
 
     // Virtual text input
     {
-        NSString *thingUID = @"iOSTextInput";
+        NSString *thingUID = ThingNameVirtualTextInput;
         ThingKey *thingKey = [[ThingKey alloc] initWithNodeKey:nodeKey
                                                    andThingUid:thingUID];
 
@@ -138,7 +138,7 @@ NSString *const ThingNameAVTorch = @"iOSTorchLight";
 
     // Location finder
     {
-        NSString *thingUID = @"iOSLocation";
+        NSString *thingUID = ThingNameLocationGPS;
         ThingKey *thingKey = [[ThingKey alloc] initWithNodeKey:nodeKey
                                                    andThingUid:thingUID];
 
@@ -189,7 +189,7 @@ NSString *const ThingNameAVTorch = @"iOSTorchLight";
 
     // iBeaconReceiver
     {
-        NSString *thingUID = @"iOSBeacon";
+        NSString *thingUID = ThingNameLocationBeacon;
         ThingKey *thingKey = [[ThingKey alloc] initWithNodeKey:nodeKey
                                                    andThingUid:thingUID];
 
@@ -256,7 +256,7 @@ NSString *const ThingNameAVTorch = @"iOSTorchLight";
 
     // Proximity sensor
     {
-        NSString *thingUID = @"iOSProximity";
+        NSString *thingUID = ThingNameLocationProximity;
         ThingKey *thingKey = [[ThingKey alloc] initWithNodeKey:nodeKey
                                                    andThingUid:thingUID];
 
@@ -284,7 +284,7 @@ NSString *const ThingNameAVTorch = @"iOSTorchLight";
 
     // Accelerometer (shake detector)
     {
-        NSString *thingUID = @"iOSShakeDetector";
+        NSString *thingUID = ThingNameShakeDetector;
         ThingKey *thingKey = [[ThingKey alloc] initWithNodeKey:nodeKey
                                                    andThingUid:thingUID];
 
@@ -312,7 +312,7 @@ NSString *const ThingNameAVTorch = @"iOSTorchLight";
 
     // Accelerometer, Gyro (Activity tracker)
     {
-        NSString *thingUID = @"iOSActivityTracker";
+        NSString *thingUID = ThingNameActivityTracker;
         ThingKey *thingKey = [[ThingKey alloc] initWithNodeKey:nodeKey
                                                    andThingUid:thingUID];
 
@@ -347,7 +347,7 @@ NSString *const ThingNameAVTorch = @"iOSTorchLight";
 
     // Virtual text
     {
-        NSString *thingUID = @"iOSText";
+        NSString *thingUID = ThingNameVirtualText;
         ThingKey *thingKey = [[ThingKey alloc] initWithNodeKey:nodeKey
                                                    andThingUid:thingUID];
 
@@ -375,7 +375,7 @@ NSString *const ThingNameAVTorch = @"iOSTorchLight";
 
     // Virtual light 1
     {
-        NSString *thingUID = @"iOSLight1";
+        NSString *thingUID = ThingNameVirtualLight1;
         ThingKey *thingKey = [[ThingKey alloc] initWithNodeKey:nodeKey
                                                    andThingUid:thingUID];
 
@@ -403,7 +403,7 @@ NSString *const ThingNameAVTorch = @"iOSTorchLight";
 
     // Virtual light 2
     {
-        NSString *thingUID = @"iOSLight2";
+        NSString *thingUID = ThingNameVirtualLight2;
         ThingKey *thingKey = [[ThingKey alloc] initWithNodeKey:nodeKey
                                                    andThingUid:thingUID];
 
