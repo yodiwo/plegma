@@ -69,7 +69,6 @@
     // GPS
     self.locationManager.distanceFilter = 500.0f; // accuracy in meters
     [self.locationManager startUpdatingLocation];
-    //[self.locationManager startMonitoringSignificantLocationChanges];
 
     // iBeacon
     Beacon *b1 = [[Beacon alloc] initWithFriendlyName:@"MonitoredUUID1"
@@ -165,8 +164,6 @@
                        [[NSNotificationCenter defaultCenter] postNotificationName:@"yodiwoUIUpdateNotification"
                                                                            object:self
                                                                          userInfo:notParams];
-
-                       //[self.locationManager stopUpdatingLocation]; // Only to get initial location
                    }];
 }
 
