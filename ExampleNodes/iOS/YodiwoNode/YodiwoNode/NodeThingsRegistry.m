@@ -445,7 +445,7 @@ NSString *const ThingNameAVTorch = @"iOSTorchLight";
         [ports addObject:port];
 
         ThingUIHints *uiHints = [[ThingUIHints alloc] init];
-        uiHints.iconUri = @"/Content/VirtualGateway/img/icon-thing-generictorch.png";
+        uiHints.iconUri = @"/Content/VirtualGateway/img/icon-thing-generictorch.svg";
 
         [[NodeController sharedNodeController]
          addThing:[[Thing alloc] initWithThingKey:[thingKey toString]
