@@ -108,8 +108,8 @@
 
     // Initialize UI stuff
     self.gpsLocationMapView.mapType = MKMapTypeStandard;
-    self.gpsLocationMapView.zoomEnabled = NO;
-    self.gpsLocationMapView.scrollEnabled = NO;
+    self.gpsLocationMapView.zoomEnabled = YES;
+    self.gpsLocationMapView.scrollEnabled = YES;
 
     [[NodeController sharedNodeController] connectToCloudService];
 }
@@ -247,8 +247,8 @@
 
     if ([thingName isEqualToString:ThingNameLocationGPS]) {
         // Region
-        float spanX = 0.005;
-        float spanY = 0.005;
+        float spanX = 0.05;
+        float spanY = 0.05;
         MKCoordinateRegion region;
         region.center.latitude = self.gpsLocationMapView.userLocation.coordinate.latitude;
         region.center.longitude = self.gpsLocationMapView.userLocation.coordinate.longitude;
