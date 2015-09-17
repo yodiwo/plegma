@@ -346,6 +346,7 @@ public class ThingManager {
 
         // ----------------------------------------------
         // Virtual Color
+        /*
         thingKey = ThingKey.CreateKey(nodeKey, InputColor1);
         thing = new Thing(thingKey,
                 InputColor1,
@@ -358,12 +359,12 @@ public class ThingManager {
                 "ButtonState",
                 "",
                 ioPortDirection.Input,
-                ePortType.Color,
+                ePortType.Decimal,
                 "",
                 0,
                 ePortConf.None));
         NodeService.AddThing(context, thing);
-
+        */
         // ----------------------------------------------
         // Android Intent
         thingKey = ThingKey.CreateKey(nodeKey, InputAndroidIntent);
