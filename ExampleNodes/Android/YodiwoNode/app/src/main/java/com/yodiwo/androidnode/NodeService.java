@@ -123,7 +123,7 @@ public class NodeService extends IntentService {
         }
 
         // Init RX handlers
-        InitRxHandles();
+        InitRxHandlers();
 
         if (sensorsListener == null)
             sensorsListener = SensorsListener.getInstance(getApplicationContext());
@@ -397,7 +397,7 @@ public class NodeService extends IntentService {
         void Handle(String topic, String json, Object msg);
     }
 
-    private void InitRxHandles() {
+    private void InitRxHandlers() {
         if (rxHandlers == null) {
             rxHandlers = new HashMap<>();
             rxHandlersClass = new HashMap<>();
@@ -412,7 +412,7 @@ public class NodeService extends IntentService {
 
                             NodeInfoRsp rsp = new NodeInfoRsp(GetSendSeqNum(),
                                     settingsProvider.getDeviceName(),
-                                    eNodeType.TestEndpoint,
+                                    eNodeType.EndpointSingle,
                                     eNodeCapa.None,
                                     null);
 
