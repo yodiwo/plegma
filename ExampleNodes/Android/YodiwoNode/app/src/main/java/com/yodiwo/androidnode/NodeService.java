@@ -62,7 +62,7 @@ public class NodeService extends IntentService {
 
     public static final String BROADCAST_THING_UPDATE = "NodeService.BROADCAST_THING_UPDATE";
 
-    public static final String EXTRA_UPDATED_THING = "EXTRA_UPDATED_THING";
+    public static final String EXTRA_UPDATED_THING_KEY = "EXTRA_UPDATED_THING_KEY";
     public static final String EXTRA_UPDATED_THING_NAME = "EXTRA_UPDATED_THING_NAME";
     public static final String EXTRA_UPDATED_PORT_ID = "EXTRA_UPDATED_PORT_ID";
     public static final String EXTRA_UPDATED_STATE = "EXTRA_UPDATED_STATE";
@@ -225,7 +225,7 @@ public class NodeService extends IntentService {
                                 Thread.sleep(250);
                             } catch (Exception ex) {
                             }
-                            RequesttUpdatedState(getApplicationContext());
+                            RequestUpdatedState(getApplicationContext());
                         }
                     }).start();
                 }
@@ -235,18 +235,36 @@ public class NodeService extends IntentService {
             // -----------------------------------
             case RECEIVE_CONN_STATUS: {
                 Boolean isConnected = bundle.getBoolean(EXTRA_STATUS);
-                if (isConnected && !serverIsConnected) {
-                    serverIsConnected = isConnected;
-                    // Send pending msg
-                    if (pendingSendNodes) {
-                        SendNodes(settingsProvider);
+                if (isConnected) {
+                    if (!serverIsConnected) {
+                        serverIsConnected = true;
+
+                        StartNode();
+                    }
+                } else {
+                    if(serverIsConnected) {
+                        serverIsConnected = false;
+
+                        StopNode();
                     }
                 }
-
+                break;
             }
-            break;
         }
     }
+
+    private void StartNode(){
+
+        NodeService.RegisterNode(this, false);
+
+        // Request the state of the things in the cloud
+        NodeService.RequestUpdatedState(this);
+    }
+
+    private void StopNode(){
+
+    }
+
 
 
     // =============================================================================================
@@ -328,7 +346,7 @@ public class NodeService extends IntentService {
 
                 // Send the event for this port
                 Intent intent = new Intent(BROADCAST_THING_UPDATE);
-                intent.putExtra(EXTRA_UPDATED_THING, localT.ThingKey);
+                intent.putExtra(EXTRA_UPDATED_THING_KEY, localT.ThingKey);
                 intent.putExtra(EXTRA_UPDATED_THING_NAME, localT.Name);
                 intent.putExtra(EXTRA_UPDATED_PORT_ID, localT.Ports.indexOf(localP));
                 intent.putExtra(EXTRA_UPDATED_STATE, localP.State);
@@ -375,7 +393,7 @@ public class NodeService extends IntentService {
 
             // Send the event for this port
             Intent intent = new Intent(BROADCAST_THING_UPDATE);
-            intent.putExtra(EXTRA_UPDATED_THING, localT.ThingKey);
+            intent.putExtra(EXTRA_UPDATED_THING_KEY, localT.ThingKey);
             intent.putExtra(EXTRA_UPDATED_THING_NAME, localT.Name);
             intent.putExtra(EXTRA_UPDATED_PORT_ID, localT.Ports.indexOf(localP));
             intent.putExtra(EXTRA_UPDATED_STATE, localP.State);
@@ -497,13 +515,6 @@ public class NodeService extends IntentService {
 
     // ---------------------------------------------------------------------------------------------
 
-    public static void SendNode(Context context) {
-        Intent intent = new Intent(context, NodeService.class);
-        intent.putExtra(EXTRA_REQUEST_TYPE, REQUEST_SENDNODES);
-        context.startService(intent);
-    }
-
-    // ---------------------------------------------------------------------------------------------
 
     public static void RegisterNode(Context context, Boolean forceUpdate) {
         // TODO: register nodes only when we have some change, keep a dirty flag
@@ -594,7 +605,7 @@ public class NodeService extends IntentService {
 
     // ---------------------------------------------------------------------------------------------
 
-    public static void RequesttUpdatedState(Context context) {
+    public static void RequestUpdatedState(Context context) {
         Intent intent = new Intent(context, NodeService.class);
         intent.putExtra(EXTRA_REQUEST_TYPE, REQUEST_RX_UPDATE);
         context.startService(intent);

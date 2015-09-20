@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -34,15 +35,19 @@ public class MainActivityFragment extends Fragment {
 
     private ThingManager thingManager;
     private ProgressBar progressBar;
-    private Switch inputSwitch;
-    private Button colorButton;
+    private Switch inputSwitch1;
+    private Switch inputSwitch2;
+    private Switch inputSwitch3;
+    private Button colorButton1;
+    private Button colorButton2;
+    private Button colorButton3;
 
     public MainActivityFragment() {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         final Context context = this.getActivity().getApplicationContext();
 
         View view = inflater.inflate(R.layout.fragment_main, container, false);
@@ -50,27 +55,38 @@ public class MainActivityFragment extends Fragment {
         SettingsProvider settingsProvider = SettingsProvider.getInstance(context);
         thingManager = ThingManager.getInstance(context);
 
-        // Link button to code
-        Button button = (Button) view.findViewById(R.id.button);
-        button.setOnTouchListener(new View.OnTouchListener() {
+        // Link button1 to code
+        Button button1 = (Button) view.findViewById(R.id.button1);
+        button1.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                switch (motionEvent.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        NodeService.SendPortMsg(context,
-                                ThingManager.Button1,
-                                ThingManager.ButtonPort,
-                                NodeService.PortValue_Boolean_True
-                        );
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        NodeService.SendPortMsg(context,
-                                ThingManager.Button1,
-                                ThingManager.ButtonPort,
-                                NodeService.PortValue_Boolean_False
-                        );
-                        break;
-                }
+                int action = motionEvent.getAction();
+                NodeService.SendPortMsg(context, ThingManager.Buttons, ThingManager.ButtonPort0,
+                        action == MotionEvent.ACTION_DOWN ? NodeService.PortValue_Boolean_True : NodeService.PortValue_Boolean_False);
+                return false;
+            }
+        });
+
+        // Link button2 to code
+        Button button2 = (Button) view.findViewById(R.id.button2);
+        button2.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                int action = motionEvent.getAction();
+                NodeService.SendPortMsg(context, ThingManager.Buttons, ThingManager.ButtonPort1,
+                        action == MotionEvent.ACTION_DOWN ? NodeService.PortValue_Boolean_True : NodeService.PortValue_Boolean_False);
+                return false;
+            }
+        });
+
+        // Link button3 to code
+        Button button3 = (Button) view.findViewById(R.id.button3);
+        button3.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                int action = motionEvent.getAction();
+                NodeService.SendPortMsg(context, ThingManager.Buttons, ThingManager.ButtonPort2,
+                        action == MotionEvent.ACTION_DOWN ? NodeService.PortValue_Boolean_True : NodeService.PortValue_Boolean_False);
                 return false;
             }
         });
@@ -82,10 +98,7 @@ public class MainActivityFragment extends Fragment {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 // Send normalize value
                 String value = Float.toString(progress / (float) seekBar.getMax());
-                NodeService.SendPortMsg(context,
-                        ThingManager.Slider1,
-                        ThingManager.SliderPort,
-                        value);
+                NodeService.SendPortMsg(context, ThingManager.Slider1, ThingManager.SliderPort, value);
             }
 
             @Override
@@ -100,15 +113,30 @@ public class MainActivityFragment extends Fragment {
         });
 
 
-        // Link the switch
-        Switch s = (Switch) view.findViewById(R.id.output_switch);
-        s.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        // Link the switches
+        Switch s1 = (Switch) view.findViewById(R.id.output_switch1);
+        s1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                // do something, the isChecked will be
-                // true if the switch is in the On position
-                NodeService.SendPortMsg(context,
-                        ThingManager.Switch1,
-                        ThingManager.ButtonPort,
+                // do something, the isChecked will be true if the switch is in the On position
+                NodeService.SendPortMsg(context, ThingManager.Switches, ThingManager.ButtonPort0,
+                        (isChecked) ? NodeService.PortValue_Boolean_True : NodeService.PortValue_Boolean_False);
+            }
+        });
+
+        Switch s2 = (Switch) view.findViewById(R.id.output_switch2);
+        s2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                // do something, the isChecked will be true if the switch is in the On position
+                NodeService.SendPortMsg(context, ThingManager.Switches, ThingManager.ButtonPort1,
+                        (isChecked) ? NodeService.PortValue_Boolean_True : NodeService.PortValue_Boolean_False);
+            }
+        });
+
+        Switch s3 = (Switch) view.findViewById(R.id.output_switch3);
+        s3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                // do something, the isChecked will be true if the switch is in the On position
+                NodeService.SendPortMsg(context, ThingManager.Switches, ThingManager.ButtonPort2,
                         (isChecked) ? NodeService.PortValue_Boolean_True : NodeService.PortValue_Boolean_False);
             }
         });
@@ -124,8 +152,12 @@ public class MainActivityFragment extends Fragment {
 
         // Link rx path
         progressBar = (ProgressBar) view.findViewById(R.id.input_progressBar);
-        inputSwitch = (Switch) view.findViewById(R.id.input_switch);
-        colorButton = (Button) view.findViewById(R.id.input_button_color);
+        inputSwitch1 = (Switch) view.findViewById(R.id.input_switch1);
+        inputSwitch2 = (Switch) view.findViewById(R.id.input_switch2);
+        inputSwitch3 = (Switch) view.findViewById(R.id.input_switch3);
+        colorButton1 = (Button) view.findViewById(R.id.input_button_color1);
+        colorButton2 = (Button) view.findViewById(R.id.input_button_color2);
+        colorButton3 = (Button) view.findViewById(R.id.input_button_color3);
 
         LocalBroadcastManager.getInstance(context).registerReceiver(mMessageReceiverNodeService,
                 new IntentFilter(NodeService.BROADCAST_THING_UPDATE));
@@ -147,31 +179,37 @@ public class MainActivityFragment extends Fragment {
                 if (action.equals(NodeService.BROADCAST_THING_UPDATE)) {
                     Bundle b = intent.getExtras();
                     int portID = b.getInt(NodeService.EXTRA_UPDATED_PORT_ID, -1);
-                    String thing = b.getString(NodeService.EXTRA_UPDATED_THING);
+                    String thingKey = b.getString(NodeService.EXTRA_UPDATED_THING_KEY);
                     String thingName = b.getString(NodeService.EXTRA_UPDATED_THING_NAME);
                     String portState = b.getString(NodeService.EXTRA_UPDATED_STATE);
                     Boolean isEvent = b.getBoolean(NodeService.EXTRA_UPDATED_ISEVENT);
-
                     Log.i(TAG, "Update from Thing:" + thingName);
 
-                    if (thing.equals(thingManager.GetThingKey(ThingManager.InputProgressBar1))) {
+                    if (thingKey.equals(thingManager.GetThingKey(ThingManager.InputProgressBar))) {
                         float progress = Float.parseFloat(portState);
-                        progressBar.setProgress((int) (progressBar.getMax() * progress));
-                    } else if (thing.equals(thingManager.GetThingKey(ThingManager.InputSwitch1))) {
-                        inputSwitch.setChecked(Boolean.parseBoolean(portState));
-                    } else if (thing.equals(thingManager.GetThingKey(ThingManager.InputColor1))) {
+                        if(progress >= 0 && progress <= 1)
+                            progressBar.setProgress((int) (progressBar.getMax() * progress));
 
-                    } else if (thing.equals(thingManager.GetThingKey(ThingManager.InputAndroidIntent))) {
+                    } else if (thingKey.equals(thingManager.GetThingKey(ThingManager.InputSwitches))) {
+                        if(portID == 0)
+                            inputSwitch1.setChecked(Boolean.parseBoolean(portState));
+                        else if(portID==1)
+                            inputSwitch2.setChecked(Boolean.parseBoolean(portState));
+                        else if(portID==2)
+                            inputSwitch3.setChecked(Boolean.parseBoolean(portState));
+
+                    } else if (thingKey.equals(thingManager.GetThingKey(ThingManager.InputColors))) {
+
+                    } else if (thingKey.equals(thingManager.GetThingKey(ThingManager.InputAndroidIntent))) {
                         if(isEvent) {
                             Intent i = new Intent(android.content.Intent.ACTION_VIEW,
                                     Uri.parse(portState));
                             startActivity(i);
                         }
                     }
-
                 }
             } catch (Exception ex) {
-                Log.e(TAG, "Failed to get update data");
+                Log.e(TAG, "Failed to get update data: " + ex.getMessage());
             }
         }
     };

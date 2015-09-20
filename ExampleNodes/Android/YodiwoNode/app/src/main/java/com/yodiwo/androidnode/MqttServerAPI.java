@@ -144,7 +144,7 @@ public class MqttServerAPI implements IServerAPI {
 
     private void InitMqttClient() {
 
-        // Create uri for mqtt and set for secure conenction
+        // Create uri for mqtt and set for secure connection
         String uri = null;
         if (settingsProvider.getMqttUseSSL()) {
             uri = "ssl://";
@@ -333,16 +333,16 @@ public class MqttServerAPI implements IServerAPI {
         public void onSuccess(IMqttToken iMqttToken) {
             switch (action) {
                 case CONNECT:
-                    connect();
+                    OnConnected();
                     break;
                 case DISCONNECT:
-                    disconnect();
+                    OnDisconnected();
                     break;
                 case SUBSCRIBE:
-                    subscribe();
+                    OnSubscribed();
                     break;
                 case PUBLISH:
-                    publish();
+                    OnPublish();
                     break;
             }
         }
@@ -352,23 +352,23 @@ public class MqttServerAPI implements IServerAPI {
         public void onFailure(IMqttToken iMqttToken, Throwable exception) {
             switch (action) {
                 case CONNECT:
-                    connect(exception);
+                    OnConnectFailed(exception);
                     break;
                 case DISCONNECT:
-                    disconnect(exception);
+                    OnDisconnected(exception);
                     break;
                 case SUBSCRIBE:
-                    subscribe(exception);
+                    OnSubscribed(exception);
                     break;
                 case PUBLISH:
-                    publish(exception);
+                    OnPublish(exception);
                     break;
             }
         }
 
         // -----------------------------------------------------------------------------------------
         // Internal functions for status
-        private void connect() {
+        private void OnConnected() {
             connectionStatus = ConnectionStatus.CONNECTED;
             Log.d(TAG, "MQTT new status:" + connectionStatus);
 
@@ -379,14 +379,14 @@ public class MqttServerAPI implements IServerAPI {
             }
         }
 
-        private void connect(Throwable exception) {
+        private void OnConnectFailed(Throwable exception) {
             connectionStatus = ConnectionStatus.ERROR;
 
             Log.d(TAG, "MQTT new status:" + connectionStatus + " error:" + exception.getMessage());
         }
 
         // -----------------------------------------------------------------------------------------
-        private void disconnect() {
+        private void OnDisconnected() {
             connectionStatus = ConnectionStatus.DISCONNECTED;
             Log.d(TAG, "MQTT new status:" + connectionStatus);
 
@@ -395,7 +395,7 @@ public class MqttServerAPI implements IServerAPI {
             NodeService.ReceiveConnStatus(context, false);
         }
 
-        private void disconnect(Throwable exception) {
+        private void OnDisconnected(Throwable exception) {
             connectionStatus = ConnectionStatus.DISCONNECTED;
             Log.d(TAG, "MQTT new status:" + connectionStatus);
 
@@ -405,11 +405,11 @@ public class MqttServerAPI implements IServerAPI {
         }
 
         // -----------------------------------------------------------------------------------------
-        private void subscribe() {
-            Log.e(TAG, "Success subscribe to " + additionalArgs + ".");
+        private void OnSubscribed() {
+            Log.e(TAG, "Successful subscribe to " + additionalArgs + ".");
         }
 
-        private void subscribe(Throwable exception) {
+        private void OnSubscribed(Throwable exception) {
             Log.e(TAG, "Failed to subscribe to " + additionalArgs + ".");
 
             // If we failed to subscribe rx path set the variable
@@ -419,11 +419,11 @@ public class MqttServerAPI implements IServerAPI {
         }
 
         // -----------------------------------------------------------------------------------------
-        private void publish() {
-            Log.e(TAG, "Success publish to " + additionalArgs + ".");
+        private void OnPublish() {
+            Log.e(TAG, "Successful publish to " + additionalArgs + ".");
         }
 
-        private void publish(Throwable exception) {
+        private void OnPublish(Throwable exception) {
             Log.e(TAG, "Failed to publish to " + additionalArgs + ".");
         }
         // -----------------------------------------------------------------------------------------
