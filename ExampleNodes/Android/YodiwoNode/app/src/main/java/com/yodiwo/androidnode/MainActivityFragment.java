@@ -199,7 +199,16 @@ public class MainActivityFragment extends Fragment {
                             inputSwitch3.setChecked(Boolean.parseBoolean(portState));
 
                     } else if (thingKey.equals(thingManager.GetThingKey(ThingManager.InputColors))) {
+                        double val = Double.parseDouble(portState);
+                        int color = 0xff000000 | (int)((double)0xffffff * val);
 
+                        if(portID == 0) {
+                            colorButton1.setBackgroundColor(color);
+                        } else if(portID == 1) {
+                            colorButton2.setBackgroundColor(color);
+                        } else if(portID == 2) {
+                            colorButton3.setBackgroundColor(color);
+                        }
                     } else if (thingKey.equals(thingManager.GetThingKey(ThingManager.InputAndroidIntent))) {
                         if(isEvent) {
                             Intent i = new Intent(android.content.Intent.ACTION_VIEW,
