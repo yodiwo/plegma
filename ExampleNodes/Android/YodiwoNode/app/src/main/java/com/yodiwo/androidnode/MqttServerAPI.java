@@ -19,6 +19,9 @@ import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.MqttSecurityException;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 
 public class MqttServerAPI extends aServerAPI {
     // =============================================================================================
@@ -26,6 +29,9 @@ public class MqttServerAPI extends aServerAPI {
 
     public static final String TAG = MqttServerAPI.class.getSimpleName();
 
+    private static boolean connectionRetrying = false;
+
+    private static final int RECONNECT_PERIOD = 2 * 1000; //2 sec
 
     // Keep local global entry point for any request with Server.
     private static MqttServerAPI server = null;
@@ -243,6 +249,29 @@ public class MqttServerAPI extends aServerAPI {
     }
 
     // =============================================================================================
+    // MQTT Reconnection mechanism
+    //
+    private class ReconnectTask extends TimerTask {
+
+        @Override
+        public void run() {
+            Log.i(TAG, "Trying to reconnect to MQTT");
+            //Toast.makeText(context, "MQTT connection retry", Toast.LENGTH_SHORT).show();
+            Connect();
+            connectionRetrying = false;
+        }
+    }
+
+    private void InitiateReconnectTry() {
+        if(!connectionRetrying) {
+            connectionRetrying = true;
+            Timer timer = new Timer();
+            timer.schedule(new ReconnectTask(), RECONNECT_PERIOD);
+        }
+    }
+
+
+    // =============================================================================================
     // MQTT Callback handler
 
     private class MqttCallbackHandler implements MqttCallback {
@@ -268,6 +297,9 @@ public class MqttServerAPI extends aServerAPI {
                 //send notification of disconnection to Node Service
                 RxStarted = false;
                 NodeService.ReceiveConnStatus(context, false);
+
+                //Initiate reconnection procedure
+                InitiateReconnectTry();
             }
         }
 
@@ -405,6 +437,7 @@ public class MqttServerAPI extends aServerAPI {
             Toast.makeText(context, "MQTT connection failed", Toast.LENGTH_SHORT).show();
 
             Log.d(TAG, "MQTT new status:" + connectionStatus + " error:" + exception.getMessage());
+            InitiateReconnectTry();
         }
 
         // -----------------------------------------------------------------------------------------
