@@ -101,8 +101,9 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
             // TODO: Show message box that we are not paired and offer to take to pairing page
             Toast.makeText(this, "The app is currently not paired to Yodiwo Cloud Services", Toast.LENGTH_SHORT).show();
         } else {
-            // Start rx for things
-            NodeService.StartRx(this);
+
+            // Tell NodeService to handle Resuming itself
+            NodeService.Resume(this);
 
             // Get from defines what we need to enable
             NodeService.StartService(this, SensorsListener.SensorType.Accelerometer);
@@ -114,11 +115,6 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
             // Request update location
             if(locationManager!=null)
                 locationManager.requestLocationUpdates(bestGPSProvider, 20000, 1, this);
-
-            //NodeService.RegisterNode(this, false);
-
-            // Request the state of the things in the cloud
-            //NodeService.RequestUpdatedState(this);
         }
     }
 
@@ -136,8 +132,8 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
             NodeService.StopService(this, SensorsListener.SensorType.Accelerometer);
             NodeService.StopService(this, SensorsListener.SensorType.Brightness);
 
-            // Stop rx for things
-            NodeService.StopRx(this);
+            // Tell NodeService to handle Pausing itself
+            NodeService.Pause(this);
         }
 
         super.onPause();

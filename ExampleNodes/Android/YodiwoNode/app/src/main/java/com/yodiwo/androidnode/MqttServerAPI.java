@@ -2,6 +2,7 @@ package com.yodiwo.androidnode;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.yodiwo.plegma.MqttAPIMessage;
@@ -19,7 +20,7 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.MqttSecurityException;
 
 
-public class MqttServerAPI implements IServerAPI {
+public class MqttServerAPI extends aServerAPI {
     // =============================================================================================
     // Static
 
@@ -41,15 +42,17 @@ public class MqttServerAPI implements IServerAPI {
     // =============================================================================================
     // Instance code
 
-    private Context context;
-    private SettingsProvider settingsProvider;
     private Gson gson = new Gson();
 
     public MqttServerAPI(Context context) {
         this.context = context;
-        settingsProvider = SettingsProvider.getInstance(context);
+        this.settingsProvider = SettingsProvider.getInstance(context);
 
         Log.d(TAG, "Starting MQTT server API.");
+
+        RxActive = false;
+        TxActive = false;
+        RequestConnectivityUiUpdate();
 
         InitMqttClient();
     }
@@ -112,6 +115,8 @@ public class MqttServerAPI implements IServerAPI {
     @Override
     public void StartRx() {
         RxEnabled = true;
+        RequestConnectivityUiUpdate();
+
         if (connectionStatus == ConnectionStatus.CONNECTED) {
             _startRx();
         }
@@ -122,12 +127,18 @@ public class MqttServerAPI implements IServerAPI {
     @Override
     public void StopRx() {
         RxEnabled = false;
-        // Unsubscripe
+        RequestConnectivityUiUpdate();
+
+        // Unsubscribe
         if (RxStarted) {
-            mqttClient.unregisterResources();
             RxStarted = false;
 
-            // TODO: Stop RX.....
+            try {
+                mqttClient.unsubscribe(mqttSubTopicPrefix + "#");
+                mqttClient.unregisterResources();
+            } catch (MqttException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -245,11 +256,16 @@ public class MqttServerAPI implements IServerAPI {
         @Override
         public void connectionLost(Throwable throwable) {
             if (throwable != null) {
-                connectionStatus = ConnectionStatus.DISCONNECTED;
-
                 Log.e(TAG, "We have lost MQTT connection.");
 
-                // if we disconnected kill and the rx path
+                connectionStatus = ConnectionStatus.DISCONNECTED;
+
+                //update UI
+                RxActive = false;
+                TxActive = false;
+                RequestConnectivityUiUpdate();
+
+                //send notification of disconnection to Node Service
                 RxStarted = false;
                 NodeService.ReceiveConnStatus(context, false);
             }
@@ -372,41 +388,58 @@ public class MqttServerAPI implements IServerAPI {
             connectionStatus = ConnectionStatus.CONNECTED;
             Log.d(TAG, "MQTT new status:" + connectionStatus);
 
-            NodeService.ReceiveConnStatus(context, true);
+            TxActive = true;
+            RequestConnectivityUiUpdate();
+
             // check for pending subscription
             if (RxEnabled) {
                 _startRx();
             }
+
+            NodeService.ReceiveConnStatus(context, true);
         }
 
         private void OnConnectFailed(Throwable exception) {
             connectionStatus = ConnectionStatus.ERROR;
 
+            Toast.makeText(context, "MQTT connection failed", Toast.LENGTH_SHORT).show();
+
             Log.d(TAG, "MQTT new status:" + connectionStatus + " error:" + exception.getMessage());
         }
 
         // -----------------------------------------------------------------------------------------
-        private void OnDisconnected() {
+        private void _onDisconnected() {
             connectionStatus = ConnectionStatus.DISCONNECTED;
-            Log.d(TAG, "MQTT new status:" + connectionStatus);
+
+            Toast.makeText(context, "MQTT disconnected", Toast.LENGTH_SHORT).show();
+
+            TxActive = false;
+            RxActive = false;
+            RequestConnectivityUiUpdate();
 
             // if we disconnected kill and the rx path
             RxStarted = false;
             NodeService.ReceiveConnStatus(context, false);
         }
+        // -----------------------------------------------------------------------------------------
+        private void OnDisconnected() {
+            Log.d(TAG, "Successful MQTT disconnection by request");
+            _onDisconnected();
+        }
 
         private void OnDisconnected(Throwable exception) {
-            connectionStatus = ConnectionStatus.DISCONNECTED;
-            Log.d(TAG, "MQTT new status:" + connectionStatus);
+            Log.d(TAG, "Disconnection request failed with exception: " + exception.getMessage());
 
-            // if we disconnected kill and the rx path
-            RxStarted = false;
-            NodeService.ReceiveConnStatus(context, false);
+            //we tried to disconnect and failed? what does this even mean?
+            _onDisconnected();
         }
 
         // -----------------------------------------------------------------------------------------
         private void OnSubscribed() {
             Log.e(TAG, "Successful subscribe to " + additionalArgs + ".");
+
+            RxActive = true;
+            RequestConnectivityUiUpdate();
         }
 
         private void OnSubscribed(Throwable exception) {
@@ -425,6 +458,8 @@ public class MqttServerAPI implements IServerAPI {
 
         private void OnPublish(Throwable exception) {
             Log.e(TAG, "Failed to publish to " + additionalArgs + ".");
+
+            //TxActive = false; //check...
         }
         // -----------------------------------------------------------------------------------------
     }

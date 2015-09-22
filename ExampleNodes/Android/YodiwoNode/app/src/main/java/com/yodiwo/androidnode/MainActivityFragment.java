@@ -4,7 +4,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -19,6 +18,7 @@ import android.widget.CompoundButton;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.Switch;
+import android.widget.TextView;
 
 
 /**
@@ -41,6 +41,9 @@ public class MainActivityFragment extends Fragment {
     private Button colorButton1;
     private Button colorButton2;
     private Button colorButton3;
+
+    private TextView outputStr;
+    private TextView inputStr;
 
     public MainActivityFragment() {
     }
@@ -159,8 +162,19 @@ public class MainActivityFragment extends Fragment {
         colorButton2 = (Button) view.findViewById(R.id.input_button_color2);
         colorButton3 = (Button) view.findViewById(R.id.input_button_color3);
 
-        LocalBroadcastManager.getInstance(context).registerReceiver(mMessageReceiverNodeService,
+        LocalBroadcastManager.getInstance(context).registerReceiver(mMessageReceiverMainActivityService,
                 new IntentFilter(NodeService.BROADCAST_THING_UPDATE));
+
+        // UI elements to signify connectivity
+        outputStr = (TextView) view.findViewById(R.id.textView);
+        inputStr = (TextView) view.findViewById(R.id.textView2);
+
+        //start out greyed out (no connection)
+        outputStr.setAlpha(0.3f);
+        inputStr.setAlpha(0.3f);
+
+        LocalBroadcastManager.getInstance(context).registerReceiver(mMessageReceiverMainActivityService,
+                new IntentFilter(aServerAPI.CONNECTIVITY_UI_UPDATE));
 
         return view;
     }
@@ -169,7 +183,7 @@ public class MainActivityFragment extends Fragment {
     // =============================================================================================
     // Events from background services
 
-    private BroadcastReceiver mMessageReceiverNodeService = new BroadcastReceiver() {
+    private BroadcastReceiver mMessageReceiverMainActivityService = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
@@ -182,7 +196,7 @@ public class MainActivityFragment extends Fragment {
                     String thingKey = b.getString(NodeService.EXTRA_UPDATED_THING_KEY);
                     String thingName = b.getString(NodeService.EXTRA_UPDATED_THING_NAME);
                     String portState = b.getString(NodeService.EXTRA_UPDATED_STATE);
-                    Boolean isEvent = b.getBoolean(NodeService.EXTRA_UPDATED_ISEVENT);
+                    Boolean isEvent = b.getBoolean(NodeService.EXTRA_UPDATED_IS_EVENT);
                     Log.i(TAG, "Update from Thing:" + thingName);
 
                     if (thingKey.equals(thingManager.GetThingKey(ThingManager.InputProgressBar))) {
@@ -216,6 +230,13 @@ public class MainActivityFragment extends Fragment {
                             startActivity(i);
                         }
                     }
+                } else if (action.equals(aServerAPI.CONNECTIVITY_UI_UPDATE)) {
+                    Bundle b = intent.getExtras();
+                    Boolean rxActive = b.getBoolean(aServerAPI.EXTRA_UPDATED_RX_STATE);
+                    Boolean txActive = b.getBoolean(aServerAPI.EXTRA_UPDATED_TX_STATE);
+
+                    outputStr.setAlpha(txActive ? 1.0f : 0.3f);
+                    inputStr.setAlpha(rxActive ? 1.0f : 0.3f);
                 }
             } catch (Exception ex) {
                 Log.e(TAG, "Failed to get update data: " + ex.getMessage());

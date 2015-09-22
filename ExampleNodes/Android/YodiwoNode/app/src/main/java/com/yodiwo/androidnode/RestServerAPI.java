@@ -6,7 +6,7 @@ import android.util.Log;
 import com.yodiwo.plegma.ApiRestAccess;
 
 
-public class RestServerAPI implements IServerAPI {
+public class RestServerAPI extends aServerAPI {
 
     // =============================================================================================
     // Static
@@ -28,8 +28,6 @@ public class RestServerAPI implements IServerAPI {
     // =============================================================================================
     // Instance code
 
-    private Context context;
-    private SettingsProvider settingsProvider;
     private ApiRestAccess apiRestAccess;
 
 

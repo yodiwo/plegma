@@ -53,8 +53,8 @@ public class NodeService extends IntentService {
     public static final int REQUEST_SERVICE_START = 5;
     public static final int REQUEST_SERVICE_STOP = 6;
 
-    private static final int REQUEST_RX_START = 10;
-    private static final int REQUEST_RX_STOP = 11;
+    private static final int REQUEST_RESUME = 10;
+    private static final int REQUEST_PAUSE = 11;
     private static final int REQUEST_RX_UPDATE = 12;
     private static final int REQUEST_RX_MSG = 15;
 
@@ -66,8 +66,8 @@ public class NodeService extends IntentService {
     public static final String EXTRA_UPDATED_THING_NAME = "EXTRA_UPDATED_THING_NAME";
     public static final String EXTRA_UPDATED_PORT_ID = "EXTRA_UPDATED_PORT_ID";
     public static final String EXTRA_UPDATED_STATE = "EXTRA_UPDATED_STATE";
-    // This indicate that the update is event or a starting point
-    public static final String EXTRA_UPDATED_ISEVENT = "EXTRA_UPDATED_ISEVENT";
+    // This indicates whether the update is a new event or a starting point
+    public static final String EXTRA_UPDATED_IS_EVENT = "EXTRA_UPDATED_IS_EVENT";
 
     public static final String EXTRA_RX_TOPIC = "EXTRA_REQUEST_TOPIC";
     public static final String EXTRA_RX_MSG = "EXTRA_REQUEST_MSG";
@@ -83,7 +83,7 @@ public class NodeService extends IntentService {
 
     private static Boolean thingsRegistered = false;
 
-    private IServerAPI serverAPI = null;
+    private aServerAPI serverAPI = null;
     private SettingsProvider settingsProvider;
     private static HashMap<String, Thing> thingHashMap = new HashMap<String, Thing>();
     private int SendSeqNum = 0;
@@ -99,7 +99,6 @@ public class NodeService extends IntentService {
     private SensorsListener sensorsListener = null;
 
     private Boolean serverIsConnected = false;
-    private static Boolean pendingSendNodes = false;
 
     public NodeService() {
         super("NodeService");
@@ -114,7 +113,7 @@ public class NodeService extends IntentService {
 
         settingsProvider = SettingsProvider.getInstance(getApplicationContext());
 
-        // Init server api and select MQTT of REST transport
+        // Init server api and select MQTT or REST transport
         if (serverAPI == null) {
             if (settingsProvider.getServerTransport() == SettingsProvider.ServerAPITransport.REST)
                 serverAPI = RestServerAPI.getInstance(getApplicationContext());
@@ -146,7 +145,6 @@ public class NodeService extends IntentService {
             // -------------------------------------
             case REQUEST_SENDNODES:
                 SendNodes(settingsProvider);
-                pendingSendNodes = true;
                 break;
             // -------------------------------------
             case REQUEST_CLEANTHINGS: {
@@ -195,12 +193,12 @@ public class NodeService extends IntentService {
             }
             break;
             // -------------------------------------
-            case REQUEST_RX_START: {
+            case REQUEST_RESUME: {
                 serverAPI.StartRx();
             }
             break;
             // -------------------------------------
-            case REQUEST_RX_STOP: {
+            case REQUEST_PAUSE: {
                 serverAPI.StopRx();
             }
             break;
@@ -239,30 +237,19 @@ public class NodeService extends IntentService {
                     if (!serverIsConnected) {
                         serverIsConnected = true;
 
-                        StartNode();
-                    }
-                } else {
-                    if(serverIsConnected) {
-                        serverIsConnected = false;
+                        NodeService.RegisterNode(this, false);
 
-                        StopNode();
+                            // Request the state of the things in the cloud
+                            NodeService.RequestUpdatedState(this);
+                        }
+                    } else {
+                        if(serverIsConnected) {
+                            serverIsConnected = false;
                     }
                 }
                 break;
             }
         }
-    }
-
-    private void StartNode(){
-
-        NodeService.RegisterNode(this, false);
-
-        // Request the state of the things in the cloud
-        NodeService.RequestUpdatedState(this);
-    }
-
-    private void StopNode(){
-
     }
 
 
@@ -350,7 +337,7 @@ public class NodeService extends IntentService {
                 intent.putExtra(EXTRA_UPDATED_THING_NAME, localT.Name);
                 intent.putExtra(EXTRA_UPDATED_PORT_ID, localT.Ports.indexOf(localP));
                 intent.putExtra(EXTRA_UPDATED_STATE, localP.State);
-                intent.putExtra(EXTRA_UPDATED_ISEVENT, false);
+                intent.putExtra(EXTRA_UPDATED_IS_EVENT, false);
 
                 LocalBroadcastManager
                         .getInstance(getApplicationContext())
@@ -378,6 +365,8 @@ public class NodeService extends IntentService {
         return null;
     }
 
+    // ---------------------------------------------------------------------------------------------
+
     private void RxPortEventMsg(PortEventMsg msg) {
         // Now we need to find any changes and update the UI
         for (PortEvent pmsg : msg.PortEvents) {
@@ -397,7 +386,7 @@ public class NodeService extends IntentService {
             intent.putExtra(EXTRA_UPDATED_THING_NAME, localT.Name);
             intent.putExtra(EXTRA_UPDATED_PORT_ID, localT.Ports.indexOf(localP));
             intent.putExtra(EXTRA_UPDATED_STATE, localP.State);
-            intent.putExtra(EXTRA_UPDATED_ISEVENT, true);
+            intent.putExtra(EXTRA_UPDATED_IS_EVENT, true);
 
             LocalBroadcastManager
                     .getInstance(getApplicationContext())
@@ -589,18 +578,18 @@ public class NodeService extends IntentService {
 
     // ---------------------------------------------------------------------------------------------
 
-    public static void StartRx(Context context) {
+    public static void Resume(Context context) {
         Intent intent = new Intent(context, NodeService.class);
-        intent.putExtra(EXTRA_REQUEST_TYPE, REQUEST_RX_START);
+        intent.putExtra(EXTRA_REQUEST_TYPE, REQUEST_RESUME);
         context.startService(intent);
-        Log.d(TAG, "DEBUG RX Start");
+        Log.d(TAG, "DEBUG Node Service Resumed");
     }
 
-    public static void StopRx(Context context) {
+    public static void Pause(Context context) {
         Intent intent = new Intent(context, NodeService.class);
-        intent.putExtra(EXTRA_REQUEST_TYPE, REQUEST_RX_STOP);
+        intent.putExtra(EXTRA_REQUEST_TYPE, REQUEST_PAUSE);
         context.startService(intent);
-        Log.d(TAG, "DEBUG RX Stop");
+        Log.d(TAG, "DEBUG Node Service Paused");
     }
 
     // ---------------------------------------------------------------------------------------------
