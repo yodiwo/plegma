@@ -75,6 +75,7 @@
 
                              if (error != nil) {
                                  NSLog(@"NodePairingService: YABPairingNodeGetTokensRequest error: %ld", (long)error.code);
+                                 completionHandler(nil);
                                  return;
                              }
 
@@ -86,6 +87,7 @@
 
                              if (tokens == nil || [tokens.token1 isEqualToString:@""] || [tokens.token2 isEqualToString:@""]) {
                                  NSLog(@"NodePairingService: Error getting tokens");
+                                 completionHandler(nil);
                                  return;
                              }
 

@@ -60,6 +60,7 @@
     self.mqttClient.host = [[SettingsVault sharedSettingsVault] getMqttParamsBrokerAddress];
 
     [self setMessageHandler];
+    [self setDisconnectionHandler];
     [self connect];
     [self subscribe];
 }
@@ -67,9 +68,7 @@
 // Disconnect client from MQTT broker
 - (void)disconnect{
 
-    [self.mqttClient disconnectWithCompletionHandler:^(NSUInteger code) {
-        NSLog(@"MQTT client: disconnected from broker");
-    }];
+    //[self.mqttClient disconnectWithCompletionHandler:disconnectionHandler];
 }
 
 // Connect client to MQTT broker
@@ -79,9 +78,16 @@
                  completionHandler:^(MQTTConnectionReturnCode code) {
         if (code == ConnectionAccepted) {
             NSLog(@"MQTT client: connected with id: %@", self.mqttClient.clientID);
+
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [[NSNotificationCenter defaultCenter]
+                 postNotificationName:@"yodiwoConnectedToCloudServiceNotification"
+                 object:self
+                 userInfo:nil];
+            });
         }
         else {
-            NSLog(@"MQTT client: error connecting to broker: %lu", (unsigned long)code);
+            NSLog(@"MQTT client: error connecting to broker --> code: %lu", (unsigned long)code);
         }
     }];
 }
@@ -95,14 +101,12 @@
 
                  NSLog(@"MQTT client: subscribed to topic: %@ (QoS ==> %@)",
                        [self subscribeTopic], grantedQos[0]);
-
-                 dispatch_async(dispatch_get_main_queue(), ^{
-                     [[NSNotificationCenter defaultCenter]
-                        postNotificationName:@"yodiwoConnectedToCloudServiceNotification"
-                                      object:self
-                                    userInfo:nil];
-                 });
     }];
+}
+
+// Set disconnection handler
+-(void)setDisconnectionHandler {
+    [self.mqttClient setDisconnectionHandler:disconnectionHandler];
 }
 
 - (void)setMessageHandler {
@@ -133,5 +137,18 @@
                  NSLog(@"Published message id: %d topic:%@ msg: %@", mid, topic, msg);
     }];
 }
+
+// Handler blocks
+MQTTDisconnectionHandler disconnectionHandler = ^(NSUInteger code) {
+
+    NSLog(@"MQTT client: disconnected from broker --> code: %ld", (unsigned long)code);
+
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[NSNotificationCenter defaultCenter]
+         postNotificationName:@"yodiwoDisconnectedFromCloudServiceNotification"
+         object:nil
+         userInfo:nil];
+    });
+};
 
 @end

@@ -11,6 +11,7 @@
 #import "NodeThingsRegistry.h"
 #import "SettingsVault.h"
 
+#import "TWMessageBarManager.h"
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import <AVFoundation/AVFoundation.h>
@@ -29,6 +30,11 @@
 @property (weak, nonatomic) IBOutlet UISlider *thingInVirtualSlider;
 @property (weak, nonatomic) IBOutlet UIButton *thingOutVirtualLight1;
 @property (weak, nonatomic) IBOutlet UIButton *thingOutVirtualLight2;
+@property (strong, nonatomic) IBOutlet UIView *hubThingsSceneView;
+
+@property BOOL initialConnectionToCloudServicePending;
+@property (strong, nonatomic) UIView *uiDisabledEmptyView;
+
 @end
 
 
@@ -89,11 +95,29 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    self.uiDisabledEmptyView = [[UIView alloc] initWithFrame:
+                                CGRectMake(0,
+                                           0,
+                                           [[UIScreen mainScreen] bounds].size.width,
+                                           [[UIScreen mainScreen] bounds].size.height)];
+    [self.uiDisabledEmptyView  setBackgroundColor:[UIColor blackColor]];
+    [self.uiDisabledEmptyView setAlpha:0.7];
+
+    // Disable user interaction until connected to cloud service
+    self.initialConnectionToCloudServicePending = YES;
+    [self.hubThingsSceneView setUserInteractionEnabled:NO];
+    [self.view addSubview:self.uiDisabledEmptyView];
+
     [[NodeController sharedNodeController] populateNodeThingsRegistry];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(yodiwoConnectedToCloudServiceNotification:)
                                                  name:@"yodiwoConnectedToCloudServiceNotification"
+                                               object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(yodiwoDisconnectedFromCloudServiceNotification:)
+                                                 name:@"yodiwoDisconnectedFromCloudServiceNotification"
                                                object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -183,14 +207,47 @@
 
 - (void)yodiwoConnectedToCloudServiceNotification:(NSNotification *)notification {
 
-    // Start location manager module
-    [[NodeController sharedNodeController] startLocationManagerModule];
+    // Enable user interaction and inform user
+    [self.hubThingsSceneView setUserInteractionEnabled:YES];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"Node info:"
+                                                       description:@"Connected to cloud service!"
+                                                              type:TWMessageBarMessageTypeSuccess
+                                                          duration:3.0];
+    });
 
-    // Start motion manager module
-    [[NodeController sharedNodeController] startMotionManagerModule];
+    if (self.initialConnectionToCloudServicePending == YES) {
+        // Start location manager module
+        [[NodeController sharedNodeController] startLocationManagerModule];
 
-    // Shoulder-tap cloud service and introduce this node
-    [[NodeController sharedNodeController] sendNodeThingsMsg];
+        // Start motion manager module
+        [[NodeController sharedNodeController] startMotionManagerModule];
+
+        // Shoulder-tap cloud service and introduce this node
+        [[NodeController sharedNodeController] sendNodeThingsMsg];
+
+        self.initialConnectionToCloudServicePending = NO;
+    }
+
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.uiDisabledEmptyView removeFromSuperview];
+    });
+}
+
+- (void)yodiwoDisconnectedFromCloudServiceNotification:(NSNotification *)notification {
+
+    // Disable user interaction and inform user
+    [self.hubThingsSceneView setUserInteractionEnabled:NO];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"Node info:"
+                                                       description:@"Disconnected from cloud service!"
+                                                              type:TWMessageBarMessageTypeError
+                                                          duration:3.0];
+    });
+
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.view addSubview:self.uiDisabledEmptyView];
+    });
 }
 
 - (void)yodiwoThingUpdateNotification:(NSNotification *)notification {
