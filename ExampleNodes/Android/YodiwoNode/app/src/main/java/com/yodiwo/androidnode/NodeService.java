@@ -128,116 +128,117 @@ public class NodeService extends IntentService {
             sensorsListener = SensorsListener.getInstance(getApplicationContext());
 
         Bundle bundle = intent.getExtras();
-        int request_type = bundle.getInt(EXTRA_REQUEST_TYPE);
-        switch (request_type) {
-            // -------------------------------------
-            case REQUEST_SERVICE_START: {
-                SensorsListener.SensorType type = (SensorsListener.SensorType) bundle.getSerializable(EXTRA_SERVICE_TYPE);
-                sensorsListener.StartService(type);
-            }
-            break;
-            // -------------------------------------
-            case REQUEST_SERVICE_STOP: {
-                SensorsListener.SensorType type = (SensorsListener.SensorType) bundle.getSerializable(EXTRA_SERVICE_TYPE);
-                sensorsListener.StopService(type);
-            }
-            break;
-            // -------------------------------------
-            case REQUEST_SENDNODES:
-                SendNodes(settingsProvider);
+        try {
+            int request_type = bundle.getInt(EXTRA_REQUEST_TYPE);
+            switch (request_type) {
+                // -------------------------------------
+                case REQUEST_SERVICE_START: {
+                    SensorsListener.SensorType type = (SensorsListener.SensorType) bundle.getSerializable(EXTRA_SERVICE_TYPE);
+                    sensorsListener.StartService(type);
+                }
                 break;
-            // -------------------------------------
-            case REQUEST_CLEANTHINGS: {
-                thingHashMap.clear();
-                PortKeyToThingsHashMap.clear();
-            }
-            break;
-            // -------------------------------------
-            case REQUEST_ADDTHING: {
-                Thing thing = new Gson().fromJson(bundle.getString(EXTRA_THING), Thing.class);
-                thingHashMap.put(thing.ThingKey, thing);
-
-                for (Port p : thing.Ports) {
-                    if (!PortKeyToThingsHashMap.containsKey(p.PortKey))
-                        PortKeyToThingsHashMap.remove(p.PortKey);
-                    PortKeyToThingsHashMap.put(p.PortKey, thing);
-
-                    if (!PortKeyToPortHashMap.containsKey(p.PortKey))
-                        PortKeyToPortHashMap.remove(p.PortKey);
-                    PortKeyToPortHashMap.put(p.PortKey, p);
+                // -------------------------------------
+                case REQUEST_SERVICE_STOP: {
+                    SensorsListener.SensorType type = (SensorsListener.SensorType) bundle.getSerializable(EXTRA_SERVICE_TYPE);
+                    sensorsListener.StopService(type);
                 }
-            }
-            break;
-            // -------------------------------------
-            case REQUEST_PORTMSG: {
-                String thingName = bundle.getString(EXTRA_THING_NAME);
-                Thing thing = thingHashMap.get(ThingKey.CreateKey(settingsProvider.getNodeKey(), thingName));
-                int portIndex = bundle.getInt(EXTRA_PORT_INDEX);
-                String data = bundle.getString(EXTRA_PORT_DATA);
-                SendPortMsg(thing, portIndex, data);
-            }
-            break;
-            // -------------------------------------
-            case REQUEST_PORTMSG_ARRAY: {
-                String thingName = bundle.getString(EXTRA_THING_NAME);
-                Thing thing = thingHashMap.get(ThingKey.CreateKey(settingsProvider.getNodeKey(), thingName));
-                String[] data = new Gson().fromJson(bundle.getString(EXTRA_PORT_DATA_ARRAY), String[].class);
-                SendPortMsg(thing, data);
-            }
-            break;
-            // -------------------------------------
-            case REQUEST_RX_MSG: {
-                String msg = bundle.getString(EXTRA_RX_MSG);
-                String topic = bundle.getString(EXTRA_RX_TOPIC);
-                HandleRxMsg(topic, msg);
-            }
-            break;
-            // -------------------------------------
-            case REQUEST_RESUME: {
-                serverAPI.StartRx();
-            }
-            break;
-            // -------------------------------------
-            case REQUEST_PAUSE: {
-                serverAPI.StopRx();
-            }
-            break;
-            // -------------------------------------
-            case REQUEST_RX_UPDATE: {
-                // TODO: Update code for rxUpdate
-                /*
-                if (!serverAPI.SendNodeThingsReq(new NodeThingsReq(
-                        null,
-                        eNodeThingsOperation.Get,
-                        null,
-                        settingsProvider.getNodeKey(),
-                        settingsProvider.getNodeSecretKey(),
-                        APIVersion,
-                        0))) {
-                    // We failed to send the request wait 250MS and try again
-                    // most probably we are not connected to server !!!!
-                    // TODO: find better way to handle retransmitions
-                    new Thread(new Runnable() {
-                        public void run() {
-                            try {
-                                Thread.sleep(250);
-                            } catch (Exception ex) {
+                break;
+                // -------------------------------------
+                case REQUEST_SENDNODES:
+                    SendNodes(settingsProvider);
+                    break;
+                // -------------------------------------
+                case REQUEST_CLEANTHINGS: {
+                    thingHashMap.clear();
+                    PortKeyToThingsHashMap.clear();
+                }
+                break;
+                // -------------------------------------
+                case REQUEST_ADDTHING: {
+                    Thing thing = new Gson().fromJson(bundle.getString(EXTRA_THING), Thing.class);
+                    thingHashMap.put(thing.ThingKey, thing);
+
+                    for (Port p : thing.Ports) {
+                        if (!PortKeyToThingsHashMap.containsKey(p.PortKey))
+                            PortKeyToThingsHashMap.remove(p.PortKey);
+                        PortKeyToThingsHashMap.put(p.PortKey, thing);
+
+                        if (!PortKeyToPortHashMap.containsKey(p.PortKey))
+                            PortKeyToPortHashMap.remove(p.PortKey);
+                        PortKeyToPortHashMap.put(p.PortKey, p);
+                    }
+                }
+                break;
+                // -------------------------------------
+                case REQUEST_PORTMSG: {
+                    String thingName = bundle.getString(EXTRA_THING_NAME);
+                    Thing thing = thingHashMap.get(ThingKey.CreateKey(settingsProvider.getNodeKey(), thingName));
+                    int portIndex = bundle.getInt(EXTRA_PORT_INDEX);
+                    String data = bundle.getString(EXTRA_PORT_DATA);
+                    SendPortMsg(thing, portIndex, data);
+                }
+                break;
+                // -------------------------------------
+                case REQUEST_PORTMSG_ARRAY: {
+                    String thingName = bundle.getString(EXTRA_THING_NAME);
+                    Thing thing = thingHashMap.get(ThingKey.CreateKey(settingsProvider.getNodeKey(), thingName));
+                    String[] data = new Gson().fromJson(bundle.getString(EXTRA_PORT_DATA_ARRAY), String[].class);
+                    SendPortMsg(thing, data);
+                }
+                break;
+                // -------------------------------------
+                case REQUEST_RX_MSG: {
+                    String msg = bundle.getString(EXTRA_RX_MSG);
+                    String topic = bundle.getString(EXTRA_RX_TOPIC);
+                    HandleRxMsg(topic, msg);
+                }
+                break;
+                // -------------------------------------
+                case REQUEST_RESUME: {
+                    serverAPI.StartRx();
+                }
+                break;
+                // -------------------------------------
+                case REQUEST_PAUSE: {
+                    serverAPI.StopRx();
+                }
+                break;
+                // -------------------------------------
+                case REQUEST_RX_UPDATE: {
+                    // TODO: Update code for rxUpdate
+                    /*
+                    if (!serverAPI.SendNodeThingsReq(new NodeThingsReq(
+                            null,
+                            eNodeThingsOperation.Get,
+                            null,
+                            settingsProvider.getNodeKey(),
+                            settingsProvider.getNodeSecretKey(),
+                            APIVersion,
+                            0))) {
+                        // We failed to send the request wait 250MS and try again
+                        // most probably we are not connected to server !!!!
+                        // TODO: find better way to handle retransmissions
+                        new Thread(new Runnable() {
+                            public void run() {
+                                try {
+                                    Thread.sleep(250);
+                                } catch (Exception ex) {
+                                }
+                                RequestUpdatedState(getApplicationContext());
                             }
-                            RequestUpdatedState(getApplicationContext());
-                        }
-                    }).start();
+                        }).start();
+                    }
+                    */
                 }
-                */
-            }
-            break;
-            // -----------------------------------
-            case RECEIVE_CONN_STATUS: {
-                Boolean isConnected = bundle.getBoolean(EXTRA_STATUS);
-                if (isConnected) {
-                    if (!serverIsConnected) {
-                        serverIsConnected = true;
+                break;
+                // -----------------------------------
+                case RECEIVE_CONN_STATUS: {
+                    Boolean isConnected = bundle.getBoolean(EXTRA_STATUS);
+                    if (isConnected) {
+                        if (!serverIsConnected) {
+                            serverIsConnected = true;
 
-                        NodeService.RegisterNode(this, false);
+                            NodeService.RegisterNode(this, false);
 
                             // Request the state of the things in the cloud
                             NodeService.RequestUpdatedState(this);
@@ -245,13 +246,15 @@ public class NodeService extends IntentService {
                     } else {
                         if(serverIsConnected) {
                             serverIsConnected = false;
+                        }
                     }
+                    break;
                 }
-                break;
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
-
 
 
     // =============================================================================================
