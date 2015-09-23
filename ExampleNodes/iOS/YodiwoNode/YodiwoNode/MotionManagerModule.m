@@ -63,23 +63,6 @@
 
 - (void)start {
 
-    // Raw motion sensors
-    if (self.motionRawManager.deviceMotionAvailable){
-
-        self.motionRawManager.deviceMotionUpdateInterval = 10;
-
-        [self.motionRawManager startDeviceMotionUpdatesToQueue:[NSOperationQueue new]
-                                                withHandler:^(CMDeviceMotion *motion,
-                                                              NSError *error) {
-
-                                                    NSLog(@"New DeviceMotion data: %@", motion);
-                                                }];
-    }
-    else {
-        NSLog(@"Device motion monitoring is not available");
-    }
-
-
     // Activity manager
     if ([CMMotionActivityManager isActivityAvailable]) {
 
@@ -127,33 +110,47 @@
         NSLog(@"Activity manager is not available on this device");
     }
 
-    
+
+#if 0 // Raw motion sensors (currently not used by app)
+
+    if (self.motionRawManager.deviceMotionAvailable){
+
+        self.motionRawManager.deviceMotionUpdateInterval = 10;
+
+        [self.motionRawManager startDeviceMotionUpdatesToQueue:[NSOperationQueue new]
+                                                   withHandler:^(CMDeviceMotion *motion,
+                                                                 NSError *error) {
+
+                                                       NSLog(@"New DeviceMotion data: %@", motion);
+                                                   }];
+    }
+    else {
+        NSLog(@"Device motion monitoring is not available");
+    }
+
     // TODO::: Check if each sensor available with isGyroAvailable
 
-    // TODO:: stopGyroUpdates, etc (the same for location manager ?)
+    // TODO:: stopGyroUpdates, etc (same for location manager)
 
-    /*
      [self.motionRawManager startAccelerometerUpdatesToQueue:[NSOperationQueue new]
-     withHandler:^(CMAccelerometerData *accelerometerData,
-     NSError *error) {
+                                                 withHandler:^(CMAccelerometerData *accelerometerData, NSError *error) {
 
-     NSLog(@"New Accelerometer data: %@", accelerometerData);
-     }];
+                                                     NSLog(@"New Accelerometer data: %@", accelerometerData);
+                                                 }];
 
      [self.motionRawManager startGyroUpdatesToQueue:[NSOperationQueue new]
-     withHandler:^(CMGyroData *gyroData,
-     NSError *error) {
+                                        withHandler:^(CMGyroData *gyroData, NSError *error) {
 
-     NSLog(@"New Gyro data: %@", gyroData);
-     }];
+                                            NSLog(@"New Gyro data: %@", gyroData);
+                                        }];
 
      [self.motionRawManager startMagnetometerUpdatesToQueue:[NSOperationQueue new]
-     withHandler:^(CMMagnetometerData *magnetometerData,
-     NSError *error) {
+                                                withHandler:^(CMMagnetometerData *magnetometerData, NSError *error) {
 
-     NSLog(@"New Magnetometer data: %@", magnetometerData);
-     }];
-     */
+                                                    NSLog(@"New Magnetometer data: %@", magnetometerData);
+                                                }];
+
+#endif
 
 }
 //******************************************************************************

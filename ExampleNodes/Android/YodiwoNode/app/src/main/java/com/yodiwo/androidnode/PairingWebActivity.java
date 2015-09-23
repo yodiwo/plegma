@@ -22,7 +22,7 @@ public class PairingWebActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         final Activity activity = this;
-        final String redirectNextURL = PairingService.getPairingWebUrl(SettingsProvider.getInstance(this)) + "/pairing/success";
+        final String redirectNextURL = PairingService.getPairingWebUrl(SettingsProvider.getInstance(this)) + "/pairing/1/success";
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pairing_web);

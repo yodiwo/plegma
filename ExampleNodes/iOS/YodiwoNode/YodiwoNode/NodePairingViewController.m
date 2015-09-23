@@ -66,11 +66,30 @@
 // Entry points
 - (IBAction)startNodeButtonPressed:(UIButton *)sender {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [sender setEnabled:NO];
+        [sender setUserInteractionEnabled:NO];
+        [sender setTitle:@"Starting..." forState:UIControlStateNormal];
     });
 
     if(![self.sharedSettingsVault isNodePaired]) {
         [self.nodePairingService initiatePairingWithCompletionHandler:^(NSString *pairingWebLoginUrl) {
+
+            if (pairingWebLoginUrl == nil) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"Node info:"
+                                                                   description:@"Pairing unsuccesful!"
+                                                                          type:TWMessageBarMessageTypeError
+                                                                      duration:3.0];
+                });
+
+                // Re-enable button for the next try
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.startNodeButton setUserInteractionEnabled:YES];
+                    [self.startNodeButton setTitle:@"Start Hub" forState:UIControlStateNormal];
+                });
+
+                return;
+            }
+
             NSLog(@"Starting web view to URL -> %@", pairingWebLoginUrl);
 
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -106,7 +125,8 @@
 
 // UIWebView
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
-    if([webView.request.URL.absoluteString hasSuffix:@"/pairing/success"]) {
+    if([webView.request.URL.absoluteString hasSuffix:
+            [self.nodePairingService.pairingServerRoutesDict objectForKeyedSubscript:@"noderedirect"]]) {
         NSLog(@"Pairing phase 1 completed succesfully");
 
         [self.pairingLoginWebView removeFromSuperview];
@@ -120,10 +140,19 @@
                                                                       type:TWMessageBarMessageTypeInfo
                                                                   duration:3.0];
 
-                // Paired succesfully, move to main application content
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self performSegueWithIdentifier:@"nodePairedMoveToMainAppContent" sender:self];
-                });
+                if (result == YES) {
+                    // Paired succesfully, move to main application content
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self performSegueWithIdentifier:@"nodePairedMoveToMainAppContent" sender:self];
+                    });
+                }
+                else {
+                    // Re-enable button for the next try
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self.startNodeButton setUserInteractionEnabled:YES];
+                        [self.startNodeButton setTitle:@"Start Hub" forState:UIControlStateNormal];
+                    });
+                }
             });
         }];
     }

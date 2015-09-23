@@ -3,7 +3,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_pairing">PairingActivity</string>
-    <string name="action_repairing">Re-Pairing</string>
+    <string name="action_repairing">Pairing</string>
 
 
     <!-- UI Settings  -->

@@ -15,5 +15,6 @@
 #import "Thing.h"
 #import "Port.h"
 #import "Keys.h"
+#import "Mqtt.h"
 
 #endif

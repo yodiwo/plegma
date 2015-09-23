@@ -24,7 +24,6 @@ import com.yodiwo.plegma.ThingsRsp;
 import com.yodiwo.plegma.eNodeCapa;
 import com.yodiwo.plegma.eNodeType;
 import com.yodiwo.plegma.ePortStateOperation;
-import com.yodiwo.plegma.eThingsOperation;
 
 import java.util.HashMap;
 
@@ -54,8 +53,8 @@ public class NodeService extends IntentService {
     public static final int REQUEST_SERVICE_START = 5;
     public static final int REQUEST_SERVICE_STOP = 6;
 
-    private static final int REQUEST_RX_START = 10;
-    private static final int REQUEST_RX_STOP = 11;
+    private static final int REQUEST_RESUME = 10;
+    private static final int REQUEST_PAUSE = 11;
     private static final int REQUEST_RX_UPDATE = 12;
     private static final int REQUEST_RX_MSG = 15;
 
@@ -63,12 +62,12 @@ public class NodeService extends IntentService {
 
     public static final String BROADCAST_THING_UPDATE = "NodeService.BROADCAST_THING_UPDATE";
 
-    public static final String EXTRA_UPDATED_THING = "EXTRA_UPDATED_THING";
+    public static final String EXTRA_UPDATED_THING_KEY = "EXTRA_UPDATED_THING_KEY";
     public static final String EXTRA_UPDATED_THING_NAME = "EXTRA_UPDATED_THING_NAME";
     public static final String EXTRA_UPDATED_PORT_ID = "EXTRA_UPDATED_PORT_ID";
     public static final String EXTRA_UPDATED_STATE = "EXTRA_UPDATED_STATE";
-    // This indicate that the update is event or a starting point
-    public static final String EXTRA_UPDATED_ISEVENT = "EXTRA_UPDATED_ISEVENT";
+    // This indicates whether the update is a new event or a starting point
+    public static final String EXTRA_UPDATED_IS_EVENT = "EXTRA_UPDATED_IS_EVENT";
 
     public static final String EXTRA_RX_TOPIC = "EXTRA_REQUEST_TOPIC";
     public static final String EXTRA_RX_MSG = "EXTRA_REQUEST_MSG";
@@ -84,7 +83,7 @@ public class NodeService extends IntentService {
 
     private static Boolean thingsRegistered = false;
 
-    private IServerAPI serverAPI = null;
+    private aServerAPI serverAPI = null;
     private SettingsProvider settingsProvider;
     private static HashMap<String, Thing> thingHashMap = new HashMap<String, Thing>();
     private int SendSeqNum = 0;
@@ -100,7 +99,6 @@ public class NodeService extends IntentService {
     private SensorsListener sensorsListener = null;
 
     private Boolean serverIsConnected = false;
-    private static Boolean pendingSendNodes = false;
 
     public NodeService() {
         super("NodeService");
@@ -115,7 +113,7 @@ public class NodeService extends IntentService {
 
         settingsProvider = SettingsProvider.getInstance(getApplicationContext());
 
-        // Init server api and select MQTT of REST transport
+        // Init server api and select MQTT or REST transport
         if (serverAPI == null) {
             if (settingsProvider.getServerTransport() == SettingsProvider.ServerAPITransport.REST)
                 serverAPI = RestServerAPI.getInstance(getApplicationContext());
@@ -124,128 +122,137 @@ public class NodeService extends IntentService {
         }
 
         // Init RX handlers
-        InitRxHandles();
+        InitRxHandlers();
 
         if (sensorsListener == null)
             sensorsListener = SensorsListener.getInstance(getApplicationContext());
 
         Bundle bundle = intent.getExtras();
-        int request_type = bundle.getInt(EXTRA_REQUEST_TYPE);
-        switch (request_type) {
-            // -------------------------------------
-            case REQUEST_SERVICE_START: {
-                SensorsListener.SensorType type = (SensorsListener.SensorType) bundle.getSerializable(EXTRA_SERVICE_TYPE);
-                sensorsListener.StartService(type);
-            }
-            break;
-            // -------------------------------------
-            case REQUEST_SERVICE_STOP: {
-                SensorsListener.SensorType type = (SensorsListener.SensorType) bundle.getSerializable(EXTRA_SERVICE_TYPE);
-                sensorsListener.StopService(type);
-            }
-            break;
-            // -------------------------------------
-            case REQUEST_SENDNODES:
-                SendNodes(settingsProvider);
-                pendingSendNodes = true;
+        try {
+            int request_type = bundle.getInt(EXTRA_REQUEST_TYPE);
+            switch (request_type) {
+                // -------------------------------------
+                case REQUEST_SERVICE_START: {
+                    SensorsListener.SensorType type = (SensorsListener.SensorType) bundle.getSerializable(EXTRA_SERVICE_TYPE);
+                    sensorsListener.StartService(type);
+                }
                 break;
-            // -------------------------------------
-            case REQUEST_CLEANTHINGS: {
-                thingHashMap.clear();
-                PortKeyToThingsHashMap.clear();
-            }
-            break;
-            // -------------------------------------
-            case REQUEST_ADDTHING: {
-                Thing thing = new Gson().fromJson(bundle.getString(EXTRA_THING), Thing.class);
-                thingHashMap.put(thing.ThingKey, thing);
-
-                for (Port p : thing.Ports) {
-                    if (!PortKeyToThingsHashMap.containsKey(p.PortKey))
-                        PortKeyToThingsHashMap.remove(p.PortKey);
-                    PortKeyToThingsHashMap.put(p.PortKey, thing);
-
-                    if (!PortKeyToPortHashMap.containsKey(p.PortKey))
-                        PortKeyToPortHashMap.remove(p.PortKey);
-                    PortKeyToPortHashMap.put(p.PortKey, p);
+                // -------------------------------------
+                case REQUEST_SERVICE_STOP: {
+                    SensorsListener.SensorType type = (SensorsListener.SensorType) bundle.getSerializable(EXTRA_SERVICE_TYPE);
+                    sensorsListener.StopService(type);
                 }
-            }
-            break;
-            // -------------------------------------
-            case REQUEST_PORTMSG: {
-                String thingName = bundle.getString(EXTRA_THING_NAME);
-                Thing thing = thingHashMap.get(ThingKey.CreateKey(settingsProvider.getNodeKey(), thingName));
-                int portIndex = bundle.getInt(EXTRA_PORT_INDEX);
-                String data = bundle.getString(EXTRA_PORT_DATA);
-                SendPortMsg(thing, portIndex, data);
-            }
-            break;
-            // -------------------------------------
-            case REQUEST_PORTMSG_ARRAY: {
-                String thingName = bundle.getString(EXTRA_THING_NAME);
-                Thing thing = thingHashMap.get(ThingKey.CreateKey(settingsProvider.getNodeKey(), thingName));
-                String[] data = new Gson().fromJson(bundle.getString(EXTRA_PORT_DATA_ARRAY), String[].class);
-                SendPortMsg(thing, data);
-            }
-            break;
-            // -------------------------------------
-            case REQUEST_RX_MSG: {
-                String msg = bundle.getString(EXTRA_RX_MSG);
-                String topic = bundle.getString(EXTRA_RX_TOPIC);
-                HandleRxMsg(topic, msg);
-            }
-            break;
-            // -------------------------------------
-            case REQUEST_RX_START: {
-                serverAPI.StartRx();
-            }
-            break;
-            // -------------------------------------
-            case REQUEST_RX_STOP: {
-                serverAPI.StopRx();
-            }
-            break;
-            // -------------------------------------
-            case REQUEST_RX_UPDATE: {
-                // TODO: Update code for rxUpdate
-                /*
-                if (!serverAPI.SendNodeThingsReq(new NodeThingsReq(
-                        null,
-                        eNodeThingsOperation.Get,
-                        null,
-                        settingsProvider.getNodeKey(),
-                        settingsProvider.getNodeSecretKey(),
-                        APIVersion,
-                        0))) {
-                    // We failed to send the request wait 250MS and try again
-                    // most probably we are not connected to server !!!!
-                    // TODO: find better way to handle retransmitions
-                    new Thread(new Runnable() {
-                        public void run() {
-                            try {
-                                Thread.sleep(250);
-                            } catch (Exception ex) {
-                            }
-                            RequesttUpdatedState(getApplicationContext());
-                        }
-                    }).start();
+                break;
+                // -------------------------------------
+                case REQUEST_SENDNODES:
+                    SendNodes(settingsProvider);
+                    break;
+                // -------------------------------------
+                case REQUEST_CLEANTHINGS: {
+                    thingHashMap.clear();
+                    PortKeyToThingsHashMap.clear();
                 }
-                */
-            }
-            break;
-            // -----------------------------------
-            case RECEIVE_CONN_STATUS: {
-                Boolean isConnected = bundle.getBoolean(EXTRA_STATUS);
-                if (isConnected && !serverIsConnected) {
-                    serverIsConnected = isConnected;
-                    // Send pending msg
-                    if (pendingSendNodes) {
-                        SendNodes(settingsProvider);
+                break;
+                // -------------------------------------
+                case REQUEST_ADDTHING: {
+                    Thing thing = new Gson().fromJson(bundle.getString(EXTRA_THING), Thing.class);
+                    thingHashMap.put(thing.ThingKey, thing);
+
+                    for (Port p : thing.Ports) {
+                        if (!PortKeyToThingsHashMap.containsKey(p.PortKey))
+                            PortKeyToThingsHashMap.remove(p.PortKey);
+                        PortKeyToThingsHashMap.put(p.PortKey, thing);
+
+                        if (!PortKeyToPortHashMap.containsKey(p.PortKey))
+                            PortKeyToPortHashMap.remove(p.PortKey);
+                        PortKeyToPortHashMap.put(p.PortKey, p);
                     }
                 }
+                break;
+                // -------------------------------------
+                case REQUEST_PORTMSG: {
+                    String thingName = bundle.getString(EXTRA_THING_NAME);
+                    Thing thing = thingHashMap.get(ThingKey.CreateKey(settingsProvider.getNodeKey(), thingName));
+                    int portIndex = bundle.getInt(EXTRA_PORT_INDEX);
+                    String data = bundle.getString(EXTRA_PORT_DATA);
+                    SendPortMsg(thing, portIndex, data);
+                }
+                break;
+                // -------------------------------------
+                case REQUEST_PORTMSG_ARRAY: {
+                    String thingName = bundle.getString(EXTRA_THING_NAME);
+                    Thing thing = thingHashMap.get(ThingKey.CreateKey(settingsProvider.getNodeKey(), thingName));
+                    String[] data = new Gson().fromJson(bundle.getString(EXTRA_PORT_DATA_ARRAY), String[].class);
+                    SendPortMsg(thing, data);
+                }
+                break;
+                // -------------------------------------
+                case REQUEST_RX_MSG: {
+                    String msg = bundle.getString(EXTRA_RX_MSG);
+                    String topic = bundle.getString(EXTRA_RX_TOPIC);
+                    HandleRxMsg(topic, msg);
+                }
+                break;
+                // -------------------------------------
+                case REQUEST_RESUME: {
+                    serverAPI.StartRx();
+                }
+                break;
+                // -------------------------------------
+                case REQUEST_PAUSE: {
+                    serverAPI.StopRx();
+                }
+                break;
+                // -------------------------------------
+                case REQUEST_RX_UPDATE: {
+                    // TODO: Update code for rxUpdate
+                    /*
+                    if (!serverAPI.SendNodeThingsReq(new NodeThingsReq(
+                            null,
+                            eNodeThingsOperation.Get,
+                            null,
+                            settingsProvider.getNodeKey(),
+                            settingsProvider.getNodeSecretKey(),
+                            APIVersion,
+                            0))) {
+                        // We failed to send the request wait 250MS and try again
+                        // most probably we are not connected to server !!!!
+                        // TODO: find better way to handle retransmissions
+                        new Thread(new Runnable() {
+                            public void run() {
+                                try {
+                                    Thread.sleep(250);
+                                } catch (Exception ex) {
+                                }
+                                RequestUpdatedState(getApplicationContext());
+                            }
+                        }).start();
+                    }
+                    */
+                }
+                break;
+                // -----------------------------------
+                case RECEIVE_CONN_STATUS: {
+                    Boolean isConnected = bundle.getBoolean(EXTRA_STATUS);
+                    if (isConnected) {
+                        if (!serverIsConnected) {
+                            serverIsConnected = true;
 
+                            NodeService.RegisterNode(this, false);
+
+                            // Request the state of the things in the cloud
+                            NodeService.RequestUpdatedState(this);
+                        }
+                    } else {
+                        if(serverIsConnected) {
+                            serverIsConnected = false;
+                        }
+                    }
+                    break;
+                }
             }
-            break;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -256,7 +263,7 @@ public class NodeService extends IntentService {
     private void SendNodes(SettingsProvider settingsProvider) {
         try {
             ThingsReq msg = new ThingsReq(GetSendSeqNum(),
-                    eThingsOperation.Overwrite,
+                    ThingsReq.Overwrite,
                     "",
                     thingHashMap.values().toArray(new Thing[0]));
             serverAPI.Send(msg);
@@ -329,11 +336,11 @@ public class NodeService extends IntentService {
 
                 // Send the event for this port
                 Intent intent = new Intent(BROADCAST_THING_UPDATE);
-                intent.putExtra(EXTRA_UPDATED_THING, localT.ThingKey);
+                intent.putExtra(EXTRA_UPDATED_THING_KEY, localT.ThingKey);
                 intent.putExtra(EXTRA_UPDATED_THING_NAME, localT.Name);
                 intent.putExtra(EXTRA_UPDATED_PORT_ID, localT.Ports.indexOf(localP));
                 intent.putExtra(EXTRA_UPDATED_STATE, localP.State);
-                intent.putExtra(EXTRA_UPDATED_ISEVENT, false);
+                intent.putExtra(EXTRA_UPDATED_IS_EVENT, false);
 
                 LocalBroadcastManager
                         .getInstance(getApplicationContext())
@@ -361,6 +368,8 @@ public class NodeService extends IntentService {
         return null;
     }
 
+    // ---------------------------------------------------------------------------------------------
+
     private void RxPortEventMsg(PortEventMsg msg) {
         // Now we need to find any changes and update the UI
         for (PortEvent pmsg : msg.PortEvents) {
@@ -376,11 +385,11 @@ public class NodeService extends IntentService {
 
             // Send the event for this port
             Intent intent = new Intent(BROADCAST_THING_UPDATE);
-            intent.putExtra(EXTRA_UPDATED_THING, localT.ThingKey);
+            intent.putExtra(EXTRA_UPDATED_THING_KEY, localT.ThingKey);
             intent.putExtra(EXTRA_UPDATED_THING_NAME, localT.Name);
             intent.putExtra(EXTRA_UPDATED_PORT_ID, localT.Ports.indexOf(localP));
             intent.putExtra(EXTRA_UPDATED_STATE, localP.State);
-            intent.putExtra(EXTRA_UPDATED_ISEVENT, true);
+            intent.putExtra(EXTRA_UPDATED_IS_EVENT, true);
 
             LocalBroadcastManager
                     .getInstance(getApplicationContext())
@@ -398,7 +407,7 @@ public class NodeService extends IntentService {
         void Handle(String topic, String json, Object msg);
     }
 
-    private void InitRxHandles() {
+    private void InitRxHandlers() {
         if (rxHandlers == null) {
             rxHandlers = new HashMap<>();
             rxHandlersClass = new HashMap<>();
@@ -413,7 +422,7 @@ public class NodeService extends IntentService {
 
                             NodeInfoRsp rsp = new NodeInfoRsp(GetSendSeqNum(),
                                     settingsProvider.getDeviceName(),
-                                    eNodeType.TestEndpoint,
+                                    eNodeType.EndpointSingle,
                                     eNodeCapa.None,
                                     null);
 
@@ -452,7 +461,7 @@ public class NodeService extends IntentService {
                             ThingsReq req = (ThingsReq)msg;
 
                             // Send the internal things of the node.
-                            if(req.Operation == eThingsOperation.Get) {
+                            if(req.Operation == ThingsReq.Get) {
                                 ThingsRsp rsp = new ThingsRsp(
                                         GetSendSeqNum(),
                                         req.Operation,
@@ -498,13 +507,6 @@ public class NodeService extends IntentService {
 
     // ---------------------------------------------------------------------------------------------
 
-    public static void SendNode(Context context) {
-        Intent intent = new Intent(context, NodeService.class);
-        intent.putExtra(EXTRA_REQUEST_TYPE, REQUEST_SENDNODES);
-        context.startService(intent);
-    }
-
-    // ---------------------------------------------------------------------------------------------
 
     public static void RegisterNode(Context context, Boolean forceUpdate) {
         // TODO: register nodes only when we have some change, keep a dirty flag
@@ -579,23 +581,23 @@ public class NodeService extends IntentService {
 
     // ---------------------------------------------------------------------------------------------
 
-    public static void StartRx(Context context) {
+    public static void Resume(Context context) {
         Intent intent = new Intent(context, NodeService.class);
-        intent.putExtra(EXTRA_REQUEST_TYPE, REQUEST_RX_START);
+        intent.putExtra(EXTRA_REQUEST_TYPE, REQUEST_RESUME);
         context.startService(intent);
-        Log.d(TAG, "DEBUG RX Start");
+        Log.d(TAG, "DEBUG Node Service Resumed");
     }
 
-    public static void StopRx(Context context) {
+    public static void Pause(Context context) {
         Intent intent = new Intent(context, NodeService.class);
-        intent.putExtra(EXTRA_REQUEST_TYPE, REQUEST_RX_STOP);
+        intent.putExtra(EXTRA_REQUEST_TYPE, REQUEST_PAUSE);
         context.startService(intent);
-        Log.d(TAG, "DEBUG RX Stop");
+        Log.d(TAG, "DEBUG Node Service Paused");
     }
 
     // ---------------------------------------------------------------------------------------------
 
-    public static void RequesttUpdatedState(Context context) {
+    public static void RequestUpdatedState(Context context) {
         Intent intent = new Intent(context, NodeService.class);
         intent.putExtra(EXTRA_REQUEST_TYPE, REQUEST_RX_UPDATE);
         context.startService(intent);

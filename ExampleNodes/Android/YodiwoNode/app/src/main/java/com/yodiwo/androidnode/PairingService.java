@@ -108,7 +108,6 @@ public class PairingService extends IntentService {
 
     private void FinnishPairing(SettingsProvider settingsProvider) {
         Intent intent = new Intent(BROADCAST_PAIRING_FINISHED);
-        ;
 
         // Get Tokens from server
         try {
@@ -153,7 +152,7 @@ public class PairingService extends IntentService {
         String path = getPairingWebUrl(settingsProvider);
 
         return path
-                + "/pairing/userconfirm"
+                + "/pairing/1/userconfirm"
                 + "?token2=" + settingsProvider.getNodeToken2()
                 + "&noderedirect=" + redirectURL
                 + "&uuid=" + settingsProvider.getNodeUUID();

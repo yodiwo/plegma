@@ -12,10 +12,17 @@ package com.yodiwo.plegma;
  * Direction: bidirectional (Node->Cloud and Cloud->Node)
  */
 public class ThingsRsp extends ApiMsg {
+
+    public static final Integer Update = 1;
+    public static final Integer Overwrite = 2;
+    public static final Integer Delete = 3;
+    public static final Integer Get = 4;
+    public static final Integer Scan = 5;
+
     /**
      * Identifier of this message's operation of type Yodiwo.API.Plegma.eThingsOperationOperation fields must match between Req and Rsp.
      */
-    public eThingsOperation Operation;
+    public int Operation;
     /**
      * Indicates if the request was successful and this response contains actual data
      */
@@ -28,7 +35,7 @@ public class ThingsRsp extends ApiMsg {
     public ThingsRsp() {
     }
 
-    public ThingsRsp(int SeqNo, eThingsOperation Operation, Boolean Status, Thing[] Data) {
+    public ThingsRsp(int SeqNo, int Operation, Boolean Status, Thing[] Data) {
         this.SeqNo = SeqNo;
         this.Operation = Operation;
         this.Status = Status;

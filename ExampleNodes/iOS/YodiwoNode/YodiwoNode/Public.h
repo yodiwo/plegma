@@ -77,22 +77,7 @@ typedef NS_ENUM(NSInteger, EnumAPIType)
 /*!
  * @discussion Unavailable
  */
-@property (nonatomic) EnumAPIType Id;
-
-/*!
- * @discussion Unavailable
- */
-@property (nonatomic) NSInteger Version;
-
-/*!
- * @discussion Unavailable
- */
 @property (nonatomic) NSInteger SeqNo;
-
-/*!
- * @discussion Unavailable
- */
-@property (nonatomic) NSInteger ResponseToSeqNo;
 
 @end
 

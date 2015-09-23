@@ -10,6 +10,8 @@
 
 @interface NodePairingService : NSObject
 
+@property (strong, nonatomic) NSDictionary *pairingServerRoutesDict;
+
 -(void)initiatePairingWithCompletionHandler:(void(^)(NSString *pairingWebLoginUrl)) completionHandler;
 
 -(void)finalizePairingWithCompletionHandler:(void(^)(BOOL result)) completionHandler;

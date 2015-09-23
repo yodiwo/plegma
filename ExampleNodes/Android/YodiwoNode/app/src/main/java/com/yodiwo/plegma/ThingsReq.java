@@ -11,10 +11,17 @@ package com.yodiwo.plegma;
  * Direction: bidirectional (Node->Cloud and Cloud->Node)
  */
 public class ThingsReq extends ApiMsg {
+
+    public static final Integer Update = 1;
+    public static final Integer Overwrite = 2;
+    public static final Integer Delete = 3;
+    public static final Integer Get = 4;
+    public static final Integer Scan = 5;
+
     /**
      * Identifier of the operation requested; see Yodiwo.API.Plegma.eThingsOperation
      */
-    public eThingsOperation Operation;
+    public int Operation;
     /**
      * Yodiwo.API.Plegma.ThingsReq.ThingKey of the Yodiwo.API.Plegma.Thing that this request refers to. If left null (invalid ThingKey)
      * then this operation refers to all of the Node's Things
@@ -28,12 +35,10 @@ public class ThingsReq extends ApiMsg {
     public ThingsReq() {
     }
 
-    public ThingsReq(int SeqNo, eThingsOperation Operation, String ThingKey, Thing[] Data) {
+    public ThingsReq(int SeqNo, int Operation, String ThingKey, Thing[] Data) {
         this.SeqNo = SeqNo;
         this.Operation = Operation;
         this.ThingKey = ThingKey;
         this.Data = Data;
-
     }
-
 }

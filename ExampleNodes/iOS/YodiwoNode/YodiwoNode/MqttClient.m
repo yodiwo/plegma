@@ -10,6 +10,7 @@
 #import "MQTTKit.h"
 #import "SettingsVault.h"
 #import "NodeController.h"
+#import "YodiwoApi.h"
 
 #define kMqttTopic_publish @"/api/in/"
 #define kMqttTopic_subscribe @"/api/out/"
@@ -30,15 +31,22 @@
     if (self = [super init]) {
         _mqttClient = [[MQTTClient alloc] initWithClientId:[[SettingsVault sharedSettingsVault] getPairingNodeKey] cleanSession:NO];
 
-        _subscribeTopic = [[kMqttTopic_subscribe
-                           stringByAppendingString:[[SettingsVault sharedSettingsVault] getPairingNodeKey]]
-                                                    stringByAppendingString:@"/#"];
 
-        _publishTopic = [[[[kMqttTopic_publish
-                                stringByAppendingString:[[SettingsVault sharedSettingsVault] getUserKey]]
-                                    stringByAppendingString:@"/"]
-                                        stringByAppendingString:[[SettingsVault sharedSettingsVault] getPairingNodeKey] ]
-                                            stringByAppendingString:@"/"];
+        // Add current API version to base subscribe/publish topics
+        NSString *baseSubscribeTopic = [[kMqttTopic_subscribe stringByAppendingString:[NSString stringWithFormat:@"%ld", (long)[PlegmaApi apiVersion]]]
+                                                              stringByAppendingString:@"/"];
+
+        NSString *basePublishTopic = [[kMqttTopic_publish stringByAppendingString:[NSString stringWithFormat:@"%ld", (long)[PlegmaApi apiVersion]]]
+                                                          stringByAppendingString:@"/"];
+
+
+        _subscribeTopic = [[baseSubscribeTopic stringByAppendingString:[[SettingsVault sharedSettingsVault] getPairingNodeKey]]
+                                               stringByAppendingString:@"/#"];
+
+        _publishTopic = [[[[basePublishTopic stringByAppendingString:[[SettingsVault sharedSettingsVault] getUserKey]]
+                                             stringByAppendingString:@"/"]
+                                             stringByAppendingString:[[SettingsVault sharedSettingsVault] getPairingNodeKey] ]
+                                             stringByAppendingString:@"/"];
     }
 
     return self;
@@ -52,6 +60,7 @@
     self.mqttClient.host = [[SettingsVault sharedSettingsVault] getMqttParamsBrokerAddress];
 
     [self setMessageHandler];
+    [self setDisconnectionHandler];
     [self connect];
     [self subscribe];
 }
@@ -59,9 +68,7 @@
 // Disconnect client from MQTT broker
 - (void)disconnect{
 
-    [self.mqttClient disconnectWithCompletionHandler:^(NSUInteger code) {
-        NSLog(@"MQTT client: disconnected from broker");
-    }];
+    //[self.mqttClient disconnectWithCompletionHandler:disconnectionHandler];
 }
 
 // Connect client to MQTT broker
@@ -71,9 +78,16 @@
                  completionHandler:^(MQTTConnectionReturnCode code) {
         if (code == ConnectionAccepted) {
             NSLog(@"MQTT client: connected with id: %@", self.mqttClient.clientID);
+
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [[NSNotificationCenter defaultCenter]
+                 postNotificationName:@"yodiwoConnectedToCloudServiceNotification"
+                 object:self
+                 userInfo:nil];
+            });
         }
         else {
-            NSLog(@"MQTT client: error connecting to broker: %lu", code);
+            NSLog(@"MQTT client: error connecting to broker --> code: %lu", (unsigned long)code);
         }
     }];
 }
@@ -87,22 +101,27 @@
 
                  NSLog(@"MQTT client: subscribed to topic: %@ (QoS ==> %@)",
                        [self subscribeTopic], grantedQos[0]);
-
-                 dispatch_async(dispatch_get_main_queue(), ^{
-                     [[NSNotificationCenter defaultCenter]
-                        postNotificationName:@"yodiwoConnectedToCloudServiceNotification"
-                                      object:self
-                                    userInfo:nil];
-                 });
     }];
+}
+
+// Set disconnection handler
+-(void)setDisconnectionHandler {
+    [self.mqttClient setDisconnectionHandler:disconnectionHandler];
 }
 
 - (void)setMessageHandler {
 
     [self.mqttClient setMessageHandler:^(MQTTMessage *message) {
-        NSLog(@"MQTT client: message received: %@", [message payloadString]);
-        [[NodeController sharedNodeController] handleMqttApiMsgWithPayload:message.payloadString
-                                                                   atTopic:message.topic retained:message.retained];
+        NSLog(@"MQTT client: message received: topic: %@ %@", [message topic], [message payloadString]);
+
+        // Strip MqttAPIMessage and send encapsulated ApiMsg to NodeController
+        JSONModelError *error;
+        MqttAPIMessage *mqttMsg = [[MqttAPIMessage alloc] initWithString:message.payloadString
+                                                                   error:&error];
+
+        [[NodeController sharedNodeController] handleMqttApiMsgWithPayload:mqttMsg.Payload
+                                                                   atTopic:message.topic
+                                                                  retained:message.retained];
     }];
 }
 
@@ -115,8 +134,21 @@
                         retain:NO
              completionHandler:^(int mid){
 
-                 NSLog(@"Published message id: %d", mid);
+                 NSLog(@"Published message id: %d topic:%@ msg: %@", mid, topic, msg);
     }];
 }
+
+// Handler blocks
+MQTTDisconnectionHandler disconnectionHandler = ^(NSUInteger code) {
+
+    NSLog(@"MQTT client: disconnected from broker --> code: %ld", (unsigned long)code);
+
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[NSNotificationCenter defaultCenter]
+         postNotificationName:@"yodiwoDisconnectedFromCloudServiceNotification"
+         object:nil
+         userInfo:nil];
+    });
+};
 
 @end

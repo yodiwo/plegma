@@ -1,7 +1,7 @@
 # Uncomment this line to define a global platform for your project
 # platform :ios, '8.0'
 
-target 'YodiwoNode' do
+target 'YodiwoHub' do
 
 # MQTT client library
 pod 'MQTTKit', :git => 'https://github.com/mobile-web-messaging/MQTTKit.git'
@@ -14,7 +14,7 @@ pod 'JSONModel'
 
 end
 
-target 'YodiwoNodeTests' do
+target 'YodiwoHubTests' do
 
 end
 

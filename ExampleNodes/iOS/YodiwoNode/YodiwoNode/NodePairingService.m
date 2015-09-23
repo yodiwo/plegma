@@ -9,11 +9,9 @@
 #import "NodePairingService.h"
 #import "JSONModel.h"
 #import "SettingsVault.h"
-#import "YABNodePairing.h"
+#import "YodiwoApi.h"
 
 @interface NodePairingService ()
-
-@property (strong, nonatomic) NSDictionary *pairingServerRoutesDict;
 
 @property (strong, nonatomic) void(^notifyViewControllerToTriggerWebLogin)(NSString *pairingWebLoginUrl);
 
@@ -26,12 +24,16 @@
 
 -(NSDictionary *)pairingServerRoutesDict {
     if (!_pairingServerRoutesDict) {
+        NSString *prefix = @"/pairing/";
+        prefix = [prefix stringByAppendingString:
+                    [NSString stringWithFormat:@"%ld", (long)[PlegmaApi apiVersion]]];
+
         _pairingServerRoutesDict = [NSDictionary dictionaryWithObjectsAndKeys:
-                                            @"/pairing/gettokens", @"getTokens",
-                                            @"/pairing/getkeys", @"getKeys",
-                                            @"/pairing/userconfirm", @"userconfirm",
-                                            @"/pairing/success", @"noderedirect",
-                                            nil];
+                                        [prefix stringByAppendingString:@"/gettokensreq"], @"getTokens",
+                                        [prefix stringByAppendingString:@"/getkeysreq"], @"getKeys",
+                                        [prefix stringByAppendingString:@"/userconfirm"], @"userconfirm",
+                                        [prefix stringByAppendingString:@"/success"], @"noderedirect",
+                                        nil];
     }
 
     return _pairingServerRoutesDict;
@@ -73,6 +75,7 @@
 
                              if (error != nil) {
                                  NSLog(@"NodePairingService: YABPairingNodeGetTokensRequest error: %ld", (long)error.code);
+                                 completionHandler(nil);
                                  return;
                              }
 
@@ -84,6 +87,7 @@
 
                              if (tokens == nil || [tokens.token1 isEqualToString:@""] || [tokens.token2 isEqualToString:@""]) {
                                  NSLog(@"NodePairingService: Error getting tokens");
+                                 completionHandler(nil);
                                  return;
                              }
 

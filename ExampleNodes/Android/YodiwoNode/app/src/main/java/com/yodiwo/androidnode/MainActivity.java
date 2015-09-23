@@ -57,12 +57,12 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
             // Check for nfc
             mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
             if (mNfcAdapter == null) {
-                Toast.makeText(this, "This device doesn't support NFC.", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "This device doesn't support NFC", Toast.LENGTH_LONG).show();
             } else {
                 if (!mNfcAdapter.isEnabled()) {
-                    Toast.makeText(this, "NFC is disabled.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "NFC is disabled", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(this, "NFC is enable.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "NFC is enabled", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -98,12 +98,12 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
         super.onResume();
 
         if (settingsProvider.getNodeKey() == null || settingsProvider.getNodeSecretKey() == null) {
-            // TODO: Show message that we are not paired
+            // TODO: Show message box that we are not paired and offer to take to pairing page
+            Toast.makeText(this, "The app is currently not paired to Yodiwo Cloud Services", Toast.LENGTH_SHORT).show();
         } else {
-            NodeService.RegisterNode(this, false);
 
-            // Start rx for things
-            NodeService.StartRx(this);
+            // Tell NodeService to handle Resuming itself
+            NodeService.Resume(this);
 
             // Get from defines what we need to enable
             NodeService.StartService(this, SensorsListener.SensorType.Accelerometer);
@@ -115,9 +115,6 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
             // Request update location
             if(locationManager!=null)
                 locationManager.requestLocationUpdates(bestGPSProvider, 20000, 1, this);
-
-            // Request the state of the things in the cloud
-            NodeService.RequesttUpdatedState(this);
         }
     }
 
@@ -130,20 +127,19 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
         if(mNfcAdapter!=null)
             stopForegroundNFCDispatch(this, mNfcAdapter);
 
-        if (!(settingsProvider.getNodeKey() == null || settingsProvider.getNodeSecretKey() == null)) {
+        if (settingsProvider.getNodeKey() != null && settingsProvider.getNodeSecretKey() != null) {
             // Get from defines what we need to enable
             NodeService.StopService(this, SensorsListener.SensorType.Accelerometer);
             NodeService.StopService(this, SensorsListener.SensorType.Brightness);
 
-
-            // Start rx for things
-            NodeService.StopRx(this);
+            // Tell NodeService to handle Pausing itself
+            NodeService.Pause(this);
         }
 
         super.onPause();
 
 
-        if (!(settingsProvider.getNodeKey() == null || settingsProvider.getNodeSecretKey() == null)) {
+        if (settingsProvider.getNodeKey() != null && settingsProvider.getNodeSecretKey() != null) {
             locationManager.removeUpdates(this);
         }
     }

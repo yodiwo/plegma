@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.yodiwo.plegma.ThingsReq;
-import com.yodiwo.plegma.eThingsOperation;
 
 public class RestRxService  extends IntentService {
 
@@ -82,7 +81,7 @@ public class RestRxService  extends IntentService {
             // Get the thing status
             ThingsReq req = new ThingsReq(
                     0,
-                    eThingsOperation.Get,
+                    ThingsReq.Get,
                     "",
                     null);
 
