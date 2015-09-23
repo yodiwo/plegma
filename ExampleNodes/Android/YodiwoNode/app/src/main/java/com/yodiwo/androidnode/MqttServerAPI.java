@@ -120,8 +120,6 @@ public class MqttServerAPI extends aServerAPI {
 
     @Override
     public void StartRx() {
-        RxEnabled = true;
-        RequestConnectivityUiUpdate();
 
         if (connectionStatus == ConnectionStatus.CONNECTED) {
             _startRx();
@@ -132,16 +130,12 @@ public class MqttServerAPI extends aServerAPI {
 
     @Override
     public void StopRx() {
-        RxEnabled = false;
-        RequestConnectivityUiUpdate();
-
         // Unsubscribe
         if (RxStarted) {
-            RxStarted = false;
-
             try {
                 mqttClient.unsubscribe(mqttSubTopicPrefix + "#");
                 mqttClient.unregisterResources();
+                RxStarted = false;
             } catch (MqttException e) {
                 e.printStackTrace();
             }
@@ -155,7 +149,6 @@ public class MqttServerAPI extends aServerAPI {
     MqttConnectOptions mqttOpt;
     ConnectionStatus connectionStatus = ConnectionStatus.NONE;
     boolean RxStarted = false;
-    boolean RxEnabled = false;
     String mqttPubTopicPrefix;
     String mqttSubTopicPrefix;
 
@@ -423,10 +416,7 @@ public class MqttServerAPI extends aServerAPI {
             TxActive = true;
             RequestConnectivityUiUpdate();
 
-            // check for pending subscription
-            if (RxEnabled) {
-                _startRx();
-            }
+            _startRx();
 
             NodeService.ReceiveConnStatus(context, true);
         }
