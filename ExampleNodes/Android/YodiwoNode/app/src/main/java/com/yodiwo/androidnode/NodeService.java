@@ -195,12 +195,13 @@ public class NodeService extends IntentService {
                 break;
                 // -------------------------------------
                 case REQUEST_RESUME: {
-                    serverAPI.StartRx();
+                    serverAPI.RequestConnectivityUiUpdate();
+                    //serverAPI.StartRx();
                 }
                 break;
                 // -------------------------------------
                 case REQUEST_PAUSE: {
-                    serverAPI.StopRx();
+                    //serverAPI.StopRx();
                 }
                 break;
                 // -------------------------------------
