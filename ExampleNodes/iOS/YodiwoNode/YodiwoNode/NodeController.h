@@ -18,7 +18,9 @@
 - (void)sendPortEventMsgFromThing:(NSString *)thingName
                          withData:(NSArray *)data;
 
-- (void)sendNodeThingsMsg;
+- (void)sendApiMsgOfType:(NSString *)apiMsgName
+          withParameters:(NSArray *)params
+                 andData:(NSArray *)data;
 
 - (void)populateNodeThingsRegistry;
 

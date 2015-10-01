@@ -28,8 +28,8 @@
         _apiMsgNames = [NSDictionary dictionaryWithObjectsAndKeys:
                         //@"loginreq", [LoginReq class],
                         //@"loginrsp", [LoginRsp class],
-                        //@"nodeinforeq", [NodeInfoReq],
-                        //@"nodeinforsp", [NodeInfoRsp],
+                        @"nodeinforeq", [NodeInfoReq class],
+                        @"nodeinforsp", [NodeInfoRsp class],
                         @"thingsreq", [ThingsReq class],
                         @"thingsrsp", [ThingsRsp class],
                         @"porteventmsg", [PortEventMsg class],
@@ -51,8 +51,8 @@
         _apiMessages = [NSArray arrayWithObjects:
                         //[LoginReq class],
                         //[LoginRsp class],
-                        //[NodeInfoReq],
-                        //[NodeInfoRsp],
+                        [NodeInfoReq class],
+                        [NodeInfoRsp class],
                         [ThingsReq class],
                         [ThingsRsp class],
                         [PortEventMsg class],

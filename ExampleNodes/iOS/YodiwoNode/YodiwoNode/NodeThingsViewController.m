@@ -223,11 +223,13 @@
         // Start motion manager module
         [[NodeController sharedNodeController] startMotionManagerModule];
 
-        // Shoulder-tap cloud service and introduce this node
-        [[NodeController sharedNodeController] sendNodeThingsMsg];
-
         self.initialConnectionToCloudServicePending = NO;
     }
+
+    // Send PortStateReq with node things
+    [[NodeController sharedNodeController] sendApiMsgOfType:[[PlegmaApi apiMsgNames] objectForKey:[PortStateReq class]]
+                                             withParameters:nil
+                                                    andData:nil];
 
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.uiDisabledEmptyView removeFromSuperview];
@@ -286,6 +288,11 @@
                 self.thingOutVirtualLight2.backgroundColor = [UIColor blackColor];
                 [self.thingOutVirtualLight2 setTitle:@"Off" forState:UIControlStateNormal];
             }
+        });
+    }
+    else if ([thingName isEqualToString:ThingNameVirtualSwitch]) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+                self.thingInVirtualSwitch.on = [newState boolValue];
         });
     }
     else if ([thingName isEqualToString:ThingNameAVTorch]) {
