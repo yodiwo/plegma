@@ -45,8 +45,7 @@ public class MainActivityFragment extends Fragment {
     private TextView outputStr;
     private TextView inputStr;
 
-    public MainActivityFragment() {
-    }
+    public MainActivityFragment() { }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -115,7 +114,6 @@ public class MainActivityFragment extends Fragment {
             }
         });
 
-
         // Link the switches
         Switch s1 = (Switch) view.findViewById(R.id.output_switch1);
         s1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -179,7 +177,6 @@ public class MainActivityFragment extends Fragment {
         return view;
     }
 
-
     // =============================================================================================
     // Events from background services
 
@@ -204,7 +201,8 @@ public class MainActivityFragment extends Fragment {
                         if(progress >= 0 && progress <= 1)
                             progressBar.setProgress((int) (progressBar.getMax() * progress));
 
-                    } else if (thingKey.equals(thingManager.GetThingKey(ThingManager.InputSwitches))) {
+                    }
+                    else if (thingKey.equals(thingManager.GetThingKey(ThingManager.InputSwitches))) {
                         if(portID == 0)
                             inputSwitch1.setChecked(Boolean.parseBoolean(portState));
                         else if(portID==1)
@@ -212,7 +210,8 @@ public class MainActivityFragment extends Fragment {
                         else if(portID==2)
                             inputSwitch3.setChecked(Boolean.parseBoolean(portState));
 
-                    } else if (thingKey.equals(thingManager.GetThingKey(ThingManager.InputColors))) {
+                    }
+                    else if (thingKey.equals(thingManager.GetThingKey(ThingManager.InputColors))) {
                         double val = Double.parseDouble(portState);
                         int color = 0xff000000 | (int)((double)0xffffff * val);
 
@@ -223,14 +222,16 @@ public class MainActivityFragment extends Fragment {
                         } else if(portID == 2) {
                             colorButton3.setBackgroundColor(color);
                         }
-                    } else if (thingKey.equals(thingManager.GetThingKey(ThingManager.InputAndroidIntent))) {
+                    }
+                    else if (thingKey.equals(thingManager.GetThingKey(ThingManager.InputAndroidIntent))) {
                         if(isEvent) {
                             Intent i = new Intent(android.content.Intent.ACTION_VIEW,
                                     Uri.parse(portState));
                             startActivity(i);
                         }
                     }
-                } else if (action.equals(aServerAPI.CONNECTIVITY_UI_UPDATE)) {
+                }
+                else if (action.equals(aServerAPI.CONNECTIVITY_UI_UPDATE)) {
                     Bundle b = intent.getExtras();
                     Boolean rxActive = b.getBoolean(aServerAPI.EXTRA_UPDATED_RX_STATE);
                     Boolean txActive = b.getBoolean(aServerAPI.EXTRA_UPDATED_TX_STATE);
