@@ -1,5 +1,6 @@
 package com.yodiwo.androidnode;
 
+import android.app.IntentService;
 import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -16,9 +17,10 @@ import android.hardware.Camera.Parameters;
 /**
  * Created by r00tb00t on 10/4/15.
  */
-public class TorchModuleService extends Service {
+public class TorchModuleService extends IntentService {
 
-    public static final String TAG = TorchModuleService.class.getSimpleName();
+    public static final String EXTRA_TORCH_VALUE = "EXTRA_TORCH_VALUE";
+    private static final String TAG = "TORCH";
 
     private static boolean isTorchOn;
     private static Camera camera;
@@ -27,10 +29,13 @@ public class TorchModuleService extends Service {
 
     //==============================================================================================
 
-    public TorchModuleService () {
-        super();
+    public TorchModuleService() {
+        super("TorchModuleService");
     }
 
+    public TorchModuleService(String name) {
+        super(name);
+    }
     //==============================================================================================
 
     // Get camera resource
@@ -55,6 +60,7 @@ public class TorchModuleService extends Service {
 
     // Set torch state
     private void setTorch(boolean state) {
+        getCamera();
         if (camera == null || params == null) {
             return;
         }
@@ -74,58 +80,23 @@ public class TorchModuleService extends Service {
 
             isTorchOn = false;
         }
+        releaseCamera();
     }
 
     //==============================================================================================
 
     @Override
-    public IBinder onBind(Intent intent) {
-        //
-        Log.i(TAG, "onBind: Shouldn't have been called as this is supposed to be a started service");
-        return null;
-    }
+    protected void onHandleIntent(Intent intent) {
 
-    @Override
-    public void onCreate() {
-        thingManager = ThingManager.getInstance(this.getApplicationContext());
-
-        LocalBroadcastManager.getInstance(this).registerReceiver(mBroadcastReceiverTorchModuleService,
-                new IntentFilter(NodeService.BROADCAST_THING_UPDATE));
-    }
-
-    //==============================================================================================
-
-    private BroadcastReceiver mBroadcastReceiverTorchModuleService = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String action = intent.getAction();
-            Log.i(TAG, "Broadcast received: " + action);
-
-            try {
-                if (action.equals(NodeService.BROADCAST_THING_UPDATE)) {
-                    Bundle b = intent.getExtras();
-                    int portID = b.getInt(NodeService.EXTRA_UPDATED_PORT_ID, -1);
-                    String thingKey = b.getString(NodeService.EXTRA_UPDATED_THING_KEY);
-                    String thingName = b.getString(NodeService.EXTRA_UPDATED_THING_NAME);
-                    String portState = b.getString(NodeService.EXTRA_UPDATED_STATE);
-                    Boolean isEvent = b.getBoolean(NodeService.EXTRA_UPDATED_IS_EVENT);
-
-
-                    // Check if message is for Torch thing
-                    if (thingKey.equals(thingManager.GetThingKey(ThingManager.Torch))) {
-                        // Log
-                        Log.i(TAG, "Broadcast BROADCAST_THING_UPDATE received");
-
-                        // Set actual torch state
-                        boolean state = Boolean.parseBoolean(portState);
-                        getCamera();
-                        setTorch(state);
-                        releaseCamera();
-                    }
-                }
-            } catch (Exception ex) {
-                Log.e(TAG, "Failed to get update data: " + ex.getMessage());
-            }
+        Bundle bundle = intent.getExtras();
+        if(bundle == null)
+            return;
+        boolean torchValue = bundle.getBoolean(EXTRA_TORCH_VALUE);
+        try {
+            setTorch(torchValue);
         }
-    };
+        catch (Exception ex) {
+            Log.e(TAG, "Failed to get update data: " + ex.getMessage());
+        }
+    }
 }

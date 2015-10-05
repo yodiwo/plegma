@@ -230,6 +230,11 @@ public class MainActivityFragment extends Fragment {
                             startActivity(i);
                         }
                     }
+                    else if (thingKey.equals(thingManager.GetThingKey(ThingManager.Torch))) {
+                        Intent i = new Intent(context, TorchModuleService.class);
+                        i.putExtra(TorchModuleService.EXTRA_TORCH_VALUE, Boolean.parseBoolean(portState));
+                        context.startService(i);
+                    }
                 }
                 else if (action.equals(aServerAPI.CONNECTIVITY_UI_UPDATE)) {
                     Bundle b = intent.getExtras();
