@@ -8,6 +8,8 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.hardware.camera"/>
 
     <uses-feature
         android:name="android.hardware.nfc"
@@ -71,10 +73,15 @@
             android:enabled="true"
             android:exported="false" >
         </service>
-
-        <!-- Mqtt Service -->
-        <service android:name="org.eclipse.paho.android.service.MqttService" >
+        <service
+            android:name="com.yodiwo.androidnode.TorchModuleService"
+            android:enabled="true"
+            android:exported="false" >
         </service>
+        <service
+            android:name="org.eclipse.paho.android.service.MqttService" >
+        </service>
+
     </application>
 
 </manifest>

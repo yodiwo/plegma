@@ -88,6 +88,9 @@ public class ThingManager {
     public static final String InputAndroidIntent = "AndroidIntent";
     public static final int InputAndroidIntentPort = 0;
 
+    public static final String Torch = "Torch";
+    public static final int InputTorchPort0 = 0;
+
     // =================== ==========================================================================
     // Things Initialization
 
@@ -233,6 +236,13 @@ public class ThingManager {
         thingKey = ThingKey.CreateKey(nodeKey, InputAndroidIntent);
         thing = new Thing(thingKey, InputAndroidIntent, new ArrayList<ConfigParameter>(), new ArrayList<Port>(), "", "", new ThingUIHints("/Content/VirtualGateway/img/android.png", ""));
         thing.Ports.add(new Port(PortKey.CreateKey(thingKey, "0"), "Intent", "", ioPortDirection.Input, ePortType.String, "", 0, ePortConf.ReceiveAllEvents));
+        NodeService.AddThing(context, thing);
+
+        // ----------------------------------------------
+        // Torch
+        thingKey = ThingKey.CreateKey(nodeKey, Torch);
+        thing = new Thing(thingKey, Torch, new ArrayList<ConfigParameter>(), new ArrayList<Port>(), "", "", new ThingUIHints("/Content/VirtualGateway/img/icon-thing-generictorch.svg", ""));
+        thing.Ports.add(new Port(PortKey.CreateKey(thingKey, "0"), "Torch state", "", ioPortDirection.Input, ePortType.Boolean, NodeService.PortValue_Boolean_False, 0, ePortConf.None));
         NodeService.AddThing(context, thing);
     }
 

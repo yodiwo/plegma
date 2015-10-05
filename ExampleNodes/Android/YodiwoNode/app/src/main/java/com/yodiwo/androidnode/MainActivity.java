@@ -2,6 +2,7 @@ package com.yodiwo.androidnode;
 
 import android.app.Activity;
 import android.app.PendingIntent;
+import android.content.pm.PackageManager;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.location.Criteria;
@@ -40,6 +41,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
     private LocationManager locationManager;
     private String bestGPSProvider;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +68,17 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
                 }
             }
 
+            // Check for torch availability
+            if (!getApplicationContext().getPackageManager()
+                    .hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH)) {
+
+                Toast.makeText(this, "This device doesn't support Torch", Toast.LENGTH_LONG).show();
+            }
+            else {
+                // Start service
+                Intent intent = new Intent(this, TorchModuleService.class);
+                startService(intent);
+            }
 
 
             // Get the location manager
