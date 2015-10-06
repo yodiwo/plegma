@@ -17,25 +17,30 @@ import android.hardware.Camera.Parameters;
 /**
  * Created by r00tb00t on 10/4/15.
  */
-public class TorchModuleService extends IntentService {
+public class ThingsModuleService extends IntentService {
 
-    public static final String EXTRA_TORCH_VALUE = "EXTRA_TORCH_VALUE";
-    private static final String TAG = "TORCH";
-
-    private static boolean isTorchOn;
-    private static Camera camera;
-    private static Parameters params;
-    private ThingManager thingManager;
+    private static final String TAG = "ThingsModuleService";
+    public static final String EXTRA_INTENT_FOR_THING = "EXTRA_INTENT_FOR_THING";
 
     //==============================================================================================
 
-    public TorchModuleService() {
-        super("TorchModuleService");
+    // Torch
+    public static final String EXTRA_TORCH_THING = "EXTRA_TORCH_THING";
+    public static final String EXTRA_TORCH_THING_STATE = "EXTRA_TORCH_THING_STATE";
+    private static boolean isTorchOn;
+    private static Camera camera;
+    private static Parameters params;
+
+    //==============================================================================================
+
+    public ThingsModuleService() {
+        super("ThingsModuleService");
     }
 
-    public TorchModuleService(String name) {
+    public ThingsModuleService(String name) {
         super(name);
     }
+
     //==============================================================================================
 
     // Get camera resource
@@ -89,14 +94,26 @@ public class TorchModuleService extends IntentService {
     protected void onHandleIntent(Intent intent) {
 
         Bundle bundle = intent.getExtras();
-        if(bundle == null)
+        if(bundle == null) {
             return;
-        boolean torchValue = bundle.getBoolean(EXTRA_TORCH_VALUE);
-        try {
-            setTorch(torchValue);
         }
-        catch (Exception ex) {
-            Log.e(TAG, "Failed to get update data: " + ex.getMessage());
+
+        String forThing = bundle.getString(EXTRA_INTENT_FOR_THING);
+        if (forThing == null) {
+            Log.e(TAG, "Received unknown intent type");
+            return;
         }
+
+        if(forThing.compareTo(EXTRA_TORCH_THING) == 0) {
+            boolean state = bundle.getBoolean(EXTRA_TORCH_THING_STATE);
+
+            boolean torchState = bundle.getBoolean(EXTRA_TORCH_THING_STATE);
+            try {
+                setTorch(torchState);
+            } catch (Exception ex) {
+                Log.e(TAG, "Failed to set torch state: " + ex.getMessage());
+            }
+        }
+        // else if { } /* Other things */
     }
 }

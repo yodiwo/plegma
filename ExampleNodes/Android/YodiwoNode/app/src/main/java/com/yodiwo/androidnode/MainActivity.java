@@ -76,7 +76,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
             }
             else {
                 // Start service
-                Intent intent = new Intent(this, TorchModuleService.class);
+                Intent intent = new Intent(this, ThingsModuleService.class);
                 startService(intent);
             }
 

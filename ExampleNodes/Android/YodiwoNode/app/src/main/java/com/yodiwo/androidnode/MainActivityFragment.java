@@ -231,8 +231,10 @@ public class MainActivityFragment extends Fragment {
                         }
                     }
                     else if (thingKey.equals(thingManager.GetThingKey(ThingManager.Torch))) {
-                        Intent i = new Intent(context, TorchModuleService.class);
-                        i.putExtra(TorchModuleService.EXTRA_TORCH_VALUE, Boolean.parseBoolean(portState));
+                        Intent i = new Intent(context, ThingsModuleService.class);
+
+                        i.putExtra(ThingsModuleService.EXTRA_INTENT_FOR_THING, ThingsModuleService.EXTRA_TORCH_THING);
+                        i.putExtra(ThingsModuleService.EXTRA_TORCH_THING_STATE, Boolean.parseBoolean(portState));
                         context.startService(i);
                     }
                 }
