@@ -27,6 +27,7 @@ public class ThingsModuleService extends IntentService {
     // Torch
     public static final String EXTRA_TORCH_THING = "EXTRA_TORCH_THING";
     public static final String EXTRA_TORCH_THING_STATE = "EXTRA_TORCH_THING_STATE";
+    public static boolean hasTorch;
     private static boolean isTorchOn;
     private static Camera camera;
     private static Parameters params;
@@ -44,7 +45,7 @@ public class ThingsModuleService extends IntentService {
     //==============================================================================================
 
     // Get camera resource
-    private void getCamera() {
+    public static void getCamera() {
         if (camera == null) {
             try {
                 camera = Camera.open();
@@ -56,7 +57,7 @@ public class ThingsModuleService extends IntentService {
     }
 
     // Release camera resource
-    private void releaseCamera() {
+    public static void releaseCamera() {
         if (camera != null) {
             camera.release();
             camera = null;
@@ -65,7 +66,6 @@ public class ThingsModuleService extends IntentService {
 
     // Set torch state
     private void setTorch(boolean state) {
-        getCamera();
         if (camera == null || params == null) {
             return;
         }
@@ -85,7 +85,6 @@ public class ThingsModuleService extends IntentService {
 
             isTorchOn = false;
         }
-        releaseCamera();
     }
 
     //==============================================================================================
