@@ -357,6 +357,8 @@ NSString *const ThingNameAVTorch = @"iOSTorchLight";
         port.type = EnumPortType_String;
         port.portKey = [[[PortKey alloc] initWithThingKey:thingKey
                                                andPortUid:@"0"] toString];
+        port.ConfFlags = EnumPortConf_ReceiveAllEvents;
+
         NSMutableArray *ports = (id)[NSMutableArray new];
         [ports addObject:port];
 
@@ -385,6 +387,8 @@ NSString *const ThingNameAVTorch = @"iOSTorchLight";
         port.type = EnumPortType_Boolean;
         port.portKey = [[[PortKey alloc] initWithThingKey:thingKey
                                                andPortUid:@"0"] toString];
+        port.ConfFlags = EnumPortConf_No;
+
         NSMutableArray *ports = (id)[NSMutableArray new];
         [ports addObject:port];
 
@@ -413,6 +417,8 @@ NSString *const ThingNameAVTorch = @"iOSTorchLight";
         port.type = EnumPortType_Boolean;
         port.portKey = [[[PortKey alloc] initWithThingKey:thingKey
                                                andPortUid:@"0"] toString];
+        port.ConfFlags = EnumPortConf_No;
+
         NSMutableArray *ports = (id)[NSMutableArray new];
         [ports addObject:port];
 
@@ -441,6 +447,8 @@ NSString *const ThingNameAVTorch = @"iOSTorchLight";
         port.type = EnumPortType_Boolean;
         port.portKey = [[[PortKey alloc] initWithThingKey:thingKey
                                                andPortUid:@"0"] toString];
+        port.ConfFlags = EnumPortConf_No;
+        
         NSMutableArray *ports = (id)[NSMutableArray new];
         [ports addObject:port];
 

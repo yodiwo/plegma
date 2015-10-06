@@ -36,6 +36,27 @@ typedef NS_ENUM(NSInteger, EnumIOPortDirection)
 /*!
  * @discussion Unavailable
  */
+typedef NS_ENUM(NSInteger, EnumPortConf)
+{
+    /*!
+     * @discussion No configuration set
+     */
+    EnumPortConf_No = 0,
+
+    /*!
+     * @discussion Port should receive all event , not only dirty ones
+     */
+    EnumPortConf_ReceiveAllEvents = 1,
+
+    /*!
+     * @discussion Mark the port as a trigger port
+     */
+    EnumPortConf_IsTrigger = 2,
+};
+
+/*!
+ * @discussion Unavailable
+ */
 @interface Port : JSONModel
 
 /*!
@@ -71,7 +92,7 @@ typedef NS_ENUM(NSInteger, EnumIOPortDirection)
 /*!
  * @discussion Unavailable
  */
-@property (nonatomic) NSInteger numOfActiveGraphs;
+@property (nonatomic) EnumPortConf ConfFlags;
 
 @end
 
