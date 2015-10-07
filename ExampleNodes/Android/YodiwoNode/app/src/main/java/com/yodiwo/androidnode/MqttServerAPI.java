@@ -469,14 +469,14 @@ public class MqttServerAPI extends aServerAPI {
 
         // -----------------------------------------------------------------------------------------
         private void OnSubscribed() {
-            Log.e(TAG, "Successful subscribe to " + additionalArgs + ".");
+            Log.i(TAG, "Successful subscribe to " + additionalArgs + ".");
 
             RxActive = true;
             RequestConnectivityUiUpdate();
         }
 
         private void OnSubscribed(Throwable exception) {
-            Log.e(TAG, "Failed to subscribe to " + additionalArgs + ".");
+            Log.i(TAG, "Failed to subscribe to " + additionalArgs + ".");
 
             // If we failed to subscribe rx path set the variable
             if (additionalArgs.startsWith(mqttSubTopicPrefix)) {
@@ -486,7 +486,7 @@ public class MqttServerAPI extends aServerAPI {
 
         // -----------------------------------------------------------------------------------------
         private void OnPublish() {
-            Log.e(TAG, "Successful publish to " + additionalArgs + ".");
+            Log.i(TAG, "Successful publish to " + additionalArgs + ".");
         }
 
         private void OnPublish(Throwable exception) {
