@@ -5,11 +5,15 @@ import android.app.PendingIntent;
 import android.content.pm.PackageManager;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.Context;
 import android.location.Criteria;
 import android.location.Location;
+import android.location.Address;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.location.LocationProvider;
+import android.location.Geocoder;
+import android.provider.Settings;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
@@ -17,6 +21,8 @@ import android.nfc.Tag;
 import android.nfc.tech.Ndef;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -25,8 +31,10 @@ import android.view.View;
 import android.widget.Toast;
 
 import java.io.UnsupportedEncodingException;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 
 public class MainActivity extends ActionBarActivity implements LocationListener {
@@ -92,7 +100,10 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
                 Log.d(TAG, "GPS:" + info.toString());
             }
 
+            // TODO: Set detailed criteria or even better expose them through thing configuration
             Criteria criteria = new Criteria();
+            criteria.setAccuracy(Criteria.ACCURACY_MEDIUM);
+            criteria.setPowerRequirement(Criteria.POWER_MEDIUM);
             bestGPSProvider = locationManager.getBestProvider(criteria, false);
             LocationProvider info = locationManager.getProvider(bestGPSProvider);
             Log.d(TAG, "GPS BEST Provider:" + info.toString());
@@ -132,8 +143,14 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
             }
 
             // Request update location
-            if(locationManager!=null)
-                locationManager.requestLocationUpdates(bestGPSProvider, 20000, 1, this);
+            if(locationManager != null) {
+                try {
+                    locationManager.requestLocationUpdates(bestGPSProvider, 20000, 500, this);
+                }
+                catch (Exception e) {
+                    Log.e(TAG, "Request location updates failed", e);
+                }
+            }
         }
     }
 
@@ -363,23 +380,25 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
     // =============================================================================================
     // GPS
 
-    public  void onSendGPS(View view)
-    {
-
-    }
-
-    private static final String[] S = { "Out of Service",
-            "Temporarily Unavailable", "Available" };
-
+    private static final int REVERSEGEOCODING_RESULT_SUCCESS = 1;
+    private static final String[] S = { "Out of Service", "Temporarily Unavailable", "Available" };
 
     @Override
     public void onLocationChanged(Location location) {
 
         location = locationManager.getLastKnownLocation(bestGPSProvider);
-        if (location == null)
+        if (location == null) {
             Log.d(TAG, "GPS Locations (starting with last known): [unknown]\n\n");
-        else
+        }
+        else {
             Log.d(TAG, "GPS Locations (starting with last known):" + location.toString());
+
+            Double latitude = location.getLatitude();
+            Double longitude = location.getLongitude();
+
+            this.getAddressFromLocation(latitude, longitude,
+                    getApplicationContext(), new ReverseGeocodingHandler());
+        }
     }
 
     @Override
@@ -398,6 +417,81 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
     @Override
     public void onProviderDisabled(String provider) {
         Log.d(TAG, "GPS Provider Disabled: " + provider);
+
+        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+        startActivity(intent);
+        Toast.makeText(getBaseContext(), "Gps is disabled",
+                Toast.LENGTH_SHORT).show();
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    // Reverse geocoding related private members
+
+    private void getAddressFromLocation(final double latitude, final double longitude,
+                                        final Context context, final Handler cbHandler) {
+
+        Thread thread = new Thread() {
+
+            @Override
+            public void run() {
+                Geocoder geocoder = new Geocoder(context, Locale.getDefault());
+                try {
+                    List<Address> addressList = geocoder.getFromLocation(latitude, longitude, 1);
+                    if (addressList != null && addressList.size() > 0) {
+                        Address address = addressList.get(0);
+
+                        // Construct message
+                        Message message = Message.obtain();
+                        message.setTarget(cbHandler);
+                        message.what = REVERSEGEOCODING_RESULT_SUCCESS;
+                        Bundle bundle = new Bundle();
+                        bundle.putDouble("latitude", latitude);
+                        bundle.putDouble("longitude", longitude);
+                        bundle.putString("address", address.getThoroughfare());
+                        bundle.putString("country", address.getCountryName());
+                        bundle.putString("postal", address.getPostalCode());
+                        message.setData(bundle);
+
+                            // Send message to handler
+                            message.sendToTarget();
+                    }
+                }
+                catch (IOException e) {
+                    Log.e(TAG, "Reverse geocoding failed", e);
+                }
+            }
+        };
+
+        thread.start();
+    }
+
+    private class ReverseGeocodingHandler extends Handler {
+
+        @Override
+        public void handleMessage(Message message) {
+            switch (message.what) {
+                case REVERSEGEOCODING_RESULT_SUCCESS:
+                {
+                    Bundle bundle = message.getData();
+
+                    // Notify NodeService
+                    NodeService.SendPortMsg(getApplicationContext(),
+                            ThingManager.GPS,
+                            new String[] { Double.toString(bundle.getDouble("latitude")),
+                                           Double.toString(bundle.getDouble("longitude")),
+                                           bundle.getString("address"),
+                                           bundle.getString("country"),
+                                           bundle.getString("postal")});
+
+                    break;
+                }
+                default:
+                {
+                    break;
+                }
+            }
+        }
     }
 
     // ---------------------------------------------------------------------------------------------

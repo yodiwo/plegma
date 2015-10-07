@@ -62,12 +62,13 @@ public class ThingManager {
     public static final int AccelerometerZ = 2;
     public static final int AccelerometerShaken = 3;
 
-
     public static final String GPS = "GPS";
     public static final int GPSLatPort = 0;
-    public static final int GPSLotPort = 1;
-    public static final int GPSCityNamePort = 2;
-    public static final int GPSAdrressPort = 3;
+    public static final int GPSLonPort = 1;
+    public static final int GPSAddressPort = 2;
+    public static final int GPSCountryPort = 3;
+    public static final int GPSPostalCodePort = 4;
+
 
     public static final String OutputNFC = "NFC";
     public static final int OutputNFCPort = 0;
@@ -186,18 +187,15 @@ public class ThingManager {
 
         thingKey = ThingKey.CreateKey(nodeKey, GPS);
         thing = new Thing(thingKey, GPS, new ArrayList<ConfigParameter>(), new ArrayList<Port>(), "", "", new ThingUIHints("/Content/VirtualGateway/img/gps.png", ""));
-        thing.Ports.add(new Port(PortKey.CreateKey(thingKey, "0"), "Position", "", ioPortDirection.Output, ePortType.String, "", 0, ePortConf.IsTrigger));
+        thing.Ports.add(new Port(PortKey.CreateKey(thingKey, Integer.toString(GPSLatPort)), "Latitude", "GPS Latitude coordinate", ioPortDirection.Output, ePortType.DecimalHigh, "", 0, ePortConf.None));
+        thing.Ports.add(new Port(PortKey.CreateKey(thingKey, Integer.toString(GPSLonPort)), "Longitude", "GPS Longitude coordinate", ioPortDirection.Output, ePortType.DecimalHigh, "", 0, ePortConf.None));
+        thing.Ports.add(new Port(PortKey.CreateKey(thingKey, Integer.toString(GPSAddressPort)), "Address", "GPS acquired address", ioPortDirection.Output, ePortType.String, "", 0, ePortConf.None));
+        thing.Ports.add(new Port(PortKey.CreateKey(thingKey, Integer.toString(GPSCountryPort)), "Country name", "GPS acquired country name", ioPortDirection.Output, ePortType.String, "", 0, ePortConf.None));
+        thing.Ports.add(new Port(PortKey.CreateKey(thingKey, Integer.toString(GPSPostalCodePort)), "Postal code", "GPS acquired postal code", ioPortDirection.Output, ePortType.String, "", 0, ePortConf.None));
+
+
         NodeService.AddThing(context, thing);
 
-        /*
-        thingKey = ThingKey.CreateKey(nodeKey, GPS);
-        thing = new Thing(thingKey, deviceName + " " + GPS, new ArrayList<ConfigParameter>(), new ArrayList<Port>(), "", new ThingUIHints("/Content/VirtualGateway/img/nfc.png"));
-        thing.Ports.add(new Port("Lat", ePortType.DecimalHigh, ioPortDirection.Output, "0", "", PortKey.CreateKey(thingKey, "0"), 0));
-        thing.Ports.add(new Port("Lot", ePortType.DecimalHigh, ioPortDirection.Output, "0", "", PortKey.CreateKey(thingKey, "1"), 0));
-        thing.Ports.add(new Port("CityName", ePortType.String, ioPortDirection.Output, "0", "", PortKey.CreateKey(thingKey, "2"), 0));
-        thing.Ports.add(new Port("Address", ePortType.String, ioPortDirection.Output, "0", "", PortKey.CreateKey(thingKey, "3"), 0));
-        NodeService.AddThing(context, thing);
-        */
 
         // -----------------------------------------------------------------------------
         // Inputs
