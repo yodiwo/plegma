@@ -276,7 +276,6 @@ public class NodeService extends IntentService {
 
     private void SendPortMsg(Thing thing, int portIndex, String data) {
         if (data != null) {
-            //Send REST API request
             PortEventMsg msg = new PortEventMsg();
             msg.PortEvents = new PortEvent[1];
 
@@ -286,7 +285,7 @@ public class NodeService extends IntentService {
                     data,
                     0); // TODO: See if we need to have actual sequence number per port
 
-            //Send REST API request
+            //Send API request
             try {
                 serverAPI.Send(msg);
             } catch (Exception e) {
