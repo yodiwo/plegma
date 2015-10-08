@@ -6,6 +6,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.os.Vibrator;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -128,6 +129,9 @@ public class SensorsListener implements SensorEventListener {
 
             if ( (centimeters < 1.0) &&
                  (timestamp - mProximityTS > 1*NANOSEC_IN_SEC) ) {
+
+                Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+                vibrator.vibrate(50);
 
                 mProximityTS = timestamp;
 
