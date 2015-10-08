@@ -144,6 +144,12 @@ public class MainActivityFragment extends Fragment {
 
         // GPS button
         Button gpsButton = (Button) view.findViewById(R.id.button_GPS);
+
+        // TODO: Disable until functionality is added to button, or remove button entirely
+        // TODO: Decide if we need a button, or if the existing automatic triggering should suffice)
+        gpsButton.setClickable(false);
+        gpsButton.setVisibility(View.INVISIBLE);
+
         gpsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
