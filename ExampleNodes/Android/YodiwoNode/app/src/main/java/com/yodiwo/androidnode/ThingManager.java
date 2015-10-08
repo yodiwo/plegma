@@ -53,6 +53,9 @@ public class ThingManager {
     public static final String Slider1 = "Slider1";
     public static final int SliderPort = 0;
 
+    public static final String Proximity = "Proximity";
+    public static final int ProximityPort = 0;
+
     public static final String Brightness = "Brightness";
     public static final int BrightnessPort = 0;
 
@@ -157,6 +160,13 @@ public class ThingManager {
             thing.Ports.add(new Port(PortKey.CreateKey(thingKey, "0"), "Value", "", ioPortDirection.Output, ePortType.Decimal, "0", 0, ePortConf.None));
             NodeService.AddThing(context, thing);
         }
+
+        // ----------------------------------------------
+        // Proximity
+        thingKey = ThingKey.CreateKey(nodeKey, Proximity);
+        thing = new Thing(thingKey, Proximity, new ArrayList<ConfigParameter>(), new ArrayList<Port>(), "", "", new ThingUIHints("/Content/VirtualGateway/img/icon-thing-proximity.png", ""));
+        thing.Ports.add(new Port(PortKey.CreateKey(thingKey, "0"), "Close", "", ioPortDirection.Output, ePortType.Boolean, "false", 0, ePortConf.IsTrigger));
+        NodeService.AddThing(context, thing);
 
         // ----------------------------------------------
         // Accelerometer

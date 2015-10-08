@@ -27,6 +27,7 @@ public class SensorsListener implements SensorEventListener {
     public enum SensorType {
         Brightness,
         Accelerometer,
+        Proximity,
         GPS
     }
 
@@ -50,6 +51,9 @@ public class SensorsListener implements SensorEventListener {
     private float mBrightnessLast = 0;
     private long mBrightnessTS = 0;
 
+    //Proximity
+    private Sensor mProximitySensor;
+    private long mProximityTS = 0;
 
     private final long MILLISEC_IN_SEC = 1000;
     private final long MICROSEC_IN_SEC = 1000 * MILLISEC_IN_SEC;
@@ -97,7 +101,7 @@ public class SensorsListener implements SensorEventListener {
 
             // filter out too frequent readings
             // and send data to node service
-            if ((timestamp - mLastAccelTS > NANOSEC_IN_SEC) &&
+            if ((timestamp - mLastAccelTS > 2*NANOSEC_IN_SEC) &&
                     ((Math.abs(mAccel) > 0.9f) || isShake)) {
 
                 Log.d(TAG, "Accel Delta:" + Float.toString(delta));
@@ -118,6 +122,19 @@ public class SensorsListener implements SensorEventListener {
                 );
             }
 
+        } else if (sensorEvent.sensor.getType() == Sensor.TYPE_PROXIMITY) {
+            float centimeters = sensorEvent.values[0];
+            //boolean val = (centimeters<2.0) ? true : false;
+
+            if ( (centimeters < 1.0) &&
+                 (timestamp - mProximityTS > 1*NANOSEC_IN_SEC) ) {
+
+                mProximityTS = timestamp;
+
+                NodeService.SendPortMsg(context, ThingManager.Proximity, ThingManager.ProximityPort, "True");
+                NodeService.SendPortMsg(context, ThingManager.Proximity, ThingManager.ProximityPort, "False");
+            }
+
         } else if (sensorEvent.sensor.getType() == Sensor.TYPE_LIGHT) {
             float brightness = sensorEvent.values[0];
 
@@ -125,7 +142,7 @@ public class SensorsListener implements SensorEventListener {
 
             // filter out too frequent readings
             // and send data to node service
-            if (timestamp - mBrightnessTS > 500*MICROSEC_IN_SEC) {
+            if (timestamp - mBrightnessTS > 1*NANOSEC_IN_SEC) {
                 if (Math.abs(brightness - mBrightnessLast) > Math.abs(brightness / 10)) {
                     mBrightnessTS = timestamp;
                     NodeService.SendPortMsg(context,
@@ -158,6 +175,10 @@ public class SensorsListener implements SensorEventListener {
                 if (mBrightnessSensor != null)
                     mSensorManager.unregisterListener(this, mBrightnessSensor);
                 break;
+            case Proximity:
+                if(mProximitySensor!=null)
+                    mSensorManager.unregisterListener(this, mProximitySensor);
+                break;
         }
     }
 
@@ -176,6 +197,10 @@ public class SensorsListener implements SensorEventListener {
                     mBrightnessSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
                     mSensorManager.registerListener(this, mBrightnessSensor, SensorManager.SENSOR_DELAY_NORMAL);
                 }
+                break;
+            case  Proximity:
+                mProximitySensor = mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
+                mSensorManager.registerListener(this, mProximitySensor, SensorManager.SENSOR_DELAY_NORMAL);
                 break;
         }
     }

@@ -133,6 +133,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
             // Get from defines what we need to enable
             NodeService.StartService(this, SensorsListener.SensorType.Accelerometer);
             NodeService.StartService(this, SensorsListener.SensorType.Brightness);
+            NodeService.StartService(this, SensorsListener.SensorType.Proximity);
 
             // Resume NFC
             setupForegroundNFCDispatch(this, mNfcAdapter);
@@ -167,6 +168,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
             // Get from defines what we need to enable
             NodeService.StopService(this, SensorsListener.SensorType.Accelerometer);
             NodeService.StopService(this, SensorsListener.SensorType.Brightness);
+            NodeService.StopService(this, SensorsListener.SensorType.Proximity);
 
             // Tell NodeService to handle Pausing itself
             NodeService.Pause(this);
