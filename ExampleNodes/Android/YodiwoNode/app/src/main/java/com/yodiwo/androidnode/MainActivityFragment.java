@@ -4,11 +4,16 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.NetworkInfo;
 import android.net.Uri;
+import android.net.ConnectivityManager;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -180,6 +185,10 @@ public class MainActivityFragment extends Fragment {
         LocalBroadcastManager.getInstance(context).registerReceiver(mMessageReceiverMainActivityService,
                 new IntentFilter(aServerAPI.CONNECTIVITY_UI_UPDATE));
 
+        // For events related to device connectivity status
+        LocalBroadcastManager.getInstance(context).registerReceiver(mMessageReceiverMainActivityService,
+                new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+
         return view;
     }
 
@@ -251,6 +260,39 @@ public class MainActivityFragment extends Fragment {
 
                     outputStr.setAlpha(txActive ? 1.0f : 0.3f);
                     inputStr.setAlpha(rxActive ? 1.0f : 0.3f);
+                }
+                else if (action.equals(ConnectivityManager.CONNECTIVITY_ACTION)) {
+                    int networkType = intent.getIntExtra(ConnectivityManager.EXTRA_NETWORK_TYPE, -1);
+
+                    if (networkType == ConnectivityManager.TYPE_WIFI) {
+                        String toSendState = "";
+                        String toSendSSID = "";
+                        String toSendRSSI = "";
+
+                        ConnectivityManager connManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+                        NetworkInfo networkInfo = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+                        NetworkInfo.State state = networkInfo.getState(); // Coarse-grained state
+
+                        toSendState = state.toString(); // Port0
+
+                        if (networkInfo.isConnected()) {
+                            WifiManager wifiManager = (WifiManager)context.getSystemService(Context.WIFI_SERVICE);
+                            WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+
+                            if (wifiInfo != null && !TextUtils.isEmpty(wifiInfo.getSSID())) {
+                                toSendSSID = wifiInfo.getSSID(); // Port1
+                                toSendRSSI = Integer.toString(wifiInfo.getRssi()); // Port2
+                            }
+                        }
+
+                        // Notify NodeService
+                        NodeService.SendPortMsg(context.getApplicationContext(),
+                                ThingManager.WiFiStatus,
+                                new String[] { toSendState, toSendSSID, toSendRSSI });
+                    }
+                    else if (networkType == ConnectivityManager.TYPE_BLUETOOTH) {
+                        // TODO: Implement Bluetooth thing
+                    }
                 }
             } catch (Exception ex) {
                 Log.e(TAG, "Failed to get update data: " + ex.getMessage());

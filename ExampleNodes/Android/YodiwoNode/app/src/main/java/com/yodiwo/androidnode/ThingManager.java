@@ -71,6 +71,12 @@ public class ThingManager {
     public static final int GPSCountryPort = 3;
     public static final int GPSPostalCodePort = 4;
 
+    public static final String WiFiStatus = "WiFiStatus";
+    public static final int WiFiStatusConnectionStatusPort = 0;
+    public static final int WiFiStatusSSIDPort = 1;
+    public static final int WiFiStatusRSSIPort = 2;
+
+    //----------------------------------------------------------------------------------------------
 
     public static final String OutputNFC = "NFC";
     public static final int OutputNFCPort = 0;
@@ -267,6 +273,25 @@ public class ThingManager {
         thing.Ports.add(new Port(PortKey.CreateKey(thingKey, Integer.toString(GPSPostalCodePort)),
                 "Postal code", "GPS acquired postal code",
                 ioPortDirection.Output, ePortType.String, "", 0, ePortConf.None));
+
+        NodeService.AddThing(context, thing);
+
+        // ----------------------------------------------
+        // WiFi status thing
+
+        thingKey = ThingKey.CreateKey(nodeKey, WiFiStatus);
+        thing = new Thing(thingKey, WiFiStatus, new ArrayList<ConfigParameter>(), new ArrayList<Port>(), "", "",
+                new ThingUIHints("/Content/VirtualGateway/img/icon-thing-generic-wifi.png", ""));
+
+        thing.Ports.add(new Port(PortKey.CreateKey(thingKey, Integer.toString(WiFiStatusConnectionStatusPort)),
+                "Connection status", "WiFi connection status",
+                ioPortDirection.Output, ePortType.String, "", 0, ePortConf.None));
+        thing.Ports.add(new Port(PortKey.CreateKey(thingKey, Integer.toString(WiFiStatusSSIDPort)),
+                "SSID", "The SSID of the WiFi access point the device is connected to",
+                ioPortDirection.Output, ePortType.String, "", 0, ePortConf.None));
+        thing.Ports.add(new Port(PortKey.CreateKey(thingKey, Integer.toString(WiFiStatusRSSIPort)),
+                "RSSI", "Received Signal Strength Indication (RSSI) of the WiFi access point the device is connected to",
+                ioPortDirection.Output, ePortType.Integer, "", 0, ePortConf.None));
 
         NodeService.AddThing(context, thing);
 
