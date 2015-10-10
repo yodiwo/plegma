@@ -113,6 +113,9 @@ public class NodeService extends IntentService {
 
         settingsProvider = SettingsProvider.getInstance(getApplicationContext());
 
+        // Do not handle any intents, unless device is paired
+        if (settingsProvider.getNodeKey() == null) { return; }
+
         // Init server api and select MQTT or REST transport
         if (serverAPI == null) {
             if (settingsProvider.getServerTransport() == SettingsProvider.ServerAPITransport.REST)
