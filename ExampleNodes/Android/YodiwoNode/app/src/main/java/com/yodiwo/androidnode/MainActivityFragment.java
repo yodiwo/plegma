@@ -1,5 +1,6 @@
 package com.yodiwo.androidnode;
 
+import android.bluetooth.BluetoothAdapter;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -9,6 +10,7 @@ import android.net.Uri;
 import android.net.ConnectivityManager;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.bluetooth.BluetoothDevice;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
@@ -24,6 +26,13 @@ import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 
 /**
@@ -178,16 +187,28 @@ public class MainActivityFragment extends Fragment {
         outputStr = (TextView) view.findViewById(R.id.textView);
         inputStr = (TextView) view.findViewById(R.id.textView2);
 
-        //start out greyed out (no connection)
+        // Start out greyed out (no connection)
         outputStr.setAlpha(0.3f);
         inputStr.setAlpha(0.3f);
 
         LocalBroadcastManager.getInstance(context).registerReceiver(mMessageReceiverMainActivityService,
                 new IntentFilter(aServerAPI.CONNECTIVITY_UI_UPDATE));
 
-        // For events related to device connectivity status
-        LocalBroadcastManager.getInstance(context).registerReceiver(mMessageReceiverMainActivityService,
+        // WiFi-related
+        context.registerReceiver(mMessageReceiverMainActivityService,
                 new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+
+        // Bluetooth-related
+        context.registerReceiver(mMessageReceiverMainActivityService,
+                new IntentFilter(BluetoothDevice.ACTION_FOUND));
+        context.registerReceiver(mMessageReceiverMainActivityService,
+                new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED));
+        context.registerReceiver(mMessageReceiverMainActivityService,
+                new IntentFilter(BluetoothAdapter.ACTION_DISCOVERY_STARTED));
+        context.registerReceiver(mMessageReceiverMainActivityService,
+                new IntentFilter(BluetoothAdapter.ACTION_DISCOVERY_FINISHED));
+        context.registerReceiver(mMessageReceiverMainActivityService,
+                new IntentFilter(BluetoothAdapter.ACTION_CONNECTION_STATE_CHANGED));
 
         return view;
     }
@@ -202,6 +223,7 @@ public class MainActivityFragment extends Fragment {
             Log.i(TAG, "Broadcast received: " + action);
 
             try {
+                //----------------------------- Things Update --------------------------------------
                 if (action.equals(NodeService.BROADCAST_THING_UPDATE)) {
                     Bundle b = intent.getExtras();
                     int portID = b.getInt(NodeService.EXTRA_UPDATED_PORT_ID, -1);
@@ -252,7 +274,37 @@ public class MainActivityFragment extends Fragment {
                         i.putExtra(ThingsModuleService.EXTRA_TORCH_THING_STATE, Boolean.parseBoolean(portState));
                         context.startService(i);
                     }
+                    else if (thingKey.equals(thingManager.GetThingKey(ThingManager.BluetoothControl))) {
+                        if (portID == ThingManager.BluetoothTriggerSingleShotDiscoveryPort) {
+                            Boolean res = BluetoothAdapter.getDefaultAdapter().startDiscovery();
+                            if (res == false) {
+                                // Report
+                                Log.e(TAG, "Failed to start device discovery");
+                            }
+                        }
+                        else if (portID == ThingManager.BluetoothRequestPairedDevicesPort) {
+                            Set<BluetoothDevice> pairedDevices = BluetoothAdapter.getDefaultAdapter().getBondedDevices();
+
+                            if (pairedDevices.size() > 0) {
+                                ArrayList<String> pairedDevicesList = new ArrayList<String>();
+                                for (BluetoothDevice device : pairedDevices) {
+                                    String toSendPairedDevice = device.getName() + "," + device.getAddress();
+
+                                    // Notify NodeService
+                                    NodeService.SendPortMsg(context.getApplicationContext(),
+                                            ThingManager.BluetoothStatus,
+                                            ThingManager.BluetoothPairedDevicesPort,
+                                            toSendPairedDevice);
+                                }
+
+                                // TODO: Send all paired devices as single delimited string ?
+                                // String[] toSendPairedDevices = new String[pairedDevicesList.size()];
+                                // toSendPairedDevices  = pairedDevicesList.toArray(toSendPairedDevices);
+                            }
+                        }
+                    }
                 }
+                //------------------------------- UI -----------------------------------------------
                 else if (action.equals(aServerAPI.CONNECTIVITY_UI_UPDATE)) {
                     Bundle b = intent.getExtras();
                     Boolean rxActive = b.getBoolean(aServerAPI.EXTRA_UPDATED_RX_STATE);
@@ -261,6 +313,7 @@ public class MainActivityFragment extends Fragment {
                     outputStr.setAlpha(txActive ? 1.0f : 0.3f);
                     inputStr.setAlpha(rxActive ? 1.0f : 0.3f);
                 }
+                //----------------------------- WiFi -----------------------------------------------
                 else if (action.equals(ConnectivityManager.CONNECTIVITY_ACTION)) {
                     int networkType = intent.getIntExtra(ConnectivityManager.EXTRA_NETWORK_TYPE, -1);
 
@@ -290,10 +343,46 @@ public class MainActivityFragment extends Fragment {
                                 ThingManager.WiFiStatus,
                                 new String[] { toSendState, toSendSSID, toSendRSSI });
                     }
-                    else if (networkType == ConnectivityManager.TYPE_BLUETOOTH) {
-                        // TODO: Implement Bluetooth thing
-                    }
                 }
+                //----------------------------- Bluetooth ------------------------------------------
+                else if (action.equals(BluetoothAdapter.ACTION_STATE_CHANGED)) {
+                    int state = intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, -1);
+
+                    // Notify NodeService
+                    NodeService.SendPortMsg(context.getApplicationContext(),
+                            ThingManager.BluetoothStatus,
+                            ThingManager.BluetoothPowerStatusPort,
+                            ThingManager.bluetoothPowerStateCodesToNames.get(state));
+                }
+                else if (action.equals(BluetoothAdapter.ACTION_CONNECTION_STATE_CHANGED)) {
+                    // STATE_DISCONNECTED, STATE_CONNECTING, STATE_CONNECTED, STATE_DISCONNECTING --> EXTRA_CONNECTION_STATE
+                    int state = intent.getIntExtra(BluetoothAdapter.EXTRA_CONNECTION_STATE, -1);
+
+                    // Notify NodeService
+                    NodeService.SendPortMsg(context.getApplicationContext(),
+                            ThingManager.BluetoothStatus,
+                            ThingManager.BluetoothConnectionStatusPort,
+                            ThingManager.bluetoothConnectionStateCodesToNames.get(state));
+                }
+                else if (action.equals(BluetoothAdapter.ACTION_DISCOVERY_STARTED)) {
+                    Log.d(TAG, "Device discovery started");
+                }
+                else if (action.equals(BluetoothDevice.ACTION_FOUND)) {
+                    // Get the BluetoothDevice object from the Intent
+                    BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+
+                    // Notify NodeService
+                    // TODO: Discuss - whether we should send more info
+                    NodeService.SendPortMsg(context.getApplicationContext(),
+                            ThingManager.BluetoothStatus,
+                            ThingManager.BluetoothDiscoveredDevicesPort,
+                            device.getName() + " (" + device.getAddress() + ")");
+                }
+                else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {
+                    // This has to be called to ensure discovery is disabled
+                    BluetoothAdapter.getDefaultAdapter().cancelDiscovery();
+                }
+                //----------------------------------------------------------------------------------
             } catch (Exception ex) {
                 Log.e(TAG, "Failed to get update data: " + ex.getMessage());
             }

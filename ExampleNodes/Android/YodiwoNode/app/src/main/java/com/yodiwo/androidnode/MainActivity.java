@@ -27,8 +27,9 @@ import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
 
 import java.io.UnsupportedEncodingException;
 import java.io.IOException;
@@ -48,7 +49,9 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
 
     private LocationManager locationManager;
     private String bestGPSProvider;
+    private BluetoothAdapter bluetoothAdapter;
 
+    private static final int REQUEST_ENABLE_BT = 666;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +92,17 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
                 startService(intent);
             }
 
+            // Check for Bluetooth availability
+            bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+            if (bluetoothAdapter == null) {
+                Toast.makeText(this, "This device doesn't support Bluetooth", Toast.LENGTH_LONG).show();
+            }
+            else {
+                if (!bluetoothAdapter.isEnabled()) {
+                    Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                    startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+                }
+            }
 
             // Get the location manager
             locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
@@ -231,6 +245,15 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
     @Override
     protected void onNewIntent(Intent intent) {
         handleNFCIntent(intent);
+    }
+
+    @Override
+    protected void onActivityResult (int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_ENABLE_BT) {
+            if (resultCode != RESULT_OK) {
+                Toast.makeText(this, "Bluetooth Thing is disabled", Toast.LENGTH_LONG).show();
+            }
+        }
     }
 
     // =============================================================================================

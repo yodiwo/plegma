@@ -14,6 +14,8 @@ import com.yodiwo.plegma.ePortType;
 import com.yodiwo.plegma.ioPortDirection;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by FxBit on 7/8/2015.
@@ -71,10 +73,20 @@ public class ThingManager {
     public static final int GPSCountryPort = 3;
     public static final int GPSPostalCodePort = 4;
 
-    public static final String WiFiStatus = "WiFiStatus";
+    public static final String WiFiStatus = "WiFi";
     public static final int WiFiStatusConnectionStatusPort = 0;
     public static final int WiFiStatusSSIDPort = 1;
     public static final int WiFiStatusRSSIPort = 2;
+
+    public static final String BluetoothStatus = "BluetoothStatus";
+    public static final int BluetoothPowerStatusPort = 0;
+    public static final int BluetoothConnectionStatusPort = 1;
+    public static final int BluetoothPairedDevicesPort = 2;
+    public static final int BluetoothDiscoveredDevicesPort = 3;
+
+    public static final String BluetoothControl = "BluetoothControl";
+    public static final int BluetoothTriggerSingleShotDiscoveryPort = 0;
+    public static final int BluetoothRequestPairedDevicesPort = 1;
 
     //----------------------------------------------------------------------------------------------
 
@@ -100,7 +112,33 @@ public class ThingManager {
     public static final String Torch = "Torch";
     public static final int InputTorchPort0 = 0;
 
-    // =================== ==========================================================================
+
+    // =============================================================================================
+    // Thing-specific helpers
+
+    // Bluetooth
+    public static final Map<Integer, String> bluetoothPowerStateCodesToNames = fillBluetoothPowerStateCodesToNames();
+    private static Map<Integer, String> fillBluetoothPowerStateCodesToNames() {
+        Map<Integer, String> map = new HashMap<Integer, String>();
+        map.put(10, "OFF");
+        map.put(11, "TURNING ON");
+        map.put(12, "ON");
+        map.put(13, "TURNING OFF");
+        return map;
+    }
+
+    public static final Map<Integer, String> bluetoothConnectionStateCodesToNames = fillBluetoothConnectionStateCodesToNames();
+    private static Map<Integer, String> fillBluetoothConnectionStateCodesToNames() {
+        Map<Integer, String> map = new HashMap<Integer, String>();
+        map.put(0, "DISCONNECTED");
+        map.put(1, "CONNECTING");
+        map.put(2, "CONNECTED");
+        map.put(3, "DISCONNECTING");
+        return map;
+    }
+
+
+    // =============================================================================================
     // Things Initialization
 
     private SettingsProvider settingsProvider;
@@ -281,7 +319,7 @@ public class ThingManager {
 
         thingKey = ThingKey.CreateKey(nodeKey, WiFiStatus);
         thing = new Thing(thingKey, WiFiStatus, new ArrayList<ConfigParameter>(), new ArrayList<Port>(), "", "",
-                new ThingUIHints("/Content/VirtualGateway/img/icon-thing-generic-wifi.png", ""));
+                new ThingUIHints("/Content/VirtualGateway/img/icon-thing-genericwifi.svg", ""));
 
         thing.Ports.add(new Port(PortKey.CreateKey(thingKey, Integer.toString(WiFiStatusConnectionStatusPort)),
                 "Connection status", "WiFi connection status",
@@ -290,11 +328,50 @@ public class ThingManager {
                 "SSID", "The SSID of the WiFi access point the device is connected to",
                 ioPortDirection.Output, ePortType.String, "", 0, ePortConf.None));
         thing.Ports.add(new Port(PortKey.CreateKey(thingKey, Integer.toString(WiFiStatusRSSIPort)),
-                "RSSI", "Received Signal Strength Indication (RSSI) of the WiFi access point the device is connected to",
+                "RSSI", "Received Signal Strength Indication (RSSI) of the WiFi access point the device is connected to (dBm)",
                 ioPortDirection.Output, ePortType.Integer, "", 0, ePortConf.None));
 
         NodeService.AddThing(context, thing);
 
+        // ----------------------------------------------
+        // Bluetooth status thing
+
+        thingKey = ThingKey.CreateKey(nodeKey, BluetoothStatus);
+        thing = new Thing(thingKey, BluetoothStatus, new ArrayList<ConfigParameter>(), new ArrayList<Port>(), "", "",
+                new ThingUIHints("/Content/VirtualGateway/img/icon-thing-genericbluetooth.svg", ""));
+
+        thing.Ports.add(new Port(PortKey.CreateKey(thingKey, Integer.toString(BluetoothPowerStatusPort)),
+                "Power status", "Bluetooth module power status",
+                ioPortDirection.Output, ePortType.String, "", 0, ePortConf.None));
+        thing.Ports.add(new Port(PortKey.CreateKey(thingKey, Integer.toString(BluetoothConnectionStatusPort)),
+                "Connection status", "Indicates whether the bluetooth module is connected to any profile of any remote device",
+                ioPortDirection.Output, ePortType.String, "", 0, ePortConf.None));
+        thing.Ports.add(new Port(PortKey.CreateKey(thingKey, Integer.toString(BluetoothPairedDevicesPort)),
+                "Paired devices", "Names of all remote devices paired to the bluetooth module",
+                ioPortDirection.Output, ePortType.String, "", 0, ePortConf.None));
+        thing.Ports.add(new Port(PortKey.CreateKey(thingKey, Integer.toString(BluetoothDiscoveredDevicesPort)),
+                "Discovered devices", "Names of all discovered remote devices",
+                ioPortDirection.Output, ePortType.String, "", 0, ePortConf.None));
+
+        NodeService.AddThing(context, thing);
+
+
+
+        // ----------------------------------------------
+        // Bluetooth control thing
+
+        thingKey = ThingKey.CreateKey(nodeKey, BluetoothControl);
+        thing = new Thing(thingKey, BluetoothControl, new ArrayList<ConfigParameter>(), new ArrayList<Port>(), "", "",
+                new ThingUIHints("/Content/VirtualGateway/img/icon-thing-genericbluetooth.svg", ""));
+
+        thing.Ports.add(new Port(PortKey.CreateKey(thingKey, Integer.toString(BluetoothTriggerSingleShotDiscoveryPort)),
+                "Trigger device discovery", "Initiate a single-shot device discovery procedure",
+                ioPortDirection.Input, ePortType.Boolean, "", 0, ePortConf.ReceiveAllEvents));
+        thing.Ports.add(new Port(PortKey.CreateKey(thingKey, Integer.toString(BluetoothRequestPairedDevicesPort)),
+                "Request paired devices", "Request all remote devices currently paired to the bluetooth module",
+                ioPortDirection.Input, ePortType.Boolean, "", 0, ePortConf.ReceiveAllEvents));
+
+        NodeService.AddThing(context, thing);
 
         // -----------------------------------------------------------------------------
         // Inputs
