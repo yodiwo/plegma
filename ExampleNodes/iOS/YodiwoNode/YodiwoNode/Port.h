@@ -72,6 +72,11 @@ typedef NS_ENUM(NSInteger, EnumPortConf)
 /*!
  * @discussion Unavailable
  */
+@property (strong, nonatomic) NSString *Description;
+
+/*!
+ * @discussion Unavailable
+ */
 @property (nonatomic) EnumIOPortDirection ioDirection;
 
 /*!
