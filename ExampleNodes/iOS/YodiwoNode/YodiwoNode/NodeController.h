@@ -18,6 +18,10 @@
 - (void)sendPortEventMsgFromThing:(NSString *)thingName
                          withData:(NSArray *)data;
 
+- (void)sendSinglePortEventMsgFromThing:(NSString *)thingName
+                          fromPortIndex:(NSInteger)portIndex
+                              withState:(NSString *)state;
+
 - (void)sendApiMsgOfType:(NSString *)apiMsgName
           withParameters:(NSArray *)params
                  andData:(NSArray *)data;

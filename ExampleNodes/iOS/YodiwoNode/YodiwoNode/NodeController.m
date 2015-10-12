@@ -228,6 +228,52 @@ typedef NS_ENUM(NSInteger, EnumApiMessages)
     //                         inTopic:(NSString *)topic
 }
 
+- (void)sendSinglePortEventMsgFromThing:(NSString *)thingName
+                          fromPortIndex:(NSInteger)portIndex
+                               withState:(NSString *)state {
+
+    NSString *thingKey =
+    [ThingKey createKeyFromNodeKey:[[SettingsVault sharedSettingsVault] getPairingNodeKey]
+                         thingName:thingName];
+
+
+    // Construct PortEventMsg
+    PortEventMsg *msg = [[PortEventMsg alloc] init];
+    msg.PortEvents = (id)[NSMutableArray new];
+
+
+    Port *port = [((Thing *)self.thingsDict[thingKey]).ports objectAtIndex:portIndex];
+    if ([self.activePortKeysSet containsObject:port.portKey]) {
+
+        // Update port state
+        port.state = state;
+
+        // Construct port event
+        PortEvent *portEvent = [[PortEvent alloc] init];
+        portEvent.PortKey =  port.portKey;
+        portEvent.State = state;
+        NSAssert(portEvent.State != nil,
+                 @"About to send PortEvent with nil state");
+        portEvent.RevNum = 0;
+
+        [msg.PortEvents addObject:portEvent];
+    }
+
+    // Convert to JSON for encapsulation
+    NSString *payload = [msg toJSONString];
+
+    // Construct final MqttAPIMessage
+    MqttAPIMessage *mqttMsg = [[MqttAPIMessage alloc] init];
+    mqttMsg.Payload = payload;
+    mqttMsg.ResponseToSeqNo = 0;
+
+    // Send, unless none of the thing's ports is part of a deployed graph
+    dispatch_async(self.serialMqttClientPublishQueue, ^{
+        NSString *apiMsgJson = [mqttMsg toJSONString];
+        NSString *topic = [[PlegmaApi apiMsgNames] objectForKey:[PortEventMsg class]];
+        [self.mqttClient publishMessage:apiMsgJson inTopic:topic];
+    });
+}
 
 - (void)sendApiMsgOfType:(NSString *)apiMsgName
           withParameters:(NSArray *)params
