@@ -13,6 +13,7 @@
 #import "NodeThingsRegistry.h"
 #import "LocationManagerModule.h"
 #import "MotionManagerModule.h"
+#import "BluetoothManagerModule.h"
 
 
 @interface NodeController ()
@@ -20,6 +21,7 @@
 @property (strong, nonatomic) MqttClient *mqttClient;
 @property (strong, nonatomic) LocationManagerModule *locaModule;
 @property (strong, nonatomic) MotionManagerModule *motionModule;
+@property (strong, nonatomic) BluetoothManagerModule *btModule;
 
 @property (strong, nonatomic) NSMutableDictionary *thingsDict;
 @property (strong, nonatomic) NSMutableDictionary *portKeyToPortDict;
@@ -74,6 +76,8 @@ typedef NS_ENUM(NSInteger, EnumApiMessages)
         _locaModule = [[LocationManagerModule alloc] init];
 
         _motionModule = [[MotionManagerModule alloc] init];
+
+        _btModule = [[BluetoothManagerModule alloc] init];
 
         _apiMsgNameStrToIntHelperDict = [NSDictionary dictionaryWithObjectsAndKeys:
 
@@ -595,6 +599,10 @@ typedef NS_ENUM(NSInteger, EnumApiMessages)
 
 - (void)startMotionManagerModule {
     [self.motionModule start];
+}
+
+- (void)startBluetoothManagerModule {
+    [self.btModule start];
 }
 //******************************************************************************
 

@@ -25,6 +25,8 @@ NSString *const ThingNameVirtualSlider = @"iOSSlider";
 NSString *const ThingNameVirtualTextInput = @"iOSTextInput";
 NSString *const ThingNameShakeDetector = @"iOSShakeDetector";
 NSString *const ThingNameActivityTracker = @"iOSActivityTracker";
+NSString *const ThingNameWiFiStatus = @"iOSWiFiStatus";
+NSString *const ThingNameBluetoothStatus = @"iOSBluetoothStatus";
 
 NSString *const ThingNameVirtualText = @"iOSText";
 NSString *const ThingNameVirtualLight1 = @"iOSLight1";
@@ -337,6 +339,91 @@ NSString *const ThingNameAVTorch = @"iOSTorchLight";
                                         blockType:@""
                                           uiHints:uiHints]];
     }
+
+    // WiFiStatus
+    {
+        NSString *thingUID = ThingNameWiFiStatus;
+        ThingKey *thingKey = [[ThingKey alloc] initWithNodeKey:nodeKey
+                                                   andThingUid:thingUID];
+
+        Port *port = [[Port  alloc] init];
+        port.name = @"WiFi status";
+        port.ioDirection = EnumIOPortDirection_Output;
+        port.type = EnumPortType_String;
+        port.portKey = [[[PortKey alloc] initWithThingKey:thingKey
+                                               andPortUid:@"0"] toString];
+        NSMutableArray *ports = (id)[NSMutableArray new];
+        [ports addObject:port];
+
+        ThingUIHints *uiHints = [[ThingUIHints alloc] init];
+        uiHints.iconUri = @"/Content/VirtualGateway/img/icon-thing-genericwifi.svg";
+
+        [[NodeController sharedNodeController]
+         addThing:[[Thing alloc] initWithThingKey:[thingKey toString]
+                                             name:[deviceName stringByAppendingString:thingUID]
+                                           config:nil
+                                            ports:ports
+                                             type:@"iOSSensor"
+                                        blockType:@""
+                                          uiHints:uiHints]];
+    }
+
+    // BluetoothStatus
+    {
+        NSString *thingUID = ThingNameBluetoothStatus;
+        ThingKey *thingKey = [[ThingKey alloc] initWithNodeKey:nodeKey
+                                                   andThingUid:thingUID];
+
+        Port *port = [[Port  alloc] init];
+        port.name = @"Bluetooth status";
+        port.ioDirection = EnumIOPortDirection_Output;
+        port.type = EnumPortType_String;
+        port.portKey = [[[PortKey alloc] initWithThingKey:thingKey
+                                               andPortUid:@"0"] toString];
+
+        Port *port1 = [[Port  alloc] init];
+        port1.name = @"Discovered peripheral";
+        port1.ioDirection = EnumIOPortDirection_Output;
+        port1.type = EnumPortType_String;
+        port1.portKey = [[[PortKey alloc] initWithThingKey:thingKey
+                                               andPortUid:@"1"] toString];
+
+        Port *port2 = [[Port  alloc] init];
+        port2.name = @"RSSI";
+        port2.ioDirection = EnumIOPortDirection_Output;
+        port2.type = EnumPortType_Integer;
+        port2.portKey = [[[PortKey alloc] initWithThingKey:thingKey
+                                               andPortUid:@"2"] toString];
+
+        Port *port3 = [[Port  alloc] init];
+        port3.name = @"Connected peripheral";
+        port3.ioDirection = EnumIOPortDirection_Output;
+        port3.type = EnumPortType_String;
+        port3.portKey = [[[PortKey alloc] initWithThingKey:thingKey
+                                                andPortUid:@"3"] toString];
+
+        NSMutableArray *ports = (id)[NSMutableArray new];
+        [ports addObject:port];
+        [ports addObject:port1];
+        [ports addObject:port2];
+        [ports addObject:port3];
+
+        ThingUIHints *uiHints = [[ThingUIHints alloc] init];
+        uiHints.iconUri = @"/Content/VirtualGateway/img/icon-thing-genericbluetooth.svg";
+
+        [[NodeController sharedNodeController]
+         addThing:[[Thing alloc] initWithThingKey:[thingKey toString]
+                                             name:[deviceName stringByAppendingString:thingUID]
+                                           config:nil
+                                            ports:ports
+                                             type:@"iOSSensor"
+                                        blockType:@""
+                                          uiHints:uiHints]];
+    }
+
+    //
+    // TODO: BluetoothControl thing for start/stop discovery ?
+    //
 
     //**************************************************************************
 

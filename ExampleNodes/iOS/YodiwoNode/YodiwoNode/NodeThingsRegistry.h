@@ -19,6 +19,8 @@ extern NSString *const ThingNameVirtualSlider;
 extern NSString *const ThingNameVirtualTextInput;
 extern NSString *const ThingNameShakeDetector;
 extern NSString *const ThingNameActivityTracker;
+extern NSString *const ThingNameWiFiStatus;
+extern NSString *const ThingNameBluetoothStatus;
 
 // ThingOut
 extern NSString *const ThingNameVirtualText;

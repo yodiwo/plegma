@@ -38,4 +38,6 @@
 
 - (void)startMotionManagerModule;
 
+- (void)startBluetoothManagerModule;
+
 @end
