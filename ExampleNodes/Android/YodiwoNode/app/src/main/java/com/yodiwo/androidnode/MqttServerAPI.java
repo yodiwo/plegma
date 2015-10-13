@@ -472,6 +472,7 @@ public class MqttServerAPI extends aServerAPI {
 
             RxActive = true;
             RequestConnectivityUiUpdate();
+            NodeService.RequestUpdatedState(context);
         }
 
         private void OnSubscribed(Throwable exception) {

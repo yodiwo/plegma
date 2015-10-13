@@ -17,6 +17,7 @@ import com.yodiwo.plegma.Port;
 import com.yodiwo.plegma.PortEvent;
 import com.yodiwo.plegma.PortEventMsg;
 import com.yodiwo.plegma.PortState;
+import com.yodiwo.plegma.PortStateReq;
 import com.yodiwo.plegma.PortStateRsp;
 import com.yodiwo.plegma.Thing;
 import com.yodiwo.plegma.ThingKey;
@@ -215,6 +216,7 @@ public class NodeService extends IntentService {
                 break;
                 // -------------------------------------
                 case REQUEST_RX_UPDATE: {
+                    SendPortStateReq();
                 }
                 break;
                 // -----------------------------------
@@ -225,6 +227,10 @@ public class NodeService extends IntentService {
                             serverIsConnected = true;
 
                             NodeService.RegisterNode(this, false);
+
+                            // Request the state of the things in the cloud
+                            //NodeService.RequestUpdatedState(this);
+                            SendPortStateReq();
                         }
                     } else {
                         if(serverIsConnected) {
@@ -249,6 +255,17 @@ public class NodeService extends IntentService {
                     ThingsReq.Overwrite,
                     "",
                     thingHashMap.values().toArray(new Thing[0]));
+            serverAPI.Send(msg);
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
+        }
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    private void SendPortStateReq() {
+        try {
+            PortStateReq msg = new PortStateReq(GetSendSeqNum(), ePortStateOperation.AllPortStates, null);
             serverAPI.Send(msg);
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
