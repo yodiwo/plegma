@@ -450,7 +450,6 @@ public class MqttServerAPI extends aServerAPI {
             RxActive = false;
             RequestConnectivityUiUpdate();
 
-            // if we disconnected kill and the rx path
             RxStarted = false;
             NodeService.ReceiveConnStatus(context, false);
         }

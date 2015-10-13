@@ -50,7 +50,7 @@ public class NodeService extends IntentService {
     private static final String EXTRA_PORT_DATA_ARRAY = "EXTRA_PORT_DATA_ARRAY";
     private static final String EXTRA_SERVICE_TYPE = "EXTRA_SERVICE_TYPE";
 
-    public static final int REQUEST_SENDNODES = 0;
+    public static final int REQUEST_SENDTHINGS = 0;
     public static final int REQUEST_ADDTHING = 1;
     public static final int REQUEST_CLEANTHINGS = 2;
     public static final int REQUEST_PORTMSG = 3;
@@ -154,8 +154,8 @@ public class NodeService extends IntentService {
                 }
                 break;
                 // -------------------------------------
-                case REQUEST_SENDNODES:
-                    SendNodes(settingsProvider);
+                case REQUEST_SENDTHINGS:
+                    SendThings(settingsProvider);
                     break;
                 // -------------------------------------
                 case REQUEST_CLEANTHINGS: {
@@ -215,30 +215,6 @@ public class NodeService extends IntentService {
                 break;
                 // -------------------------------------
                 case REQUEST_RX_UPDATE: {
-                    // TODO: Update code for rxUpdate
-                    /*
-                    if (!serverAPI.SendNodeThingsReq(new NodeThingsReq(
-                            null,
-                            eNodeThingsOperation.Get,
-                            null,
-                            settingsProvider.getNodeKey(),
-                            settingsProvider.getNodeSecretKey(),
-                            APIVersion,
-                            0))) {
-                        // We failed to send the request wait 250MS and try again
-                        // most probably we are not connected to server !!!!
-                        // TODO: find better way to handle retransmissions
-                        new Thread(new Runnable() {
-                            public void run() {
-                                try {
-                                    Thread.sleep(250);
-                                } catch (Exception ex) {
-                                }
-                                RequestUpdatedState(getApplicationContext());
-                            }
-                        }).start();
-                    }
-                    */
                 }
                 break;
                 // -----------------------------------
@@ -249,9 +225,6 @@ public class NodeService extends IntentService {
                             serverIsConnected = true;
 
                             NodeService.RegisterNode(this, false);
-
-                            // Request the state of the things in the cloud
-                            NodeService.RequestUpdatedState(this);
                         }
                     } else {
                         if(serverIsConnected) {
@@ -270,7 +243,7 @@ public class NodeService extends IntentService {
     // =============================================================================================
     // Service execution (background thread)
 
-    private void SendNodes(SettingsProvider settingsProvider) {
+    private void SendThings(SettingsProvider settingsProvider) {
         try {
             ThingsReq msg = new ThingsReq(GetSendSeqNum(),
                     ThingsReq.Overwrite,
@@ -539,7 +512,7 @@ public class NodeService extends IntentService {
             ThingManager.getInstance(context).RegisterThings();
 
             Intent intent = new Intent(context, NodeService.class);
-            intent.putExtra(EXTRA_REQUEST_TYPE, REQUEST_SENDNODES);
+            intent.putExtra(EXTRA_REQUEST_TYPE, REQUEST_SENDTHINGS);
             context.startService(intent);
         }
     }

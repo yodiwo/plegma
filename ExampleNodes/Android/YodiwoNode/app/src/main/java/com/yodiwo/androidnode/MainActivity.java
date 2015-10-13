@@ -186,18 +186,18 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
 
             // Tell NodeService to handle Pausing itself
             NodeService.Pause(this);
+
+            // Release camera resource
+            if(ThingsModuleService.hasTorch) {
+                ThingsModuleService.releaseCamera();
+            }
+
+            if (settingsProvider.getNodeKey() != null && settingsProvider.getNodeSecretKey() != null) {
+                locationManager.removeUpdates(this);
+            }
         }
 
         super.onPause();
-
-        // Release camera resource
-        if(ThingsModuleService.hasTorch) {
-            ThingsModuleService.releaseCamera();
-        }
-
-        if (settingsProvider.getNodeKey() != null && settingsProvider.getNodeSecretKey() != null) {
-            locationManager.removeUpdates(this);
-        }
     }
 
     // ---------------------------------------------------------------------------------------------
