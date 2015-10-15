@@ -5,6 +5,7 @@ import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
@@ -12,6 +13,7 @@ import com.google.gson.Gson;
 import com.yodiwo.plegma.ActivePortKeysMsg;
 import com.yodiwo.plegma.NodeInfoReq;
 import com.yodiwo.plegma.NodeInfoRsp;
+import com.yodiwo.plegma.NodeKey;
 import com.yodiwo.plegma.PlegmaAPI;
 import com.yodiwo.plegma.Port;
 import com.yodiwo.plegma.PortEvent;
@@ -32,6 +34,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class NodeService extends IntentService {
 
@@ -102,7 +105,8 @@ public class NodeService extends IntentService {
     private static HashSet<String> ActivePortKeysHashSet = new HashSet<>();
     private static HashMap<String, Thing> PortKeyToThingsHashMap = new HashMap<>();
     private static HashMap<String, Port> PortKeyToPortHashMap = new HashMap<>();
-    private static ReadWriteLock ActivePkeyLock;
+    private static final ReentrantReadWriteLock ActivePkeyLock = new ReentrantReadWriteLock();
+
 
     private SensorsListener sensorsListener = null;
 
@@ -184,17 +188,21 @@ public class NodeService extends IntentService {
                 case REQUEST_PORTMSG: {
                     String thingName = bundle.getString(EXTRA_THING_NAME);
                     Thing thing = thingHashMap.get(ThingKey.CreateKey(settingsProvider.getNodeKey(), thingName));
-                    int portIndex = bundle.getInt(EXTRA_PORT_INDEX);
-                    String data = bundle.getString(EXTRA_PORT_DATA);
-                    SendPortMsg(thing, portIndex, data);
+                    if(thing != null) {
+                        int portIndex = bundle.getInt(EXTRA_PORT_INDEX);
+                        String data = bundle.getString(EXTRA_PORT_DATA);
+                        SendPortMsg(thing, portIndex, data);
+                    }
                 }
                 break;
                 // -------------------------------------
                 case REQUEST_PORTMSG_ARRAY: {
                     String thingName = bundle.getString(EXTRA_THING_NAME);
                     Thing thing = thingHashMap.get(ThingKey.CreateKey(settingsProvider.getNodeKey(), thingName));
-                    String[] data = new Gson().fromJson(bundle.getString(EXTRA_PORT_DATA_ARRAY), String[].class);
-                    SendPortMsg(thing, data);
+                    if(thing != null) {
+                        String[] data = new Gson().fromJson(bundle.getString(EXTRA_PORT_DATA_ARRAY), String[].class);
+                        SendPortMsg(thing, data);
+                    }
                 }
                 break;
                 // -------------------------------------
@@ -276,15 +284,20 @@ public class NodeService extends IntentService {
 
     private void SendPortMsg(Thing thing, int portIndex, String data) {
         if (data != null) {
+            Lock l = ActivePkeyLock.readLock();
+            l.lock();
+            Boolean allow = ActivePortKeysHashSet.contains(thing.Ports.get(portIndex).PortKey);
+            l.unlock();
+
+            if(!allow)
+                return;
+
             PortEventMsg msg = new PortEventMsg();
-            msg.PortEvents = new PortEvent[1];
 
             // Fill the port event for each data
-            msg.PortEvents[0] = new PortEvent(
-                    thing.Ports.get(portIndex).PortKey,
-                    data,
-                    0); // TODO: See if we need to have actual sequence number per port
-
+            msg.PortEvents.add(
+                    new PortEvent(thing.Ports.get(portIndex).PortKey, data, 0)
+            );
             //Send API request
             try {
                 serverAPI.Send(msg);
@@ -297,20 +310,25 @@ public class NodeService extends IntentService {
     // ---------------------------------------------------------------------------------------------
 
     private void SendPortMsg(Thing thing, String[] data) {
+
         if (data != null && data.length > 0) {
-            //Send REST API request
+            Lock l = ActivePkeyLock.readLock();
             PortEventMsg msg = new PortEventMsg();
-            msg.PortEvents = new PortEvent[data.length];
 
-            // Fill the port event for each data
+            l.lock();
+            // Fill the port event for each data element which is enabled (deployed)
             for (int i = 0; i < data.length; i++) {
-                msg.PortEvents[i] = new PortEvent(
-                        thing.Ports.get(i).PortKey,
-                        data[i],
-                        0); // TODO: See if we need to have actual sequence number per port
+                if (ActivePortKeysHashSet.contains(thing.Ports.get(i).PortKey)) {
+                    msg.PortEvents.add(
+                        new PortEvent(thing.Ports.get(i).PortKey, data[i],0)
+                    );
+                }
             }
+            l.unlock();
 
-            //Send REST API request
+            if(msg.PortEvents.isEmpty())
+                return;
+
             try {
                 serverAPI.Send(msg);
             } catch (Exception e) {
@@ -546,37 +564,16 @@ public class NodeService extends IntentService {
     // ---------------------------------------------------------------------------------------------
 
     public static void SendPortMsg(Context context, String thingName, String[] data) {
-        ArrayList<String> filteredPkeys = new ArrayList<>();
-        Lock l = ActivePkeyLock.readLock();
-
-        l.lock();
-        for (String pkey: data) {
-            if(ActivePortKeysHashSet.contains(pkey))
-                filteredPkeys.add(pkey);
-        }
-        l.unlock();
-
-        if(filteredPkeys.isEmpty())
-            return;
-
         Intent intent = new Intent(context, NodeService.class);
         intent.putExtra(EXTRA_REQUEST_TYPE, REQUEST_PORTMSG_ARRAY);
         intent.putExtra(EXTRA_THING_NAME, thingName);
-        intent.putExtra(EXTRA_PORT_DATA_ARRAY, new Gson().toJson(filteredPkeys));
+        intent.putExtra(EXTRA_PORT_DATA_ARRAY, new Gson().toJson(data));
         context.startService(intent);
     }
 
     // ---------------------------------------------------------------------------------------------
 
     public static void SendPortMsg(Context context, String thingName, int portIndex, String data) {
-        Lock l = ActivePkeyLock.readLock();
-        l.lock();
-        Boolean allow = ActivePortKeysHashSet.contains(data);
-        l.unlock();
-
-        if(!allow)
-            return;
-
         Intent intent = new Intent(context, NodeService.class);
         intent.putExtra(EXTRA_REQUEST_TYPE, REQUEST_PORTMSG);
         intent.putExtra(EXTRA_THING_NAME, thingName);
