@@ -189,7 +189,7 @@ public class MqttServerAPI extends aServerAPI {
         mqttOpt.setPassword(settingsProvider.getNodeSecretKey().toCharArray());
 
         mqttOpt.setConnectionTimeout(1000);
-        mqttOpt.setKeepAliveInterval(10);
+        mqttOpt.setKeepAliveInterval(60);
 
         // Define a topic prefix for this node
         mqttPubTopicPrefix = "/api/in/1/" + settingsProvider.getUserKey() + "/" + settingsProvider.getNodeKey() + "/";
