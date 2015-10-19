@@ -28,10 +28,6 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Dictionary;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Set;
 
 
@@ -48,7 +44,12 @@ public class MainActivityFragment extends Fragment {
     // =============================================================================================
 
     private ThingManager thingManager;
-    private ProgressBar progressBar;
+
+    private ProgressBar inputProgressBar;
+    private SeekBar outputSeekBar;
+    private Switch outputSwitch1;
+    private Switch outputSwitch2;
+    private Switch outputSwitch3;
     private Switch inputSwitch1;
     private Switch inputSwitch2;
     private Switch inputSwitch3;
@@ -70,6 +71,19 @@ public class MainActivityFragment extends Fragment {
 
         SettingsProvider settingsProvider = SettingsProvider.getInstance(context);
         thingManager = ThingManager.getInstance(context);
+
+        // Link UI elements
+        inputProgressBar = (ProgressBar) view.findViewById(R.id.input_progressBar);
+        outputSeekBar = (SeekBar) view.findViewById(R.id.seekBar);
+        outputSwitch1 = (Switch) view.findViewById(R.id.output_switch1);
+        outputSwitch2 = (Switch) view.findViewById(R.id.output_switch2);
+        outputSwitch3 = (Switch) view.findViewById(R.id.output_switch3);
+        inputSwitch1 = (Switch) view.findViewById(R.id.input_switch1);
+        inputSwitch2 = (Switch) view.findViewById(R.id.input_switch2);
+        inputSwitch3 = (Switch) view.findViewById(R.id.input_switch3);
+        colorButton1 = (Button) view.findViewById(R.id.input_button_color1);
+        colorButton2 = (Button) view.findViewById(R.id.input_button_color2);
+        colorButton3 = (Button) view.findViewById(R.id.input_button_color3);
 
         // Link button1 to code
         Button button1 = (Button) view.findViewById(R.id.button1);
@@ -108,8 +122,7 @@ public class MainActivityFragment extends Fragment {
         });
 
         // Link the slider
-        SeekBar seek = (SeekBar) view.findViewById(R.id.seekBar);
-        seek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        outputSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 // Send normalize value
@@ -129,8 +142,7 @@ public class MainActivityFragment extends Fragment {
         });
 
         // Link the switches
-        Switch s1 = (Switch) view.findViewById(R.id.output_switch1);
-        s1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        outputSwitch1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 // do something, the isChecked will be true if the switch is in the On position
                 NodeService.SendPortMsg(context, ThingManager.Switches, ThingManager.ButtonPort0,
@@ -138,8 +150,7 @@ public class MainActivityFragment extends Fragment {
             }
         });
 
-        Switch s2 = (Switch) view.findViewById(R.id.output_switch2);
-        s2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        outputSwitch2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 // do something, the isChecked will be true if the switch is in the On position
                 NodeService.SendPortMsg(context, ThingManager.Switches, ThingManager.ButtonPort1,
@@ -147,8 +158,7 @@ public class MainActivityFragment extends Fragment {
             }
         });
 
-        Switch s3 = (Switch) view.findViewById(R.id.output_switch3);
-        s3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        outputSwitch3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 // do something, the isChecked will be true if the switch is in the On position
                 NodeService.SendPortMsg(context, ThingManager.Switches, ThingManager.ButtonPort2,
@@ -170,15 +180,6 @@ public class MainActivityFragment extends Fragment {
 
             }
         });
-
-        // Link rx path
-        progressBar = (ProgressBar) view.findViewById(R.id.input_progressBar);
-        inputSwitch1 = (Switch) view.findViewById(R.id.input_switch1);
-        inputSwitch2 = (Switch) view.findViewById(R.id.input_switch2);
-        inputSwitch3 = (Switch) view.findViewById(R.id.input_switch3);
-        colorButton1 = (Button) view.findViewById(R.id.input_button_color1);
-        colorButton2 = (Button) view.findViewById(R.id.input_button_color2);
-        colorButton3 = (Button) view.findViewById(R.id.input_button_color3);
 
         LocalBroadcastManager.getInstance(context).registerReceiver(mMessageReceiverMainActivityService,
                 new IntentFilter(NodeService.BROADCAST_THING_UPDATE));
@@ -233,12 +234,19 @@ public class MainActivityFragment extends Fragment {
                     Boolean isEvent = b.getBoolean(NodeService.EXTRA_UPDATED_IS_EVENT);
                     Log.i(TAG, "Update from Thing:" + thingName);
 
+                    //input (from server) ProgressBar (PortStateRsp or PortEventMsg)
                     if (thingKey.equals(thingManager.GetThingKey(ThingManager.InputProgressBar))) {
                         float progress = Float.parseFloat(portState);
                         if(progress >= 0 && progress <= 1)
-                            progressBar.setProgress((int) (progressBar.getMax() * progress));
-
+                            inputProgressBar.setProgress((int) (inputProgressBar.getMax() * progress));
                     }
+                    //output (towards server) SeekBar (only when updating stating via PortStateRsp)
+                    else if (thingKey.equals(thingManager.GetThingKey(ThingManager.Slider1))) {
+                        float progress = Float.parseFloat(portState);
+                        if(progress >= 0 && progress <= 1)
+                            outputSeekBar.setProgress((int) (outputSeekBar.getMax() * progress));
+                    }
+                    //input (from server) switches (PortStateRsp or PortEventMsg)
                     else if (thingKey.equals(thingManager.GetThingKey(ThingManager.InputSwitches))) {
                         if(portID == 0)
                             inputSwitch1.setChecked(Boolean.parseBoolean(portState));
@@ -246,7 +254,15 @@ public class MainActivityFragment extends Fragment {
                             inputSwitch2.setChecked(Boolean.parseBoolean(portState));
                         else if(portID==2)
                             inputSwitch3.setChecked(Boolean.parseBoolean(portState));
-
+                    }
+                    //output (towards server) switches (only when updating stating via PortStateRsp)
+                    else if (thingKey.equals(thingManager.GetThingKey(ThingManager.Switches))) {
+                        if(portID == 0)
+                            outputSwitch1.setChecked(Boolean.parseBoolean(portState));
+                        else if(portID==1)
+                            outputSwitch2.setChecked(Boolean.parseBoolean(portState));
+                        else if(portID==2)
+                            outputSwitch3.setChecked(Boolean.parseBoolean(portState));
                     }
                     else if (thingKey.equals(thingManager.GetThingKey(ThingManager.InputColors))) {
                         double val = Double.parseDouble(portState);
