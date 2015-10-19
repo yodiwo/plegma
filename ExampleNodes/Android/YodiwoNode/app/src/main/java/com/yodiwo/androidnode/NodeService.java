@@ -235,10 +235,6 @@ public class NodeService extends IntentService {
                             serverIsConnected = true;
 
                             NodeService.RegisterNode(this, false);
-
-                            // Request the state of the things in the cloud
-                            //NodeService.RequestUpdatedState(this);
-                            SendPortStateReq();
                         }
                     } else {
                         if(serverIsConnected) {
