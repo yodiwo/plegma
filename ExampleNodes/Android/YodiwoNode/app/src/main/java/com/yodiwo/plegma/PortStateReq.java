@@ -12,7 +12,7 @@ public class PortStateReq extends ApiMsg {
     /**
      * Type of operation requested
      */
-    public ePortStateOperation Operation;
+    public int Operation;
     /**
      * List of PortKeys that the server should send an update for (in conjuction with Yodiwo.API.Plegma.ePortStateOperation.SpecificKeys).
      * If set to null or an empty array then the server will send an update for all relevant PortKeys
@@ -22,7 +22,7 @@ public class PortStateReq extends ApiMsg {
     public PortStateReq() {
     }
 
-    public PortStateReq(int SeqNo, ePortStateOperation Operation, String[] PortKeys) {
+    public PortStateReq(int SeqNo, int Operation, String[] PortKeys) {
         this.SeqNo = SeqNo;
         this.Operation = Operation;
         this.PortKeys = PortKeys;

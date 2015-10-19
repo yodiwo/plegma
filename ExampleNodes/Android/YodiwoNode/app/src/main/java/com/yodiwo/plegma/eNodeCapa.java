@@ -7,13 +7,13 @@ package com.yodiwo.plegma;
 /**
  * enum of possible node capabilites
  */
-public enum eNodeCapa {
+public class eNodeCapa {
     /**
      * no capabilities
      */
-    None,
+    public static final int None = 0;
     /**
      * Node supports graph splitting
      */
-    SupportsGraphSplitting,
+    public static final int SupportsGraphSplitting = 1;
 }

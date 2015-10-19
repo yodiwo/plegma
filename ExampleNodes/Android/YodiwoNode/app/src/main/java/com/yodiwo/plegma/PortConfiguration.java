@@ -8,22 +8,20 @@ import java.util.HashMap;
 
 public class PortConfiguration {
 
-    public static final HashMap<ePortType, Class<?>> PortTypeDict;
+    public static final HashMap<Integer, Class<?>> PortTypeDict;
 
-    public static final HashMap<ePortType, Object> PortTypeDefaultValueDict;
+    public static final HashMap<Integer, Object> PortTypeDefaultValueDict;
 
 
     static {
-        PortTypeDict = new HashMap<ePortType, Class<?>>();
-        PortTypeDict.put(ePortType.Undefined, Object.class);
+        PortTypeDict = new HashMap<Integer, Class<?>>();
         PortTypeDict.put(ePortType.Integer, Integer.class);
         PortTypeDict.put(ePortType.Decimal, float.class);
         PortTypeDict.put(ePortType.DecimalHigh, double.class);
         PortTypeDict.put(ePortType.Boolean, Boolean.class);
 //PortTypeDict.put(ePortType.Color,System.Tuple<int, int, int>.class);
         PortTypeDict.put(ePortType.String, String.class);
-        PortTypeDefaultValueDict = new HashMap<ePortType, Object>();
-        PortTypeDefaultValueDict.put(ePortType.Undefined, null);
+        PortTypeDefaultValueDict = new HashMap<Integer, Object>();
         PortTypeDefaultValueDict.put(ePortType.Integer, 0);
         PortTypeDefaultValueDict.put(ePortType.Decimal, 0);
         PortTypeDefaultValueDict.put(ePortType.DecimalHigh, 0);
