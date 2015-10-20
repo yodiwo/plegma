@@ -1,7 +1,9 @@
 package com.yodiwo.androidnode;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.PendingIntent;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -106,28 +108,59 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
 
             // Get the location manager
             locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-
-            // List all providers:
-            List<String> providers = locationManager.getAllProviders();
-            for (String provider : providers) {
-                LocationProvider info = locationManager.getProvider(provider);
-                Log.d(TAG, "GPS:" + info.toString());
+            if (locationManager != null) {
+                boolean isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+                if (!isGPSEnabled) {
+                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+                    alertDialog.setTitle("GPS settings")
+                            .setMessage("GPS is currently disabled. Do you want to go to settings menu?")
+                            .setPositiveButton("Settings", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                                    startActivity(intent);
+                                }
+                            })
+                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.cancel();
+                                }
+                            })
+                            .show();
+                }
+                else {
+                    bestGPSProvider = this.getBestGPSProviderForChosenCriteria();
+                }
             }
-
-            // TODO: Set detailed criteria or even better expose them through thing configuration
-            Criteria criteria = new Criteria();
-            criteria.setAccuracy(Criteria.ACCURACY_MEDIUM);
-            criteria.setPowerRequirement(Criteria.POWER_MEDIUM);
-            bestGPSProvider = locationManager.getBestProvider(criteria, false);
-            LocationProvider info = locationManager.getProvider(bestGPSProvider);
-            Log.d(TAG, "GPS BEST Provider:" + info.toString());
-
-            Location location = locationManager.getLastKnownLocation(bestGPSProvider);
-            if (location == null)
-                Log.d(TAG, "GPS Locations (starting with last known): [unknown]\n\n");
             else
-                Log.d(TAG, "GPS Locations (starting with last known):" + location.toString());
+            {
+                Toast.makeText(this, "GPS not supported", Toast.LENGTH_SHORT).show();
+            }
         }
+    }
+
+    private String getBestGPSProviderForChosenCriteria() {
+
+        // List all providers (for debug purposes)
+        List<String> providers = locationManager.getAllProviders();
+        for (String provider : providers) {
+            LocationProvider info = locationManager.getProvider(provider);
+            Log.d(TAG, "GPS provider:" + info.toString());
+        }
+
+        Criteria criteria = new Criteria();
+        criteria.setAccuracy(Criteria.ACCURACY_MEDIUM);
+        criteria.setPowerRequirement(Criteria.POWER_MEDIUM);
+        String provider = locationManager.getBestProvider(criteria, false);
+        LocationProvider info = locationManager.getProvider(bestGPSProvider);
+        Log.d(TAG, "GPS best provider: " + info.toString());
+
+        Location location = locationManager.getLastKnownLocation(bestGPSProvider);
+        if (location == null)
+            Log.d(TAG, "GPS Locations (starting with last known): [unknown]\n\n");
+        else
+            Log.d(TAG, "GPS Locations (starting with last known): " + location.toString());
+
+        return provider;
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -160,6 +193,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
             // Request update location
             if(locationManager != null) {
                 try {
+                    // TODO: Set detailed default criteria and expose them through thing's configuration
                     locationManager.requestLocationUpdates(bestGPSProvider, 20000, 500, this);
                 }
                 catch (Exception e) {
@@ -434,19 +468,14 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
 
     @Override
     public void onProviderEnabled(String provider) {
-        // is provider better than bestProvider?
-        // is yes, bestProvider = provider
         Log.d(TAG, "GPS Provider Enabled: " + provider);
+
+        bestGPSProvider = this.getBestGPSProviderForChosenCriteria();
     }
 
     @Override
     public void onProviderDisabled(String provider) {
         Log.d(TAG, "GPS Provider Disabled: " + provider);
-
-        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-        startActivity(intent);
-        Toast.makeText(getBaseContext(), "Gps is disabled",
-                Toast.LENGTH_SHORT).show();
     }
 
     // ---------------------------------------------------------------------------------------------
