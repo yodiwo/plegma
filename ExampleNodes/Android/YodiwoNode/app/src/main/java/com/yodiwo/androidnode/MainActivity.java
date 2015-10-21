@@ -151,10 +151,10 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
         criteria.setAccuracy(Criteria.ACCURACY_MEDIUM);
         criteria.setPowerRequirement(Criteria.POWER_MEDIUM);
         String provider = locationManager.getBestProvider(criteria, false);
-        LocationProvider info = locationManager.getProvider(bestGPSProvider);
+        LocationProvider info = locationManager.getProvider(provider);
         Log.d(TAG, "GPS best provider: " + info.toString());
 
-        Location location = locationManager.getLastKnownLocation(bestGPSProvider);
+        Location location = locationManager.getLastKnownLocation(provider);
         if (location == null)
             Log.d(TAG, "GPS Locations (starting with last known): [unknown]\n\n");
         else
@@ -193,6 +193,10 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
             // Request update location
             if(locationManager != null) {
                 try {
+                    if(bestGPSProvider == null) {
+                        bestGPSProvider = this.getBestGPSProviderForChosenCriteria();
+                    }
+
                     // TODO: Set detailed default criteria and expose them through thing's configuration
                     locationManager.requestLocationUpdates(bestGPSProvider, 20000, 500, this);
                 }
@@ -470,7 +474,12 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
     public void onProviderEnabled(String provider) {
         Log.d(TAG, "GPS Provider Enabled: " + provider);
 
-        bestGPSProvider = this.getBestGPSProviderForChosenCriteria();
+        if(bestGPSProvider == null) {
+            bestGPSProvider = this.getBestGPSProviderForChosenCriteria();
+        }
+
+        // TODO: Set detailed default criteria and expose them through thing's configuration
+        locationManager.requestLocationUpdates(bestGPSProvider, 20000, 500, this);
     }
 
     @Override
@@ -507,8 +516,8 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
                         bundle.putString("postal", address.getPostalCode());
                         message.setData(bundle);
 
-                            // Send message to handler
-                            message.sendToTarget();
+                        // Send message to handler
+                        message.sendToTarget();
                     }
                 }
                 catch (IOException e) {
