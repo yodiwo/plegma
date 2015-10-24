@@ -66,11 +66,8 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
         if (settingsProvider == null)
             settingsProvider = SettingsProvider.getInstance(this);
 
-        if (settingsProvider.getNodeKey() == null || settingsProvider.getNodeSecretKey() == null) {
-            // We are not paired yet, start pairing activity
-            Intent intent = new Intent(this, PairingActivity.class);
-            startActivity(intent);
-        } else {
+        if (settingsProvider.getNodeKey() != null && settingsProvider.getNodeSecretKey() != null) {
+
             // Check for nfc
             mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
             if (mNfcAdapter == null) {
@@ -199,9 +196,22 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
         super.onResume();
 
         if (settingsProvider.getNodeKey() == null || settingsProvider.getNodeSecretKey() == null) {
-            // TODO: Show message box that we are not paired and offer to take to pairing page
-            Toast.makeText(this, "The app is currently not paired to Yodiwo Cloud Services", Toast.LENGTH_SHORT).show();
-        } else {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Pair now?")
+                    .setMessage("Application is not paired to Yodiwo Services. Pair now?")
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                                Intent intent = new Intent(MainActivity.this, PairingActivity.class);
+                                startActivity(intent);
+                            }
+                    })
+                    .setNegativeButton("No", null)
+                    .setCancelable(true)
+                    .show();
+        }
+        else {
 
             // Tell NodeService to handle Resuming itself
             NodeService.Resume(this);

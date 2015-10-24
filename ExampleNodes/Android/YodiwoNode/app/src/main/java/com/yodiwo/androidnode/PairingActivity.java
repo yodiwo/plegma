@@ -7,9 +7,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,6 +19,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class PairingActivity extends ActionBarActivity {
@@ -51,13 +54,22 @@ public class PairingActivity extends ActionBarActivity {
         pairing_progress = (ProgressBar) findViewById(R.id.pairing_progress);
         pairing_progress.setVisibility(View.INVISIBLE);
 
-        status_text = (TextView) findViewById(R.id.status);
-
         TextView UUID_text = (TextView) findViewById(R.id.uuid);
         UUID_text.setText(SettingsProvider.getInstance(this).getNodeUUID());
 
+        String nkey = SettingsProvider.getInstance(this).getNodeKey();
+        String skey = SettingsProvider.getInstance(this).getNodeSecretKey();
+
+        status_text = (TextView) findViewById(R.id.status);
         nodekey_text = (TextView) findViewById(R.id.nodekey);
-        nodekey_text.setText(SettingsProvider.getInstance(this).getNodeKey());
+
+        if(nkey != null && skey != null) {
+            status_text.setText("Paired");
+            nodekey_text.setText(nkey);
+        } else {
+            status_text.setText("Unpaired");
+            nodekey_text.setText("");
+        }
 
         // Set button events
         Button pairButton = (Button) findViewById(R.id.button_pairing);
@@ -68,34 +80,34 @@ public class PairingActivity extends ActionBarActivity {
                 pairing_progress.setVisibility(View.VISIBLE);
                 PairingService.StartPairing(context);
 
-                status_text.setText("In Pairing");
+                status_text.setText("Pairing ongoing");
             }
         });
-
 
         // Unset pairing
         Button unpairButton = (Button) findViewById(R.id.button_unpairing);
         unpairButton.setOnClickListener(new View.OnClickListener() {
                                             @Override
                                             public void onClick(View view) {
-                                                AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(context);
-                                                dlgAlert.setMessage("Are you sure that you want to unpair..");
-                                                dlgAlert.setTitle("UnPair?");
-                                                // un paired
-                                                dlgAlert.setPositiveButton("Yes",
-                                                        new DialogInterface.OnClickListener() {
-                                                            public void onClick(DialogInterface dialog, int which) {
-                                                                status_text.setText("Un Paired");
+                AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(context);
+                dlgAlert.setMessage("Are you sure that you want to unpair?")
+                        .setTitle("UnPair?")
+                        // un paired
+                        .setPositiveButton("Yes",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        status_text.setText("Unpaired");
+                                        nodekey_text.setText("");
 
-                                                                // Send request to node pairing service to clean internal state
-                                                                PairingService.UnPair(context);
-                                                            }
-                                                        });
-                                                dlgAlert.setNegativeButton("No", null);
-                                                dlgAlert.setCancelable(true);
-                                                dlgAlert.create().show();
-                                            }
-                                        });
+                                        // Send request to node pairing service to clean internal state
+                                        PairingService.UnPair(context);
+                                    }
+                                })
+                        .setNegativeButton("No", null)
+                        .setCancelable(true)
+                        .show();
+            }
+        });
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -146,17 +158,46 @@ public class PairingActivity extends ActionBarActivity {
                     Intent intentWeb = new Intent(context, PairingWebActivity.class);
                     startActivity(intentWeb);
                 } else {
-                    status_text.setText("Failed to get tokens.");
+                    status_text.setText("Failed to get tokens");
                 }
 
                 pairing_progress.setVisibility(View.INVISIBLE);
-            } else if (action.equals(PairingService.BROADCAST_PAIRING_FINISHED)) {
-                nodekey_text.setText(SettingsProvider.getInstance(context).getNodeKey());
-                status_text.setText("Success Pairing.");
             }
+            else if (action.equals(PairingService.BROADCAST_PAIRING_FINISHED)) {
 
+                int status = intent.getExtras().getInt(PairingService.EXTRA_STATUS,
+                        PairingService.EXTRA_STATUS_FAILED);
+
+                Log.i(TAG, "Phase 1 finished status: " + status);
+
+                if (status == PairingService.EXTRA_STATUS_SUCCESS) {
+                    nodekey_text.setText(SettingsProvider.getInstance(context).getNodeKey());
+                    status_text.setText("Pairing Successful");
+                    Toast.makeText(context, "visit https://cyan.yodiwo.com to start creating stories!", Toast.LENGTH_LONG).show();
+                }
+                else {
+                    nodekey_text.setText("");
+                    status_text.setText("Failed to get keys");
+                }
+
+                //TODO: create dialog at UI level informing of cyan.yodiwo.com
+                /*
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle("Pairing complete!")
+                        .setMessage("Now visit https://cyan.yodiwo.com to start creating stories!")
+                        .setIcon(android.R.drawable.ic_dialog_info)
+                        .setNeutralButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent intent = new Intent(PairingActivity.this, MainActivity.class);
+                                startActivity(intent);
+                            }
+                        })
+                        .setCancelable(true)
+                        .show();
+                */
+            }
         }
     };
-
     // ---------------------------------------------------------------------------------------------
 }

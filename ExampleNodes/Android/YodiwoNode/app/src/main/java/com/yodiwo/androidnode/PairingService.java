@@ -123,7 +123,8 @@ public class PairingService extends IntentService {
 
             // Add extra status
             intent.putExtra(EXTRA_STATUS, EXTRA_STATUS_SUCCESS);
-        } catch (Exception ex) {
+        }
+        catch (Exception ex) {
             Log.e(TAG, ex.getMessage());
 
             // Add extra status for failed
