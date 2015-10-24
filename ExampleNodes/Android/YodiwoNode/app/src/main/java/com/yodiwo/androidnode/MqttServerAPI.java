@@ -213,6 +213,20 @@ public class MqttServerAPI extends aServerAPI {
     }
 
     // ---------------------------------------------------------------------------------------------
+    @Override
+    public void Teardown() {
+//        mqttClient.close();
+//        mqttClient = null;
+        try {
+            mqttClient.disconnect();
+            mqttClient.close();
+            mqttClient = null;
+            server = null;
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
+    }
+    // ---------------------------------------------------------------------------------------------
 
     private boolean subscribe(String topic, int qos) {
         try {

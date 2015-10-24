@@ -65,6 +65,7 @@ public class NodeService extends IntentService {
     private static final int REQUEST_RESUME = 10;
     private static final int REQUEST_PAUSE = 11;
     private static final int REQUEST_RX_UPDATE = 12;
+    private static final int REQUEST_TEARDOWN = 13;
     private static final int REQUEST_RX_MSG = 15;
 
     public static final int RECEIVE_CONN_STATUS = 20;
@@ -225,6 +226,12 @@ public class NodeService extends IntentService {
                 // -------------------------------------
                 case REQUEST_RX_UPDATE: {
                     SendPortStateReq();
+                }
+                break;
+                // -------------------------------------
+                case REQUEST_TEARDOWN: {
+                    serverAPI.Teardown();
+                    this.stopSelf();
                 }
                 break;
                 // -----------------------------------
@@ -621,6 +628,13 @@ public class NodeService extends IntentService {
         intent.putExtra(EXTRA_REQUEST_TYPE, REQUEST_PAUSE);
         context.startService(intent);
         Log.d(TAG, "DEBUG Node Service Paused");
+    }
+
+    public static void Teardown(Context context) {
+        Intent intent = new Intent(context, NodeService.class);
+        intent.putExtra(EXTRA_REQUEST_TYPE, REQUEST_TEARDOWN);
+        context.startService(intent);
+        Log.d(TAG, "DEBUG Node Service Stopped");
     }
 
     // ---------------------------------------------------------------------------------------------

@@ -73,6 +73,11 @@ public class RestServerAPI extends aServerAPI {
         RestRxService.StopRx(context);
     }
 
+    @Override
+    protected void Teardown() {
+
+    }
+
     // ---------------------------------------------------------------------------------------------
 
 }

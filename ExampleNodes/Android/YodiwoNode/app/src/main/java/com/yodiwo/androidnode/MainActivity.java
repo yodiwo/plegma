@@ -38,6 +38,8 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class MainActivity extends ActionBarActivity implements LocationListener {
@@ -164,7 +166,34 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
     }
 
     // ---------------------------------------------------------------------------------------------
+    // TEARDOWN PROCEDURE
 
+    private int backPressCounter = 0;
+
+    private class BackPressCounterTimeout extends TimerTask {
+        @Override
+        public void run() { backPressCounter = 0; }
+    }
+
+    private void Teardown() {
+        NodeService.Teardown(this);
+        super.onBackPressed();
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if(backPressCounter == 0) {
+            Toast.makeText(this, "Press back once more to disconnect and exit", Toast.LENGTH_SHORT).show();
+            backPressCounter++;
+            (new Timer()).schedule(new BackPressCounterTimeout(), 2 * 1000);  //2 sec
+        } else {
+            Teardown();
+        }
+        Log.d(TAG, "Back button tapped");
+    }
+
+    // ---------------------------------------------------------------------------------------------
     @Override
     public void onResume() {
         super.onResume();

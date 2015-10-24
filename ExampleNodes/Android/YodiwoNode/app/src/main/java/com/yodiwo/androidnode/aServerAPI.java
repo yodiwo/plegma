@@ -27,6 +27,8 @@ public abstract class aServerAPI {
 
     protected abstract void StopRx();
 
+    protected abstract void Teardown();
+
     public void RequestConnectivityUiUpdate() {
         Intent intent = new Intent(CONNECTIVITY_UI_UPDATE);
         intent.putExtra(EXTRA_UPDATED_RX_STATE, RxActive);
