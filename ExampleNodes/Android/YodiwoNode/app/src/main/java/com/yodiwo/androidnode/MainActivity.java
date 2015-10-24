@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.DialogInterface;
-import android.content.pm.PackageManager;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.Context;
@@ -15,7 +14,6 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.location.LocationProvider;
 import android.location.Geocoder;
-import android.os.Build;
 import android.provider.Settings;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
@@ -51,8 +49,8 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
 
     public static final String MIME_TEXT_PLAIN = "text/plain";
 
-    private LocationManager locationManager;
-    private String bestGPSProvider;
+    private static LocationManager locationManager;
+    private static String bestGPSProvider;
     private BluetoothAdapter bluetoothAdapter;
 
     private static final int REQUEST_ENABLE_BT = 666;
@@ -153,7 +151,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
 
         Location location;
         try {
-            location = locationManager.getLastKnownLocation(provider);
+            location = (locationManager != null) ? locationManager.getLastKnownLocation(provider) : null;
         }
         catch (SecurityException e) {
             location = null;
@@ -242,7 +240,8 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
 
                     try {
                         // TODO: Set detailed default criteria and expose them through thing's configuration
-                        locationManager.requestLocationUpdates(bestGPSProvider, 20000, 500, this);
+                        if (locationManager != null)
+                            locationManager.requestLocationUpdates(bestGPSProvider, 20000, 500, this);
                     }
                     catch (SecurityException e) {
                     }
@@ -277,7 +276,8 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
                 ThingsModuleService.pauseTorch();
             }
             try {
-                locationManager.removeUpdates(this);
+                if (locationManager != null)
+                    locationManager.removeUpdates(this);
             }
             catch (SecurityException e) {
             }
@@ -496,25 +496,8 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
 
     @Override
     public void onLocationChanged(Location location) {
-
-        try {
-            location = locationManager.getLastKnownLocation(bestGPSProvider);
-        }
-        catch (SecurityException e) {
-            location = null;
-        }
-        if (location == null) {
-            Log.d(TAG, "GPS Locations (starting with last known): [unknown]\n\n");
-        }
-        else {
-            Log.d(TAG, "GPS Locations (starting with last known):" + location.toString());
-
-            Double latitude = location.getLatitude();
-            Double longitude = location.getLongitude();
-
-            this.getAddressFromLocation(latitude, longitude,
-                    getApplicationContext(), new ReverseGeocodingHandler());
-        }
+        //send this location to the cloud
+        SendNewLocation(location);
     }
 
     @Override
@@ -527,7 +510,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
     public void onProviderEnabled(String provider) {
         Log.d(TAG, "GPS Provider Enabled: " + provider);
 
-        if(bestGPSProvider == null) {
+        if (bestGPSProvider == null) {
             bestGPSProvider = this.getBestGPSProviderForChosenCriteria();
         }
 
@@ -544,12 +527,36 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
         Log.d(TAG, "GPS Provider Disabled: " + provider);
     }
 
+    //Will either send incoming location or grab last known one
+    public void SendNewLocation(Location location) {
+
+        try {
+            if (location == null)
+                location = locationManager.getLastKnownLocation(bestGPSProvider);
+        }
+        catch (SecurityException e) {
+            location = null;
+        }
+        if (location == null) {
+            Log.d(TAG, "GPS Locations (starting with last known): [unknown]\n\n");
+        }
+        else {
+            Log.d(TAG, "GPS Locations (starting with last known):" + location.toString());
+
+            Double latitude = location.getLatitude();
+            Double longitude = location.getLongitude();
+
+            getAddressFromLocation(latitude, longitude, this, new ReverseGeocodingHandler());
+        }
+    }
+
+
     // ---------------------------------------------------------------------------------------------
 
     // Reverse geocoding related private members
 
-    private void getAddressFromLocation(final double latitude, final double longitude,
-                                        final Context context, final Handler cbHandler) {
+    private static void getAddressFromLocation(final double latitude, final double longitude,
+                                               final Context context, final Handler cbHandler) {
 
         Thread thread = new Thread() {
 
