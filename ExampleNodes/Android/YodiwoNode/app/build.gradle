@@ -3,13 +3,30 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 21
     buildToolsVersion '22.0.1'
-    defaultConfig {
-        applicationId "com.yodiwo.androidnode"
-        minSdkVersion 19
-        targetSdkVersion 19
-        versionCode 3
-        versionName "1.0.2"
+
+    def versionPropsFile = file('version.properties')
+    if (versionPropsFile.canRead()) {
+        def Properties versionProps = new Properties()
+
+        versionProps.load(new FileInputStream(versionPropsFile))
+
+        def code = versionProps['VERSION_CODE'].toInteger() + 1
+
+        versionProps['VERSION_CODE']=code.toString()
+        versionProps.store(versionPropsFile.newWriter(), null)
+
+        defaultConfig {
+            applicationId "com.yodiwo.androidnode"
+            minSdkVersion 19
+            targetSdkVersion 19
+            versionCode code
+            versionName "1.0." + code
+        }
     }
+    else {
+        throw new GradleException("Could not read version.properties!")
+    }
+
     buildTypes {
         release {
             minifyEnabled false
