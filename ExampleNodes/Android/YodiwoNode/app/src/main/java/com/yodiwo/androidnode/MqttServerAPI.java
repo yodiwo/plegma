@@ -277,6 +277,10 @@ public class MqttServerAPI extends aServerAPI {
     }
 
     private void InitiateReconnectTry() {
+
+        if (settingsProvider.getNodeKey() == null || settingsProvider.getNodeSecretKey() == null) {
+            return;
+        }
         if(!connectionRetrying) {
             connectionRetrying = true;
             Timer timer = new Timer();
