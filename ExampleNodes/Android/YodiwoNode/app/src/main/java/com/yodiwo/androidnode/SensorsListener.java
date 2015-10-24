@@ -41,19 +41,19 @@ public class SensorsListener implements SensorEventListener {
     private SettingsProvider settingsProvider;
 
     // Accelerometer
-    private Sensor mAccelSensor;
+    private static Sensor mAccelSensor;
+    private static double mAccelLast; // last acceleration including gravity
+    private static long mLastAccelTS = 0;
     private double mAccel; // acceleration apart from gravity
     private double mAccelCurrent; // current acceleration including gravity
-    private double mAccelLast; // last acceleration including gravity
-    private long mLastAccelTS = 0;
 
     // Brightness
-    private Sensor mBrightnessSensor;
-    private float mBrightnessLast = 0;
-    private long mBrightnessTS = 0;
+    private static Sensor mBrightnessSensor;
+    private static float mBrightnessLast = 0;
+    private static long mBrightnessTS = 0;
 
     //Proximity
-    private Sensor mProximitySensor;
+    private static Sensor mProximitySensor;
     private long mProximityTS = 0;
 
     private final long MILLISEC_IN_SEC = 1000;
@@ -172,16 +172,22 @@ public class SensorsListener implements SensorEventListener {
     public void StopService(SensorType type) {
         switch (type) {
             case Accelerometer:
-                if (mAccelSensor != null)
+                if (mAccelSensor != null) {
+                    mAccelSensor = null;
                     mSensorManager.unregisterListener(this, mAccelSensor);
+                }
                 break;
             case Brightness:
-                if (mBrightnessSensor != null)
+                if (mBrightnessSensor != null) {
+                    mBrightnessSensor = null;
                     mSensorManager.unregisterListener(this, mBrightnessSensor);
+                }
                 break;
             case Proximity:
-                if(mProximitySensor!=null)
+                if(mProximitySensor != null) {
+                    mProximitySensor = null;
                     mSensorManager.unregisterListener(this, mProximitySensor);
+                }
                 break;
         }
     }
@@ -202,7 +208,8 @@ public class SensorsListener implements SensorEventListener {
                     mSensorManager.registerListener(this, mBrightnessSensor, SensorManager.SENSOR_DELAY_NORMAL);
                 }
                 break;
-            case  Proximity:
+            case Proximity:
+                //TODO: Check that device actually has a proximity sensor (tablets don't)
                 mProximitySensor = mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
                 mSensorManager.registerListener(this, mProximitySensor, SensorManager.SENSOR_DELAY_NORMAL);
                 break;
