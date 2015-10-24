@@ -116,7 +116,7 @@ public class PairingService extends IntentService {
             req.token1 = settingsProvider.getNodeToken1();
 
             PairingServerKeysResponse resp = apiRestAccess.service.SendPairingGetKeys(req);
-            Log.d(TAG, "Keys: " + resp.nodeKey + ", " + resp.secretKey);
+            //Log.d(TAG, "Keys: " + resp.nodeKey + ", " + resp.secretKey);
 
             // Save tokens
             settingsProvider.setNodeKeys(resp.nodeKey, resp.secretKey);
