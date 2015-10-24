@@ -63,7 +63,7 @@ public class PairingService extends IntentService {
                 StartPairing(settingsProvider);
                 break;
             case REQUEST_FINISH_PAIRING:
-                FinnishPairing(settingsProvider);
+                FinishPairing(settingsProvider);
                 break;
         }
 
@@ -106,7 +106,7 @@ public class PairingService extends IntentService {
 
     // ---------------------------------------------------------------------------------------------
 
-    private void FinnishPairing(SettingsProvider settingsProvider) {
+    private void FinishPairing(SettingsProvider settingsProvider) {
         Intent intent = new Intent(BROADCAST_PAIRING_FINISHED);
 
         // Get Tokens from server
