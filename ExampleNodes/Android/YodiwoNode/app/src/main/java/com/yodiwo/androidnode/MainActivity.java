@@ -81,10 +81,8 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
             }
 
             // Check for torch availability
-            ThingsModuleService.hasTorch = getApplicationContext().getPackageManager()
-                    .hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH);
+            ThingsModuleService.initTorch(this);
             if (!ThingsModuleService.hasTorch) {
-
                 Toast.makeText(this, "This device doesn't support Torch", Toast.LENGTH_SHORT).show();
             }
             else {
@@ -230,9 +228,9 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
             // Resume NFC
             setupForegroundNFCDispatch(this, mNfcAdapter);
 
-            // Get hold of camera resource for torch
-            if(ThingsModuleService.hasTorch) {
-                ThingsModuleService.getCamera();
+            //initialize torch if the device has one
+            if (ThingsModuleService.hasTorch) {
+                ThingsModuleService.resumeTorch(this);
             }
 
             // Request update location
@@ -274,9 +272,9 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
             // Tell NodeService to handle Pausing itself
             NodeService.Pause(this);
 
-            // Release camera resource
-            if(ThingsModuleService.hasTorch) {
-                ThingsModuleService.releaseCamera();
+            // de-initialize torch
+            if (ThingsModuleService.hasTorch) {
+                ThingsModuleService.pauseTorch();
             }
             try {
                 locationManager.removeUpdates(this);

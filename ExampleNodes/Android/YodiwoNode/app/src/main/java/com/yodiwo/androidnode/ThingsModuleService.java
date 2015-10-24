@@ -1,12 +1,18 @@
 package com.yodiwo.androidnode;
 
+import android.annotation.TargetApi;
 import android.app.IntentService;
 import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
+import android.hardware.camera2.CameraAccessException;
+import android.hardware.camera2.CameraCharacteristics;
+import android.hardware.camera2.CameraManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.content.LocalBroadcastManager;
@@ -22,6 +28,8 @@ public class ThingsModuleService extends IntentService {
     private static final String TAG = "ThingsModuleService";
     public static final String EXTRA_INTENT_FOR_THING = "EXTRA_INTENT_FOR_THING";
 
+    CameraManager manager;
+
     //==============================================================================================
 
     // Torch
@@ -29,7 +37,12 @@ public class ThingsModuleService extends IntentService {
     public static final String EXTRA_TORCH_THING_STATE = "EXTRA_TORCH_THING_STATE";
     public static boolean hasTorch;
     private static boolean isTorchOn;
-    private static Camera camera;
+
+    //ANDROID 6.0+
+    private static CameraManager cameraManager = null;
+    private static String torchCameraId = null;
+    //ANDROID pre-6.0
+    private static Camera camera = null;
     private static Parameters params;
 
     //==============================================================================================
@@ -45,19 +58,49 @@ public class ThingsModuleService extends IntentService {
     //==============================================================================================
 
     // Get camera resource
-    public static void getCamera() {
-        if (camera == null) {
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public static void initTorch(Context context) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            hasTorch = context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH);
+        }
+        else {
+            cameraManager = (CameraManager) context.getSystemService(Context.CAMERA_SERVICE);
+            if(cameraManager == null) {
+                hasTorch = false;
+                return;
+            }
             try {
-                camera = Camera.open();
-                params = camera.getParameters();
-            } catch (RuntimeException e) {
-                Log.e("Failed to get camera: ", e.getMessage());
+                for (String camId : cameraManager.getCameraIdList()) {
+                    if(cameraManager.getCameraCharacteristics(camId).get(CameraCharacteristics.FLASH_INFO_AVAILABLE)) {
+                        hasTorch = true;
+                        torchCameraId = camId;
+                        break;
+                    }
+                }
+            }
+            catch (CameraAccessException e) {
+                Log.e(TAG, "Camera access exception!");
+                hasTorch = false;
+            }
+        }
+    }    //==============================================================================================
+
+    // Get camera resource
+    public static void resumeTorch(Context context) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            if (camera == null) {
+                try {
+                    camera = Camera.open();
+                    params = camera.getParameters();
+                } catch (RuntimeException e) {
+                    Log.e("Failed to get camera: ", e.getMessage());
+                }
             }
         }
     }
 
     // Release camera resource
-    public static void releaseCamera() {
+    public static void pauseTorch() {
         if (camera != null) {
             camera.release();
             camera = null;
@@ -66,23 +109,47 @@ public class ThingsModuleService extends IntentService {
 
     // Set torch state
     private void setTorch(boolean state) {
-        if (camera == null || params == null) {
+
+        if (!hasTorch) {
             return;
         }
 
         if (state == true && !isTorchOn) {
-            params.setFlashMode(Parameters.FLASH_MODE_TORCH);
-            camera.setParameters(params);
-            camera.startPreview();
+
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+                params.setFlashMode(Parameters.FLASH_MODE_TORCH);
+                camera.setParameters(params);
+                camera.startPreview();
+            }
+            else {
+                cameraManager = (CameraManager) getSystemService(Context.CAMERA_SERVICE);
+                try {
+                    cameraManager.setTorchMode(torchCameraId, true);
+                }
+                catch (CameraAccessException e) {
+                    return;
+                }
+            }
 
             isTorchOn = true;
         }
         else if(state == false && isTorchOn) {
-            params = camera.getParameters();
-            params.setFlashMode(Parameters.FLASH_MODE_OFF);
-            camera.setParameters(params);
-            camera.stopPreview();
 
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+                params = camera.getParameters();
+                params.setFlashMode(Parameters.FLASH_MODE_OFF);
+                camera.setParameters(params);
+                camera.stopPreview();
+            }
+            else {
+                cameraManager = (CameraManager) getSystemService(Context.CAMERA_SERVICE);
+                try {
+                    cameraManager.setTorchMode(torchCameraId, false);
+                }
+                catch (CameraAccessException e) {
+                    return;
+                }
+            }
             isTorchOn = false;
         }
     }
