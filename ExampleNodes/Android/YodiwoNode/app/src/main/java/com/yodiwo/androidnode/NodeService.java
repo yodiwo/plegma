@@ -90,14 +90,14 @@ public class NodeService extends IntentService {
 
     // =============================================================================================
     // Service overrides
+    private SettingsProvider settingsProvider;
 
     private static Boolean thingsRegistered = false;
 
-    private aServerAPI serverAPI = null;
-    private SettingsProvider settingsProvider;
+    private static aServerAPI serverAPI = null;
     private static HashMap<String, Thing> thingHashMap = new HashMap<String, Thing>();
-    private int SendSeqNum = 0;
-    private  int GetSendSeqNum() {
+    private static int SendSeqNum = 0;
+    private int GetSendSeqNum() {
         SendSeqNum++;
         return SendSeqNum;
     }
@@ -420,8 +420,8 @@ public class NodeService extends IntentService {
     // =============================================================================================
     // RX Handling
 
-    private HashMap<String, RxHandler> rxHandlers = null;
-    private HashMap<String, Class<?>> rxHandlersClass = null;
+    private static HashMap<String, RxHandler> rxHandlers = null;
+    private static HashMap<String, Class<?>> rxHandlersClass = null;
 
     interface RxHandler {
         void Handle(String topic, String json, Object msg);
