@@ -15,6 +15,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.location.LocationProvider;
 import android.location.Geocoder;
+import android.os.Build;
 import android.provider.Settings;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
@@ -31,7 +32,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
 
 import java.io.UnsupportedEncodingException;
 import java.io.IOException;
@@ -85,7 +85,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
                     .hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH);
             if (!ThingsModuleService.hasTorch) {
 
-                Toast.makeText(this, "This device doesn't support Torch", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "This device doesn't support Torch", Toast.LENGTH_SHORT).show();
             }
             else {
                 // Start service
@@ -96,7 +96,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
             // Check for Bluetooth availability
             bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
             if (bluetoothAdapter == null) {
-                Toast.makeText(this, "This device doesn't support Bluetooth", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "This device doesn't support Bluetooth", Toast.LENGTH_SHORT).show();
             }
             else {
                 if (!bluetoothAdapter.isEnabled()) {
@@ -153,7 +153,13 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
         LocationProvider info = locationManager.getProvider(provider);
         Log.d(TAG, "GPS best provider: " + info.toString());
 
-        Location location = locationManager.getLastKnownLocation(provider);
+        Location location;
+        try {
+            location = locationManager.getLastKnownLocation(provider);
+        }
+        catch (SecurityException e) {
+            location = null;
+        }
         if (location == null)
             Log.d(TAG, "GPS Locations (starting with last known): [unknown]\n\n");
         else
@@ -236,8 +242,12 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
                         bestGPSProvider = this.getBestGPSProviderForChosenCriteria();
                     }
 
-                    // TODO: Set detailed default criteria and expose them through thing's configuration
-                    locationManager.requestLocationUpdates(bestGPSProvider, 20000, 500, this);
+                    try {
+                        // TODO: Set detailed default criteria and expose them through thing's configuration
+                        locationManager.requestLocationUpdates(bestGPSProvider, 20000, 500, this);
+                    }
+                    catch (SecurityException e) {
+                    }
                 }
                 catch (Exception e) {
                     Log.e(TAG, "Request location updates failed", e);
@@ -268,9 +278,10 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
             if(ThingsModuleService.hasTorch) {
                 ThingsModuleService.releaseCamera();
             }
-
-            if (settingsProvider.getNodeKey() != null && settingsProvider.getNodeSecretKey() != null) {
+            try {
                 locationManager.removeUpdates(this);
+            }
+            catch (SecurityException e) {
             }
         }
 
@@ -488,7 +499,12 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
     @Override
     public void onLocationChanged(Location location) {
 
-        location = locationManager.getLastKnownLocation(bestGPSProvider);
+        try {
+            location = locationManager.getLastKnownLocation(bestGPSProvider);
+        }
+        catch (SecurityException e) {
+            location = null;
+        }
         if (location == null) {
             Log.d(TAG, "GPS Locations (starting with last known): [unknown]\n\n");
         }
@@ -518,7 +534,11 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
         }
 
         // TODO: Set detailed default criteria and expose them through thing's configuration
-        locationManager.requestLocationUpdates(bestGPSProvider, 20000, 500, this);
+        try {
+            locationManager.requestLocationUpdates(bestGPSProvider, 20000, 500, this);
+        }
+        catch (SecurityException e) {
+        }
     }
 
     @Override

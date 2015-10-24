@@ -42,9 +42,9 @@ public class SensorsListener implements SensorEventListener {
 
     // Accelerometer
     private Sensor mAccelSensor;
-    private float mAccel; // acceleration apart from gravity
-    private float mAccelCurrent; // current acceleration including gravity
-    private float mAccelLast; // last acceleration including gravity
+    private double mAccel; // acceleration apart from gravity
+    private double mAccelCurrent; // current acceleration including gravity
+    private double mAccelLast; // last acceleration including gravity
     private long mLastAccelTS = 0;
 
     // Brightness
@@ -90,9 +90,9 @@ public class SensorsListener implements SensorEventListener {
             float z = sensorEvent.values[2];
             boolean isShake = false;
             mAccelLast = mAccelCurrent;
-            mAccelCurrent = android.util.FloatMath.sqrt(x * x + y * y + z * z);
-            float delta = mAccelCurrent - mAccelLast;
-            mAccel = mAccel * 0.9f + delta; // perform low-cut filter
+            mAccelCurrent = Math.sqrt(x * x + y * y + z * z);
+            double delta = mAccelCurrent - mAccelLast;
+            mAccel = mAccel * 0.9 + delta; // perform low-cut filter
 
             // Check for shacked
             if (mAccel > 10) {
@@ -105,7 +105,7 @@ public class SensorsListener implements SensorEventListener {
             if ((timestamp - mLastAccelTS > 2*NANOSEC_IN_SEC) &&
                     ((Math.abs(mAccel) > 0.9f) || isShake)) {
 
-                Log.d(TAG, "Accel Delta:" + Float.toString(delta));
+                Log.d(TAG, "Accel Delta:" + Double.toString(delta));
 
                 mLastAccelTS = timestamp;
                 NodeService.SendPortMsg(context, ThingManager.Accelerometer,
