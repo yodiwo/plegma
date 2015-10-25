@@ -94,10 +94,9 @@ public class SensorsListener implements SensorEventListener {
             double delta = mAccelCurrent - mAccelLast;
             mAccel = mAccel * 0.9 + delta; // perform low-cut filter
 
-            // Check for shacked
+            // Check for shake event
             if (mAccel > 10) {
                 isShake = true;
-                Toast.makeText(context, "Device has shaken.", Toast.LENGTH_SHORT).show();
             }
 
             // filter out too frequent readings
@@ -105,8 +104,10 @@ public class SensorsListener implements SensorEventListener {
             if ((timestamp - mLastAccelTS > 2*NANOSEC_IN_SEC) &&
                     ((Math.abs(mAccel) > 0.9f) || isShake)) {
 
+                if (isShake) {
+                    Toast.makeText(context, "Device has shaken", Toast.LENGTH_SHORT).show();
+                }
                 Log.d(TAG, "Accel Delta:" + Double.toString(delta));
-
                 mLastAccelTS = timestamp;
                 NodeService.SendPortMsg(context, ThingManager.Accelerometer,
                         new String[]{
@@ -115,12 +116,6 @@ public class SensorsListener implements SensorEventListener {
                                 Float.toString(x),
                                 (isShake) ? "True" : "False"
                         });
-            } else if (isShake) { // The shakes must override the time filter
-                NodeService.SendPortMsg(context,
-                        ThingManager.Accelerometer,
-                        ThingManager.AccelerometerShaken,
-                        "True"
-                );
             }
 
         } else if (sensorEvent.sensor.getType() == Sensor.TYPE_PROXIMITY) {
@@ -137,23 +132,23 @@ public class SensorsListener implements SensorEventListener {
 
                 NodeService.SendPortMsg(context, ThingManager.Proximity, ThingManager.ProximityPort, "True");
                 NodeService.SendPortMsg(context, ThingManager.Proximity, ThingManager.ProximityPort, "False");
+                Log.d(TAG, "Proximity sensor fired");
             }
 
         } else if (sensorEvent.sensor.getType() == Sensor.TYPE_LIGHT) {
             float brightness = sensorEvent.values[0];
 
-            Log.d(TAG, "Brightness:" + brightness);
-
             // filter out too frequent readings
             // and send data to node service
-            if (timestamp - mBrightnessTS > 1*NANOSEC_IN_SEC) {
-                if (Math.abs(brightness - mBrightnessLast) > Math.abs(brightness / 10)) {
+            if (timestamp - mBrightnessTS > 2*NANOSEC_IN_SEC) {
+                if (Math.abs(brightness - mBrightnessLast) > Math.abs(brightness / 5)) {
                     mBrightnessTS = timestamp;
                     NodeService.SendPortMsg(context,
                             ThingManager.Brightness,
                             ThingManager.BrightnessPort,
                             Float.toString(brightness));
                     mBrightnessLast = brightness;
+                    Log.d(TAG, "Brightness:" + brightness);
                 }
             }
         }
