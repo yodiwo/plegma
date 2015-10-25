@@ -91,8 +91,10 @@ public class MainActivityFragment extends Fragment {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 int action = motionEvent.getAction();
-                NodeService.SendPortMsg(context, ThingManager.Buttons, ThingManager.ButtonPort0,
-                        action == MotionEvent.ACTION_DOWN ? NodeService.PortValue_Boolean_True : NodeService.PortValue_Boolean_False);
+                if(action == MotionEvent.ACTION_DOWN)
+                    NodeService.SendPortMsg(context, ThingManager.Buttons, ThingManager.ButtonPort0, NodeService.PortValue_Boolean_True);
+                else if(action == MotionEvent.ACTION_UP)
+                    NodeService.SendPortMsg(context, ThingManager.Buttons, ThingManager.ButtonPort0, NodeService.PortValue_Boolean_False);
                 return false;
             }
         });
@@ -103,8 +105,10 @@ public class MainActivityFragment extends Fragment {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 int action = motionEvent.getAction();
-                NodeService.SendPortMsg(context, ThingManager.Buttons, ThingManager.ButtonPort1,
-                        action == MotionEvent.ACTION_DOWN ? NodeService.PortValue_Boolean_True : NodeService.PortValue_Boolean_False);
+                if(action == MotionEvent.ACTION_DOWN)
+                    NodeService.SendPortMsg(context, ThingManager.Buttons, ThingManager.ButtonPort1, NodeService.PortValue_Boolean_True);
+                else if(action == MotionEvent.ACTION_UP)
+                    NodeService.SendPortMsg(context, ThingManager.Buttons, ThingManager.ButtonPort1, NodeService.PortValue_Boolean_False);
                 return false;
             }
         });
@@ -115,8 +119,10 @@ public class MainActivityFragment extends Fragment {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 int action = motionEvent.getAction();
-                NodeService.SendPortMsg(context, ThingManager.Buttons, ThingManager.ButtonPort2,
-                        action == MotionEvent.ACTION_DOWN ? NodeService.PortValue_Boolean_True : NodeService.PortValue_Boolean_False);
+                if(action == MotionEvent.ACTION_DOWN)
+                    NodeService.SendPortMsg(context, ThingManager.Buttons, ThingManager.ButtonPort2, NodeService.PortValue_Boolean_True);
+                else if(action == MotionEvent.ACTION_UP)
+                    NodeService.SendPortMsg(context, ThingManager.Buttons, ThingManager.ButtonPort2, NodeService.PortValue_Boolean_False);
                 return false;
             }
         });
@@ -132,12 +138,10 @@ public class MainActivityFragment extends Fragment {
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-
             }
         });
 
