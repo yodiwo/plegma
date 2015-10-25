@@ -26,6 +26,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -53,7 +54,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
 
     private static LocationManager locationManager;
     private static String bestGPSProvider;
-    private BluetoothAdapter bluetoothAdapter;
+    private static BluetoothAdapter bluetoothAdapter;
 
     private static final int REQUEST_ENABLE_BT = 666;
 
@@ -136,64 +137,6 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
         }
     }
 
-    private String getBestGPSProviderForChosenCriteria() {
-
-        // List all providers (for debug purposes)
-        List<String> providers = locationManager.getAllProviders();
-        for (String provider : providers) {
-            LocationProvider info = locationManager.getProvider(provider);
-            Log.d(TAG, "GPS provider:" + info.toString());
-        }
-
-        Criteria criteria = new Criteria();
-        criteria.setAccuracy(Criteria.ACCURACY_MEDIUM);
-        criteria.setPowerRequirement(Criteria.POWER_MEDIUM);
-        String provider = locationManager.getBestProvider(criteria, false);
-        LocationProvider info = locationManager.getProvider(provider);
-        Log.d(TAG, "GPS best provider: " + info.toString());
-
-        Location location;
-        try {
-            location = (locationManager != null) ? locationManager.getLastKnownLocation(provider) : null;
-        }
-        catch (SecurityException e) {
-            location = null;
-        }
-        if (location == null)
-            Log.d(TAG, "GPS Locations (starting with last known): [unknown]\n\n");
-        else
-            Log.d(TAG, "GPS Locations (starting with last known): " + location.toString());
-
-        return provider;
-    }
-
-    // ---------------------------------------------------------------------------------------------
-    // TEARDOWN PROCEDURE
-
-    private int backPressCounter = 0;
-
-    private class BackPressCounterTimeout extends TimerTask {
-        @Override
-        public void run() { backPressCounter = 0; }
-    }
-
-    private void Teardown() {
-        NodeService.Teardown(this);
-        super.onBackPressed();
-    }
-
-    @Override
-    public void onBackPressed() {
-
-        if(backPressCounter == 0) {
-            Toast.makeText(this, "Press back once more to disconnect and exit", Toast.LENGTH_SHORT).show();
-            backPressCounter++;
-            (new Timer()).schedule(new BackPressCounterTimeout(), 2 * 1000);  //2 sec
-        } else {
-            Teardown();
-        }
-        Log.d(TAG, "Back button tapped");
-    }
 
     // ---------------------------------------------------------------------------------------------
     @Override
@@ -347,6 +290,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
 
     // =============================================================================================
     // NFC
+    // =============================================================================================
 
     /**
      * @param activity The corresponding {@link Activity} requesting the foreground dispatch.
@@ -493,6 +437,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
 
     // =============================================================================================
     // GPS
+    // =============================================================================================
 
     private static final int REVERSEGEOCODING_RESULT_SUCCESS = 1;
     private static final String[] S = { "Out of Service", "Temporarily Unavailable", "Available" };
@@ -555,7 +500,6 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
 
 
     // ---------------------------------------------------------------------------------------------
-
     // Reverse geocoding related private members
 
     private static void getAddressFromLocation(final double latitude, final double longitude,
@@ -624,5 +568,63 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
         }
     }
 
-    // ---------------------------------------------------------------------------------------------
+    private String getBestGPSProviderForChosenCriteria() {
+
+        // List all providers (for debug purposes)
+        List<String> providers = locationManager.getAllProviders();
+        for (String provider : providers) {
+            LocationProvider info = locationManager.getProvider(provider);
+            Log.d(TAG, "GPS provider:" + info.toString());
+        }
+
+        Criteria criteria = new Criteria();
+        criteria.setAccuracy(Criteria.ACCURACY_MEDIUM);
+        criteria.setPowerRequirement(Criteria.POWER_MEDIUM);
+        String provider = locationManager.getBestProvider(criteria, false);
+        LocationProvider info = locationManager.getProvider(provider);
+        Log.d(TAG, "GPS best provider: " + info.toString());
+
+        Location location;
+        try {
+            location = (locationManager != null) ? locationManager.getLastKnownLocation(provider) : null;
+        }
+        catch (SecurityException e) {
+            location = null;
+        }
+        if (location == null)
+            Log.d(TAG, "GPS Locations (starting with last known): [unknown]\n\n");
+        else
+            Log.d(TAG, "GPS Locations (starting with last known): " + location.toString());
+
+        return provider;
+    }
+
+    // =============================================================================================
+    // TEARDOWN
+    // =============================================================================================
+
+    private int backPressCounter = 0;
+
+    private class BackPressCounterTimeout extends TimerTask {
+        @Override
+        public void run() { backPressCounter = 0; }
+    }
+
+    private void Teardown() {
+        NodeService.Teardown(this);
+        super.onBackPressed();
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if(backPressCounter == 0) {
+            Toast.makeText(this, "Press back once more to disconnect and exit", Toast.LENGTH_SHORT).show();
+            backPressCounter++;
+            (new Timer()).schedule(new BackPressCounterTimeout(), 2 * 1000);  //2 sec
+        } else {
+            Teardown();
+        }
+        Log.d(TAG, "Back button tapped");
+    }
 }
