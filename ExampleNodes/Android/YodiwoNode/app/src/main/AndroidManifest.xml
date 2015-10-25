@@ -85,6 +85,9 @@
             android:name="org.eclipse.paho.android.service.MqttService" >
         </service>
 
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="e8c1a9bd8fb0e56835aaf769df76beb0b4522c14" />
     </application>
 
 </manifest>

@@ -31,6 +31,8 @@ import android.view.MenuItem;
 import android.widget.Toast;
 import android.bluetooth.BluetoothAdapter;
 
+import com.crashlytics.android.Crashlytics;
+import io.fabric.sdk.android.Fabric;
 import java.io.UnsupportedEncodingException;
 import java.io.IOException;
 import java.util.Arrays;
@@ -58,6 +60,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_main);
 
         // Check if we are pair the device
