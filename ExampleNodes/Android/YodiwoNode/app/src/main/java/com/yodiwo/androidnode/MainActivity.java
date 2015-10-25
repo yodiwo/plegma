@@ -26,7 +26,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
-import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -58,85 +57,25 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
 
     private static final int REQUEST_ENABLE_BT = 666;
 
+    private static boolean ActivityInitialized;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_main);
 
-        // Check if we are pair the device
+        ActivityInitialized = false;
+
         if (settingsProvider == null)
             settingsProvider = SettingsProvider.getInstance(this);
 
+        // Check if device is paired
         if (settingsProvider.getNodeKey() != null && settingsProvider.getNodeSecretKey() != null) {
-
-            // Check for nfc
-            mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
-            if (mNfcAdapter == null) {
-                Toast.makeText(this, "This device doesn't support NFC", Toast.LENGTH_LONG).show();
-            } else {
-                if (!mNfcAdapter.isEnabled()) {
-                    Toast.makeText(this, "NFC is disabled", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(this, "NFC is enabled", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            // Check for torch availability
-            ThingsModuleService.initTorch(this);
-            if (!ThingsModuleService.hasTorch) {
-                Toast.makeText(this, "This device doesn't support Torch", Toast.LENGTH_SHORT).show();
-            }
-            else {
-                // Start service
-                Intent intent = new Intent(this, ThingsModuleService.class);
-                startService(intent);
-            }
-
-            // Check for Bluetooth availability
-            bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-            if (bluetoothAdapter == null) {
-                Toast.makeText(this, "This device doesn't support Bluetooth", Toast.LENGTH_SHORT).show();
-            }
-            else {
-                if (!bluetoothAdapter.isEnabled()) {
-                    Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-                    startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
-                }
-            }
-
-            // Get the location manager
-            locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-            if (locationManager != null) {
-                boolean isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-                if (!isGPSEnabled) {
-                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-                    alertDialog.setTitle("GPS settings")
-                            .setMessage("GPS is currently disabled. Do you want to go to settings menu?")
-                            .setPositiveButton("Settings", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                                    startActivity(intent);
-                                }
-                            })
-                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.cancel();
-                                }
-                            })
-                            .show();
-                }
-                else {
-                    bestGPSProvider = this.getBestGPSProviderForChosenCriteria();
-                }
-            }
-            else
-            {
-                Toast.makeText(this, "GPS not supported", Toast.LENGTH_SHORT).show();
-            }
+            ActivityInitialized = true;
+            InitMainActivity();
         }
     }
-
 
     // ---------------------------------------------------------------------------------------------
     @Override
@@ -161,6 +100,10 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
         }
         else {
 
+            if(!ActivityInitialized) {
+                ActivityInitialized = true;
+                InitMainActivity();
+            }
             // Tell NodeService to handle Resuming itself
             NodeService.Resume(this);
 
@@ -230,6 +173,75 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
         }
 
         super.onPause();
+    }
+
+    // ---------------------------------------------------------------------------------------------
+    private void InitMainActivity() {
+
+        // Check for nfc
+        mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
+        if (mNfcAdapter == null) {
+            Toast.makeText(this, "This device doesn't support NFC", Toast.LENGTH_LONG).show();
+        } else {
+            if (!mNfcAdapter.isEnabled()) {
+                Toast.makeText(this, "NFC is disabled", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "NFC is enabled", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        // Check for torch availability
+        ThingsModuleService.initTorch(this);
+        if (!ThingsModuleService.hasTorch) {
+            Toast.makeText(this, "This device doesn't support Torch", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            // Start service
+            Intent intent = new Intent(this, ThingsModuleService.class);
+            startService(intent);
+        }
+
+        // Check for Bluetooth availability
+        bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        if (bluetoothAdapter == null) {
+            Toast.makeText(this, "This device doesn't support Bluetooth", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            if (!bluetoothAdapter.isEnabled()) {
+                Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+            }
+        }
+
+        // Get the location manager
+        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        if (locationManager != null) {
+            boolean isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+            if (!isGPSEnabled) {
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+                alertDialog.setTitle("GPS settings")
+                        .setMessage("GPS is currently disabled. Do you want to go to settings menu?")
+                        .setPositiveButton("Settings", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                                startActivity(intent);
+                            }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        })
+                        .show();
+            }
+            else {
+                bestGPSProvider = this.getBestGPSProviderForChosenCriteria();
+            }
+        }
+        else
+        {
+            Toast.makeText(this, "GPS not supported", Toast.LENGTH_SHORT).show();
+        }
     }
 
     // ---------------------------------------------------------------------------------------------
