@@ -63,6 +63,8 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
         Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_main);
 
+        NodeService.Startup(this);
+
         ActivityInitialized = false;
 
         if (settingsProvider == null)
@@ -105,10 +107,12 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
             // Tell NodeService to handle Resuming itself
             NodeService.Resume(this);
 
-            // Get from defines what we need to enable
-            NodeService.StartService(this, SensorsListener.SensorType.Accelerometer);
-            NodeService.StartService(this, SensorsListener.SensorType.Brightness);
-            NodeService.StartService(this, SensorsListener.SensorType.Proximity);
+            SensorsListener sl = SensorsListener.getInstance(this);
+            if (sl != null) {
+                sl.StartService(SensorsListener.SensorType.Accelerometer);
+                sl.StartService(SensorsListener.SensorType.Brightness);
+                sl.StartService(SensorsListener.SensorType.Proximity);
+            }
 
             // Resume NFC
             setupForegroundNFCDispatch(this, mNfcAdapter);
@@ -150,11 +154,12 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
             stopForegroundNFCDispatch(this, mNfcAdapter);
 
         if (settingsProvider.getNodeKey() != null && settingsProvider.getNodeSecretKey() != null) {
-            // Get from defines what we need to enable
-            NodeService.StopService(this, SensorsListener.SensorType.Accelerometer);
-            NodeService.StopService(this, SensorsListener.SensorType.Brightness);
-            NodeService.StopService(this, SensorsListener.SensorType.Proximity);
-
+            SensorsListener sl = SensorsListener.getInstance(this);
+            if (sl != null) {
+                sl.StopService(SensorsListener.SensorType.Accelerometer);
+                sl.StopService(SensorsListener.SensorType.Brightness);
+                sl.StopService(SensorsListener.SensorType.Proximity);
+            }
             // Tell NodeService to handle Pausing itself
             NodeService.Pause(this);
 

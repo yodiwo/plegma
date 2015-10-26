@@ -72,8 +72,6 @@ public class SensorsListener implements SensorEventListener {
             mAccel = 0.00f;
             mAccelCurrent = SensorManager.GRAVITY_EARTH;
             mAccelLast = SensorManager.GRAVITY_EARTH;
-
-            Toast.makeText(context, "Sensor listening service created", Toast.LENGTH_SHORT).show();
         }
     }
 

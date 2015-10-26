@@ -220,7 +220,7 @@ public class MqttServerAPI extends aServerAPI {
 //        mqttClient = null;
         try {
             mqttClient.disconnect();
-            mqttClient.close();
+            //mqttClient.close();
             mqttClient = null;
             server = null;
         } catch (MqttException e) {

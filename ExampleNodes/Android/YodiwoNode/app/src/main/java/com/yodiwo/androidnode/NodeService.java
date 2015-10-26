@@ -66,7 +66,8 @@ public class NodeService extends IntentService {
     private static final int REQUEST_RESUME = 10;
     private static final int REQUEST_PAUSE = 11;
     private static final int REQUEST_RX_UPDATE = 12;
-    private static final int REQUEST_TEARDOWN = 13;
+    private static final int REQUEST_STARTUP = 13;
+    private static final int REQUEST_TEARDOWN = 14;
     private static final int REQUEST_RX_MSG = 15;
 
     public static final int RECEIVE_CONN_STATUS = 20;
@@ -109,10 +110,7 @@ public class NodeService extends IntentService {
     private static HashMap<String, Port> PortKeyToPortHashMap = new HashMap<>();
     private static final ReentrantReadWriteLock ActivePkeyLock = new ReentrantReadWriteLock();
 
-
-    private SensorsListener sensorsListener = null;
-
-    private Boolean serverIsConnected = false;
+    private static boolean serverIsConnected = false;
 
     public NodeService() {
         super("NodeService");
@@ -125,44 +123,51 @@ public class NodeService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
 
-        settingsProvider = SettingsProvider.getInstance(getApplicationContext());
+        Context context = getApplicationContext();
+        settingsProvider = SettingsProvider.getInstance(context);
 
-        // Do not handle any intents, unless device is paired
-        if (settingsProvider.getNodeKey() == null) { return; }
+        int request_type;
+        Bundle bundle = intent.getExtras();
 
-        // Init server api and select MQTT or REST transport
-        if (serverAPI == null) {
-            if (settingsProvider.getServerTransport() == SettingsProvider.ServerAPITransport.REST)
-                serverAPI = RestServerAPI.getInstance(getApplicationContext());
-            else
-                serverAPI = MqttServerAPI.getInstance(getApplicationContext());
+        try {
+            request_type = bundle.getInt(EXTRA_REQUEST_TYPE);
+        }
+        catch (Exception e) {
+            Log.e(TAG, "could not get request type from bundle");
+            return;
         }
 
-        // Init RX handlers
-        InitRxHandlers();
+        //Handle STARTUP/TEARDOWN requests differently
+        if(request_type == REQUEST_STARTUP) {
+            // Init server api and select MQTT or REST transport
+            if (serverAPI == null) {
+                if (settingsProvider.getServerTransport() == SettingsProvider.ServerAPITransport.REST)
+                    serverAPI = RestServerAPI.getInstance(context);
+                else
+                    serverAPI = MqttServerAPI.getInstance(context);
 
-        if (sensorsListener == null)
-            sensorsListener = SensorsListener.getInstance(getApplicationContext());
+                // Init RX handlers
+                InitRxHandlers();
+            }
+        }
+        else if(request_type == REQUEST_TEARDOWN) {
+            serverAPI.Teardown();
+            serverAPI = null;
+            this.stopSelf();
+            return;
+        }
 
-        Bundle bundle = intent.getExtras();
+        String nodeKey = settingsProvider.getNodeKey();
+
+        //from here on we need pairing and a serverAPI to do anything useful
+        if(serverAPI == null || nodeKey == null)
+            return;
+
         try {
-            int request_type = bundle.getInt(EXTRA_REQUEST_TYPE);
             switch (request_type) {
                 // -------------------------------------
-                case REQUEST_SERVICE_START: {
-                    SensorsListener.SensorType type = (SensorsListener.SensorType) bundle.getSerializable(EXTRA_SERVICE_TYPE);
-                    sensorsListener.StartService(type);
-                }
-                break;
-                // -------------------------------------
-                case REQUEST_SERVICE_STOP: {
-                    SensorsListener.SensorType type = (SensorsListener.SensorType) bundle.getSerializable(EXTRA_SERVICE_TYPE);
-                    sensorsListener.StopService(type);
-                }
-                break;
-                // -------------------------------------
                 case REQUEST_SENDTHINGS:
-                    SendThings(settingsProvider);
+                    SendThings();
                     break;
                 // -------------------------------------
                 case REQUEST_CLEANTHINGS: {
@@ -189,7 +194,7 @@ public class NodeService extends IntentService {
                 // -------------------------------------
                 case REQUEST_PORTMSG: {
                     String thingName = bundle.getString(EXTRA_THING_NAME);
-                    Thing thing = thingHashMap.get(ThingKey.CreateKey(settingsProvider.getNodeKey(), thingName));
+                    Thing thing = thingHashMap.get(ThingKey.CreateKey(nodeKey, thingName));
                     if(thing != null) {
                         int portIndex = bundle.getInt(EXTRA_PORT_INDEX);
                         String data = bundle.getString(EXTRA_PORT_DATA);
@@ -200,7 +205,7 @@ public class NodeService extends IntentService {
                 // -------------------------------------
                 case REQUEST_PORTMSG_ARRAY: {
                     String thingName = bundle.getString(EXTRA_THING_NAME);
-                    Thing thing = thingHashMap.get(ThingKey.CreateKey(settingsProvider.getNodeKey(), thingName));
+                    Thing thing = thingHashMap.get(ThingKey.CreateKey(nodeKey, thingName));
                     if(thing != null) {
                         String[] data = new Gson().fromJson(bundle.getString(EXTRA_PORT_DATA_ARRAY), String[].class);
                         SendPortMsg(thing, data);
@@ -215,24 +220,8 @@ public class NodeService extends IntentService {
                 }
                 break;
                 // -------------------------------------
-                case REQUEST_RESUME: {
-                    //serverAPI.StartRx();
-                }
-                break;
-                // -------------------------------------
-                case REQUEST_PAUSE: {
-                    //serverAPI.StopRx();
-                }
-                break;
-                // -------------------------------------
                 case REQUEST_RX_UPDATE: {
                     SendPortStateReq();
-                }
-                break;
-                // -------------------------------------
-                case REQUEST_TEARDOWN: {
-                    serverAPI.Teardown();
-                    this.stopSelf();
                 }
                 break;
                 // -----------------------------------
@@ -261,7 +250,7 @@ public class NodeService extends IntentService {
     // =============================================================================================
     // Service execution (background thread)
 
-    private void SendThings(SettingsProvider settingsProvider) {
+    private void SendThings() {
         try {
             ThingsReq msg = new ThingsReq(GetSendSeqNum(),
                     ThingsReq.Overwrite,
@@ -456,8 +445,8 @@ public class NodeService extends IntentService {
                                     eNodeType.EndpointSingle,
                                     eNodeCapa.None,
                                     null);
-
-                            serverAPI.SendRsp(rsp, req.SeqNo);
+                            if (serverAPI != null)
+                                serverAPI.SendRsp(rsp, req.SeqNo);
                         }
                     });
 
@@ -500,7 +489,8 @@ public class NodeService extends IntentService {
                                         thingHashMap.values().toArray(new Thing[0])
                                         );
 
-                                serverAPI.SendRsp(rsp, req.SeqNo);
+                                if (serverAPI != null)
+                                    serverAPI.SendRsp(rsp, req.SeqNo);
                             }
                         }
                     });
@@ -598,24 +588,6 @@ public class NodeService extends IntentService {
 
     // ---------------------------------------------------------------------------------------------
 
-    public static void StartService(Context context, SensorsListener.SensorType type) {
-        Intent intent = new Intent(context, NodeService.class);
-        intent.putExtra(EXTRA_REQUEST_TYPE, REQUEST_SERVICE_START);
-        intent.putExtra(EXTRA_SERVICE_TYPE, type);
-        context.startService(intent);
-    }
-
-    // ---------------------------------------------------------------------------------------------
-
-    public static void StopService(Context context, SensorsListener.SensorType type) {
-        Intent intent = new Intent(context, NodeService.class);
-        intent.putExtra(EXTRA_REQUEST_TYPE, REQUEST_SERVICE_STOP);
-        intent.putExtra(EXTRA_SERVICE_TYPE, type);
-        context.startService(intent);
-    }
-
-    // ---------------------------------------------------------------------------------------------
-
     public static void RxMsg(Context context, String topic, String json) {
         Intent intent = new Intent(context, NodeService.class);
         intent.putExtra(EXTRA_REQUEST_TYPE, REQUEST_RX_MSG);
@@ -628,24 +600,35 @@ public class NodeService extends IntentService {
     // ---------------------------------------------------------------------------------------------
 
     public static void Resume(Context context) {
+        /*
         Intent intent = new Intent(context, NodeService.class);
         intent.putExtra(EXTRA_REQUEST_TYPE, REQUEST_RESUME);
         context.startService(intent);
         Log.d(TAG, "DEBUG Node Service Resumed");
+        */
     }
 
     public static void Pause(Context context) {
+        /*
         Intent intent = new Intent(context, NodeService.class);
         intent.putExtra(EXTRA_REQUEST_TYPE, REQUEST_PAUSE);
         context.startService(intent);
         Log.d(TAG, "DEBUG Node Service Paused");
+        */
+    }
+
+    public static void Startup(Context context) {
+        Intent intent = new Intent(context, NodeService.class);
+        intent.putExtra(EXTRA_REQUEST_TYPE, REQUEST_STARTUP);
+        context.startService(intent);
+        Log.d(TAG, "DEBUG Node Service Startup requested");
     }
 
     public static void Teardown(Context context) {
         Intent intent = new Intent(context, NodeService.class);
         intent.putExtra(EXTRA_REQUEST_TYPE, REQUEST_TEARDOWN);
         context.startService(intent);
-        Log.d(TAG, "DEBUG Node Service Stopped");
+        Log.d(TAG, "DEBUG Node Service Teardown requested");
     }
 
     // ---------------------------------------------------------------------------------------------
