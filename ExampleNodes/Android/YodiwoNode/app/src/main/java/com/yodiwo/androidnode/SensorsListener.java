@@ -80,6 +80,9 @@ public class SensorsListener implements SensorEventListener {
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
 
+        if(mSensorManager == null)
+            return;
+
         long timestamp = sensorEvent.timestamp;
 
         if (sensorEvent.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
@@ -166,20 +169,20 @@ public class SensorsListener implements SensorEventListener {
         switch (type) {
             case Accelerometer:
                 if (mAccelSensor != null) {
-                    mAccelSensor = null;
                     mSensorManager.unregisterListener(this, mAccelSensor);
+                    mAccelSensor = null;
                 }
                 break;
             case Brightness:
                 if (mBrightnessSensor != null) {
-                    mBrightnessSensor = null;
                     mSensorManager.unregisterListener(this, mBrightnessSensor);
+                    mBrightnessSensor = null;
                 }
                 break;
             case Proximity:
                 if(mProximitySensor != null) {
-                    mProximitySensor = null;
                     mSensorManager.unregisterListener(this, mProximitySensor);
+                    mProximitySensor = null;
                 }
                 break;
         }
