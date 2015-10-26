@@ -28,6 +28,7 @@ import com.yodiwo.plegma.ThingsRsp;
 import com.yodiwo.plegma.eNodeCapa;
 import com.yodiwo.plegma.eNodeType;
 import com.yodiwo.plegma.ePortStateOperation;
+import com.yodiwo.plegma.ePortType;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -354,6 +355,11 @@ public class NodeService extends IntentService {
                 localP.State = portState.State;
                 // TODO: Save port seqno
 
+                if (localP.Type != ePortType.String && localP.State == "") {
+                    Log.e(TAG, "Empty state passed in!");
+                    return;
+                }
+
                 // Send the event for this port
                 Intent intent = new Intent(BROADCAST_THING_UPDATE);
                 intent.putExtra(EXTRA_UPDATED_THING_KEY, localT.ThingKey);
@@ -398,6 +404,11 @@ public class NodeService extends IntentService {
             // Get the local thing and check if we have new data
             Port localP = PortKeyToPortHashMap.get(pmsg.PortKey);
             Thing localT = PortKeyToThingsHashMap.get(pmsg.PortKey);
+
+            if (localP.Type != ePortType.String && localP.State == "") {
+                Log.e(TAG, "Empty state passed in!");
+                return;
+            }
 
             // Update the local state
             localP.State = pmsg.State;
