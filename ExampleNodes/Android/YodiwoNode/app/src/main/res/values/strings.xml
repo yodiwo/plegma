@@ -59,8 +59,8 @@
 
     <!-- Service Settings  -->
     <string name="pref_service_brightness_key">service_brightness</string>
-    <string name="pref_service_brightness_default">false</string>
+    <string name="pref_service_brightness_default">true</string>
     <string name="pref_service_accelerometer_key">service_accelerometer</string>
-    <string name="pref_service_accelerometer_default">false</string>
+    <string name="pref_service_accelerometer_default">true</string>
 
 </resources>
