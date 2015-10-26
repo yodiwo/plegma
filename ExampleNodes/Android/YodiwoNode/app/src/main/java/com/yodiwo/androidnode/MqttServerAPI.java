@@ -112,17 +112,18 @@ public class MqttServerAPI extends aServerAPI {
     private void _startRx() {
         if (!RxStarted) {
             // Init the subscriptions
-            if (subscribe(mqttSubTopicPrefix + "#", 2 /* QOS */))
+            if (subscribe(mqttSubTopicPrefix + "#", 2 /* QOS */)) {
+                RxEnabled = true;
+                RequestConnectivityUiUpdate();
+
                 RxStarted = true;
+            }
             mqttClient.registerResources(context);
         }
     }
 
     @Override
     public void StartRx() {
-        RxEnabled = true;
-        RequestConnectivityUiUpdate();
-
         if (connectionStatus == ConnectionStatus.CONNECTED) {
             _startRx();
         }
@@ -442,9 +443,7 @@ public class MqttServerAPI extends aServerAPI {
             RequestConnectivityUiUpdate();
 
             // check for pending subscription
-            if (RxEnabled) {
-                _startRx();
-            }
+            _startRx();
 
             NodeService.ReceiveConnStatus(context, true);
         }

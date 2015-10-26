@@ -216,12 +216,12 @@ public class NodeService extends IntentService {
                 break;
                 // -------------------------------------
                 case REQUEST_RESUME: {
-                    serverAPI.StartRx();
+                    //serverAPI.StartRx();
                 }
                 break;
                 // -------------------------------------
                 case REQUEST_PAUSE: {
-                    serverAPI.StopRx();
+                    //serverAPI.StopRx();
                 }
                 break;
                 // -------------------------------------
@@ -245,7 +245,7 @@ public class NodeService extends IntentService {
                             NodeService.RegisterNode(this, false);
                         }
                     } else {
-                        if(serverIsConnected) {
+                        if (serverIsConnected) {
                             serverIsConnected = false;
                         }
                     }
