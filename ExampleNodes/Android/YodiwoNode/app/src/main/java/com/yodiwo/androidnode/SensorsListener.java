@@ -36,9 +36,8 @@ public class SensorsListener implements SensorEventListener {
     // Sensor Initialization
 
 
-    private SensorManager mSensorManager;
-    private Context context;
-    private SettingsProvider settingsProvider;
+    private static SensorManager mSensorManager = null;
+    private static Context context;
 
     // Accelerometer
     private static Sensor mAccelSensor;
@@ -64,17 +63,18 @@ public class SensorsListener implements SensorEventListener {
 
     public SensorsListener(Context context) {
         this.context = context;
-        settingsProvider = SettingsProvider.getInstance(context);
 
-        // Get an instance of the sensor service, and use that to get an instance of a particular sensor.
-        mSensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
+        if (mSensorManager == null) {
+            // Get an instance of the sensor service, and use that to get an instance of a particular sensor.
+            mSensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
 
-        // Init Accel sensor
-        mAccel = 0.00f;
-        mAccelCurrent = SensorManager.GRAVITY_EARTH;
-        mAccelLast = SensorManager.GRAVITY_EARTH;
+            // Init Accel sensor
+            mAccel = 0.00f;
+            mAccelCurrent = SensorManager.GRAVITY_EARTH;
+            mAccelLast = SensorManager.GRAVITY_EARTH;
 
-        Toast.makeText(context, "Sensor listening service created", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Sensor listening service created", Toast.LENGTH_SHORT).show();
+        }
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -192,13 +192,13 @@ public class SensorsListener implements SensorEventListener {
     public void StartService(SensorType type) {
         switch (type) {
             case Accelerometer:
-                if(settingsProvider.getServiceAccelerometerEnabled()) {
+                if(SettingsProvider.getInstance(context).getServiceAccelerometerEnabled()) {
                     mAccelSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
                     mSensorManager.registerListener(this, mAccelSensor, SensorManager.SENSOR_DELAY_NORMAL);
                 }
                 break;
             case Brightness:
-                if(settingsProvider.getServiceBrightnessEnabled()) {
+                if(SettingsProvider.getInstance(context).getServiceBrightnessEnabled()) {
                     mBrightnessSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
                     mSensorManager.registerListener(this, mBrightnessSensor, SensorManager.SENSOR_DELAY_NORMAL);
                 }
