@@ -152,8 +152,10 @@ public class NodeService extends IntentService {
             return;
         }
         else if(request_type == REQUEST_TEARDOWN) {
-            serverAPI.Teardown();
-            serverAPI = null;
+            if (serverAPI != null) {
+                serverAPI.Teardown();
+                serverAPI = null;
+            }
             this.stopSelf();
             return;
         }
