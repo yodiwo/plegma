@@ -123,14 +123,13 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
             // Request update location
             if(locationManager != null) {
                 try {
-                    if(bestGPSProvider == null) {
+                    if (bestGPSProvider == null) {
                         bestGPSProvider = this.getBestGPSProviderForChosenCriteria();
                     }
 
                     try {
                         // TODO: Set detailed default criteria and expose them through thing's configuration
-                        if (locationManager != null)
-                            locationManager.requestLocationUpdates(bestGPSProvider, 20000, 500, this);
+                        locationManager.requestLocationUpdates(bestGPSProvider, 20000, 500, this);
                     }
                     catch (SecurityException e) {
                         Helpers.logException(TAG, e);
@@ -214,8 +213,8 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
             boolean isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
             if (!isGPSEnabled) {
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-                alertDialog.setTitle("GPS settings")
-                        .setMessage("GPS is currently disabled. Do you want to go to settings menu?")
+                alertDialog.setTitle("Location settings")
+                        .setMessage("Location is currently disabled. Do you want to go to settings menu?")
                         .setPositiveButton("Settings", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
@@ -233,9 +232,8 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
                 bestGPSProvider = this.getBestGPSProviderForChosenCriteria();
             }
         }
-        else
-        {
-            Toast.makeText(this, "GPS not supported", Toast.LENGTH_SHORT).show();
+        else {
+            Toast.makeText(this, "Location not supported", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -471,7 +469,10 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
 
         // TODO: Set detailed default criteria and expose them through thing's configuration
         try {
-            locationManager.requestLocationUpdates(bestGPSProvider, 20000, 500, this);
+            if (locationManager != null)
+                locationManager.requestLocationUpdates(bestGPSProvider, 20000, 500, this);
+            else
+                Helpers.log(Log.ERROR, TAG, "entered onProviderEnabled with locationManager unset");
         }
         catch (SecurityException e) {
             Helpers.logException(TAG, e);
@@ -488,14 +489,19 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
 
         try {
             if (location == null)
-                location = locationManager.getLastKnownLocation(bestGPSProvider);
+                if (locationManager != null)
+                    location = locationManager.getLastKnownLocation(bestGPSProvider);
         }
         catch (SecurityException e) {
             Helpers.logException(TAG, e);
             location = null;
         }
+        catch (Exception e) {
+            Helpers.logException(TAG, e);
+            location = null;
+        }
         if (location == null) {
-            Log.d(TAG, "GPS Locations (starting with last known): [unknown]\n\n");
+            Helpers.log(Log.ERROR, TAG, "No location could be retrieved");
         }
         else {
             Log.d(TAG, "GPS Locations (starting with last known):" + location.toString());
@@ -579,6 +585,10 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
 
     private String getBestGPSProviderForChosenCriteria() {
 
+        if (locationManager == null) {
+            Helpers.log(Log.ERROR, TAG, "Location requested, but locationManager is null");
+            return null;
+        }
         // List all providers (for debug purposes)
         List<String> providers = locationManager.getAllProviders();
         for (String provider : providers) {
