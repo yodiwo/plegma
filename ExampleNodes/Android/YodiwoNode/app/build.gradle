@@ -35,7 +35,7 @@ android {
             minSdkVersion 19
             targetSdkVersion 23
             versionCode code
-            versionName "1.0." + code
+            versionName "1.0.b" + code
         }
     }
     else {

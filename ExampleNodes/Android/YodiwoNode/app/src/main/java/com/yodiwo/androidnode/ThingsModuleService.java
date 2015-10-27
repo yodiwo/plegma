@@ -79,7 +79,7 @@ public class ThingsModuleService extends IntentService {
                 }
             }
             catch (CameraAccessException e) {
-                Log.e(TAG, "Camera access exception!");
+                Helpers.logException(TAG, e);
                 hasTorch = false;
             }
         }
@@ -93,7 +93,7 @@ public class ThingsModuleService extends IntentService {
                     camera = Camera.open();
                     params = camera.getParameters();
                 } catch (RuntimeException e) {
-                    Log.e("Failed to get camera: ", e.getMessage());
+                    Helpers.logException(TAG, e);
                 }
             }
         }
@@ -108,6 +108,7 @@ public class ThingsModuleService extends IntentService {
     }
 
     // Set torch state
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void setTorch(boolean state) {
 
         if (!hasTorch) {
@@ -127,6 +128,7 @@ public class ThingsModuleService extends IntentService {
                     cameraManager.setTorchMode(torchCameraId, true);
                 }
                 catch (CameraAccessException e) {
+                    Helpers.logException(TAG, e);
                     return;
                 }
             }
@@ -147,6 +149,7 @@ public class ThingsModuleService extends IntentService {
                     cameraManager.setTorchMode(torchCameraId, false);
                 }
                 catch (CameraAccessException e) {
+                    Helpers.logException(TAG, e);
                     return;
                 }
             }
@@ -176,8 +179,8 @@ public class ThingsModuleService extends IntentService {
             boolean torchState = bundle.getBoolean(EXTRA_TORCH_THING_STATE);
             try {
                 setTorch(torchState);
-            } catch (Exception ex) {
-                Log.e(TAG, "Failed to set torch state: " + ex.getMessage());
+            } catch (Exception e) {
+                Helpers.logException(TAG, e);
             }
         }
         // else if { } /* Other things */

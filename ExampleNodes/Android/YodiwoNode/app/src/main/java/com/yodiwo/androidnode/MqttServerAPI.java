@@ -69,8 +69,8 @@ public class MqttServerAPI extends aServerAPI {
         try {
             if (publish(topic, 2, gson.toJson(mqtt_msg)))
                 return true;
-        } catch (Exception ex) {
-            Log.e(TAG, ex.getMessage());
+        } catch (Exception e) {
+            Helpers.logException(TAG, e);
         }
         return false;
     }
@@ -87,8 +87,8 @@ public class MqttServerAPI extends aServerAPI {
 
             if (_Send(topic, mqttAPIMessage))
                 return true;
-        } catch (Exception ex) {
-            Log.e(TAG, ex.getMessage());
+        } catch (Exception e) {
+            Helpers.logException(TAG, e);
         }
         return false;
     }
@@ -101,8 +101,8 @@ public class MqttServerAPI extends aServerAPI {
 
             if (_Send(topic, mqttAPIMessage))
                 return true;
-        } catch (Exception ex) {
-            Log.e(TAG, ex.getMessage());
+        } catch (Exception e) {
+            Helpers.logException(TAG, e);
         }
         return false;
     }
@@ -144,7 +144,7 @@ public class MqttServerAPI extends aServerAPI {
                 mqttClient.unsubscribe(mqttSubTopicPrefix + "#");
                 mqttClient.unregisterResources();
             } catch (MqttException e) {
-                e.printStackTrace();
+                Helpers.logException(TAG, e);
             }
         }
     }
@@ -207,9 +207,9 @@ public class MqttServerAPI extends aServerAPI {
 
             mqttClient.connect(mqttOpt, null, new MqttActionListener(context, MqttAction.CONNECT, null));
         } catch (MqttSecurityException e) {
-            Log.e(this.getClass().getCanonicalName(), "Failed to Connect the mqtt client", e);
+            Helpers.logException(TAG, e);
         } catch (MqttException e) {
-            Log.e(this.getClass().getCanonicalName(), "Failed to Connect the mqtt client", e);
+            Helpers.logException(TAG, e);
         }
     }
 
@@ -224,7 +224,7 @@ public class MqttServerAPI extends aServerAPI {
             mqttClient = null;
             server = null;
         } catch (MqttException e) {
-            e.printStackTrace();
+            Helpers.logException(TAG, e);
         }
     }
     // ---------------------------------------------------------------------------------------------
@@ -237,9 +237,9 @@ public class MqttServerAPI extends aServerAPI {
                     new MqttActionListener(context, MqttAction.SUBSCRIBE, topic));
             return true;
         } catch (MqttSecurityException e) {
-            Log.e(this.getClass().getCanonicalName(), "Failed to subscribe to" + topic, e);
+            Helpers.logException(TAG, e);
         } catch (MqttException e) {
-            Log.e(this.getClass().getCanonicalName(), "Failed to subscribe to" + topic, e);
+            Helpers.logException(TAG, e);
         }
         return false;
     }
@@ -256,9 +256,9 @@ public class MqttServerAPI extends aServerAPI {
                 return true;
             }
         } catch (MqttSecurityException e) {
-            Log.e(this.getClass().getCanonicalName(), "Failed to publish a message", e);
+            Helpers.logException(TAG, e);
         } catch (MqttException e) {
-            Log.e(this.getClass().getCanonicalName(), "Failed to publish a message", e);
+            Helpers.logException(TAG, e);
         }
         return false;
     }
@@ -352,8 +352,8 @@ public class MqttServerAPI extends aServerAPI {
                     else
                         Log.i(TAG, "MQTT send complete:" + iMqttDeliveryToken.getMessage());
                 }
-            } catch (Exception ex) {
-                Log.e(TAG, "MQTT deliveryComplete Error:" + ex.getMessage());
+            } catch (Exception e) {
+                Helpers.logException(TAG, e);
             }
         }
         // -----------------------------------------------------------------------------------------

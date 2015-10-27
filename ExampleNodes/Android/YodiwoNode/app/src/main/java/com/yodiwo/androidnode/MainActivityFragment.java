@@ -399,8 +399,8 @@ public class MainActivityFragment extends Fragment {
                     BluetoothAdapter.getDefaultAdapter().cancelDiscovery();
                 }
                 //----------------------------------------------------------------------------------
-            } catch (Exception ex) {
-                Log.e(TAG, "Failed to get update data: " + ex.getMessage());
+            } catch (Exception e) {
+                Helpers.logException(TAG, e);
             }
         }
     };

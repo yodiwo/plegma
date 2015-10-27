@@ -5,7 +5,6 @@ import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
@@ -13,7 +12,6 @@ import com.google.gson.Gson;
 import com.yodiwo.plegma.ActivePortKeysMsg;
 import com.yodiwo.plegma.NodeInfoReq;
 import com.yodiwo.plegma.NodeInfoRsp;
-import com.yodiwo.plegma.NodeKey;
 import com.yodiwo.plegma.PlegmaAPI;
 import com.yodiwo.plegma.Port;
 import com.yodiwo.plegma.PortEvent;
@@ -30,11 +28,9 @@ import com.yodiwo.plegma.eNodeType;
 import com.yodiwo.plegma.ePortStateOperation;
 import com.yodiwo.plegma.ePortType;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class NodeService extends IntentService {
@@ -133,7 +129,7 @@ public class NodeService extends IntentService {
             request_type = bundle.getInt(EXTRA_REQUEST_TYPE);
         }
         catch (Exception e) {
-            Log.e(TAG, "could not get request type from bundle");
+            Helpers.logException(TAG, e);
             return;
         }
 
@@ -245,7 +241,7 @@ public class NodeService extends IntentService {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            Helpers.logException(TAG, e);
         }
     }
 
@@ -261,7 +257,7 @@ public class NodeService extends IntentService {
                     thingHashMap.values().toArray(new Thing[0]));
             serverAPI.Send(msg);
         } catch (Exception e) {
-            Log.e(TAG, e.getMessage());
+            Helpers.logException(TAG, e);
         }
     }
 
@@ -272,7 +268,7 @@ public class NodeService extends IntentService {
             PortStateReq msg = new PortStateReq(GetSendSeqNum(), ePortStateOperation.AllPortStates, null);
             serverAPI.Send(msg);
         } catch (Exception e) {
-            Log.e(TAG, e.getMessage());
+            Helpers.logException(TAG, e);
         }
     }
 
@@ -298,7 +294,7 @@ public class NodeService extends IntentService {
             try {
                 serverAPI.Send(msg);
             } catch (Exception e) {
-                Log.e(TAG, "Failed to send ports event for:" + thing.ThingKey);
+                Helpers.logException(TAG, e);
             }
         }
     }
@@ -328,7 +324,7 @@ public class NodeService extends IntentService {
             try {
                 serverAPI.Send(msg);
             } catch (Exception e) {
-                Log.e(TAG, "Failed to send ports event for:" + thing.ThingKey);
+                Helpers.logException(TAG, e);
             }
         }
     }
@@ -348,7 +344,7 @@ public class NodeService extends IntentService {
                 // TODO: Save port seqno
 
                 if (localP.Type != ePortType.String && localP.State == "") {
-                    Log.e(TAG, "Empty state passed in!");
+                    Helpers.log(Log.ERROR, TAG, "Empty state passed in!");
                     return;
                 }
 
@@ -398,7 +394,7 @@ public class NodeService extends IntentService {
             Thing localT = PortKeyToThingsHashMap.get(pmsg.PortKey);
 
             if (localP.Type != ePortType.String && localP.State == "") {
-                Log.e(TAG, "Empty state passed in!");
+                Helpers.log(Log.ERROR, TAG, "Empty state passed in!");
                 return;
             }
 
@@ -526,8 +522,8 @@ public class NodeService extends IntentService {
             try {
                 Object obj = new Gson().fromJson(msg, rxHandlersClass.get(topic));
                 handler.Handle(topic, msg, obj);
-            } catch (Exception ex) {
-                Log.e(TAG, ex.getMessage());
+            } catch (Exception e) {
+                Helpers.logException(TAG, e);
             }
         }
     }
@@ -607,7 +603,7 @@ public class NodeService extends IntentService {
         Intent intent = new Intent(context, NodeService.class);
         intent.putExtra(EXTRA_REQUEST_TYPE, REQUEST_RESUME);
         context.startService(intent);
-        Log.d(TAG, "DEBUG Node Service Resumed");
+        Helpers.log(Log.DEBUG, TAG, "DEBUG Node Service Resumed");
         */
     }
 
@@ -616,7 +612,7 @@ public class NodeService extends IntentService {
         Intent intent = new Intent(context, NodeService.class);
         intent.putExtra(EXTRA_REQUEST_TYPE, REQUEST_PAUSE);
         context.startService(intent);
-        Log.d(TAG, "DEBUG Node Service Paused");
+        Helpers.log(Log.DEBUG, TAG, "DEBUG Node Service Paused");
         */
     }
 
@@ -624,14 +620,14 @@ public class NodeService extends IntentService {
         Intent intent = new Intent(context, NodeService.class);
         intent.putExtra(EXTRA_REQUEST_TYPE, REQUEST_STARTUP);
         context.startService(intent);
-        Log.d(TAG, "DEBUG Node Service Startup requested");
+        Helpers.log(Log.DEBUG, TAG, "Node Service Startup requested");
     }
 
     public static void Teardown(Context context) {
         Intent intent = new Intent(context, NodeService.class);
         intent.putExtra(EXTRA_REQUEST_TYPE, REQUEST_TEARDOWN);
         context.startService(intent);
-        Log.d(TAG, "DEBUG Node Service Teardown requested");
+        Helpers.log(Log.DEBUG, TAG, "Node Service Teardown requested");
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -640,7 +636,7 @@ public class NodeService extends IntentService {
         Intent intent = new Intent(context, NodeService.class);
         intent.putExtra(EXTRA_REQUEST_TYPE, REQUEST_RX_UPDATE);
         context.startService(intent);
-        Log.d(TAG, "DEBUG RX Update");
+        Helpers.log(Log.DEBUG, TAG, "RX Update");
     }
 
 

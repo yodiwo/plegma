@@ -133,10 +133,11 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
                             locationManager.requestLocationUpdates(bestGPSProvider, 20000, 500, this);
                     }
                     catch (SecurityException e) {
+                        Helpers.logException(TAG, e);
                     }
                 }
                 catch (Exception e) {
-                    Log.e(TAG, "Request location updates failed", e);
+                    Helpers.logException(TAG, e);
                 }
             }
         }
@@ -170,7 +171,10 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
             if (locationManager != null)
                 locationManager.removeUpdates(this);
         }
-        catch (SecurityException e) { }
+        catch (SecurityException e) {
+            Helpers.logException(TAG, e);
+
+        }
 
         super.onPause();
     }
@@ -347,7 +351,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
                 new NdefReaderTask().execute(tag);
 
             } else {
-                Log.d(TAG, "Wrong mime type: " + type);
+                Helpers.log(Log.DEBUG, TAG, "Wrong mime type1: " + type);
             }
         } else if (NfcAdapter.ACTION_TECH_DISCOVERED.equals(action)) {
 
@@ -470,6 +474,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
             locationManager.requestLocationUpdates(bestGPSProvider, 20000, 500, this);
         }
         catch (SecurityException e) {
+            Helpers.logException(TAG, e);
         }
     }
 
@@ -486,6 +491,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
                 location = locationManager.getLastKnownLocation(bestGPSProvider);
         }
         catch (SecurityException e) {
+            Helpers.logException(TAG, e);
             location = null;
         }
         if (location == null) {
@@ -535,7 +541,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
                     }
                 }
                 catch (IOException e) {
-                    Log.e(TAG, "Reverse geocoding failed", e);
+                    Helpers.logException(TAG, e);
                 }
             }
         };
@@ -592,6 +598,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
             location = (locationManager != null) ? locationManager.getLastKnownLocation(provider) : null;
         }
         catch (SecurityException e) {
+            Helpers.logException(TAG, e);
             location = null;
         }
         if (location == null)
