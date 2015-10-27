@@ -149,6 +149,7 @@ public class NodeService extends IntentService {
                 // Init RX handlers
                 InitRxHandlers();
             }
+            return;
         }
         else if(request_type == REQUEST_TEARDOWN) {
             serverAPI.Teardown();

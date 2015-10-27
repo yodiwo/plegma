@@ -63,8 +63,6 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
         Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_main);
 
-        NodeService.Startup(this);
-
         ActivityInitialized = false;
 
         if (settingsProvider == null)
@@ -153,33 +151,35 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
         if(mNfcAdapter!=null)
             stopForegroundNFCDispatch(this, mNfcAdapter);
 
-        if (settingsProvider.getNodeKey() != null && settingsProvider.getNodeSecretKey() != null) {
-            SensorsListener sl = SensorsListener.getInstance(this);
-            if (sl != null) {
-                sl.StopService(SensorsListener.SensorType.Accelerometer);
-                sl.StopService(SensorsListener.SensorType.Brightness);
-                sl.StopService(SensorsListener.SensorType.Proximity);
-            }
-            // Tell NodeService to handle Pausing itself
-            NodeService.Pause(this);
-
-            // de-initialize torch
-            if (ThingsModuleService.hasTorch) {
-                ThingsModuleService.pauseTorch();
-            }
-            try {
-                if (locationManager != null)
-                    locationManager.removeUpdates(this);
-            }
-            catch (SecurityException e) {
-            }
+        SensorsListener sl = SensorsListener.getInstance(this);
+        if (sl != null) {
+            sl.StopService(SensorsListener.SensorType.Accelerometer);
+            sl.StopService(SensorsListener.SensorType.Brightness);
+            sl.StopService(SensorsListener.SensorType.Proximity);
         }
+
+        // de-initialize torch
+        if (ThingsModuleService.hasTorch) {
+            ThingsModuleService.pauseTorch();
+        }
+
+        // Tell NodeService to handle Pausing itself
+        NodeService.Pause(this);
+
+        try {
+            if (locationManager != null)
+                locationManager.removeUpdates(this);
+        }
+        catch (SecurityException e) { }
 
         super.onPause();
     }
 
     // ---------------------------------------------------------------------------------------------
     private void InitMainActivity() {
+
+        //start Node Service
+        NodeService.Startup(this);
 
         // Check for nfc
         mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
@@ -613,11 +613,6 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
         public void run() { backPressCounter = 0; }
     }
 
-    private void Teardown() {
-        NodeService.Teardown(this);
-        super.onBackPressed();
-    }
-
     @Override
     public void onBackPressed() {
 
@@ -626,7 +621,9 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
             backPressCounter++;
             (new Timer()).schedule(new BackPressCounterTimeout(), 2 * 1000);  //2 sec
         } else {
-            Teardown();
+            onPause();
+            NodeService.Teardown(this);
+            super.onBackPressed();
         }
         Log.d(TAG, "Back button tapped");
     }
