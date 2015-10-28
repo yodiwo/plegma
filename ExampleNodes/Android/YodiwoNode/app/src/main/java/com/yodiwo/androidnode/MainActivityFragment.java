@@ -56,6 +56,7 @@ public class MainActivityFragment extends Fragment {
     private Button colorButton1;
     private Button colorButton2;
     private Button colorButton3;
+    private TextView textView;
 
     private TextView outputStr;
     private TextView inputStr;
@@ -84,6 +85,7 @@ public class MainActivityFragment extends Fragment {
         colorButton1 = (Button) view.findViewById(R.id.input_button_color1);
         colorButton2 = (Button) view.findViewById(R.id.input_button_color2);
         colorButton3 = (Button) view.findViewById(R.id.input_button_color3);
+        textView = (TextView) view.findViewById(R.id.textView3);
 
         // Link button1 to code
         Button button1 = (Button) view.findViewById(R.id.button1);
@@ -275,6 +277,13 @@ public class MainActivityFragment extends Fragment {
                         } else if(portID == 2) {
                             colorButton3.setBackgroundColor(color);
                         }
+                    }
+                    else if (thingKey.equals(thingManager.GetThingKey(ThingManager.InputTextBox))) {
+                        if(portID != 0) {
+                            Helpers.log(Log.ERROR, TAG, "TextMessage for unknown port");
+                            return;
+                        }
+                        textView.setText(portState);
                     }
                     else if (thingKey.equals(thingManager.GetThingKey(ThingManager.InputAndroidIntent))) {
                         if(isEvent) {

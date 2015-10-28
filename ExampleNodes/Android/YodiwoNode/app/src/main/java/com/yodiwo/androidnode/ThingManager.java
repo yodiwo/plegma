@@ -24,7 +24,7 @@ public class ThingManager {
 
 
     // =============================================================================================
-    // Static information's
+    // Static information
 
     public static final String TAG = ThingManager.class.getSimpleName();
     private static ThingManager thingManager = null;
@@ -105,6 +105,9 @@ public class ThingManager {
     public static final int InputColorPort0 = 0;
     public static final int InputColorPort1 = 1;
     public static final int InputColorPort2 = 2;
+
+    public static final String InputTextBox = "InputTextBox";
+    public static final int InputTextBoxPort = 0;
 
     public static final String InputAndroidIntent = "AndroidIntent";
     public static final int InputAndroidIntentPort = 0;
@@ -426,6 +429,19 @@ public class ThingManager {
         thing.Ports.add(new Port(PortKey.CreateKey(thingKey, "2"),
                 "Light3", "",
                 ioPortDirection.Input, ePortType.DecimalHigh, "", 0, ePortConf.None));
+
+        NodeService.AddThing(context, thing);
+
+        // ----------------------------------------------
+        // Text Box
+
+        thingKey = ThingKey.CreateKey(nodeKey, InputTextBox);
+        thing = new Thing(thingKey, InputTextBox, new ArrayList<ConfigParameter>(), new ArrayList<Port>(), "", "",
+                new ThingUIHints("/Content/VirtualGateway/img/icon-thing-text.png", ""));
+
+        thing.Ports.add(new Port(PortKey.CreateKey(thingKey, "0"),
+                "Text", "",
+                ioPortDirection.Input, ePortType.String, "", 0, ePortConf.ReceiveAllEvents));
 
         NodeService.AddThing(context, thing);
 
