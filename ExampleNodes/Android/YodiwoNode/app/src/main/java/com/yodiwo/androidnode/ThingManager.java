@@ -445,15 +445,17 @@ public class ThingManager {
         // ----------------------------------------------
         // Torch
 
-        thingKey = ThingKey.CreateKey(nodeKey, Torch);
-        thing = new Thing(thingKey, Torch, new ArrayList<ConfigParameter>(), new ArrayList<Port>(), "", "",
-                new ThingUIHints("/Content/VirtualGateway/img/icon-thing-generictorch.svg", ""));
+        if (ThingsModuleService.hasTorch) {
+            thingKey = ThingKey.CreateKey(nodeKey, Torch);
+            thing = new Thing(thingKey, Torch, new ArrayList<ConfigParameter>(), new ArrayList<Port>(), "", "",
+                    new ThingUIHints("/Content/VirtualGateway/img/icon-thing-generictorch.svg", ""));
 
-        thing.Ports.add(new Port(PortKey.CreateKey(thingKey, "0"),
-                "Torch state", "",
-                ioPortDirection.Input, ePortType.Boolean, NodeService.PortValue_Boolean_False, 0, ePortConf.None));
+            thing.Ports.add(new Port(PortKey.CreateKey(thingKey, "0"),
+                    "Torch state", "",
+                    ioPortDirection.Input, ePortType.Boolean, NodeService.PortValue_Boolean_False, 0, ePortConf.None));
 
-        NodeService.AddThing(context, thing);
+            NodeService.AddThing(context, thing);
+        }
     }
 
 
