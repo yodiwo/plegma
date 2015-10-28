@@ -211,7 +211,8 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         if (locationManager != null) {
             boolean isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-            if (!isGPSEnabled) {
+            boolean isNetworkLocationEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+            if (!isGPSEnabled && !isNetworkLocationEnabled) {
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
                 alertDialog.setTitle("Location settings")
                         .setMessage("Location is currently disabled. Do you want to go to settings menu?")
@@ -228,9 +229,8 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
                         })
                         .show();
             }
-            else {
-                bestGPSProvider = this.getBestGPSProviderForChosenCriteria();
-            }
+
+            bestGPSProvider = this.getBestGPSProviderForChosenCriteria();
         }
         else {
             Toast.makeText(this, "Location not supported", Toast.LENGTH_SHORT).show();
@@ -590,31 +590,33 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
             return null;
         }
         // List all providers (for debug purposes)
-        List<String> providers = locationManager.getAllProviders();
-        for (String provider : providers) {
-            LocationProvider info = locationManager.getProvider(provider);
-            Log.d(TAG, "GPS provider:" + info.toString());
-        }
-
-        Criteria criteria = new Criteria();
-        criteria.setAccuracy(Criteria.ACCURACY_MEDIUM);
-        criteria.setPowerRequirement(Criteria.POWER_MEDIUM);
-        String provider = locationManager.getBestProvider(criteria, false);
-        LocationProvider info = locationManager.getProvider(provider);
-        Log.d(TAG, "GPS best provider: " + info.toString());
-
-        Location location;
+        /*
         try {
-            location = (locationManager != null) ? locationManager.getLastKnownLocation(provider) : null;
+            List<String> providers = locationManager.getAllProviders();
+            for (String provider : providers) {
+                LocationProvider info = locationManager.getProvider(provider);
+                Log.d(TAG, "GPS provider:" + info.toString());
+            }
+        }
+        catch (SecurityException e) {
+            Helpers.log(Log.ERROR, TAG, "Probably need more permissions");
+        }
+        */
+        String provider = null;
+        try {
+            Criteria criteria = new Criteria();
+            criteria.setAccuracy(Criteria.ACCURACY_MEDIUM);
+            criteria.setPowerRequirement(Criteria.POWER_MEDIUM);
+            provider = locationManager.getBestProvider(criteria, false);
+            LocationProvider info = locationManager.getProvider(provider);
+            Log.d(TAG, "GPS best provider: " + info.toString());
         }
         catch (SecurityException e) {
             Helpers.logException(TAG, e);
-            location = null;
         }
-        if (location == null)
-            Log.d(TAG, "GPS Locations (starting with last known): [unknown]\n\n");
-        else
-            Log.d(TAG, "GPS Locations (starting with last known): " + location.toString());
+        catch (Exception e) {
+            Helpers.logException(TAG, e);
+        }
 
         return provider;
     }
