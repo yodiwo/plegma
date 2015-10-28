@@ -331,35 +331,52 @@ public class NodeService extends IntentService {
 
     // ---------------------------------------------------------------------------------------------
 
+    private void HandlePortMsg(String portKey, String state, int revNum, boolean isDeployed, boolean isEvent) {
+        // Get the local thing and check if we have new data
+        Port localP = PortKeyToPortHashMap.get(portKey);
+        Thing localT = PortKeyToThingsHashMap.get(portKey);
+
+        if (localP == null || localT == null) {
+            Helpers.log(Log.ERROR, TAG, "event for non existent port " + portKey);
+            return;
+        }
+        //TODO: Save port revNum?
+
+        if (localP.Type != ePortType.String && (state == "" || state == null)) {
+            Helpers.log(Log.ERROR, TAG, "Empty state passed in!");
+            return;
+        }
+        // Send the event for this port
+        Intent intent = new Intent(BROADCAST_THING_UPDATE);
+        intent.putExtra(EXTRA_UPDATED_THING_KEY, localT.ThingKey);
+        intent.putExtra(EXTRA_UPDATED_THING_NAME, localT.Name);
+        intent.putExtra(EXTRA_UPDATED_PORT_ID, localT.Ports.indexOf(localP));
+        intent.putExtra(EXTRA_UPDATED_STATE, state);
+        intent.putExtra(EXTRA_UPDATED_IS_EVENT, isEvent);
+
+        LocalBroadcastManager
+                .getInstance(getApplicationContext())
+                .sendBroadcast(intent);
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
     private void RxPortStateRsp(PortStateRsp rsp) {
 
-        if (rsp.Operation == ePortStateOperation.AllPortStates || rsp.Operation == ePortStateOperation.ActivePortStates) {
-            for (PortState portState : rsp.PortStates) {
-                // Get the local thing and check if we have new data
-                Port localP = PortKeyToPortHashMap.get(portState.PortKey);
-                Thing localT = PortKeyToThingsHashMap.get(portState.PortKey);
+        if (rsp == null || rsp.PortStates == null)
+            return;
 
-                // Update the local state
-                localP.State = portState.State;
-                // TODO: Save port seqno
+        for (PortState portState : rsp.PortStates) {
+            HandlePortMsg(portState.PortKey, portState.State, portState.RevNum, portState.IsDeployed, false);
+        }
+    }
 
-                if (localP.Type != ePortType.String && localP.State == "") {
-                    Helpers.log(Log.ERROR, TAG, "Empty state passed in!");
-                    return;
-                }
+    // ---------------------------------------------------------------------------------------------
 
-                // Send the event for this port
-                Intent intent = new Intent(BROADCAST_THING_UPDATE);
-                intent.putExtra(EXTRA_UPDATED_THING_KEY, localT.ThingKey);
-                intent.putExtra(EXTRA_UPDATED_THING_NAME, localT.Name);
-                intent.putExtra(EXTRA_UPDATED_PORT_ID, localT.Ports.indexOf(localP));
-                intent.putExtra(EXTRA_UPDATED_STATE, localP.State);
-                intent.putExtra(EXTRA_UPDATED_IS_EVENT, false);
-
-                LocalBroadcastManager
-                        .getInstance(getApplicationContext())
-                        .sendBroadcast(intent);
-            }
+    private void RxPortEventMsg(PortEventMsg msg) {
+        // Now we need to find any changes and update the UI
+        for (PortEvent pmsg : msg.PortEvents) {
+            HandlePortMsg(pmsg.PortKey, pmsg.State, pmsg.RevNum, true, true);
         }
     }
 
@@ -380,40 +397,6 @@ public class NodeService extends IntentService {
             }
         }
         return null;
-    }
-
-    // ---------------------------------------------------------------------------------------------
-
-    private void RxPortEventMsg(PortEventMsg msg) {
-        // Now we need to find any changes and update the UI
-        for (PortEvent pmsg : msg.PortEvents) {
-
-
-            // Get the local thing and check if we have new data
-            Port localP = PortKeyToPortHashMap.get(pmsg.PortKey);
-            Thing localT = PortKeyToThingsHashMap.get(pmsg.PortKey);
-
-            if (localP.Type != ePortType.String && localP.State == "") {
-                Helpers.log(Log.ERROR, TAG, "Empty state passed in!");
-                return;
-            }
-
-            // Update the local state
-            localP.State = pmsg.State;
-            // TODO: Save port seqno
-
-            // Send the event for this port
-            Intent intent = new Intent(BROADCAST_THING_UPDATE);
-            intent.putExtra(EXTRA_UPDATED_THING_KEY, localT.ThingKey);
-            intent.putExtra(EXTRA_UPDATED_THING_NAME, localT.Name);
-            intent.putExtra(EXTRA_UPDATED_PORT_ID, localT.Ports.indexOf(localP));
-            intent.putExtra(EXTRA_UPDATED_STATE, localP.State);
-            intent.putExtra(EXTRA_UPDATED_IS_EVENT, true);
-
-            LocalBroadcastManager
-                    .getInstance(getApplicationContext())
-                    .sendBroadcast(intent);
-        }
     }
 
     // =============================================================================================
