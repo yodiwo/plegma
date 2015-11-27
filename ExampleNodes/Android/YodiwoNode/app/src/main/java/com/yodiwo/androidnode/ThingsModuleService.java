@@ -60,13 +60,14 @@ public class ThingsModuleService extends IntentService {
     // Get camera resource
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public static void initTorch(Context context) {
+        hasTorch = false;
+
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             hasTorch = context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH);
         }
         else {
             cameraManager = (CameraManager) context.getSystemService(Context.CAMERA_SERVICE);
             if(cameraManager == null) {
-                hasTorch = false;
                 return;
             }
             try {
@@ -80,10 +81,10 @@ public class ThingsModuleService extends IntentService {
             }
             catch (CameraAccessException e) {
                 Helpers.logException(TAG, e);
-                hasTorch = false;
             }
         }
-    }    //==============================================================================================
+    }
+    //==============================================================================================
 
     // Get camera resource
     public static void resumeTorch(Context context) {
