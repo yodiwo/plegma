@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Yodiwo Android Node</string>
+    <string name="app_name">Yodiwo Hub</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_pairing">PairingActivity</string>
@@ -62,5 +62,14 @@
     <string name="pref_service_brightness_default">true</string>
     <string name="pref_service_accelerometer_key">service_accelerometer</string>
     <string name="pref_service_accelerometer_default">true</string>
+    <string name="pref_service_location_key">service_location</string>
+    <string name="pref_service_location_default">false</string>
+    <string name="pref_service_wifi_key">service_wifi</string>
+    <string name="pref_service_wifi_default">false</string>
+    <string name="pref_service_bluetooth_key">service_bluetooth</string>
+    <string name="pref_service_bluetooth_default">false</string>
+
+    <string name="pref_about_version_key">settings_about_version_key</string>
+    <string name="prefTitle_about_version_key">Application Version</string>
 
 </resources>
