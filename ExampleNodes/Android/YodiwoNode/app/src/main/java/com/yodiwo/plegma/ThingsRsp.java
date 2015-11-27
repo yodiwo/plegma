@@ -7,7 +7,7 @@ package com.yodiwo.plegma;
 /**
  * Node Things Response Response to a Yodiwo.API.Plegma.ThingsReq request
  * a ThingsRsp message should have:  - Yodiwo.API.Plegma.ThingsRsp.Operation set to ThingReq's operation
- * - ApiMsg.ResponseToSeqNo set to ThingReq's Yodiwo.API.Plegma.ApiMsg.SeqNo- Yodiwo.API.Plegma.ThingsRsp.Status set to True if ThingsReq was successfully handled and this Payload has valid data, False otherwise
+ * - ApiMsg.SyncId set to ThingReq's Yodiwo.API.Plegma.ApiMsg.SeqNo- Yodiwo.API.Plegma.ThingsRsp.Status set to True if ThingsReq was successfully handled and this Payload has valid data, False otherwise
  * - if Yodiwo.API.Plegma.ThingsRsp.Status is True, Yodiwo.API.Plegma.ThingsRsp.Data set to correspond to requested Req's operation, set to Null otherwise. Yodiwo.API.Plegma.ThingsRsp.Data is allowed to be null if originally requested operation does not expect back data, only status
  * Direction: bidirectional (Node->Cloud and Cloud->Node)
  */

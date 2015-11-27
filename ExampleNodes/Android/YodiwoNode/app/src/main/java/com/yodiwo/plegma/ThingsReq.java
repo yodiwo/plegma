@@ -7,7 +7,7 @@ package com.yodiwo.plegma;
 /**
  * Node Things Request Used to request a Yodiwo.API.Plegma.Things related operation from the other end.
  * Receiving side *must* reply with a Yodiwo.API.Plegma.ThingsRsp.
- * Its ApiMsg.ResponseToSeqNo field *must* be set to this message's Yodiwo.API.Plegma.ApiMsg.SeqNo
+ * Its ApiMsg.SyncId field *must* be set to this message's Yodiwo.API.Plegma.ApiMsg.SeqNo
  * Direction: bidirectional (Node->Cloud and Cloud->Node)
  */
 public class ThingsReq extends ApiMsg {
