@@ -17,11 +17,11 @@ public abstract class aServerAPI {
     protected boolean RxActive = false;
     protected boolean TxActive = false;
 
-    protected abstract boolean Send(Object msg);   //send async message
+    protected abstract boolean SendMsg(Object msg);   //send async message
 
-    //Object SendReq(Object msg);        //send RPC Request
+    protected abstract boolean SendReq(Object msg);        //send RPC Request
 
-    protected abstract boolean SendRsp(Object msg, int RespToSeqNo);   //send RPC Response
+    protected abstract boolean SendRsp(Object msg, int syncId);   //send RPC Response
 
     protected abstract void StartRx();
 

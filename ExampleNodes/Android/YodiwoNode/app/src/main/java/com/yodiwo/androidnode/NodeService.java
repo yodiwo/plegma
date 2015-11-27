@@ -30,6 +30,7 @@ import com.yodiwo.plegma.ePortType;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
@@ -78,7 +79,9 @@ public class NodeService extends IntentService {
     public static final String EXTRA_UPDATED_IS_EVENT = "EXTRA_UPDATED_IS_EVENT";
 
     public static final String EXTRA_RX_TOPIC = "EXTRA_REQUEST_TOPIC";
-    public static final String EXTRA_RX_MSG = "EXTRA_REQUEST_MSG";
+    public static final String EXTRA_RX_MSG_PAYLOAD = "EXTRA_REQUEST_MSG_PAYLOAD";
+    public static final String EXTRA_RX_MSG_SYNC_ID = "EXTRA_REQUEST_MSG_SYNCID";
+    public static final String EXTRA_RX_MSG_FLAGS = "EXTRA_REQUEST_MSG_FLAGS";
 
     // =============================================================================================
 
@@ -94,10 +97,9 @@ public class NodeService extends IntentService {
 
     private static aServerAPI serverAPI = null;
     private static HashMap<String, Thing> thingHashMap = new HashMap<String, Thing>();
-    private static int SendSeqNum = 0;
+    private static AtomicInteger SendSeqNum = new AtomicInteger();
     private int GetSendSeqNum() {
-        SendSeqNum++;
-        return SendSeqNum;
+        return SendSeqNum.incrementAndGet();
     }
 
 
@@ -213,9 +215,11 @@ public class NodeService extends IntentService {
                 break;
                 // -------------------------------------
                 case REQUEST_RX_MSG: {
-                    String msg = bundle.getString(EXTRA_RX_MSG);
+                    String msgPayload = bundle.getString(EXTRA_RX_MSG_PAYLOAD);
+                    int msgSyncId = bundle.getInt(EXTRA_RX_MSG_SYNC_ID);
+                    int msgFlags = bundle.getInt(EXTRA_RX_MSG_FLAGS);
                     String topic = bundle.getString(EXTRA_RX_TOPIC);
-                    HandleRxMsg(topic, msg);
+                    HandleRxMsg(topic, msgPayload, msgSyncId, msgFlags);
                 }
                 break;
                 // -------------------------------------
@@ -255,7 +259,7 @@ public class NodeService extends IntentService {
                     ThingsReq.Overwrite,
                     "",
                     thingHashMap.values().toArray(new Thing[0]));
-            serverAPI.Send(msg);
+            serverAPI.SendReq(msg);
         } catch (Exception e) {
             Helpers.logException(TAG, e);
         }
@@ -266,7 +270,7 @@ public class NodeService extends IntentService {
     private void SendPortStateReq() {
         try {
             PortStateReq msg = new PortStateReq(GetSendSeqNum(), ePortStateOperation.AllPortStates, null);
-            serverAPI.Send(msg);
+            serverAPI.SendReq(msg);
         } catch (Exception e) {
             Helpers.logException(TAG, e);
         }
@@ -292,7 +296,7 @@ public class NodeService extends IntentService {
             );
             //Send API request
             try {
-                serverAPI.Send(msg);
+                serverAPI.SendMsg(msg);
             } catch (Exception e) {
                 Helpers.logException(TAG, e);
             }
@@ -322,7 +326,7 @@ public class NodeService extends IntentService {
                 return;
 
             try {
-                serverAPI.Send(msg);
+                serverAPI.SendMsg(msg);
             } catch (Exception e) {
                 Helpers.logException(TAG, e);
             }
@@ -406,7 +410,7 @@ public class NodeService extends IntentService {
     private static HashMap<String, Class<?>> rxHandlersClass = null;
 
     interface RxHandler {
-        void Handle(String topic, String json, Object msg);
+        void Handle(Object msg, int syncId, int flags);
     }
 
     private void InitRxHandlers() {
@@ -419,7 +423,7 @@ public class NodeService extends IntentService {
             rxHandlers.put(PlegmaAPI.ApiMsgNames.get(NodeInfoReq.class),
                     new RxHandler() {
                         @Override
-                        public void Handle(String topic, String json, Object msg) {
+                        public void Handle(Object msg, int syncId, int flags) {
                             NodeInfoReq req = (NodeInfoReq)msg;
 
                             NodeInfoRsp rsp = new NodeInfoRsp(GetSendSeqNum(),
@@ -428,7 +432,7 @@ public class NodeService extends IntentService {
                                     eNodeCapa.None,
                                     null);
                             if (serverAPI != null)
-                                serverAPI.SendRsp(rsp, req.SeqNo);
+                                serverAPI.SendRsp(rsp, syncId);
                         }
                     });
 
@@ -437,7 +441,7 @@ public class NodeService extends IntentService {
             rxHandlers.put(PlegmaAPI.ApiMsgNames.get(PortEventMsg.class),
                     new RxHandler() {
                         @Override
-                        public void Handle(String topic, String json, Object msg) {
+                        public void Handle(Object msg, int syncId, int flags) {
                             PortEventMsg portEventMsg = (PortEventMsg)msg;
                             RxPortEventMsg(portEventMsg);
                         }
@@ -448,7 +452,7 @@ public class NodeService extends IntentService {
             rxHandlers.put(PlegmaAPI.ApiMsgNames.get(PortStateRsp.class),
                     new RxHandler() {
                         @Override
-                        public void Handle(String topic, String json, Object msg) {
+                        public void Handle(Object msg, int syncId, int flags) {
                             PortStateRsp portStateRsp = (PortStateRsp)msg;
                             RxPortStateRsp(portStateRsp);
                         }
@@ -459,7 +463,7 @@ public class NodeService extends IntentService {
             rxHandlers.put(PlegmaAPI.ApiMsgNames.get(ThingsReq.class),
                     new RxHandler() {
                         @Override
-                        public void Handle(String topic, String json, Object msg) {
+                        public void Handle(Object msg, int syncId, int flags) {
                             ThingsReq req = (ThingsReq)msg;
 
                             // Send the internal things of the node.
@@ -472,7 +476,7 @@ public class NodeService extends IntentService {
                                         );
 
                                 if (serverAPI != null)
-                                    serverAPI.SendRsp(rsp, req.SeqNo);
+                                    serverAPI.SendRsp(rsp, syncId);
                             }
                         }
                     });
@@ -483,7 +487,7 @@ public class NodeService extends IntentService {
             rxHandlers.put(PlegmaAPI.ApiMsgNames.get(ActivePortKeysMsg.class),
                     new RxHandler() {
                         @Override
-                        public void Handle(String topic, String json, Object obj) {
+                        public void Handle(Object obj, int syncId, int flags) {
                             ActivePortKeysMsg msg = (ActivePortKeysMsg)obj;
                             Lock l = ActivePkeyLock.writeLock();
 
@@ -498,13 +502,13 @@ public class NodeService extends IntentService {
         }
     }
 
-    private void HandleRxMsg(String topic, String msg) {
+    private void HandleRxMsg(String topic, String payload, int syncId, int flags) {
 
         RxHandler handler = rxHandlers.get(topic);
         if (handler != null) {
             try {
-                Object obj = new Gson().fromJson(msg, rxHandlersClass.get(topic));
-                handler.Handle(topic, msg, obj);
+                Object obj = new Gson().fromJson(payload, rxHandlersClass.get(topic));
+                handler.Handle(obj, syncId, flags);
             } catch (Exception e) {
                 Helpers.logException(TAG, e);
             }
@@ -570,11 +574,13 @@ public class NodeService extends IntentService {
 
     // ---------------------------------------------------------------------------------------------
 
-    public static void RxMsg(Context context, String topic, String json) {
+    public static void RxMsg(Context context, String topic, String json, int syncId, int flags) {
         Intent intent = new Intent(context, NodeService.class);
         intent.putExtra(EXTRA_REQUEST_TYPE, REQUEST_RX_MSG);
         intent.putExtra(EXTRA_RX_TOPIC, topic);
-        intent.putExtra(EXTRA_RX_MSG, json);
+        intent.putExtra(EXTRA_RX_MSG_PAYLOAD, json);
+        intent.putExtra(EXTRA_RX_MSG_SYNC_ID, syncId);
+        intent.putExtra(EXTRA_RX_MSG_FLAGS, flags);
         context.startService(intent);
 
     }

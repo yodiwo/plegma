@@ -5,7 +5,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.yodiwo.plegma.MqttAPIMessage;
+import com.yodiwo.plegma.MqttMsg;
 import com.yodiwo.plegma.PlegmaAPI;
 
 import org.eclipse.paho.android.service.MqttAndroidClient;
@@ -21,6 +21,7 @@ import org.eclipse.paho.client.mqttv3.MqttSecurityException;
 
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.atomic.AtomicInteger;
 
 
 public class MqttServerAPI extends aServerAPI {
@@ -32,6 +33,8 @@ public class MqttServerAPI extends aServerAPI {
     private static boolean connectionRetrying = false;
 
     private static final int RECONNECT_PERIOD = 2 * 1000; //2 sec
+
+    private static AtomicInteger LastSyncId = new AtomicInteger();
 
     // Keep local global entry point for any request with Server.
     private static MqttServerAPI server = null;
@@ -78,14 +81,14 @@ public class MqttServerAPI extends aServerAPI {
     // =============================================================================================
     // Public API
 
-
     @Override
-    public boolean SendRsp(Object msg, int RespToSeqNo) {
+    public boolean SendReq(Object msg) {
         try {
             String topic = mqttPubTopicPrefix + PlegmaAPI.ApiMsgNames.get(msg.getClass());
-            MqttAPIMessage mqttAPIMessage = new MqttAPIMessage(RespToSeqNo, gson.toJson(msg));
+            int syncId = LastSyncId.incrementAndGet();
+            MqttMsg mqttMsg = new MqttMsg(gson.toJson(msg), syncId, MqttMsg.Request);
 
-            if (_Send(topic, mqttAPIMessage))
+            if (_Send(topic, mqttMsg))
                 return true;
         } catch (Exception e) {
             Helpers.logException(TAG, e);
@@ -94,12 +97,26 @@ public class MqttServerAPI extends aServerAPI {
     }
 
     @Override
-    public boolean Send(Object msg) {
+    public boolean SendRsp(Object msg, int syncId) {
         try {
             String topic = mqttPubTopicPrefix + PlegmaAPI.ApiMsgNames.get(msg.getClass());
-            MqttAPIMessage mqttAPIMessage = new MqttAPIMessage(0, gson.toJson(msg));
+            MqttMsg mqttMsg = new MqttMsg(gson.toJson(msg), syncId, MqttMsg.Response);
 
-            if (_Send(topic, mqttAPIMessage))
+            if (_Send(topic, mqttMsg))
+                return true;
+        } catch (Exception e) {
+            Helpers.logException(TAG, e);
+        }
+        return false;
+    }
+
+    @Override
+    public boolean SendMsg(Object msg) {
+        try {
+            String topic = mqttPubTopicPrefix + PlegmaAPI.ApiMsgNames.get(msg.getClass());
+            MqttMsg mqttMsg = new MqttMsg(gson.toJson(msg), 0, MqttMsg.Message); //async msgs do not need SyncId set
+
+            if (_Send(topic, mqttMsg))
                 return true;
         } catch (Exception e) {
             Helpers.logException(TAG, e);
@@ -327,17 +344,25 @@ public class MqttServerAPI extends aServerAPI {
         public void messageArrived(String topic, MqttMessage mqttMessage) throws Exception {
 
             Log.i(TAG, "MQTT recv topic:" + topic);
-            if (mqttMessage != null) {
-                // Parse message
-                String mqttMsg = new String(mqttMessage.getPayload());
-                String apiMsg  = gson.fromJson(mqttMsg, MqttAPIMessage.class).Payload;
-                Log.i(TAG, "MQTT qos:" + mqttMessage.getQos() + " payload:" + apiMsg);
 
-                // Remove the preffix
+            // Parse message
+            if (mqttMessage != null) {
+                //get string message
+                String mqttMsg_string = new String(mqttMessage.getPayload());
+                //convert to MqttMsg
+                MqttMsg mqttMsg = gson.fromJson(mqttMsg_string, MqttMsg.class);
+
+                String msgPayload = mqttMsg.Payload;
+                int msgSyncId = mqttMsg.SyncId;
+                int msgFlags = mqttMsg.Flags;
+
+                Log.i(TAG, "MQTT qos:" + mqttMessage.getQos() + "type: " + msgFlags + " SyncID: " + msgSyncId + " payload:" + msgPayload);
+
+                // Remove the topic prefix to get the message type
                 String msgType = topic.replace(mqttSubTopicPrefix, "");
 
                 // Send the message to node service
-                NodeService.RxMsg(context, msgType, apiMsg);
+                NodeService.RxMsg(context, msgType, msgPayload, msgSyncId, msgFlags);
             }
         }
 

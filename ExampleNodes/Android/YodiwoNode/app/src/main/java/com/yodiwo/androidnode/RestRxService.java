@@ -85,7 +85,7 @@ public class RestRxService  extends IntentService {
                     "",
                     null);
 
-            serverAPI.Send(req);
+            serverAPI.SendReq(req);
 
             Log.d(TAG, "Loop time: " + (System.currentTimeMillis() - rxTimeStamp));
             rxTimeStamp = System.currentTimeMillis();

@@ -52,12 +52,17 @@ public class RestServerAPI extends aServerAPI {
     // ---------------------------------------------------------------------------------------------
 
     @Override
-    public boolean Send(Object msg) {
+    public boolean SendMsg(Object msg) {
         return false;
     }
 
     @Override
-    public boolean SendRsp(Object msg, int RespToSeqNo) {
+    public boolean SendReq(Object msg) {
+        return false;
+    }
+
+    @Override
+    public boolean SendRsp(Object msg, int syncId) {
         return false;
     }
 
