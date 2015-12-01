@@ -222,10 +222,13 @@ public class MqttServerAPI extends aServerAPI {
             connectionStatus = ConnectionStatus.CONNECTING;
             Log.d(TAG, "MQTT new status:" + connectionStatus);
 
-            mqttClient.connect(mqttOpt, null, new MqttActionListener(context, MqttAction.CONNECT, null));
+            if (mqttClient != null)
+                mqttClient.connect(mqttOpt, null, new MqttActionListener(context, MqttAction.CONNECT, null));
         } catch (MqttSecurityException e) {
             Helpers.logException(TAG, e);
         } catch (MqttException e) {
+            Helpers.logException(TAG, e);
+        } catch (Exception e) {
             Helpers.logException(TAG, e);
         }
     }
