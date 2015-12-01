@@ -67,6 +67,29 @@ typedef NS_ENUM(NSInteger, EnumAPIType)
     EnumAPIType_MjpegServerStopRsp = 27,
 };
 
+/*!
+ * @discussion Unavailable
+ */
+typedef NS_ENUM(NSInteger, EnumENodeType)
+{
+    EnumENodeType_Unknown = 0,
+    EnumENodeType_Gateway = 1,
+    EnumENodeType_EndpointSingle = 2,
+
+    EnumENodeType_TestGateway = 3,
+    EnumENodeType_TestEndpoint = 4,
+    EnumENodeType_WSEndpoint = 5
+};
+
+/*!
+ * @discussion Unavailable
+ */
+typedef NS_ENUM(NSUInteger, EnumENodeCapa)
+{
+    EnumENodeCapa_None = 0,
+    EnumENodeCapa_SupportsGraphSplitting = 1,
+};
+
 //******************************************************************************
 
 /*!
@@ -78,6 +101,271 @@ typedef NS_ENUM(NSInteger, EnumAPIType)
  * @discussion Unavailable
  */
 @property (nonatomic) NSInteger SeqNo;
+
+@end
+
+//******************************************************************************
+
+/*!
+ * @discussion Unavailable
+ */
+@interface StateDescription : JSONModel
+
+/*!
+ * @discussion Minimum value
+ */
+@property (strong, nonatomic) NSNumber *Minimum; // double
+
+/*!
+ * @discussion Maximum value
+ */
+@property (strong, nonatomic) NSNumber *Maximum; // double
+
+/*!
+ * @discussion Change step size
+ */
+@property (strong, nonatomic) NSNumber *Step; // double
+
+/*!
+ * @discussion Pattern to display (can be null)
+ */
+@property (strong, nonatomic) NSString *Pattern;
+
+/*!
+ * @discussion Specifies whether the state is read only
+ */
+@property (nonatomic) BOOL ReadOnly;
+
+@end
+
+//******************************************************************************
+
+/*!
+ * @discussion Unavailable
+ */
+@interface ConfigDescription : JSONModel
+
+/*!
+ * @discussion Unavailable
+ */
+@property (strong, nonatomic) NSString *DefaultValue;
+
+/*!
+ * @discussion Unavailable
+ */
+@property (strong, nonatomic) NSString *Description;
+
+/*!
+ * @discussion Unavailable
+ */
+@property (strong, nonatomic) NSString *Label;
+
+/*!
+ * @discussion Unavailable
+ */
+@property (strong, nonatomic) NSString *Name;
+
+/*!
+ * @discussion Unavailable
+ */
+@property (nonatomic) BOOL Required;
+
+/*!
+ * @discussion Unavailable
+ */
+@property (strong, nonatomic) NSString *Type;
+
+/*!
+ * @discussion Unavailable
+ */
+@property (strong, nonatomic) NSNumber *Minimum; // double
+
+/*!
+ * @discussion Unavailable
+ */
+@property (strong, nonatomic) NSNumber *Maximum; // double
+
+/*!
+ * @discussion Unavailable
+ */
+@property (strong, nonatomic) NSNumber *Stepsize; // double
+
+/*!
+ * @discussion Unavailable
+ */
+@property (nonatomic) BOOL ReadOnly;
+
+@end
+
+/*!
+ * @discussion Unavailable
+ */
+@protocol ConfigDescription
+
+@end
+
+//******************************************************************************
+
+/*!
+ * @discussion Describes restrictions and gives information of a port <see cref="Port"/>
+ */
+@interface PortDescription : JSONModel
+
+/*!
+ * @discussion Human readable description for this port (can be null)
+ */
+@property (strong, nonatomic) NSString *Description;
+
+/*!
+ * @discussion The unique identifier which identifies this port (must neither be null, nor empty)
+ */
+@property (strong, nonatomic) NSString *Id;
+
+/*!
+ * @discussion Human readable label (can be null)
+ */
+@property (strong, nonatomic) NSString *Label;
+
+/*!
+ * @discussion The category of this port , e.g. "TEMPERATURE"
+ */
+@property (strong, nonatomic) NSString *Category;
+
+/*!
+ * @discussion Unavailable
+ */
+@property (strong, nonatomic) StateDescription *Stepsize; // double
+
+@end
+
+/*!
+ * @discussion Unavailable
+ */
+@protocol PortDescription
+
+@end
+
+//******************************************************************************
+
+/*!
+ * @discussion Base class that describes a Model of a Thing <see cref="Thing"/>
+ */
+@interface NodeModelType : JSONModel
+
+/*!
+ * @discussion The unique identifier which identifies this model (must neither be null, nor empty)
+ */
+@property (strong, nonatomic) NSString *Id;
+
+/*!
+ * @discussion Human readable name for this model
+ */
+@property (strong, nonatomic) NSString *Name;
+
+/*!
+ * @discussion Human readable description for this model
+ */
+@property (strong, nonatomic) NSString *Description;
+
+/*!
+ * @discussion Describes the configuration parameter(s) of this model<see cref="ConfigDescription"/>
+ */
+@property (strong, nonatomic) NSMutableArray<ConfigDescription, Optional> *Config; // of ConfigDescription
+
+/*!
+ * @discussion Describes the port(s) of this model<see cref="PortDescription"/>
+ */
+@property (strong, nonatomic) NSMutableArray<PortDescription, Optional> *Port; // of PortDescription
+
+@end
+
+/*!
+ * @discussion Unavailable
+ */
+@protocol NodeModelType
+
+@end
+
+//******************************************************************************
+
+/*!
+ * @discussion Base class that describes a group of Thing Models <see cref="NodeModelType"/>
+ */
+@interface NodeThingType : JSONModel
+
+/*!
+ * @discussion The unique identifier which identifies this model (must neither be null, nor empty)
+ */
+@property (strong, nonatomic) NSString *Type;
+
+/*!
+ * @discussion Specifies whether model(s) of this group can automatically be discovered
+ */
+@property (nonatomic) BOOL Searchable;
+
+/*!
+ * @discussion Human readable description for this group
+ */
+@property (strong, nonatomic) NSString *Description;
+
+/*!
+ * @discussion Describes the model(s) of this group<see cref="NodeModelType"/>
+ */
+@property (strong, nonatomic) NSMutableArray<NodeModelType, Optional> *Model; // of NodeModelType
+
+@end
+
+/*!
+ * @discussion Unavailable
+ */
+@protocol NodeThingType
+
+@end
+
+//******************************************************************************
+
+/*!
+ * @discussion Node Info Request
+ *
+ */
+@interface NodeInfoReq : APIMsg
+
+/*!
+ * @discussion Reserved for future use; ignore
+ */
+@property (strong, nonatomic) NodeThingType<Optional> *RequestedThingType;
+
+@end
+
+//******************************************************************************
+
+/*!
+ * @discussion Node Info Response
+ * Message that contains general information about a node including supported Node Types and Capabilities
+ * Direction: bidirectional (Node->Cloud and Cloud->Node)
+ * In response to a NodeInfoReq
+ */
+@interface NodeInfoRsp : APIMsg
+
+/*!
+* @discussion Friendly name of responding Node
+*/
+@property (strong, nonatomic) NSString *Name;
+
+/*!
+ * @discussion Type of responding Node
+ */
+@property (nonatomic) EnumENodeType Type;
+
+/*!
+ * @discussion Capabilities of this node
+ */
+@property (nonatomic) EnumENodeCapa Capabilities;
+
+/*!
+ * @discussion List of NodeThingType that this Node presents and implements
+ */
+@property (strong, nonatomic) NSMutableArray<NodeThingType, Optional> *ThingTypes; // of NodeThingType
 
 @end
 
@@ -104,6 +392,8 @@ typedef NS_ENUM(NSInteger, EnumAPIType)
 @property (strong, nonatomic) NSMutableArray<Thing, Optional> *Data; // of Thing
 
 @end
+
+//******************************************************************************
 
 /*!
  * @discussion Unavailable

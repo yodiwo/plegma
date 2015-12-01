@@ -17,11 +17,11 @@ public class NodeInfoRsp extends ApiMsg {
     /**
      * Type (Yodiwo.API.Plegma.eNodeType) of responding Node
      */
-    public eNodeType Type;
+    public int Type;
     /**
-     * Capabilities of this node
+     * Capabilities of this node (Yodiwo.API.Plegma.eNodeCapa)
      */
-    public eNodeCapa Capabilities;
+    public int Capabilities;
     /**
      * List of Yodiwo.API.Plegma.NodeThingTypes that this Node presents and implements
      */
@@ -30,7 +30,7 @@ public class NodeInfoRsp extends ApiMsg {
     public NodeInfoRsp() {
     }
 
-    public NodeInfoRsp(int SeqNo, String Name, eNodeType Type, eNodeCapa Capabilities, NodeThingType[] ThingTypes) {
+    public NodeInfoRsp(int SeqNo, String Name, int Type, int Capabilities, NodeThingType[] ThingTypes) {
         this.SeqNo = SeqNo;
         this.Name = Name;
         this.Type = Type;

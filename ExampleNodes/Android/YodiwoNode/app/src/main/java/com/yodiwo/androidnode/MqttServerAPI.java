@@ -5,7 +5,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.yodiwo.plegma.MqttAPIMessage;
+import com.yodiwo.plegma.MqttMsg;
 import com.yodiwo.plegma.PlegmaAPI;
 
 import org.eclipse.paho.android.service.MqttAndroidClient;
@@ -21,6 +21,7 @@ import org.eclipse.paho.client.mqttv3.MqttSecurityException;
 
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.atomic.AtomicInteger;
 
 
 public class MqttServerAPI extends aServerAPI {
@@ -32,6 +33,8 @@ public class MqttServerAPI extends aServerAPI {
     private static boolean connectionRetrying = false;
 
     private static final int RECONNECT_PERIOD = 2 * 1000; //2 sec
+
+    private static AtomicInteger LastSyncId = new AtomicInteger();
 
     // Keep local global entry point for any request with Server.
     private static MqttServerAPI server = null;
@@ -69,8 +72,8 @@ public class MqttServerAPI extends aServerAPI {
         try {
             if (publish(topic, 2, gson.toJson(mqtt_msg)))
                 return true;
-        } catch (Exception ex) {
-            Log.e(TAG, ex.getMessage());
+        } catch (Exception e) {
+            Helpers.logException(TAG, e);
         }
         return false;
     }
@@ -78,31 +81,45 @@ public class MqttServerAPI extends aServerAPI {
     // =============================================================================================
     // Public API
 
-
     @Override
-    public boolean SendRsp(Object msg, int RespToSeqNo) {
+    public boolean SendReq(Object msg) {
         try {
             String topic = mqttPubTopicPrefix + PlegmaAPI.ApiMsgNames.get(msg.getClass());
-            MqttAPIMessage mqttAPIMessage = new MqttAPIMessage(RespToSeqNo, gson.toJson(msg));
+            int syncId = LastSyncId.incrementAndGet();
+            MqttMsg mqttMsg = new MqttMsg(gson.toJson(msg), syncId, MqttMsg.Request);
 
-            if (_Send(topic, mqttAPIMessage))
+            if (_Send(topic, mqttMsg))
                 return true;
-        } catch (Exception ex) {
-            Log.e(TAG, ex.getMessage());
+        } catch (Exception e) {
+            Helpers.logException(TAG, e);
         }
         return false;
     }
 
     @Override
-    public boolean Send(Object msg) {
+    public boolean SendRsp(Object msg, int syncId) {
         try {
             String topic = mqttPubTopicPrefix + PlegmaAPI.ApiMsgNames.get(msg.getClass());
-            MqttAPIMessage mqttAPIMessage = new MqttAPIMessage(0, gson.toJson(msg));
+            MqttMsg mqttMsg = new MqttMsg(gson.toJson(msg), syncId, MqttMsg.Response);
 
-            if (_Send(topic, mqttAPIMessage))
+            if (_Send(topic, mqttMsg))
                 return true;
-        } catch (Exception ex) {
-            Log.e(TAG, ex.getMessage());
+        } catch (Exception e) {
+            Helpers.logException(TAG, e);
+        }
+        return false;
+    }
+
+    @Override
+    public boolean SendMsg(Object msg) {
+        try {
+            String topic = mqttPubTopicPrefix + PlegmaAPI.ApiMsgNames.get(msg.getClass());
+            MqttMsg mqttMsg = new MqttMsg(gson.toJson(msg), 0, MqttMsg.Message); //async msgs do not need SyncId set
+
+            if (_Send(topic, mqttMsg))
+                return true;
+        } catch (Exception e) {
+            Helpers.logException(TAG, e);
         }
         return false;
     }
@@ -112,15 +129,18 @@ public class MqttServerAPI extends aServerAPI {
     private void _startRx() {
         if (!RxStarted) {
             // Init the subscriptions
-            if (subscribe(mqttSubTopicPrefix + "#", 2 /* QOS */))
+            if (subscribe(mqttSubTopicPrefix + "#", 2 /* QOS */)) {
+                RxEnabled = true;
+                RequestConnectivityUiUpdate();
+
                 RxStarted = true;
+            }
             mqttClient.registerResources(context);
         }
     }
 
     @Override
     public void StartRx() {
-
         if (connectionStatus == ConnectionStatus.CONNECTED) {
             _startRx();
         }
@@ -137,7 +157,7 @@ public class MqttServerAPI extends aServerAPI {
                 mqttClient.unregisterResources();
                 RxStarted = false;
             } catch (MqttException e) {
-                e.printStackTrace();
+                Helpers.logException(TAG, e);
             }
         }
     }
@@ -182,7 +202,7 @@ public class MqttServerAPI extends aServerAPI {
         mqttOpt.setPassword(settingsProvider.getNodeSecretKey().toCharArray());
 
         mqttOpt.setConnectionTimeout(1000);
-        mqttOpt.setKeepAliveInterval(10);
+        mqttOpt.setKeepAliveInterval(60);
 
         // Define a topic prefix for this node
         mqttPubTopicPrefix = "/api/in/1/" + settingsProvider.getUserKey() + "/" + settingsProvider.getNodeKey() + "/";
@@ -197,14 +217,31 @@ public class MqttServerAPI extends aServerAPI {
             connectionStatus = ConnectionStatus.CONNECTING;
             Log.d(TAG, "MQTT new status:" + connectionStatus);
 
-            mqttClient.connect(mqttOpt, null, new MqttActionListener(context, MqttAction.CONNECT, null));
+            if (mqttClient != null)
+                mqttClient.connect(mqttOpt, null, new MqttActionListener(context, MqttAction.CONNECT, null));
         } catch (MqttSecurityException e) {
-            Log.e(this.getClass().getCanonicalName(), "Failed to Connect the mqtt client", e);
+            Helpers.logException(TAG, e);
         } catch (MqttException e) {
-            Log.e(this.getClass().getCanonicalName(), "Failed to Connect the mqtt client", e);
+            Helpers.logException(TAG, e);
+        } catch (Exception e) {
+            Helpers.logException(TAG, e);
         }
     }
 
+    // ---------------------------------------------------------------------------------------------
+    @Override
+    public void Teardown() {
+//        mqttClient.close();
+//        mqttClient = null;
+        try {
+            mqttClient.disconnect();
+            //mqttClient.close();
+            mqttClient = null;
+            server = null;
+        } catch (MqttException e) {
+            Helpers.logException(TAG, e);
+        }
+    }
     // ---------------------------------------------------------------------------------------------
 
     private boolean subscribe(String topic, int qos) {
@@ -215,9 +252,9 @@ public class MqttServerAPI extends aServerAPI {
                     new MqttActionListener(context, MqttAction.SUBSCRIBE, topic));
             return true;
         } catch (MqttSecurityException e) {
-            Log.e(this.getClass().getCanonicalName(), "Failed to subscribe to" + topic, e);
+            Helpers.logException(TAG, e);
         } catch (MqttException e) {
-            Log.e(this.getClass().getCanonicalName(), "Failed to subscribe to" + topic, e);
+            Helpers.logException(TAG, e);
         }
         return false;
     }
@@ -234,9 +271,9 @@ public class MqttServerAPI extends aServerAPI {
                 return true;
             }
         } catch (MqttSecurityException e) {
-            Log.e(this.getClass().getCanonicalName(), "Failed to publish a message", e);
+            Helpers.logException(TAG, e);
         } catch (MqttException e) {
-            Log.e(this.getClass().getCanonicalName(), "Failed to publish a message", e);
+            Helpers.logException(TAG, e);
         }
         return false;
     }
@@ -256,6 +293,10 @@ public class MqttServerAPI extends aServerAPI {
     }
 
     private void InitiateReconnectTry() {
+
+        if (settingsProvider.getNodeKey() == null || settingsProvider.getNodeSecretKey() == null) {
+            return;
+        }
         if(!connectionRetrying) {
             connectionRetrying = true;
             Timer timer = new Timer();
@@ -301,17 +342,25 @@ public class MqttServerAPI extends aServerAPI {
         public void messageArrived(String topic, MqttMessage mqttMessage) throws Exception {
 
             Log.i(TAG, "MQTT recv topic:" + topic);
-            if (mqttMessage != null) {
-                // Parse message
-                String mqttMsg = new String(mqttMessage.getPayload());
-                String apiMsg  = gson.fromJson(mqttMsg, MqttAPIMessage.class).Payload;
-                Log.i(TAG, "MQTT qos:" + mqttMessage.getQos() + " payload:" + apiMsg);
 
-                // Remove the preffix
+            // Parse message
+            if (mqttMessage != null) {
+                //get string message
+                String mqttMsg_string = new String(mqttMessage.getPayload());
+                //convert to MqttMsg
+                MqttMsg mqttMsg = gson.fromJson(mqttMsg_string, MqttMsg.class);
+
+                String msgPayload = mqttMsg.Payload;
+                int msgSyncId = mqttMsg.SyncId;
+                int msgFlags = mqttMsg.Flags;
+
+                Log.i(TAG, "MQTT qos:" + mqttMessage.getQos() + "type: " + msgFlags + " SyncID: " + msgSyncId + " payload:" + msgPayload);
+
+                // Remove the topic prefix to get the message type
                 String msgType = topic.replace(mqttSubTopicPrefix, "");
 
                 // Send the message to node service
-                NodeService.RxMsg(context, msgType, apiMsg);
+                NodeService.RxMsg(context, msgType, msgPayload, msgSyncId, msgFlags);
             }
         }
 
@@ -326,8 +375,8 @@ public class MqttServerAPI extends aServerAPI {
                     else
                         Log.i(TAG, "MQTT send complete:" + iMqttDeliveryToken.getMessage());
                 }
-            } catch (Exception ex) {
-                Log.e(TAG, "MQTT deliveryComplete Error:" + ex.getMessage());
+            } catch (Exception e) {
+                Helpers.logException(TAG, e);
             }
         }
         // -----------------------------------------------------------------------------------------
@@ -416,6 +465,7 @@ public class MqttServerAPI extends aServerAPI {
             TxActive = true;
             RequestConnectivityUiUpdate();
 
+            // check for pending subscription
             _startRx();
 
             NodeService.ReceiveConnStatus(context, true);
@@ -440,7 +490,6 @@ public class MqttServerAPI extends aServerAPI {
             RxActive = false;
             RequestConnectivityUiUpdate();
 
-            // if we disconnected kill and the rx path
             RxStarted = false;
             NodeService.ReceiveConnStatus(context, false);
         }
@@ -459,14 +508,15 @@ public class MqttServerAPI extends aServerAPI {
 
         // -----------------------------------------------------------------------------------------
         private void OnSubscribed() {
-            Log.e(TAG, "Successful subscribe to " + additionalArgs + ".");
+            Log.i(TAG, "Successful subscribe to " + additionalArgs + ".");
 
             RxActive = true;
             RequestConnectivityUiUpdate();
+            NodeService.RequestUpdatedState(context);
         }
 
         private void OnSubscribed(Throwable exception) {
-            Log.e(TAG, "Failed to subscribe to " + additionalArgs + ".");
+            Log.i(TAG, "Failed to subscribe to " + additionalArgs + ".");
 
             // If we failed to subscribe rx path set the variable
             if (additionalArgs.startsWith(mqttSubTopicPrefix)) {
@@ -476,7 +526,7 @@ public class MqttServerAPI extends aServerAPI {
 
         // -----------------------------------------------------------------------------------------
         private void OnPublish() {
-            Log.e(TAG, "Successful publish to " + additionalArgs + ".");
+            Log.i(TAG, "Successful publish to " + additionalArgs + ".");
         }
 
         private void OnPublish(Throwable exception) {

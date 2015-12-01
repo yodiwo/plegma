@@ -7,17 +7,9 @@ package com.yodiwo.plegma;
 /**
  * Type of Node
  */
-public enum eNodeType {
+public class eNodeType {
 
-    Unknown,
+    public static final int Gateway = 1;
 
-    Gateway,
-
-    EndpointSingle,
-
-    TestGateway,
-
-    TestEndpoint,
-
-    WSEndpoint,
+    public static final int EndpointSingle = 2;
 }

@@ -63,7 +63,7 @@ public class PairingService extends IntentService {
                 StartPairing(settingsProvider);
                 break;
             case REQUEST_FINISH_PAIRING:
-                FinnishPairing(settingsProvider);
+                FinishPairing(settingsProvider);
                 break;
         }
 
@@ -91,8 +91,8 @@ public class PairingService extends IntentService {
 
             // Add extra status
             intent.putExtra(EXTRA_STATUS, EXTRA_STATUS_SUCCESS);
-        } catch (Exception ex) {
-            Log.e(TAG, ex.getMessage());
+        } catch (Exception e) {
+            Helpers.logException(TAG, e);
 
             // Add extra status for failed
             intent.putExtra(EXTRA_STATUS, EXTRA_STATUS_FAILED);
@@ -106,7 +106,7 @@ public class PairingService extends IntentService {
 
     // ---------------------------------------------------------------------------------------------
 
-    private void FinnishPairing(SettingsProvider settingsProvider) {
+    private void FinishPairing(SettingsProvider settingsProvider) {
         Intent intent = new Intent(BROADCAST_PAIRING_FINISHED);
 
         // Get Tokens from server
@@ -116,15 +116,16 @@ public class PairingService extends IntentService {
             req.token1 = settingsProvider.getNodeToken1();
 
             PairingServerKeysResponse resp = apiRestAccess.service.SendPairingGetKeys(req);
-            Log.d(TAG, "Keys: " + resp.nodeKey + ", " + resp.secretKey);
+            //Log.d(TAG, "Keys: " + resp.nodeKey + ", " + resp.secretKey);
 
             // Save tokens
             settingsProvider.setNodeKeys(resp.nodeKey, resp.secretKey);
 
             // Add extra status
             intent.putExtra(EXTRA_STATUS, EXTRA_STATUS_SUCCESS);
-        } catch (Exception ex) {
-            Log.e(TAG, ex.getMessage());
+        }
+        catch (Exception e) {
+            Helpers.logException(TAG, e);
 
             // Add extra status for failed
             intent.putExtra(EXTRA_STATUS, EXTRA_STATUS_FAILED);

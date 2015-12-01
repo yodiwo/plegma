@@ -6,6 +6,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.os.Vibrator;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -27,6 +28,7 @@ public class SensorsListener implements SensorEventListener {
     public enum SensorType {
         Brightness,
         Accelerometer,
+        Proximity,
         GPS
     }
 
@@ -34,22 +36,24 @@ public class SensorsListener implements SensorEventListener {
     // Sensor Initialization
 
 
-    private SensorManager mSensorManager;
-    private Context context;
-    private SettingsProvider settingsProvider;
+    private static SensorManager mSensorManager = null;
+    private static Context context;
 
     // Accelerometer
-    private Sensor mAccelSensor;
-    private float mAccel; // acceleration apart from gravity
-    private float mAccelCurrent; // current acceleration including gravity
-    private float mAccelLast; // last acceleration including gravity
-    private long mLastAccelTS = 0;
+    private static Sensor mAccelSensor;
+    private static double mAccelLast; // last acceleration including gravity
+    private static long mLastAccelTS = 0;
+    private double mAccel; // acceleration apart from gravity
+    private double mAccelCurrent; // current acceleration including gravity
 
     // Brightness
-    private Sensor mBrightnessSensor;
-    private float mBrightnessLast = 0;
-    private long mBrightnessTS = 0;
+    private static Sensor mBrightnessSensor;
+    private static float mBrightnessLast = 0;
+    private static long mBrightnessTS = 0;
 
+    //Proximity
+    private static Sensor mProximitySensor;
+    private long mProximityTS = 0;
 
     private final long MILLISEC_IN_SEC = 1000;
     private final long MICROSEC_IN_SEC = 1000 * MILLISEC_IN_SEC;
@@ -59,23 +63,25 @@ public class SensorsListener implements SensorEventListener {
 
     public SensorsListener(Context context) {
         this.context = context;
-        settingsProvider = SettingsProvider.getInstance(context);
 
-        // Get an instance of the sensor service, and use that to get an instance of a particular sensor.
-        mSensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
+        if (mSensorManager == null) {
+            // Get an instance of the sensor service, and use that to get an instance of a particular sensor.
+            mSensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
 
-        // Init Accel sensor
-        mAccel = 0.00f;
-        mAccelCurrent = SensorManager.GRAVITY_EARTH;
-        mAccelLast = SensorManager.GRAVITY_EARTH;
-
-        Toast.makeText(context, "Sensor listening service created", Toast.LENGTH_SHORT).show();
+            // Init Accel sensor
+            mAccel = 0.00f;
+            mAccelCurrent = SensorManager.GRAVITY_EARTH;
+            mAccelLast = SensorManager.GRAVITY_EARTH;
+        }
     }
 
     // ---------------------------------------------------------------------------------------------
 
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
+
+        if(mSensorManager == null)
+            return;
 
         long timestamp = sensorEvent.timestamp;
 
@@ -85,23 +91,24 @@ public class SensorsListener implements SensorEventListener {
             float z = sensorEvent.values[2];
             boolean isShake = false;
             mAccelLast = mAccelCurrent;
-            mAccelCurrent = android.util.FloatMath.sqrt(x * x + y * y + z * z);
-            float delta = mAccelCurrent - mAccelLast;
-            mAccel = mAccel * 0.9f + delta; // perform low-cut filter
+            mAccelCurrent = Math.sqrt(x * x + y * y + z * z);
+            double delta = mAccelCurrent - mAccelLast;
+            mAccel = mAccel * 0.9 + delta; // perform low-cut filter
 
-            // Check for shacked
+            // Check for shake event
             if (mAccel > 10) {
                 isShake = true;
-                Toast.makeText(context, "Device has shaken.", Toast.LENGTH_SHORT).show();
             }
 
             // filter out too frequent readings
             // and send data to node service
-            if ((timestamp - mLastAccelTS > NANOSEC_IN_SEC) &&
+            if ((timestamp - mLastAccelTS > 2*NANOSEC_IN_SEC) &&
                     ((Math.abs(mAccel) > 0.9f) || isShake)) {
 
-                Log.d(TAG, "Accel Delta:" + Float.toString(delta));
-
+                if (isShake) {
+                    Toast.makeText(context, "Device has shaken", Toast.LENGTH_SHORT).show();
+                }
+                Log.d(TAG, "Accel Delta:" + Double.toString(delta));
                 mLastAccelTS = timestamp;
                 NodeService.SendPortMsg(context, ThingManager.Accelerometer,
                         new String[]{
@@ -110,29 +117,39 @@ public class SensorsListener implements SensorEventListener {
                                 Float.toString(x),
                                 (isShake) ? "True" : "False"
                         });
-            } else if (isShake) { // The shakes must override the time filter
-                NodeService.SendPortMsg(context,
-                        ThingManager.Accelerometer,
-                        ThingManager.AccelerometerShaken,
-                        "True"
-                );
+            }
+
+        } else if (sensorEvent.sensor.getType() == Sensor.TYPE_PROXIMITY) {
+            float centimeters = sensorEvent.values[0];
+            //boolean val = (centimeters<2.0) ? true : false;
+
+            if ( (centimeters < 1.0) &&
+                 (timestamp - mProximityTS > 1*NANOSEC_IN_SEC) ) {
+
+                Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+                vibrator.vibrate(50);
+
+                mProximityTS = timestamp;
+
+                NodeService.SendPortMsg(context, ThingManager.Proximity, ThingManager.ProximityPort, "True");
+                NodeService.SendPortMsg(context, ThingManager.Proximity, ThingManager.ProximityPort, "False");
+                Log.d(TAG, "Proximity sensor fired");
             }
 
         } else if (sensorEvent.sensor.getType() == Sensor.TYPE_LIGHT) {
             float brightness = sensorEvent.values[0];
 
-            Log.d(TAG, "Brightness:" + brightness);
-
             // filter out too frequent readings
             // and send data to node service
-            if (timestamp - mBrightnessTS > 500*MICROSEC_IN_SEC) {
-                if (Math.abs(brightness - mBrightnessLast) > Math.abs(brightness / 10)) {
+            if (timestamp - mBrightnessTS > 2*NANOSEC_IN_SEC) {
+                if (Math.abs(brightness - mBrightnessLast) > Math.abs(brightness / 5)) {
                     mBrightnessTS = timestamp;
                     NodeService.SendPortMsg(context,
                             ThingManager.Brightness,
                             ThingManager.BrightnessPort,
                             Float.toString(brightness));
                     mBrightnessLast = brightness;
+                    Log.d(TAG, "Brightness:" + brightness);
                 }
             }
         }
@@ -151,12 +168,22 @@ public class SensorsListener implements SensorEventListener {
     public void StopService(SensorType type) {
         switch (type) {
             case Accelerometer:
-                if (mAccelSensor != null)
+                if (mAccelSensor != null) {
                     mSensorManager.unregisterListener(this, mAccelSensor);
+                    mAccelSensor = null;
+                }
                 break;
             case Brightness:
-                if (mBrightnessSensor != null)
+                if (mBrightnessSensor != null) {
                     mSensorManager.unregisterListener(this, mBrightnessSensor);
+                    mBrightnessSensor = null;
+                }
+                break;
+            case Proximity:
+                if(mProximitySensor != null) {
+                    mSensorManager.unregisterListener(this, mProximitySensor);
+                    mProximitySensor = null;
+                }
                 break;
         }
     }
@@ -166,16 +193,21 @@ public class SensorsListener implements SensorEventListener {
     public void StartService(SensorType type) {
         switch (type) {
             case Accelerometer:
-                if(settingsProvider.getServiceAccelerometerEnabled()) {
+                if(SettingsProvider.getInstance(context).getServiceAccelerometerEnabled()) {
                     mAccelSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
                     mSensorManager.registerListener(this, mAccelSensor, SensorManager.SENSOR_DELAY_NORMAL);
                 }
                 break;
             case Brightness:
-                if(settingsProvider.getServiceBrightnessEnabled()) {
+                if(SettingsProvider.getInstance(context).getServiceBrightnessEnabled()) {
                     mBrightnessSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
                     mSensorManager.registerListener(this, mBrightnessSensor, SensorManager.SENSOR_DELAY_NORMAL);
                 }
+                break;
+            case Proximity:
+                //TODO: Check that device actually has a proximity sensor (tablets don't)
+                mProximitySensor = mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
+                mSensorManager.registerListener(this, mProximitySensor, SensorManager.SENSOR_DELAY_NORMAL);
                 break;
         }
     }

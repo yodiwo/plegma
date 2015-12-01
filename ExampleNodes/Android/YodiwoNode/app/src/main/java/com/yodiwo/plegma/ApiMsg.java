@@ -5,7 +5,7 @@ package com.yodiwo.plegma;
  */
 
 /**
- * Base class of an API message, from which all message classes inherit, holding info as the message's ID, the Node's Key, Version, Sequence number
+ * Base class of an API message, from which all message classes inherit, holding info as the message sequence number
  */
 public class ApiMsg {
     /**

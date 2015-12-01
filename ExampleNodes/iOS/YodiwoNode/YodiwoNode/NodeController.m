@@ -13,6 +13,26 @@
 #import "NodeThingsRegistry.h"
 #import "LocationManagerModule.h"
 #import "MotionManagerModule.h"
+#import "BluetoothManagerModule.h"
+
+
+@interface NodeController ()
+
+@property (strong, nonatomic) MqttClient *mqttClient;
+@property (strong, nonatomic) LocationManagerModule *locaModule;
+@property (strong, nonatomic) MotionManagerModule *motionModule;
+@property (strong, nonatomic) BluetoothManagerModule *btModule;
+
+@property (strong, nonatomic) NSMutableDictionary *thingsDict;
+@property (strong, nonatomic) NSMutableDictionary *portKeyToPortDict;
+@property (strong, nonatomic) NSMutableDictionary *portKeyToThingDict;
+@property (strong, nonatomic) NSMutableSet *activePortKeysSet;
+
+@property (strong, nonatomic) dispatch_queue_t serialMqttClientPublishQueue;
+
+@property (strong, nonatomic) NSDictionary *apiMsgNameStrToIntHelperDict;
+
+@end
 
 /*!
  * @discussion Unavailable
@@ -31,21 +51,6 @@ typedef NS_ENUM(NSInteger, EnumApiMessages)
     EnumApiMessages_ActivePortKeysMsg = 9,
 };
 
-
-@interface NodeController ()
-
-@property (strong, nonatomic) MqttClient *mqttClient;
-@property (strong, nonatomic) LocationManagerModule *locaModule;
-@property (strong, nonatomic) MotionManagerModule *motionModule;
-
-@property (strong, nonatomic) NSMutableDictionary *thingsDict;
-@property (strong, nonatomic) NSMutableDictionary *portKeyToPortDict;
-@property (strong, nonatomic) NSMutableDictionary *portKeyToThingDict;
-
-@property (strong, nonatomic) dispatch_queue_t serialMqttClientPublishQueue;
-
-@property (strong, nonatomic) NSDictionary *apiMsgNameStrToIntHelperDict;
-@end
 
 @implementation NodeController
 
@@ -72,17 +77,19 @@ typedef NS_ENUM(NSInteger, EnumApiMessages)
 
         _motionModule = [[MotionManagerModule alloc] init];
 
+        _btModule = [[BluetoothManagerModule alloc] init];
+
         _apiMsgNameStrToIntHelperDict = [NSDictionary dictionaryWithObjectsAndKeys:
 
                 // TODO: Uncomment when implemented
                 /*[NSNumber numberWithInteger:EnumApiMessages_LoginReq],
                                          [[PlegmaApi apiMsgNames] objectForKey:[LoginReq class]],
                 //[NSNumber numberWithInteger:EnumApiMessages_LoginRsp],
-                                         [[PlegmaApi apiMsgNames] objectForKey:[LoginRsp class]],
-                //[NSNumber numberWithInteger:EnumApiMessages_NodeInfoReq],
+                                         [[PlegmaApi apiMsgNames] objectForKey:[LoginRsp class]],*/
+                [NSNumber numberWithInteger:EnumApiMessages_NodeInfoReq],
                                          [[PlegmaApi apiMsgNames] objectForKey:[NodeInfoReq class]],
-                //[NSNumber numberWithInteger:EnumApiMessages_NodeInfoRsp],
-                                         [[PlegmaApi apiMsgNames] objectForKey:[NodeInfoRsp class]],*/
+                [NSNumber numberWithInteger:EnumApiMessages_NodeInfoRsp],
+                                         [[PlegmaApi apiMsgNames] objectForKey:[NodeInfoRsp class]],
                 [NSNumber numberWithInteger:EnumApiMessages_ThingsReq],
                                          [[PlegmaApi apiMsgNames] objectForKey:[ThingsReq class]],
                 [NSNumber numberWithInteger:EnumApiMessages_ThingsRsp],
@@ -131,6 +138,14 @@ typedef NS_ENUM(NSInteger, EnumApiMessages)
     return _portKeyToThingDict;
 }
 
+- (NSMutableSet *)activePortKeysSet {
+    if(_activePortKeysSet == nil) {
+        _activePortKeysSet = [NSMutableSet new];
+    }
+
+    return _activePortKeysSet;
+}
+
 //******************************************************************************
 
 
@@ -175,21 +190,21 @@ typedef NS_ENUM(NSInteger, EnumApiMessages)
 
     NSUInteger portIndex = 0;
     for (Port *port in ((Thing *)self.thingsDict[thingKey]).ports) {
-        //if (port.numOfActiveGraphs > 0) { // TODO: uncomment when update of field from cloud implememented
+        if ([self.activePortKeysSet containsObject:port.portKey]) {
 
-        // Update port state
-        port.state = [data objectAtIndex:portIndex];
+            // Update port state
+            port.state = [data objectAtIndex:portIndex];
 
-        // Construct port event
-        PortEvent *portEvent = [[PortEvent alloc] init];
-        portEvent.PortKey =  port.portKey;
-        portEvent.State = [data objectAtIndex:portIndex];
-        if (portEvent.State == nil) {
-            NSAssert(true, @"About to send PortEvent with nil state");
+            // Construct port event
+            PortEvent *portEvent = [[PortEvent alloc] init];
+            portEvent.PortKey =  port.portKey;
+            portEvent.State = [data objectAtIndex:portIndex];
+            if (portEvent.State == nil) {
+                NSAssert(true, @"About to send PortEvent with nil state");
+            }
+            portEvent.RevNum = 0;
+            [msg.PortEvents addObject:portEvent];
         }
-        portEvent.RevNum = 0;
-        [msg.PortEvents addObject:portEvent];
-        //}
         portIndex++;
     }
 
@@ -205,8 +220,6 @@ typedef NS_ENUM(NSInteger, EnumApiMessages)
     if (msg.PortEvents.count > 0) {
         dispatch_async(self.serialMqttClientPublishQueue, ^{
             NSString *apiMsgJson = [mqttMsg toJSONString];
-            NSLog(@"Sending PortEventMsg: %@", apiMsgJson);
-
             NSString *topic = [[PlegmaApi apiMsgNames] objectForKey:[PortEventMsg class]];
             [self.mqttClient publishMessage:apiMsgJson
                                     inTopic:topic];
@@ -219,20 +232,35 @@ typedef NS_ENUM(NSInteger, EnumApiMessages)
     //                         inTopic:(NSString *)topic
 }
 
-- (void)sendNodeThingsMsg {
+- (void)sendSinglePortEventMsgFromThing:(NSString *)thingName
+                          fromPortIndex:(NSInteger)portIndex
+                               withState:(NSString *)state {
 
-    if (self.thingsDict.count == 0) {
-        return;
-    }
+    NSString *thingKey =
+    [ThingKey createKeyFromNodeKey:[[SettingsVault sharedSettingsVault] getPairingNodeKey]
+                         thingName:thingName];
 
-    // Construct ThingsMsg
-    ThingsReq *msg = [[ThingsReq alloc] init];
-    msg.Operation = EnumThingsOperation_Update;
-    msg.Data = (id)[NSMutableArray new];
 
-    // Add all node things
-    for (Thing *thing in [self.thingsDict allValues]) {
-        [msg.Data addObject:thing];
+    // Construct PortEventMsg
+    PortEventMsg *msg = [[PortEventMsg alloc] init];
+    msg.PortEvents = (id)[NSMutableArray new];
+
+
+    Port *port = [((Thing *)self.thingsDict[thingKey]).ports objectAtIndex:portIndex];
+    if ([self.activePortKeysSet containsObject:port.portKey]) {
+
+        // Update port state
+        port.state = state;
+
+        // Construct port event
+        PortEvent *portEvent = [[PortEvent alloc] init];
+        portEvent.PortKey =  port.portKey;
+        portEvent.State = state;
+        NSAssert(portEvent.State != nil,
+                 @"About to send PortEvent with nil state");
+        portEvent.RevNum = 0;
+
+        [msg.PortEvents addObject:portEvent];
     }
 
     // Convert to JSON for encapsulation
@@ -243,11 +271,166 @@ typedef NS_ENUM(NSInteger, EnumApiMessages)
     mqttMsg.Payload = payload;
     mqttMsg.ResponseToSeqNo = 0;
 
-    // Send
-    NSString *topic = [[PlegmaApi apiMsgNames] objectForKey:[ThingsReq class]];
-    [self.mqttClient publishMessage:[mqttMsg toJSONString]
-                            inTopic:topic];
+    // Send, unless none of the thing's ports is part of a deployed graph
+    dispatch_async(self.serialMqttClientPublishQueue, ^{
+        NSString *apiMsgJson = [mqttMsg toJSONString];
+        NSString *topic = [[PlegmaApi apiMsgNames] objectForKey:[PortEventMsg class]];
+        [self.mqttClient publishMessage:apiMsgJson inTopic:topic];
+    });
 }
+
+- (void)sendApiMsgOfType:(NSString *)apiMsgName
+          withParameters:(NSArray *)params
+                 andData:(NSArray *)data {
+
+    switch ([[self.apiMsgNameStrToIntHelperDict objectForKey:apiMsgName] integerValue]) {
+
+        // NodeInfoRsp
+        case EnumApiMessages_NodeInfoRsp:
+        {
+            // Get params
+            NodeInfoReq *req = [params firstObject];
+
+            // Construct
+            NodeInfoRsp *rsp = [NodeInfoRsp new];
+
+            rsp.Name = [[SettingsVault sharedSettingsVault] getPairingParamsNodeName];
+            rsp.Capabilities = EnumENodeCapa_None;
+            rsp.Type = EnumENodeType_TestEndpoint;
+            rsp.ThingTypes = (id)[NSMutableArray new];
+            for (Thing *thing in [self.thingsDict allValues]) {
+                NodeThingType *nodeThingType = [NodeThingType new];
+                nodeThingType.Type = thing.type;
+                nodeThingType.Searchable = YES;
+                nodeThingType.Description = @"";
+
+                nodeThingType.Model = nil;
+
+                [rsp.ThingTypes addObject:nodeThingType];
+            }
+
+            // Convert to JSON for encapsulation
+            NSString *payload = [rsp toJSONString];
+
+            // Construct final MqttAPIMessage
+            MqttAPIMessage *mqttMsg = [[MqttAPIMessage alloc] init];
+            mqttMsg.Payload = payload;
+            mqttMsg.ResponseToSeqNo = req.SeqNo;
+
+            dispatch_async(self.serialMqttClientPublishQueue, ^{
+                NSString *topic = [[PlegmaApi apiMsgNames] objectForKey:[NodeInfoRsp class]];
+                [self.mqttClient publishMessage:[mqttMsg toJSONString] inTopic:topic];
+            });
+
+            break;
+        }
+
+        // PortStateReq
+        case EnumApiMessages_PortStateReq:
+        {
+            // Construct PortStateReq
+            PortStateReq *msg = [[PortStateReq alloc] init];
+            msg.Operation = EnumStateOperation_ActivePortStates;
+            msg.PortKeys = nil;
+
+            // Convert to JSON for encapsulation
+            NSString *payload = [msg toJSONString];
+
+            // Construct final MqttAPIMessage
+            MqttAPIMessage *mqttMsg = [[MqttAPIMessage alloc] init];
+            mqttMsg.Payload = payload;
+            mqttMsg.ResponseToSeqNo = 0;
+
+            // Send
+            NSString *topic = [[PlegmaApi apiMsgNames] objectForKey:[PortStateReq class]];
+            dispatch_async(self.serialMqttClientPublishQueue, ^{
+                [self.mqttClient publishMessage:[mqttMsg toJSONString] inTopic:topic];
+            });
+            
+            break;
+        }
+
+        // PortStateRsp
+        case EnumApiMessages_PortStateRsp:
+        {
+            break;
+        }
+
+        // ThingsReq
+        case EnumApiMessages_ThingsReq:
+        {
+            // Construct ThingsReq
+            ThingsReq *msg = [[ThingsReq alloc] init];
+            msg.Operation = EnumThingsOperation_Update;
+            msg.Data = (id)[NSMutableArray new];
+
+            // Add all node things
+            for (Thing *thing in [self.thingsDict allValues]) {
+                [msg.Data addObject:thing];
+            }
+
+            // Convert to JSON for encapsulation
+            NSString *payload = [msg toJSONString];
+
+            // Construct final MqttAPIMessage
+            MqttAPIMessage *mqttMsg = [[MqttAPIMessage alloc] init];
+            mqttMsg.Payload = payload;
+            mqttMsg.ResponseToSeqNo = 0;
+
+            // Send
+            NSString *topic = [[PlegmaApi apiMsgNames] objectForKey:[ThingsReq class]];
+            dispatch_async(self.serialMqttClientPublishQueue, ^{
+                [self.mqttClient publishMessage:[mqttMsg toJSONString] inTopic:topic];
+            });
+
+            break;
+        }
+
+        // ThingsRsp
+        case EnumApiMessages_ThingsRsp:
+        {
+            if (self.thingsDict.count == 0) {
+                break;
+            }
+
+            // Get params
+            ThingsReq *req = [params firstObject];
+
+            // Construct ThingsMsg
+            ThingsRsp *msg = [[ThingsRsp alloc] init];
+            msg.Operation = req.Operation;
+            msg.Data = (id)[NSMutableArray new];
+            msg.Status = YES;
+
+            // Add all node things
+            for (Thing *thing in [self.thingsDict allValues]) {
+                [msg.Data addObject:thing];
+            }
+
+            // Convert to JSON for encapsulation
+            NSString *payload = [msg toJSONString];
+
+            // Construct final MqttAPIMessage
+            MqttAPIMessage *mqttMsg = [[MqttAPIMessage alloc] init];
+            mqttMsg.Payload = payload;
+            mqttMsg.ResponseToSeqNo = req.SeqNo;
+
+            // Send
+            NSString *topic = [[PlegmaApi apiMsgNames] objectForKey:[ThingsRsp class]];
+            dispatch_async(self.serialMqttClientPublishQueue, ^{
+                [self.mqttClient publishMessage:[mqttMsg toJSONString] inTopic:topic];
+            });
+            
+            break;
+        }
+
+        default:
+        {
+            break;
+        }
+    }
+}
+
 
 - (void)handleMqttApiMsgWithPayload:(NSString *)payload
                             atTopic:(NSString *)topic
@@ -273,7 +456,14 @@ typedef NS_ENUM(NSInteger, EnumApiMessages)
         }
         case EnumApiMessages_NodeInfoReq:
         {
-            NSLog(@"Handler not implemented for ApiMessage of type: %@", apiMsgName);
+            JSONModelError *error;
+            NodeInfoReq *req = [[NodeInfoReq alloc] initWithString:payload error:&error];
+
+            // Respond with NodeInfoRsp
+            [self sendApiMsgOfType:[[PlegmaApi apiMsgNames] objectForKey:[NodeInfoRsp class]]
+                    withParameters:[NSArray arrayWithObject:req]
+                           andData:nil];
+
             break;
         }
         case EnumApiMessages_PortEventMsg:
@@ -321,22 +511,44 @@ typedef NS_ENUM(NSInteger, EnumApiMessages)
             NSInteger op = msg.Operation;
             NSLog(@"PortStateMsg operation %ld", (long)op);
 
-            for (PortState *ps in msg.PortStates) {
-                // Update thing states
-                NSLog(@"PortKey: %@, state: %@", ps.PortKey, ps.State);
-            }
+            // Clear existing set of active port keys
+            [self.activePortKeysSet removeAllObjects];
 
-            NSLog(@"Handler not implemented for ApiMessage of type: %@", apiMsgName);
+            for (PortState *ps in msg.PortStates) {
+
+                NSLog(@"PortKey: %@, state: %@", ps.PortKey, ps.State);
+
+                // Update port states
+                Port *p = [self.portKeyToPortDict objectForKey:ps.PortKey];
+                p.state = ps.State;
+
+                // Inform UI
+                Thing *t = [self.portKeyToThingDict objectForKey:ps.PortKey];
+                NSString *notName = @"yodiwoThingUpdateNotification";
+                ThingKey *thingKey = [[ThingKey alloc] initFromString:t.thingKey];
+                NSString *thingName = thingKey.thingUID;
+                NSNumber *portIndex = [NSNumber numberWithUnsignedInteger:[t.ports indexOfObjectIdenticalTo:p]];
+                NSDictionary *notParams = [NSDictionary dictionaryWithObjectsAndKeys:
+                                           thingName, @"thingName",
+                                           portIndex, @"portIndex",
+                                           p.state, @"newState",
+                                           nil];
+
+                [[NSNotificationCenter defaultCenter] postNotificationName:notName
+                                                                    object:self
+                                                                  userInfo:notParams];
+
+                // Update active port keys set
+                if (ps.IsDeployed == YES) {
+                    [self.activePortKeysSet addObject:ps.PortKey];
+                }
+            }
 
             break;
         }
         case EnumApiMessages_PortStateReq:
         {
-            JSONModelError *error;
-            PortStateReq *msg = [[PortStateReq alloc] initWithString:payload error:&error];
-
             NSLog(@"Handler not implemented for ApiMessage of type: %@", apiMsgName);
-
             break;
         }
         case EnumApiMessages_ThingsRsp:
@@ -350,12 +562,27 @@ typedef NS_ENUM(NSInteger, EnumApiMessages)
         }
         case EnumApiMessages_ThingsReq:
         {
-            NSLog(@"Handler not implemented for ApiMessage of type: %@", apiMsgName);
+            // TODO: Check that operation is Get
+            JSONModelError *error;
+            ThingsReq *req = [[ThingsReq alloc] initWithString:payload error:&error];
+
+            [[NodeController sharedNodeController] sendApiMsgOfType:[[PlegmaApi apiMsgNames] objectForKey:[ThingsRsp class]]
+                                                     withParameters:[NSArray arrayWithObject:req]
+                                                            andData:nil];
+
             break;
         }
         case EnumApiMessages_ActivePortKeysMsg:
         {
-            NSLog(@"Handler not implemented for ApiMessage of type: %@", apiMsgName);
+            JSONModelError *error;
+            ActivePortKeysMsg *msg = [[ActivePortKeysMsg alloc] initWithString:payload error:&error];
+
+            // Clear existing set of active port keys
+            [self.activePortKeysSet removeAllObjects];
+
+            // Update from message array
+            [self.activePortKeysSet addObjectsFromArray:msg.ActivePortKeys];
+            
             break;
         }
         default:
@@ -372,6 +599,10 @@ typedef NS_ENUM(NSInteger, EnumApiMessages)
 
 - (void)startMotionManagerModule {
     [self.motionModule start];
+}
+
+- (void)startBluetoothManagerModule {
+    [self.btModule start];
 }
 //******************************************************************************
 

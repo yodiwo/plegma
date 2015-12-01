@@ -85,14 +85,14 @@ public class RestRxService  extends IntentService {
                     "",
                     null);
 
-            serverAPI.Send(req);
+            serverAPI.SendReq(req);
 
             Log.d(TAG, "Loop time: " + (System.currentTimeMillis() - rxTimeStamp));
             rxTimeStamp = System.currentTimeMillis();
 
             // Log.d(TAG, "...");
-        } catch (Exception ex) {
-            Log.d(TAG, "Failed to get update data.");
+        } catch (Exception e) {
+            Helpers.logException(TAG, e);
         }
 
         // Send a new update request
@@ -100,7 +100,8 @@ public class RestRxService  extends IntentService {
             public void run() {
                 try {
                     Thread.sleep(250);
-                } catch (Exception ex) {
+                } catch (Exception e) {
+                    Helpers.logException(TAG, e);
                 }
 
                 Context context = getApplicationContext();

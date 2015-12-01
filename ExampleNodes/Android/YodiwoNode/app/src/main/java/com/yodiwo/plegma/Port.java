@@ -27,7 +27,7 @@ public class Port {
     /**
      * type (Yodiwo.API.Plegma.ePortType) of values that each Port sends / receives
      */
-    public ePortType Type;
+    public int Type;
     /**
      * Current (at latest update/sampling/trigger/etc) value of Port as String.
      * Contains a string representation of the port's state, encoded according to the port's Yodiwo.API.Plegma.ePortTypeOn receiving events the Cloud Server will attempt to parse the State based on its Yodiwo.API.Plegma.ePortTypeWhen sending events the Cloud Server will encode the new state into a string, again according to the Port's Yodiwo.API.Plegma.ePortType
@@ -38,14 +38,14 @@ public class Port {
      */
     public int RevNum;
     /**
-     * Configuration flags for port
+     * Configuration flags for port (Yodiwo.API.Plegma.eConfFlags)
      */
-    public ePortConf ConfFlags;
+    public int ConfFlags;
 
     public Port() {
     }
 
-    public Port(String PortKey, String Name, String Description, ioPortDirection ioDirection, ePortType Type, String State, int RevNum, ePortConf ConfFlags) {
+    public Port(String PortKey, String Name, String Description, ioPortDirection ioDirection, int Type, String State, int RevNum, int ConfFlags) {
         this.PortKey = PortKey;
         this.Name = Name;
         this.Description = Description;

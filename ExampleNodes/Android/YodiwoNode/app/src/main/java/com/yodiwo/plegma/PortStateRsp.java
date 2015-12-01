@@ -13,7 +13,7 @@ public class PortStateRsp extends ApiMsg {
     /**
      * Type of operation responding to
      */
-    public ePortStateOperation Operation;
+    public int Operation;
     /**
      * Array of requested Port states.
      */
@@ -22,7 +22,7 @@ public class PortStateRsp extends ApiMsg {
     public PortStateRsp() {
     }
 
-    public PortStateRsp(int SeqNo, ePortStateOperation Operation, PortState[] PortStates) {
+    public PortStateRsp(int SeqNo, int Operation, PortState[] PortStates) {
         this.SeqNo = SeqNo;
         this.Operation = Operation;
         this.PortStates = PortStates;

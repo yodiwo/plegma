@@ -18,7 +18,13 @@
 - (void)sendPortEventMsgFromThing:(NSString *)thingName
                          withData:(NSArray *)data;
 
-- (void)sendNodeThingsMsg;
+- (void)sendSinglePortEventMsgFromThing:(NSString *)thingName
+                          fromPortIndex:(NSInteger)portIndex
+                              withState:(NSString *)state;
+
+- (void)sendApiMsgOfType:(NSString *)apiMsgName
+          withParameters:(NSArray *)params
+                 andData:(NSArray *)data;
 
 - (void)populateNodeThingsRegistry;
 
@@ -31,5 +37,7 @@
 - (void)startLocationManagerModule;
 
 - (void)startMotionManagerModule;
+
+- (void)startBluetoothManagerModule;
 
 @end

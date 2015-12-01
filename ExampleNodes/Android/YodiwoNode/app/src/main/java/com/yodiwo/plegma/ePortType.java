@@ -7,33 +7,29 @@ package com.yodiwo.plegma;
 /**
  * type of values that each Port sends / receives
  */
-public enum ePortType {
-    /**
-     * undefined, should not be used!
-     */
-    Undefined,
+public class ePortType {
     /**
      * integer values
      */
-    Integer,
+    public static final int Integer = 1;
     /**
      * single precision floating point values
      */
-    Decimal,
+    public static final int Decimal = 2;
     /**
      * double precision floating point values
      */
-    DecimalHigh,
+    public static final int DecimalHigh = 3;
     /**
      * boolean values (can be true/false, on/off, 1/0, etc)
      */
-    Boolean,
+    public static final int Boolean = 4;
     /**
      * RGB triplet in "R,G,B" format
      */
-    Color,
+    public static final int Color = 5;
     /**
      * generic string
      */
-    String,
+    public static final int String = 6;
 }

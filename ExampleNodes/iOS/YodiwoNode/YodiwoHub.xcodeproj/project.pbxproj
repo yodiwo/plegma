@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		7906F25A1B9EFAE600046771 /* Pods-YodiwoHub.debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 7906F2581B9EFAE600046771 /* Pods-YodiwoHub.debug.xcconfig */; };
 		7906F25B1B9EFAE600046771 /* Pods-YodiwoHub.release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 7906F2591B9EFAE600046771 /* Pods-YodiwoHub.release.xcconfig */; };
+		792D6BA21BCB04FF0089E4C1 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 792D6BA11BCB04FF0089E4C1 /* Reachability.m */; settings = {ASSET_TAGS = (); }; };
+		792D6BA51BCB977A0089E4C1 /* BluetoothManagerModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 792D6BA41BCB977A0089E4C1 /* BluetoothManagerModule.m */; settings = {ASSET_TAGS = (); }; };
 		7932E9A71B742F7700697018 /* PlegmaApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 7932E9A61B742F7700697018 /* PlegmaApi.m */; };
 		7932E9AA1B76AC1000697018 /* LocationManagerModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 7932E9A91B76AC1000697018 /* LocationManagerModule.m */; };
 		7932E9AD1B777D4200697018 /* Beacon.m in Sources */ = {isa = PBXBuildFile; fileRef = 7932E9AC1B777D4200697018 /* Beacon.m */; };
@@ -55,6 +57,10 @@
 		605FB11174B95C307FF89EB4 /* libPods-YodiwoHub.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-YodiwoHub.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7906F2581B9EFAE600046771 /* Pods-YodiwoHub.debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "Pods-YodiwoHub.debug.xcconfig"; path = "Pods/Target Support Files/Pods-YodiwoHub/Pods-YodiwoHub.debug.xcconfig"; sourceTree = "<group>"; };
 		7906F2591B9EFAE600046771 /* Pods-YodiwoHub.release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "Pods-YodiwoHub.release.xcconfig"; path = "Pods/Target Support Files/Pods-YodiwoHub/Pods-YodiwoHub.release.xcconfig"; sourceTree = "<group>"; };
+		792D6BA01BCB04FF0089E4C1 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		792D6BA11BCB04FF0089E4C1 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		792D6BA31BCB977A0089E4C1 /* BluetoothManagerModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BluetoothManagerModule.h; sourceTree = "<group>"; };
+		792D6BA41BCB977A0089E4C1 /* BluetoothManagerModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BluetoothManagerModule.m; sourceTree = "<group>"; };
 		7932E9A51B742F7700697018 /* PlegmaApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlegmaApi.h; sourceTree = "<group>"; };
 		7932E9A61B742F7700697018 /* PlegmaApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlegmaApi.m; sourceTree = "<group>"; };
 		7932E9A81B76AC1000697018 /* LocationManagerModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationManagerModule.h; sourceTree = "<group>"; };
@@ -159,6 +165,8 @@
 		797BF7151B720F45008F2887 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				792D6BA01BCB04FF0089E4C1 /* Reachability.h */,
+				792D6BA11BCB04FF0089E4C1 /* Reachability.m */,
 				797BF7111B6F987A008F2887 /* NodeController.h */,
 				797BF7121B6F987A008F2887 /* NodeController.m */,
 				7963DC021B66461100FDC59D /* NodePairingService.h */,
@@ -169,6 +177,8 @@
 				7932E9A91B76AC1000697018 /* LocationManagerModule.m */,
 				799A0A9B1B7C16EA00445F21 /* MotionManagerModule.h */,
 				799A0A9C1B7C16EA00445F21 /* MotionManagerModule.m */,
+				792D6BA31BCB977A0089E4C1 /* BluetoothManagerModule.h */,
+				792D6BA41BCB977A0089E4C1 /* BluetoothManagerModule.m */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -486,6 +496,7 @@
 				7963DC001B661E0600FDC59D /* YABPairingServerResponseKeys.m in Sources */,
 				7932E9AA1B76AC1000697018 /* LocationManagerModule.m in Sources */,
 				7963DBF71B661D7900FDC59D /* YABPairingNodeGetKeysRequest.m in Sources */,
+				792D6BA21BCB04FF0089E4C1 /* Reachability.m in Sources */,
 				7963DBFA1B661DB000FDC59D /* YABPairingNodeResponsePhase1.m in Sources */,
 				799A0A9D1B7C16EA00445F21 /* MotionManagerModule.m in Sources */,
 				795299321B6D7D5B0065CAEC /* Public.m in Sources */,
@@ -499,6 +510,7 @@
 				7932E9AD1B777D4200697018 /* Beacon.m in Sources */,
 				79DDAC9C1B619A03007AF94E /* main.m in Sources */,
 				79BF62391B6273FB00057140 /* YABPairingNodeGetTokensRequest.m in Sources */,
+				792D6BA51BCB977A0089E4C1 /* BluetoothManagerModule.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -632,6 +644,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = YodiwoHub;
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -647,6 +660,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = YodiwoHub;
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

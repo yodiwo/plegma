@@ -10,6 +10,7 @@
 #import "NodeController.h"
 #import "NodeThingsRegistry.h"
 #import "SettingsVault.h"
+#import "Reachability.h"
 
 #import "TWMessageBarManager.h"
 #import <MapKit/MapKit.h>
@@ -35,7 +36,10 @@
 @property BOOL initialConnectionToCloudServicePending;
 @property (strong, nonatomic) UIView *uiDisabledEmptyView;
 
+@property (strong, nonatomic) Reachability *nodeReachability;
+
 @end
+
 
 
 @implementation NodeThingsViewController
@@ -130,11 +134,21 @@
                                                  name:@"yodiwoUIUpdateNotification"
                                                object:nil];
 
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector: @selector(reachabilityChanged:)
+                                                 name: kReachabilityChangedNotification
+                                               object: nil];
+
     // Initialize UI stuff
     self.gpsLocationMapView.mapType = MKMapTypeStandard;
     self.gpsLocationMapView.zoomEnabled = YES;
     self.gpsLocationMapView.scrollEnabled = YES;
 
+    // Reachability
+    self.nodeReachability = [Reachability reachabilityForLocalWiFi];
+    [self.nodeReachability startNotifier];
+
+    // Shoulder-tap yodiwo cloud
     [[NodeController sharedNodeController] connectToCloudService];
 }
 
@@ -158,6 +172,7 @@
 - (void)viewWillDisappear:(BOOL)animated {
 
 }
+
 
 #pragma mark - Navigation
 
@@ -223,11 +238,23 @@
         // Start motion manager module
         [[NodeController sharedNodeController] startMotionManagerModule];
 
-        // Shoulder-tap cloud service and introduce this node
-        [[NodeController sharedNodeController] sendNodeThingsMsg];
+        // Start bluetooth manager module
+        [[NodeController sharedNodeController] startBluetoothManagerModule];
 
         self.initialConnectionToCloudServicePending = NO;
     }
+
+
+    // Send ThingsReq
+    [[NodeController sharedNodeController] sendApiMsgOfType:[[PlegmaApi apiMsgNames] objectForKey:[ThingsReq class]]
+                                             withParameters:nil
+                                                    andData:nil];
+     
+
+    // Send PortStateReq with node things
+    [[NodeController sharedNodeController] sendApiMsgOfType:[[PlegmaApi apiMsgNames] objectForKey:[PortStateReq class]]
+                                             withParameters:nil
+                                                    andData:nil];
 
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.uiDisabledEmptyView removeFromSuperview];
@@ -286,6 +313,11 @@
                 self.thingOutVirtualLight2.backgroundColor = [UIColor blackColor];
                 [self.thingOutVirtualLight2 setTitle:@"Off" forState:UIControlStateNormal];
             }
+        });
+    }
+    else if ([thingName isEqualToString:ThingNameVirtualSwitch]) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+                self.thingInVirtualSwitch.on = [newState boolValue];
         });
     }
     else if ([thingName isEqualToString:ThingNameAVTorch]) {
@@ -363,6 +395,46 @@
     }
 }
 
+- (void)reachabilityChanged:(NSNotification *)notification
+{
+    NSString *wifiStatus = @"";
+
+    Reachability* currentReachability = [notification object];
+    NSParameterAssert([currentReachability isKindOfClass: [Reachability class]]);
+
+    NetworkStatus netStatus = [currentReachability currentReachabilityStatus];
+    if (netStatus == ReachableViaWiFi) {
+
+        NSLog(@"Reachability status: Reachable via WiFi");
+        wifiStatus = @"CONNECTED";
+
+        /** This was deprecated in iOS 9 and re-enabled later on - in any case it
+         *  is considered a hacky workaround since no public API for acquiring network
+         *  info is provided by Apple
+         **
+        NSString *wifiName = nil;
+        NSArray *interFaceNames = (__bridge_transfer id)CNCopySupportedInterfaces();
+
+        for (NSString *name in interFaceNames) {
+            NSDictionary *info = (__bridge_transfer id)CNCopyCurrentNetworkInfo((__bridge CFStringRef)name);
+
+            if (info[@"SSID"]) {
+                wifiName = info[@"SSID"]; 
+            } 
+        }
+        */
+    }
+    else {
+
+        NSLog(@"Reachability status: Not reachable via WiFi");
+        wifiStatus = @"DISCONNECTED";
+    }
+
+    // Notify cloud service
+    NSArray *data = [NSArray arrayWithObjects:wifiStatus, nil];
+    [[NodeController sharedNodeController] sendPortEventMsgFromThing:ThingNameWiFiStatus withData:data];
+}
+
 //******************************************************************************
 
 
@@ -392,6 +464,7 @@
 }
 
 //******************************************************************************
+
 
 @end
 
