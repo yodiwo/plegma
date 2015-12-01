@@ -7,11 +7,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.yodiwo.plegma.ActivePortKeysMsg;
 import com.yodiwo.plegma.NodeInfoReq;
 import com.yodiwo.plegma.NodeInfoRsp;
+import com.yodiwo.plegma.NodeUnpairedMsg;
 import com.yodiwo.plegma.PlegmaAPI;
 import com.yodiwo.plegma.Port;
 import com.yodiwo.plegma.PortEvent;
@@ -481,6 +483,15 @@ public class NodeService extends IntentService {
                         }
                     });
 
+            // ---------------------> NodeUnpairedMsg
+            rxHandlersClass.put(PlegmaAPI.ApiMsgNames.get(NodeUnpairedMsg.class), NodeUnpairedMsg.class);
+            rxHandlers.put(PlegmaAPI.ApiMsgNames.get(NodeUnpairedMsg.class),
+                    new RxHandler() {
+                        @Override
+                        public void Handle(Object obj, int syncId, int flags) {
+                            Unpair(getApplicationContext(), (NodeUnpairedMsg)obj);
+                        }
+                    });
 
             // ---------------------> ActivePortKeysMsg
             rxHandlersClass.put(PlegmaAPI.ApiMsgNames.get(ActivePortKeysMsg.class), ActivePortKeysMsg.class);
@@ -502,6 +513,7 @@ public class NodeService extends IntentService {
         }
     }
 
+    // =============================================================================================
     private void HandleRxMsg(String topic, String payload, int syncId, int flags) {
 
         RxHandler handler = rxHandlers.get(topic);
@@ -514,6 +526,15 @@ public class NodeService extends IntentService {
             }
         }
     }
+    // =============================================================================================
+    private void Unpair(Context context, NodeUnpairedMsg msg) {
+        String reason = msg.ReasonCode == NodeUnpairedMsg.UserRequested ? "user request" :
+                        msg.ReasonCode == NodeUnpairedMsg.InvalidOperation ? "invalid app operation" :
+                        msg.ReasonCode == NodeUnpairedMsg.TooManyAuthFailures ? "too many failed logins" : "unknown";
+        Toast.makeText(context, "Unpaired from Cloud Services because of " + reason, Toast.LENGTH_LONG).show();
+        PairingService.UnPair(context);
+    }
+
     // =============================================================================================
     // Periodic Updating
 

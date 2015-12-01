@@ -15,27 +15,21 @@ public class PlegmaAPI {
     public static final Class<?>[] ApiMessages;
 
     public static final String s_LoginReq;
-
     public static final String s_LoginRsp;
 
     public static final String s_NodeInfoReq;
-
     public static final String s_NodeInfoRsp;
+    public static final String s_NodeUnpairedMsg;
 
     public static final String s_ThingsReq;
-
     public static final String s_ThingsRsp;
 
     public static final String s_PortEventMsg;
-
     public static final String s_PortStateReq;
-
     public static final String s_PortStateRsp;
-
     public static final String s_ActivePortKeysMsg;
 
     public static final String s_PingReq;
-
     public static final String s_PingRsp;
 
     public static final HashMap<Class<?>, String> ApiMsgNames;
@@ -51,6 +45,7 @@ public class PlegmaAPI {
         s_LoginRsp = "loginrsp";
         s_NodeInfoReq = "nodeinforeq";
         s_NodeInfoRsp = "nodeinforsp";
+        s_NodeUnpairedMsg = "nodeunpairedmsg";
         s_ThingsReq = "thingsreq";
         s_ThingsRsp = "thingsrsp";
         s_PortEventMsg = "porteventmsg";
@@ -64,6 +59,7 @@ public class PlegmaAPI {
         ApiMsgNames.put(LoginRsp.class, s_LoginRsp);
         ApiMsgNames.put(NodeInfoReq.class, s_NodeInfoReq);
         ApiMsgNames.put(NodeInfoRsp.class, s_NodeInfoRsp);
+        ApiMsgNames.put(NodeUnpairedMsg.class, s_NodeUnpairedMsg);
         ApiMsgNames.put(ThingsReq.class, s_ThingsReq);
         ApiMsgNames.put(ThingsRsp.class, s_ThingsRsp);
         ApiMsgNames.put(PortEventMsg.class, s_PortEventMsg);
@@ -77,6 +73,7 @@ public class PlegmaAPI {
         ApiMsgNamesToTypes.put(s_LoginRsp, LoginRsp.class);
         ApiMsgNamesToTypes.put(s_NodeInfoReq, NodeInfoReq.class);
         ApiMsgNamesToTypes.put(s_NodeInfoRsp, NodeInfoRsp.class);
+        ApiMsgNamesToTypes.put(s_NodeUnpairedMsg, NodeUnpairedMsg.class);
         ApiMsgNamesToTypes.put(s_ThingsReq, ThingsReq.class);
         ApiMsgNamesToTypes.put(s_ThingsRsp, ThingsRsp.class);
         ApiMsgNamesToTypes.put(s_PortEventMsg, PortEventMsg.class);
