@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.yodiwo.plegma.ActivePortKeysMsg;
+import com.yodiwo.plegma.MqttMsg;
 import com.yodiwo.plegma.NodeInfoReq;
 import com.yodiwo.plegma.NodeInfoRsp;
 import com.yodiwo.plegma.NodeUnpairedMsg;
@@ -528,6 +529,14 @@ public class NodeService extends IntentService {
                 handler.Handle(obj, syncId, flags);
             } catch (Exception e) {
                 Helpers.logException(TAG, e);
+            }
+        } else {
+            //unknown message
+            if((flags & MqttMsg.Request) != 0) {
+                //if it's a REQ we still need to offer a RSP
+                if (serverAPI != null) {
+                    serverAPI.SendRsp(null, syncId);
+                }
             }
         }
     }

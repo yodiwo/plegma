@@ -99,9 +99,18 @@ public class MqttServerAPI extends aServerAPI {
     @Override
     public boolean SendRsp(Object msg, int syncId) {
         try {
-            String topic = mqttPubTopicPrefix + PlegmaAPI.ApiMsgNames.get(msg.getClass());
-            MqttMsg mqttMsg = new MqttMsg(gson.toJson(msg), syncId, MqttMsg.Response);
+            String topic;
+            MqttMsg mqttMsg;
 
+            if(msg != null) {
+                //create wrapper for response and find topic string from msg class
+                topic = mqttPubTopicPrefix + PlegmaAPI.ApiMsgNames.get(msg.getClass());
+                mqttMsg = new MqttMsg(gson.toJson(msg), syncId, MqttMsg.Response);
+            } else {
+                //send a dummy response (to unblock potentially blocked server threads)
+                topic = mqttPubTopicPrefix + PlegmaAPI.s_UnknownRsp;
+                mqttMsg = new MqttMsg("", syncId, MqttMsg.Response);
+            }
             if (_Send(topic, mqttMsg))
                 return true;
         } catch (Exception e) {

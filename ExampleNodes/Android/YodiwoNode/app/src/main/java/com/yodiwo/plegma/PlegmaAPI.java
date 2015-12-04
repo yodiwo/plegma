@@ -32,6 +32,8 @@ public class PlegmaAPI {
     public static final String s_PingReq;
     public static final String s_PingRsp;
 
+    public static final String s_UnknownRsp;
+
     public static final HashMap<Class<?>, String> ApiMsgNames;
 
     public static final HashMap<String, Class<?>> ApiMsgNamesToTypes;
@@ -82,5 +84,7 @@ public class PlegmaAPI {
         ApiMsgNamesToTypes.put(s_ActivePortKeysMsg, ActivePortKeysMsg.class);
         ApiMsgNamesToTypes.put(s_PingReq, PingReq.class);
         ApiMsgNamesToTypes.put(s_PingRsp, PingRsp.class);
+
+        s_UnknownRsp = "unknownrsp";
     }
 }
