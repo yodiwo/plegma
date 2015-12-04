@@ -30,6 +30,9 @@ public class PairingWebActivity extends Activity {
 
         webView = (WebView) findViewById(R.id.webView);
         webView.getSettings().setJavaScriptEnabled(true);
+        webView.clearCache(true);
+        webView.clearFormData();
+        webView.clearHistory();
         webView.setWebViewClient(new MyWebViewClient(this));
 
         webView.setWebViewClient(new WebViewClient() {
