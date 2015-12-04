@@ -139,10 +139,7 @@ public class MqttServerAPI extends aServerAPI {
         if (!RxStarted) {
             // Init the subscriptions
             if (subscribe(mqttSubTopicPrefix + "#", 2 /* QOS */)) {
-                RxEnabled = true;
-                RequestConnectivityUiUpdate();
-
-                RxStarted = true;
+                Helpers.log(Log.VERBOSE, TAG, "requested subscription to " + mqttSubTopicPrefix + "#");
             }
             mqttClient.registerResources(context);
         }
@@ -518,6 +515,8 @@ public class MqttServerAPI extends aServerAPI {
         // -----------------------------------------------------------------------------------------
         private void OnSubscribed() {
             Log.i(TAG, "Successful subscribe to " + additionalArgs + ".");
+
+            RxStarted = true;
 
             RxActive = true;
             RequestConnectivityUiUpdate();
