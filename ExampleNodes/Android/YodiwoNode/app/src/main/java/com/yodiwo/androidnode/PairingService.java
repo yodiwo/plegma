@@ -127,8 +127,10 @@ public class PairingService extends IntentService {
         catch (Exception e) {
             Helpers.logException(TAG, e);
 
-            // Add extra status for failed
-            intent.putExtra(EXTRA_STATUS, EXTRA_STATUS_FAILED);
+            if(settingsProvider.getNodeKey() != null && settingsProvider.getNodeSecretKey() != null)
+                intent.putExtra(EXTRA_STATUS, EXTRA_STATUS_SUCCESS);
+            else
+                intent.putExtra(EXTRA_STATUS, EXTRA_STATUS_FAILED);
         }
 
         // Broadcast the finish of the first pairing
