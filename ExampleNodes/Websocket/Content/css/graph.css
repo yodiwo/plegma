@@ -1,0 +1,1115 @@
+
+
+/*************************************/
+/* Custom Tooltips for Cyan          */
+/* (Ovewritten from rappid.min.css)  */
+/*************************************/
+
+.tooltip {
+    position: fixed;
+    z-index: 2000;
+    border-radius: 5px;
+    background-color: #333;
+    opacity: 0.95;
+    border: 2px solid #242424;
+    color: #bcbcbc;
+    pointer-events: none;
+    padding: 10px;
+    font-size: 14px;
+    text-shadow: 0 -1px 0 #000;
+}
+
+    .tooltip.left, .tooltip.right {
+        margin-top: -2px;
+    }
+
+    .tooltip.top, .tooltip.bottom {
+        margin-left: -2px;
+    }
+
+    .tooltip.small {
+        padding: 5px;
+        font-size: 10px;
+    }
+
+    .tooltip .tooltip-arrow, .tooltip .tooltip-arrow-mask {
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+    }
+
+    .tooltip.right .tooltip-arrow-mask, .tooltip.right .tooltip-arrow {
+        right: 100%;
+    }
+
+    .tooltip.left .tooltip-arrow-mask, .tooltip.left .tooltip-arrow {
+        left: 100%;
+    }
+
+    .tooltip.bottom .tooltip-arrow-mask, .tooltip.bottom .tooltip-arrow {
+        bottom: 100%;
+    }
+
+    .tooltip.top .tooltip-arrow-mask, .tooltip.top .tooltip-arrow {
+        top: 100%;
+    }
+
+    .tooltip .tooltip-arrow-mask {
+        border-width: 6px;
+    }
+
+    .tooltip.right .tooltip-arrow-mask {
+        border-right-color: #333;
+        margin-top: -6px;
+    }
+
+    .tooltip.left .tooltip-arrow-mask {
+        border-left-color: #333;
+        margin-top: -6px;
+    }
+
+    .tooltip.bottom .tooltip-arrow-mask {
+        border-bottom-color: #333;
+        margin-left: -6px;
+    }
+
+    .tooltip.top .tooltip-arrow-mask {
+        border-top-color: #333;
+        margin-left: -6px;
+    }
+
+    .tooltip .tooltip-arrow {
+        border-width: 8px;
+    }
+
+    .tooltip.right .tooltip-arrow {
+        border-right-color: #242424;
+        margin-top: -8px;
+    }
+
+    .tooltip.left .tooltip-arrow {
+        border-left-color: #242424;
+        margin-top: -8px;
+    }
+
+    .tooltip.bottom .tooltip-arrow {
+        border-bottom-color: #242424;
+        margin-left: -8px;
+    }
+
+    .tooltip.top .tooltip-arrow {
+        border-top-color: #242424;
+        margin-left: -8px;
+    }
+
+
+/**************************************/
+/* Custom Tooltips for designer blocks*/
+/**************************************/
+
+.cyan-tooltip {
+    position: absolute;
+    display: none;
+    z-index: 2000;
+    border-radius: 5px;
+    background-color: #333;
+    opacity: 0.95;
+    border: 2px solid #242424;
+    color: #bcbcbc;
+    pointer-events: none;
+    padding: 1.5rem;
+    text-shadow: 0 -1px 0 #000;
+}
+
+    .cyan-tooltip .cyan-tooltip-arrow, .cyan-tooltip .cyan-tooltip-arrow-mask {
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+    }
+
+    .cyan-tooltip.left .cyan-tooltip-arrow-mask, .cyan-tooltip.left .cyan-tooltip-arrow {
+        right: 100%;
+        top: 50%;
+    }
+
+    .cyan-tooltip.right .cyan-tooltip-arrow-mask, .cyan-tooltip.right .cyan-tooltip-arrow {
+        left: 100%;
+        bottom: 50%;
+    }
+
+    .cyan-tooltip.top .cyan-tooltip-arrow-mask, .cyan-tooltip.top .cyan-tooltip-arrow {
+        bottom: 100%;
+    }
+
+    .cyan-tooltip.bottom .cyan-tooltip-arrow-mask, .cyan-tooltip.bottom .cyan-tooltip-arrow {
+        top: 100%;
+    }
+
+    .cyan-tooltip .cyan-tooltip-arrow-mask {
+        border-width: 6px;
+    }
+
+    .cyan-tooltip.left .cyan-tooltip-arrow-mask {
+        border-right-color: #333;
+        margin-top: -6px;
+    }
+
+    .cyan-tooltip.right .cyan-tooltip-arrow-mask {
+        border-left-color: #333;
+        margin-top: -6px;
+    }
+
+    .cyan-tooltip.top .cyan-tooltip-arrow-mask {
+        border-bottom-color: #333;
+        margin-left: -6px;
+    }
+
+    .cyan-tooltip.bottom .cyan-tooltip-arrow-mask {
+        border-top-color: #333;
+        margin-left: -6px;
+    }
+
+    .cyan-tooltip .cyan-tooltip-arrow {
+        border-width: 8px;
+    }
+
+    .cyan-tooltip.left .cyan-tooltip-arrow {
+        border-right-color: #242424;
+        margin-top: -8px;
+    }
+
+    .cyan-tooltip.right .cyan-tooltip-arrow {
+        border-left-color: #242424;
+        margin-top: -8px;
+    }
+
+    .cyan-tooltip.top .cyan-tooltip-arrow {
+        border-bottom-color: #242424;
+        margin-left: -8px;
+    }
+
+    .cyan-tooltip.bottom .cyan-tooltip-arrow {
+        border-top-color: #242424;
+        margin-left: -8px;
+    }
+
+/**************************************/
+/* Annotation toolbar				  */
+/**************************************/
+#text-editor-toolbar {
+    display: none;
+}
+
+    #text-editor-toolbar .text-tool {
+        float: left;
+        background-color: transparent;
+        color: #fff;
+        padding: 0.8rem 0.8rem;
+    }
+
+        #text-editor-toolbar .text-tool.close {
+            opacity: 1;
+        }
+
+            #text-editor-toolbar .text-tool.close:hover {
+                background-color: #367fa9;
+            }
+
+
+/**************************************/
+/* Deploy Messages  				  */
+/**************************************/
+
+.deploy {
+    position: absolute;
+    pointer-events: none;
+}
+
+    .deploy .messages {
+        position: absolute;
+        top: 100%;
+        text-align: center;
+        font-size: 10px;
+        line-height: 14px;
+        border-radius: 6px;
+        border-top: 0px;
+        width: 100%;
+    }
+
+    .deploy .closeButton {
+        margin-left: .3em;
+        float: right !important;
+        pointer-events: auto;
+        top: -2rem;
+        right: -2rem;
+        background: #fff;
+        border-radius: 1.9rem;
+        position: relative;
+    }
+
+    .deploy .highlight-error, .deploy .messages.error {
+        box-shadow: inset 0 0 0 1px #ff6666,0 0 0 1px #ff6666;
+        border: 2px solid #ff4d4d;
+        border-radius: 5px;
+    }
+
+    .deploy .highlight-info, .deploy .messages.info {
+        box-shadow: inset 0 0 0 1px #4ddcff,0 0 1px #4ddcff;
+        border: 2px solid #1ad2ff;
+        border-radius: 5px;
+    }
+
+    .deploy .highlight-warning, .deploy .messages.warning {
+        box-shadow: inset 0 0 0 1px #f7c26e,0 0 1px #f7c26e;
+        border: 2px solid #f5ae3d;
+        border-radius: 5px;
+    }
+
+    .deploy .messages .messages-body.error {
+        background-color: #ff9999;
+        color: #5F5F5F !important;
+    }
+
+    .deploy .messages .messages-body.info {
+        background-color: #66e1ff;
+        color: #5F5F5F !important;
+    }
+
+    .deploy .messages .messages-body.warning {
+        background-color: #f7c26e;
+        color: #5F5F5F !important;
+    }
+
+/**************************************/
+/* Designer Toolbar styling           */
+/**************************************/
+
+@media only screen and (min-width: 1130px) {
+    #custom-partial-menu, #text-editor-toolbar {
+        position: absolute;
+        left: 280px;
+    }
+}
+
+@media (max-width: 849px) {
+    .hidden-xs {
+        display: none !important;
+    }
+
+    .visible-xs-block {
+        display: block !important;
+    }
+}
+
+.btn-group-custom-button {
+    padding: 0;
+    float: left;
+    background-color: transparent;
+    background-image: none;
+    color: white;
+}
+
+/**************************************/
+/* Ports, element,links, custom nav,  */
+/* stencil and canvas blocks styling  */
+/**************************************/
+
+/**************************************/
+/* Ports styling                      */
+/**************************************/
+.available-magnet {
+    fill: yellow;
+}
+
+/**************************************/
+/* elements styling                   */
+/**************************************/
+.available-cell rect {
+    stroke-dasharray: 5, 2;
+    visibility: visible;
+}
+
+/**************************************/
+/* links styling                      */
+/**************************************/
+.link .connection {
+    stroke: #212135;
+    stroke-width: 4px;
+}
+
+.link .marker-arrowhead, .link .marker-vertex {
+    fill: #696b87;
+}
+
+.link-tools .tool-remove circle {
+    fill: #ff7e5d;
+}
+
+/**************************************/
+/* Main Canvas blocks styling         */
+/**************************************/
+.Yodiwo.Main text {
+    text-transform: uppercase;
+    font-size: 13px;
+    fill: #3d3737;
+    opacity: 0.8;
+}
+
+.Yodiwo.Main .body {
+    fill: #ffffff;
+    stroke: #104358;
+    stroke-width: 4px;
+}
+
+.Yodiwo.Main .label {
+    fill: #3d3737;
+    font-size: 10px;
+}
+
+.Yodiwo.Main .name {
+    fill: #331414;
+    font-size: 12px;
+}
+
+.Yodiwo.Main .port-body {
+    stroke: #ffffff;
+    stroke-width: 3px;
+    fill: #696b87;
+}
+
+    .Yodiwo.Main .port-body:hover {
+        opacity: 1;
+        fill: #ff7e5d;
+    }
+
+.Yodiwo.Main .port-label {
+    fill: #696b87;
+    font-size: 8px;
+    opacity: 0.5;
+}
+
+    .Yodiwo.Main .port-label:hover {
+        fill: #696b87;
+        font-size: 8px;
+        opacity: 1;
+    }
+
+.Yodiwo.Main .inPorts circle {
+    fill: #5ba0a2;
+    opacity: 1;
+}
+
+.Yodiwo.Main .inPorts .available-magnet {
+    fill: lime;
+    visibility: visible;
+}
+
+.Yodiwo.Main .outPorts circle {
+    fill: #ef442f;
+    opacity: 1;
+}
+
+/*************************************/
+/* Override css for toolbox blocks   */
+/*************************************/
+.Yodiwo.Toolbox text {
+    text-transform: uppercase;
+    font-weight: 400;
+}
+
+.Yodiwo.Toolbox .body {
+    fill: #696b87;
+    stroke: #000000;
+    stroke-width: 2px;
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+}
+
+.Yodiwo.Toolbox .label {
+    fill: #3d3737;
+    font-size: 9px;
+    font-weight: 600;
+}
+
+.Yodiwo.Toolbox .port-body {
+    stroke: #ffffff;
+    stroke-width: 2px;
+    fill: #ffb176;
+}
+
+    .Yodiwo.Toolbox .port-body:hover {
+        opacity: 1;
+        fill: #ff7e5d;
+    }
+
+.Yodiwo.Toolbox .port-label {
+    fill: #7c68fc;
+    opacity: 0;
+}
+
+.Yodiwo.Toolbox .inPorts circle {
+    fill: #5ba0a2;
+    opacity: 1;
+}
+
+.Yodiwo.Toolbox .outPorts circle {
+    fill: #ef442f;
+    opacity: 1;
+}
+
+/*************************************/
+/* Canvas snaplines styling          */
+/*************************************/
+.snapline.horizontal {
+    border-bottom: 1px dashed #212135;
+    box-shadow: 0 0 6px #3d3737;
+    opacity: 0.7;
+}
+
+.snapline.vertical {
+    border-right: 1px dashed #212135;
+    box-shadow: 0 0 6px #3d3737;
+    opacity: 0.7;
+}
+
+/*************************************/
+/* Override css for context menu     */
+/*************************************/
+#contextMenu {
+    position: absolute;
+    display: none;
+    z-index: 1500;
+}
+
+.isVisible a::after {
+    background-color: #5C95C5;
+    content: " Enabled";
+    display: inline-block;
+    min-width: 10px;
+    padding: 4px;
+    margin: 1px;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1;
+    color: #fff;
+    float: right;
+    border-radius: 10px;
+}
+
+/*************************************/
+/* ModalList styling                 */
+/*************************************/
+#myModalList .modal-body {
+    /*  position: absolute;
+    display: none;*/
+    max-height: 300px;
+    overflow-y: scroll;
+}
+
+/*************************************/
+/* Inspector ovverride CSS           */
+/*************************************/
+.inspector-container {
+    top: 0px;
+    right: 0px;
+    /* bottom: 20px; */
+    width: 100%;
+    height: 100%;
+    border: 1px solid #06090A;
+    border-top: 1px solid #222D32;
+    color: #FFFFFF;
+    text-shadow: 0 -1px 0 #000;
+    background-color: #2C3B41;
+    z-index: 1000;
+    overflow-y: auto;
+    overflow-x: hidden;
+    /* fallback attributes if vh is not supported */
+    max-height: 95%;
+    max-height: 85rem;
+    max-height: 93vh;
+}
+
+.inspector {
+    position: relative;
+    top: 0px;
+    right: 0px;
+    left: 0px;
+    bottom: 0px;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+
+    .inspector .group {
+        overflow: inherit;
+        padding: 10px;
+        /*height: 100%;*/
+    }
+
+        .inspector .group > .group-label {
+            padding: 5px 4px;
+            position: relative;
+            left: -10px;
+            margin-right: -20px;
+            margin-top: 0;
+            margin-bottom: 0;
+            font-size: 10px;
+            font-weight: 700;
+            /*text-transform: uppercase;*/
+            border-top: 1px solid #222D32;
+            border-bottom: 2px solid #222D32;
+            background: #11191D;
+        }
+
+.control-sidebar-bg, .control-sidebar {
+    width: 280px;
+    right: -280px;
+}
+
+.inspector .group > .group-label {
+    padding: 5px 4px;
+    position: relative;
+    left: -10px;
+    margin-right: -20px;
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    border-top: 1px solid #3a3a3a;
+    border-bottom: 2px solid #1f1f1f;
+    background: #242424;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+#inspector-container {
+    border-left: 2px solid rgba(255,255,255,0.1);
+    box-sizing: border-box;
+    background: #1856A2; /*fallback*/
+    background: -moz-linear-gradient(top, #1856A2 0%, #789CC5 100%); /*Firefox*/
+    background: -webkit-gradient(top, #1856A2 0%, #789CC5 100%); /*Chrome + Safari*/
+    background: -webkit-linear-gradient(top, #1856A2 0%, #789CC5 100%); /*Another Chrome + Safari*/
+    background: -o-linear-gradient(top, #1856A2 0%, #789CC5 100%); /*Opera*/
+    background: -ms-linear-gradient(top, #1856A2 0%, #789CC5 100%); /*IE10+*/
+    background: linear-gradient(top, #1856A2 0%, #789CC5 100%); /*W3C standards*/
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#1856A2', endColorstr='#789CC5',GradientType=0); /*IE6-9*/
+}
+
+.inspector .group > .group-label {
+    font-size: 15px;
+    text-align: center;
+    border: none;
+    background: #276B9B;
+    height: 40px;
+    line-height: 40px;
+    color: #FFFFFF;
+    box-shadow: 0px 2px 0px 0px rgba(0,0,0, 0.2);
+    margin-bottom: 10px;
+}
+
+.inspector .group.closed > .group-label {
+    height: 40px;
+    line-height: 40px;
+}
+
+.inspector .group.closed {
+    height: 40px;
+    margin-bottom: 2px;
+}
+
+.inspector .group > .group-label:before {
+    border-top-color: #e2e1dc;
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    margin: 0;
+}
+
+.inspector .group.closed > .group-label:before {
+    border-left-color: #e2e1dc;
+    left: 10px;
+    top: 50%;
+    margin: -5px 0 0 0;
+}
+
+.inspector .list {
+    margin-top: -30px;
+    margin-bottom: 10px;
+}
+
+.inspector .list-item {
+    border: none;
+    box-shadow: none;
+    border-radius: 5px;
+    box-shadow: 1px 1px 1px 1px rgba(0,0,0, 0.2);
+}
+
+    .inspector .list-item:nth-child(odd) {
+        background: #5494d2; /*fallback*/
+        background: -moz-linear-gradient(left, #5494d2 0%, #508dcc 100%); /*Firefox*/
+        background: -webkit-gradient(left, #5494d2 0%, #508dcc 100%); /*Chrome + Safari*/
+        background: -webkit-linear-gradient(left, #5494d2 0%, #508dcc 100%); /*Another Chrome + Safari*/
+        background: -o-linear-gradient(left, #5494d2 0%, #508dcc 100%); /*Opera*/
+        background: -ms-linear-gradient(left, #5494d2 0%, #508dcc 100%); /*IE10+*/
+        background: linear-gradient(left, #5494d2 0%, #508dcc 100%); /*W3C standards*/
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#5494d2', endColorstr='#508dcc',GradientType=0); /*IE6-9*/
+    }
+
+    .inspector .list-item:nth-child(even) {
+        background: #4889cb; /*fallback*/
+        background: -moz-linear-gradient(left, #4889cb 0%, #3571b0 100%); /*Firefox*/
+        background: -webkit-gradient(left, #4889cb 0%, #3571b0 100%); /*Chrome + Safari*/
+        background: -webkit-linear-gradient(left, #4889cb 0%, #3571b0 100%); /*Another Chrome + Safari*/
+        background: -o-linear-gradient(left, #4889cb 0%, #3571b0 100%); /*Opera*/
+        background: -ms-linear-gradient(left, #4889cb 0%, #3571b0 100%); /*IE10+*/
+        background: linear-gradient(left, #4889cb 0%, #3571b0 100%); /*W3C standards*/
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#4889cb', endColorstr='#3571b0',GradientType=0); /*IE6-9*/
+    }
+
+    .inspector .list-item .list-item:nth-child(odd) {
+        background: #215CA0; /*fallback*/
+        background: -moz-linear-gradient(left, #0a468e 0%, #215CA0 100%); /*Firefox*/
+        background: -webkit-gradient(left, #0a468e 0%, #215CA0 100%); /*Chrome + Safari*/
+        background: -webkit-linear-gradient(left, #0a468e 0%, #215CA0 100%); /*Another Chrome + Safari*/
+        background: -o-linear-gradient(left, #0a468e 0%, #215CA0 100%); /*Opera*/
+        background: -ms-linear-gradient(left, #0a468e 0%, #215CA0 100%); /*IE10+*/
+        background: linear-gradient(left, #0a468e 0%, #215CA0 100%); /*W3C standards*/
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0a468e', endColorstr='#215CA0',GradientType=0); /*IE6-9*/
+    }
+
+    .inspector .list-item .list-item:nth-child(even) {
+        background: #0a468e; /*fallback*/
+        background: -moz-linear-gradient(left, #215CA0 0%, #0a468e 100%); /*Firefox*/
+        background: -webkit-gradient(left, #215CA0 0%, #0a468e 100%); /*Chrome + Safari*/
+        background: -webkit-linear-gradient(left, #215CA0 0%, #0a468e 100%); /*Another Chrome + Safari*/
+        background: -o-linear-gradient(left, #215CA0 0%, #0a468e 100%); /*Opera*/
+        background: -ms-linear-gradient(left, #215CA0 0%, #0a468e 100%); /*IE10+*/
+        background: linear-gradient(left, #215CA0 0%, #0a468e 100%); /*W3C standards*/
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#215CA0', endColorstr='#0a468e',GradientType=0); /*IE6-9*/
+    }
+
+    .inspector .list-item .list-item input[type=text] {
+        width: 220px;
+    }
+
+.inspector .field {
+    padding: 5px 0 5px 0;
+}
+
+.inspector .list-item .field {
+    padding: 0;
+}
+
+.inspector .object-property[data-property=sublanes] > .field {
+    margin-top: 10px;
+}
+
+.inspector .btn-list-add {
+    position: relative;
+    left: 110px;
+    background: #0a468e;
+    border: 2px solid #1a9af3;
+}
+
+.inspector .btn-list-add,
+.inspector .btn-list-del {
+    font-weight: bold;
+    box-shadow: none;
+    background: transparent;
+    /* right: 0px; */
+    margin-left: auto;
+    margin-right: 0px;
+    position: relative;
+    left: 200px;
+    right: 0px;
+    top: 0px;
+    clear: both;
+    bottom: 0px;
+}
+
+.inspector .list-item .btn-list-del, .inspector .list-item .btn-list-add {
+    border: 2px solid #0a468e;
+}
+
+.inspector .list-item .list-item .btn-list-del {
+    border: 2px solid #5494d2;
+}
+
+.inspector .btn-list-add:hover,
+.inspector .btn-list-del:hover {
+    box-shadow: none;
+    color: white;
+    background: #7f8c8d;
+}
+
+.inspector label {
+    display: inline-block;
+    font-family: sans-serif;
+    font-weight: bold;
+    color: #FFFFFF;
+}
+
+.inspector input,
+.inspector .toggle,
+.inspector select,
+.inspector .list-item .btn-list-del {
+    float: right;
+}
+
+.inspector .list-item input {
+    float: none;
+}
+
+.inspector select {
+    width: 150px;
+    border: none;
+    padding: 5px;
+    color: #ddd;
+    background: #1a9af3;
+    border-radius: 5px;
+    box-shadow: 1px 1px 1px 1px rgba(0,0,0, 0.2);
+    text-transform: uppercase;
+    margin-top: -5px;
+}
+
+    .inspector select:hover {
+        background: #7f8c8d;
+    }
+
+.inspector .toggle {
+    height: 26px;
+    width: 80px;
+}
+
+    .inspector .toggle span {
+        border-radius: 5px;
+        box-shadow: none;
+    }
+
+        .inspector .toggle span i {
+            background: #1a9af3;
+            border-radius: 5px;
+            box-shadow: 1px 1px 1px 1px rgba(0,0,0, 0.2);
+        }
+
+    .inspector .toggle input:checked + span {
+        background: #3498db;
+    }
+
+        .inspector .toggle input:checked + span i:before {
+            right: 120%;
+            text-shadow: none;
+            color: white;
+        }
+
+    .inspector .toggle span i:before {
+        text-shadow: none;
+        right: -55%;
+    }
+
+    .inspector .toggle:hover span i {
+        background: #7f8c8d;
+    }
+
+.inspector input,
+.inspector textarea {
+    text-shadow: none;
+    border: 2px solid #0a468e;
+    border-radius: 4px;
+    padding: 2px 5px 2px 5px;
+    font-family: sans-serif;
+    color: #666;
+    background: #f6f7fb;
+    height: 25px;
+}
+
+    .inspector input:focus,
+    .inspector textarea:focus {
+        outline: 3px solid #1a9af3;
+        box-shadow: none;
+    }
+
+    .inspector input[type=text] {
+        width: 100%;
+        left: 0px;
+        right: 0px;
+        position: relative;
+        float: initial;
+    }
+
+    .inspector input[type=color],
+    .inspector input[type=range] {
+        width: 140px;
+        background: transparent;
+    }
+
+.inspector textarea {
+    width: 310px;
+    max-width: 310px;
+    min-height: 100px;
+}
+
+.inspector .field {
+    display: block;
+}
+
+.inspector .list-item .btn-list-del {
+    /* margin: 4px; */
+    right: 180px;
+    float: none;
+    position: relative;
+    margin-left: -10px;
+}
+
+/* Prevent selection (expect from p,text and search) */
+
+p, input[type=text], input[type=search], input[type=email],
+h1, h2, h3, h4, h5, h6,
+td,
+.timeline, .timeline-body, .time,
+tspan, text {
+    -webkit-user-select: text;
+    -khtml-user-select: text;
+    -moz-user-select: text;
+    -o-user-select: text;
+    user-select: text;
+}
+
+* {
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: -moz-none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+
+/*************************************/
+/* Stencil ovverride CSS             */
+/*************************************/
+
+.stencil-container {
+    position: absolute;
+    left: 50px;
+    top: 50px;
+    bottom: 30px;
+    width: 280px;
+    float: left;
+    border-top: 0;
+    border-right: 1px solid;
+    background-color: rgb(30, 82, 103);
+}
+
+.stencil > .content {
+    min-height: 100px;
+    padding: 0;
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.stencil.searchable > .content {
+    left: 0px;
+    right: 0px;
+    min-height: 100px;
+    padding: 0;
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 0;
+    padding-right: 0;
+    background-color: #F6F7F8;
+    padding-bottom: 200px;
+}
+
+.stencil .group > .group-label {
+    padding: 5px 4px;
+    position: relative;
+    left: -10px;
+    margin-right: -20px;
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    border-top: 1px solid #222D32;
+    border-bottom: 2px solid #222D32;
+    background: #222D32;
+    border-right: 2px solid black;
+    cursor: pointer;
+    color: white;
+}
+
+.stencil .search {
+    background: rgb(34, 45, 50);
+}
+
+.stencil {
+    top: 30px;
+}
+
+.stencil-menu {
+    left: 0px;
+    right: 0px;
+    height: 30px;
+    background: #222d32;
+    min-height: 30px;
+    border-color: #222D32;
+    border-radius: 0px;
+    box-shadow: 0;
+    -webkit-box-shadow: 0;
+}
+
+    .stencil-menu > ul > li > a {
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+
+        .stencil-menu > ul > li > a > i {
+            color: white;
+        }
+
+        .stencil-menu > ul > li > a:hover {
+            text-decoration: none;
+            background-color: #3c8dbc;
+        }
+
+        .stencil-menu > ul > li > a:focus {
+            text-decoration: none;
+            background-color: #222d32;
+        }
+
+.stencil .group {
+    max-height: none;
+}
+
+
+.stencil.not-found:after {
+    content: 'No matches found';
+    top: 30px;
+    opacity: 1;
+    height: 36px;
+}
+
+
+.stencil .group {
+    overflow: hidden;
+    padding-left: 10px;
+    /*margin-bottom: 1px;*/
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    transition: max-height 400ms linear;
+    /*max-height: 400px;*/
+}
+
+/*************************************/
+/* PaperScroller and PaperContainer  */
+/* ovverride CSS                     */
+/*************************************/
+.graph-name-container {
+    position: absolute;
+    top: 50px;
+    left: 330px;
+    right: 0px;
+    z-index: 998;
+    opacity: 0.6;
+}
+
+#graph-name-basic-addon {
+    background: rgba(0, 0, 0, 0.85);
+    color: #fff;
+}
+
+#LoadedGraphName {
+    color: rgba(0, 0, 0, 0.85);
+    width: auto;
+}
+
+.handle {
+    z-index: 999;
+}
+
+.designer-paper-container {
+    position: absolute;
+    top: 50px;
+    left: 330px;
+    right: 0px;
+    bottom: 0px;
+    overflow: overlay;
+    width: 100%;
+    height: 100%;
+    /*background-color: #56B3E5;*/
+    display: inline-block;
+    padding-bottom: 50px;
+    padding-right: 300px;
+}
+
+    .designer-paper-container .paper-scroller {
+        overflow: scroll;
+    }
+
+.paper-scroller {
+    position: relative;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    display: inline-block;
+    background-color: rgb(222, 219, 215);
+}
+
+    .paper-scroller > .paper {
+        background: #FFF;
+        margin: 50px;
+    }
+
+
+/*************************************/
+/* Effect Canvas                     */
+/*************************************/
+.effect_canvas {
+    position: relative;
+    -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+    -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+}
+
+    .effect_canvas:before, .effect_canvas:after {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        -webkit-box-shadow: 0 0 20px rgba(0,0,0,0.8);
+        -moz-box-shadow: 0 0 20px rgba(0,0,0,0.8);
+        box-shadow: 0 0 20px rgba(0,0,0,0.8);
+        top: 10px;
+        bottom: 10px;
+        left: 0;
+        right: 0;
+        -moz-border-radius: 100px / 10px;
+        border-radius: 100px / 10px;
+    }
+
+    .effect_canvas:after {
+        right: 10px;
+        left: auto;
+        -webkit-transform: skew(8deg) rotate(3deg);
+        -moz-transform: skew(8deg) rotate(3deg);
+        -ms-transform: skew(8deg) rotate(3deg);
+        -o-transform: skew(8deg) rotate(3deg);
+        transform: skew(8deg) rotate(3deg);
+    }
