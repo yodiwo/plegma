@@ -1,0 +1,25 @@
+PODS:
+  - JSONModel (1.1.2)
+  - MQTTClient (0.5.0)
+  - TWMessageBarManager (1.8.0)
+
+DEPENDENCIES:
+  - JSONModel
+  - MQTTClient (from `https://github.com/ckrey/MQTT-Client-Framework.git`)
+  - TWMessageBarManager
+
+EXTERNAL SOURCES:
+  MQTTClient:
+    :git: https://github.com/ckrey/MQTT-Client-Framework.git
+
+CHECKOUT OPTIONS:
+  MQTTClient:
+    :commit: 6244cba8ece66c0242cd2a66b723835fb0ff56a5
+    :git: https://github.com/ckrey/MQTT-Client-Framework.git
+
+SPEC CHECKSUMS:
+  JSONModel: 216584d0311b053ff714f1d6cb700dbf890847bc
+  MQTTClient: 9e765972d0cc584a2c35e3281b9ede94911e784f
+  TWMessageBarManager: 47f7279924329271aa38c4b3755d2f8a316ac723
+
+COCOAPODS: 0.39.0

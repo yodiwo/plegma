@@ -1,0 +1,20 @@
+# Uncomment this line to define a global platform for your project
+# platform :ios, '8.0'
+
+target 'YodiwoHub' do
+
+# MQTT client library
+pod 'MQTTClient', :git => 'https://github.com/ckrey/MQTT-Client-Framework.git'
+
+# Toast-like notifications library
+pod 'TWMessageBarManager'
+
+# JSON serdes library
+pod 'JSONModel'
+
+end
+
+target 'YodiwoHubTests' do
+
+end
+

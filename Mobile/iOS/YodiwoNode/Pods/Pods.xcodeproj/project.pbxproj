@@ -1,0 +1,870 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		04BA5373B86328E4B7640B3B036E01FF /* MQTTSessionLegacy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4055DBC40D65E92AC5F6F63BDEB6A015 /* MQTTSessionLegacy.m */; };
+		04E0EFD308A39DA6783F9004C5689973 /* JSONValueTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 592EA435E332CEECD7E1210D56D49A06 /* JSONValueTransformer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		08F361820A7DE7A54C52DE56AE22FDE6 /* MQTTDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = B7FE29E67F72915B62D30823A4965892 /* MQTTDecoder.m */; };
+		0953EA00F29500BA3AB24133B0D4E70D /* MQTTEncoder.h in Headers */ = {isa = PBXBuildFile; fileRef = D0252F43BAB11C03F1951EA329098E06 /* MQTTEncoder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0F9F1F9EB2E5A7C3356FCDFCE4FF154B /* MQTTSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 80A42A84FAE4D0CC308BA548F8D99DA2 /* MQTTSession.m */; };
+		128993FF267CC0FA8EE6889C6AEC2EC3 /* JSONModelArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A11448A174A5E71945E90F7A3BE2081 /* JSONModelArray.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		16A189CC65DC66678D3D637ED8B5B5FF /* JSONModel+networking.m in Sources */ = {isa = PBXBuildFile; fileRef = 00095417A6D7FFD25B8883D72DABC5CB /* JSONModel+networking.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		17D8C9D90B9DCDE1B8B9D5ECF8DADCEC /* JSONModelError.m in Sources */ = {isa = PBXBuildFile; fileRef = E8E980BBEEF275F5F60A6D13BE2C0D0B /* JSONModelError.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		1CA898FE04F02D209F3D6C67BB0FD457 /* TWMessageBarManager-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F5A34273E7058CBFA9D4154DB5ED150 /* TWMessageBarManager-dummy.m */; };
+		216E5A12ACFD64B84DC1A2E253336D9B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */; };
+		2A7FC4C90215D4375263C3215F349A65 /* MQTTSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B2AEC93099404551AC79212575A99C /* MQTTSessionManager.m */; };
+		2C61C783DFC37863C37E0EC06870EF80 /* MQTTMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 9466BEF48EC21FE241B1F72F861E33D8 /* MQTTMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2E0B3167772987339BF3701D8FB9B384 /* MQTTClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D09BEC2C74928BF01981941EA42AB74 /* MQTTClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3DD29F78361A425D7054C9A2ABD31561 /* MQTTPersistence.m in Sources */ = {isa = PBXBuildFile; fileRef = 3214AF3C1F8E4ED09CAC6F5B0AD53C5E /* MQTTPersistence.m */; };
+		41DC6516B860FC7643744EFE922785C6 /* MQTTClient-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = E942109EE849E08AD16EC84CE796E760 /* MQTTClient-dummy.m */; };
+		43710DA053046EBE779F8F10A7E31D40 /* MQTTSessionSynchron.h in Headers */ = {isa = PBXBuildFile; fileRef = C3BE7AF2228A04D8C1686DE0981CF70E /* MQTTSessionSynchron.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		452938DEA29C7902240E448D3F9367EF /* MQTTSessionSynchron.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AFB003AE48CD50FC7537D8A997CBCB0 /* MQTTSessionSynchron.m */; };
+		4A4DCF231CE4F0B8916A5FA4590C3343 /* JSONModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E71DA79A36F952E9EAA8C14DE8C5E4A /* JSONModel.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		4ABEB2FADC99B4ECF255576C1CAF10FD /* Pods-YodiwoHub-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = AFA668028E9C66C3A6DC2CEE7A249039 /* Pods-YodiwoHub-dummy.m */; };
+		4BDE97C783ED286933A60CAE9292B775 /* JSONKeyMapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 2F4BA43B18172F90BCDE940ED9280569 /* JSONKeyMapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4DE36D4B16AB5BD257BDBA97DE1BD733 /* JSONModelClassProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = 74DB97CD8C798E6B0D636E827E3C77AE /* JSONModelClassProperty.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		52B9F1F399DEADDDFBE3F17BAA8D6D14 /* JSONModelArray.h in Headers */ = {isa = PBXBuildFile; fileRef = 673CF14FD8BA08077421C98E5268A8FF /* JSONModelArray.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		61C1CB6B271C42084110F0CC710AC2F7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */; };
+		6666243B45CED6E770BF3092A97795D9 /* MQTTSession.h in Headers */ = {isa = PBXBuildFile; fileRef = 5672E1DB3C1DA04CA6858D34B0BDD45A /* MQTTSession.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		729F121CFDC22352E240012D7656C614 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */; };
+		740B64AC8CA44CDC54A3A2CCB396A0EB /* JSONModelClassProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = B598D2C2CF94154108CBC2E69EF6F633 /* JSONModelClassProperty.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7C1A3E57A4165FC98BBD085BF5908337 /* MQTTSessionLegacy.h in Headers */ = {isa = PBXBuildFile; fileRef = 46389FD64402D610F4B32BB0FC614D3D /* MQTTSessionLegacy.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		85AC21BC7BD345D84F489F7A52D39E44 /* JSONAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 39FB446A9EFE19ADA5D5C8AC4E4A4869 /* JSONAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8D1EC01516273C34305EF8C48F4EE2B2 /* TWMessageBarManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C84253BF1B617D94DE93B52F44CFA683 /* TWMessageBarManager.m */; };
+		8F11ABA0C553B18981097015226E5748 /* NSArray+JSONModel.h in Headers */ = {isa = PBXBuildFile; fileRef = DB56F5BF1CB30720DED0E74BBF4D6619 /* NSArray+JSONModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9EA256F60458E81A0D6294F3B614BF8D /* MQTTPersistence.h in Headers */ = {isa = PBXBuildFile; fileRef = 50FB8E067B67DED200115C7772F2C575 /* MQTTPersistence.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A53D06A2266DB5625FA03669B06B2B2F /* MQTTSSLSecurityPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = 35C89041D4FF786A22331C3958DF8FF2 /* MQTTSSLSecurityPolicy.m */; };
+		ABC9A1F8D86F932BEE6C28A8849048A6 /* JSONKeyMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 87CC4967642AF266D7801EC0EAE6EBA7 /* JSONKeyMapper.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		ACF42F60DB38312D939C3817F3AECE32 /* JSONHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = B0800F68F865DC2A4C173A61C3FFDC2A /* JSONHTTPClient.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		AED2BAD1D43745DD69F82C134A985AB3 /* JSONAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = B1BC34AE0C6B8C57FC9985FD42BC7D14 /* JSONAPI.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		B685C45C6BF1321FC17F0F03AC635E4C /* NSArray+JSONModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F96E3A0AFC32FAD745FA8C5E4CA326CD /* NSArray+JSONModel.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		B82A170962598E7EAE9A8752574B7B74 /* JSONModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 3C2BBF0210EBF60AC9BA49C976644DB1 /* JSONModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C110C698E528CA569FEA1C6460EBDC8B /* MQTTSessionManager.h in Headers */ = {isa = PBXBuildFile; fileRef = FE0843838756B4CF3CD3B0BB59515E8E /* MQTTSessionManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C591CE6B9FA1950409E543A70B3ECABE /* JSONModelLib.h in Headers */ = {isa = PBXBuildFile; fileRef = F9B2806018B700832796702D76F37333 /* JSONModelLib.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D2718FB5214DA8A524CE735932323F82 /* JSONHTTPClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 10EF8F7214E8F01C39146911074886C5 /* JSONHTTPClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4EF11B8928C1374360A67C3BC22AD13 /* JSONModel-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5743F3D2EE9576F94746DAEB0C5F7244 /* JSONModel-dummy.m */; };
+		DCB74D72FE0E9C8C8E23B49C8CE52276 /* JSONValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E9550587509789A390524AD0A2FB97 /* JSONValueTransformer.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		E2BB8AAAA4504C4C9B9A250160867913 /* MQTTDecoder.h in Headers */ = {isa = PBXBuildFile; fileRef = F751387051BF327F39254612F5A3D69B /* MQTTDecoder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EF80746D620EE48C0AB98084024CA903 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */; };
+		F4D2A0918C2C064F1A16B4CA2D42089A /* JSONModelError.h in Headers */ = {isa = PBXBuildFile; fileRef = 9452BA0C50D8D34709BDAF47E239C8BE /* JSONModelError.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F7810437E3F04FFE79F4AF742FCF2850 /* TWMessageBarManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 2E9A70DF90FB3149FC9B5FC186783036 /* TWMessageBarManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F7B5D2658B77049DDEC0AAA88E6FCEA7 /* JSONModel+networking.h in Headers */ = {isa = PBXBuildFile; fileRef = 55D75C4932D8555ED934175E7684AE3C /* JSONModel+networking.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FC25E72A03F8E04C5BCAE722999DD900 /* MQTTMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B08085051E83C3D32CB8C18739484C8 /* MQTTMessage.m */; };
+		FC5BB884EC751D968DD00BE2B3FF52E6 /* MQTTSSLSecurityPolicy.h in Headers */ = {isa = PBXBuildFile; fileRef = D8D3EE00630FA301D1558C85402FF545 /* MQTTSSLSecurityPolicy.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FF88E1EB819D2F8B67E558D2A3CF427D /* MQTTEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 554016A430C6A5808F5CE3F18655A3D5 /* MQTTEncoder.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		2ECC53776DDFB3C919D154864EB5308E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 09FA060F1A0492FB25232F489AC4E573;
+			remoteInfo = JSONModel;
+		};
+		5B24C92BCE9F5A1C2FF775A86749BFBB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DC412CEE9A8C7F2F0C16BCBA2C093C7E;
+			remoteInfo = MQTTClient;
+		};
+		CA4B170CCDAD04C66B833286E1A29C07 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D25FC7F7F01ABC9F22A9BDC5185F3203;
+			remoteInfo = TWMessageBarManager;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		00095417A6D7FFD25B8883D72DABC5CB /* JSONModel+networking.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "JSONModel+networking.m"; path = "JSONModel/JSONModelNetworking/JSONModel+networking.m"; sourceTree = "<group>"; };
+		06DA7A078B529D9324FDFAF708658BC6 /* icon-success@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "icon-success@2x.png"; path = "Classes/Icons/icon-success@2x.png"; sourceTree = "<group>"; };
+		10EF8F7214E8F01C39146911074886C5 /* JSONHTTPClient.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JSONHTTPClient.h; path = JSONModel/JSONModelNetworking/JSONHTTPClient.h; sourceTree = "<group>"; };
+		14E9550587509789A390524AD0A2FB97 /* JSONValueTransformer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JSONValueTransformer.m; path = JSONModel/JSONModelTransformations/JSONValueTransformer.m; sourceTree = "<group>"; };
+		1814AEAB9F68C7AA2B504E1614987252 /* Pods-YodiwoHub-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-YodiwoHub-resources.sh"; sourceTree = "<group>"; };
+		1B08085051E83C3D32CB8C18739484C8 /* MQTTMessage.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MQTTMessage.m; path = MQTTClient/MQTTClient/MQTTMessage.m; sourceTree = "<group>"; };
+		24ADEA3E33C0AE76FC7C377744A83B5E /* Pods-YodiwoHub-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-YodiwoHub-acknowledgements.plist"; sourceTree = "<group>"; };
+		2E9A70DF90FB3149FC9B5FC186783036 /* TWMessageBarManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = TWMessageBarManager.h; path = Classes/TWMessageBarManager.h; sourceTree = "<group>"; };
+		2F4BA43B18172F90BCDE940ED9280569 /* JSONKeyMapper.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JSONKeyMapper.h; path = JSONModel/JSONModelTransformations/JSONKeyMapper.h; sourceTree = "<group>"; };
+		3214AF3C1F8E4ED09CAC6F5B0AD53C5E /* MQTTPersistence.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MQTTPersistence.m; path = MQTTClient/MQTTClient/MQTTPersistence.m; sourceTree = "<group>"; };
+		35C89041D4FF786A22331C3958DF8FF2 /* MQTTSSLSecurityPolicy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MQTTSSLSecurityPolicy.m; path = MQTTClient/MQTTClient/MQTTSSLSecurityPolicy.m; sourceTree = "<group>"; };
+		39FB446A9EFE19ADA5D5C8AC4E4A4869 /* JSONAPI.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JSONAPI.h; path = JSONModel/JSONModelNetworking/JSONAPI.h; sourceTree = "<group>"; };
+		3C2BBF0210EBF60AC9BA49C976644DB1 /* JSONModel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JSONModel.h; path = JSONModel/JSONModel/JSONModel.h; sourceTree = "<group>"; };
+		3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		4055DBC40D65E92AC5F6F63BDEB6A015 /* MQTTSessionLegacy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MQTTSessionLegacy.m; path = MQTTClient/MQTTClient/MQTTSessionLegacy.m; sourceTree = "<group>"; };
+		40C78D456994200BFC188246A6AC8510 /* JSONModel.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = JSONModel.xcconfig; sourceTree = "<group>"; };
+		46389FD64402D610F4B32BB0FC614D3D /* MQTTSessionLegacy.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MQTTSessionLegacy.h; path = MQTTClient/MQTTClient/MQTTSessionLegacy.h; sourceTree = "<group>"; };
+		4A11448A174A5E71945E90F7A3BE2081 /* JSONModelArray.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JSONModelArray.m; path = JSONModel/JSONModel/JSONModelArray.m; sourceTree = "<group>"; };
+		50FB8E067B67DED200115C7772F2C575 /* MQTTPersistence.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MQTTPersistence.h; path = MQTTClient/MQTTClient/MQTTPersistence.h; sourceTree = "<group>"; };
+		554016A430C6A5808F5CE3F18655A3D5 /* MQTTEncoder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MQTTEncoder.m; path = MQTTClient/MQTTClient/MQTTEncoder.m; sourceTree = "<group>"; };
+		55D75C4932D8555ED934175E7684AE3C /* JSONModel+networking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "JSONModel+networking.h"; path = "JSONModel/JSONModelNetworking/JSONModel+networking.h"; sourceTree = "<group>"; };
+		5672E1DB3C1DA04CA6858D34B0BDD45A /* MQTTSession.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MQTTSession.h; path = MQTTClient/MQTTClient/MQTTSession.h; sourceTree = "<group>"; };
+		5743F3D2EE9576F94746DAEB0C5F7244 /* JSONModel-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "JSONModel-dummy.m"; sourceTree = "<group>"; };
+		592EA435E332CEECD7E1210D56D49A06 /* JSONValueTransformer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JSONValueTransformer.h; path = JSONModel/JSONModelTransformations/JSONValueTransformer.h; sourceTree = "<group>"; };
+		5D04E964F5CFB7203CD594FB29F2EC9C /* TWMessageBarManager.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = TWMessageBarManager.xcconfig; sourceTree = "<group>"; };
+		5D239E5EFDC49A47447DB70695A5A331 /* Pods-YodiwoHub.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-YodiwoHub.debug.xcconfig"; sourceTree = "<group>"; };
+		673CF14FD8BA08077421C98E5268A8FF /* JSONModelArray.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JSONModelArray.h; path = JSONModel/JSONModel/JSONModelArray.h; sourceTree = "<group>"; };
+		6D09BEC2C74928BF01981941EA42AB74 /* MQTTClient.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MQTTClient.h; path = MQTTClient/MQTTClient/MQTTClient.h; sourceTree = "<group>"; };
+		74DB97CD8C798E6B0D636E827E3C77AE /* JSONModelClassProperty.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JSONModelClassProperty.m; path = JSONModel/JSONModel/JSONModelClassProperty.m; sourceTree = "<group>"; };
+		798EADE1C2D12E79775CD317203B14EE /* MQTTClient-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MQTTClient-prefix.pch"; sourceTree = "<group>"; };
+		7B2C6814AB7D56985DACEED42F7DEB95 /* icon-success.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "icon-success.png"; path = "Classes/Icons/icon-success.png"; sourceTree = "<group>"; };
+		7E71DA79A36F952E9EAA8C14DE8C5E4A /* JSONModel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JSONModel.m; path = JSONModel/JSONModel/JSONModel.m; sourceTree = "<group>"; };
+		80A42A84FAE4D0CC308BA548F8D99DA2 /* MQTTSession.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MQTTSession.m; path = MQTTClient/MQTTClient/MQTTSession.m; sourceTree = "<group>"; };
+		84B2AEC93099404551AC79212575A99C /* MQTTSessionManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MQTTSessionManager.m; path = MQTTClient/MQTTClient/MQTTSessionManager.m; sourceTree = "<group>"; };
+		87CC4967642AF266D7801EC0EAE6EBA7 /* JSONKeyMapper.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JSONKeyMapper.m; path = JSONModel/JSONModelTransformations/JSONKeyMapper.m; sourceTree = "<group>"; };
+		9452BA0C50D8D34709BDAF47E239C8BE /* JSONModelError.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JSONModelError.h; path = JSONModel/JSONModel/JSONModelError.h; sourceTree = "<group>"; };
+		9466BEF48EC21FE241B1F72F861E33D8 /* MQTTMessage.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MQTTMessage.h; path = MQTTClient/MQTTClient/MQTTMessage.h; sourceTree = "<group>"; };
+		94B85E2D244553A297D4650A9EAD1DA3 /* libPods-YodiwoHub.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-YodiwoHub.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9798AC61078EB6348107AD7FE90C8A9F /* TWMessageBarManager-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "TWMessageBarManager-prefix.pch"; sourceTree = "<group>"; };
+		9AFB003AE48CD50FC7537D8A997CBCB0 /* MQTTSessionSynchron.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MQTTSessionSynchron.m; path = MQTTClient/MQTTClient/MQTTSessionSynchron.m; sourceTree = "<group>"; };
+		9F5A34273E7058CBFA9D4154DB5ED150 /* TWMessageBarManager-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "TWMessageBarManager-dummy.m"; sourceTree = "<group>"; };
+		A66C5AA37F4362866B1139FF9882B298 /* libMQTTClient.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMQTTClient.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		AFA668028E9C66C3A6DC2CEE7A249039 /* Pods-YodiwoHub-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-YodiwoHub-dummy.m"; sourceTree = "<group>"; };
+		B0800F68F865DC2A4C173A61C3FFDC2A /* JSONHTTPClient.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JSONHTTPClient.m; path = JSONModel/JSONModelNetworking/JSONHTTPClient.m; sourceTree = "<group>"; };
+		B11E32EF63544E767A3A88297BE2F704 /* icon-error@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "icon-error@2x.png"; path = "Classes/Icons/icon-error@2x.png"; sourceTree = "<group>"; };
+		B175C956D3A337C5ED2A2B95E29071ED /* Pods-YodiwoHub.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-YodiwoHub.release.xcconfig"; sourceTree = "<group>"; };
+		B1BC34AE0C6B8C57FC9985FD42BC7D14 /* JSONAPI.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JSONAPI.m; path = JSONModel/JSONModelNetworking/JSONAPI.m; sourceTree = "<group>"; };
+		B598D2C2CF94154108CBC2E69EF6F633 /* JSONModelClassProperty.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JSONModelClassProperty.h; path = JSONModel/JSONModel/JSONModelClassProperty.h; sourceTree = "<group>"; };
+		B75AA67C1D496D4CE85C0F62AE582547 /* icon-info.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "icon-info.png"; path = "Classes/Icons/icon-info.png"; sourceTree = "<group>"; };
+		B7FE29E67F72915B62D30823A4965892 /* MQTTDecoder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MQTTDecoder.m; path = MQTTClient/MQTTClient/MQTTDecoder.m; sourceTree = "<group>"; };
+		B923E0120BFE7132AB99BB3D7902B10D /* MQTTClient.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MQTTClient.xcconfig; sourceTree = "<group>"; };
+		BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		C2ED00FBA9794583B579DDD05A37864D /* libTWMessageBarManager.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libTWMessageBarManager.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		C3BE7AF2228A04D8C1686DE0981CF70E /* MQTTSessionSynchron.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MQTTSessionSynchron.h; path = MQTTClient/MQTTClient/MQTTSessionSynchron.h; sourceTree = "<group>"; };
+		C84253BF1B617D94DE93B52F44CFA683 /* TWMessageBarManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = TWMessageBarManager.m; path = Classes/TWMessageBarManager.m; sourceTree = "<group>"; };
+		D0252F43BAB11C03F1951EA329098E06 /* MQTTEncoder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MQTTEncoder.h; path = MQTTClient/MQTTClient/MQTTEncoder.h; sourceTree = "<group>"; };
+		D61A6F0D45EE21227A741D7F8DE2F03F /* Pods-YodiwoHub-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-YodiwoHub-frameworks.sh"; sourceTree = "<group>"; };
+		D8D3EE00630FA301D1558C85402FF545 /* MQTTSSLSecurityPolicy.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MQTTSSLSecurityPolicy.h; path = MQTTClient/MQTTClient/MQTTSSLSecurityPolicy.h; sourceTree = "<group>"; };
+		DB56F5BF1CB30720DED0E74BBF4D6619 /* NSArray+JSONModel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSArray+JSONModel.h"; path = "JSONModel/JSONModelCategories/NSArray+JSONModel.h"; sourceTree = "<group>"; };
+		DD0AC451C299D06F3858D0792B727DE4 /* Pods-YodiwoHub-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-YodiwoHub-acknowledgements.markdown"; sourceTree = "<group>"; };
+		E5C0C60E4639748D76A45273195C6E17 /* icon-error.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "icon-error.png"; path = "Classes/Icons/icon-error.png"; sourceTree = "<group>"; };
+		E8E980BBEEF275F5F60A6D13BE2C0D0B /* JSONModelError.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JSONModelError.m; path = JSONModel/JSONModel/JSONModelError.m; sourceTree = "<group>"; };
+		E942109EE849E08AD16EC84CE796E760 /* MQTTClient-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "MQTTClient-dummy.m"; sourceTree = "<group>"; };
+		E964B009AB38E1715A4B01A06706CDE6 /* libJSONModel.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libJSONModel.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		F3A4829B2D4A5FF2C9ED5E4BB9853FB1 /* icon-info@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "icon-info@2x.png"; path = "Classes/Icons/icon-info@2x.png"; sourceTree = "<group>"; };
+		F751387051BF327F39254612F5A3D69B /* MQTTDecoder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MQTTDecoder.h; path = MQTTClient/MQTTClient/MQTTDecoder.h; sourceTree = "<group>"; };
+		F96E3A0AFC32FAD745FA8C5E4CA326CD /* NSArray+JSONModel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSArray+JSONModel.m"; path = "JSONModel/JSONModelCategories/NSArray+JSONModel.m"; sourceTree = "<group>"; };
+		F9B2806018B700832796702D76F37333 /* JSONModelLib.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JSONModelLib.h; path = JSONModel/JSONModelLib.h; sourceTree = "<group>"; };
+		FE0843838756B4CF3CD3B0BB59515E8E /* MQTTSessionManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MQTTSessionManager.h; path = MQTTClient/MQTTClient/MQTTSessionManager.h; sourceTree = "<group>"; };
+		FE979B406243753AE81A472B0AA9BEAB /* JSONModel-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "JSONModel-prefix.pch"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		015DCC562BEBB2B3AF23BCEFB5E694C5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				61C1CB6B271C42084110F0CC710AC2F7 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		07F6F47909605A348DFE1B7BE44D7153 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EF80746D620EE48C0AB98084024CA903 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C19C8D5358318C726D2ABB069433CD0B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				729F121CFDC22352E240012D7656C614 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EB932C7244160CC464D5F7E2A9713D3F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				216E5A12ACFD64B84DC1A2E253336D9B /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		11C4C6B7A0D92BBAC2B25B48E91CCB0A /* Pods-YodiwoHub */ = {
+			isa = PBXGroup;
+			children = (
+				DD0AC451C299D06F3858D0792B727DE4 /* Pods-YodiwoHub-acknowledgements.markdown */,
+				24ADEA3E33C0AE76FC7C377744A83B5E /* Pods-YodiwoHub-acknowledgements.plist */,
+				AFA668028E9C66C3A6DC2CEE7A249039 /* Pods-YodiwoHub-dummy.m */,
+				D61A6F0D45EE21227A741D7F8DE2F03F /* Pods-YodiwoHub-frameworks.sh */,
+				1814AEAB9F68C7AA2B504E1614987252 /* Pods-YodiwoHub-resources.sh */,
+				5D239E5EFDC49A47447DB70695A5A331 /* Pods-YodiwoHub.debug.xcconfig */,
+				B175C956D3A337C5ED2A2B95E29071ED /* Pods-YodiwoHub.release.xcconfig */,
+			);
+			name = "Pods-YodiwoHub";
+			path = "Target Support Files/Pods-YodiwoHub";
+			sourceTree = "<group>";
+		};
+		34F66A584702D3DC4FE43C572C77FF48 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				B923E0120BFE7132AB99BB3D7902B10D /* MQTTClient.xcconfig */,
+				E942109EE849E08AD16EC84CE796E760 /* MQTTClient-dummy.m */,
+				798EADE1C2D12E79775CD317203B14EE /* MQTTClient-prefix.pch */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/MQTTClient";
+			sourceTree = "<group>";
+		};
+		56EA4A69171B297211FEA76B099B0C0F /* TWMessageBarManager */ = {
+			isa = PBXGroup;
+			children = (
+				2E9A70DF90FB3149FC9B5FC186783036 /* TWMessageBarManager.h */,
+				C84253BF1B617D94DE93B52F44CFA683 /* TWMessageBarManager.m */,
+				C4CBFA9E7BCA5DF0E7F8B89FCC460D62 /* Resources */,
+				FF031844A81E9D0BFE133C112E3A70AF /* Support Files */,
+			);
+			path = TWMessageBarManager;
+			sourceTree = "<group>";
+		};
+		61AF09D790F9982BD4E85157588C30C7 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				40C78D456994200BFC188246A6AC8510 /* JSONModel.xcconfig */,
+				5743F3D2EE9576F94746DAEB0C5F7244 /* JSONModel-dummy.m */,
+				FE979B406243753AE81A472B0AA9BEAB /* JSONModel-prefix.pch */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/JSONModel";
+			sourceTree = "<group>";
+		};
+		779832A8C63B9142BE8DF2C046AB7F4F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E964B009AB38E1715A4B01A06706CDE6 /* libJSONModel.a */,
+				A66C5AA37F4362866B1139FF9882B298 /* libMQTTClient.a */,
+				94B85E2D244553A297D4650A9EAD1DA3 /* libPods-YodiwoHub.a */,
+				C2ED00FBA9794583B579DDD05A37864D /* libTWMessageBarManager.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		78997D9B7764C7B44098AA3F70C5B42D /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				11C4C6B7A0D92BBAC2B25B48E91CCB0A /* Pods-YodiwoHub */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		7DB346D0F39D3F0E887471402A8071AB = {
+			isa = PBXGroup;
+			children = (
+				BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */,
+				BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */,
+				D3FC0BFD0151B58F38FED82290FB8B65 /* Pods */,
+				779832A8C63B9142BE8DF2C046AB7F4F /* Products */,
+				78997D9B7764C7B44098AA3F70C5B42D /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		9703FBAFFD5D2DD83D095657E25781D9 /* JSONModel */ = {
+			isa = PBXGroup;
+			children = (
+				39FB446A9EFE19ADA5D5C8AC4E4A4869 /* JSONAPI.h */,
+				B1BC34AE0C6B8C57FC9985FD42BC7D14 /* JSONAPI.m */,
+				10EF8F7214E8F01C39146911074886C5 /* JSONHTTPClient.h */,
+				B0800F68F865DC2A4C173A61C3FFDC2A /* JSONHTTPClient.m */,
+				2F4BA43B18172F90BCDE940ED9280569 /* JSONKeyMapper.h */,
+				87CC4967642AF266D7801EC0EAE6EBA7 /* JSONKeyMapper.m */,
+				3C2BBF0210EBF60AC9BA49C976644DB1 /* JSONModel.h */,
+				7E71DA79A36F952E9EAA8C14DE8C5E4A /* JSONModel.m */,
+				55D75C4932D8555ED934175E7684AE3C /* JSONModel+networking.h */,
+				00095417A6D7FFD25B8883D72DABC5CB /* JSONModel+networking.m */,
+				673CF14FD8BA08077421C98E5268A8FF /* JSONModelArray.h */,
+				4A11448A174A5E71945E90F7A3BE2081 /* JSONModelArray.m */,
+				B598D2C2CF94154108CBC2E69EF6F633 /* JSONModelClassProperty.h */,
+				74DB97CD8C798E6B0D636E827E3C77AE /* JSONModelClassProperty.m */,
+				9452BA0C50D8D34709BDAF47E239C8BE /* JSONModelError.h */,
+				E8E980BBEEF275F5F60A6D13BE2C0D0B /* JSONModelError.m */,
+				F9B2806018B700832796702D76F37333 /* JSONModelLib.h */,
+				592EA435E332CEECD7E1210D56D49A06 /* JSONValueTransformer.h */,
+				14E9550587509789A390524AD0A2FB97 /* JSONValueTransformer.m */,
+				DB56F5BF1CB30720DED0E74BBF4D6619 /* NSArray+JSONModel.h */,
+				F96E3A0AFC32FAD745FA8C5E4CA326CD /* NSArray+JSONModel.m */,
+				61AF09D790F9982BD4E85157588C30C7 /* Support Files */,
+			);
+			path = JSONModel;
+			sourceTree = "<group>";
+		};
+		BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BF6342C8B29F4CEEA088EFF7AB4DE362 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BF6342C8B29F4CEEA088EFF7AB4DE362 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		C4CBFA9E7BCA5DF0E7F8B89FCC460D62 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				E5C0C60E4639748D76A45273195C6E17 /* icon-error.png */,
+				B11E32EF63544E767A3A88297BE2F704 /* icon-error@2x.png */,
+				B75AA67C1D496D4CE85C0F62AE582547 /* icon-info.png */,
+				F3A4829B2D4A5FF2C9ED5E4BB9853FB1 /* icon-info@2x.png */,
+				7B2C6814AB7D56985DACEED42F7DEB95 /* icon-success.png */,
+				06DA7A078B529D9324FDFAF708658BC6 /* icon-success@2x.png */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		D2844FC37CB930BFE2371BCBE0361BE7 /* MQTTClient */ = {
+			isa = PBXGroup;
+			children = (
+				6D09BEC2C74928BF01981941EA42AB74 /* MQTTClient.h */,
+				F751387051BF327F39254612F5A3D69B /* MQTTDecoder.h */,
+				B7FE29E67F72915B62D30823A4965892 /* MQTTDecoder.m */,
+				D0252F43BAB11C03F1951EA329098E06 /* MQTTEncoder.h */,
+				554016A430C6A5808F5CE3F18655A3D5 /* MQTTEncoder.m */,
+				9466BEF48EC21FE241B1F72F861E33D8 /* MQTTMessage.h */,
+				1B08085051E83C3D32CB8C18739484C8 /* MQTTMessage.m */,
+				50FB8E067B67DED200115C7772F2C575 /* MQTTPersistence.h */,
+				3214AF3C1F8E4ED09CAC6F5B0AD53C5E /* MQTTPersistence.m */,
+				5672E1DB3C1DA04CA6858D34B0BDD45A /* MQTTSession.h */,
+				80A42A84FAE4D0CC308BA548F8D99DA2 /* MQTTSession.m */,
+				46389FD64402D610F4B32BB0FC614D3D /* MQTTSessionLegacy.h */,
+				4055DBC40D65E92AC5F6F63BDEB6A015 /* MQTTSessionLegacy.m */,
+				FE0843838756B4CF3CD3B0BB59515E8E /* MQTTSessionManager.h */,
+				84B2AEC93099404551AC79212575A99C /* MQTTSessionManager.m */,
+				C3BE7AF2228A04D8C1686DE0981CF70E /* MQTTSessionSynchron.h */,
+				9AFB003AE48CD50FC7537D8A997CBCB0 /* MQTTSessionSynchron.m */,
+				D8D3EE00630FA301D1558C85402FF545 /* MQTTSSLSecurityPolicy.h */,
+				35C89041D4FF786A22331C3958DF8FF2 /* MQTTSSLSecurityPolicy.m */,
+				34F66A584702D3DC4FE43C572C77FF48 /* Support Files */,
+			);
+			path = MQTTClient;
+			sourceTree = "<group>";
+		};
+		D3FC0BFD0151B58F38FED82290FB8B65 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				9703FBAFFD5D2DD83D095657E25781D9 /* JSONModel */,
+				D2844FC37CB930BFE2371BCBE0361BE7 /* MQTTClient */,
+				56EA4A69171B297211FEA76B099B0C0F /* TWMessageBarManager */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		FF031844A81E9D0BFE133C112E3A70AF /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				5D04E964F5CFB7203CD594FB29F2EC9C /* TWMessageBarManager.xcconfig */,
+				9F5A34273E7058CBFA9D4154DB5ED150 /* TWMessageBarManager-dummy.m */,
+				9798AC61078EB6348107AD7FE90C8A9F /* TWMessageBarManager-prefix.pch */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/TWMessageBarManager";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		6EEA72BE015541ED3D178BEF9BB5788F /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				85AC21BC7BD345D84F489F7A52D39E44 /* JSONAPI.h in Headers */,
+				D2718FB5214DA8A524CE735932323F82 /* JSONHTTPClient.h in Headers */,
+				4BDE97C783ED286933A60CAE9292B775 /* JSONKeyMapper.h in Headers */,
+				F7B5D2658B77049DDEC0AAA88E6FCEA7 /* JSONModel+networking.h in Headers */,
+				B82A170962598E7EAE9A8752574B7B74 /* JSONModel.h in Headers */,
+				52B9F1F399DEADDDFBE3F17BAA8D6D14 /* JSONModelArray.h in Headers */,
+				740B64AC8CA44CDC54A3A2CCB396A0EB /* JSONModelClassProperty.h in Headers */,
+				F4D2A0918C2C064F1A16B4CA2D42089A /* JSONModelError.h in Headers */,
+				C591CE6B9FA1950409E543A70B3ECABE /* JSONModelLib.h in Headers */,
+				04E0EFD308A39DA6783F9004C5689973 /* JSONValueTransformer.h in Headers */,
+				8F11ABA0C553B18981097015226E5748 /* NSArray+JSONModel.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C9BA366FE6311A8981B12FF09059CD66 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2E0B3167772987339BF3701D8FB9B384 /* MQTTClient.h in Headers */,
+				E2BB8AAAA4504C4C9B9A250160867913 /* MQTTDecoder.h in Headers */,
+				0953EA00F29500BA3AB24133B0D4E70D /* MQTTEncoder.h in Headers */,
+				2C61C783DFC37863C37E0EC06870EF80 /* MQTTMessage.h in Headers */,
+				9EA256F60458E81A0D6294F3B614BF8D /* MQTTPersistence.h in Headers */,
+				6666243B45CED6E770BF3092A97795D9 /* MQTTSession.h in Headers */,
+				7C1A3E57A4165FC98BBD085BF5908337 /* MQTTSessionLegacy.h in Headers */,
+				C110C698E528CA569FEA1C6460EBDC8B /* MQTTSessionManager.h in Headers */,
+				43710DA053046EBE779F8F10A7E31D40 /* MQTTSessionSynchron.h in Headers */,
+				FC5BB884EC751D968DD00BE2B3FF52E6 /* MQTTSSLSecurityPolicy.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E8740519B0D20DA05183A1C4886A625E /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F7810437E3F04FFE79F4AF742FCF2850 /* TWMessageBarManager.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		09FA060F1A0492FB25232F489AC4E573 /* JSONModel */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C6AF5E073E12BB724B34252D7E1E5E2E /* Build configuration list for PBXNativeTarget "JSONModel" */;
+			buildPhases = (
+				9A80637BC4F7665B84839294439F16ED /* Sources */,
+				EB932C7244160CC464D5F7E2A9713D3F /* Frameworks */,
+				6EEA72BE015541ED3D178BEF9BB5788F /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = JSONModel;
+			productName = JSONModel;
+			productReference = E964B009AB38E1715A4B01A06706CDE6 /* libJSONModel.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		30D2AF6A993B5A9F254ADD1CF5E7E471 /* Pods-YodiwoHub */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 50BBBF4FEE7856845C97150165065E42 /* Build configuration list for PBXNativeTarget "Pods-YodiwoHub" */;
+			buildPhases = (
+				2F650EC3C78F4D6728CE74C7A6D90075 /* Sources */,
+				015DCC562BEBB2B3AF23BCEFB5E694C5 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				99336CF090D4C1D79C9BA665DCDAB758 /* PBXTargetDependency */,
+				D39446E28B49AE1232F71E3450E57393 /* PBXTargetDependency */,
+				5F791B9BBCB303A36469FB61C6BD6B4B /* PBXTargetDependency */,
+			);
+			name = "Pods-YodiwoHub";
+			productName = "Pods-YodiwoHub";
+			productReference = 94B85E2D244553A297D4650A9EAD1DA3 /* libPods-YodiwoHub.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		D25FC7F7F01ABC9F22A9BDC5185F3203 /* TWMessageBarManager */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D9B998D7EAC1BB586C3D20258C09155F /* Build configuration list for PBXNativeTarget "TWMessageBarManager" */;
+			buildPhases = (
+				19531F8BBEE35C72A615CA218117F801 /* Sources */,
+				C19C8D5358318C726D2ABB069433CD0B /* Frameworks */,
+				E8740519B0D20DA05183A1C4886A625E /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TWMessageBarManager;
+			productName = TWMessageBarManager;
+			productReference = C2ED00FBA9794583B579DDD05A37864D /* libTWMessageBarManager.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		DC412CEE9A8C7F2F0C16BCBA2C093C7E /* MQTTClient */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AEC915CC6DC5D198C55F7BF3530B7733 /* Build configuration list for PBXNativeTarget "MQTTClient" */;
+			buildPhases = (
+				D296781548412F44EBD1C6EC0BBA6EEA /* Sources */,
+				07F6F47909605A348DFE1B7BE44D7153 /* Frameworks */,
+				C9BA366FE6311A8981B12FF09059CD66 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MQTTClient;
+			productName = MQTTClient;
+			productReference = A66C5AA37F4362866B1139FF9882B298 /* libMQTTClient.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D41D8CD98F00B204E9800998ECF8427E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0700;
+				LastUpgradeCheck = 0700;
+			};
+			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
+			productRefGroup = 779832A8C63B9142BE8DF2C046AB7F4F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				09FA060F1A0492FB25232F489AC4E573 /* JSONModel */,
+				DC412CEE9A8C7F2F0C16BCBA2C093C7E /* MQTTClient */,
+				30D2AF6A993B5A9F254ADD1CF5E7E471 /* Pods-YodiwoHub */,
+				D25FC7F7F01ABC9F22A9BDC5185F3203 /* TWMessageBarManager */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		19531F8BBEE35C72A615CA218117F801 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1CA898FE04F02D209F3D6C67BB0FD457 /* TWMessageBarManager-dummy.m in Sources */,
+				8D1EC01516273C34305EF8C48F4EE2B2 /* TWMessageBarManager.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2F650EC3C78F4D6728CE74C7A6D90075 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4ABEB2FADC99B4ECF255576C1CAF10FD /* Pods-YodiwoHub-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9A80637BC4F7665B84839294439F16ED /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AED2BAD1D43745DD69F82C134A985AB3 /* JSONAPI.m in Sources */,
+				ACF42F60DB38312D939C3817F3AECE32 /* JSONHTTPClient.m in Sources */,
+				ABC9A1F8D86F932BEE6C28A8849048A6 /* JSONKeyMapper.m in Sources */,
+				16A189CC65DC66678D3D637ED8B5B5FF /* JSONModel+networking.m in Sources */,
+				D4EF11B8928C1374360A67C3BC22AD13 /* JSONModel-dummy.m in Sources */,
+				4A4DCF231CE4F0B8916A5FA4590C3343 /* JSONModel.m in Sources */,
+				128993FF267CC0FA8EE6889C6AEC2EC3 /* JSONModelArray.m in Sources */,
+				4DE36D4B16AB5BD257BDBA97DE1BD733 /* JSONModelClassProperty.m in Sources */,
+				17D8C9D90B9DCDE1B8B9D5ECF8DADCEC /* JSONModelError.m in Sources */,
+				DCB74D72FE0E9C8C8E23B49C8CE52276 /* JSONValueTransformer.m in Sources */,
+				B685C45C6BF1321FC17F0F03AC635E4C /* NSArray+JSONModel.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D296781548412F44EBD1C6EC0BBA6EEA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				41DC6516B860FC7643744EFE922785C6 /* MQTTClient-dummy.m in Sources */,
+				08F361820A7DE7A54C52DE56AE22FDE6 /* MQTTDecoder.m in Sources */,
+				FF88E1EB819D2F8B67E558D2A3CF427D /* MQTTEncoder.m in Sources */,
+				FC25E72A03F8E04C5BCAE722999DD900 /* MQTTMessage.m in Sources */,
+				3DD29F78361A425D7054C9A2ABD31561 /* MQTTPersistence.m in Sources */,
+				0F9F1F9EB2E5A7C3356FCDFCE4FF154B /* MQTTSession.m in Sources */,
+				04BA5373B86328E4B7640B3B036E01FF /* MQTTSessionLegacy.m in Sources */,
+				2A7FC4C90215D4375263C3215F349A65 /* MQTTSessionManager.m in Sources */,
+				452938DEA29C7902240E448D3F9367EF /* MQTTSessionSynchron.m in Sources */,
+				A53D06A2266DB5625FA03669B06B2B2F /* MQTTSSLSecurityPolicy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		5F791B9BBCB303A36469FB61C6BD6B4B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = TWMessageBarManager;
+			target = D25FC7F7F01ABC9F22A9BDC5185F3203 /* TWMessageBarManager */;
+			targetProxy = CA4B170CCDAD04C66B833286E1A29C07 /* PBXContainerItemProxy */;
+		};
+		99336CF090D4C1D79C9BA665DCDAB758 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = JSONModel;
+			target = 09FA060F1A0492FB25232F489AC4E573 /* JSONModel */;
+			targetProxy = 2ECC53776DDFB3C919D154864EB5308E /* PBXContainerItemProxy */;
+		};
+		D39446E28B49AE1232F71E3450E57393 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = MQTTClient;
+			target = DC412CEE9A8C7F2F0C16BCBA2C093C7E /* MQTTClient */;
+			targetProxy = 5B24C92BCE9F5A1C2FF775A86749BFBB /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		2D10921BAA047A4BCB40D9D659D60EBE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B923E0120BFE7132AB99BB3D7902B10D /* MQTTClient.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/MQTTClient/MQTTClient-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		5C52C51EE7587A1114E923FC16BDF748 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B923E0120BFE7132AB99BB3D7902B10D /* MQTTClient.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/MQTTClient/MQTTClient-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		7B3D06D5995933FD41A8293B84F276D1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5D04E964F5CFB7203CD594FB29F2EC9C /* TWMessageBarManager.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/TWMessageBarManager/TWMessageBarManager-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		87638C096CB5F2C1BCB41CBDBC443C32 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5D04E964F5CFB7203CD594FB29F2EC9C /* TWMessageBarManager.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/TWMessageBarManager/TWMessageBarManager-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		9A0A953FCD184AADDA8F2300F2229ACD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5D239E5EFDC49A47447DB70695A5A331 /* Pods-YodiwoHub.debug.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACH_O_TYPE = staticlib;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		A70CDAD61F90AC503C7D04CC22DA2923 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				ONLY_ACTIVE_ARCH = YES;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		B4331FCCFAF2D870D13E227585F9C260 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 40C78D456994200BFC188246A6AC8510 /* JSONModel.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/JSONModel/JSONModel-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		C9249DCCF897AD6E90F796BEC91A0982 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B175C956D3A337C5ED2A2B95E29071ED /* Pods-YodiwoHub.release.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACH_O_TYPE = staticlib;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		C9C7912905927EA25CAF2086B7B5BB2F /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 40C78D456994200BFC188246A6AC8510 /* JSONModel.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/JSONModel/JSONModel-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		FB45FFD90572718D82AB9092B750F0CA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = "RELEASE=1";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A70CDAD61F90AC503C7D04CC22DA2923 /* Debug */,
+				FB45FFD90572718D82AB9092B750F0CA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		50BBBF4FEE7856845C97150165065E42 /* Build configuration list for PBXNativeTarget "Pods-YodiwoHub" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9A0A953FCD184AADDA8F2300F2229ACD /* Debug */,
+				C9249DCCF897AD6E90F796BEC91A0982 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AEC915CC6DC5D198C55F7BF3530B7733 /* Build configuration list for PBXNativeTarget "MQTTClient" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2D10921BAA047A4BCB40D9D659D60EBE /* Debug */,
+				5C52C51EE7587A1114E923FC16BDF748 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C6AF5E073E12BB724B34252D7E1E5E2E /* Build configuration list for PBXNativeTarget "JSONModel" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B4331FCCFAF2D870D13E227585F9C260 /* Debug */,
+				C9C7912905927EA25CAF2086B7B5BB2F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D9B998D7EAC1BB586C3D20258C09155F /* Build configuration list for PBXNativeTarget "TWMessageBarManager" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				87638C096CB5F2C1BCB41CBDBC443C32 /* Debug */,
+				7B3D06D5995933FD41A8293B84F276D1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+}
