@@ -1,0 +1,38 @@
+﻿.wsngeneral {
+    background-color: #bfbfbf;
+    opacity: 0.95;
+    color: #000;
+}
+
+.headlabel {
+    padding: 10px 15px;
+    margin-bottom: 30px;
+    color: #b3b3b3;
+    background-color: #222d32;
+    text-align: center;
+}
+
+.range {
+    stroke-dasharray: 5, 2;
+    visibility: visible;
+    margin-top: 50px;
+}
+
+.bulb {
+    stroke-dasharray: 5, 2;
+    visibility: visible;
+    margin-top: 10px;
+}
+
+.rowtop {
+    margin-top: 100px;
+}
+
+.leftalign {
+    margin-left: 100px;
+}
+
+.alert-custom-warning {
+    background-color: #F7BA59 !important;
+    color: #5F5F5F !important;
+}
