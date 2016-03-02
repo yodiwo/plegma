@@ -1,0 +1,48 @@
+﻿{
+  "ActiveID": "0",
+  "Configs": {
+    "0": { //local
+      "Uuid": "1337RasPiCamera",
+      "NodeKey": "",
+      "NodeSecret": "",
+      "FrontendServer": "http://10.30.254.94:3334",
+      "ApiServer": "10.30.254.94",
+      "YpchannelPort": 14623,
+      "YpchannelSecure": false,
+      "CertificateServerName": "*.yodiwo.com",
+      "LocalWebServer": "http://localhost:4010",
+      "MqttBrokerHostname": "yodiwodo.duckdns.org",
+      "MqttBrokerPort": 1883,
+      "MqttApiPasswd": "5839a85e-dde8-429a-90bf-e9793c0b181b",
+      "MqttUseSsl": false
+    },
+    "1": { //remote
+      "Uuid": "1337RasPiCamera",
+      "NodeKey": "",
+      "NodeSecret": "",
+      "FrontendServer": "https://cyan.yodiwo.com",
+      "ApiServer": "api.yodiwo.com",
+      "YpchannelPort": 14623,
+      "ypchannelSecure": true,
+      "CertificateServerName": "*.yodiwo.com",
+      "LocalWebServer": "http://localhost:4010",
+      "MqttBrokerHostname": "api.yodiwo.com",
+      "MqttUseSsl": false
+    },
+    "2": { //demo Should Change
+      "webBase": null,
+      "Uuid": "1337RasPiCamera",
+      "NodeKey": "",
+      "NodeSecret": "",
+      "FrontendServer": "https://cyan.yodiwo.com",
+      "ApiServer": "api.yodiwo.com",
+      "MqttBrokerHostname": "api.yodiwo.com",
+      "MqttUseSsl": false,
+      "YpchannelPort": 14623,
+      "YpchannelSecure": false,
+      "CertificateServerName": "*.yodiwo.com",
+      "LocalWebServer": "http://localhost:4010",
+      "MqttApiPasswd": null
+    }
+  }
+}
