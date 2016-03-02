@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{5B2BF103-E972-4F98-B0C3-BF1D7521CF44}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Yodiwo.Media</RootNamespace>
+    <AssemblyName>Yodiwo.Media</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AForge.Video">
+      <HintPath>..\..\ExternalsDLLs\AForge\AForge.Video.dll</HintPath>
+    </Reference>
+    <Reference Include="AForge.Video.DirectShow">
+      <HintPath>..\..\ExternalsDLLs\AForge\AForge.Video.DirectShow.dll</HintPath>
+    </Reference>
+    <Reference Include="NAudio, Version=1.7.2.19, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\external-libs\Csharp\DLLs\ThirdParty\NAudio.dll</HintPath>
+    </Reference>
+    <Reference Include="NAudio.Lame, Version=1.0.2.33669, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\external-libs\Csharp\DLLs\ThirdParty\Naudio.Lame\NAudio.Lame.dll</HintPath>
+    </Reference>
+    <Reference Include="Pranas.ScreenshotCapture">
+      <HintPath>..\..\ExternalsDLLs\Pranas.ScreenshotCapture.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Audio\Sink\AudioPipeStream.cs" />
+    <Compile Include="Audio\Sink\IAudioSink.cs" />
+    <Compile Include="Audio\Sink\MP3Server\AudioFeed.cs" />
+    <Compile Include="Audio\Sink\MP3Server\MP3Server.cs" />
+    <Compile Include="Audio\Sink\MP3Server\Mp3Writer.cs" />
+    <Compile Include="Audio\Sink\Speaker.cs" />
+    <Compile Include="Audio\Sink\WavFile.cs" />
+    <Compile Include="Audio\Source\IAudioSource.cs" />
+    <Compile Include="Audio\Source\Microphone.cs" />
+    <Compile Include="Audio\Source\MP3Stream\MP3Stream.cs" />
+    <Compile Include="Audio\Source\MP3Stream\ReadFullyStream.cs" />
+    <Compile Include="Audio\Tools\Tools.cs" />
+    <Compile Include="IMediaSS.cs" />
+    <Compile Include="IMediaSink.cs" />
+    <Compile Include="IMediaSource.cs" />
+    <Compile Include="Video\Sink\ImageFileSequence.cs" />
+    <Compile Include="Video\Sink\ImageFile.cs" />
+    <Compile Include="Video\Sink\IVideoSink.cs" />
+    <Compile Include="Video\Sink\MjpegServer\MjpegServer.cs" />
+    <Compile Include="Video\Sink\MjpegServer\MjpegWriter.cs" />
+    <Compile Include="Video\Sink\MjpegServer\VideoFeed.cs" />
+    <Compile Include="Video\Source\IPCamFrameΤrapper.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Video\Source\IVideoSource.cs" />
+    <Compile Include="Video\Source\ScreenFrameTrapper.cs" />
+    <Compile Include="Video\Source\WebCamFrameTrapper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\YodiwoSharp\YodiwoSharp.csproj">
+      <Project>{8ae66abd-d963-4e83-83a3-330156cd37a3}</Project>
+      <Name>YodiwoSharp</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="libmp3lame.32.dll" />
+    <Content Include="libmp3lame.64.dll" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
