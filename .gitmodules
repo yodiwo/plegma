@@ -1,0 +1,3 @@
+[submodule "external-libs"]
+	path = external-libs
+	url = https://github.com/yodiwo/external-libs
