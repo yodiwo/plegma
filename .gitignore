@@ -10,10 +10,11 @@
 
 
 # User-specific files
+.vs/
 *.suo
 
 *.user
-
+*.userprefs
 
 
 *.sln.docstates
