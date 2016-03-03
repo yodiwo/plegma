@@ -1,0 +1,12 @@
+# Travis-CI Build for dynamitey 
+# see travis-ci.org for details
+
+language: csharp
+
+solution: Csharp/Projects.GrovePi.sln
+solution: Csharp/Projects.RaspberyPiCamera.sln
+solution: Csharp/Projects.SkyWriter.sln
+
+mono:
+  - latest
+  - 4.0.5
