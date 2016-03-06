@@ -1,0 +1,1218 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<HelpTOC>
+
+  <HelpTOCNode Id="e3888e81-51e7-4911-9576-32639b3eb5b0" Title="Yodiwo.API.Plegma" Url="html/N_Yodiwo_API_Plegma.htm">
+    <HelpTOCNode Id="6be53288-ff48-47d7-a6a3-d8556b857233" Title="A2mcuActiveDriver Class" Url="html/T_Yodiwo_API_Plegma_A2mcuActiveDriver.htm">
+      <HelpTOCNode Title="A2mcuActiveDriver Constructor " Url="html/M_Yodiwo_API_Plegma_A2mcuActiveDriver__ctor.htm" />
+      <HelpTOCNode Title="A2mcuActiveDriver Methods" Url="html/Methods_T_Yodiwo_API_Plegma_A2mcuActiveDriver.htm" />
+      <HelpTOCNode Id="567d6c7e-e3b2-49c8-850e-bcdd6fc1460a" Title="A2mcuActiveDriver Fields" Url="html/Fields_T_Yodiwo_API_Plegma_A2mcuActiveDriver.htm">
+        <HelpTOCNode Title="BlockKey Field" Url="html/F_Yodiwo_API_Plegma_A2mcuActiveDriver_BlockKey.htm" />
+        <HelpTOCNode Title="Deinit Field" Url="html/F_Yodiwo_API_Plegma_A2mcuActiveDriver_Deinit.htm" />
+        <HelpTOCNode Title="DriverKey Field" Url="html/F_Yodiwo_API_Plegma_A2mcuActiveDriver_DriverKey.htm" />
+        <HelpTOCNode Title="Init Field" Url="html/F_Yodiwo_API_Plegma_A2mcuActiveDriver_Init.htm" />
+        <HelpTOCNode Title="ThingKey Field" Url="html/F_Yodiwo_API_Plegma_A2mcuActiveDriver_ThingKey.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="8d05d8b4-f2c4-4747-9bb9-e92f25b75865" Title="A2mcuActiveDriversReq Class" Url="html/T_Yodiwo_API_Plegma_A2mcuActiveDriversReq.htm">
+      <HelpTOCNode Title="A2mcuActiveDriversReq Constructor " Url="html/M_Yodiwo_API_Plegma_A2mcuActiveDriversReq__ctor.htm" />
+      <HelpTOCNode Title="A2mcuActiveDriversReq Methods" Url="html/Methods_T_Yodiwo_API_Plegma_A2mcuActiveDriversReq.htm" />
+      <HelpTOCNode Id="61a538aa-1f67-4e53-8927-0fd89b72d8f1" Title="A2mcuActiveDriversReq Fields" Url="html/Fields_T_Yodiwo_API_Plegma_A2mcuActiveDriversReq.htm">
+        <HelpTOCNode Title="ActiveDrivers Field" Url="html/F_Yodiwo_API_Plegma_A2mcuActiveDriversReq_ActiveDrivers.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="69f4db81-6ca8-4538-ba74-a87ea4def237" Title="A2mcuConcurrent Class" Url="html/T_Yodiwo_API_Plegma_A2mcuConcurrent.htm">
+      <HelpTOCNode Title="A2mcuConcurrent Constructor " Url="html/M_Yodiwo_API_Plegma_A2mcuConcurrent__ctor.htm" />
+      <HelpTOCNode Title="A2mcuConcurrent Methods" Url="html/Methods_T_Yodiwo_API_Plegma_A2mcuConcurrent.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Id="04f87492-1cbc-4c51-af2e-87ca07967553" Title="A2mcuConcurrentCommands Class" Url="html/T_Yodiwo_API_Plegma_A2mcuConcurrentCommands.htm">
+      <HelpTOCNode Title="A2mcuConcurrentCommands Constructor " Url="html/M_Yodiwo_API_Plegma_A2mcuConcurrentCommands__ctor.htm" />
+      <HelpTOCNode Title="A2mcuConcurrentCommands Methods" Url="html/Methods_T_Yodiwo_API_Plegma_A2mcuConcurrentCommands.htm" />
+      <HelpTOCNode Id="8585c934-fa66-4af0-925e-b1d4df67ef12" Title="A2mcuConcurrentCommands Fields" Url="html/Fields_T_Yodiwo_API_Plegma_A2mcuConcurrentCommands.htm">
+        <HelpTOCNode Title="CtrlMsgs Field" Url="html/F_Yodiwo_API_Plegma_A2mcuConcurrentCommands_CtrlMsgs.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="839a0ab0-578c-4bd6-80f3-7feeedce9150" Title="A2mcuConfigConstants Class" Url="html/T_Yodiwo_API_Plegma_A2mcuConfigConstants.htm">
+      <HelpTOCNode Id="8de95e8b-fc75-4027-8c20-22c6f16aee3e" Title="A2mcuConfigConstants Fields" Url="html/Fields_T_Yodiwo_API_Plegma_A2mcuConfigConstants.htm">
+        <HelpTOCNode Title="ConfigNameIrqTrigger Field" Url="html/F_Yodiwo_API_Plegma_A2mcuConfigConstants_ConfigNameIrqTrigger.htm" />
+        <HelpTOCNode Title="ConfigNameSamplingBytes Field" Url="html/F_Yodiwo_API_Plegma_A2mcuConfigConstants_ConfigNameSamplingBytes.htm" />
+        <HelpTOCNode Title="ConfigNameSamplingPeriod Field" Url="html/F_Yodiwo_API_Plegma_A2mcuConfigConstants_ConfigNameSamplingPeriod.htm" />
+        <HelpTOCNode Title="ConfigNameSamplingRegister Field" Url="html/F_Yodiwo_API_Plegma_A2mcuConfigConstants_ConfigNameSamplingRegister.htm" />
+        <HelpTOCNode Title="ConfigNameSamplingSlave Field" Url="html/F_Yodiwo_API_Plegma_A2mcuConfigConstants_ConfigNameSamplingSlave.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="776d2f58-41b0-442f-a6e8-8dedf82b2b31" Title="A2mcuCtrl Class" Url="html/T_Yodiwo_API_Plegma_A2mcuCtrl.htm">
+      <HelpTOCNode Title="A2mcuCtrl Constructor " Url="html/M_Yodiwo_API_Plegma_A2mcuCtrl__ctor.htm" />
+      <HelpTOCNode Title="A2mcuCtrl Methods" Url="html/Methods_T_Yodiwo_API_Plegma_A2mcuCtrl.htm" />
+      <HelpTOCNode Id="02e2b80c-39ac-4bdd-be5a-04f2d1b4bda2" Title="A2mcuCtrl Fields" Url="html/Fields_T_Yodiwo_API_Plegma_A2mcuCtrl.htm">
+        <HelpTOCNode Title="BlockKey Field" Url="html/F_Yodiwo_API_Plegma_A2mcuCtrl_BlockKey.htm" />
+        <HelpTOCNode Title="Data Field" Url="html/F_Yodiwo_API_Plegma_A2mcuCtrl_Data.htm" />
+        <HelpTOCNode Title="ThingKey Field" Url="html/F_Yodiwo_API_Plegma_A2mcuCtrl_ThingKey.htm" />
+        <HelpTOCNode Title="Type Field" Url="html/F_Yodiwo_API_Plegma_A2mcuCtrl_Type.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="3934481f-5b65-423a-8d25-db79d5020d4c" Title="A2mcuCtrlReq Class" Url="html/T_Yodiwo_API_Plegma_A2mcuCtrlReq.htm">
+      <HelpTOCNode Title="A2mcuCtrlReq Constructor " Url="html/M_Yodiwo_API_Plegma_A2mcuCtrlReq__ctor.htm" />
+      <HelpTOCNode Title="A2mcuCtrlReq Methods" Url="html/Methods_T_Yodiwo_API_Plegma_A2mcuCtrlReq.htm" />
+      <HelpTOCNode Id="a0ef337b-2342-4c01-8705-97e99de2aa26" Title="A2mcuCtrlReq Fields" Url="html/Fields_T_Yodiwo_API_Plegma_A2mcuCtrlReq.htm">
+        <HelpTOCNode Title="CtrlMsgs Field" Url="html/F_Yodiwo_API_Plegma_A2mcuCtrlReq_CtrlMsgs.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="16ed0c98-7508-469d-b3e8-8d09f5c84392" Title="A2mcuSequencedCommands Class" Url="html/T_Yodiwo_API_Plegma_A2mcuSequencedCommands.htm">
+      <HelpTOCNode Title="A2mcuSequencedCommands Constructor " Url="html/M_Yodiwo_API_Plegma_A2mcuSequencedCommands__ctor.htm" />
+      <HelpTOCNode Title="A2mcuSequencedCommands Methods" Url="html/Methods_T_Yodiwo_API_Plegma_A2mcuSequencedCommands.htm" />
+      <HelpTOCNode Id="d51eb11d-7d17-4b5d-94b1-3822e8174855" Title="A2mcuSequencedCommands Fields" Url="html/Fields_T_Yodiwo_API_Plegma_A2mcuSequencedCommands.htm">
+        <HelpTOCNode Title="Seq Field" Url="html/F_Yodiwo_API_Plegma_A2mcuSequencedCommands_Seq.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="bb9288c2-d2b7-40ae-9afb-c86480e0b158" Title="ActivePortKeysMsg Class" Url="html/T_Yodiwo_API_Plegma_ActivePortKeysMsg.htm">
+      <HelpTOCNode Id="46bde14d-003e-4020-80f0-d09bc03d4ac5" Title="ActivePortKeysMsg Constructor " Url="html/Overload_Yodiwo_API_Plegma_ActivePortKeysMsg__ctor.htm">
+        <HelpTOCNode Title="ActivePortKeysMsg Constructor " Url="html/M_Yodiwo_API_Plegma_ActivePortKeysMsg__ctor.htm" />
+        <HelpTOCNode Title="ActivePortKeysMsg Constructor (Int32)" Url="html/M_Yodiwo_API_Plegma_ActivePortKeysMsg__ctor_1.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="70997fba-390a-492f-a32b-67c81228b129" Title="ActivePortKeysMsg Methods" Url="html/Methods_T_Yodiwo_API_Plegma_ActivePortKeysMsg.htm">
+        <HelpTOCNode Title="ToString Method " Url="html/M_Yodiwo_API_Plegma_ActivePortKeysMsg_ToString.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="028849fb-7b96-452d-8ad6-62fc6ce71cbe" Title="ActivePortKeysMsg Fields" Url="html/Fields_T_Yodiwo_API_Plegma_ActivePortKeysMsg.htm">
+        <HelpTOCNode Title="ActivePortKeys Field" Url="html/F_Yodiwo_API_Plegma_ActivePortKeysMsg_ActivePortKeys.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="8c498e3b-82f4-4ac8-b3ff-e1d1028b9bc7" Title="ApiMsg Class" Url="html/T_Yodiwo_API_Plegma_ApiMsg.htm">
+      <HelpTOCNode Title="ApiMsg Constructor " Url="html/M_Yodiwo_API_Plegma_ApiMsg__ctor.htm" />
+      <HelpTOCNode Title="ApiMsg Methods" Url="html/Methods_T_Yodiwo_API_Plegma_ApiMsg.htm" />
+      <HelpTOCNode Id="fdac6b48-7ab3-4027-bb89-a39ecbfc0d6d" Title="ApiMsg Fields" Url="html/Fields_T_Yodiwo_API_Plegma_ApiMsg.htm">
+        <HelpTOCNode Title="SeqNo Field" Url="html/F_Yodiwo_API_Plegma_ApiMsg_SeqNo.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="0939eb0b-a202-43e4-b1f1-c06b3dd593f3" Title="AudioContentDescriptor Class" Url="html/T_Yodiwo_API_Plegma_AudioContentDescriptor.htm">
+      <HelpTOCNode Title="AudioContentDescriptor Constructor " Url="html/M_Yodiwo_API_Plegma_AudioContentDescriptor__ctor.htm" />
+      <HelpTOCNode Title="AudioContentDescriptor Methods" Url="html/Methods_T_Yodiwo_API_Plegma_AudioContentDescriptor.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Title="BinaryResourceContentType Enumeration" Url="html/T_Yodiwo_API_Plegma_BinaryResourceContentType.htm" />
+    <HelpTOCNode Id="138a4515-a085-4314-a4de-84c7e6c15ba3" Title="BinaryResourceDescriptor Class" Url="html/T_Yodiwo_API_Plegma_BinaryResourceDescriptor.htm">
+      <HelpTOCNode Id="4a762d40-bf51-4e54-b435-4733124ec05d" Title="BinaryResourceDescriptor Constructor " Url="html/Overload_Yodiwo_API_Plegma_BinaryResourceDescriptor__ctor.htm">
+        <HelpTOCNode Title="BinaryResourceDescriptor Constructor " Url="html/M_Yodiwo_API_Plegma_BinaryResourceDescriptor__ctor.htm" />
+        <HelpTOCNode Title="BinaryResourceDescriptor Constructor (String, BinaryResourceContentType, BinaryResourceLocationType, Object, Object, Int32, String)" Url="html/M_Yodiwo_API_Plegma_BinaryResourceDescriptor__ctor_1.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="BinaryResourceDescriptor Methods" Url="html/Methods_T_Yodiwo_API_Plegma_BinaryResourceDescriptor.htm" />
+      <HelpTOCNode Id="4d855567-ebf3-4a36-aee1-dd27244ebdad" Title="BinaryResourceDescriptor Fields" Url="html/Fields_T_Yodiwo_API_Plegma_BinaryResourceDescriptor.htm">
+        <HelpTOCNode Title="ContentDescriptor Field" Url="html/F_Yodiwo_API_Plegma_BinaryResourceDescriptor_ContentDescriptor.htm" />
+        <HelpTOCNode Title="ContentType Field" Url="html/F_Yodiwo_API_Plegma_BinaryResourceDescriptor_ContentType.htm" />
+        <HelpTOCNode Title="FriendlyDescription Field" Url="html/F_Yodiwo_API_Plegma_BinaryResourceDescriptor_FriendlyDescription.htm" />
+        <HelpTOCNode Title="FriendlyName Field" Url="html/F_Yodiwo_API_Plegma_BinaryResourceDescriptor_FriendlyName.htm" />
+        <HelpTOCNode Title="LocationDescriptor Field" Url="html/F_Yodiwo_API_Plegma_BinaryResourceDescriptor_LocationDescriptor.htm" />
+        <HelpTOCNode Title="LocationType Field" Url="html/F_Yodiwo_API_Plegma_BinaryResourceDescriptor_LocationType.htm" />
+        <HelpTOCNode Title="Size Field" Url="html/F_Yodiwo_API_Plegma_BinaryResourceDescriptor_Size.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Title="BinaryResourceLocationType Enumeration" Url="html/T_Yodiwo_API_Plegma_BinaryResourceLocationType.htm" />
+    <HelpTOCNode Id="f8d55d1d-ec48-4749-9b9f-a6df124ea049" Title="BlockKey Structure" Url="html/T_Yodiwo_API_Plegma_BlockKey.htm">
+      <HelpTOCNode Title="BlockKey Constructor " Url="html/M_Yodiwo_API_Plegma_BlockKey__ctor.htm" />
+      <HelpTOCNode Id="d20159bf-d8d8-403d-b143-82c16bb13402" Title="BlockKey Properties" Url="html/Properties_T_Yodiwo_API_Plegma_BlockKey.htm">
+        <HelpTOCNode Title="IsInvalid Property " Url="html/P_Yodiwo_API_Plegma_BlockKey_IsInvalid.htm" />
+        <HelpTOCNode Title="IsValid Property " Url="html/P_Yodiwo_API_Plegma_BlockKey_IsValid.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="489d96e8-536b-41d2-b391-629c67787552" Title="BlockKey Methods" Url="html/Methods_T_Yodiwo_API_Plegma_BlockKey.htm">
+        <HelpTOCNode Title="ConvertFromString Method " Url="html/M_Yodiwo_API_Plegma_BlockKey_ConvertFromString.htm" />
+        <HelpTOCNode Id="62a81243-533a-4116-8295-7fd621a341b8" Title="Equals Method " Url="html/Overload_Yodiwo_API_Plegma_BlockKey_Equals.htm">
+          <HelpTOCNode Title="Equals Method (Object)" Url="html/M_Yodiwo_API_Plegma_BlockKey_Equals.htm" />
+          <HelpTOCNode Title="Equals Method (BlockKey)" Url="html/M_Yodiwo_API_Plegma_BlockKey_Equals_1.htm" />
+          <HelpTOCNode Title="Equals Method (BlockKey)" Url="html/M_Yodiwo_API_Plegma_BlockKey_Equals_2.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Title="FillFromString Method " Url="html/M_Yodiwo_API_Plegma_BlockKey_FillFromString.htm" />
+        <HelpTOCNode Title="GetHashCode Method " Url="html/M_Yodiwo_API_Plegma_BlockKey_GetHashCode.htm" />
+        <HelpTOCNode Title="ToString Method " Url="html/M_Yodiwo_API_Plegma_BlockKey_ToString.htm" />
+        <HelpTOCNode Title="ToStringEx Method " Url="html/M_Yodiwo_API_Plegma_BlockKey_ToStringEx.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="4308ea0c-e9f2-4d42-a167-e8d52606ee65" Title="BlockKey Operators and Type Conversions" Url="html/Operators_T_Yodiwo_API_Plegma_BlockKey.htm">
+        <HelpTOCNode Title="Equality Operator " Url="html/M_Yodiwo_API_Plegma_BlockKey_op_Equality.htm" />
+        <HelpTOCNode Id="dadb5887-f2d5-49e3-95f4-7ae5de38fd94" Title="Implicit Conversion Operators" Url="html/Overload_Yodiwo_API_Plegma_BlockKey_op_Implicit.htm">
+          <HelpTOCNode Title="Implicit Conversion (String to BlockKey)" Url="html/M_Yodiwo_API_Plegma_BlockKey_op_Implicit.htm" />
+          <HelpTOCNode Title="Implicit Conversion (BlockKey to String)" Url="html/M_Yodiwo_API_Plegma_BlockKey_op_Implicit_1.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Title="Inequality Operator " Url="html/M_Yodiwo_API_Plegma_BlockKey_op_Inequality.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="4afe736b-06ee-41be-9ce7-72255cdc07c0" Title="BlockKey Fields" Url="html/Fields_T_Yodiwo_API_Plegma_BlockKey.htm">
+        <HelpTOCNode Title="BlockId Field" Url="html/F_Yodiwo_API_Plegma_BlockKey_BlockId.htm" />
+        <HelpTOCNode Title="GraphKey Field" Url="html/F_Yodiwo_API_Plegma_BlockKey_GraphKey.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="cf33c02b-bd7b-4515-bf87-30daf9c7ed35" Title="BlockKeyConverter Class" Url="html/T_Yodiwo_API_Plegma_BlockKeyConverter.htm">
+      <HelpTOCNode Title="BlockKeyConverter Constructor " Url="html/M_Yodiwo_API_Plegma_BlockKeyConverter__ctor.htm" />
+      <HelpTOCNode Id="ae7357a9-c1cf-4843-9496-349e8aa910d6" Title="BlockKeyConverter Methods" Url="html/Methods_T_Yodiwo_API_Plegma_BlockKeyConverter.htm">
+        <HelpTOCNode Id="4a9d2181-ade1-4a4b-9e56-e1c62e9005b3" Title="CanConvertFrom Method " Url="html/Overload_Yodiwo_API_Plegma_BlockKeyConverter_CanConvertFrom.htm">
+          <HelpTOCNode Title="CanConvertFrom Method (ITypeDescriptorContext, Type)" Url="html/M_Yodiwo_API_Plegma_BlockKeyConverter_CanConvertFrom.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Id="c6bacae1-ca62-4413-b89a-511620e695dc" Title="CanConvertTo Method " Url="html/Overload_Yodiwo_API_Plegma_BlockKeyConverter_CanConvertTo.htm">
+          <HelpTOCNode Title="CanConvertTo Method (ITypeDescriptorContext, Type)" Url="html/M_Yodiwo_API_Plegma_BlockKeyConverter_CanConvertTo.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Id="874ccb83-583d-4e98-afa5-a9195a3a4d4f" Title="ConvertFrom Method " Url="html/Overload_Yodiwo_API_Plegma_BlockKeyConverter_ConvertFrom.htm">
+          <HelpTOCNode Title="ConvertFrom Method (ITypeDescriptorContext, CultureInfo, Object)" Url="html/M_Yodiwo_API_Plegma_BlockKeyConverter_ConvertFrom.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Id="ce73db1f-1ad7-4dec-9d8e-394b5a63c200" Title="ConvertTo Method " Url="html/Overload_Yodiwo_API_Plegma_BlockKeyConverter_ConvertTo.htm">
+          <HelpTOCNode Title="ConvertTo Method (ITypeDescriptorContext, CultureInfo, Object, Type)" Url="html/M_Yodiwo_API_Plegma_BlockKeyConverter_ConvertTo.htm" />
+        </HelpTOCNode>
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="5195bab2-074c-44df-b0b6-91775df224ea" Title="ConfigDescription Class" Url="html/T_Yodiwo_API_Plegma_ConfigDescription.htm">
+      <HelpTOCNode Title="ConfigDescription Constructor " Url="html/M_Yodiwo_API_Plegma_ConfigDescription__ctor.htm" />
+      <HelpTOCNode Title="ConfigDescription Methods" Url="html/Methods_T_Yodiwo_API_Plegma_ConfigDescription.htm" />
+      <HelpTOCNode Id="c6609850-9d67-40f3-9090-63aca0d0824f" Title="ConfigDescription Fields" Url="html/Fields_T_Yodiwo_API_Plegma_ConfigDescription.htm">
+        <HelpTOCNode Title="DefaultValue Field" Url="html/F_Yodiwo_API_Plegma_ConfigDescription_DefaultValue.htm" />
+        <HelpTOCNode Title="Description Field" Url="html/F_Yodiwo_API_Plegma_ConfigDescription_Description.htm" />
+        <HelpTOCNode Title="Label Field" Url="html/F_Yodiwo_API_Plegma_ConfigDescription_Label.htm" />
+        <HelpTOCNode Title="Maximum Field" Url="html/F_Yodiwo_API_Plegma_ConfigDescription_Maximum.htm" />
+        <HelpTOCNode Title="Minimum Field" Url="html/F_Yodiwo_API_Plegma_ConfigDescription_Minimum.htm" />
+        <HelpTOCNode Title="Name Field" Url="html/F_Yodiwo_API_Plegma_ConfigDescription_Name.htm" />
+        <HelpTOCNode Title="ReadOnly Field" Url="html/F_Yodiwo_API_Plegma_ConfigDescription_ReadOnly.htm" />
+        <HelpTOCNode Title="Required Field" Url="html/F_Yodiwo_API_Plegma_ConfigDescription_Required.htm" />
+        <HelpTOCNode Title="Stepsize Field" Url="html/F_Yodiwo_API_Plegma_ConfigDescription_Stepsize.htm" />
+        <HelpTOCNode Title="Type Field" Url="html/F_Yodiwo_API_Plegma_ConfigDescription_Type.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="74e1f9b2-7c65-459f-abbd-c2c60e1993d3" Title="ConfigParameter Structure" Url="html/T_Yodiwo_API_Plegma_ConfigParameter.htm">
+      <HelpTOCNode Title="ConfigParameter Methods" Url="html/Methods_T_Yodiwo_API_Plegma_ConfigParameter.htm" />
+      <HelpTOCNode Id="69afbe65-e538-4031-8659-a75d2032b53c" Title="ConfigParameter Fields" Url="html/Fields_T_Yodiwo_API_Plegma_ConfigParameter.htm">
+        <HelpTOCNode Title="Name Field" Url="html/F_Yodiwo_API_Plegma_ConfigParameter_Name.htm" />
+        <HelpTOCNode Title="Value Field" Url="html/F_Yodiwo_API_Plegma_ConfigParameter_Value.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="b6fe7aa8-7745-4751-8a09-07a3b30b2590" Title="Constants Class" Url="html/T_Yodiwo_API_Plegma_Constants.htm">
+      <HelpTOCNode Id="728bf392-fe13-4528-bfe4-9e4273d15c58" Title="Constants Fields" Url="html/Fields_T_Yodiwo_API_Plegma_Constants.htm">
+        <HelpTOCNode Title="InvalidKeyString Field" Url="html/F_Yodiwo_API_Plegma_Constants_InvalidKeyString.htm" />
+        <HelpTOCNode Title="YPChannelPort Field" Url="html/F_Yodiwo_API_Plegma_Constants_YPChannelPort.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="4971c94d-36e5-44b6-86ad-9d9a53aa470a" Title="DataContentDescriptor Class" Url="html/T_Yodiwo_API_Plegma_DataContentDescriptor.htm">
+      <HelpTOCNode Title="DataContentDescriptor Constructor " Url="html/M_Yodiwo_API_Plegma_DataContentDescriptor__ctor.htm" />
+      <HelpTOCNode Title="DataContentDescriptor Methods" Url="html/Methods_T_Yodiwo_API_Plegma_DataContentDescriptor.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Id="16405a3b-b1b7-4a7a-a0a6-0ab4fec6de66" Title="DriverKey Structure" Url="html/T_Yodiwo_API_Plegma_DriverKey.htm">
+      <HelpTOCNode Title="DriverKey Constructor " Url="html/M_Yodiwo_API_Plegma_DriverKey__ctor.htm" />
+      <HelpTOCNode Id="514a775c-b76a-427b-91ff-42ad20620099" Title="DriverKey Properties" Url="html/Properties_T_Yodiwo_API_Plegma_DriverKey.htm">
+        <HelpTOCNode Title="IsInvalid Property " Url="html/P_Yodiwo_API_Plegma_DriverKey_IsInvalid.htm" />
+        <HelpTOCNode Title="IsValid Property " Url="html/P_Yodiwo_API_Plegma_DriverKey_IsValid.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="bbbe5da8-360b-4eac-9b94-ac30051fd841" Title="DriverKey Methods" Url="html/Methods_T_Yodiwo_API_Plegma_DriverKey.htm">
+        <HelpTOCNode Title="ConvertFromString Method " Url="html/M_Yodiwo_API_Plegma_DriverKey_ConvertFromString.htm" />
+        <HelpTOCNode Id="917230e9-9e74-4332-a186-8766e6daa84c" Title="Equals Method " Url="html/Overload_Yodiwo_API_Plegma_DriverKey_Equals.htm">
+          <HelpTOCNode Title="Equals Method (Object)" Url="html/M_Yodiwo_API_Plegma_DriverKey_Equals.htm" />
+          <HelpTOCNode Title="Equals Method (DriverKey)" Url="html/M_Yodiwo_API_Plegma_DriverKey_Equals_1.htm" />
+          <HelpTOCNode Title="Equals Method (DriverKey)" Url="html/M_Yodiwo_API_Plegma_DriverKey_Equals_2.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Title="FillFromString Method " Url="html/M_Yodiwo_API_Plegma_DriverKey_FillFromString.htm" />
+        <HelpTOCNode Title="GetHashCode Method " Url="html/M_Yodiwo_API_Plegma_DriverKey_GetHashCode.htm" />
+        <HelpTOCNode Title="ToString Method " Url="html/M_Yodiwo_API_Plegma_DriverKey_ToString.htm" />
+        <HelpTOCNode Title="ToStringEx Method " Url="html/M_Yodiwo_API_Plegma_DriverKey_ToStringEx.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="173b9536-7522-404e-b087-c83af8d04005" Title="DriverKey Operators and Type Conversions" Url="html/Operators_T_Yodiwo_API_Plegma_DriverKey.htm">
+        <HelpTOCNode Title="Equality Operator " Url="html/M_Yodiwo_API_Plegma_DriverKey_op_Equality.htm" />
+        <HelpTOCNode Id="6b8e74d5-e7f8-41cf-b951-730f69dd36e7" Title="Implicit Conversion Operators" Url="html/Overload_Yodiwo_API_Plegma_DriverKey_op_Implicit.htm">
+          <HelpTOCNode Title="Implicit Conversion (String to DriverKey)" Url="html/M_Yodiwo_API_Plegma_DriverKey_op_Implicit.htm" />
+          <HelpTOCNode Title="Implicit Conversion (DriverKey to String)" Url="html/M_Yodiwo_API_Plegma_DriverKey_op_Implicit_1.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Title="Inequality Operator " Url="html/M_Yodiwo_API_Plegma_DriverKey_op_Inequality.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="89f27416-227a-456b-8b95-c6c1d728a95c" Title="DriverKey Fields" Url="html/Fields_T_Yodiwo_API_Plegma_DriverKey.htm">
+        <HelpTOCNode Title="Id Field" Url="html/F_Yodiwo_API_Plegma_DriverKey_Id.htm" />
+        <HelpTOCNode Title="Type Field" Url="html/F_Yodiwo_API_Plegma_DriverKey_Type.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="4ca9133a-c07f-4902-890a-03adfeaf1cb8" Title="DriverKeyConverter Class" Url="html/T_Yodiwo_API_Plegma_DriverKeyConverter.htm">
+      <HelpTOCNode Title="DriverKeyConverter Constructor " Url="html/M_Yodiwo_API_Plegma_DriverKeyConverter__ctor.htm" />
+      <HelpTOCNode Id="6467cd41-4a03-4f75-bab4-caaae7159bcb" Title="DriverKeyConverter Methods" Url="html/Methods_T_Yodiwo_API_Plegma_DriverKeyConverter.htm">
+        <HelpTOCNode Id="6e38b3a0-9514-4721-b8c2-ec5aead75632" Title="CanConvertFrom Method " Url="html/Overload_Yodiwo_API_Plegma_DriverKeyConverter_CanConvertFrom.htm">
+          <HelpTOCNode Title="CanConvertFrom Method (ITypeDescriptorContext, Type)" Url="html/M_Yodiwo_API_Plegma_DriverKeyConverter_CanConvertFrom.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Id="7cc79960-983c-41a5-8340-ba5185426ec6" Title="CanConvertTo Method " Url="html/Overload_Yodiwo_API_Plegma_DriverKeyConverter_CanConvertTo.htm">
+          <HelpTOCNode Title="CanConvertTo Method (ITypeDescriptorContext, Type)" Url="html/M_Yodiwo_API_Plegma_DriverKeyConverter_CanConvertTo.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Id="368ddc87-e54c-4c81-a6f5-acb00c9a2eea" Title="ConvertFrom Method " Url="html/Overload_Yodiwo_API_Plegma_DriverKeyConverter_ConvertFrom.htm">
+          <HelpTOCNode Title="ConvertFrom Method (ITypeDescriptorContext, CultureInfo, Object)" Url="html/M_Yodiwo_API_Plegma_DriverKeyConverter_ConvertFrom.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Id="56a50d49-2ad4-4adb-9438-b3e1a1497a40" Title="ConvertTo Method " Url="html/Overload_Yodiwo_API_Plegma_DriverKeyConverter_ConvertTo.htm">
+          <HelpTOCNode Title="ConvertTo Method (ITypeDescriptorContext, CultureInfo, Object, Type)" Url="html/M_Yodiwo_API_Plegma_DriverKeyConverter_ConvertTo.htm" />
+        </HelpTOCNode>
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Title="eA2mcuCtrlType Enumeration" Url="html/T_Yodiwo_API_Plegma_eA2mcuCtrlType.htm" />
+    <HelpTOCNode Title="eConnectionFlags Enumeration" Url="html/T_Yodiwo_API_Plegma_eConnectionFlags.htm" />
+    <HelpTOCNode Title="eDriverType Enumeration" Url="html/T_Yodiwo_API_Plegma_eDriverType.htm" />
+    <HelpTOCNode Id="56405dec-5114-4332-84b4-e557e570da1b" Title="EndpointSyncReq Class" Url="html/T_Yodiwo_API_Plegma_EndpointSyncReq.htm">
+      <HelpTOCNode Id="15fd916e-38fe-4859-841e-769190183a76" Title="EndpointSyncReq Constructor " Url="html/Overload_Yodiwo_API_Plegma_EndpointSyncReq__ctor.htm">
+        <HelpTOCNode Title="EndpointSyncReq Constructor " Url="html/M_Yodiwo_API_Plegma_EndpointSyncReq__ctor.htm" />
+        <HelpTOCNode Title="EndpointSyncReq Constructor (Int32)" Url="html/M_Yodiwo_API_Plegma_EndpointSyncReq__ctor_1.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="EndpointSyncReq Methods" Url="html/Methods_T_Yodiwo_API_Plegma_EndpointSyncReq.htm" />
+      <HelpTOCNode Id="9eb1406e-50a0-48be-b3e3-a3a3f703eb03" Title="EndpointSyncReq Fields" Url="html/Fields_T_Yodiwo_API_Plegma_EndpointSyncReq.htm">
+        <HelpTOCNode Title="DesiredEndpoint Field" Url="html/F_Yodiwo_API_Plegma_EndpointSyncReq_DesiredEndpoint.htm" />
+        <HelpTOCNode Title="op Field" Url="html/F_Yodiwo_API_Plegma_EndpointSyncReq_op.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="d7a7099e-84a1-4434-91db-0ef71d0bb71e" Title="EndpointSyncRsp Class" Url="html/T_Yodiwo_API_Plegma_EndpointSyncRsp.htm">
+      <HelpTOCNode Id="cda2eed6-c002-4f64-9632-f4bec33cd5a0" Title="EndpointSyncRsp Constructor " Url="html/Overload_Yodiwo_API_Plegma_EndpointSyncRsp__ctor.htm">
+        <HelpTOCNode Title="EndpointSyncRsp Constructor " Url="html/M_Yodiwo_API_Plegma_EndpointSyncRsp__ctor.htm" />
+        <HelpTOCNode Title="EndpointSyncRsp Constructor (Int32)" Url="html/M_Yodiwo_API_Plegma_EndpointSyncRsp__ctor_1.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="EndpointSyncRsp Methods" Url="html/Methods_T_Yodiwo_API_Plegma_EndpointSyncRsp.htm" />
+      <HelpTOCNode Id="dd5c1717-09d8-430a-b639-74fefafef621" Title="EndpointSyncRsp Fields" Url="html/Fields_T_Yodiwo_API_Plegma_EndpointSyncRsp.htm">
+        <HelpTOCNode Title="Accepted Field" Url="html/F_Yodiwo_API_Plegma_EndpointSyncRsp_Accepted.htm" />
+        <HelpTOCNode Title="Endpoints Field" Url="html/F_Yodiwo_API_Plegma_EndpointSyncRsp_Endpoints.htm" />
+        <HelpTOCNode Title="op Field" Url="html/F_Yodiwo_API_Plegma_EndpointSyncRsp_op.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Title="eNodeCapa Enumeration" Url="html/T_Yodiwo_API_Plegma_eNodeCapa.htm" />
+    <HelpTOCNode Title="eNodeSyncOperation Enumeration" Url="html/T_Yodiwo_API_Plegma_eNodeSyncOperation.htm" />
+    <HelpTOCNode Title="eNodeType Enumeration" Url="html/T_Yodiwo_API_Plegma_eNodeType.htm" />
+    <HelpTOCNode Title="ePortConf Enumeration" Url="html/T_Yodiwo_API_Plegma_ePortConf.htm" />
+    <HelpTOCNode Title="ePortStateOperation Enumeration" Url="html/T_Yodiwo_API_Plegma_ePortStateOperation.htm" />
+    <HelpTOCNode Title="ePortType Enumeration" Url="html/T_Yodiwo_API_Plegma_ePortType.htm" />
+    <HelpTOCNode Title="eThingsOperation Enumeration" Url="html/T_Yodiwo_API_Plegma_eThingsOperation.htm" />
+    <HelpTOCNode Title="eUnpairReason Enumeration" Url="html/T_Yodiwo_API_Plegma_eUnpairReason.htm" />
+    <HelpTOCNode Id="fc10082f-a567-4331-9fef-f2a58c8a254b" Title="GeneratorIgnoreAttribute Class" Url="html/T_Yodiwo_API_Plegma_GeneratorIgnoreAttribute.htm">
+      <HelpTOCNode Title="GeneratorIgnoreAttribute Constructor " Url="html/M_Yodiwo_API_Plegma_GeneratorIgnoreAttribute__ctor.htm" />
+      <HelpTOCNode Title="GeneratorIgnoreAttribute Properties" Url="html/Properties_T_Yodiwo_API_Plegma_GeneratorIgnoreAttribute.htm" />
+      <HelpTOCNode Title="GeneratorIgnoreAttribute Methods" Url="html/Methods_T_Yodiwo_API_Plegma_GeneratorIgnoreAttribute.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Id="9cfd5824-80b4-4111-9e2f-fb41208a9fd1" Title="GenericRsp Class" Url="html/T_Yodiwo_API_Plegma_GenericRsp.htm">
+      <HelpTOCNode Title="GenericRsp Constructor " Url="html/M_Yodiwo_API_Plegma_GenericRsp__ctor.htm" />
+      <HelpTOCNode Title="GenericRsp Methods" Url="html/Methods_T_Yodiwo_API_Plegma_GenericRsp.htm" />
+      <HelpTOCNode Id="4fdd8ba3-afb2-433c-a2b9-12d717745b2d" Title="GenericRsp Fields" Url="html/Fields_T_Yodiwo_API_Plegma_GenericRsp.htm">
+        <HelpTOCNode Title="IsSuccess Field" Url="html/F_Yodiwo_API_Plegma_GenericRsp_IsSuccess.htm" />
+        <HelpTOCNode Title="Message Field" Url="html/F_Yodiwo_API_Plegma_GenericRsp_Message.htm" />
+        <HelpTOCNode Title="StatusCode Field" Url="html/F_Yodiwo_API_Plegma_GenericRsp_StatusCode.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="98e3d501-5136-467f-a382-37495589f76f" Title="GraphDeploymentReq Class" Url="html/T_Yodiwo_API_Plegma_GraphDeploymentReq.htm">
+      <HelpTOCNode Title="GraphDeploymentReq Constructor " Url="html/M_Yodiwo_API_Plegma_GraphDeploymentReq__ctor.htm" />
+      <HelpTOCNode Title="GraphDeploymentReq Methods" Url="html/Methods_T_Yodiwo_API_Plegma_GraphDeploymentReq.htm" />
+      <HelpTOCNode Id="f5425b47-c9b2-46a5-9e2f-47341fbeee6a" Title="GraphDeploymentReq Fields" Url="html/Fields_T_Yodiwo_API_Plegma_GraphDeploymentReq.htm">
+        <HelpTOCNode Title="GraphDescriptor Field" Url="html/F_Yodiwo_API_Plegma_GraphDeploymentReq_GraphDescriptor.htm" />
+        <HelpTOCNode Title="GraphKey Field" Url="html/F_Yodiwo_API_Plegma_GraphDeploymentReq_GraphKey.htm" />
+        <HelpTOCNode Title="IsDeployed Field" Url="html/F_Yodiwo_API_Plegma_GraphDeploymentReq_IsDeployed.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="97262859-8e4a-46aa-a52c-ff9957d52d68" Title="GraphDescriptorBaseKey Structure" Url="html/T_Yodiwo_API_Plegma_GraphDescriptorBaseKey.htm">
+      <HelpTOCNode Title="GraphDescriptorBaseKey Constructor " Url="html/M_Yodiwo_API_Plegma_GraphDescriptorBaseKey__ctor.htm" />
+      <HelpTOCNode Id="8261832e-8d1f-4e7b-91aa-89569ba59d88" Title="GraphDescriptorBaseKey Properties" Url="html/Properties_T_Yodiwo_API_Plegma_GraphDescriptorBaseKey.htm">
+        <HelpTOCNode Title="IsInvalid Property " Url="html/P_Yodiwo_API_Plegma_GraphDescriptorBaseKey_IsInvalid.htm" />
+        <HelpTOCNode Title="IsValid Property " Url="html/P_Yodiwo_API_Plegma_GraphDescriptorBaseKey_IsValid.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="c1b2fbed-9097-492a-bb86-6470e851150d" Title="GraphDescriptorBaseKey Methods" Url="html/Methods_T_Yodiwo_API_Plegma_GraphDescriptorBaseKey.htm">
+        <HelpTOCNode Title="ConvertFromString Method " Url="html/M_Yodiwo_API_Plegma_GraphDescriptorBaseKey_ConvertFromString.htm" />
+        <HelpTOCNode Id="13fa3f99-369e-4652-b773-2820c1307406" Title="Equals Method " Url="html/Overload_Yodiwo_API_Plegma_GraphDescriptorBaseKey_Equals.htm">
+          <HelpTOCNode Title="Equals Method (Object)" Url="html/M_Yodiwo_API_Plegma_GraphDescriptorBaseKey_Equals.htm" />
+          <HelpTOCNode Title="Equals Method (GraphDescriptorBaseKey)" Url="html/M_Yodiwo_API_Plegma_GraphDescriptorBaseKey_Equals_1.htm" />
+          <HelpTOCNode Title="Equals Method (GraphDescriptorBaseKey)" Url="html/M_Yodiwo_API_Plegma_GraphDescriptorBaseKey_Equals_2.htm" />
+          <HelpTOCNode Title="Equals Method (GraphDescriptorKey)" Url="html/M_Yodiwo_API_Plegma_GraphDescriptorBaseKey_Equals_3.htm" />
+          <HelpTOCNode Title="Equals Method (GraphDescriptorKey)" Url="html/M_Yodiwo_API_Plegma_GraphDescriptorBaseKey_Equals_4.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Title="FillFromString Method " Url="html/M_Yodiwo_API_Plegma_GraphDescriptorBaseKey_FillFromString.htm" />
+        <HelpTOCNode Title="GetHashCode Method " Url="html/M_Yodiwo_API_Plegma_GraphDescriptorBaseKey_GetHashCode.htm" />
+        <HelpTOCNode Title="ToString Method " Url="html/M_Yodiwo_API_Plegma_GraphDescriptorBaseKey_ToString.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="95545332-d009-4bcb-8d35-72ac366fcd46" Title="GraphDescriptorBaseKey Operators and Type Conversions" Url="html/Operators_T_Yodiwo_API_Plegma_GraphDescriptorBaseKey.htm">
+        <HelpTOCNode Id="015d38f3-54a0-41be-92d0-a3a64737a158" Title="Equality Operator " Url="html/Overload_Yodiwo_API_Plegma_GraphDescriptorBaseKey_op_Equality.htm">
+          <HelpTOCNode Title="Equality Operator (GraphDescriptorBaseKey, GraphDescriptorBaseKey)" Url="html/M_Yodiwo_API_Plegma_GraphDescriptorBaseKey_op_Equality.htm" />
+          <HelpTOCNode Title="Equality Operator (GraphDescriptorBaseKey, GraphDescriptorKey)" Url="html/M_Yodiwo_API_Plegma_GraphDescriptorBaseKey_op_Equality_1.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Id="9dec202d-db84-43c2-9d8a-e8be7fc487d4" Title="Implicit Conversion Operators" Url="html/Overload_Yodiwo_API_Plegma_GraphDescriptorBaseKey_op_Implicit.htm">
+          <HelpTOCNode Title="Implicit Conversion (String to GraphDescriptorBaseKey)" Url="html/M_Yodiwo_API_Plegma_GraphDescriptorBaseKey_op_Implicit.htm" />
+          <HelpTOCNode Title="Implicit Conversion (GraphDescriptorBaseKey to String)" Url="html/M_Yodiwo_API_Plegma_GraphDescriptorBaseKey_op_Implicit_1.htm" />
+          <HelpTOCNode Title="Implicit Conversion (GraphDescriptorKey to GraphDescriptorBaseKey)" Url="html/M_Yodiwo_API_Plegma_GraphDescriptorBaseKey_op_Implicit_2.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Id="300bf498-eb07-442f-8349-23a414e79e14" Title="Inequality Operator " Url="html/Overload_Yodiwo_API_Plegma_GraphDescriptorBaseKey_op_Inequality.htm">
+          <HelpTOCNode Title="Inequality Operator (GraphDescriptorBaseKey, GraphDescriptorBaseKey)" Url="html/M_Yodiwo_API_Plegma_GraphDescriptorBaseKey_op_Inequality.htm" />
+          <HelpTOCNode Title="Inequality Operator (GraphDescriptorBaseKey, GraphDescriptorKey)" Url="html/M_Yodiwo_API_Plegma_GraphDescriptorBaseKey_op_Inequality_1.htm" />
+        </HelpTOCNode>
+      </HelpTOCNode>
+      <HelpTOCNode Id="00baee49-0470-46fc-9d32-c5b3122630f4" Title="GraphDescriptorBaseKey Fields" Url="html/Fields_T_Yodiwo_API_Plegma_GraphDescriptorBaseKey.htm">
+        <HelpTOCNode Title="Id Field" Url="html/F_Yodiwo_API_Plegma_GraphDescriptorBaseKey_Id.htm" />
+        <HelpTOCNode Title="UserKey Field" Url="html/F_Yodiwo_API_Plegma_GraphDescriptorBaseKey_UserKey.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="48edb6f2-ee3b-49f2-8772-94d2070fd300" Title="GraphDescriptorKey Structure" Url="html/T_Yodiwo_API_Plegma_GraphDescriptorKey.htm">
+      <HelpTOCNode Id="d8e8259f-da22-4167-b01c-b26810b99d17" Title="GraphDescriptorKey Constructor " Url="html/Overload_Yodiwo_API_Plegma_GraphDescriptorKey__ctor.htm">
+        <HelpTOCNode Title="GraphDescriptorKey Constructor (GraphDescriptorBaseKey, Int32)" Url="html/M_Yodiwo_API_Plegma_GraphDescriptorKey__ctor.htm" />
+        <HelpTOCNode Title="GraphDescriptorKey Constructor (UserKey, String, Int32)" Url="html/M_Yodiwo_API_Plegma_GraphDescriptorKey__ctor_1.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="3af3383b-1d6d-4946-a906-ce68740beb48" Title="GraphDescriptorKey Properties" Url="html/Properties_T_Yodiwo_API_Plegma_GraphDescriptorKey.htm">
+        <HelpTOCNode Title="Id Property " Url="html/P_Yodiwo_API_Plegma_GraphDescriptorKey_Id.htm" />
+        <HelpTOCNode Title="IsInvalid Property " Url="html/P_Yodiwo_API_Plegma_GraphDescriptorKey_IsInvalid.htm" />
+        <HelpTOCNode Title="IsValid Property " Url="html/P_Yodiwo_API_Plegma_GraphDescriptorKey_IsValid.htm" />
+        <HelpTOCNode Title="UserKey Property " Url="html/P_Yodiwo_API_Plegma_GraphDescriptorKey_UserKey.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="5a353e06-6bbb-42d2-b0c4-b292b1dc41a2" Title="GraphDescriptorKey Methods" Url="html/Methods_T_Yodiwo_API_Plegma_GraphDescriptorKey.htm">
+        <HelpTOCNode Title="ConvertFromString Method " Url="html/M_Yodiwo_API_Plegma_GraphDescriptorKey_ConvertFromString.htm" />
+        <HelpTOCNode Id="cc3256b9-0ca5-4ee8-a38c-c98f9c99573c" Title="Equals Method " Url="html/Overload_Yodiwo_API_Plegma_GraphDescriptorKey_Equals.htm">
+          <HelpTOCNode Title="Equals Method (Object)" Url="html/M_Yodiwo_API_Plegma_GraphDescriptorKey_Equals.htm" />
+          <HelpTOCNode Title="Equals Method (GraphDescriptorKey)" Url="html/M_Yodiwo_API_Plegma_GraphDescriptorKey_Equals_1.htm" />
+          <HelpTOCNode Title="Equals Method (GraphDescriptorKey)" Url="html/M_Yodiwo_API_Plegma_GraphDescriptorKey_Equals_2.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Title="GetHashCode Method " Url="html/M_Yodiwo_API_Plegma_GraphDescriptorKey_GetHashCode.htm" />
+        <HelpTOCNode Title="ToString Method " Url="html/M_Yodiwo_API_Plegma_GraphDescriptorKey_ToString.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="4903c282-a855-43fa-8e6d-174e2ab56ddf" Title="GraphDescriptorKey Operators and Type Conversions" Url="html/Operators_T_Yodiwo_API_Plegma_GraphDescriptorKey.htm">
+        <HelpTOCNode Title="Equality Operator " Url="html/M_Yodiwo_API_Plegma_GraphDescriptorKey_op_Equality.htm" />
+        <HelpTOCNode Id="9f56e232-f4a0-481e-947e-2b370ebfdfe1" Title="Implicit Conversion Operators" Url="html/Overload_Yodiwo_API_Plegma_GraphDescriptorKey_op_Implicit.htm">
+          <HelpTOCNode Title="Implicit Conversion (String to GraphDescriptorKey)" Url="html/M_Yodiwo_API_Plegma_GraphDescriptorKey_op_Implicit.htm" />
+          <HelpTOCNode Title="Implicit Conversion (GraphDescriptorKey to String)" Url="html/M_Yodiwo_API_Plegma_GraphDescriptorKey_op_Implicit_1.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Title="Inequality Operator " Url="html/M_Yodiwo_API_Plegma_GraphDescriptorKey_op_Inequality.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="0aebc4a4-4a82-4bde-a77f-6f8a69f840be" Title="GraphDescriptorKey Fields" Url="html/Fields_T_Yodiwo_API_Plegma_GraphDescriptorKey.htm">
+        <HelpTOCNode Title="BaseKey Field" Url="html/F_Yodiwo_API_Plegma_GraphDescriptorKey_BaseKey.htm" />
+        <HelpTOCNode Title="Revision Field" Url="html/F_Yodiwo_API_Plegma_GraphDescriptorKey_Revision.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="8707190c-5382-4c4d-9b43-8b271a2d328a" Title="GraphDescriptorKeyConverter Class" Url="html/T_Yodiwo_API_Plegma_GraphDescriptorKeyConverter.htm">
+      <HelpTOCNode Title="GraphDescriptorKeyConverter Constructor " Url="html/M_Yodiwo_API_Plegma_GraphDescriptorKeyConverter__ctor.htm" />
+      <HelpTOCNode Id="eb8bb27b-1188-4d78-9a3d-691215a0ab47" Title="GraphDescriptorKeyConverter Methods" Url="html/Methods_T_Yodiwo_API_Plegma_GraphDescriptorKeyConverter.htm">
+        <HelpTOCNode Id="6ab837c7-7d74-428c-80b9-7402c4cdd096" Title="CanConvertFrom Method " Url="html/Overload_Yodiwo_API_Plegma_GraphDescriptorKeyConverter_CanConvertFrom.htm">
+          <HelpTOCNode Title="CanConvertFrom Method (ITypeDescriptorContext, Type)" Url="html/M_Yodiwo_API_Plegma_GraphDescriptorKeyConverter_CanConvertFrom.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Id="0d254885-9728-4d46-99db-cf19cd2336a0" Title="CanConvertTo Method " Url="html/Overload_Yodiwo_API_Plegma_GraphDescriptorKeyConverter_CanConvertTo.htm">
+          <HelpTOCNode Title="CanConvertTo Method (ITypeDescriptorContext, Type)" Url="html/M_Yodiwo_API_Plegma_GraphDescriptorKeyConverter_CanConvertTo.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Id="4101a87d-4a1c-4fb8-a4be-b16484a14346" Title="ConvertFrom Method " Url="html/Overload_Yodiwo_API_Plegma_GraphDescriptorKeyConverter_ConvertFrom.htm">
+          <HelpTOCNode Title="ConvertFrom Method (ITypeDescriptorContext, CultureInfo, Object)" Url="html/M_Yodiwo_API_Plegma_GraphDescriptorKeyConverter_ConvertFrom.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Id="ed10927a-2715-4cf6-b5a2-05d2885305ca" Title="ConvertTo Method " Url="html/Overload_Yodiwo_API_Plegma_GraphDescriptorKeyConverter_ConvertTo.htm">
+          <HelpTOCNode Title="ConvertTo Method (ITypeDescriptorContext, CultureInfo, Object, Type)" Url="html/M_Yodiwo_API_Plegma_GraphDescriptorKeyConverter_ConvertTo.htm" />
+        </HelpTOCNode>
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="166f88b0-da6f-4776-afd1-e52d87f35749" Title="GraphKey Structure" Url="html/T_Yodiwo_API_Plegma_GraphKey.htm">
+      <HelpTOCNode Title="GraphKey Constructor " Url="html/M_Yodiwo_API_Plegma_GraphKey__ctor.htm" />
+      <HelpTOCNode Id="cef84dc0-8a72-4b8e-b740-60ce5fd90eb6" Title="GraphKey Properties" Url="html/Properties_T_Yodiwo_API_Plegma_GraphKey.htm">
+        <HelpTOCNode Title="IsInvalid Property " Url="html/P_Yodiwo_API_Plegma_GraphKey_IsInvalid.htm" />
+        <HelpTOCNode Title="IsValid Property " Url="html/P_Yodiwo_API_Plegma_GraphKey_IsValid.htm" />
+        <HelpTOCNode Title="NodeKey Property " Url="html/P_Yodiwo_API_Plegma_GraphKey_NodeKey.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="325f0c75-7cbe-4a6c-803d-5d4e42889d38" Title="GraphKey Methods" Url="html/Methods_T_Yodiwo_API_Plegma_GraphKey.htm">
+        <HelpTOCNode Title="ConvertFromString Method " Url="html/M_Yodiwo_API_Plegma_GraphKey_ConvertFromString.htm" />
+        <HelpTOCNode Id="96f0f0c0-28e3-4c4b-a9fa-b9504d42acf4" Title="Equals Method " Url="html/Overload_Yodiwo_API_Plegma_GraphKey_Equals.htm">
+          <HelpTOCNode Title="Equals Method (Object)" Url="html/M_Yodiwo_API_Plegma_GraphKey_Equals.htm" />
+          <HelpTOCNode Title="Equals Method (GraphKey)" Url="html/M_Yodiwo_API_Plegma_GraphKey_Equals_1.htm" />
+          <HelpTOCNode Title="Equals Method (GraphKey)" Url="html/M_Yodiwo_API_Plegma_GraphKey_Equals_2.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Title="FillFromString Method " Url="html/M_Yodiwo_API_Plegma_GraphKey_FillFromString.htm" />
+        <HelpTOCNode Title="GetHashCode Method " Url="html/M_Yodiwo_API_Plegma_GraphKey_GetHashCode.htm" />
+        <HelpTOCNode Title="ToString Method " Url="html/M_Yodiwo_API_Plegma_GraphKey_ToString.htm" />
+        <HelpTOCNode Title="ToStringEx Method " Url="html/M_Yodiwo_API_Plegma_GraphKey_ToStringEx.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="12d2013c-c6ac-4764-9a57-5ab9245b84c5" Title="GraphKey Operators and Type Conversions" Url="html/Operators_T_Yodiwo_API_Plegma_GraphKey.htm">
+        <HelpTOCNode Title="Equality Operator " Url="html/M_Yodiwo_API_Plegma_GraphKey_op_Equality.htm" />
+        <HelpTOCNode Id="aacc3553-e1db-4fc4-9b73-1389848618ba" Title="Implicit Conversion Operators" Url="html/Overload_Yodiwo_API_Plegma_GraphKey_op_Implicit.htm">
+          <HelpTOCNode Title="Implicit Conversion (String to GraphKey)" Url="html/M_Yodiwo_API_Plegma_GraphKey_op_Implicit.htm" />
+          <HelpTOCNode Title="Implicit Conversion (GraphKey to String)" Url="html/M_Yodiwo_API_Plegma_GraphKey_op_Implicit_1.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Title="Inequality Operator " Url="html/M_Yodiwo_API_Plegma_GraphKey_op_Inequality.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="2e36f53b-ba5d-4f02-8485-4a943d7cd45a" Title="GraphKey Fields" Url="html/Fields_T_Yodiwo_API_Plegma_GraphKey.htm">
+        <HelpTOCNode Title="GraphDescriptorKey Field" Url="html/F_Yodiwo_API_Plegma_GraphKey_GraphDescriptorKey.htm" />
+        <HelpTOCNode Title="NodeId Field" Url="html/F_Yodiwo_API_Plegma_GraphKey_NodeId.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="8ec70452-b707-4a91-8890-3db05650b712" Title="GraphKeyConverter Class" Url="html/T_Yodiwo_API_Plegma_GraphKeyConverter.htm">
+      <HelpTOCNode Title="GraphKeyConverter Constructor " Url="html/M_Yodiwo_API_Plegma_GraphKeyConverter__ctor.htm" />
+      <HelpTOCNode Id="6acbff94-f91e-453a-8f22-57fa5561ed98" Title="GraphKeyConverter Methods" Url="html/Methods_T_Yodiwo_API_Plegma_GraphKeyConverter.htm">
+        <HelpTOCNode Id="b0c8cbaf-6962-4489-9014-0222c42b2e92" Title="CanConvertFrom Method " Url="html/Overload_Yodiwo_API_Plegma_GraphKeyConverter_CanConvertFrom.htm">
+          <HelpTOCNode Title="CanConvertFrom Method (ITypeDescriptorContext, Type)" Url="html/M_Yodiwo_API_Plegma_GraphKeyConverter_CanConvertFrom.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Id="c131b4c5-6935-452f-9918-17a21339b1db" Title="CanConvertTo Method " Url="html/Overload_Yodiwo_API_Plegma_GraphKeyConverter_CanConvertTo.htm">
+          <HelpTOCNode Title="CanConvertTo Method (ITypeDescriptorContext, Type)" Url="html/M_Yodiwo_API_Plegma_GraphKeyConverter_CanConvertTo.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Id="708abe5c-cd59-4b72-870a-04e4edfe8dbf" Title="ConvertFrom Method " Url="html/Overload_Yodiwo_API_Plegma_GraphKeyConverter_ConvertFrom.htm">
+          <HelpTOCNode Title="ConvertFrom Method (ITypeDescriptorContext, CultureInfo, Object)" Url="html/M_Yodiwo_API_Plegma_GraphKeyConverter_ConvertFrom.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Id="1db070d4-efdf-49f3-98da-3589461de984" Title="ConvertTo Method " Url="html/Overload_Yodiwo_API_Plegma_GraphKeyConverter_ConvertTo.htm">
+          <HelpTOCNode Title="ConvertTo Method (ITypeDescriptorContext, CultureInfo, Object, Type)" Url="html/M_Yodiwo_API_Plegma_GraphKeyConverter_ConvertTo.htm" />
+        </HelpTOCNode>
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="2dfbbbeb-ca2d-4b45-8d13-7c7e3a42c90e" Title="GroupKey Structure" Url="html/T_Yodiwo_API_Plegma_GroupKey.htm">
+      <HelpTOCNode Title="GroupKey Constructor " Url="html/M_Yodiwo_API_Plegma_GroupKey__ctor.htm" />
+      <HelpTOCNode Id="b18e7295-33c3-4218-a33d-3343914d3679" Title="GroupKey Properties" Url="html/Properties_T_Yodiwo_API_Plegma_GroupKey.htm">
+        <HelpTOCNode Title="IsInvalid Property " Url="html/P_Yodiwo_API_Plegma_GroupKey_IsInvalid.htm" />
+        <HelpTOCNode Title="IsValid Property " Url="html/P_Yodiwo_API_Plegma_GroupKey_IsValid.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="f8c8f8e6-bf45-4933-af8d-61329b02c4c2" Title="GroupKey Methods" Url="html/Methods_T_Yodiwo_API_Plegma_GroupKey.htm">
+        <HelpTOCNode Title="ConvertFromString Method " Url="html/M_Yodiwo_API_Plegma_GroupKey_ConvertFromString.htm" />
+        <HelpTOCNode Id="7647cf4e-16c3-4d76-96ca-1fdee23c6997" Title="Equals Method " Url="html/Overload_Yodiwo_API_Plegma_GroupKey_Equals.htm">
+          <HelpTOCNode Title="Equals Method (Object)" Url="html/M_Yodiwo_API_Plegma_GroupKey_Equals.htm" />
+          <HelpTOCNode Title="Equals Method (GroupKey)" Url="html/M_Yodiwo_API_Plegma_GroupKey_Equals_1.htm" />
+          <HelpTOCNode Title="Equals Method (GroupKey)" Url="html/M_Yodiwo_API_Plegma_GroupKey_Equals_2.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Title="FillFromString Method " Url="html/M_Yodiwo_API_Plegma_GroupKey_FillFromString.htm" />
+        <HelpTOCNode Title="GetHashCode Method " Url="html/M_Yodiwo_API_Plegma_GroupKey_GetHashCode.htm" />
+        <HelpTOCNode Title="ToString Method " Url="html/M_Yodiwo_API_Plegma_GroupKey_ToString.htm" />
+        <HelpTOCNode Title="ToStringEx Method " Url="html/M_Yodiwo_API_Plegma_GroupKey_ToStringEx.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="eeddcdc0-aa75-4c32-bde8-d0c06e4438d6" Title="GroupKey Operators and Type Conversions" Url="html/Operators_T_Yodiwo_API_Plegma_GroupKey.htm">
+        <HelpTOCNode Title="Equality Operator " Url="html/M_Yodiwo_API_Plegma_GroupKey_op_Equality.htm" />
+        <HelpTOCNode Id="07b8cd94-3632-44c7-ab66-86e2d93d4d1a" Title="Implicit Conversion Operators" Url="html/Overload_Yodiwo_API_Plegma_GroupKey_op_Implicit.htm">
+          <HelpTOCNode Title="Implicit Conversion (String to GroupKey)" Url="html/M_Yodiwo_API_Plegma_GroupKey_op_Implicit.htm" />
+          <HelpTOCNode Title="Implicit Conversion (GroupKey to String)" Url="html/M_Yodiwo_API_Plegma_GroupKey_op_Implicit_1.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Title="Inequality Operator " Url="html/M_Yodiwo_API_Plegma_GroupKey_op_Inequality.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="f5bdb040-fb83-4812-93d4-9c0f7f9b01e1" Title="GroupKey Fields" Url="html/Fields_T_Yodiwo_API_Plegma_GroupKey.htm">
+        <HelpTOCNode Title="GroupID Field" Url="html/F_Yodiwo_API_Plegma_GroupKey_GroupID.htm" />
+        <HelpTOCNode Title="UserKey Field" Url="html/F_Yodiwo_API_Plegma_GroupKey_UserKey.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="a6041061-193f-4a6c-9ec6-753b24eba5b8" Title="GroupKeyConverter Class" Url="html/T_Yodiwo_API_Plegma_GroupKeyConverter.htm">
+      <HelpTOCNode Title="GroupKeyConverter Constructor " Url="html/M_Yodiwo_API_Plegma_GroupKeyConverter__ctor.htm" />
+      <HelpTOCNode Id="4045510f-a391-4ecf-a798-2ccad68d485e" Title="GroupKeyConverter Methods" Url="html/Methods_T_Yodiwo_API_Plegma_GroupKeyConverter.htm">
+        <HelpTOCNode Id="7b5db118-922d-4eab-8aed-9e63523a111c" Title="CanConvertFrom Method " Url="html/Overload_Yodiwo_API_Plegma_GroupKeyConverter_CanConvertFrom.htm">
+          <HelpTOCNode Title="CanConvertFrom Method (ITypeDescriptorContext, Type)" Url="html/M_Yodiwo_API_Plegma_GroupKeyConverter_CanConvertFrom.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Id="fea01efb-b4ba-40c3-8a52-3cad48fa4b63" Title="CanConvertTo Method " Url="html/Overload_Yodiwo_API_Plegma_GroupKeyConverter_CanConvertTo.htm">
+          <HelpTOCNode Title="CanConvertTo Method (ITypeDescriptorContext, Type)" Url="html/M_Yodiwo_API_Plegma_GroupKeyConverter_CanConvertTo.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Id="4ccfe93c-8b64-452b-96d9-42ef1c7c9c61" Title="ConvertFrom Method " Url="html/Overload_Yodiwo_API_Plegma_GroupKeyConverter_ConvertFrom.htm">
+          <HelpTOCNode Title="ConvertFrom Method (ITypeDescriptorContext, CultureInfo, Object)" Url="html/M_Yodiwo_API_Plegma_GroupKeyConverter_ConvertFrom.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Id="847831a5-bd62-4f46-af91-4e391cbff5ab" Title="ConvertTo Method " Url="html/Overload_Yodiwo_API_Plegma_GroupKeyConverter_ConvertTo.htm">
+          <HelpTOCNode Title="ConvertTo Method (ITypeDescriptorContext, CultureInfo, Object, Type)" Url="html/M_Yodiwo_API_Plegma_GroupKeyConverter_ConvertTo.htm" />
+        </HelpTOCNode>
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="2e722536-e8f0-4e85-8324-5f08180e6999" Title="HttpLocationDescriptor Class" Url="html/T_Yodiwo_API_Plegma_HttpLocationDescriptor.htm">
+      <HelpTOCNode Title="HttpLocationDescriptor Constructor " Url="html/M_Yodiwo_API_Plegma_HttpLocationDescriptor__ctor.htm" />
+      <HelpTOCNode Title="HttpLocationDescriptor Methods" Url="html/Methods_T_Yodiwo_API_Plegma_HttpLocationDescriptor.htm" />
+      <HelpTOCNode Id="e533121d-7722-4a74-94b6-12146f9d0a50" Title="HttpLocationDescriptor Fields" Url="html/Fields_T_Yodiwo_API_Plegma_HttpLocationDescriptor.htm">
+        <HelpTOCNode Title="RestServiceType Field" Url="html/F_Yodiwo_API_Plegma_HttpLocationDescriptor_RestServiceType.htm" />
+        <HelpTOCNode Title="Uri Field" Url="html/F_Yodiwo_API_Plegma_HttpLocationDescriptor_Uri.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="184c5831-81a3-4c5f-a9f8-82342a9b0635" Title="ImageContentDescriptor Class" Url="html/T_Yodiwo_API_Plegma_ImageContentDescriptor.htm">
+      <HelpTOCNode Title="ImageContentDescriptor Constructor " Url="html/M_Yodiwo_API_Plegma_ImageContentDescriptor__ctor.htm" />
+      <HelpTOCNode Title="ImageContentDescriptor Methods" Url="html/Methods_T_Yodiwo_API_Plegma_ImageContentDescriptor.htm" />
+      <HelpTOCNode Id="aa852530-cc10-4f1b-81ee-8401239eb0ba" Title="ImageContentDescriptor Fields" Url="html/Fields_T_Yodiwo_API_Plegma_ImageContentDescriptor.htm">
+        <HelpTOCNode Title="ColorDepth Field" Url="html/F_Yodiwo_API_Plegma_ImageContentDescriptor_ColorDepth.htm" />
+        <HelpTOCNode Title="Format Field" Url="html/F_Yodiwo_API_Plegma_ImageContentDescriptor_Format.htm" />
+        <HelpTOCNode Title="PixelSizeX Field" Url="html/F_Yodiwo_API_Plegma_ImageContentDescriptor_PixelSizeX.htm" />
+        <HelpTOCNode Title="PixelSizeY Field" Url="html/F_Yodiwo_API_Plegma_ImageContentDescriptor_PixelSizeY.htm" />
+        <HelpTOCNode Title="Type Field" Url="html/F_Yodiwo_API_Plegma_ImageContentDescriptor_Type.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Title="ImageFileFormat Enumeration" Url="html/T_Yodiwo_API_Plegma_ImageFileFormat.htm" />
+    <HelpTOCNode Title="ImageType Enumeration" Url="html/T_Yodiwo_API_Plegma_ImageType.htm" />
+    <HelpTOCNode Title="ioPortDirection Enumeration" Url="html/T_Yodiwo_API_Plegma_ioPortDirection.htm" />
+    <HelpTOCNode Id="3dd7ae20-0a78-4e19-9934-a10612474031" Title="LocallyDeployedGraphsMsg Class" Url="html/T_Yodiwo_API_Plegma_LocallyDeployedGraphsMsg.htm">
+      <HelpTOCNode Title="LocallyDeployedGraphsMsg Constructor " Url="html/M_Yodiwo_API_Plegma_LocallyDeployedGraphsMsg__ctor.htm" />
+      <HelpTOCNode Title="LocallyDeployedGraphsMsg Methods" Url="html/Methods_T_Yodiwo_API_Plegma_LocallyDeployedGraphsMsg.htm" />
+      <HelpTOCNode Id="a1064764-94a7-43e9-be07-bea6f1409d2c" Title="LocallyDeployedGraphsMsg Fields" Url="html/Fields_T_Yodiwo_API_Plegma_LocallyDeployedGraphsMsg.htm">
+        <HelpTOCNode Title="DeployedGraphKeys Field" Url="html/F_Yodiwo_API_Plegma_LocallyDeployedGraphsMsg_DeployedGraphKeys.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="c62dac5a-ecba-4e97-bbf9-79e74d8ff011" Title="LoginReq Class" Url="html/T_Yodiwo_API_Plegma_LoginReq.htm">
+      <HelpTOCNode Title="LoginReq Constructor " Url="html/M_Yodiwo_API_Plegma_LoginReq__ctor.htm" />
+      <HelpTOCNode Title="LoginReq Methods" Url="html/Methods_T_Yodiwo_API_Plegma_LoginReq.htm" />
+      <HelpTOCNode Title="LoginReq Fields" Url="html/Fields_T_Yodiwo_API_Plegma_LoginReq.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Id="bca8c44c-3328-4688-a3e1-741b78a117ad" Title="LoginRsp Class" Url="html/T_Yodiwo_API_Plegma_LoginRsp.htm">
+      <HelpTOCNode Title="LoginRsp Constructor " Url="html/M_Yodiwo_API_Plegma_LoginRsp__ctor.htm" />
+      <HelpTOCNode Title="LoginRsp Methods" Url="html/Methods_T_Yodiwo_API_Plegma_LoginRsp.htm" />
+      <HelpTOCNode Id="0dcf1247-8a68-428c-b07a-fe0025dc1dc9" Title="LoginRsp Fields" Url="html/Fields_T_Yodiwo_API_Plegma_LoginRsp.htm">
+        <HelpTOCNode Title="DesiredEndpoint Field" Url="html/F_Yodiwo_API_Plegma_LoginRsp_DesiredEndpoint.htm" />
+        <HelpTOCNode Title="Flags Field" Url="html/F_Yodiwo_API_Plegma_LoginRsp_Flags.htm" />
+        <HelpTOCNode Title="NodeKey Field" Url="html/F_Yodiwo_API_Plegma_LoginRsp_NodeKey.htm" />
+        <HelpTOCNode Title="SecretKey Field" Url="html/F_Yodiwo_API_Plegma_LoginRsp_SecretKey.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="426d82d2-9644-4255-9338-fa83565e8b92" Title="MqttMsg Class" Url="html/T_Yodiwo_API_Plegma_MqttMsg.htm">
+      <HelpTOCNode Title="MqttMsg Constructor " Url="html/M_Yodiwo_API_Plegma_MqttMsg__ctor.htm" />
+      <HelpTOCNode Title="MqttMsg Properties" Url="html/Properties_T_Yodiwo_API_Plegma_MqttMsg.htm" />
+      <HelpTOCNode Title="MqttMsg Methods" Url="html/Methods_T_Yodiwo_API_Plegma_MqttMsg.htm" />
+      <HelpTOCNode Title="MqttMsg Fields" Url="html/Fields_T_Yodiwo_API_Plegma_MqttMsg.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Id="ecba9b8c-e898-42d7-89d6-6edb444965df" Title="NodeInfoReq Class" Url="html/T_Yodiwo_API_Plegma_NodeInfoReq.htm">
+      <HelpTOCNode Id="e595811a-d367-4e02-b757-e9f587fd2413" Title="NodeInfoReq Constructor " Url="html/Overload_Yodiwo_API_Plegma_NodeInfoReq__ctor.htm">
+        <HelpTOCNode Title="NodeInfoReq Constructor " Url="html/M_Yodiwo_API_Plegma_NodeInfoReq__ctor.htm" />
+        <HelpTOCNode Title="NodeInfoReq Constructor (Int32)" Url="html/M_Yodiwo_API_Plegma_NodeInfoReq__ctor_1.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="NodeInfoReq Methods" Url="html/Methods_T_Yodiwo_API_Plegma_NodeInfoReq.htm" />
+      <HelpTOCNode Id="8291d1aa-3c00-4308-8cd5-a8031c4b6047" Title="NodeInfoReq Fields" Url="html/Fields_T_Yodiwo_API_Plegma_NodeInfoReq.htm">
+        <HelpTOCNode Title="AssignedEndpoint Field" Url="html/F_Yodiwo_API_Plegma_NodeInfoReq_AssignedEndpoint.htm" />
+        <HelpTOCNode Title="LatestApiRev Field" Url="html/F_Yodiwo_API_Plegma_NodeInfoReq_LatestApiRev.htm" />
+        <HelpTOCNode Title="ThingsRevNum Field" Url="html/F_Yodiwo_API_Plegma_NodeInfoReq_ThingsRevNum.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="5bad12fe-c274-4789-8014-aed734e5f8e0" Title="NodeInfoRsp Class" Url="html/T_Yodiwo_API_Plegma_NodeInfoRsp.htm">
+      <HelpTOCNode Id="e540fb87-3501-45e9-9afc-24f2b1b6188c" Title="NodeInfoRsp Constructor " Url="html/Overload_Yodiwo_API_Plegma_NodeInfoRsp__ctor.htm">
+        <HelpTOCNode Title="NodeInfoRsp Constructor " Url="html/M_Yodiwo_API_Plegma_NodeInfoRsp__ctor.htm" />
+        <HelpTOCNode Title="NodeInfoRsp Constructor (Int32)" Url="html/M_Yodiwo_API_Plegma_NodeInfoRsp__ctor_1.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="NodeInfoRsp Methods" Url="html/Methods_T_Yodiwo_API_Plegma_NodeInfoRsp.htm" />
+      <HelpTOCNode Id="79a3d96b-febf-4277-8384-f24eeb07c2b5" Title="NodeInfoRsp Fields" Url="html/Fields_T_Yodiwo_API_Plegma_NodeInfoRsp.htm">
+        <HelpTOCNode Title="BlockLibraries Field" Url="html/F_Yodiwo_API_Plegma_NodeInfoRsp_BlockLibraries.htm" />
+        <HelpTOCNode Title="Capabilities Field" Url="html/F_Yodiwo_API_Plegma_NodeInfoRsp_Capabilities.htm" />
+        <HelpTOCNode Title="Name Field" Url="html/F_Yodiwo_API_Plegma_NodeInfoRsp_Name.htm" />
+        <HelpTOCNode Title="ThingsRevNum Field" Url="html/F_Yodiwo_API_Plegma_NodeInfoRsp_ThingsRevNum.htm" />
+        <HelpTOCNode Title="ThingTypes Field" Url="html/F_Yodiwo_API_Plegma_NodeInfoRsp_ThingTypes.htm" />
+        <HelpTOCNode Title="Type Field" Url="html/F_Yodiwo_API_Plegma_NodeInfoRsp_Type.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="31575236-c5e2-4320-a6fd-d703cd9f43bb" Title="NodeKey Structure" Url="html/T_Yodiwo_API_Plegma_NodeKey.htm">
+      <HelpTOCNode Id="02d4dc6d-0a99-452c-a3c2-b63abf0a0571" Title="NodeKey Constructor " Url="html/Overload_Yodiwo_API_Plegma_NodeKey__ctor.htm">
+        <HelpTOCNode Title="NodeKey Constructor (String)" Url="html/M_Yodiwo_API_Plegma_NodeKey__ctor.htm" />
+        <HelpTOCNode Title="NodeKey Constructor (String, UInt32)" Url="html/M_Yodiwo_API_Plegma_NodeKey__ctor_1.htm" />
+        <HelpTOCNode Title="NodeKey Constructor (UserKey, UInt32)" Url="html/M_Yodiwo_API_Plegma_NodeKey__ctor_2.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="8fdd1c3b-bf5b-4d45-88c7-215b7103122e" Title="NodeKey Properties" Url="html/Properties_T_Yodiwo_API_Plegma_NodeKey.htm">
+        <HelpTOCNode Title="IsInvalid Property " Url="html/P_Yodiwo_API_Plegma_NodeKey_IsInvalid.htm" />
+        <HelpTOCNode Title="IsValid Property " Url="html/P_Yodiwo_API_Plegma_NodeKey_IsValid.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="44b4f7d3-5326-4933-b7a4-ba63eb21cef1" Title="NodeKey Methods" Url="html/Methods_T_Yodiwo_API_Plegma_NodeKey.htm">
+        <HelpTOCNode Title="ConvertFromString Method " Url="html/M_Yodiwo_API_Plegma_NodeKey_ConvertFromString.htm" />
+        <HelpTOCNode Id="7ae0f4e4-5b2d-472c-84e2-bd603d5102e1" Title="Equals Method " Url="html/Overload_Yodiwo_API_Plegma_NodeKey_Equals.htm">
+          <HelpTOCNode Title="Equals Method (Object)" Url="html/M_Yodiwo_API_Plegma_NodeKey_Equals.htm" />
+          <HelpTOCNode Title="Equals Method (NodeKey)" Url="html/M_Yodiwo_API_Plegma_NodeKey_Equals_1.htm" />
+          <HelpTOCNode Title="Equals Method (NodeKey)" Url="html/M_Yodiwo_API_Plegma_NodeKey_Equals_2.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Title="FillFromString Method " Url="html/M_Yodiwo_API_Plegma_NodeKey_FillFromString.htm" />
+        <HelpTOCNode Title="FromBytes Method " Url="html/M_Yodiwo_API_Plegma_NodeKey_FromBytes.htm" />
+        <HelpTOCNode Title="GetBytes Method " Url="html/M_Yodiwo_API_Plegma_NodeKey_GetBytes.htm" />
+        <HelpTOCNode Title="GetHashCode Method " Url="html/M_Yodiwo_API_Plegma_NodeKey_GetHashCode.htm" />
+        <HelpTOCNode Title="ToString Method " Url="html/M_Yodiwo_API_Plegma_NodeKey_ToString.htm" />
+        <HelpTOCNode Title="ToStringEx Method " Url="html/M_Yodiwo_API_Plegma_NodeKey_ToStringEx.htm" />
+        <HelpTOCNode Title="ToStringFullSize Method " Url="html/M_Yodiwo_API_Plegma_NodeKey_ToStringFullSize.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="14c4074d-349e-4431-983f-a2c12f1db30d" Title="NodeKey Operators and Type Conversions" Url="html/Operators_T_Yodiwo_API_Plegma_NodeKey.htm">
+        <HelpTOCNode Title="Equality Operator " Url="html/M_Yodiwo_API_Plegma_NodeKey_op_Equality.htm" />
+        <HelpTOCNode Id="3bfeb80a-0295-4f0c-841c-80a1a45d70c9" Title="Implicit Conversion Operators" Url="html/Overload_Yodiwo_API_Plegma_NodeKey_op_Implicit.htm">
+          <HelpTOCNode Title="Implicit Conversion (String to NodeKey)" Url="html/M_Yodiwo_API_Plegma_NodeKey_op_Implicit.htm" />
+          <HelpTOCNode Title="Implicit Conversion (NodeKey to String)" Url="html/M_Yodiwo_API_Plegma_NodeKey_op_Implicit_1.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Title="Inequality Operator " Url="html/M_Yodiwo_API_Plegma_NodeKey_op_Inequality.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="86c05b5a-679a-4d07-bbc1-d9d6094bedb4" Title="NodeKey Fields" Url="html/Fields_T_Yodiwo_API_Plegma_NodeKey.htm">
+        <HelpTOCNode Title="CloudId Field" Url="html/F_Yodiwo_API_Plegma_NodeKey_CloudId.htm" />
+        <HelpTOCNode Title="MaxKeyLength Field" Url="html/F_Yodiwo_API_Plegma_NodeKey_MaxKeyLength.htm" />
+        <HelpTOCNode Title="MaxNodeIDLength Field" Url="html/F_Yodiwo_API_Plegma_NodeKey_MaxNodeIDLength.htm" />
+        <HelpTOCNode Title="MinKeyLength Field" Url="html/F_Yodiwo_API_Plegma_NodeKey_MinKeyLength.htm" />
+        <HelpTOCNode Title="MinNodeIDLength Field" Url="html/F_Yodiwo_API_Plegma_NodeKey_MinNodeIDLength.htm" />
+        <HelpTOCNode Title="NodeID Field" Url="html/F_Yodiwo_API_Plegma_NodeKey_NodeID.htm" />
+        <HelpTOCNode Title="UserKey Field" Url="html/F_Yodiwo_API_Plegma_NodeKey_UserKey.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="85cb3549-df83-414a-b4a5-d838dc54601f" Title="NodeKeyConverter Class" Url="html/T_Yodiwo_API_Plegma_NodeKeyConverter.htm">
+      <HelpTOCNode Title="NodeKeyConverter Constructor " Url="html/M_Yodiwo_API_Plegma_NodeKeyConverter__ctor.htm" />
+      <HelpTOCNode Id="a2b16d9f-56b4-4592-801b-6d023ba4573a" Title="NodeKeyConverter Methods" Url="html/Methods_T_Yodiwo_API_Plegma_NodeKeyConverter.htm">
+        <HelpTOCNode Id="f1d46e90-1ee2-48ef-a2ca-6ab5a95e7611" Title="CanConvertFrom Method " Url="html/Overload_Yodiwo_API_Plegma_NodeKeyConverter_CanConvertFrom.htm">
+          <HelpTOCNode Title="CanConvertFrom Method (ITypeDescriptorContext, Type)" Url="html/M_Yodiwo_API_Plegma_NodeKeyConverter_CanConvertFrom.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Id="e13229b0-8026-4b46-94a1-f9bf58b06f86" Title="CanConvertTo Method " Url="html/Overload_Yodiwo_API_Plegma_NodeKeyConverter_CanConvertTo.htm">
+          <HelpTOCNode Title="CanConvertTo Method (ITypeDescriptorContext, Type)" Url="html/M_Yodiwo_API_Plegma_NodeKeyConverter_CanConvertTo.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Id="04720327-a972-4f52-a98d-f641b8b7e175" Title="ConvertFrom Method " Url="html/Overload_Yodiwo_API_Plegma_NodeKeyConverter_ConvertFrom.htm">
+          <HelpTOCNode Title="ConvertFrom Method (ITypeDescriptorContext, CultureInfo, Object)" Url="html/M_Yodiwo_API_Plegma_NodeKeyConverter_ConvertFrom.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Id="68a6ae77-ae7c-40f9-b3f3-e9dd81275615" Title="ConvertTo Method " Url="html/Overload_Yodiwo_API_Plegma_NodeKeyConverter_ConvertTo.htm">
+          <HelpTOCNode Title="ConvertTo Method (ITypeDescriptorContext, CultureInfo, Object, Type)" Url="html/M_Yodiwo_API_Plegma_NodeKeyConverter_ConvertTo.htm" />
+        </HelpTOCNode>
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="7d0553f1-81a3-4934-9cfa-a665f364c2a0" Title="NodeUnpairedReq Class" Url="html/T_Yodiwo_API_Plegma_NodeUnpairedReq.htm">
+      <HelpTOCNode Id="9740a29e-6eb0-471b-b6b4-a6df10c46619" Title="NodeUnpairedReq Constructor " Url="html/Overload_Yodiwo_API_Plegma_NodeUnpairedReq__ctor.htm">
+        <HelpTOCNode Title="NodeUnpairedReq Constructor " Url="html/M_Yodiwo_API_Plegma_NodeUnpairedReq__ctor.htm" />
+        <HelpTOCNode Title="NodeUnpairedReq Constructor (Int32)" Url="html/M_Yodiwo_API_Plegma_NodeUnpairedReq__ctor_1.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="NodeUnpairedReq Methods" Url="html/Methods_T_Yodiwo_API_Plegma_NodeUnpairedReq.htm" />
+      <HelpTOCNode Id="6cbc625f-e3a6-4d77-a726-ae0657f39ef6" Title="NodeUnpairedReq Fields" Url="html/Fields_T_Yodiwo_API_Plegma_NodeUnpairedReq.htm">
+        <HelpTOCNode Title="Message Field" Url="html/F_Yodiwo_API_Plegma_NodeUnpairedReq_Message.htm" />
+        <HelpTOCNode Title="ReasonCode Field" Url="html/F_Yodiwo_API_Plegma_NodeUnpairedReq_ReasonCode.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="0569cc19-3dd5-49cb-abb3-6cc1c747e22d" Title="NodeUnpairedRsp Class" Url="html/T_Yodiwo_API_Plegma_NodeUnpairedRsp.htm">
+      <HelpTOCNode Title="NodeUnpairedRsp Constructor " Url="html/M_Yodiwo_API_Plegma_NodeUnpairedRsp__ctor.htm" />
+      <HelpTOCNode Title="NodeUnpairedRsp Methods" Url="html/Methods_T_Yodiwo_API_Plegma_NodeUnpairedRsp.htm" />
+      <HelpTOCNode Title="NodeUnpairedRsp Fields" Url="html/Fields_T_Yodiwo_API_Plegma_NodeUnpairedRsp.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Id="230eb677-0ce0-4410-b2e8-e3edea8db0c4" Title="PingReq Class" Url="html/T_Yodiwo_API_Plegma_PingReq.htm">
+      <HelpTOCNode Title="PingReq Constructor " Url="html/M_Yodiwo_API_Plegma_PingReq__ctor.htm" />
+      <HelpTOCNode Title="PingReq Methods" Url="html/Methods_T_Yodiwo_API_Plegma_PingReq.htm" />
+      <HelpTOCNode Id="364cd6f1-5304-4855-8a0d-5d43da574b92" Title="PingReq Fields" Url="html/Fields_T_Yodiwo_API_Plegma_PingReq.htm">
+        <HelpTOCNode Title="Data Field" Url="html/F_Yodiwo_API_Plegma_PingReq_Data.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="28644c8c-f096-48e9-a731-cffa29b3ff57" Title="PingRsp Class" Url="html/T_Yodiwo_API_Plegma_PingRsp.htm">
+      <HelpTOCNode Title="PingRsp Constructor " Url="html/M_Yodiwo_API_Plegma_PingRsp__ctor.htm" />
+      <HelpTOCNode Title="PingRsp Methods" Url="html/Methods_T_Yodiwo_API_Plegma_PingRsp.htm" />
+      <HelpTOCNode Id="61bf7c73-b6ef-424a-88f6-ff267706d20f" Title="PingRsp Fields" Url="html/Fields_T_Yodiwo_API_Plegma_PingRsp.htm">
+        <HelpTOCNode Title="Data Field" Url="html/F_Yodiwo_API_Plegma_PingRsp_Data.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="c7075c97-5035-4b28-92ea-28bcd12d5fac" Title="PlegmaAPI Class" Url="html/T_Yodiwo_API_Plegma_PlegmaAPI.htm">
+      <HelpTOCNode Id="dae3a6b7-5b3b-4ee5-963b-98c74c109ead" Title="PlegmaAPI Fields" Url="html/Fields_T_Yodiwo_API_Plegma_PlegmaAPI.htm">
+        <HelpTOCNode Title="ApiGroupName Field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_ApiGroupName.htm" />
+        <HelpTOCNode Title="ApiLogicGroupName Field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_ApiLogicGroupName.htm" />
+        <HelpTOCNode Title="ApiMessages Field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_ApiMessages.htm" />
+        <HelpTOCNode Title="ApiMsgNames Field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_ApiMsgNames.htm" />
+        <HelpTOCNode Title="ApiMsgNamesToTypes Field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_ApiMsgNamesToTypes.htm" />
+        <HelpTOCNode Title="ApiMsgRetained Field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_ApiMsgRetained.htm" />
+        <HelpTOCNode Title="APIVersion Field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_APIVersion.htm" />
+        <HelpTOCNode Title="KeySeparator Field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_KeySeparator.htm" />
+        <HelpTOCNode Title="LogicApiMessages Field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_LogicApiMessages.htm" />
+        <HelpTOCNode Title="RestAPIBaseRoute Field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_RestAPIBaseRoute.htm" />
+        <HelpTOCNode Title="s_A2mcuActiveDriversReq Field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_s_A2mcuActiveDriversReq.htm" />
+        <HelpTOCNode Title="s_A2mcuCtrlReq Field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_s_A2mcuCtrlReq.htm" />
+        <HelpTOCNode Title="s_ActivePortKeysMsg Field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_s_ActivePortKeysMsg.htm" />
+        <HelpTOCNode Title="s_EndpointSyncReq Field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_s_EndpointSyncReq.htm" />
+        <HelpTOCNode Title="s_EndpointSyncRsp Field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_s_EndpointSyncRsp.htm" />
+        <HelpTOCNode Title="s_GenericRsp Field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_s_GenericRsp.htm" />
+        <HelpTOCNode Title="s_GraphDeploymentReq Field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_s_GraphDeploymentReq.htm" />
+        <HelpTOCNode Title="s_LocallyDeployedGraphsMsg Field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_s_LocallyDeployedGraphsMsg.htm" />
+        <HelpTOCNode Title="s_LoginReq Field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_s_LoginReq.htm" />
+        <HelpTOCNode Title="s_LoginRsp Field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_s_LoginRsp.htm" />
+        <HelpTOCNode Title="s_NodeInfoReq Field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_s_NodeInfoReq.htm" />
+        <HelpTOCNode Title="s_NodeInfoRsp Field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_s_NodeInfoRsp.htm" />
+        <HelpTOCNode Title="s_NodeUnpairedReq Field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_s_NodeUnpairedReq.htm" />
+        <HelpTOCNode Title="s_NodeUnpairedRsp Field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_s_NodeUnpairedRsp.htm" />
+        <HelpTOCNode Title="s_PingReq Field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_s_PingReq.htm" />
+        <HelpTOCNode Title="s_PingRsp Field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_s_PingRsp.htm" />
+        <HelpTOCNode Title="s_PortEventMsg Field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_s_PortEventMsg.htm" />
+        <HelpTOCNode Title="s_PortStateReq Field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_s_PortStateReq.htm" />
+        <HelpTOCNode Title="s_PortStateRsp Field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_s_PortStateRsp.htm" />
+        <HelpTOCNode Title="s_ThingsGet Field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_s_ThingsGet.htm" />
+        <HelpTOCNode Title="s_ThingsSet Field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_s_ThingsSet.htm" />
+        <HelpTOCNode Title="s_VirtualBlockEventMsg Field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_s_VirtualBlockEventMsg.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="2ec51f6a-ca03-4912-830b-d1600604edb5" Title="Port Class" Url="html/T_Yodiwo_API_Plegma_Port.htm">
+      <HelpTOCNode Id="ffc36e48-30a8-46fb-aa6e-487c7fc0e59a" Title="Port Constructor " Url="html/Overload_Yodiwo_API_Plegma_Port__ctor.htm">
+        <HelpTOCNode Title="Port Constructor " Url="html/M_Yodiwo_API_Plegma_Port__ctor.htm" />
+        <HelpTOCNode Title="Port Constructor (PortKey, ePortType, ioPortDirection)" Url="html/M_Yodiwo_API_Plegma_Port__ctor_1.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="9c4bb1ab-9870-420b-85bb-120dfdc279cc" Title="Port Properties" Url="html/Properties_T_Yodiwo_API_Plegma_Port.htm">
+        <HelpTOCNode Title="TypedState Property " Url="html/P_Yodiwo_API_Plegma_Port_TypedState.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="271f0786-e03b-4228-8aa2-61923c4fc407" Title="Port Methods" Url="html/Methods_T_Yodiwo_API_Plegma_Port.htm">
+        <HelpTOCNode Title="DeepClone Method " Url="html/M_Yodiwo_API_Plegma_Port_DeepClone.htm" />
+        <HelpTOCNode Title="State2Value Method " Url="html/M_Yodiwo_API_Plegma_Port_State2Value.htm" />
+        <HelpTOCNode Title="ToString Method " Url="html/M_Yodiwo_API_Plegma_Port_ToString.htm" />
+        <HelpTOCNode Title="Update Method " Url="html/M_Yodiwo_API_Plegma_Port_Update.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="6c25a18a-c24a-47b7-b6a1-f14bdd069609" Title="Port Fields" Url="html/Fields_T_Yodiwo_API_Plegma_Port.htm">
+        <HelpTOCNode Title="ConfFlags Field" Url="html/F_Yodiwo_API_Plegma_Port_ConfFlags.htm" />
+        <HelpTOCNode Title="Description Field" Url="html/F_Yodiwo_API_Plegma_Port_Description.htm" />
+        <HelpTOCNode Title="ioDirection Field" Url="html/F_Yodiwo_API_Plegma_Port_ioDirection.htm" />
+        <HelpTOCNode Title="Name Field" Url="html/F_Yodiwo_API_Plegma_Port_Name.htm" />
+        <HelpTOCNode Title="PortKey Field" Url="html/F_Yodiwo_API_Plegma_Port_PortKey.htm" />
+        <HelpTOCNode Title="RevNum Field" Url="html/F_Yodiwo_API_Plegma_Port_RevNum.htm" />
+        <HelpTOCNode Title="State Field" Url="html/F_Yodiwo_API_Plegma_Port_State.htm" />
+        <HelpTOCNode Title="Type Field" Url="html/F_Yodiwo_API_Plegma_Port_Type.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="91b63348-a1cf-4942-86dd-cffcbe8eb939" Title="PortConfiguration Class" Url="html/T_Yodiwo_API_Plegma_PortConfiguration.htm">
+      <HelpTOCNode Id="d9e7f348-8ba2-412f-b308-5e55a9ee9345" Title="PortConfiguration Fields" Url="html/Fields_T_Yodiwo_API_Plegma_PortConfiguration.htm">
+        <HelpTOCNode Title="PortTypeDefaultValueDict Field" Url="html/F_Yodiwo_API_Plegma_PortConfiguration_PortTypeDefaultValueDict.htm" />
+        <HelpTOCNode Title="PortTypeDict Field" Url="html/F_Yodiwo_API_Plegma_PortConfiguration_PortTypeDict.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="a0de5341-527c-47ac-8280-7596a7c5223b" Title="PortDescription Class" Url="html/T_Yodiwo_API_Plegma_PortDescription.htm">
+      <HelpTOCNode Title="PortDescription Constructor " Url="html/M_Yodiwo_API_Plegma_PortDescription__ctor.htm" />
+      <HelpTOCNode Title="PortDescription Methods" Url="html/Methods_T_Yodiwo_API_Plegma_PortDescription.htm" />
+      <HelpTOCNode Id="c001d574-b912-4659-ac1d-5990ed6dacad" Title="PortDescription Fields" Url="html/Fields_T_Yodiwo_API_Plegma_PortDescription.htm">
+        <HelpTOCNode Title="Category Field" Url="html/F_Yodiwo_API_Plegma_PortDescription_Category.htm" />
+        <HelpTOCNode Title="Description Field" Url="html/F_Yodiwo_API_Plegma_PortDescription_Description.htm" />
+        <HelpTOCNode Title="Id Field" Url="html/F_Yodiwo_API_Plegma_PortDescription_Id.htm" />
+        <HelpTOCNode Title="Label Field" Url="html/F_Yodiwo_API_Plegma_PortDescription_Label.htm" />
+        <HelpTOCNode Title="State Field" Url="html/F_Yodiwo_API_Plegma_PortDescription_State.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="468cc370-648f-41b0-9e0d-e5cba7846ffa" Title="PortEvent Class" Url="html/T_Yodiwo_API_Plegma_PortEvent.htm">
+      <HelpTOCNode Id="64671601-5f5d-4397-b0b3-b77d65b6b0c0" Title="PortEvent Constructor " Url="html/Overload_Yodiwo_API_Plegma_PortEvent__ctor.htm">
+        <HelpTOCNode Title="PortEvent Constructor " Url="html/M_Yodiwo_API_Plegma_PortEvent__ctor.htm" />
+        <HelpTOCNode Title="PortEvent Constructor (String, String, Int32, UInt64)" Url="html/M_Yodiwo_API_Plegma_PortEvent__ctor_1.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="PortEvent Methods" Url="html/Methods_T_Yodiwo_API_Plegma_PortEvent.htm" />
+      <HelpTOCNode Id="8de8de91-401b-4750-b074-bdf6dc05170d" Title="PortEvent Fields" Url="html/Fields_T_Yodiwo_API_Plegma_PortEvent.htm">
+        <HelpTOCNode Title="PortKey Field" Url="html/F_Yodiwo_API_Plegma_PortEvent_PortKey.htm" />
+        <HelpTOCNode Title="RevNum Field" Url="html/F_Yodiwo_API_Plegma_PortEvent_RevNum.htm" />
+        <HelpTOCNode Title="State Field" Url="html/F_Yodiwo_API_Plegma_PortEvent_State.htm" />
+        <HelpTOCNode Title="Timestamp Field" Url="html/F_Yodiwo_API_Plegma_PortEvent_Timestamp.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="8ebe187e-c756-436a-94c9-2c4799149245" Title="PortEventMsg Class" Url="html/T_Yodiwo_API_Plegma_PortEventMsg.htm">
+      <HelpTOCNode Id="eb6d4765-ad5c-4288-82db-c49b14b50b71" Title="PortEventMsg Constructor " Url="html/Overload_Yodiwo_API_Plegma_PortEventMsg__ctor.htm">
+        <HelpTOCNode Title="PortEventMsg Constructor " Url="html/M_Yodiwo_API_Plegma_PortEventMsg__ctor.htm" />
+        <HelpTOCNode Title="PortEventMsg Constructor (Int32)" Url="html/M_Yodiwo_API_Plegma_PortEventMsg__ctor_1.htm" />
+        <HelpTOCNode Title="PortEventMsg Constructor (Int32, PortEvent)" Url="html/M_Yodiwo_API_Plegma_PortEventMsg__ctor_2.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="67f35f52-53c6-4df0-8fca-35db27d43dde" Title="PortEventMsg Methods" Url="html/Methods_T_Yodiwo_API_Plegma_PortEventMsg.htm">
+        <HelpTOCNode Title="ToString Method " Url="html/M_Yodiwo_API_Plegma_PortEventMsg_ToString.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="55b40967-5555-4b1b-9373-8c91fe98ca6c" Title="PortEventMsg Fields" Url="html/Fields_T_Yodiwo_API_Plegma_PortEventMsg.htm">
+        <HelpTOCNode Title="PortEvents Field" Url="html/F_Yodiwo_API_Plegma_PortEventMsg_PortEvents.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="01a5e1df-fbe3-4db0-8955-d5a352bfe381" Title="PortKey Structure" Url="html/T_Yodiwo_API_Plegma_PortKey.htm">
+      <HelpTOCNode Id="b7f99356-f2d0-4734-9a6b-37cba5c2a87f" Title="PortKey Constructor " Url="html/Overload_Yodiwo_API_Plegma_PortKey__ctor.htm">
+        <HelpTOCNode Title="PortKey Constructor (String)" Url="html/M_Yodiwo_API_Plegma_PortKey__ctor.htm" />
+        <HelpTOCNode Title="PortKey Constructor (Thing, String)" Url="html/M_Yodiwo_API_Plegma_PortKey__ctor_1.htm" />
+        <HelpTOCNode Title="PortKey Constructor (ThingKey, String)" Url="html/M_Yodiwo_API_Plegma_PortKey__ctor_2.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="14c84f13-4685-4d9b-948e-c2e415e2d4c2" Title="PortKey Properties" Url="html/Properties_T_Yodiwo_API_Plegma_PortKey.htm">
+        <HelpTOCNode Title="IsInvalid Property " Url="html/P_Yodiwo_API_Plegma_PortKey_IsInvalid.htm" />
+        <HelpTOCNode Title="IsValid Property " Url="html/P_Yodiwo_API_Plegma_PortKey_IsValid.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="cc77826f-8b8d-4b67-b55b-24c5f8ec9c23" Title="PortKey Methods" Url="html/Methods_T_Yodiwo_API_Plegma_PortKey.htm">
+        <HelpTOCNode Title="BuildFromArbitraryString Method " Url="html/M_Yodiwo_API_Plegma_PortKey_BuildFromArbitraryString.htm" />
+        <HelpTOCNode Title="ConvertFromString Method " Url="html/M_Yodiwo_API_Plegma_PortKey_ConvertFromString.htm" />
+        <HelpTOCNode Id="827b4f3d-39a8-48a3-a921-55c33dc8c7e6" Title="Equals Method " Url="html/Overload_Yodiwo_API_Plegma_PortKey_Equals.htm">
+          <HelpTOCNode Title="Equals Method (Object)" Url="html/M_Yodiwo_API_Plegma_PortKey_Equals.htm" />
+          <HelpTOCNode Title="Equals Method (PortKey)" Url="html/M_Yodiwo_API_Plegma_PortKey_Equals_1.htm" />
+          <HelpTOCNode Title="Equals Method (PortKey)" Url="html/M_Yodiwo_API_Plegma_PortKey_Equals_2.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Title="FillFromString Method " Url="html/M_Yodiwo_API_Plegma_PortKey_FillFromString.htm" />
+        <HelpTOCNode Title="GetHashCode Method " Url="html/M_Yodiwo_API_Plegma_PortKey_GetHashCode.htm" />
+        <HelpTOCNode Title="ToString Method " Url="html/M_Yodiwo_API_Plegma_PortKey_ToString.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="c04db2a2-4e45-4f61-bd7d-e0289e183683" Title="PortKey Operators and Type Conversions" Url="html/Operators_T_Yodiwo_API_Plegma_PortKey.htm">
+        <HelpTOCNode Title="Equality Operator " Url="html/M_Yodiwo_API_Plegma_PortKey_op_Equality.htm" />
+        <HelpTOCNode Id="4a32e2c4-130d-42fe-ba31-b663cc47ebb1" Title="Implicit Conversion Operators" Url="html/Overload_Yodiwo_API_Plegma_PortKey_op_Implicit.htm">
+          <HelpTOCNode Title="Implicit Conversion (String to PortKey)" Url="html/M_Yodiwo_API_Plegma_PortKey_op_Implicit.htm" />
+          <HelpTOCNode Title="Implicit Conversion (PortKey to String)" Url="html/M_Yodiwo_API_Plegma_PortKey_op_Implicit_1.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Title="Inequality Operator " Url="html/M_Yodiwo_API_Plegma_PortKey_op_Inequality.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="4519c0df-db27-4351-8ff0-be62c45aeead" Title="PortKey Fields" Url="html/Fields_T_Yodiwo_API_Plegma_PortKey.htm">
+        <HelpTOCNode Title="PortUID Field" Url="html/F_Yodiwo_API_Plegma_PortKey_PortUID.htm" />
+        <HelpTOCNode Title="ThingKey Field" Url="html/F_Yodiwo_API_Plegma_PortKey_ThingKey.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="d02190e1-98c8-435f-8783-8698c28136a2" Title="PortKeyConverter Class" Url="html/T_Yodiwo_API_Plegma_PortKeyConverter.htm">
+      <HelpTOCNode Title="PortKeyConverter Constructor " Url="html/M_Yodiwo_API_Plegma_PortKeyConverter__ctor.htm" />
+      <HelpTOCNode Id="1e40445b-8673-40de-81c9-8eae25467910" Title="PortKeyConverter Methods" Url="html/Methods_T_Yodiwo_API_Plegma_PortKeyConverter.htm">
+        <HelpTOCNode Id="2c84ceb6-c601-4be1-970b-b4cd8569185d" Title="CanConvertFrom Method " Url="html/Overload_Yodiwo_API_Plegma_PortKeyConverter_CanConvertFrom.htm">
+          <HelpTOCNode Title="CanConvertFrom Method (ITypeDescriptorContext, Type)" Url="html/M_Yodiwo_API_Plegma_PortKeyConverter_CanConvertFrom.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Id="3be3fdf0-ec0c-48b2-bdb6-975ba1ed540a" Title="CanConvertTo Method " Url="html/Overload_Yodiwo_API_Plegma_PortKeyConverter_CanConvertTo.htm">
+          <HelpTOCNode Title="CanConvertTo Method (ITypeDescriptorContext, Type)" Url="html/M_Yodiwo_API_Plegma_PortKeyConverter_CanConvertTo.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Id="6751a2bd-2ba2-4c50-bf30-0a075e09ac2d" Title="ConvertFrom Method " Url="html/Overload_Yodiwo_API_Plegma_PortKeyConverter_ConvertFrom.htm">
+          <HelpTOCNode Title="ConvertFrom Method (ITypeDescriptorContext, CultureInfo, Object)" Url="html/M_Yodiwo_API_Plegma_PortKeyConverter_ConvertFrom.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Id="95820e7b-89f0-4c37-b0d6-93ac1174c900" Title="ConvertTo Method " Url="html/Overload_Yodiwo_API_Plegma_PortKeyConverter_ConvertTo.htm">
+          <HelpTOCNode Title="ConvertTo Method (ITypeDescriptorContext, CultureInfo, Object, Type)" Url="html/M_Yodiwo_API_Plegma_PortKeyConverter_ConvertTo.htm" />
+        </HelpTOCNode>
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="7d25a4a7-6d1c-4547-8434-498d39cc93ab" Title="PortState Class" Url="html/T_Yodiwo_API_Plegma_PortState.htm">
+      <HelpTOCNode Id="b1472757-908e-4ed5-a880-f0652cb8a8a0" Title="PortState Constructor " Url="html/Overload_Yodiwo_API_Plegma_PortState__ctor.htm">
+        <HelpTOCNode Title="PortState Constructor " Url="html/M_Yodiwo_API_Plegma_PortState__ctor.htm" />
+        <HelpTOCNode Title="PortState Constructor (String, String, Int32, Boolean)" Url="html/M_Yodiwo_API_Plegma_PortState__ctor_1.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="PortState Methods" Url="html/Methods_T_Yodiwo_API_Plegma_PortState.htm" />
+      <HelpTOCNode Id="5da060ab-9288-4bee-b351-7f87411d1278" Title="PortState Fields" Url="html/Fields_T_Yodiwo_API_Plegma_PortState.htm">
+        <HelpTOCNode Title="IsDeployed Field" Url="html/F_Yodiwo_API_Plegma_PortState_IsDeployed.htm" />
+        <HelpTOCNode Title="PortKey Field" Url="html/F_Yodiwo_API_Plegma_PortState_PortKey.htm" />
+        <HelpTOCNode Title="RevNum Field" Url="html/F_Yodiwo_API_Plegma_PortState_RevNum.htm" />
+        <HelpTOCNode Title="State Field" Url="html/F_Yodiwo_API_Plegma_PortState_State.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="cdd6e916-42a4-48cb-8121-5d65785e50cf" Title="PortStateReq Class" Url="html/T_Yodiwo_API_Plegma_PortStateReq.htm">
+      <HelpTOCNode Id="115296d4-98db-41a6-a937-8207e5964479" Title="PortStateReq Constructor " Url="html/Overload_Yodiwo_API_Plegma_PortStateReq__ctor.htm">
+        <HelpTOCNode Title="PortStateReq Constructor " Url="html/M_Yodiwo_API_Plegma_PortStateReq__ctor.htm" />
+        <HelpTOCNode Title="PortStateReq Constructor (Int32)" Url="html/M_Yodiwo_API_Plegma_PortStateReq__ctor_1.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="d0aac2c4-42b0-4627-a0e8-785aff495002" Title="PortStateReq Methods" Url="html/Methods_T_Yodiwo_API_Plegma_PortStateReq.htm">
+        <HelpTOCNode Title="ToString Method " Url="html/M_Yodiwo_API_Plegma_PortStateReq_ToString.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="6c20d90c-ca9e-47a6-aa52-d27ec42e5ad0" Title="PortStateReq Fields" Url="html/Fields_T_Yodiwo_API_Plegma_PortStateReq.htm">
+        <HelpTOCNode Title="Operation Field" Url="html/F_Yodiwo_API_Plegma_PortStateReq_Operation.htm" />
+        <HelpTOCNode Title="PortKeys Field" Url="html/F_Yodiwo_API_Plegma_PortStateReq_PortKeys.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="3adcee36-7e29-462d-ad1c-88601d2485d4" Title="PortStateRsp Class" Url="html/T_Yodiwo_API_Plegma_PortStateRsp.htm">
+      <HelpTOCNode Title="PortStateRsp Constructor " Url="html/M_Yodiwo_API_Plegma_PortStateRsp__ctor.htm" />
+      <HelpTOCNode Id="8e01acea-7a33-456e-8df5-2973b3e25a64" Title="PortStateRsp Methods" Url="html/Methods_T_Yodiwo_API_Plegma_PortStateRsp.htm">
+        <HelpTOCNode Title="ToString Method " Url="html/M_Yodiwo_API_Plegma_PortStateRsp_ToString.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="ddeee61e-4d32-49ba-b35e-a6468762b5a8" Title="PortStateRsp Fields" Url="html/Fields_T_Yodiwo_API_Plegma_PortStateRsp.htm">
+        <HelpTOCNode Title="Operation Field" Url="html/F_Yodiwo_API_Plegma_PortStateRsp_Operation.htm" />
+        <HelpTOCNode Title="PortStates Field" Url="html/F_Yodiwo_API_Plegma_PortStateRsp_PortStates.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="7077d638-9247-442d-b63a-92e6ef5611b7" Title="RedisDBLocationDescriptor Class" Url="html/T_Yodiwo_API_Plegma_RedisDBLocationDescriptor.htm">
+      <HelpTOCNode Title="RedisDBLocationDescriptor Constructor " Url="html/M_Yodiwo_API_Plegma_RedisDBLocationDescriptor__ctor.htm" />
+      <HelpTOCNode Title="RedisDBLocationDescriptor Methods" Url="html/Methods_T_Yodiwo_API_Plegma_RedisDBLocationDescriptor.htm" />
+      <HelpTOCNode Id="51ac8b32-9533-4df5-883b-9a7de7b3b796" Title="RedisDBLocationDescriptor Fields" Url="html/Fields_T_Yodiwo_API_Plegma_RedisDBLocationDescriptor.htm">
+        <HelpTOCNode Title="ConnectionAddress Field" Url="html/F_Yodiwo_API_Plegma_RedisDBLocationDescriptor_ConnectionAddress.htm" />
+        <HelpTOCNode Title="DatabaseName Field" Url="html/F_Yodiwo_API_Plegma_RedisDBLocationDescriptor_DatabaseName.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Title="RestServiceType Enumeration" Url="html/T_Yodiwo_API_Plegma_RestServiceType.htm" />
+    <HelpTOCNode Id="42741572-5b69-48e3-a53e-96923f7d0ebe" Title="StateDescription Class" Url="html/T_Yodiwo_API_Plegma_StateDescription.htm">
+      <HelpTOCNode Title="StateDescription Constructor " Url="html/M_Yodiwo_API_Plegma_StateDescription__ctor.htm" />
+      <HelpTOCNode Title="StateDescription Methods" Url="html/Methods_T_Yodiwo_API_Plegma_StateDescription.htm" />
+      <HelpTOCNode Id="52a0eb0b-1daf-484e-9df2-2f0abdd9718a" Title="StateDescription Fields" Url="html/Fields_T_Yodiwo_API_Plegma_StateDescription.htm">
+        <HelpTOCNode Title="Maximum Field" Url="html/F_Yodiwo_API_Plegma_StateDescription_Maximum.htm" />
+        <HelpTOCNode Title="Minimum Field" Url="html/F_Yodiwo_API_Plegma_StateDescription_Minimum.htm" />
+        <HelpTOCNode Title="Pattern Field" Url="html/F_Yodiwo_API_Plegma_StateDescription_Pattern.htm" />
+        <HelpTOCNode Title="ReadOnly Field" Url="html/F_Yodiwo_API_Plegma_StateDescription_ReadOnly.htm" />
+        <HelpTOCNode Title="Step Field" Url="html/F_Yodiwo_API_Plegma_StateDescription_Step.htm" />
+        <HelpTOCNode Title="Type Field" Url="html/F_Yodiwo_API_Plegma_StateDescription_Type.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="11fe7dc4-63c7-45c5-a863-4da3bdfa638f" Title="TextContentDescriptor Class" Url="html/T_Yodiwo_API_Plegma_TextContentDescriptor.htm">
+      <HelpTOCNode Title="TextContentDescriptor Constructor " Url="html/M_Yodiwo_API_Plegma_TextContentDescriptor__ctor.htm" />
+      <HelpTOCNode Title="TextContentDescriptor Methods" Url="html/Methods_T_Yodiwo_API_Plegma_TextContentDescriptor.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Id="a1b88f6d-aabd-40c2-a86c-218d8c4ab91a" Title="Thing Class" Url="html/T_Yodiwo_API_Plegma_Thing.htm">
+      <HelpTOCNode Id="2b37bfb4-56cd-4969-bcf8-6219c45ca0d8" Title="Thing Constructor " Url="html/Overload_Yodiwo_API_Plegma_Thing__ctor.htm">
+        <HelpTOCNode Title="Thing Constructor " Url="html/M_Yodiwo_API_Plegma_Thing__ctor.htm" />
+        <HelpTOCNode Title="Thing Constructor (ThingKey)" Url="html/M_Yodiwo_API_Plegma_Thing__ctor_2.htm" />
+        <HelpTOCNode Title="Thing Constructor (ThingKey, List(Port))" Url="html/M_Yodiwo_API_Plegma_Thing__ctor_3.htm" />
+        <HelpTOCNode Title="Thing Constructor (String, List(Port), NodeKey)" Url="html/M_Yodiwo_API_Plegma_Thing__ctor_1.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="60bb0599-0c5e-478d-9e0b-6029d3c0cfd0" Title="Thing Methods" Url="html/Methods_T_Yodiwo_API_Plegma_Thing.htm">
+        <HelpTOCNode Title="DeepClone Method " Url="html/M_Yodiwo_API_Plegma_Thing_DeepClone.htm" />
+        <HelpTOCNode Id="ba0c4dc4-1cd0-4906-936c-d8f8b9535fe5" Title="GetPort Method " Url="html/Overload_Yodiwo_API_Plegma_Thing_GetPort.htm">
+          <HelpTOCNode Title="GetPort Method (Int32)" Url="html/M_Yodiwo_API_Plegma_Thing_GetPort.htm" />
+          <HelpTOCNode Title="GetPort Method (PortKey)" Url="html/M_Yodiwo_API_Plegma_Thing_GetPort_1.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Title="GetPortByName Method " Url="html/M_Yodiwo_API_Plegma_Thing_GetPortByName.htm" />
+        <HelpTOCNode Title="ToString Method " Url="html/M_Yodiwo_API_Plegma_Thing_ToString.htm" />
+        <HelpTOCNode Title="Update Method " Url="html/M_Yodiwo_API_Plegma_Thing_Update.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="25398547-7d83-4fff-b212-66cc0356855e" Title="Thing Fields" Url="html/Fields_T_Yodiwo_API_Plegma_Thing.htm">
+        <HelpTOCNode Title="BlockType Field" Url="html/F_Yodiwo_API_Plegma_Thing_BlockType.htm" />
+        <HelpTOCNode Title="Config Field" Url="html/F_Yodiwo_API_Plegma_Thing_Config.htm" />
+        <HelpTOCNode Title="Name Field" Url="html/F_Yodiwo_API_Plegma_Thing_Name.htm" />
+        <HelpTOCNode Title="Ports Field" Url="html/F_Yodiwo_API_Plegma_Thing_Ports.htm" />
+        <HelpTOCNode Title="Removable Field" Url="html/F_Yodiwo_API_Plegma_Thing_Removable.htm" />
+        <HelpTOCNode Title="Tag Field" Url="html/F_Yodiwo_API_Plegma_Thing_Tag.htm" />
+        <HelpTOCNode Title="ThingKey Field" Url="html/F_Yodiwo_API_Plegma_Thing_ThingKey.htm" />
+        <HelpTOCNode Title="Type Field" Url="html/F_Yodiwo_API_Plegma_Thing_Type.htm" />
+        <HelpTOCNode Title="UIHints Field" Url="html/F_Yodiwo_API_Plegma_Thing_UIHints.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="531e73cf-4a91-4805-8143-278a0754d428" Title="ThingKey Structure" Url="html/T_Yodiwo_API_Plegma_ThingKey.htm">
+      <HelpTOCNode Id="3b90b951-e16c-473b-a7c0-25ffc2449572" Title="ThingKey Constructor " Url="html/Overload_Yodiwo_API_Plegma_ThingKey__ctor.htm">
+        <HelpTOCNode Title="ThingKey Constructor (String)" Url="html/M_Yodiwo_API_Plegma_ThingKey__ctor.htm" />
+        <HelpTOCNode Title="ThingKey Constructor (NodeKey, String)" Url="html/M_Yodiwo_API_Plegma_ThingKey__ctor_2.htm" />
+        <HelpTOCNode Title="ThingKey Constructor (NodeKey, Int32, Int32)" Url="html/M_Yodiwo_API_Plegma_ThingKey__ctor_1.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="7703dea4-aae7-4035-a857-7e84923df453" Title="ThingKey Properties" Url="html/Properties_T_Yodiwo_API_Plegma_ThingKey.htm">
+        <HelpTOCNode Title="IsInvalid Property " Url="html/P_Yodiwo_API_Plegma_ThingKey_IsInvalid.htm" />
+        <HelpTOCNode Title="IsSpikeTKey Property " Url="html/P_Yodiwo_API_Plegma_ThingKey_IsSpikeTKey.htm" />
+        <HelpTOCNode Title="IsValid Property " Url="html/P_Yodiwo_API_Plegma_ThingKey_IsValid.htm" />
+        <HelpTOCNode Title="SpikeThingId Property " Url="html/P_Yodiwo_API_Plegma_ThingKey_SpikeThingId.htm" />
+        <HelpTOCNode Title="SubnodeId Property " Url="html/P_Yodiwo_API_Plegma_ThingKey_SubnodeId.htm" />
+        <HelpTOCNode Title="SubnodeKey Property " Url="html/P_Yodiwo_API_Plegma_ThingKey_SubnodeKey.htm" />
+        <HelpTOCNode Title="SubnodeKeyAsTkey Property " Url="html/P_Yodiwo_API_Plegma_ThingKey_SubnodeKeyAsTkey.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="23e66921-5744-4549-a0be-3b4f478e6f01" Title="ThingKey Methods" Url="html/Methods_T_Yodiwo_API_Plegma_ThingKey.htm">
+        <HelpTOCNode Id="cde3fece-28b8-455f-b541-ddcc3f0e3d26" Title="BuildFromArbitraryString Method " Url="html/Overload_Yodiwo_API_Plegma_ThingKey_BuildFromArbitraryString.htm">
+          <HelpTOCNode Title="BuildFromArbitraryString Method (String, String)" Url="html/M_Yodiwo_API_Plegma_ThingKey_BuildFromArbitraryString_1.htm" />
+          <HelpTOCNode Title="BuildFromArbitraryString Method (String, Int32, Int32)" Url="html/M_Yodiwo_API_Plegma_ThingKey_BuildFromArbitraryString.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Title="ConvertFromString Method " Url="html/M_Yodiwo_API_Plegma_ThingKey_ConvertFromString.htm" />
+        <HelpTOCNode Id="53f5913c-60eb-4a09-82ac-d064185824ff" Title="Equals Method " Url="html/Overload_Yodiwo_API_Plegma_ThingKey_Equals.htm">
+          <HelpTOCNode Title="Equals Method (Object)" Url="html/M_Yodiwo_API_Plegma_ThingKey_Equals.htm" />
+          <HelpTOCNode Title="Equals Method (ThingKey)" Url="html/M_Yodiwo_API_Plegma_ThingKey_Equals_1.htm" />
+          <HelpTOCNode Title="Equals Method (ThingKey)" Url="html/M_Yodiwo_API_Plegma_ThingKey_Equals_2.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Title="FillFromString Method " Url="html/M_Yodiwo_API_Plegma_ThingKey_FillFromString.htm" />
+        <HelpTOCNode Title="GetHashCode Method " Url="html/M_Yodiwo_API_Plegma_ThingKey_GetHashCode.htm" />
+        <HelpTOCNode Title="ToString Method " Url="html/M_Yodiwo_API_Plegma_ThingKey_ToString.htm" />
+        <HelpTOCNode Title="ToStringEx Method " Url="html/M_Yodiwo_API_Plegma_ThingKey_ToStringEx.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="d3d28b9b-a41d-47d3-8e2d-5456ea073f98" Title="ThingKey Operators and Type Conversions" Url="html/Operators_T_Yodiwo_API_Plegma_ThingKey.htm">
+        <HelpTOCNode Title="Equality Operator " Url="html/M_Yodiwo_API_Plegma_ThingKey_op_Equality.htm" />
+        <HelpTOCNode Id="0faf6f1e-d37b-4859-9724-323d954dd21c" Title="Implicit Conversion Operators" Url="html/Overload_Yodiwo_API_Plegma_ThingKey_op_Implicit.htm">
+          <HelpTOCNode Title="Implicit Conversion (String to ThingKey)" Url="html/M_Yodiwo_API_Plegma_ThingKey_op_Implicit.htm" />
+          <HelpTOCNode Title="Implicit Conversion (ThingKey to String)" Url="html/M_Yodiwo_API_Plegma_ThingKey_op_Implicit_1.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Title="Inequality Operator " Url="html/M_Yodiwo_API_Plegma_ThingKey_op_Inequality.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="e5564eb2-cb19-45a7-87b8-b7921e6056e5" Title="ThingKey Fields" Url="html/Fields_T_Yodiwo_API_Plegma_ThingKey.htm">
+        <HelpTOCNode Title="NodeKey Field" Url="html/F_Yodiwo_API_Plegma_ThingKey_NodeKey.htm" />
+        <HelpTOCNode Title="SpikeSeparator Field" Url="html/F_Yodiwo_API_Plegma_ThingKey_SpikeSeparator.htm" />
+        <HelpTOCNode Title="ThingUID Field" Url="html/F_Yodiwo_API_Plegma_ThingKey_ThingUID.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="507182b6-9b82-427f-a713-1be0ba4a6047" Title="ThingKeyConverter Class" Url="html/T_Yodiwo_API_Plegma_ThingKeyConverter.htm">
+      <HelpTOCNode Title="ThingKeyConverter Constructor " Url="html/M_Yodiwo_API_Plegma_ThingKeyConverter__ctor.htm" />
+      <HelpTOCNode Id="b50c697e-c4e7-4f19-a162-97f518839971" Title="ThingKeyConverter Methods" Url="html/Methods_T_Yodiwo_API_Plegma_ThingKeyConverter.htm">
+        <HelpTOCNode Id="6bc97bf1-7797-4717-ade0-53dd0d4d126a" Title="CanConvertFrom Method " Url="html/Overload_Yodiwo_API_Plegma_ThingKeyConverter_CanConvertFrom.htm">
+          <HelpTOCNode Title="CanConvertFrom Method (ITypeDescriptorContext, Type)" Url="html/M_Yodiwo_API_Plegma_ThingKeyConverter_CanConvertFrom.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Id="411c4c32-a740-4089-8dcc-8e7e05bb6ec9" Title="CanConvertTo Method " Url="html/Overload_Yodiwo_API_Plegma_ThingKeyConverter_CanConvertTo.htm">
+          <HelpTOCNode Title="CanConvertTo Method (ITypeDescriptorContext, Type)" Url="html/M_Yodiwo_API_Plegma_ThingKeyConverter_CanConvertTo.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Id="182bedef-00e9-4737-b0a7-0a86b71d64b5" Title="ConvertFrom Method " Url="html/Overload_Yodiwo_API_Plegma_ThingKeyConverter_ConvertFrom.htm">
+          <HelpTOCNode Title="ConvertFrom Method (ITypeDescriptorContext, CultureInfo, Object)" Url="html/M_Yodiwo_API_Plegma_ThingKeyConverter_ConvertFrom.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Id="33a724c7-06f3-404f-9948-beef30aa530d" Title="ConvertTo Method " Url="html/Overload_Yodiwo_API_Plegma_ThingKeyConverter_ConvertTo.htm">
+          <HelpTOCNode Title="ConvertTo Method (ITypeDescriptorContext, CultureInfo, Object, Type)" Url="html/M_Yodiwo_API_Plegma_ThingKeyConverter_ConvertTo.htm" />
+        </HelpTOCNode>
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="abf48444-d99a-4e9b-8a4a-001452d85d73" Title="ThingModelType Class" Url="html/T_Yodiwo_API_Plegma_ThingModelType.htm">
+      <HelpTOCNode Title="ThingModelType Constructor " Url="html/M_Yodiwo_API_Plegma_ThingModelType__ctor.htm" />
+      <HelpTOCNode Title="ThingModelType Methods" Url="html/Methods_T_Yodiwo_API_Plegma_ThingModelType.htm" />
+      <HelpTOCNode Id="ea15187c-b99c-44ff-8df0-6ef513172b0b" Title="ThingModelType Fields" Url="html/Fields_T_Yodiwo_API_Plegma_ThingModelType.htm">
+        <HelpTOCNode Title="Config Field" Url="html/F_Yodiwo_API_Plegma_ThingModelType_Config.htm" />
+        <HelpTOCNode Title="Description Field" Url="html/F_Yodiwo_API_Plegma_ThingModelType_Description.htm" />
+        <HelpTOCNode Title="Id Field" Url="html/F_Yodiwo_API_Plegma_ThingModelType_Id.htm" />
+        <HelpTOCNode Title="Name Field" Url="html/F_Yodiwo_API_Plegma_ThingModelType_Name.htm" />
+        <HelpTOCNode Title="Port Field" Url="html/F_Yodiwo_API_Plegma_ThingModelType_Port.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="62b0be26-3956-49c9-810c-fdcd37f2facb" Title="ThingsGet Class" Url="html/T_Yodiwo_API_Plegma_ThingsGet.htm">
+      <HelpTOCNode Id="774ea9dd-3bda-41a7-bf2c-a18a1b22af5d" Title="ThingsGet Constructor " Url="html/Overload_Yodiwo_API_Plegma_ThingsGet__ctor.htm">
+        <HelpTOCNode Title="ThingsGet Constructor " Url="html/M_Yodiwo_API_Plegma_ThingsGet__ctor.htm" />
+        <HelpTOCNode Title="ThingsGet Constructor (Int32)" Url="html/M_Yodiwo_API_Plegma_ThingsGet__ctor_1.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="ThingsGet Methods" Url="html/Methods_T_Yodiwo_API_Plegma_ThingsGet.htm" />
+      <HelpTOCNode Id="0f60db0e-cedb-48ec-b18a-e30196aabb5d" Title="ThingsGet Fields" Url="html/Fields_T_Yodiwo_API_Plegma_ThingsGet.htm">
+        <HelpTOCNode Title="Operation Field" Url="html/F_Yodiwo_API_Plegma_ThingsGet_Operation.htm" />
+        <HelpTOCNode Title="RevNum Field" Url="html/F_Yodiwo_API_Plegma_ThingsGet_RevNum.htm" />
+        <HelpTOCNode Title="ThingKey Field" Url="html/F_Yodiwo_API_Plegma_ThingsGet_ThingKey.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="f9bc4f76-55f9-4d63-b34c-46e5210e618f" Title="ThingsSet Class" Url="html/T_Yodiwo_API_Plegma_ThingsSet.htm">
+      <HelpTOCNode Title="ThingsSet Constructor " Url="html/M_Yodiwo_API_Plegma_ThingsSet__ctor.htm" />
+      <HelpTOCNode Title="ThingsSet Methods" Url="html/Methods_T_Yodiwo_API_Plegma_ThingsSet.htm" />
+      <HelpTOCNode Id="e7841970-959a-4f7d-b5bc-299b94cb2285" Title="ThingsSet Fields" Url="html/Fields_T_Yodiwo_API_Plegma_ThingsSet.htm">
+        <HelpTOCNode Title="Data Field" Url="html/F_Yodiwo_API_Plegma_ThingsSet_Data.htm" />
+        <HelpTOCNode Title="Operation Field" Url="html/F_Yodiwo_API_Plegma_ThingsSet_Operation.htm" />
+        <HelpTOCNode Title="RevNum Field" Url="html/F_Yodiwo_API_Plegma_ThingsSet_RevNum.htm" />
+        <HelpTOCNode Title="Status Field" Url="html/F_Yodiwo_API_Plegma_ThingsSet_Status.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="7a3e056c-76d9-4783-9024-1516f81a1092" Title="ThingType Class" Url="html/T_Yodiwo_API_Plegma_ThingType.htm">
+      <HelpTOCNode Title="ThingType Constructor " Url="html/M_Yodiwo_API_Plegma_ThingType__ctor.htm" />
+      <HelpTOCNode Id="12250010-ef52-4c8d-a1c9-38145cbff399" Title="ThingType Methods" Url="html/Methods_T_Yodiwo_API_Plegma_ThingType.htm">
+        <HelpTOCNode Id="5c2923b5-ceb0-4acb-93fa-fe34c3c1b940" Title="Equals Method " Url="html/Overload_Yodiwo_API_Plegma_ThingType_Equals.htm">
+          <HelpTOCNode Title="Equals Method (Object)" Url="html/M_Yodiwo_API_Plegma_ThingType_Equals.htm" />
+          <HelpTOCNode Title="Equals Method (ThingType)" Url="html/M_Yodiwo_API_Plegma_ThingType_Equals_1.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Title="GetHashCode Method " Url="html/M_Yodiwo_API_Plegma_ThingType_GetHashCode.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="cf01f8f7-fb20-454a-87e9-eb40b441fe19" Title="ThingType Operators" Url="html/Operators_T_Yodiwo_API_Plegma_ThingType.htm">
+        <HelpTOCNode Title="Equality Operator " Url="html/M_Yodiwo_API_Plegma_ThingType_op_Equality.htm" />
+        <HelpTOCNode Title="Inequality Operator " Url="html/M_Yodiwo_API_Plegma_ThingType_op_Inequality.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="61804104-bec2-4ca5-b1ba-670b4ec39c45" Title="ThingType Fields" Url="html/Fields_T_Yodiwo_API_Plegma_ThingType.htm">
+        <HelpTOCNode Title="Description Field" Url="html/F_Yodiwo_API_Plegma_ThingType_Description.htm" />
+        <HelpTOCNode Title="Model Field" Url="html/F_Yodiwo_API_Plegma_ThingType_Model.htm" />
+        <HelpTOCNode Title="Searchable Field" Url="html/F_Yodiwo_API_Plegma_ThingType_Searchable.htm" />
+        <HelpTOCNode Title="Type Field" Url="html/F_Yodiwo_API_Plegma_ThingType_Type.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="9cbb0f37-9404-431f-b501-4c27b3d81a95" Title="ThingTypes Class" Url="html/T_Yodiwo_API_Plegma_ThingTypes.htm">
+      <HelpTOCNode Id="99781203-4e6c-4117-b949-1dce9095d94f" Title="ThingTypes Fields" Url="html/Fields_T_Yodiwo_API_Plegma_ThingTypes.htm">
+        <HelpTOCNode Title="Yodiwo_Logic_BlockLibrary_ScreenStreamerThing Field" Url="html/F_Yodiwo_API_Plegma_ThingTypes_Yodiwo_Logic_BlockLibrary_ScreenStreamerThing.htm" />
+        <HelpTOCNode Title="Yodiwo_Logic_BlockLibrary_SipThingOut Field" Url="html/F_Yodiwo_API_Plegma_ThingTypes_Yodiwo_Logic_BlockLibrary_SipThingOut.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="b9e6ceb7-9180-4b3c-b0b5-aa052252f81b" Title="ThingUIHints Structure" Url="html/T_Yodiwo_API_Plegma_ThingUIHints.htm">
+      <HelpTOCNode Title="ThingUIHints Methods" Url="html/Methods_T_Yodiwo_API_Plegma_ThingUIHints.htm" />
+      <HelpTOCNode Id="f50a7d05-21ae-45be-9967-d005c7141fc6" Title="ThingUIHints Fields" Url="html/Fields_T_Yodiwo_API_Plegma_ThingUIHints.htm">
+        <HelpTOCNode Title="Description Field" Url="html/F_Yodiwo_API_Plegma_ThingUIHints_Description.htm" />
+        <HelpTOCNode Title="IconURI Field" Url="html/F_Yodiwo_API_Plegma_ThingUIHints_IconURI.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="1685006d-e42f-4572-aebf-c27c7a68f805" Title="UserKey Structure" Url="html/T_Yodiwo_API_Plegma_UserKey.htm">
+      <HelpTOCNode Title="UserKey Constructor " Url="html/M_Yodiwo_API_Plegma_UserKey__ctor.htm" />
+      <HelpTOCNode Id="a2d80690-4646-4132-b2e7-a4c401fabed9" Title="UserKey Properties" Url="html/Properties_T_Yodiwo_API_Plegma_UserKey.htm">
+        <HelpTOCNode Title="IsInvalid Property " Url="html/P_Yodiwo_API_Plegma_UserKey_IsInvalid.htm" />
+        <HelpTOCNode Title="IsValid Property " Url="html/P_Yodiwo_API_Plegma_UserKey_IsValid.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="2de74c09-9234-48cd-993f-fa2481a795db" Title="UserKey Methods" Url="html/Methods_T_Yodiwo_API_Plegma_UserKey.htm">
+        <HelpTOCNode Title="ConvertFromString Method " Url="html/M_Yodiwo_API_Plegma_UserKey_ConvertFromString.htm" />
+        <HelpTOCNode Id="4db78008-f975-40f2-af6d-388f31deb0b6" Title="Equals Method " Url="html/Overload_Yodiwo_API_Plegma_UserKey_Equals.htm">
+          <HelpTOCNode Title="Equals Method (Object)" Url="html/M_Yodiwo_API_Plegma_UserKey_Equals.htm" />
+          <HelpTOCNode Title="Equals Method (UserKey)" Url="html/M_Yodiwo_API_Plegma_UserKey_Equals_1.htm" />
+          <HelpTOCNode Title="Equals Method (UserKey)" Url="html/M_Yodiwo_API_Plegma_UserKey_Equals_2.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Title="FillFromString Method " Url="html/M_Yodiwo_API_Plegma_UserKey_FillFromString.htm" />
+        <HelpTOCNode Title="GetHashCode Method " Url="html/M_Yodiwo_API_Plegma_UserKey_GetHashCode.htm" />
+        <HelpTOCNode Title="ToString Method " Url="html/M_Yodiwo_API_Plegma_UserKey_ToString.htm" />
+        <HelpTOCNode Title="ToStringEx Method " Url="html/M_Yodiwo_API_Plegma_UserKey_ToStringEx.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="a4ebc11b-979c-469c-8571-13f414897dba" Title="UserKey Operators and Type Conversions" Url="html/Operators_T_Yodiwo_API_Plegma_UserKey.htm">
+        <HelpTOCNode Title="Equality Operator " Url="html/M_Yodiwo_API_Plegma_UserKey_op_Equality.htm" />
+        <HelpTOCNode Id="b0fe6a16-8b94-4019-935f-629443f81d80" Title="Implicit Conversion Operators" Url="html/Overload_Yodiwo_API_Plegma_UserKey_op_Implicit.htm">
+          <HelpTOCNode Title="Implicit Conversion (String to UserKey)" Url="html/M_Yodiwo_API_Plegma_UserKey_op_Implicit.htm" />
+          <HelpTOCNode Title="Implicit Conversion (UserKey to String)" Url="html/M_Yodiwo_API_Plegma_UserKey_op_Implicit_1.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Title="Inequality Operator " Url="html/M_Yodiwo_API_Plegma_UserKey_op_Inequality.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="b1b30c3f-af9a-4de5-a359-925203933d2f" Title="UserKey Fields" Url="html/Fields_T_Yodiwo_API_Plegma_UserKey.htm">
+        <HelpTOCNode Title="MaxKeyLength Field" Url="html/F_Yodiwo_API_Plegma_UserKey_MaxKeyLength.htm" />
+        <HelpTOCNode Title="MaxUserIDLength Field" Url="html/F_Yodiwo_API_Plegma_UserKey_MaxUserIDLength.htm" />
+        <HelpTOCNode Title="MinKeyLength Field" Url="html/F_Yodiwo_API_Plegma_UserKey_MinKeyLength.htm" />
+        <HelpTOCNode Title="MinUserIDLength Field" Url="html/F_Yodiwo_API_Plegma_UserKey_MinUserIDLength.htm" />
+        <HelpTOCNode Title="UserID Field" Url="html/F_Yodiwo_API_Plegma_UserKey_UserID.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="e89c83fd-df46-40ae-a5c0-fd580228327e" Title="UserKeyConverter Class" Url="html/T_Yodiwo_API_Plegma_UserKeyConverter.htm">
+      <HelpTOCNode Title="UserKeyConverter Constructor " Url="html/M_Yodiwo_API_Plegma_UserKeyConverter__ctor.htm" />
+      <HelpTOCNode Id="faac6e3c-27ff-4ee9-b6ec-45d38928c0ed" Title="UserKeyConverter Methods" Url="html/Methods_T_Yodiwo_API_Plegma_UserKeyConverter.htm">
+        <HelpTOCNode Id="d9ef5ae3-90ae-4186-bede-54610ad25464" Title="CanConvertFrom Method " Url="html/Overload_Yodiwo_API_Plegma_UserKeyConverter_CanConvertFrom.htm">
+          <HelpTOCNode Title="CanConvertFrom Method (ITypeDescriptorContext, Type)" Url="html/M_Yodiwo_API_Plegma_UserKeyConverter_CanConvertFrom.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Id="ac46855c-25de-4cc5-bcd1-aa973111c219" Title="CanConvertTo Method " Url="html/Overload_Yodiwo_API_Plegma_UserKeyConverter_CanConvertTo.htm">
+          <HelpTOCNode Title="CanConvertTo Method (ITypeDescriptorContext, Type)" Url="html/M_Yodiwo_API_Plegma_UserKeyConverter_CanConvertTo.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Id="77caa027-415f-4887-9bc9-e842766c3463" Title="ConvertFrom Method " Url="html/Overload_Yodiwo_API_Plegma_UserKeyConverter_ConvertFrom.htm">
+          <HelpTOCNode Title="ConvertFrom Method (ITypeDescriptorContext, CultureInfo, Object)" Url="html/M_Yodiwo_API_Plegma_UserKeyConverter_ConvertFrom.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Id="656e4fbf-b21c-4a6f-93c0-f6625de361e3" Title="ConvertTo Method " Url="html/Overload_Yodiwo_API_Plegma_UserKeyConverter_ConvertTo.htm">
+          <HelpTOCNode Title="ConvertTo Method (ITypeDescriptorContext, CultureInfo, Object, Type)" Url="html/M_Yodiwo_API_Plegma_UserKeyConverter_ConvertTo.htm" />
+        </HelpTOCNode>
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="a2d2c70c-a392-4291-80c4-86de957d55e7" Title="Validators Class" Url="html/T_Yodiwo_API_Plegma_Validators.htm">
+      <HelpTOCNode Id="eeff34b6-ac52-476a-91bb-0dd793c9b446" Title="Validators Methods" Url="html/Methods_T_Yodiwo_API_Plegma_Validators.htm">
+        <HelpTOCNode Title="ValidateKey Method " Url="html/M_Yodiwo_API_Plegma_Validators_ValidateKey.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="08c119ec-9c09-4549-902d-c1656ade663a" Title="VideoContentDescriptor Class" Url="html/T_Yodiwo_API_Plegma_VideoContentDescriptor.htm">
+      <HelpTOCNode Title="VideoContentDescriptor Constructor " Url="html/M_Yodiwo_API_Plegma_VideoContentDescriptor__ctor.htm" />
+      <HelpTOCNode Title="VideoContentDescriptor Methods" Url="html/Methods_T_Yodiwo_API_Plegma_VideoContentDescriptor.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Id="eb1a7dff-e987-4b8f-bdb0-855f82d4d3c3" Title="VirtualBlockEvent Class" Url="html/T_Yodiwo_API_Plegma_VirtualBlockEvent.htm">
+      <HelpTOCNode Title="VirtualBlockEvent Constructor " Url="html/M_Yodiwo_API_Plegma_VirtualBlockEvent__ctor.htm" />
+      <HelpTOCNode Title="VirtualBlockEvent Methods" Url="html/Methods_T_Yodiwo_API_Plegma_VirtualBlockEvent.htm" />
+      <HelpTOCNode Id="f272bdfe-a6c0-432a-b70c-911fd2f048c5" Title="VirtualBlockEvent Fields" Url="html/Fields_T_Yodiwo_API_Plegma_VirtualBlockEvent.htm">
+        <HelpTOCNode Title="BlockKey Field" Url="html/F_Yodiwo_API_Plegma_VirtualBlockEvent_BlockKey.htm" />
+        <HelpTOCNode Title="Indices Field" Url="html/F_Yodiwo_API_Plegma_VirtualBlockEvent_Indices.htm" />
+        <HelpTOCNode Title="RevNum Field" Url="html/F_Yodiwo_API_Plegma_VirtualBlockEvent_RevNum.htm" />
+        <HelpTOCNode Title="Values Field" Url="html/F_Yodiwo_API_Plegma_VirtualBlockEvent_Values.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="5f674097-7928-4a5a-89be-2618daedd9c2" Title="VirtualBlockEventMsg Class" Url="html/T_Yodiwo_API_Plegma_VirtualBlockEventMsg.htm">
+      <HelpTOCNode Id="ffdd40e3-eac2-4bba-81db-544b1a372db9" Title="VirtualBlockEventMsg Constructor " Url="html/Overload_Yodiwo_API_Plegma_VirtualBlockEventMsg__ctor.htm">
+        <HelpTOCNode Title="VirtualBlockEventMsg Constructor " Url="html/M_Yodiwo_API_Plegma_VirtualBlockEventMsg__ctor.htm" />
+        <HelpTOCNode Title="VirtualBlockEventMsg Constructor (Int32)" Url="html/M_Yodiwo_API_Plegma_VirtualBlockEventMsg__ctor_1.htm" />
+        <HelpTOCNode Title="VirtualBlockEventMsg Constructor (Int32, VirtualBlockEvent)" Url="html/M_Yodiwo_API_Plegma_VirtualBlockEventMsg__ctor_2.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="905e6b34-c059-4959-b9b2-a186aaff9c55" Title="VirtualBlockEventMsg Methods" Url="html/Methods_T_Yodiwo_API_Plegma_VirtualBlockEventMsg.htm">
+        <HelpTOCNode Title="ToString Method " Url="html/M_Yodiwo_API_Plegma_VirtualBlockEventMsg_ToString.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="b583711e-b974-432c-ab2e-cdc41788f205" Title="VirtualBlockEventMsg Fields" Url="html/Fields_T_Yodiwo_API_Plegma_VirtualBlockEventMsg.htm">
+        <HelpTOCNode Title="BlockEvents Field" Url="html/F_Yodiwo_API_Plegma_VirtualBlockEventMsg_BlockEvents.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="997622e4-473b-4199-815a-9e7b070851f4" Title="WebSocketMsg Class" Url="html/T_Yodiwo_API_Plegma_WebSocketMsg.htm">
+      <HelpTOCNode Title="WebSocketMsg Constructor " Url="html/M_Yodiwo_API_Plegma_WebSocketMsg__ctor.htm" />
+      <HelpTOCNode Title="WebSocketMsg Properties" Url="html/Properties_T_Yodiwo_API_Plegma_WebSocketMsg.htm" />
+      <HelpTOCNode Title="WebSocketMsg Methods" Url="html/Methods_T_Yodiwo_API_Plegma_WebSocketMsg.htm" />
+      <HelpTOCNode Id="01a96b9f-74dc-4c54-8f86-35dbc4ec2626" Title="WebSocketMsg Fields" Url="html/Fields_T_Yodiwo_API_Plegma_WebSocketMsg.htm">
+        <HelpTOCNode Title="Id Field" Url="html/F_Yodiwo_API_Plegma_WebSocketMsg_Id.htm" />
+        <HelpTOCNode Title="SubId Field" Url="html/F_Yodiwo_API_Plegma_WebSocketMsg_SubId.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Title="WebSocketMsg.eWSMsgId Enumeration" Url="html/T_Yodiwo_API_Plegma_WebSocketMsg_eWSMsgId.htm" />
+    <HelpTOCNode Id="023ed623-b25b-407d-8040-63b706a2639e" Title="WrapperMsg Class" Url="html/T_Yodiwo_API_Plegma_WrapperMsg.htm">
+      <HelpTOCNode Title="WrapperMsg Constructor " Url="html/M_Yodiwo_API_Plegma_WrapperMsg__ctor.htm" />
+      <HelpTOCNode Id="ff572590-6f9c-4a98-b576-9d03c4d46cee" Title="WrapperMsg Properties" Url="html/Properties_T_Yodiwo_API_Plegma_WrapperMsg.htm">
+        <HelpTOCNode Title="IsRequest Property " Url="html/P_Yodiwo_API_Plegma_WrapperMsg_IsRequest.htm" />
+        <HelpTOCNode Title="IsResponse Property " Url="html/P_Yodiwo_API_Plegma_WrapperMsg_IsResponse.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="WrapperMsg Methods" Url="html/Methods_T_Yodiwo_API_Plegma_WrapperMsg.htm" />
+      <HelpTOCNode Id="fbc59009-e1bb-4233-962e-972efe1c75e7" Title="WrapperMsg Fields" Url="html/Fields_T_Yodiwo_API_Plegma_WrapperMsg.htm">
+        <HelpTOCNode Title="Flags Field" Url="html/F_Yodiwo_API_Plegma_WrapperMsg_Flags.htm" />
+        <HelpTOCNode Title="Payload Field" Url="html/F_Yodiwo_API_Plegma_WrapperMsg_Payload.htm" />
+        <HelpTOCNode Title="PayloadSize Field" Url="html/F_Yodiwo_API_Plegma_WrapperMsg_PayloadSize.htm" />
+        <HelpTOCNode Title="SyncId Field" Url="html/F_Yodiwo_API_Plegma_WrapperMsg_SyncId.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Title="WrapperMsg.eMsgFlags Enumeration" Url="html/T_Yodiwo_API_Plegma_WrapperMsg_eMsgFlags.htm" />
+    <HelpTOCNode Id="08a737af-a202-43a7-96af-b7324aeec114" Title="YColor Structure" Url="html/T_Yodiwo_API_Plegma_YColor.htm">
+      <HelpTOCNode Title="YColor Methods" Url="html/Methods_T_Yodiwo_API_Plegma_YColor.htm" />
+      <HelpTOCNode Id="67f3a52a-14e2-4b85-9022-1875129ae510" Title="YColor Fields" Url="html/Fields_T_Yodiwo_API_Plegma_YColor.htm">
+        <HelpTOCNode Title="A Field" Url="html/F_Yodiwo_API_Plegma_YColor_A.htm" />
+        <HelpTOCNode Title="B Field" Url="html/F_Yodiwo_API_Plegma_YColor_B.htm" />
+        <HelpTOCNode Title="G Field" Url="html/F_Yodiwo_API_Plegma_YColor_G.htm" />
+        <HelpTOCNode Title="R Field" Url="html/F_Yodiwo_API_Plegma_YColor_R.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+  </HelpTOCNode>
+  <HelpTOCNode Id="5ea23223-fbcd-4bae-9e82-483cc8a003ca" Title="Yodiwo.API.Plegma.NodePairing" Url="html/N_Yodiwo_API_Plegma_NodePairing.htm">
+    <HelpTOCNode Id="ee0d5f12-67b3-40c5-b219-33a0e8ec73d7" Title="NodePairingConstants Class" Url="html/T_Yodiwo_API_Plegma_NodePairing_NodePairingConstants.htm">
+      <HelpTOCNode Id="87fbf08f-3834-4d13-b2e2-db7d94a76e11" Title="NodePairingConstants Fields" Url="html/Fields_T_Yodiwo_API_Plegma_NodePairing_NodePairingConstants.htm">
+        <HelpTOCNode Title="ApiMsgNames Field" Url="html/F_Yodiwo_API_Plegma_NodePairing_NodePairingConstants_ApiMsgNames.htm" />
+        <HelpTOCNode Title="ApiMsgNamesToTypes Field" Url="html/F_Yodiwo_API_Plegma_NodePairing_NodePairingConstants_ApiMsgNamesToTypes.htm" />
+        <HelpTOCNode Title="NodeKey Field" Url="html/F_Yodiwo_API_Plegma_NodePairing_NodePairingConstants_NodeKey.htm" />
+        <HelpTOCNode Title="PairingRootURI Field" Url="html/F_Yodiwo_API_Plegma_NodePairing_NodePairingConstants_PairingRootURI.htm" />
+        <HelpTOCNode Title="s_GetKeysRequest Field" Url="html/F_Yodiwo_API_Plegma_NodePairing_NodePairingConstants_s_GetKeysRequest.htm" />
+        <HelpTOCNode Title="s_GetTokensRequest Field" Url="html/F_Yodiwo_API_Plegma_NodePairing_NodePairingConstants_s_GetTokensRequest.htm" />
+        <HelpTOCNode Title="s_KeysResponse Field" Url="html/F_Yodiwo_API_Plegma_NodePairing_NodePairingConstants_s_KeysResponse.htm" />
+        <HelpTOCNode Title="s_TokensResponse Field" Url="html/F_Yodiwo_API_Plegma_NodePairing_NodePairingConstants_s_TokensResponse.htm" />
+        <HelpTOCNode Title="SecretKey Field" Url="html/F_Yodiwo_API_Plegma_NodePairing_NodePairingConstants_SecretKey.htm" />
+        <HelpTOCNode Title="Token1 Field" Url="html/F_Yodiwo_API_Plegma_NodePairing_NodePairingConstants_Token1.htm" />
+        <HelpTOCNode Title="Token2 Field" Url="html/F_Yodiwo_API_Plegma_NodePairing_NodePairingConstants_Token2.htm" />
+        <HelpTOCNode Title="UserConfirmFullURI Field" Url="html/F_Yodiwo_API_Plegma_NodePairing_NodePairingConstants_UserConfirmFullURI.htm" />
+        <HelpTOCNode Title="UserConfirmPageURI Field" Url="html/F_Yodiwo_API_Plegma_NodePairing_NodePairingConstants_UserConfirmPageURI.htm" />
+        <HelpTOCNode Title="Uuid Field" Url="html/F_Yodiwo_API_Plegma_NodePairing_NodePairingConstants_Uuid.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="6f883ee4-d592-4bbd-98fa-5ce40b049511" Title="PairingNodeGetKeysRequest Class" Url="html/T_Yodiwo_API_Plegma_NodePairing_PairingNodeGetKeysRequest.htm">
+      <HelpTOCNode Id="acc2b800-e75b-41bb-9dbd-05a1caad6605" Title="PairingNodeGetKeysRequest Constructor " Url="html/Overload_Yodiwo_API_Plegma_NodePairing_PairingNodeGetKeysRequest__ctor.htm">
+        <HelpTOCNode Title="PairingNodeGetKeysRequest Constructor " Url="html/M_Yodiwo_API_Plegma_NodePairing_PairingNodeGetKeysRequest__ctor.htm" />
+        <HelpTOCNode Title="PairingNodeGetKeysRequest Constructor (String, String)" Url="html/M_Yodiwo_API_Plegma_NodePairing_PairingNodeGetKeysRequest__ctor_1.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="PairingNodeGetKeysRequest Methods" Url="html/Methods_T_Yodiwo_API_Plegma_NodePairing_PairingNodeGetKeysRequest.htm" />
+      <HelpTOCNode Id="39bece15-a76b-44c2-bfae-7e4672193c26" Title="PairingNodeGetKeysRequest Fields" Url="html/Fields_T_Yodiwo_API_Plegma_NodePairing_PairingNodeGetKeysRequest.htm">
+        <HelpTOCNode Title="token1 Field" Url="html/F_Yodiwo_API_Plegma_NodePairing_PairingNodeGetKeysRequest_token1.htm" />
+        <HelpTOCNode Title="token2 Field" Url="html/F_Yodiwo_API_Plegma_NodePairing_PairingNodeGetKeysRequest_token2.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="600e785d-57a4-409e-9e33-46f6fa6f0900" Title="PairingNodeGetTokensRequest Class" Url="html/T_Yodiwo_API_Plegma_NodePairing_PairingNodeGetTokensRequest.htm">
+      <HelpTOCNode Title="PairingNodeGetTokensRequest Constructor " Url="html/M_Yodiwo_API_Plegma_NodePairing_PairingNodeGetTokensRequest__ctor.htm" />
+      <HelpTOCNode Title="PairingNodeGetTokensRequest Methods" Url="html/Methods_T_Yodiwo_API_Plegma_NodePairing_PairingNodeGetTokensRequest.htm" />
+      <HelpTOCNode Id="f67ab2bb-bcac-431f-a638-e7cd3f488acc" Title="PairingNodeGetTokensRequest Fields" Url="html/Fields_T_Yodiwo_API_Plegma_NodePairing_PairingNodeGetTokensRequest.htm">
+        <HelpTOCNode Title="description Field" Url="html/F_Yodiwo_API_Plegma_NodePairing_PairingNodeGetTokensRequest_description.htm" />
+        <HelpTOCNode Title="image Field" Url="html/F_Yodiwo_API_Plegma_NodePairing_PairingNodeGetTokensRequest_image.htm" />
+        <HelpTOCNode Title="name Field" Url="html/F_Yodiwo_API_Plegma_NodePairing_PairingNodeGetTokensRequest_name.htm" />
+        <HelpTOCNode Title="pathcss Field" Url="html/F_Yodiwo_API_Plegma_NodePairing_PairingNodeGetTokensRequest_pathcss.htm" />
+        <HelpTOCNode Title="PublicKey Field" Url="html/F_Yodiwo_API_Plegma_NodePairing_PairingNodeGetTokensRequest_PublicKey.htm" />
+        <HelpTOCNode Title="RedirectUri Field" Url="html/F_Yodiwo_API_Plegma_NodePairing_PairingNodeGetTokensRequest_RedirectUri.htm" />
+        <HelpTOCNode Title="uuid Field" Url="html/F_Yodiwo_API_Plegma_NodePairing_PairingNodeGetTokensRequest_uuid.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="f8c371b2-8a40-46f0-a158-73442d5653b9" Title="PairingNodePhase1Response Class" Url="html/T_Yodiwo_API_Plegma_NodePairing_PairingNodePhase1Response.htm">
+      <HelpTOCNode Id="0dc084c7-effc-42b9-a402-70a61488eb69" Title="PairingNodePhase1Response Constructor " Url="html/Overload_Yodiwo_API_Plegma_NodePairing_PairingNodePhase1Response__ctor.htm">
+        <HelpTOCNode Title="PairingNodePhase1Response Constructor " Url="html/M_Yodiwo_API_Plegma_NodePairing_PairingNodePhase1Response__ctor.htm" />
+        <HelpTOCNode Title="PairingNodePhase1Response Constructor (String, String)" Url="html/M_Yodiwo_API_Plegma_NodePairing_PairingNodePhase1Response__ctor_1.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="PairingNodePhase1Response Methods" Url="html/Methods_T_Yodiwo_API_Plegma_NodePairing_PairingNodePhase1Response.htm" />
+      <HelpTOCNode Id="0842418a-eaff-4ddc-97d9-96723700127a" Title="PairingNodePhase1Response Fields" Url="html/Fields_T_Yodiwo_API_Plegma_NodePairing_PairingNodePhase1Response.htm">
+        <HelpTOCNode Title="token2 Field" Url="html/F_Yodiwo_API_Plegma_NodePairing_PairingNodePhase1Response_token2.htm" />
+        <HelpTOCNode Title="userNodeRegistrationUrl Field" Url="html/F_Yodiwo_API_Plegma_NodePairing_PairingNodePhase1Response_userNodeRegistrationUrl.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="a12feb45-d54e-46fa-96ba-81e10c8da67d" Title="PairingServerKeysResponse Class" Url="html/T_Yodiwo_API_Plegma_NodePairing_PairingServerKeysResponse.htm">
+      <HelpTOCNode Id="0384eb97-31d6-42cf-b07a-20e8ea1979e3" Title="PairingServerKeysResponse Constructor " Url="html/Overload_Yodiwo_API_Plegma_NodePairing_PairingServerKeysResponse__ctor.htm">
+        <HelpTOCNode Title="PairingServerKeysResponse Constructor " Url="html/M_Yodiwo_API_Plegma_NodePairing_PairingServerKeysResponse__ctor.htm" />
+        <HelpTOCNode Title="PairingServerKeysResponse Constructor (String, String)" Url="html/M_Yodiwo_API_Plegma_NodePairing_PairingServerKeysResponse__ctor_1.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="PairingServerKeysResponse Methods" Url="html/Methods_T_Yodiwo_API_Plegma_NodePairing_PairingServerKeysResponse.htm" />
+      <HelpTOCNode Id="868cdcf2-b821-4a27-8f1e-57c798e8d7ab" Title="PairingServerKeysResponse Fields" Url="html/Fields_T_Yodiwo_API_Plegma_NodePairing_PairingServerKeysResponse.htm">
+        <HelpTOCNode Title="nodeKey Field" Url="html/F_Yodiwo_API_Plegma_NodePairing_PairingServerKeysResponse_nodeKey.htm" />
+        <HelpTOCNode Title="secretKey Field" Url="html/F_Yodiwo_API_Plegma_NodePairing_PairingServerKeysResponse_secretKey.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="07c3dca1-bddc-49cb-85b6-f5ee9340e17b" Title="PairingServerTokensResponse Class" Url="html/T_Yodiwo_API_Plegma_NodePairing_PairingServerTokensResponse.htm">
+      <HelpTOCNode Id="d376b304-ae7b-4a9d-8047-329ca826459b" Title="PairingServerTokensResponse Constructor " Url="html/Overload_Yodiwo_API_Plegma_NodePairing_PairingServerTokensResponse__ctor.htm">
+        <HelpTOCNode Title="PairingServerTokensResponse Constructor " Url="html/M_Yodiwo_API_Plegma_NodePairing_PairingServerTokensResponse__ctor.htm" />
+        <HelpTOCNode Title="PairingServerTokensResponse Constructor (String, String)" Url="html/M_Yodiwo_API_Plegma_NodePairing_PairingServerTokensResponse__ctor_1.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="PairingServerTokensResponse Methods" Url="html/Methods_T_Yodiwo_API_Plegma_NodePairing_PairingServerTokensResponse.htm" />
+      <HelpTOCNode Id="1e0c8e88-2681-4c2d-89e2-377595195b72" Title="PairingServerTokensResponse Fields" Url="html/Fields_T_Yodiwo_API_Plegma_NodePairing_PairingServerTokensResponse.htm">
+        <HelpTOCNode Title="token1 Field" Url="html/F_Yodiwo_API_Plegma_NodePairing_PairingServerTokensResponse_token1.htm" />
+        <HelpTOCNode Title="token2 Field" Url="html/F_Yodiwo_API_Plegma_NodePairing_PairingServerTokensResponse_token2.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Title="PairingStates Enumeration" Url="html/T_Yodiwo_API_Plegma_NodePairing_PairingStates.htm" />
+  </HelpTOCNode>
+</HelpTOC>
