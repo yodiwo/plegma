@@ -1,0 +1,13 @@
+var searchData=
+[
+  ['r',['R',['../struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_y_color.html#a14a6d844d43059492855be0929516100',1,'Yodiwo::API::Plegma::YColor']]],
+  ['readonly',['ReadOnly',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_state_description.html#a08828167f38aa6d2baa71841f73e1b80',1,'Yodiwo.API.Plegma.StateDescription.ReadOnly()'],['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_config_description.html#a6b2bcaf9ab3e3f4e55680680f121ce2f',1,'Yodiwo.API.Plegma.ConfigDescription.ReadOnly()']]],
+  ['reasoncode',['ReasonCode',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_node_unpaired_req.html#a4a017dd7394d19b19d4f7565e36ae3ab',1,'Yodiwo::API::Plegma::NodeUnpairedReq']]],
+  ['redirecturi',['RedirectUri',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_node_pairing_1_1_pairing_node_get_tokens_request.html#aad830ba9ec6089f96702f5d66ee0ac44',1,'Yodiwo::API::Plegma::NodePairing::PairingNodeGetTokensRequest']]],
+  ['removable',['Removable',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_thing.html#a8cb1f7d4cb8108c9bdb7d5b0449033af',1,'Yodiwo::API::Plegma::Thing']]],
+  ['required',['Required',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_config_description.html#ac24dba4ab583bb62a08b7eebb3e0f73a',1,'Yodiwo::API::Plegma::ConfigDescription']]],
+  ['restservicetype',['RestServiceType',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_http_location_descriptor.html#ac85e2614f7c25c164392d447ee8b68a8',1,'Yodiwo::API::Plegma::HttpLocationDescriptor']]],
+  ['revision',['Revision',['../struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_graph_descriptor_key.html#ad7de5a86058003f906467187d70ce733',1,'Yodiwo::API::Plegma::GraphDescriptorKey']]],
+  ['revnum',['RevNum',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port.html#ae853d27d7da15fb4a4751ae4fcf1e561',1,'Yodiwo.API.Plegma.Port.RevNum()'],['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_things_get.html#a692ef23b26a7f7f4ca2f03078e265238',1,'Yodiwo.API.Plegma.ThingsGet.RevNum()'],['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_things_set.html#ae87f5fea348e6e2a806e6ba494abd496',1,'Yodiwo.API.Plegma.ThingsSet.RevNum()'],['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_event.html#a014b629574a4176dcfc21fa6f158ff87',1,'Yodiwo.API.Plegma.PortEvent.RevNum()'],['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_virtual_block_event.html#a2017952c4145ec99cb5122a7ab2af3e8',1,'Yodiwo.API.Plegma.VirtualBlockEvent.RevNum()'],['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_state.html#a09a50a7508f957e0cb21f9f0dcf8321a',1,'Yodiwo.API.Plegma.PortState.RevNum()']]],
+  ['rtspurl',['rtspUrl',['../class_yodiwo_1_1_a_p_i_1_1_media_streaming_1_1_video_descriptor.html#a5abc0d4ff7c5c801cf940caf4c4770db',1,'Yodiwo::API::MediaStreaming::VideoDescriptor']]]
+];
