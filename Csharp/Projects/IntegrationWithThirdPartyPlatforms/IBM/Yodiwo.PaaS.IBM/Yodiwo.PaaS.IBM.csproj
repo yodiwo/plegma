@@ -38,18 +38,18 @@
   <ItemGroup>
     <Reference Include="ApplicationIoTF, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\ExternalsDLLs\PaaS\IBM\ApplicationIoTF.dll</HintPath>
+      <HintPath>..\..\..\..\..\external-libs\Csharp\DLLs\ThirdParty\IBM\ApplicationIoTF.dll</HintPath>
     </Reference>
     <Reference Include="DeviceIoTF, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\ExternalsDLLs\PaaS\IBM\DeviceIoTF.dll</HintPath>
+      <HintPath>..\..\..\..\..\external-libs\Csharp\DLLs\ThirdParty\IBM\DeviceIoTF.dll</HintPath>
     </Reference>
     <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\ExternalsDLLs\log4net.2.0.3\log4net.dll</HintPath>
+      <HintPath>..\..\..\..\..\external-libs\Csharp\DLLs\ThirdParty\log4net.dll</HintPath>
     </Reference>
     <Reference Include="M2MqttClient.Net">
-      <HintPath>..\..\..\ExternalsDLLs\M2MqttClient.Net.dll</HintPath>
+      <HintPath>..\..\..\..\..\external-libs\Csharp\DLLs\ThirdParty\M2MqttClient.Net.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

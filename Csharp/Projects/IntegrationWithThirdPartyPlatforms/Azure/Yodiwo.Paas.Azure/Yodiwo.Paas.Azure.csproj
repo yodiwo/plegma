@@ -37,22 +37,22 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Azure.Amqp">
-      <HintPath>..\..\..\ExternalsDLLs\PaaS\Azure\Microsoft.Azure.Amqp.dll</HintPath>
+      <HintPath>..\..\..\..\..\external-libs\Csharp\DLLs\ThirdParty\Azure\Microsoft.Azure.Amqp.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Azure.Devices">
-      <HintPath>..\..\..\ExternalsDLLs\PaaS\Azure\Microsoft.Azure.Devices.dll</HintPath>
+      <HintPath>..\..\..\..\..\external-libs\Csharp\DLLs\ThirdParty\Azure\Microsoft.Azure.Devices.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Azure.Devices.Client">
-      <HintPath>..\..\..\ExternalsDLLs\PaaS\Azure\Microsoft.Azure.Devices.Client.dll</HintPath>
+      <HintPath>..\..\..\..\..\external-libs\Csharp\DLLs\ThirdParty\Azure\Microsoft.Azure.Devices.Client.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.ServiceBus">
-      <HintPath>..\..\..\ExternalsDLLs\PaaS\Azure\Microsoft.ServiceBus.dll</HintPath>
+      <HintPath>..\..\..\..\..\external-libs\Csharp\DLLs\ThirdParty\Azure\Microsoft.ServiceBus.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.ServiceBus.Messaging.EventProcessorHost">
-      <HintPath>..\..\..\ExternalsDLLs\PaaS\Azure\Microsoft.ServiceBus.Messaging.EventProcessorHost.dll</HintPath>
+      <HintPath>..\..\..\..\..\external-libs\Csharp\DLLs\ThirdParty\Azure\Microsoft.ServiceBus.Messaging.EventProcessorHost.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.WindowsAzure.Storage">
-      <HintPath>..\..\..\ExternalsDLLs\PaaS\Azure\Microsoft.WindowsAzure.Storage.dll</HintPath>
+      <HintPath>..\..\..\..\..\external-libs\Csharp\DLLs\ThirdParty\Azure\Microsoft.WindowsAzure.Storage.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

@@ -1,0 +1,85 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yodiwo.API.Plegma", "APIs\Plegma\Yodiwo.API.Plegma.csproj", "{94F4CE90-200F-40CE-BF83-E15D147924F7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YodiwoSharp", "YodiwoSharp\YodiwoSharp.csproj", "{8AE66ABD-D963-4E83-83A3-330156CD37A3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yodiwo.NodeLibrary", "NodeLibrary\Yodiwo.NodeLibrary\Yodiwo.NodeLibrary.csproj", "{8F830F7A-0A96-4329-847C-06B0A84BA4C4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yodiwo.API.Plegma.Code", "APIs\Yodiwo.API.Plegma.Code\Yodiwo.API.Plegma.Code.csproj", "{A753ABD7-A52D-4905-8137-A8772C448CBD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yodiwo.YPChannel", "Yodiwo.YPChannel\Yodiwo.YPChannel.csproj", "{536FAA15-E738-445E-A2D8-EF989ACB2C7F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yodiwo.Node.Pairing.NancyPairing", "NodeLibrary\Yodiwo.Node.Pairing.NancyPairing\Yodiwo.Node.Pairing.NancyPairing.csproj", "{8CCD87B9-D3AF-4CFF-80DE-BC7CAC1B6E43}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yodiwo.NodeLibrary.Graphs", "NodeLibrary\NodeLibrary.Graphs\Yodiwo.NodeLibrary.Graphs.csproj", "{038A37CA-F251-400B-8003-7EEAED77348C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "APIs", "APIs", "{8F87B6FF-978E-4293-A241-D9B200796A78}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Helpers", "Helpers", "{36D66C8B-E7CA-4C90-B912-3615C1152EEF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NodeLib", "NodeLib", "{3040EF0E-12C4-4689-A6F9-51AD37A80512}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yodiwo.PaaS.IBM", "Projects\IntegrationWithThirdPartyPlatforms\IBM\Yodiwo.PaaS.IBM\Yodiwo.PaaS.IBM.csproj", "{44519302-B5D3-4647-AD19-1ACF5BD45F5F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yodiwo.PaaS.IBMProxyNode", "Projects\IntegrationWithThirdPartyPlatforms\IBM\Yodiwo.PaaS.IBMProxyNode\Yodiwo.PaaS.IBMProxyNode.csproj", "{947B4233-3740-41FD-979D-61B4A8515B18}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{94F4CE90-200F-40CE-BF83-E15D147924F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94F4CE90-200F-40CE-BF83-E15D147924F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94F4CE90-200F-40CE-BF83-E15D147924F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94F4CE90-200F-40CE-BF83-E15D147924F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8AE66ABD-D963-4E83-83A3-330156CD37A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8AE66ABD-D963-4E83-83A3-330156CD37A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8AE66ABD-D963-4E83-83A3-330156CD37A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8AE66ABD-D963-4E83-83A3-330156CD37A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F830F7A-0A96-4329-847C-06B0A84BA4C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F830F7A-0A96-4329-847C-06B0A84BA4C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F830F7A-0A96-4329-847C-06B0A84BA4C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F830F7A-0A96-4329-847C-06B0A84BA4C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A753ABD7-A52D-4905-8137-A8772C448CBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A753ABD7-A52D-4905-8137-A8772C448CBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A753ABD7-A52D-4905-8137-A8772C448CBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A753ABD7-A52D-4905-8137-A8772C448CBD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{536FAA15-E738-445E-A2D8-EF989ACB2C7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{536FAA15-E738-445E-A2D8-EF989ACB2C7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{536FAA15-E738-445E-A2D8-EF989ACB2C7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{536FAA15-E738-445E-A2D8-EF989ACB2C7F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8CCD87B9-D3AF-4CFF-80DE-BC7CAC1B6E43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8CCD87B9-D3AF-4CFF-80DE-BC7CAC1B6E43}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8CCD87B9-D3AF-4CFF-80DE-BC7CAC1B6E43}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8CCD87B9-D3AF-4CFF-80DE-BC7CAC1B6E43}.Release|Any CPU.Build.0 = Release|Any CPU
+		{038A37CA-F251-400B-8003-7EEAED77348C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{038A37CA-F251-400B-8003-7EEAED77348C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{038A37CA-F251-400B-8003-7EEAED77348C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{038A37CA-F251-400B-8003-7EEAED77348C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44519302-B5D3-4647-AD19-1ACF5BD45F5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44519302-B5D3-4647-AD19-1ACF5BD45F5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44519302-B5D3-4647-AD19-1ACF5BD45F5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44519302-B5D3-4647-AD19-1ACF5BD45F5F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{947B4233-3740-41FD-979D-61B4A8515B18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{947B4233-3740-41FD-979D-61B4A8515B18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{947B4233-3740-41FD-979D-61B4A8515B18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{947B4233-3740-41FD-979D-61B4A8515B18}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{94F4CE90-200F-40CE-BF83-E15D147924F7} = {8F87B6FF-978E-4293-A241-D9B200796A78}
+		{8AE66ABD-D963-4E83-83A3-330156CD37A3} = {36D66C8B-E7CA-4C90-B912-3615C1152EEF}
+		{8F830F7A-0A96-4329-847C-06B0A84BA4C4} = {3040EF0E-12C4-4689-A6F9-51AD37A80512}
+		{A753ABD7-A52D-4905-8137-A8772C448CBD} = {8F87B6FF-978E-4293-A241-D9B200796A78}
+		{536FAA15-E738-445E-A2D8-EF989ACB2C7F} = {36D66C8B-E7CA-4C90-B912-3615C1152EEF}
+		{8CCD87B9-D3AF-4CFF-80DE-BC7CAC1B6E43} = {3040EF0E-12C4-4689-A6F9-51AD37A80512}
+		{038A37CA-F251-400B-8003-7EEAED77348C} = {3040EF0E-12C4-4689-A6F9-51AD37A80512}
+	EndGlobalSection
+EndGlobal
