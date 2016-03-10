@@ -1,0 +1,18 @@
+{
+  "ActiveID": "default",
+  "Configs": {
+    "default": {
+      "Uuid": "1337Raspberry",
+      "NodeKey": "",
+      "NodeSecret": "",
+      "FrontendServer": "http://10.30.254.100:3334",
+      "ApiServer": "10.30.254.100",
+      "YpchannelPort": 14623,
+      "YpchannelSecure": false,
+      "CertificateServerName": "*.yodiwo.com",
+      "LocalWebServer": "http://localhost:3339",
+      "MqttBrokerHostname": "yodiwodo.duckdns.org",
+      "MqttUseSsl": false
+    }
+  }
+}
