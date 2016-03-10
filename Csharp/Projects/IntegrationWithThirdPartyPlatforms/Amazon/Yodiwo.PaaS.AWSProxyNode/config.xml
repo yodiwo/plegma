@@ -1,0 +1,40 @@
+﻿<?xml version="1.0"?>
+<NodeDescriptor xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <AWSInfo>
+    <DeviceName>raspi</DeviceName>
+    <ApplicationName>[your app name]</ApplicationName>
+    <AWSBrokerHostName>[your aws broker hostname prefix].amazonaws.com</AWSBrokerHostName>
+    <PFXClientCertPath>[your client certificate path]</PFXClientCertPath>
+    <RootCertPath>[root certificate path]</RootCertPath>
+  </AWSInfo>
+  <YodiwoInfo>
+    <YodiwoNodeKey></YodiwoNodeKey>
+    <YodiwoSecretKey></YodiwoSecretKey>
+    <YodiwoRestUrl>https://cyan.yodiwo.com</YodiwoRestUrl>
+    <YodiwoApiServer>api.yodiwo.com</YodiwoApiServer>
+    <YPChannelPort>14623</YPChannelPort>
+    <SecureYPC>true</SecureYPC>
+  </YodiwoInfo>
+  <ThingsDescription>
+    <ThingDescriptor>
+      <ThingDescriptor>
+        <Name>Switch1</Name>
+        <Type>bool</Type>
+        <IO>output</IO>
+        <FriendlyIcon>http://dribbble.s3.amazonaws.com/users/100134/screenshots/750681/attachments/72983/switch_full_view.jpg</FriendlyIcon>
+      </ThingDescriptor>
+      <ThingDescriptor>
+        <Name>Temperature</Name>
+        <Type>float</Type>
+        <IO>output</IO>
+        <FriendlyIcon>https://cdn2.iconfinder.com/data/icons/game-center-mixed-icons/512/temperature.png</FriendlyIcon>
+      </ThingDescriptor>
+      <ThingDescriptor>
+        <Name>Console</Name>
+        <Type>string</Type>
+        <IO>input</IO>
+        <FriendlyIcon>http://www.prostomac.com/wp-content/uploads/2011/05/console-icon.jpg</FriendlyIcon>
+      </ThingDescriptor>
+    </ThingDescriptor>
+  </ThingsDescription>
+</NodeDescriptor>
