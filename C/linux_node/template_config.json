@@ -1,0 +1,16 @@
+{
+    "ActiveID": 0,
+    "Configs": [
+        {
+            "MqttBrokerCertFile": "yodiwo.com.pem",
+            "MqttBrokerHostname": "cyan.yodiwo.com",
+            "MqttBrokerPort": 8883,
+            "Name": "SeaNode",
+            "PairingServerUrl": "https://cyan.yodiwo.com/pairing/",
+            "Uuid": "1337CNode",
+            "WebPort": 8080,
+            "YPChannelServer": "cyan.yodiwo.com",
+            "YPChannelServerPort": 5555
+        }
+    ]
+}
