@@ -1,0 +1,47 @@
+﻿@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<System.Collections.Generic.IEnumerable<Yodiwo.Gateway.Openhab.Rest.Model.Binding>>
+
+@{
+    Layout = ViewBag.IsPjax ? null : "Layout.cshtml";
+}
+
+<div class="box bindings">
+    <div class="box-header ">
+        <h3 class="box-title">Bindings</h3>
+    </div><!-- /.box-header -->
+    <div class="box-body" style="display: block;">
+        <br />
+        <div class="row">
+            <!-- FOR EACH -->
+            @foreach (var x in @Model)
+            {
+
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" data-toggle="collapse" data-target="#@x.id" style="cursor: pointer;">
+                            <p>
+                                <big><b>@x.name.Replace("Binding", "").ToUpper()</b></big><br />
+                            </p>
+                            <p class="text-left">@x.author</p>
+                        </div>
+                        <div id="@x.id" class="panel-body panel-collapse collapse">
+                            <p>
+                                <small>@x.description</small>
+                            </p>
+                            @foreach (var y in @x.thingTypes)
+                            {
+                                <hr />
+                                <p>
+                                    @y.UID - @y.label <br /> <small>@y.description</small>
+                                </p>
+                                <div class="text-center">
+                                    <a href="/hab/things/add/@y.UID" data-pjax=".content" class="btn btn-default btn-flat">Add<i class="fa fa-fw fa-plus"></i></a>
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div><!-- /.box-body -->
+</div><!-- /.box -->

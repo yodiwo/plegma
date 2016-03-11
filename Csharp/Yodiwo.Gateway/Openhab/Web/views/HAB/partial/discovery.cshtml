@@ -1,0 +1,32 @@
+﻿@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<System.Collections.Generic.IEnumerable<string>>
+
+@{
+    Layout = ViewBag.IsPjax ? null : "Layout.cshtml";
+}
+
+<div class="box discovery " id="discovery">
+    <div class="box-header ">
+        <h3 class="box-title"><b>Discoverable Thing Types</b></h3>
+    </div><!-- /.box-header -->
+    <div class="box-body" style="display: block;">
+        <br />
+        <div class="row">
+            <!-- FOR EACH -->
+            @foreach (var x in @Model)
+            {
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" data-toggle="collapse" data-target="#@x"><b>@x.ToUpper()</b></div>
+                        <div id="@x" class="panel-body panel-collapse collapse">
+                            <p> Press scan to discover things of the <b>@x.ToUpper()</b> binding</p>
+                            <div class="text-center">
+                                <!--<a href="hab/discovery/@x" class="btn btn-default btn-flat">Scan<i class="fa fa-fw fa-search"></i></a>-->
+                                <button type="button" class="btn btn-default btn-flat" onclick="startScan('/hab/discovery/@x')">Scan<i class="fa fa-fw fa-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div><!-- /.box-body -->
+</div><!-- /.box -->

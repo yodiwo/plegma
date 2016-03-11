@@ -1,0 +1,118 @@
+﻿@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<System.Collections.Generic.IEnumerable<Yodiwo.Gateway.Openhab.Rest.Model.Thing>>
+
+@{
+    Layout = ViewBag.IsPjax ? null : "Layout.cshtml";
+}
+
+@functions
+{
+    string ThingID(string type, string replace)
+    {
+        var msg = type.Replace(":", replace);
+        return msg;
+    }
+    string thingName(string thingLabel)
+    {
+        if (thingLabel == null)
+        {
+            return "[EMPTY LABEL]";
+        }
+
+        return thingLabel;
+    }
+    string btnState(string state)
+    {
+        if (state.ToUpper() == "ON")
+        {
+            return "OFF";
+        }
+
+        return "ON";
+    }
+}
+@{
+    string tid;
+    string sid;
+}
+<div class="box control">
+    <div class="box-header ">
+        <h3 class="box-title"><b>Thing(s)</b></h3>
+    </div><!-- /.box-header -->
+    <div class="box-body" style="display: block;">
+        <br />
+        <div class="row">
+            <!-- FOR EACH -->
+            @foreach (var x in @Model)
+            {
+                tid = @ThingID(@x.UID, "_");
+                sid = tid + "_slider";
+                <div class="col-md-3">
+                    <div class="panel panel-default" onload="ItemValue('some javascript')">
+                        <div class="panel-heading" data-toggle="collapse" data-target="#@tid">
+                            <p><b>@thingName(@x.item.label).ToUpper()</b></p>
+                            <p>@x.UID.ToUpper() - @x.status</p>
+                            <!--<p>@x.status - @x.item.name - @x.item.label</p>-->
+                        </div>
+                        <div id="@tid" class="panel-body panel-collapse collapse">
+                            @foreach (var y in @x.item.members)
+                            {
+                                <p><b>@y.name -  @y.label</b></p>
+                                <p>@y.type - @y.state - @y.category</p>
+                                <p>@y.link - @y.stateDescription.readOnly</p>
+                                <table style="width:100%">
+                                    @switch (@y.type)
+                                    {
+                                        case "NumberItem":
+                                            <tr>
+                                                <td style="width:80%"><b>@y.category.ToUpper()</b></td>
+                                                <td><b>@y.state</b></td>
+                                            </tr>
+                                            break;
+                                        case "SwitchItem":
+                                            <tr>
+                                                <td style="width:80%"><b>Switch</b></td>
+                                                <td><button type="btn btn-default btn-flat" onclick="">@btnState(@y.state)</button> </td>
+                                            </tr>
+                                            break;
+                                        case "DimmerItem":
+                                            <tr>
+                                                <td style="width:80%"><b>LABEL</b></td>
+                                                <td><b>@y.state % </b></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width:80%"><b>Switch</b></td>
+                                                <td><button type="btn btn-default btn-flat" onclick="">@btnState(@y.state)</button> </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width:100%">
+                                                    <input id="@sid" class="irs-hidden-input" readonly="">
+                                                    <script>
+                                                        $(document).ready(function () {
+                                                            $("#@sid").ionRangeSlider({
+                                                                min: 0,
+                                                                max: 100,
+                                                                from: @y.state,
+                                                            });
+                                                        });
+                                                    </script>
+                                                </td>
+                                            </tr>
+                                            break;
+                                        case "ColorItem":
+                                            break;
+                                        case "GroupItem":
+                                            break;
+                                        default:
+
+                                            break;
+                                    }
+
+                                </table>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div><!-- /.box-body -->
+</div><!-- /.box -->
