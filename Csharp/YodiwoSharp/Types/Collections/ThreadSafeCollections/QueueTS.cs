@@ -34,7 +34,7 @@ namespace Yodiwo
         //------------------------------------------------------------------------------------------------------------------------
         public QueueTS(IEnumerable<T> source)
         {
-            InternalObject = new Queue<T>(source);
+            InternalObject = source != null ? new Queue<T>(source) : new Queue<T>();
             //increase revision if we already have items
             if (InternalObject.Count > 0)
                 revision++;

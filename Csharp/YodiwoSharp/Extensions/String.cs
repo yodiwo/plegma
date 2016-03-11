@@ -361,7 +361,7 @@ namespace Yodiwo
 #if NETFX
         public static string ToStringInvariant(this char value) { return value.ToString(System.Globalization.CultureInfo.InvariantCulture); }
         public static string ToStringInvariant(this bool value) { return value.ToString(System.Globalization.CultureInfo.InvariantCulture); }
-#else
+#elif UNIVERSAL
         public static string ToStringInvariant(this char value) { return value.ToString(); }
         public static string ToStringInvariant(this bool value) { return value.ToString(); }
 #endif

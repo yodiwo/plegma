@@ -7,48 +7,48 @@ using System.Threading.Tasks;
 namespace Yodiwo.NodeLibrary.NodeDiscovery
 {
     [Flags]
-    public enum NodeFlags : int
+    public enum NodeFlags : UInt64
     {
         None = 0,
 
         //General
-        //Reserved = 1 << 0,
-        //Reserved = 1 << 1,
-        //Reserved = 1 << 2,
-        //Reserved = 1 << 3,
-        //Reserved = 1 << 4,
-        //Reserved = 1 << 5,
-        //Reserved = 1 << 6,
-        //Reserved = 1 << 7,
-        //Reserved = 1 << 8,
-        //Reserved = 1 << 9,
+        Mobile = 1L << 0,    //portable devices (such as mobiles, wearables etc)
+        //Reserved = 1L << 1,
+        //Reserved = 1L << 2,
+        //Reserved = 1L << 3,
+        //Reserved = 1L << 4,
+        //Reserved = 1L << 5,
+        //Reserved = 1L << 6,
+        //Reserved = 1L << 7,
+        //Reserved = 1L << 8,
+        //Reserved = 1L << 9,
 
         //Node Capabilities
-        CanSolveGraphs = 1 << 10,
-        //Reserved = 1 << 11,
-        //Reserved = 1 << 12,
-        //Reserved = 1 << 13,
-        //Reserved = 1 << 14,
-        LowPower = 1 << 15,
-        LimitedCapabilities = 1 << 16,
-        LongSleepCycle = 1 << 17,
-        //Reserved = 1 << 18,
-        //Reserved = 1 << 19,
+        CanSolveGraphs = 1L << 10,
+        //Reserved = 1L << 11,
+        //Reserved = 1L << 12,
+        //Reserved = 1L << 13,
+        //Reserved = 1L << 14,
+        LowPower = 1L << 15,
+        LimitedCapabilities = 1L << 16,
+        LongSleepCycle = 1L << 17,
+        BatteryPowered = 1L << 18,
+        //Reserved = 1L << 19,
 
         //Connectivity
-        CloudConnection = 1 << 20,
-        LimitedCloudConnection = 1 << 21,
-        //Reserved = 1 << 22,
-        //Reserved = 1 << 23,
-        //Reserved = 1 << 24,
-        //Reserved = 1 << 25,
-        //Reserved = 1 << 26,
-        //Reserved = 1 << 27,
-        //Reserved = 1 << 28,        
-        //Reserved = 1 << 29,
+        CloudConnection = 1L << 20,
+        LimitedCloudConnection = 1L << 21,
+        DataPlanConnectivity = 1L << 22,  //3G, 4G or other pay per byte connections
+        //Reserved = 1L << 23,
+        //Reserved = 1L << 24,
+        //Reserved = 1L << 25,
+        //Reserved = 1L << 26,
+        //Reserved = 1L << 27,
+        //Reserved = 1L << 28,        
+        //Reserved = 1L << 29,
 
         //Reserved Category
-        //Reserved = 1 << 30,
-        //Reserved = 1 << 31,
+        //Reserved = 1L << 30,
+        //Reserved = 1L << 31,
     }
 }

@@ -41,5 +41,6 @@ namespace Yodiwo.API.MediaStreaming
         public int AssignedAVbot;
         public string intermediateCallee;
         public string devvideouri;
+        public string audiodevuri;
     }
 }

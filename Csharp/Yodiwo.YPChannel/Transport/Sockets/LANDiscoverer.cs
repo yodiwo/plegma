@@ -185,7 +185,7 @@ namespace Yodiwo.YPChannel.Transport.Sockets
             var _discoveryMessageType = _discoveryMessage.GetType();
 
             //create payload
-            var data = Tools.Mashalling.ToBytes(_discoveryMessage);
+            var data = Tools.Marshalling.ToBytes((object)_discoveryMessage);
 
             //update
             this.DiscoveryMessage = _discoveryMessage;
@@ -249,7 +249,7 @@ namespace Yodiwo.YPChannel.Transport.Sockets
                 DiscoveryMessageBase msg;
                 try
                 {
-                    msg = Tools.Mashalling.ToObject(DiscoveryMessageType, data) as DiscoveryMessageBase;
+                    msg = Tools.Marshalling.ToObject(DiscoveryMessageType, data) as DiscoveryMessageBase;
                 }
                 catch (Exception ex1) { DebugEx.TraceError(ex1, "DiscoveryTaskEntryPoint could not unpack msg"); return; }
 

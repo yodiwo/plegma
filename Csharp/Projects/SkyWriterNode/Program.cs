@@ -15,7 +15,7 @@ namespace Yodiwo.Projects.SkyWriter
             System.Diagnostics.Trace.AutoFlush = true;
             Transport trans = new Transport();
             //@"C:\Users\sodi\YodiwoDev\sw\projects\grovepi"
-            trans.Init(@"/usr/bin/python", "/home/pi/YodiwoDev/theremin.py");
+            trans.Init(@"/usr/bin/python", "/home/pi/YodiwoDev/skywriter_transport.py");
             SkyWriterNode skywriternode = new SkyWriterNode(trans);
             skywriternode.Start();
             while (true)

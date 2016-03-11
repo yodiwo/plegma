@@ -50,8 +50,23 @@ namespace Yodiwo.Node.Pairing.NancyPairing
         {
             base.ApplicationStartup(container, pipelines);
 
+            //Enable CSRF protection
+            Nancy.Security.Csrf.Enable(pipelines);
+
             // Enabled cookie sessions
             Nancy.Session.CookieBasedSessions.Enable(pipelines);
+
+            //Setup frame and origin options ( https://www.owasp.org/index.php/List_of_useful_HTTP_headers )
+            //may be overwritten by server (apache,ngix,iis,..) for config see https://developer.mozilla.org/en-US/docs/Web/HTTP/X-Frame-Options
+            pipelines.AfterRequest.AddItemToEndOfPipeline((ctx) =>
+            {
+                if (ctx.Response.StatusCode == HttpStatusCode.InternalServerError) return;
+
+                ctx.Response.Headers.Add("X-Frame-Options", "SAMEORIGIN");
+                ctx.Response.Headers.Add("X-Download-Options", "noopen"); // IE extension
+                ctx.Response.Headers.Add("X-Content-Type-Options", "nosniff");
+                ctx.Response.Headers.Add("X-XSS-Protection", "1; mode=block");
+            });
 
             // Retain the casing in serialization of nancy json
             Nancy.Json.JsonSettings.RetainCasing = true;

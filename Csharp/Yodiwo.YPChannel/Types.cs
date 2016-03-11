@@ -37,6 +37,7 @@ namespace Yodiwo.YPChannel
     public enum MessageFlags : byte
     {
         None = 0,
+        //Reserved = 1 << 0,
         Request = 1 << 1,
         Response = 1 << 2,
     }
@@ -104,4 +105,31 @@ namespace Yodiwo.YPChannel
         //yyy = 1 << 3,
     }
 
+
+    // based on https://en.wikipedia.org/wiki/List_of_HTTP_status_codes, (but not necessaryly followed to the letter)
+    public enum YPCStatusCodes : int
+    {
+        None = 0,
+
+        OK = 200,
+
+        Redirection = 301,
+
+        BadRequest = 400,
+        Unauthorized = 401,
+        Forbidden = 403,
+        NotFound = 404,
+        PayloadTooLarge = 413,
+        URITooLong = 414,
+        UpgradeRequired = 426,
+        SSLCertificateError = 495,
+        SSLCertificateRequired = 496,
+        NegotiationFailed = 499, //custom
+
+        InternalServerError = 500,
+        NotImplemented = 501,
+        UnknownError = 520,
+        ServerIsDown = 521,
+        ConnectionTimedOut = 522,
+    }
 }

@@ -18,7 +18,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;NETFX, TRACE_ERROR</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;NETFX, YODIWO, TRACE_ERROR</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
@@ -28,7 +28,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE;NETFX, TRACE_ERROR</DefineConstants>
+    <DefineConstants>TRACE;NETFX, YODIWO, TRACE_ERROR</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
@@ -67,6 +67,7 @@
     <Compile Include="Queues\PriorityQueue\HeapPriorityQueue.cs" />
     <Compile Include="Queues\PriorityQueue\IPriorityQueue.cs" />
     <Compile Include="Queues\PriorityQueue\PriorityQueueNode.cs" />
+    <Compile Include="Tools\BigBitConverter.cs" />
     <Compile Include="Tools\Certificates.cs" />
     <Compile Include="Tools\ConvertEx.cs" />
     <Compile Include="Tools\Crypto.cs" />
@@ -83,10 +84,11 @@
     <Compile Include="Tools\FileSystem.cs" />
     <Compile Include="Tools\Html.cs" />
     <Compile Include="Tools\Http.cs" />
-    <Compile Include="Tools\Mashalling.cs" />
+    <Compile Include="Tools\Marshalling.cs" />
     <Compile Include="Tools\MathTools.cs" />
     <Compile Include="Tools\Network.cs" />
     <Compile Include="Tools\Sandboxer.cs" />
+    <Compile Include="Tools\TaskEx.cs" />
     <Compile Include="Tools\ToolBox.cs" />
     <Compile Include="Tools\Validation.cs" />
     <Compile Include="Tools\ReflectionHelpers.cs" />

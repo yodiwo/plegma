@@ -43,8 +43,9 @@ namespace Yodiwo
         public DictionaryTS(IEnumerable<KeyValuePair<TKey, TValue>> source)
         {
             InternalObject = new Dictionary<TKey, TValue>();
-            foreach (var entry in source)
-                InternalObject.Add(entry.Key, entry.Value);
+            if (source != null)
+                foreach (var entry in source)
+                    InternalObject.Add(entry.Key, entry.Value);
             //increase revision if we already have items
             if (InternalObject.Count > 0)
                 revision++;
@@ -108,7 +109,6 @@ namespace Yodiwo
         //------------------------------------------------------------------------------------------------------------------------
         public virtual void AddFromSource(IEnumerable<KeyValuePair<TKey, TValue>> source)
         {
-            DebugEx.Assert(source != null, "Null source used in dictionary access");
             if (source == null)
                 return;
 

@@ -50,7 +50,7 @@ namespace Yodiwo.Tools
                                     _ResponseBodyText = ASCIIEncoding.ASCII.GetString(ResponseBodyBinary);
                                 else
                                     _ResponseBodyText = UTF8Encoding.UTF8.GetString(ResponseBodyBinary);
-#else
+#elif UNIVERSAL
                                 //decode to text
                                 if (Charset == "utf-8")
                                     _ResponseBodyText = UTF8Encoding.UTF8.GetString(ResponseBodyBinary, 0, ResponseBodyBinary.Length);
@@ -164,7 +164,7 @@ namespace Yodiwo.Tools
                 foreach (var entry in Cookies)
 #if NETFX
                     cookieContainer.Add(entry);
-#else
+#elif UNIVERSAL
                     cookieContainer.Add(new Uri(url), entry);
 #endif
 
@@ -195,7 +195,7 @@ namespace Yodiwo.Tools
             webRequest.MaximumAutomaticRedirections = 10;
             webRequest.AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip | DecompressionMethods.None;
             webRequest.UserAgent = UserAgent;
-#else
+#elif UNIVERSAL
             webRequest.Headers[HttpRequestHeader.UserAgent] = UserAgent;
 #endif
             webRequest.Accept = "*/*";
@@ -262,7 +262,7 @@ namespace Yodiwo.Tools
                     webRequest.ContentLength = body_data.Length;
                     using (var stream = webRequest.GetRequestStream())
                         stream.Write(body_data, 0, body_data.Length);
-#else
+#elif UNIVERSAL
                     using (var stream = webRequest.GetRequestStreamAsync().GetResults())
                         stream.Write(body_data, 0, body_data.Length);
 #endif
@@ -275,7 +275,7 @@ namespace Yodiwo.Tools
                 {
 #if NETFX
                     var _response = webRequest.GetResponse();
-#else
+#elif UNIVERSAL
                     var _response = webRequest.GetResponseAsync().GetResults();
 #endif
                     response = (HttpWebResponse)_response;

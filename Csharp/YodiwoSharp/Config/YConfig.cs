@@ -75,7 +75,7 @@ namespace Yodiwo
                 //Read in configuration array from file pointed to by input param (or falling back to default file)
 #if NETFX
                 var content = File.ReadAllText(filename);
-#else
+#elif UNIVERSAL
                 var ss = new Tools.StorageService(false);
                 var content = ss.LoadFile(filename).GetResults();
 #endif
@@ -100,7 +100,7 @@ namespace Yodiwo
 #if NETFX
                 File.WriteAllText(Filename, cfg);
                 return true;
-#else
+#elif UNIVERSAL
                 var ss = new Tools.StorageService(false);
                 return ss.SaveFile(Filename, cfg).GetResults();
 #endif

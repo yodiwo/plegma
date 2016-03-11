@@ -16,7 +16,10 @@ namespace Yodiwo.NodeLibrary.Graphs
         GenericRsp HandleGraphDeploymentReq(GraphDeploymentReq req);
         void HandlePortStates(IEnumerable<TupleS<Port, string>> States);
 
-        IEnumerable<PortKey> ActivePortKeys { get; }
-        IEnumerable<Thing> ActiveThings { get; }
+        IReadOnlySet<PortKey> ActivePortKeys { get; }
+        IReadOnlySet<Thing> ActiveThings { get; }
+
+        bool IsPortActive(PortKey pk);
+        bool IsThingActive(ThingKey tk);
     }
 }

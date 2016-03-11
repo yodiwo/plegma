@@ -120,6 +120,7 @@ namespace Yodiwo.YPChannel
             typeof(StreamClosed),
             typeof(StreamFragment),
             typeof(BandwidthManagementMessage),
+            typeof(RedirectionMessage),
         };
         //------------------------------------------------------------------------------------------------------------------------
         public readonly DictionaryTS<Type, object> Tags = new DictionaryTS<Type, object>();
@@ -180,6 +181,8 @@ namespace Yodiwo.YPChannel
         public Action<Channel> HeartBeatPrepare = null;
         //------------------------------------------------------------------------------------------------------------------------
         public bool AutoRedirect = true;
+        public int MaximunRedirections = 10;
+        int _redirections = 0;
         //------------------------------------------------------------------------------------------------------------------------
         #endregion
 
@@ -313,7 +316,7 @@ namespace Yodiwo.YPChannel
                     //send open channel message to client
                     var negResultMsg = new NegotationFinishMessage()
                     {
-                        Success = false,
+                        StatusCode = YPCStatusCodes.NegotiationFailed,
                     };
                     _sendMessage(negResultMsg, null, null, false);
                     //give some time for the message to leave before force-closing the channel
@@ -332,7 +335,7 @@ namespace Yodiwo.YPChannel
                 {
                     var negoResultMsg = new NegotationFinishMessage()
                     {
-                        Success = true,
+                        StatusCode = YPCStatusCodes.OK,
                         ChannelKey = ChannelKey,
                     };
                     SendMessage(negoResultMsg);
@@ -359,6 +362,7 @@ namespace Yodiwo.YPChannel
                     SuportedProtocols = ProtocolHelpers.Values.Select(h => h.Version).ToArray(),
                     Message = "Hello from " + LocalIdentifier,
                     ChannelFlags = (UInt32)LocalChannelFlags,
+                    ChannelKey = ChannelKey,
                 };
                 var heloRsp = SendRequest<HELLOResponse>(heloMsg, Timeout: TimeSpan.FromSeconds(30));
                 if (heloRsp == null)
@@ -595,13 +599,38 @@ namespace Yodiwo.YPChannel
                                 Close();
                             }
                         }
+                        else if (msg.Payload is RedirectionMessage)
+                        {
+                            if (ChannelRole == YPChannel.ChannelRole.Client)
+                            {
+                                var typed = msg.Payload as RedirectionMessage;
+                                if (!string.IsNullOrWhiteSpace(typed.RedirectionTarget) && AutoRedirect)
+                                {
+                                    _redirections++;
+                                    if (_redirections >= MaximunRedirections)
+                                        Close();
+                                    else
+                                    {
+                                        DebugEx.TraceLog("YPChannel : redirecting client to " + typed.RedirectionTarget);
+                                        onRedirect(typed.RedirectionTarget);
+                                    }
+                                }
+                                else
+                                    Close();
+                            }
+                            else
+                            {
+                                DebugEx.Assert("Server received a RedirectionMessage from client.. Server doesn't like this");
+                                Close();
+                            }
+                        }
                         else if (msg.Payload is NegotationFinishMessage)
                         {
                             if (ChannelRole == YPChannel.ChannelRole.Client)
                             {
                                 var typed = msg.Payload as NegotationFinishMessage;
                                 //open client-side channel
-                                if (typed.Success)
+                                if (typed.IsSuccessCode())
                                 {
                                     //keep channel key
                                     _ChannelKey = typed.ChannelKey;
@@ -610,11 +639,8 @@ namespace Yodiwo.YPChannel
                                 }
                                 else
                                 {
-                                    //close channel or redirect
-                                    if (!string.IsNullOrWhiteSpace(typed.RedirectionTarget) && AutoRedirect)
-                                        onRedirect(typed.RedirectionTarget);
-                                    else
-                                        Close();
+                                    //close channel
+                                    Close();
                                 }
                             }
                             else

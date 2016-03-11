@@ -66,13 +66,36 @@ namespace Yodiwo.Services.Media.Video
         //------------------------------------------------------------------------------------------------------------------------
         public void AddNewFeed(string mjpegtoken, IVideoSink videofeed)
         {
-
             lock (this)
             {
-                //add to dictionary
-                videofeeds.Add(mjpegtoken, videofeed);
+                try
+                {
+                    //add to dictionary
+                    videofeeds.Add(mjpegtoken, videofeed);
+                }
+                catch (Exception ex)
+                {
+                    DebugEx.TraceErrorException(ex);
+                }
             }
 
+        }
+
+        //------------------------------------------------------------------------------------------------------------------------
+        public void RemoveFeed(string mjpegtoken)
+        {
+            lock (this)
+            {
+                try
+                {
+                    //remove from dictionary
+                    videofeeds.Remove(mjpegtoken);
+                }
+                catch (Exception ex)
+                {
+                    DebugEx.TraceErrorException(ex);
+                }
+            }
         }
         //------------------------------------------------------------------------------------------------------------------------
         public bool serverNegotiation(Yodiwo.YPChannel.Channel channel)

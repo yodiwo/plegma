@@ -1,6 +1,6 @@
 ﻿@using System
 @using System.Linq
-@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<dynamic>
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<string>
 @{
     Layout = ViewBag.IsPjax ? null : "Layout.cshtml";
 }
@@ -9,6 +9,7 @@
     <div class="box-body" id="RenderBody">
         <div class="callout callout-success">
             <h4>Successful Pairing</h4>
+            <a href="@Model/Designer">Go to designer</a>
         </div>
     </div>
 </div>

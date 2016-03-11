@@ -40,6 +40,7 @@
   <ItemGroup>
     <Compile Include="Common.cs" />
     <Compile Include="Graphs\IGraphManager.cs" />
+    <Compile Include="INodeModule.cs" />
     <Compile Include="Node.cs" />
     <Compile Include="NodeDiscovery\Messages.cs" />
     <Compile Include="NodeDiscovery\NodeDiscoverManager.cs" />

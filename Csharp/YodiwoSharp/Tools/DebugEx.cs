@@ -95,7 +95,7 @@ namespace Yodiwo
                 var stack = ex.StackTrace;
 #if NETFX
                 Trace.WriteLine(String.Format("{0} Info  {1} [{2}:{3}] :: {4}", DateTime.Now, Path.GetFileName(filePath), method, lineNumber, message + " (" + ex.Message + ")" + Environment.NewLine + "StackTrace : " + stack));
-#else
+#elif UNIVERSAL
                 Debug.WriteLine(String.Format("{0} Info  {1} [{2}:{3}] :: {4}", DateTime.Now, Path.GetFileName(filePath), method, lineNumber, message + " (" + ex.Message + ")" + Environment.NewLine + "StackTrace : " + stack));
 #endif
                 ex = ex.InnerException;
@@ -111,7 +111,7 @@ namespace Yodiwo
 #endif
             //two spaces after info not a typo
             Trace.WriteLine(String.Format("{0} Info  {1} [{2}:{3}] :: {4}", DateTime.Now, Path.GetFileName(filePath), method, lineNumber, message));
-#else
+#elif UNIVERSAL
             Debug.WriteLine(String.Format("{0} Info  {1} [{2}:{3}] :: {4}", DateTime.Now, Path.GetFileName(filePath), method, lineNumber, message));
 #endif
         }
@@ -125,7 +125,7 @@ namespace Yodiwo
 #endif
             //two spaces after info not a typo
             Trace.Write(String.Format("{0} Info  {1} [{2}:{3}] :: {4}", DateTime.Now, Path.GetFileName(filePath), method, lineNumber, message));
-#else
+#elif UNIVERSAL
             Debug.WriteLine(String.Format("{0} Info  {1} [{2}:{3}] :: {4}", DateTime.Now, Path.GetFileName(filePath), method, lineNumber, message));
 #endif
         }
@@ -135,7 +135,7 @@ namespace Yodiwo
         {
 #if NETFX
             Trace.Write(message);
-#else
+#elif UNIVERSAL
             Debug.WriteLine(message);
 #endif
         }
@@ -145,7 +145,7 @@ namespace Yodiwo
         {
 #if NETFX
             Trace.WriteLine(message);
-#else
+#elif UNIVERSAL
             Debug.WriteLine(message);
 #endif
         }
@@ -159,7 +159,7 @@ namespace Yodiwo
 #endif
             //two spaces after warn not a typo
             Trace.WriteLine(String.Format("{0} Warn  {1} [{2}:{3}] :: {4}", DateTime.Now, Path.GetFileName(filePath), method, lineNumber, message));
-#else
+#elif UNIVERSAL
             Debug.WriteLine(String.Format("{0} Warn  {1} [{2}:{3}] :: {4}", DateTime.Now, Path.GetFileName(filePath), method, lineNumber, message));
 #endif
         }
@@ -176,7 +176,7 @@ namespace Yodiwo
                 var stack = ex.StackTrace;
 #if NETFX
                 Trace.WriteLine(String.Format("{0} Warn  {1} [{2}:{3}] :: {4}", DateTime.Now, Path.GetFileName(filePath), method, lineNumber, message + " (" + ex.Message + ")" + Environment.NewLine + "StackTrace : " + stack));
-#else
+#elif UNIVERSAL
                 Debug.WriteLine(String.Format("{0} Warn  {1} [{2}:{3}] :: {4}", DateTime.Now, Path.GetFileName(filePath), method, lineNumber, message + " (" + ex.Message + ")" + Environment.NewLine + "StackTrace : " + stack));
 #endif
                 ex = ex.InnerException;
@@ -191,7 +191,7 @@ namespace Yodiwo
             try { var p = Path.GetFileName(filePath); } catch { Debug.Assert(false, "Invalid Log message"); };
 #endif
             Trace.WriteLine(String.Format("{0} ERROR {1} [{2}:{3}] :: {4}", DateTime.Now, Path.GetFileName(filePath), method, lineNumber, message));
-#else
+#elif UNIVERSAL
             Debug.WriteLine(String.Format("{0} ERROR {1} [{2}:{3}] :: {4}", DateTime.Now, Path.GetFileName(filePath), method, lineNumber, message));
 #endif
         }
@@ -207,7 +207,7 @@ namespace Yodiwo
                 var stack = ex.StackTrace;
 #if NETFX
                 Trace.WriteLine(String.Format("{0} ERROR {1} [{2}:{3}] :: {4}", DateTime.Now, Path.GetFileName(filePath), method, lineNumber, message + " (" + ex.Message + ")" + Environment.NewLine + "StackTrace : " + stack));
-#else
+#elif UNIVERSAL
                 Debug.WriteLine(String.Format("{0} ERROR {1} [{2}:{3}] :: {4}", DateTime.Now, Path.GetFileName(filePath), method, lineNumber, message + " (" + ex.Message + ")" + Environment.NewLine + "StackTrace : " + stack));
 #endif
                 ex = ex.InnerException;
@@ -225,7 +225,7 @@ namespace Yodiwo
                 var stack = ex.StackTrace;
 #if NETFX
                 Trace.WriteLine(String.Format("{0} ERROR {1} [{2}:{3}] :: {4}", DateTime.Now, Path.GetFileName(filePath), method, lineNumber, "Exception : " + ex.Message + "" + Environment.NewLine + "StackTrace: " + stack));
-#else
+#elif UNIVERSAL
                 Debug.WriteLine(String.Format("{0} ERROR {1} [{2}:{3}] :: {4}", DateTime.Now, Path.GetFileName(filePath), method, lineNumber, "Exception : " + ex.Message + "" + Environment.NewLine + "StackTrace: " + stack));
 #endif
                 ex = ex.InnerException;

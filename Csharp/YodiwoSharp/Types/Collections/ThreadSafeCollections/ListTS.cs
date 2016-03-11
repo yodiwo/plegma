@@ -36,7 +36,7 @@ namespace Yodiwo
         //------------------------------------------------------------------------------------------------------------------------
         public ListTS(IEnumerable<T> source)
         {
-            InternalObject = new List<T>(source);
+            InternalObject = source != null ? new List<T>(source) : new List<T>();
             //increase revision if we already have items
             if (InternalObject.Count > 0)
                 revision++;
@@ -80,17 +80,19 @@ namespace Yodiwo
         //------------------------------------------------------------------------------------------------------------------------
         public virtual void AddRange(IEnumerable<T> source)
         {
-            foreach (var entry in source)
-                Add(entry);
+            if (source != null)
+                foreach (var entry in source)
+                    Add(entry);
         }
         //------------------------------------------------------------------------------------------------------------------------
         public virtual void AddRangeLocked(IEnumerable<T> source)
         {
-            lock (InternalObject)
-            {
-                IncreaseRevision();
-                InternalObject.AddRange(source);
-            }
+            if (source != null)
+                lock (InternalObject)
+                {
+                    IncreaseRevision();
+                    InternalObject.AddRange(source);
+                }
         }
         //------------------------------------------------------------------------------------------------------------------------
         public virtual void Insert(int index, T item)

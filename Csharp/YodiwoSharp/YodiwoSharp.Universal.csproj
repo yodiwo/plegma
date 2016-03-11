@@ -21,7 +21,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug.Universal\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;NETFX_CORE;WINDOWS_APP, UNIVERSAL</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;NETFX_CORE;WINDOWS_APP, YODIWO, UNIVERSAL</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -29,7 +29,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release.Universal\</OutputPath>
-    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_APP, UNIVERSAL</DefineConstants>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_APP, YODIWO, UNIVERSAL</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -58,6 +58,7 @@
     <Compile Include="Extensions\Task.cs" />
     <Compile Include="Extensions\Type.cs" />
     <Compile Include="Interfaces\IReadOnlySet.cs" />
+    <Compile Include="Tools\Marshalling.cs" />
     <Compile Include="Redefines\Extensions.cs" />
     <Compile Include="Redefines\Attributes.cs" />
     <Compile Include="Redefines\ISupportInitialize.cs" />
@@ -69,7 +70,6 @@
     <Compile Include="Queues\PriorityQueue\HeapPriorityQueue.cs" />
     <Compile Include="Queues\PriorityQueue\IPriorityQueue.cs" />
     <Compile Include="Queues\PriorityQueue\PriorityQueueNode.cs" />
-    <Compile Include="Tools\Mashalling.cs" />
     <Compile Include="Types\Collections\ReadOnlyArray.cs" />
     <Compile Include="SmallTypes.cs" />
     <Compile Include="Tools\ConvertEx.cs" />

@@ -16,7 +16,8 @@ namespace Yodiwo.Node.Pairing
     {
         #region Variables
         //--------------------------------------------------------------------------------------------------------------------
-        public string postUrl;
+        public string frontendUrl;
+        public string pairingPostUrl;
         private NodeConfig conf;
         string token1;
         string token2;
@@ -29,7 +30,7 @@ namespace Yodiwo.Node.Pairing
         public delegate void OnPairingFailedDelegate(string Message);
         public event OnPairingFailedDelegate onPairingFailed = delegate { };
         //--------------------------------------------------------------------------------------------------------------------
-        public string userUrl { get { return postUrl + "/" + NodePairingConstants.UserConfirmPageURI; } }
+        public string userUrl { get { return pairingPostUrl + "/" + NodePairingConstants.UserConfirmPageURI; } }
         //--------------------------------------------------------------------------------------------------------------------
         PairingStates pairingState;
         //--------------------------------------------------------------------------------------------------------------------
@@ -37,9 +38,10 @@ namespace Yodiwo.Node.Pairing
 
         #region Constructor
         //--------------------------------------------------------------------------------------------------------------------
-        public NodePairingBackend(string postUrl, NodeConfig conf, OnPairedDelegate callback, OnPairingFailedDelegate onPairingFailedCB)
+        public NodePairingBackend(string frontendUrl, NodeConfig conf, OnPairedDelegate callback, OnPairingFailedDelegate onPairingFailedCB)
         {
-            this.postUrl = postUrl + "/" + PlegmaAPI.APIVersion;
+            this.frontendUrl = frontendUrl;
+            this.pairingPostUrl = frontendUrl + "/" + NodePairingConstants.PairingRootURI + "/" + PlegmaAPI.APIVersion;
             this.conf = conf;
             pairingState = PairingStates.Initial;
             this.onPaired += callback;
@@ -61,7 +63,7 @@ namespace Yodiwo.Node.Pairing
                 pathcss = this.conf.Pathcss,
                 RedirectUri = redirectUri,
             };
-            var uri = this.postUrl + "/" + NodePairingConstants.s_GetTokensRequest;
+            var uri = this.pairingPostUrl + "/" + NodePairingConstants.s_GetTokensRequest;
             PairingServerTokensResponse resp = (PairingServerTokensResponse)jsonPost(uri, req, typeof(PairingServerTokensResponse));
             if (resp != null)
             {
@@ -83,7 +85,7 @@ namespace Yodiwo.Node.Pairing
                 return null;
             }
             var req = new PairingNodeGetKeysRequest(this.token1, this.token2);
-            var resp = (PairingServerKeysResponse)jsonPost(this.postUrl + "/" + NodePairingConstants.s_GetKeysRequest, req, typeof(PairingServerKeysResponse));
+            var resp = (PairingServerKeysResponse)jsonPost(this.pairingPostUrl + "/" + NodePairingConstants.s_GetKeysRequest, req, typeof(PairingServerKeysResponse));
             if (resp != null)
             {
                 this.nodeKey = resp.nodeKey;

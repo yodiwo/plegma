@@ -74,8 +74,9 @@ namespace Yodiwo
         //------------------------------------------------------------------------------------------------------------------------
         public virtual void AddFromSource(IEnumerable<T> source)
         {
-            foreach (var entry in source)
-                Add(entry);
+            if (source != null)
+                foreach (var entry in source)
+                    Add(entry);
         }
         //------------------------------------------------------------------------------------------------------------------------
         public virtual void ExceptWith(IEnumerable<T> other)

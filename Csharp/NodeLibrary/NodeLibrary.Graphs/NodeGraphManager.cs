@@ -55,16 +55,17 @@ namespace Yodiwo.NodeLibrary.Graphs
         public string[] BlockLibrariesNames { get { return BlockLibrarians == null || BlockLibrarians.Length == 0 ? null : BlockLibrarians.Select(t => t.GetTypeInfo().Assembly.NamePortable()).ToArray(); } }
 #endif
         //------------------------------------------------------------------------------------------------------------------------
-        public IEnumerable<PortKey> ActivePortKeys { get { return ActiveThings.SelectMany(t => t.Ports.Select(p => (PortKey)p.PortKey)); } }
-        public IEnumerable<Thing> ActiveThings
-        {
-            get
-            {
-                return ThingKey2BlockKey.Where(kv => kv.Value.Count > 0)
-                                        .Select(kv => Node.Things.TryGetOrDefaultReadOnly(kv.Key))
-                                        .WhereNotNull();
-            }
-        }
+        HashSetTS<PortKey> _ActivePortKeys = new HashSetTS<PortKey>();
+        public IReadOnlySet<PortKey> ActivePortKeys => _ActivePortKeys;
+
+        HashSetTS<ThingKey> _ActiveThingKeys = new HashSetTS<ThingKey>();
+        public IReadOnlySet<ThingKey> ActiveThingKeys => _ActiveThingKeys;
+
+        HashSetTS<Port> _ActivePorts = new HashSetTS<Port>();
+        public IReadOnlySet<Port> ActivePorts => _ActivePorts;
+
+        HashSetTS<Thing> _ActiveThings = new HashSetTS<Thing>();
+        public IReadOnlySet<Thing> ActiveThings => _ActiveThings;
         //------------------------------------------------------------------------------------------------------------------------
         #endregion
 
@@ -544,6 +545,23 @@ namespace Yodiwo.NodeLibrary.Graphs
                     res.IsSuccess = false;
                     res.Message = "Unhandled exception in GraphDeploymentReq(). Message=" + ex.Message;
                 }
+                finally
+                {
+                    //update active ports/things
+                    var activeThings = ThingKey2BlockKey.Where(kv => kv.Value.Count > 0)
+                                                        .Select(kv => Node.Things.TryGetOrDefaultReadOnly(kv.Key))
+                                                        .WhereNotNull().ToHashSetTS();
+                    var activeThingKeys = activeThings.Select(t => (ThingKey)t.ThingKey).ToHashSetTS();
+
+                    var activePorts = activeThings.SelectMany(t => t.Ports).ToHashSetTS();
+                    var activePortsKeys = activePorts.Select(p => (PortKey)p.PortKey).ToHashSetTS();
+
+                    //update sets
+                    Interlocked.Exchange(ref _ActiveThings, activeThings);
+                    Interlocked.Exchange(ref _ActivePorts, activePorts);
+                    Interlocked.Exchange(ref _ActiveThingKeys, activeThingKeys);
+                    Interlocked.Exchange(ref _ActivePortKeys, activePortsKeys);
+                }
                 //return result msg
                 return res;
             }
@@ -572,6 +590,9 @@ namespace Yodiwo.NodeLibrary.Graphs
             };
             Node.HandlePortEventMsg(msg);
         }
+        //------------------------------------------------------------------------------------------------------------------------
+        public bool IsPortActive(PortKey pk) { return _ActivePortKeys?.Contains(pk) ?? false; }
+        public bool IsThingActive(ThingKey tk) { return _ActiveThingKeys?.Contains(tk) ?? false; }
         //------------------------------------------------------------------------------------------------------------------------
         #endregion
     }

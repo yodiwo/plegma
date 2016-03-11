@@ -101,6 +101,18 @@ namespace Yodiwo
                     action(entry);
         }
         //----------------------------------------------------------------------------------------------------------------------------------------------
+        public static int GetSequenceHashCode<T>(this IEnumerable<T> source)
+        {
+            int res = 0;
+            if (source != null)
+                unchecked
+                {
+                    foreach (var entry in source)
+                        res = (res ^ entry.GetHashCode()) * 397;
+                }
+            return res;
+        }
+        //----------------------------------------------------------------------------------------------------------------------------------------------
         public static IEnumerable<T> As<T>(this IEnumerable source) where T : class
         {
             if (source != null)

@@ -418,14 +418,14 @@ namespace Yodiwo.API.Plegma
         #region Constructors
         public ThingKey(NodeKey nodeKey, string thingId)
         {
-            DebugEx.Assert(!thingId.Contains(SpikeSeparator), SpikeSeparator + " is only allowed in Spike Thing Keys and this is not the way to create one");
             this.NodeKey = nodeKey;
             this.ThingUID = thingId;
             this._SubnodeId = 0;
             this._SpikeThingId = 0;
+            _GetSpikeSubKeys();
         }
 
-        public ThingKey(NodeKey nodeKey, int subNodeId, int spikeId)
+        public ThingKey(NodeKey nodeKey, uint subNodeId, uint spikeId)
         {
             this.NodeKey = nodeKey;
             this.ThingUID = subNodeId.ToStringInvariant() + SpikeSeparator + spikeId.ToStringInvariant();
@@ -442,10 +442,10 @@ namespace Yodiwo.API.Plegma
         public bool IsSpikeTKey { get { return SubnodeId != 0 && SpikeThingId != 0; } }
         //--------------------------------------------------------------------------------------------------------
         [NonSerialized]
-        private int _SubnodeId;
+        private uint _SubnodeId;
 
         [JsonIgnore]
-        public int SubnodeId
+        public uint SubnodeId
         {
             get
             {
@@ -462,10 +462,10 @@ namespace Yodiwo.API.Plegma
 
         //--------------------------------------------------------------------------------------------------------
         [NonSerialized]
-        private int _SpikeThingId;
+        private uint _SpikeThingId;
 
         [JsonIgnore]
-        public int SpikeThingId
+        public uint SpikeThingId
         {
             get
             {
@@ -489,8 +489,8 @@ namespace Yodiwo.API.Plegma
             var spikeSubKeys = ThingUID.Split(new[] { SpikeSeparator }, StringSplitOptions.RemoveEmptyEntries);
             if (spikeSubKeys.Length == 2)
             {
-                int.TryParse(spikeSubKeys[0], out _SubnodeId);
-                int.TryParse(spikeSubKeys[1], out _SpikeThingId);
+                uint.TryParse(spikeSubKeys[0], out _SubnodeId);
+                uint.TryParse(spikeSubKeys[1], out _SpikeThingId);
             }
         }
 
@@ -534,7 +534,7 @@ namespace Yodiwo.API.Plegma
             }
         }
 
-        public static string BuildFromArbitraryString(string nodeKey, int subNodeId, int spikeId)
+        public static string BuildFromArbitraryString(string nodeKey, int subNodeId, uint spikeId)
         {
             return nodeKey + PlegmaAPI.KeySeparator + subNodeId.ToStringInvariant() + SpikeSeparator + spikeId.ToStringInvariant();
         }

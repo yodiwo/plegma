@@ -6,6 +6,13 @@ using System.Threading.Tasks;
 
 namespace Yodiwo
 {
+    public enum Endianness
+    {
+        Unkown = 0,
+        LittleEndian = 1,
+        BigEndian = 2,
+    }
+
     public enum HttpMethods
     {
         Get,

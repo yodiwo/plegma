@@ -77,7 +77,26 @@ namespace Yodiwo.Services.Media.Audio
         public void AddNewFeed(string audiotoken, AudioInfo audioinfo)
         {
             lock (this)
-                audiopipes.Add(audiotoken, audioinfo);
+            {
+                if (!audiopipes.ContainsKey(audiotoken))
+                    audiopipes.Add(audiotoken, audioinfo);
+                else
+                    audiopipes[audiotoken] = audioinfo;
+
+            }
+        }
+
+        public void RemoveFeed(string audiotoken)
+        {
+            lock (this)
+                try
+                {
+                    audiopipes.Remove(audiotoken);
+                }
+                catch (Exception ex)
+                {
+                    DebugEx.TraceErrorException(ex);
+                }
         }
 
         //------------------------------------------------------------------------------------------------------------------------

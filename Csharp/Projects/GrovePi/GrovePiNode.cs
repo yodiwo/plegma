@@ -84,7 +84,7 @@ namespace Yodiwo.Projects.GrovePi
             if (String.IsNullOrWhiteSpace(ActiveCfg.NodeKey))
             {
                 DebugEx.TraceLog("Starting pairing procedure.");
-                var pair = node.Pairing(ActiveCfg.FrontendServer + @"/pairing", null, ActiveCfg.LocalWebServer).GetResults();
+                var pair = node.StartPairing(ActiveCfg.FrontendServer, null, ActiveCfg.LocalWebServer).GetResults();
             }
             else
             {

@@ -68,8 +68,8 @@ namespace Yodiwo.API.Plegma
     [Flags]
     public enum eConnectionFlags
     {
+        None = 0,
         CreateNewEndpoint = 1 << 0,
-
         IsMasterEndpoint = 1 << 1
     }
 
@@ -341,7 +341,7 @@ namespace Yodiwo.API.Plegma
 
     #region message classes
 
-    #region NodeInfo
+    #region NodeInfoReq/Rsp
 
     /// <summary>
     /// Node Info Request
@@ -417,6 +417,11 @@ namespace Yodiwo.API.Plegma
         /// Revision number of responding Node's Things
         /// </summary>
         public int ThingsRevNum;
+
+        /// <summary>
+        /// Revision number of supported API version
+        /// </summary>
+        public int SupportedApiRev;
 
         /// <summary>
         /// List of BlockLibraries that this Node supports
@@ -780,7 +785,7 @@ namespace Yodiwo.API.Plegma
         /// <summary>
         /// Revision number of this update; matches the Port State's internal sequence numbering. See <see cref="Port.State"/>
         /// </summary>
-        public int RevNum;
+        public uint RevNum;
 
         /// <summary>
         /// Timestamp (in msec since Unix Epoch) of event creation
@@ -799,7 +804,7 @@ namespace Yodiwo.API.Plegma
         /// <param name="state">State of Port (i.e. contents of message, <see cref="Port.State"/></param>
         /// <param name="revNum">Revision number of this event</param>
         /// <param name="timestamp">timestamp of this event in msec since Unix Epoch</param>
-        public PortEvent(string pkey, string state, int revNum = 0, ulong timestamp = 0)
+        public PortEvent(string pkey, string state, uint revNum = 0, ulong timestamp = 0)
         {
             PortKey = pkey;
             State = state;
@@ -999,7 +1004,7 @@ namespace Yodiwo.API.Plegma
         /// <summary>
         /// Revision number of this update; matches the Port State's internal sequence numbering. See <see cref="Port.State"/>
         /// </summary>
-        public int RevNum;
+        public uint RevNum;
 
         /// <summary>
         /// Specifies whether this port is connected in currently deployed graphs
@@ -1018,7 +1023,7 @@ namespace Yodiwo.API.Plegma
         /// <param name="state">State of Port (i.e. contents of message, <see cref="Port.State"/></param>
         /// <param name="revNum">Revision number of this event</param>
         /// <param name="isDeployed">Specifies whether this Port is currently active</param>
-        public PortState(string pkey, string state, int revNum, bool isDeployed)
+        public PortState(string pkey, string state, uint revNum, bool isDeployed)
         {
             PortKey = pkey;
             State = state;

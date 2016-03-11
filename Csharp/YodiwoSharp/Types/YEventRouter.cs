@@ -153,7 +153,7 @@ namespace Yodiwo
                 //now moving up the inheritance tree (toward object)
 #if NETFX
                 evType = evType.BaseType;
-#else
+#elif UNIVERSAL
                 evType = evType.GetTypeInfo().BaseType;
 #endif
                 evInfo.IsDerivedMatch = true;

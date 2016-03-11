@@ -36,8 +36,23 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\external-libs\Csharp\DLLs\ThirdParty\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Raspberry.IO, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\external-libs\Csharp\DLLs\ThirdParty\RaspberrySharp\Raspberry.IO.dll</HintPath>
+    </Reference>
     <Reference Include="Raspberry.IO.GeneralPurpose">
       <HintPath>..\..\..\external-libs\Csharp\DLLs\ThirdParty\RaspberrySharp\Raspberry.IO.GeneralPurpose.dll</HintPath>
+    </Reference>
+    <Reference Include="Raspberry.IO.Interop, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\external-libs\Csharp\DLLs\ThirdParty\RaspberrySharp\Raspberry.IO.Interop.dll</HintPath>
+    </Reference>
+    <Reference Include="Raspberry.System, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\external-libs\Csharp\DLLs\ThirdParty\RaspberrySharp\Raspberry.System.dll</HintPath>
+    </Reference>
+    <Reference Include="RaspberryCam">
+      <HintPath>..\..\..\external-libs\Csharp\DLLs\ThirdParty\RaspberrySharp\RaspberryCam.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

@@ -189,6 +189,10 @@ namespace Yodiwo
             {
                 //get value type
                 var fromType = value == null ? typeof(object) : value.GetType();
+                var ToTypeIsInteger = ToType == typeof(Int16) || ToType == typeof(Int32) || ToType == typeof(Int64) ||
+                                      ToType == typeof(UInt16) || ToType == typeof(UInt32) || ToType == typeof(UInt64);
+                var ToTypeIsDecimal = ToType == typeof(float) || ToType == typeof(double) || ToType == typeof(decimal);
+                var ToTypeIsNumber = ToTypeIsInteger || ToTypeIsDecimal;
 
                 //nothing to do?
                 if (fromType == ToType)
@@ -200,7 +204,7 @@ namespace Yodiwo
                 //check easy stuff
 #if NETFX
                 if (value != null && ToType.IsAssignableFrom(fromType))
-#else
+#elif UNIVERSAL
                 if (value != null && ToType.GetTypeInfo().IsAssignableFrom(fromType.GetTypeInfo()))
 #endif
                 {
@@ -209,7 +213,7 @@ namespace Yodiwo
                 }
 #if NETFX
                 else if (value is string && typeof(IFillFromString).IsAssignableFrom(ToType))
-#else
+#elif UNIVERSAL
                 else if (value is string && typeof(IFillFromString).GetTypeInfo().IsAssignableFrom(ToType.GetTypeInfo()))
 #endif
                 {
@@ -245,7 +249,7 @@ namespace Yodiwo
                     //special cases for string
 #if NETFX
                     if (string.IsNullOrEmpty(str) && ToType.IsPrimitive && !ToType.IsEnum && ToType != typeof(string))
-#else
+#elif UNIVERSAL
                     if (string.IsNullOrEmpty(str) && ToType.GetTypeInfo().IsPrimitive && !ToType.GetTypeInfo().IsEnum && ToType != typeof(string))
 #endif
                     {
@@ -273,6 +277,17 @@ namespace Yodiwo
                     {
                         result = value;
                         return true;
+                    }
+
+                    //number converter
+                    if (ToTypeIsNumber)
+                    {
+                        double dv;
+                        if (str.TryParse(out dv))
+                        {
+                            value = dv;
+                            fromType = typeof(double);
+                        }
                     }
                 }
 
@@ -331,7 +346,7 @@ namespace Yodiwo
                 {
 #if NETFX
                     result = ToType.IsClass ? null : Activator.CreateInstance(ToType);
-#else
+#elif UNIVERSAL
                     result = ToType.GetTypeInfo().IsClass ? null : Activator.CreateInstance(ToType);
 #endif
                     return true;

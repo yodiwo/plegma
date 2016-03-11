@@ -34,7 +34,7 @@ namespace Yodiwo
         //------------------------------------------------------------------------------------------------------------------------
         public StackTS(IEnumerable<T> source)
         {
-            InternalObject = new Stack<T>(source);
+            InternalObject = source != null ? new Stack<T>(source) : new Stack<T>();
             //increase revision if we already have items
             if (InternalObject.Count > 0)
                 revision++;

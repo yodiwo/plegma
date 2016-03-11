@@ -76,11 +76,11 @@ namespace Yodiwo.API.Plegma
         /// <summary>no configuration set</summary>
         None = 0,
 
-        /// <summary>port should receive all events, not only "dirty" ones (i.e. value not changed but triggered in graph)</summary>
-        ReceiveAllEvents = 1,
+        /// <summary>port should propagate all events, not only "dirty" ones (i.e. value not changed but triggered in graph)</summary>
+        PropagateAllEvents = 1 << 0,
 
         /// <summary>mark the port as a trigger port (this may have an effect on where it's placed on the block model and how events from it are propagated)</summary>
-        IsTrigger = 2
+        IsTrigger = 1 << 1,
     }
 
     /// <summary>
@@ -113,7 +113,7 @@ namespace Yodiwo.API.Plegma
         /// On receiving events the Cloud Server will attempt to parse the State based on its <see cref="ePortType"/>
         /// When sending events the Cloud Server will encode the new state into a string, again according to the Port's <see cref="ePortType"/>
         /// </summary>
-        public string State;
+        public volatile string State;
 
         [Newtonsoft.Json.JsonIgnore]
         public object TypedState { get { return State2Value(this.Type, this.State); } }
@@ -122,7 +122,7 @@ namespace Yodiwo.API.Plegma
         /// Port state sequence number: incremented by the Cloud server at every state update, 
         /// so that Node and servers stay in sync
         /// </summary>
-        public int RevNum;
+        public volatile uint RevNum;
 
         /// <summary>Configuration flags for port</summary>
         public ePortConf ConfFlags;
@@ -204,6 +204,16 @@ namespace Yodiwo.API.Plegma
             else
             {
                 throw new Exception("There's a channel type you haven't accounted for.");
+            }
+        }
+
+        public void IncRevNum()
+        {
+            lock (this)
+            {
+                RevNum++;
+                if (RevNum == 0)
+                    RevNum++;
             }
         }
     }

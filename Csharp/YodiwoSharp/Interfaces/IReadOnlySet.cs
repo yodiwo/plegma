@@ -9,5 +9,6 @@ namespace Yodiwo
     public interface IReadOnlySet<T> : IEnumerable<T>
     {
         bool Contains(T item);
+        int Count { get; }
     }
 }

@@ -64,7 +64,13 @@ namespace Yodiwo.API.MediaStreaming
             typeof(AudioDataResp),
             typeof(AudioData),
             typeof(AudioAuthenticationRequest),
-            typeof(AudioAuthenticationResponse)
+            typeof(AudioAuthenticationResponse),
+            typeof(AudioServerFeedRequest),
+            typeof(AudioServerFeedResponse),
+            typeof(AudioServerConnectRequest),
+            typeof(AudioServerDisconnectRequest),
+            typeof(AudioServerConnectResponse),
+            typeof(AudioServerDisconnectResponse)
         };
     }
     public enum AudioServerAction
@@ -77,6 +83,8 @@ namespace Yodiwo.API.MediaStreaming
     public class AudioServerFeedRequest : ApiMsg
     {
         public AudioServerAction action;
+        public string identification;
+        public string preferredaudiotoken;
     }
     public class AudioServerConnectRequest : ApiMsg
     {

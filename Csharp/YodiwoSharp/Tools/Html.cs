@@ -337,7 +337,7 @@ namespace Yodiwo.Tools
             {
 #if NETFX
                 var members = objType.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic).As<MemberInfo>();
-#else
+#elif UNIVERSAL
                 var members = objType.GetTypeInfo().DeclaredFields.As<MemberInfo>();
 #endif
                 //members = members.Concat(objType.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic).Where(p => p.CanRead && p.CanWrite && p.GetIndexParameters().Length == 0));
@@ -373,7 +373,7 @@ namespace Yodiwo.Tools
                     //start recursion
 #if NETFX
                     if (!value.GetType().IsPrimitive && !(value is string))
-#else
+#elif UNIVERSAL
                     if (!value.GetType().GetTypeInfo().IsPrimitive && !(value is string))
 #endif
                         _HtmlTranformObject(ref value, processed, Depth + 1, Encode);

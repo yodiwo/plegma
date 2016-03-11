@@ -24,6 +24,11 @@ namespace Yodiwo.YPChannel.Transport.Sockets
     {
         #region Variables
         //------------------------------------------------------------------------------------------------------------------------
+        public bool Secure { get; private set; } = false;
+        public string CertificateServerName { get; private set; } = null;
+#if NETFX
+        public IEnumerable<X509Certificate2> CustomCertificates { get; private set; } = null;
+#endif
         //------------------------------------------------------------------------------------------------------------------------
         #endregion
 
@@ -38,12 +43,6 @@ namespace Yodiwo.YPChannel.Transport.Sockets
         public Client(Protocol[] Protocols, ChannelSerializationMode ChannelSerializationMode = ChannelSerializationMode.MessagePack)
             : base(Protocols, ChannelRole.Client, ChannelSerializationMode)
         {
-            //create socket
-#if NETFX
-            _sock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-#else
-            _sock = new StreamSocket();
-#endif
         }
         //------------------------------------------------------------------------------------------------------------------------
         #endregion
@@ -63,6 +62,98 @@ namespace Yodiwo.YPChannel.Transport.Sockets
 #endif
         {
             //init results
+            var result = new SimpleActionResult()
+            {
+                IsSuccessful = false,
+                Message = "",
+            };
+
+            //check state
+            if (_State != ChannelStates.Closed && _State != ChannelStates.Initializing)
+            {
+                result.Message = "Connected or connection already in progress";
+                return result;
+            }
+
+            //keep connection parameters
+            this.Secure = Secure;
+            this.CertificateServerName = CertificateServerName;
+#if NETFX
+            this.CustomCertificates = CustomCertificates;
+#endif
+
+            //connect socket
+            var res = _sockConnection(RemoteHost, RemotePort);
+            if (!res)
+                return res;
+
+            //start heartbeat
+            Start();
+
+            //wait for negotiation finish
+            Task.Delay(1).Wait();
+            while (State == ChannelStates.Initializing || State == ChannelStates.Negotiating)
+                Task.Delay(100).Wait();
+
+            //set message
+            if (State != ChannelStates.Open)
+                result.Message = "Could not open channel (Negotiation Failed)";
+
+            //return state
+            result.IsSuccessful = State == ChannelStates.Open;
+            if (result.IsSuccessful && result.Message == "")
+                result.Message = "Connection Established (Channel Openned)";
+
+            //hook for system close
+            Channel.OnSystemShutDownRequest.Add(Yodiwo.WeakAction<object>.Create(_OnSystemShutDownRequestHandler));
+
+            return result;
+        }
+        //------------------------------------------------------------------------------------------------------------------------
+        protected override void onRedirect(string Target)
+        {
+            base.onRedirect(Target);
+
+            //destroy previous socket
+            try
+            {
+#if NETFX
+                if (_sock != null && _sock.Connected)
+                    _sock.Disconnect(true);
+#endif
+                try { _sock?.Dispose(); } catch { }
+            }
+            catch { }
+
+            //extract ip/port
+            var splits = Target.Trim().Split(new[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
+            if (splits.Length != 2)
+            {
+                DebugEx.TraceError("Could not redirect ypclient to " + Target);
+                Close();
+                return;
+            }
+            var ip = splits[0];
+            int port;
+            if (ip.Length == 0 || !splits[1].TryParse(out port))
+            {
+                DebugEx.TraceError("Could parse redirect target of ypclient (" + Target + ")");
+                Close();
+                return;
+            }
+            //connect
+            var res = _sockConnection(ip, port);
+            if (!res)
+            {
+                DebugEx.TraceError("Could connect to redirect target of ypclient (" + Target + ", Message:" + res.Message + ")");
+                Close();
+                return;
+            }
+        }
+        //------------------------------------------------------------------------------------------------------------------------
+        SimpleActionResult _sockConnection(string RemoteHost, int RemotePort)
+        {
+            //declares
             bool isSecured = false;
             string sslProtocol = "";
             var result = new SimpleActionResult()
@@ -73,6 +164,13 @@ namespace Yodiwo.YPChannel.Transport.Sockets
 
             lock (this)
             {
+                //create socket
+#if NETFX
+                _sock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+#else
+                _sock = new StreamSocket();
+#endif
+
                 //Try to connect
                 try
                 {
@@ -113,7 +211,7 @@ namespace Yodiwo.YPChannel.Transport.Sockets
 
                 //read final packer
 #if NETFX
-                while (_sock.Receive(smode, 1, SocketFlags.None) != 1);
+                while (_sock.Receive(smode, 1, SocketFlags.None) != 1) ;
 #else
                 smode[0] = (byte)_sock.InputStream.AsStreamForRead().ReadByte();
 #endif
@@ -222,31 +320,12 @@ namespace Yodiwo.YPChannel.Transport.Sockets
 #else
                 SetupStream();
 #endif
-
-                //start heartbeat
-                Start();
-
-                //hook for system close
-                Channel.OnSystemShutDownRequest.Add(Yodiwo.WeakAction<object>.Create(ShutdownRedirect));
+                result.IsSuccessful = true;
+                return result;
             }
-
-            //wait for negotiation finish
-            Task.Delay(1).Wait();
-            while (State == ChannelStates.Initializing || State == ChannelStates.Negotiating)
-                Task.Delay(100).Wait();
-
-            //set message
-            if (State != ChannelStates.Open)
-                result.Message = "Could not open channel (Negotiation Failed)";
-
-            //return state
-            result.IsSuccessful = State == ChannelStates.Open;
-            if (result.IsSuccessful && result.Message == "")
-                result.Message = "Connection Established (Channel Openned)";
-            return result;
         }
         //------------------------------------------------------------------------------------------------------------------------
-        void ShutdownRedirect(object Sender) { Close(); }
+        void _OnSystemShutDownRequestHandler(object Sender) { Close(); }
         //------------------------------------------------------------------------------------------------------------------------
 #if DEBUG
         ~Client()

@@ -13,7 +13,7 @@ namespace Yodiwo.Node.Pairing.NancyPairing
         NancyHost host;
         private NodeConfig conf;
 
-        public bool StartPair(string postUrl, string redirectUrl, NodeConfig conf, string selfUrl, NodePairingBackend.OnPairedDelegate OnPairedcb, NodePairingBackend.OnPairingFailedDelegate OnPairingFailedCb)
+        public bool StartPair(string frontendUrl, string redirectUrl, NodeConfig conf, string selfUrl, NodePairingBackend.OnPairedDelegate OnPairedcb, NodePairingBackend.OnPairingFailedDelegate OnPairingFailedCb)
         {
             lock (this)
             {
@@ -28,7 +28,7 @@ namespace Yodiwo.Node.Pairing.NancyPairing
                 this.conf = conf;
 
                 //pairing backend            
-                NancyPairingModule.backend = new Yodiwo.Node.Pairing.NodePairingBackend(postUrl, conf, OnPairedcb, OnPairingFailedCb);
+                NancyPairingModule.backend = new Yodiwo.Node.Pairing.NodePairingBackend(frontendUrl, conf, OnPairedcb, OnPairingFailedCb);
                 startHttpServer(selfUrl);
                 return true;
             }

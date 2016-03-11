@@ -134,7 +134,7 @@ namespace Yodiwo
                 catch (Exception ex) { DebugEx.TraceError(ex, "Exception while closing underlying stream"); }
             }
         }
-#else
+#elif UNIVERSAL
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);

@@ -60,7 +60,7 @@ namespace Yodiwo.NodeLibrary.Transports
             }
             //create new client if needed
             if (MqttClient == null)
-                MqttClient = new YMqttClient(mqttbroker, UseSsl);
+                MqttClient = new YMqttClient(mqttbroker, UseSsl, YMqttClient.UserCertificateValidationCallback);
             //start client
             if (MqttClient.IsConnected)
                 return new SimpleActionResult() { IsSuccessful = true, Message = "MqttClient already connected" };

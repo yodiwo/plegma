@@ -87,6 +87,8 @@ namespace Yodiwo.API.MediaStreaming
     public class VideoServerFeedRequest : ApiMsg
     {
         public VideoServerAction action;
+        public string prefferedvideotoken;
+        public string identification;
     }
     public enum VideoServerAction
     {

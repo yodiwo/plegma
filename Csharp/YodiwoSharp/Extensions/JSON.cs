@@ -90,7 +90,7 @@ namespace Yodiwo
             if (json == null || json.Length == 0) return null;
 #if NETFX
             var str = System.Text.Encoding.UTF8.GetString(json);
-#else
+#elif UNIVERSAL
             var str = System.Text.Encoding.UTF8.GetString(json, 0, json.Length);
 #endif
             if (HtmlDecode) str = str.HtmlDecode();
@@ -102,7 +102,7 @@ namespace Yodiwo
             if (json == null || json.Length == 0) return default(T);
 #if NETFX
             var str = System.Text.Encoding.UTF8.GetString(json);
-#else
+#elif UNIVERSAL
             var str = System.Text.Encoding.UTF8.GetString(json, 0, json.Length);
 #endif
             if (HtmlDecode) str = str.HtmlDecode();

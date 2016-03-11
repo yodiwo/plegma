@@ -58,8 +58,8 @@ namespace Yodiwo.NodeLibrary
         private DictionaryTS<ThingKey, Thing> _Things = new DictionaryTS<ThingKey, Thing>();
         public readonly ReadOnlyDictionary<ThingKey, Thing> Things;
 
-        private HashSet<Thing> limbo_things = null; //thing not yet assigned thing id
-        private List<ThingType> _thingTypes;
+        private HashSet<Thing> limbo_things = new HashSet<Thing>(); //thing not yet assigned thing id
+        private ListTS<ThingType> _thingTypes = new ListTS<ThingType>();
         private int _ThingIDCnt = 0;
         private eNodeType nodeType;
         //------------------------------------------------------------------------------------------------------------------------
@@ -70,6 +70,12 @@ namespace Yodiwo.NodeLibrary
         public readonly Graphs.INodeGraphManager NodeGraphManager;
         //------------------------------------------------------------------------------------------------------------------------
         public readonly DictionaryTS<Port, Action<string>> PortEventHandlers = new DictionaryTS<Port, Action<string>>();
+        //------------------------------------------------------------------------------------------------------------------------
+        HashSetTS<INodeModule> _NodeModules = new HashSetTS<INodeModule>();
+        public IReadOnlySet<INodeModule> NodeModules => _NodeModules;
+        DictionaryTS<INodeModule, ListTS<Yodiwo.API.Plegma.Thing>> _NodeModuleThings = new DictionaryTS<INodeModule, ListTS<Yodiwo.API.Plegma.Thing>>();
+        DictionaryTS<INodeModule, ListTS<Yodiwo.API.Plegma.ThingType>> _NodeModuleThingTypes = new DictionaryTS<INodeModule, ListTS<Yodiwo.API.Plegma.ThingType>>();
+        DictionaryTS<ThingKey, INodeModule> thingkey2module = new DictionaryTS<ThingKey, INodeModule>();
         //------------------------------------------------------------------------------------------------------------------------
         //delegates events that are exposed to user
         public delegate void OnNodePairedDelegate(NodeKey nodekey, string nodesecret);
@@ -126,9 +132,6 @@ namespace Yodiwo.NodeLibrary
         public delegate void OnThingUpdatedDelegate(Thing Thing, Thing oldCopy);
         public event OnThingUpdatedDelegate OnThingUpdated;
 
-        //public delegate void OnPortStateRxDelegate();
-        //public event OnPortStateRxDelegate OnPortStateRx = delegate { };
-
         public delegate IEnumerable<Thing> OnThingScanRequestDelegate(ThingKey key);
         public OnThingScanRequestDelegate OnThingScanRequest;
 
@@ -149,6 +152,9 @@ namespace Yodiwo.NodeLibrary
         //Discovery
         public readonly NodeDiscovery.NodeDiscoverManager NodeDiscovery;
         //------------------------------------------------------------------------------------------------------------------------
+        //random instance endpoint id
+        string desiredEndpoint = MathTools.GenerateRandomAlphaNumericString(16);
+        //------------------------------------------------------------------------------------------------------------------------
         #endregion
 
         #region Constructor
@@ -160,18 +166,44 @@ namespace Yodiwo.NodeLibrary
                     DataSaveDelegate DataSave,
                     Graphs.INodeGraphManager NodeGraphManager = null,
                     Type MqttTransport = null,
-                    List<ThingType> thingTypes = null, eNodeType nodeType = eNodeType.Unknown)
+                    List<ThingType> thingTypes = null,
+                    eNodeType nodeType = eNodeType.Unknown,
+                    IEnumerable<INodeModule> NodeModules = null
+                    )
         {
             DebugEx.Assert(conf != null, "Cannot have null conf");
             this.conf = conf.Clone() as NodeConfig;
-            this.limbo_things = things?.ToHashSet();
+            this.limbo_things.AddFromSource(things);
             this.Things = new ReadOnlyDictionary<ThingKey, Thing>(this._Things);
-            this._thingTypes = thingTypes;
+            this._thingTypes.AddFromSource(thingTypes);
             this.nodeType = nodeType;
             this._PairingModule = pairingmodule;
             this.DataLoad = DataLoad;
             this.DataSave = DataSave;
             this.NodeGraphManager = NodeGraphManager;
+            this._NodeModules.AddFromSource(NodeModules);
+
+            //enumerate things and thingtypes for each module
+            if (this._NodeModules != null && this._NodeModules.Count > 0)
+            {
+                //gather module things & types
+                foreach (var module in this._NodeModules)
+                {
+                    //set as parent node
+                    module.Node = this;
+                    //enumerate things
+                    _NodeModuleThings.Add(module, module.EnumerateThings().ToListTS());
+                    //enumerate thingtypes
+                    _NodeModuleThingTypes.Add(module, module.EnumerateThingTypes().ToListTS());
+                }
+
+                //add module things to limbo
+                this.limbo_things.AddFromSource(_NodeModuleThings.SelectMany(e => e.Value));
+
+                //add types from modules
+                this._thingTypes.AddFromSource(_NodeModuleThingTypes.SelectMany(e => e.Value));
+            }
+
             //Initialize Graph stuff
             if (NodeGraphManager != null)
                 NodeGraphManager.Initialize(this);
@@ -205,9 +237,9 @@ namespace Yodiwo.NodeLibrary
         #region Functions
         //------------------------------------------------------------------------------------------------------------------------
 
-        public async Task<bool> Pairing(string postUrl, string redirectUrl, string selfUrl = null)
+        public async Task<bool> StartPairing(string frontendUrl, string redirectUrl, string selfUrl = null)
         {
-            var res = this._PairingModule.StartPair(postUrl, redirectUrl, conf, selfUrl, onPaired, onPairFailed);
+            var res = this._PairingModule.StartPair(frontendUrl, redirectUrl, conf, selfUrl, onPaired, onPairFailed);
             if (!res)
             {
                 DebugEx.Assert("Could not start pairing");
@@ -221,11 +253,15 @@ namespace Yodiwo.NodeLibrary
 
         //------------------------------------------------------------------------------------------------------------------------
 
-        public void Pairing(string postUrl, string redirectUrl, IEnumerable<Cookie> cookies)
+        /// <summary>
+        /// Auto submit pairing request, fill UUID, wait for completion and retrieve nodekey/secretkey
+        /// Can be used if node is running on users machine.
+        /// </summary>
+        public void AutoPairing(string frontendUrl, string redirectUrl, IEnumerable<Cookie> cookies)
         {
             try
             {
-                var backend = new Yodiwo.Node.Pairing.NodePairingBackend(postUrl, conf, onPaired, onPairFailed);
+                var backend = new Yodiwo.Node.Pairing.NodePairingBackend(frontendUrl, conf, onPaired, onPairFailed);
                 string token2 = backend.pairGetTokens(redirectUrl);
                 //send token request
                 var paramet = new Dictionary<string, string>()
@@ -239,11 +275,11 @@ namespace Yodiwo.NodeLibrary
 
                 //send uuidentry request
                 var paramet2 = new Dictionary<string, string>()
-            {
-                { "uuid", conf.uuid },
-                { "token2", token2},
-            };
-                var t1 = Tools.Http.RequestGET(backend.postUrl + "/uuidentry", paramet2, cookies);
+                {
+                    { "uuid", conf.uuid },
+                    { "token2", token2},
+                };
+                var t1 = Tools.Http.RequestGET(backend.pairingPostUrl + "/uuidentry", paramet2, cookies);
                 if (t1.StatusCode == HttpStatusCode.NotFound || t1.StatusCode == HttpStatusCode.RedirectMethod)
                     backend.pairGetKeys();
                 else
@@ -353,6 +389,11 @@ namespace Yodiwo.NodeLibrary
                         //no longer needed
                         this.limbo_things = null;
                     }
+
+                    //setup thingkey->module lookup dictionaries
+                    foreach (var kv in _NodeModuleThings)
+                        foreach (var thing in kv.Value)
+                            thingkey2module.Add(thing.ThingKey, kv.Key);
                 }
             }
             catch (Exception ex)
@@ -576,22 +617,38 @@ namespace Yodiwo.NodeLibrary
 
         //------------------------------------------------------------------------------------------------------------------------
 
-        public void SetState(PortKey portKey, string state)
+        public Port GetPort(PortKey portKey)
         {
             try
             {
-                DebugEx.TraceLog("=====>Set State<====== " + portKey.ToString() + " state: " + state);
                 //find thing
                 var tk = portKey.ThingKey;
                 var thing = _Things.TryGetOrDefault(tk);
                 if (thing == null)
                 {
                     DebugEx.TraceError("Trying to set state to a thing that does not exists in nodelibrary things");
-                    return;
+                    return null;
                 }
                 //find port
                 var portkKeyStr = portKey.ToStringInvariant();
-                var port = thing.Ports.Find(p => p.PortKey == portkKeyStr);
+                return thing.Ports.Find(p => p.PortKey == portkKeyStr);
+            }
+            catch (Exception ex)
+            {
+                DebugEx.TraceErrorException(ex);
+                return null;
+            }
+        }
+
+        //------------------------------------------------------------------------------------------------------------------------
+
+        public void SetState(PortKey portKey, string state)
+        {
+            try
+            {
+                DebugEx.TraceLog("=====>Set State<====== " + portKey.ToString() + " state: " + state);
+                //get port
+                var port = GetPort(portKey);
                 if (port == null)
                 {
                     DebugEx.TraceError($"Trying to set state to a port(Key:{portKey}) that does not exists in thing");
@@ -605,45 +662,70 @@ namespace Yodiwo.NodeLibrary
                 DebugEx.TraceErrorException(ex);
             }
         }
+
+        //------------------------------------------------------------------------------------------------------------------------
+
+        public void SetState(IEnumerable<TupleS<PortKey, string>> states)
+        {
+            SetState(states.Select(t => new TupleS<Port, string>(GetPort(t.Item1), t.Item2)));
+        }
+
         //------------------------------------------------------------------------------------------------------------------------
 
         public void SetState(IEnumerable<TupleS<Port, string>> states)
         {
+            if (states == null)
+                return;
+
             try
             {
                 lock (locker)
                 {
+                    //get to list
+                    var stateList = states.ToList();
+
+                    //filter out all ports with no state changed that did not flag themselves as ReceiveAllEvents
+                    stateList.RemoveAll(t => t.Item1.State == t.Item2 && !t.Item1.ConfFlags.HasFlag(ePortConf.PropagateAllEvents));
+
                     //first pass them from NodeGraphManager
                     var ngm = NodeGraphManager;
                     if (ngm != null)
-                        ngm.HandlePortStates(states);
+                        ngm.HandlePortStates(stateList);
 
                     //Process request
                     List<PortEvent> events = null;
-                    foreach (var state in states)
-                    {
-                        //get keys
-                        var pk = (PortKey)state.Item1.PortKey;
-                        var thk = pk.ThingKey;
+                    foreach (var state in stateList)
+                        if (state.Item1 != null)
+                        {
+                            //get keys
+                            var pk = (PortKey)state.Item1.PortKey;
+                            var thk = pk.ThingKey;
 
-                        //find thing
-                        Thing thing = null;
-                        if (_Things.TryGetValue(thk, out thing))
-                            if (thing != null)
-                            {
-                                //update port state
-                                thing.GetPort(pk).State = state.Item2;
-                                //check if this port is active in a cloud graph
-                                if (_CloudActivePortKeys.Contains(pk))
+                            //find thing
+                            Thing thing = null;
+                            if (_Things.TryGetValue(thk, out thing))
+                                if (thing != null)
                                 {
-                                    //create list if null
-                                    if (events == null)
-                                        events = new List<PortEvent>();
-                                    //add to event list
-                                    events.Add(new PortEvent(pk, state.Item2));
+                                    //get port
+                                    var port = thing.GetPort(pk);
+                                    if (port == null)
+                                        continue;
+
+                                    //update port state and increase revision
+                                    port.State = state.Item2;
+                                    port.IncRevNum();
+
+                                    //check if this port is active in a cloud graph
+                                    if (_CloudActivePortKeys.Contains(pk))
+                                    {
+                                        //create list if null
+                                        if (events == null)
+                                            events = new List<PortEvent>();
+                                        //add to event list
+                                        events.Add(new PortEvent(pk, state.Item2));
+                                    }
                                 }
-                            }
-                    }
+                        }
 
                     //send message
                     if (events != null && events.Count > 0)
@@ -689,6 +771,7 @@ namespace Yodiwo.NodeLibrary
         {
             try
             {
+                //raise events
                 foreach (var portevent in msg.PortEvents)
                 {
                     var pk = (PortKey)portevent.PortKey;
@@ -696,12 +779,36 @@ namespace Yodiwo.NodeLibrary
                     var thing = _Things[thingKey];
                     var port = thing.GetPort(pk);
                     port.State = portevent.State;
+
+                    //raise generic event
                     OnChangedState?.Invoke(thing, port, portevent.State);
+
+                    //raise port handlers
                     DebugEx.TraceLog("On Changed State:" + portevent.State);
-                    if (PortEventHandlers.ContainsKey(port))
-                        PortEventHandlers[port](portevent.State);
+                    try { PortEventHandlers.TryGetOrDefault(port)?.Invoke(portevent.State); }
+                    catch (Exception ex) { DebugEx.TraceError(ex, "PortEventHandlers failed"); }
+
+                    //send to module
+                    thingkey2module.TryGetOrDefault(thing.ThingKey)?.SetThingsState(port.PortKey, portevent.State);
                 }
-                OnPortEventMsgProcessed?.Invoke(msg);
+
+                //send to modules
+                {
+                    var modules = new HashSet<INodeModule>();
+                    foreach (var ev in msg.PortEvents)
+                    {
+                        var module = thingkey2module.TryGetOrDefault(((PortKey)ev.PortKey).ThingKey);
+                        if (module != null)
+                            modules.Add(module);
+                    }
+                    foreach (var module in modules)
+                        try { module.OnPortEvent(msg); }
+                        catch (Exception ex) { DebugEx.TraceError(ex, "NodeModule OnPortEventProcessed failed"); }
+                }
+
+                //other processing
+                try { OnPortEventMsgProcessed?.Invoke(msg); }
+                catch (Exception ex) { DebugEx.TraceError(ex, "OnPortEventMsgProcessed failed"); }
             }
             catch (Exception ex)
             {
@@ -964,6 +1071,7 @@ namespace Yodiwo.NodeLibrary
                     {
                         NodeKey = this.NodeKey,
                         SecretKey = this.NodeSecret,
+                        DesiredEndpoint = MathTools.GenerateRandomAlphaNumericString(16),
                     };
                     return rsp;
                 }
@@ -1030,13 +1138,21 @@ namespace Yodiwo.NodeLibrary
                     }
                     else if (op == eThingsOperation.Scan)
                     {
-                        if (OnThingScanRequest == null)
+                        //raise event?
+                        if (OnThingScanRequest == null || _NodeModules.Count == 0)
                             return rsp;
                         else
                         {
-                            var things = OnThingScanRequest?.Invoke(tkey);
-                            if (things == null)
-                                return rsp;
+                            var things = new List<Thing>();
+                            //add from event
+                            things.AddFromSource(OnThingScanRequest?.Invoke(tkey));
+                            //add from modules
+                            if (tkey.IsInvalid)
+                                foreach (var module in _NodeModules)
+                                    things.AddFromSource(module.Scan(default(ThingKey)));
+                            else
+                                things.AddFromSource(thingkey2module.TryGetOrDefault(tkey)?.Scan(tkey));
+                            //return result
                             rsp.Operation = eThingsOperation.Update;
                             rsp.Data = things.ToArray();
                             rsp.Status = true;
@@ -1048,14 +1164,27 @@ namespace Yodiwo.NodeLibrary
                         var thing = Things.TryGetOrDefaultReadOnly(msgTyped.ThingKey);
                         if (thing == null)
                             return rsp;
+                        //remove from module
+                        var module = thingkey2module.TryGetOrDefault(thing.ThingKey);
+                        var modres = module?.Delete(new[] { thing });
+                        if (modres == true && module != null)
+                        {
+                            //remove from lookups
+                            _NodeModuleThings.TryGetOrDefault(module)?.Remove(thing);
+                            thingkey2module.Remove(thing.ThingKey);
+                        }
                         //do callback
-                        var success = OnThingDeleteRequest?.Invoke(null);
-                        if (!success.HasValue || !success.Value)
+                        var eventres = OnThingDeleteRequest?.Invoke(null);
+                        //respond
+                        if (modres == true || eventres == true)
+                        {
+                            //remove thing from nodelib
+                            RemoveThing(msgTyped.ThingKey, SendToCloud: false);
+                            rsp.Operation = eThingsOperation.Delete;
+                            rsp.Status = true;
+                        }
+                        else
                             return rsp;
-                        //remove thing from nodelib
-                        RemoveThing(msgTyped.ThingKey, SendToCloud: false);
-                        rsp.Operation = eThingsOperation.Delete;
-                        rsp.Status = true;
                     }
                     //return response
                     return rsp;
@@ -1115,14 +1244,12 @@ namespace Yodiwo.NodeLibrary
                 else if (msg is Yodiwo.API.Plegma.PortStateReq)
                 {
                     var msgRx = msg as PortStateReq;
-                    var states = HandlePortStateReq(msgRx.PortKeys);
+                    var states = HandlePortStateReq(msgRx);
                     var rsp = new PortStateRsp()
                     {
                         Operation = (msg as PortStateReq).Operation,
                         PortStates = states
                     };
-                    //if (OnPortStateRx != null)
-                    //  OnPortStateRx();
                     return rsp;
                 }
                 else if (msg is Yodiwo.API.Plegma.PingReq)
@@ -1177,22 +1304,41 @@ namespace Yodiwo.NodeLibrary
 
         //------------------------------------------------------------------------------------------------------------------------
 
-        private PortState[] HandlePortStateReq(string[] pks)
+        private PortState[] HandlePortStateReq(PortStateReq req)
         {
             try
             {
                 ListTS<PortState> portstates = new ListTS<PortState>();
-                foreach (var pk in pks)
+                if (req.Operation == ePortStateOperation.AllPortStates)
                 {
-                    var portkey = (PortKey)pk;
-                    var port = this._Things[portkey.ThingKey].Ports.Find(i => i.PortKey == portkey);
-                    var portState = new PortState()
-                    {
-                        PortKey = pk,
-                        IsDeployed = true,
-                        State = port.State
-                    };
-                    portstates.Add(portState);
+                    portstates.AddFromSource(_Things.Values.SelectMany(thing =>
+                        thing.Ports.Select(port =>
+                        new PortState()
+                        {
+                            PortKey = port.PortKey,
+                            RevNum = port.RevNum,
+                            State = port.State,
+                            IsDeployed = IsPortActive(port.PortKey),
+                        })));
+                }
+                else
+                {
+                    if (req.PortKeys != null)
+                        foreach (var pk in req.PortKeys)
+                        {
+                            var portkey = (PortKey)pk;
+                            if (portkey.IsInvalid) continue;
+                            var port = this._Things[portkey.ThingKey].Ports.Find(i => i.PortKey == portkey);
+                            if (port == null) continue;
+                            var portState = new PortState()
+                            {
+                                PortKey = pk,
+                                RevNum = port.RevNum,
+                                State = port.State,
+                                IsDeployed = IsPortActive(portkey),
+                            };
+                            portstates.Add(portState);
+                        }
                 }
                 return portstates.ToArray();
             }
@@ -1650,8 +1796,8 @@ namespace Yodiwo.NodeLibrary
                 return true;
 
             //check local
-            //if (_CloudActivePortKeys.Contains(key))
-            //return true;
+            if (NodeGraphManager.IsPortActive(key))
+                return true;
 
             return false;
         }
@@ -1669,10 +1815,50 @@ namespace Yodiwo.NodeLibrary
                 return true;
 
             //check local
-            //if (_CloudActivePortKeys.Contains(thing))
-            //return true;
+            if (NodeGraphManager.IsThingActive(key))
+                return true;
 
             return false;
+        }
+
+        //------------------------------------------------------------------------------------------------------------------------
+
+        public void RequestStateUpdate(bool OnlyActivePorts = false)
+        {
+            try
+            {
+                //fetch latest states from server
+                var req = new PortStateReq()
+                {
+                    Operation = OnlyActivePorts ? ePortStateOperation.ActivePortStates : ePortStateOperation.AllPortStates,
+                };
+                var rsp = SendRequest<PortStateRsp>(req);
+                if (rsp == null)
+                    DebugEx.Assert("Null response when trying to decide port states");
+                else
+                {
+                    //filter portstates to find the ports with different value (and build them as portevents array)
+                    var changedPorts = rsp.PortStates
+                                            .Where(ps =>
+                                            {
+                                                var pk = (PortKey)ps.PortKey;
+                                                if (pk.IsInvalid)
+                                                    return false;
+                                                var thing = Things.TryGetOrDefaultReadOnly(pk.ThingKey);
+                                                if (thing == null)
+                                                    return false;
+                                                try { return thing.Ports.FirstOrDefault(p => p.PortKey == ps.PortKey)?.State != ps.State; } catch { return false; }
+                                            })
+                                            .Select(ps => new PortEvent(ps.PortKey, ps.State))
+                                            .ToArray();
+                    //send state update
+                    HandlePortEventMsg(new PortEventMsg() { PortEvents = changedPorts });
+                }
+            }
+            catch (Exception ex)
+            {
+                DebugEx.TraceError(ex, "Error while requesting state updates");
+            }
         }
 
         //------------------------------------------------------------------------------------------------------------------------

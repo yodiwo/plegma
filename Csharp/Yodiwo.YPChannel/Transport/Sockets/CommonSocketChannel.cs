@@ -44,9 +44,9 @@ namespace Yodiwo.YPChannel.Transport.Sockets
         object writerLock = new object();
         //------------------------------------------------------------------------------------------------------------------------
 #if NETFX
-        public bool NoDelay { get { return _sock.NoDelay; } set { _sock.NoDelay = value; } }
+        public bool NoDelay { get { return _sock?.NoDelay ?? true; } set { try { if (_sock != null) _sock.NoDelay = value; } catch { } } }
 #else
-        public bool NoDelay { get { return _sock.Control.NoDelay; } set { _sock.Control.NoDelay = value; } }
+        public bool NoDelay { get { return _sock?.Control.NoDelay ?? true; } set { try { if (_sock != null) _sock.Control.NoDelay = value; } catch { } } }
 #endif
         //------------------------------------------------------------------------------------------------------------------------
         public bool IsDisposed { get; protected set; }
@@ -212,9 +212,10 @@ namespace Yodiwo.YPChannel.Transport.Sockets
                 try
                 {
 #if NETFX
-                    if (_sock.Connected)
+                    if (_sock != null && _sock.Connected)
                         _sock.Disconnect(true);
 #endif
+                    try { _sock?.Dispose(); } catch { }
                 }
                 catch { }
                 //null them

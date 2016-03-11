@@ -5,24 +5,22 @@ using System.Text;
 using System.Threading.Tasks;
 using Yodiwo.API.Plegma;
 
-namespace Yodiwo.Node.Module
+namespace Yodiwo.NodeLibrary
 {
-    public delegate void OnDataRxEventHandler(object sender, DataRxEvent data);
-
     public interface INodeModule
     {
-        IEnumerable<Thing> EnumerateThings();
-        IEnumerable<ThingType> EnumerateThingTypes();
-        void SetThingsState(PortKey pk, string state);
-        event OnDataRxEventHandler OnDataRx;
-        IEnumerable<Thing> Scan(ThingKey tkey);
-        bool Delete(Thing[] thing);
-    }
+        Node Node { get; set; }
 
-    public class DataRxEvent
-    {
-        public INodeModule module;
-        public PortKey pk;
-        public string state;
+        IEnumerable<Thing> EnumerateThings();
+
+        IEnumerable<ThingType> EnumerateThingTypes();
+
+        void SetThingsState(PortKey pk, string state);
+
+        IEnumerable<Thing> Scan(ThingKey tkey);
+
+        bool Delete(Thing[] thing);
+
+        void OnPortEvent(PortEventMsg msg);
     }
 }

@@ -10,10 +10,19 @@ using System.Reflection;
 using Newtonsoft.Json;
 
 using Raspberry.IO.GeneralPurpose;
+using Raspberry;
+using Raspberry.IO;
+using Raspberry.IO.Interop;
+using Raspberry.Timers;
+using RaspberryCam;
 
 using Yodiwo;
 using Yodiwo.API.Plegma;
 using Yodiwo.NodeLibrary;
+using Yodiwo.API.Plegma.NodePairing;
+using Yodiwo.YPChannel.Transport;
+using Yodiwo.Node.Pairing.NancyPairing;
+
 
 
 namespace Yodiwo.Projects.RaspberryPi2Node
@@ -369,7 +378,7 @@ namespace Yodiwo.Projects.RaspberryPi2Node
             if (String.IsNullOrWhiteSpace(ActiveCfg.NodeKey))
             {
                 DebugEx.TraceLog("Starting pairing procedure.");
-                var task = Node.Pairing(ActiveCfg.FrontendServer + @"/pairing", null, ActiveCfg.LocalWebServer);
+                var task = Node.StartPairing(ActiveCfg.FrontendServer, null, ActiveCfg.LocalWebServer);
             }
             else
             {

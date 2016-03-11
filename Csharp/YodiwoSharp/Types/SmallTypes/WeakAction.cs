@@ -47,7 +47,7 @@ namespace Yodiwo
         {
 #if NETFX
             return new WeakActionInstance(action.Target, action.Method);
-#else
+#elif UNIVERSAL
             return new WeakActionInstance(action.Target, action.GetMethodInfo());
 #endif
         }
@@ -56,7 +56,7 @@ namespace Yodiwo
         {
 #if NETFX
             return new WeakActionInstance(action.Target, action.Method);
-#else
+#elif UNIVERSAL
             return new WeakActionInstance(action.Target, action.GetMethodInfo());
 #endif
         }
@@ -114,7 +114,7 @@ namespace Yodiwo
                 //build delegate
 #if NETFX
                 del = System.Delegate.CreateDelegate(typeof(Action<T>), null, _Method.Name) as Action<T>;
-#else
+#elif UNIVERSAL
                 del = _Method.CreateDelegate((typeof(Action<T>)), null) as Action<T>;
 #endif
             }
@@ -170,7 +170,7 @@ namespace Yodiwo
                 //build delegate
 #if NETFX
                 var del = System.Delegate.CreateDelegate(typeof(Action<T>), localTarget, _Method.Name) as Action<T>;
-#else
+#elif UNIVERSAL
                 var del = _Method.CreateDelegate((typeof(Action<T>)), localTarget) as Action<T>;
 #endif
                 //invoke it

@@ -14,6 +14,7 @@ namespace Yodiwo.YPChannel
         public int[] SuportedProtocols;
         public String Message;
         public UInt32 ChannelFlags;
+        public string ChannelKey;
     }
     /// <summary>
     /// Message used by client to inform server about the negotiation start
@@ -38,10 +39,11 @@ namespace Yodiwo.YPChannel
     /// </summary>
     public class NegotationFinishMessage
     {
-        public bool Success;
+        public YPCStatusCodes StatusCode;
         public String Message;
         public string ChannelKey;
-        public string RedirectionTarget;
+
+        public bool IsSuccessCode() { return (int)StatusCode >= 200 && (int)StatusCode < 300; }
     }
 
     /// <summary>
@@ -114,6 +116,16 @@ namespace Yodiwo.YPChannel
         public bool Enable;
         public uint BandwidthCap;    // max bytes per sec (uint.MaxValue equals no limit)
         public uint MessageCap;      // max messages per sec (uint.MaxValue equals no limit)
+    }
+
+    /// <summary>
+    /// Message used by server to inform client for redirection
+    /// </summary>
+    public class RedirectionMessage
+    {
+        public YPCStatusCodes StatusCode;
+        public string RedirectionTarget;
+        public string Message;
     }
 
 }

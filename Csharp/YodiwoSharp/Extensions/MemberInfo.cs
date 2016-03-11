@@ -23,7 +23,7 @@ namespace Yodiwo
 #if NETFX
             if (mi is Type)
                 return (mi as Type).IsAbstract;
-            else 
+            else
 #endif
             if (mi is FieldInfo)
                 return (mi as FieldInfo).IsStatic;
@@ -31,7 +31,7 @@ namespace Yodiwo
             {
 #if NETFX
                 var set = (mi as PropertyInfo).GetSetMethod(true);
-#else
+#elif UNIVERSAL
                 var set = (mi as PropertyInfo).SetMethod;
 #endif
                 if (set != null)
@@ -40,7 +40,7 @@ namespace Yodiwo
                 {
 #if NETFX
                     var get = (mi as PropertyInfo).GetGetMethod(true);
-#else
+#elif UNIVERSAL
                     var get = (mi as PropertyInfo).GetMethod;
 #endif
                     if (get != null)
@@ -61,7 +61,7 @@ namespace Yodiwo
             {
 #if NETFX
                 var get = (mi as PropertyInfo).GetGetMethod(true);
-#else
+#elif UNIVERSAL
                 var get = (mi as PropertyInfo).GetMethod;
 #endif
                 return get != null;

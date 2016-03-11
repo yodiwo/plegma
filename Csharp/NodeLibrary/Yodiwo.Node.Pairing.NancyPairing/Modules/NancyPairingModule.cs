@@ -33,19 +33,6 @@ namespace Yodiwo.Node.Pairing.NancyPairing
             };
 
 
-            Get["/pair"] = parameters =>
-            {
-                if (backend == null)
-                {
-                    return new Response()
-                    {
-                        StatusCode = HttpStatusCode.ExpectationFailed,
-                    };
-                }
-                return View["Pairing/Pair"];
-
-            };
-
             Get["/startpairing"] = parameters =>
             {
                 if (backend == null)
@@ -78,13 +65,9 @@ namespace Yodiwo.Node.Pairing.NancyPairing
                     }
                     object keys = backend.pairGetKeys();
                     if (keys != null)
-                    {
-                        return View["Pairing/PairSuccess"];
-                    }
+                        return View["Pairing/PairSuccess", backend.frontendUrl];
                     else
-                    {
-                        return new Response { StatusCode = HttpStatusCode.Forbidden };
-                    }
+                        return View["Pairing/PairFailed"];
                 };
         }
 

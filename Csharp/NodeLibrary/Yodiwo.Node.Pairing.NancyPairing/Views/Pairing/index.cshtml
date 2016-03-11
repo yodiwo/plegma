@@ -10,9 +10,9 @@
         <h3 class="box-title">Node Pairing</h3>
     </div>
     <div class="box-body">
-        <form action="/pairing/pair" data-pjax="#RenderBody">
+        <form name="pairingForm" action="/pairing/startpairing" data-pjax="#RenderBody">
             <div class="form-group">
-                <input id="pair_btn" class="btn btn-warning" type="submit" value="Pair" />
+                <input id="pair_btn" class="btn btn-warning" type="button" value="Pair" onClick="this.disabled = true; this.value = 'Pairing…'; document.pairingForm.submit();" />
             </div>
         </form>
     </div>

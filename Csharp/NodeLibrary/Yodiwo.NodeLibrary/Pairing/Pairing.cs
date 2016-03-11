@@ -19,12 +19,12 @@ namespace Yodiwo.Node.Pairing
     public class CommonDevicePairingPolling : IPairingModule
     {
         private NodeConfig conf;
-        public bool StartPair(string postUrl, string redirectUri, NodeConfig conf, string selfUrl, NodePairingBackend.OnPairedDelegate OnPairedcb, NodePairingBackend.OnPairingFailedDelegate OnPairingFailedCB)
+        public bool StartPair(string frontendUrl, string redirectUri, NodeConfig conf, string selfUrl, NodePairingBackend.OnPairedDelegate OnPairedcb, NodePairingBackend.OnPairingFailedDelegate OnPairingFailedCB)
         {
             this.conf = conf;
 
             //pairing backend
-            NodePairingBackend backend = new NodePairingBackend(postUrl, conf, OnPairedcb, OnPairingFailedCB);
+            NodePairingBackend backend = new NodePairingBackend(frontendUrl, conf, OnPairedcb, OnPairingFailedCB);
             string token2 = backend.pairGetTokens(redirectUri);
             var uri = backend.userUrl + "?token2=" + token2;
 #if NETFX

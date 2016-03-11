@@ -49,7 +49,7 @@ namespace Yodiwo
                 EntryAssemblies.AddFromSource(AppDomain.CurrentDomain.GetAssemblies());
             }
             catch (Exception ex) { DebugEx.TraceError(ex, "Unhandled exception during AppDomain assembly examination"); }
-#else
+#elif UNIVERSAL
             EntryAssemblies.Add(Windows.UI.Xaml.Application.Current.GetType().GetTypeInfo().Assembly);
 #endif
         }
@@ -63,7 +63,7 @@ namespace Yodiwo
         {
 #if NETFX
             EntryAssemblies.Add(fromType.Assembly);
-#else
+#elif UNIVERSAL
             EntryAssemblies.Add(fromType.GetTypeInfo().Assembly);
 #endif
         }
@@ -223,7 +223,7 @@ namespace Yodiwo
                 //return cached assemblies
                 return _assemblyCache;
             }
-#else
+#elif UNIVERSAL
             return Enumerable.Empty<Assembly>();
 #endif
         }

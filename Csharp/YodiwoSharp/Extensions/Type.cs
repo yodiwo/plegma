@@ -15,7 +15,7 @@ namespace Yodiwo
 #if NETFX
             if (type.IsGenericType)
                 return type.FullName.Split('`')[0] + "`" + type.GetGenericArguments().Count() + "[" + string.Join(", ", type.GetGenericArguments().Select(x => "[" + Name_Portable(x) + "]").ToArray()) + "]";
-#else
+#elif UNIVERSAL
             if (type.GetTypeInfo().IsGenericType)
                 return type.FullName.Split('`')[0] + "`" + type.GetTypeInfo().GenericTypeArguments.Count() + "[" + string.Join(", ", type.GetTypeInfo().GenericTypeArguments.Select(x => "[" + Name_Portable(x) + "]").ToArray()) + "]";
 #endif
@@ -30,14 +30,14 @@ namespace Yodiwo
 #if NETFX
             if (type.IsGenericType)
                 return type.FullName.Split('`')[0] + "`" + type.GetGenericArguments().Count() + "[" + string.Join(", ", type.GetGenericArguments().Select(x => "[" + AssemblyQualifiedName_Portable(x) + "]").ToArray()) + "] , " + type.Assembly.GetName().Name;
-#else
+#elif UNIVERSAL
             if (type.GetTypeInfo().IsGenericType)
                 return type.FullName.Split('`')[0] + "`" + type.GetTypeInfo().GenericTypeArguments.Count() + "[" + string.Join(", ", type.GetTypeInfo().GenericTypeArguments.Select(x => "[" + AssemblyQualifiedName_Portable(x) + "]").ToArray()) + "] , " + type.GetTypeInfo().Assembly.GetName().Name;
 #endif
             else
 #if NETFX
                 return type.FullName + ", " + type.Assembly.GetName().Name;
-#else
+#elif UNIVERSAL
                 return type.FullName + ", " + type.GetTypeInfo().Assembly.GetName().Name;
 #endif
         }
@@ -69,7 +69,7 @@ namespace Yodiwo
 #if NETFX
             else if (type.IsGenericType)
                 return (type.FullName.LeftOf('`') + "<" + string.Join(", ", type.GetGenericArguments().Select(x => GetFriendlyName(x))) + ">").Replace("+", ".");
-#else
+#elif UNIVERSAL
             else if (type.GetTypeInfo().IsGenericType)
                 return (type.FullName.LeftOf('`') + "<" + string.Join(", ", type.GetTypeInfo().GenericTypeArguments.Select(x => GetFriendlyName(x))) + ">").Replace("+", ".");
 #endif
@@ -155,7 +155,7 @@ namespace Yodiwo
                         type.IsGenericType &&
                         type.GetGenericTypeDefinition().IsAssignableFrom(typeof(List<>))
                     );
-#else
+#elif UNIVERSAL
             return typeof(IList).GetTypeInfo().IsAssignableFrom(type.GetTypeInfo())
                     ||
                     (
@@ -176,7 +176,7 @@ namespace Yodiwo
                        type.IsGenericType &&
                        type.GetGenericTypeDefinition().IsAssignableFrom(typeof(Dictionary<,>))
                     );
-#else
+#elif UNIVERSAL
             return typeof(IDictionary).GetTypeInfo().IsAssignableFrom(type.GetTypeInfo())
                     ||
                     (
