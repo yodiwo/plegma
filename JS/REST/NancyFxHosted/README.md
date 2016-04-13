@@ -11,7 +11,7 @@ This code creates the simplest form of a Yodiwo Node using pure HTTPS requests. 
 As a result, on [Cyan](https://cyan.yodiwo.com) a new node ("Rest Sample Node") will appear (on the Dashboard, Designer and Things Manager) with 4 Things:
 - a boolean check box (sends single True or False events on click)
 - a button (sends pulses, i.e. True->False events)
-- a decimal slider (values span -1.00 -> 1.00 with 0.01 accuracy)
+- a decimal slider (values span `-1.00 -> 1.00` with 0.01 resolution)
 - a text box (sends text strings on Enter)
 
 These Things can then be used in stories on Cyan and interact with other Nodes, Services or Logic blocks.
