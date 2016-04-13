@@ -30,5 +30,6 @@ As a result, for this REST sample node, the file *`restNode.js`* is the only fil
 __Project Versions__
 
 There are two versions of the same sample Node:
-1. a NancyFX hosted version which can be directly opened in Visual Studio and executed. This will create a local web server and host the page  on http://localhost:3400/
-2. Raw source code that will be embedded in another project. It normally cannot run on its own, since the pairing process cannot save the received cookies; browsers usually do not allow cookies for local pages. However this can be bypassed on some browsers with custom startup switches.
+ 1. a NancyFX hosted version which can be directly opened in Visual Studio and executed. This will create a local web server and host the page  on http://localhost:3400/
+ 2. Raw source code that will be embedded in another project. It normally cannot run on its own, since the pairing process cannot save the received cookies; browsers usually do not allow cookies for local pages. However this can be bypassed on some browsers with custom startup switches.
+
