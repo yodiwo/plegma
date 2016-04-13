@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shfbBuild product="Sandcastle Help File Builder and Tools" version="2015.10.10.0" projectFile="C:\Users\Nikos\OneDrive\Documents\test.shfbproj" started="06/03/2016 11:19:17 PM">
+<shfbBuild product="Sandcastle Help File Builder and Tools" version="2015.10.10.0" projectFile="C:\Users\Nikos\OneDrive\Documents\test.shfbproj" started="13/04/2016 03:24:13 PM">
 <buildStep step="Initializing">
 Finding tools...
 The Sandcastle tools are located in &#39;C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\&#39;
@@ -32,16 +32,16 @@ Copying XML comments files
 <buildStep step="GenerateSharedContent">
 Generating shared content files (en-US, English (United States))...
 <plugIn name="Lightweight Website Style" behavior="After" priority="1000">
-</plugIn>    Last step completed in 00:00:00.0060
+</plugIn>    Last step completed in 00:00:00.0670
 </buildStep>
 <buildStep step="GenerateApiFilter">
 Generating API filter for MRefBuilder...
-    Last step completed in 00:00:00.0105
+    Last step completed in 00:00:00.0120
 </buildStep>
 <buildStep step="GenerateReflectionInfo">
 Generating reflection information...
 [C:\Windows\Microsoft.NET\Framework64\v4.0.30319\MSBuild.exe - GenerateRefInfo.proj]
-Build started 06/03/2016 11:19:18 PM.
+Build started 13/04/2016 03:24:15 PM.
 Project &quot;C:\Users\Nikos\OneDrive\Documents\Help\Working\GenerateRefInfo.proj&quot; on node 1 (default targets).
 PrepareForBuild:
   Creating directory &quot;obj\Debug\&quot;.
@@ -50,7 +50,7 @@ GenerateRefInfo:
   Copyright c 2006-2015, Microsoft Corporation, All Rights Reserved.
   Portions Copyright c 2006-2015, Eric Woodruff, All Rights Reserved.
   Loaded 1 assemblies for reflection and 3 dependency assemblies.
-  Wrote information on 2 namespaces, 104 types, and 654 members
+  Wrote information on 2 namespaces, 108 types, and 684 members
   Copying file from &quot;reflection.org&quot; to &quot;reflection.all&quot;.
   XslTransform (v2015.10.10.0)
   Copyright c 2006-2015, Microsoft Corporation, All Rights Reserved.
@@ -60,13 +60,13 @@ Done Building Project &quot;C:\Users\Nikos\OneDrive\Documents\Help\Working\Gener
 
 Build succeeded.
 
-Time Elapsed 00:00:02.84
-    Last step completed in 00:00:03.3025
+Time Elapsed 00:00:02.21
+    Last step completed in 00:00:02.7645
 </buildStep>
 <buildStep step="TransformReflectionInfo">
 Transforming reflection output...
 [C:\Windows\Microsoft.NET\Framework64\v4.0.30319\MSBuild.exe - TransformManifest.proj]
-Build started 06/03/2016 11:19:21 PM.
+Build started 13/04/2016 03:24:18 PM.
 Project &quot;C:\Users\Nikos\OneDrive\Documents\Help\Working\TransformManifest.proj&quot; on node 1 (default targets).
 TransformManifest:
   XslTransform (v2015.10.10.0)
@@ -115,7 +115,7 @@ TransformManifest:
     Unique name M_Yodiwo_API_Plegma_NodeKey_op_Implicit_1 generated for M:Yodiwo.API.Plegma.NodeKey.op_Implicit(Yodiwo.API.Plegma.NodeKey)~System.String
     Unique name M_Yodiwo_API_Plegma_NodeUnpairedReq__ctor_1 generated for M:Yodiwo.API.Plegma.NodeUnpairedReq.#ctor(System.Int32)
     Unique name M_Yodiwo_API_Plegma_Port__ctor_1 generated for M:Yodiwo.API.Plegma.Port.#ctor(Yodiwo.API.Plegma.PortKey,Yodiwo.API.Plegma.ePortType,Yodiwo.API.Plegma.ioPortDirection)
-    Unique name M_Yodiwo_API_Plegma_PortEvent__ctor_1 generated for M:Yodiwo.API.Plegma.PortEvent.#ctor(System.String,System.String,System.Int32,System.UInt64)
+    Unique name M_Yodiwo_API_Plegma_PortEvent__ctor_1 generated for M:Yodiwo.API.Plegma.PortEvent.#ctor(System.String,System.String,System.UInt32,System.UInt64)
     Unique name M_Yodiwo_API_Plegma_PortEventMsg__ctor_1 generated for M:Yodiwo.API.Plegma.PortEventMsg.#ctor(System.Int32)
     Unique name M_Yodiwo_API_Plegma_PortEventMsg__ctor_2 generated for M:Yodiwo.API.Plegma.PortEventMsg.#ctor(System.Int32,Yodiwo.API.Plegma.PortEvent)
     Unique name M_Yodiwo_API_Plegma_PortKey__ctor_1 generated for M:Yodiwo.API.Plegma.PortKey.#ctor(Yodiwo.API.Plegma.Thing,System.String)
@@ -123,14 +123,14 @@ TransformManifest:
     Unique name M_Yodiwo_API_Plegma_PortKey_Equals_1 generated for M:Yodiwo.API.Plegma.PortKey.Equals(Yodiwo.API.Plegma.PortKey)
     Unique name M_Yodiwo_API_Plegma_PortKey_Equals_2 generated for M:Yodiwo.API.Plegma.PortKey.Equals(Yodiwo.API.Plegma.PortKey@)
     Unique name M_Yodiwo_API_Plegma_PortKey_op_Implicit_1 generated for M:Yodiwo.API.Plegma.PortKey.op_Implicit(Yodiwo.API.Plegma.PortKey)~System.String
-    Unique name M_Yodiwo_API_Plegma_PortState__ctor_1 generated for M:Yodiwo.API.Plegma.PortState.#ctor(System.String,System.String,System.Int32,System.Boolean)
-    Unique name M_Yodiwo_API_Plegma_PortStateReq__ctor_1 generated for M:Yodiwo.API.Plegma.PortStateReq.#ctor(System.Int32)
+    Unique name M_Yodiwo_API_Plegma_PortState__ctor_1 generated for M:Yodiwo.API.Plegma.PortState.#ctor(System.String,System.String,System.UInt32,System.Boolean)
+    Unique name M_Yodiwo_API_Plegma_PortStateGet__ctor_1 generated for M:Yodiwo.API.Plegma.PortStateGet.#ctor(System.Int32)
     Unique name M_Yodiwo_API_Plegma_Thing__ctor_1 generated for M:Yodiwo.API.Plegma.Thing.#ctor(System.String,System.Collections.Generic.List{Yodiwo.API.Plegma.Port},Yodiwo.API.Plegma.NodeKey)
     Unique name M_Yodiwo_API_Plegma_Thing__ctor_2 generated for M:Yodiwo.API.Plegma.Thing.#ctor(Yodiwo.API.Plegma.ThingKey)
     Unique name M_Yodiwo_API_Plegma_Thing__ctor_3 generated for M:Yodiwo.API.Plegma.Thing.#ctor(Yodiwo.API.Plegma.ThingKey,System.Collections.Generic.List{Yodiwo.API.Plegma.Port})
     Unique name M_Yodiwo_API_Plegma_Thing_GetPort_1 generated for M:Yodiwo.API.Plegma.Thing.GetPort(Yodiwo.API.Plegma.PortKey)
-    Unique name M_Yodiwo_API_Plegma_ThingKey__ctor_1 generated for M:Yodiwo.API.Plegma.ThingKey.#ctor(Yodiwo.API.Plegma.NodeKey,System.Int32,System.Int32)
-    Unique name M_Yodiwo_API_Plegma_ThingKey__ctor_2 generated for M:Yodiwo.API.Plegma.ThingKey.#ctor(Yodiwo.API.Plegma.NodeKey,System.String)
+    Unique name M_Yodiwo_API_Plegma_ThingKey__ctor_1 generated for M:Yodiwo.API.Plegma.ThingKey.#ctor(Yodiwo.API.Plegma.NodeKey,System.String)
+    Unique name M_Yodiwo_API_Plegma_ThingKey__ctor_2 generated for M:Yodiwo.API.Plegma.ThingKey.#ctor(Yodiwo.API.Plegma.NodeKey,System.UInt32,System.UInt32)
     Unique name M_Yodiwo_API_Plegma_ThingKey_BuildFromArbitraryString_1 generated for M:Yodiwo.API.Plegma.ThingKey.BuildFromArbitraryString(System.String,System.String)
     Unique name M_Yodiwo_API_Plegma_ThingKey_Equals_1 generated for M:Yodiwo.API.Plegma.ThingKey.Equals(Yodiwo.API.Plegma.ThingKey)
     Unique name M_Yodiwo_API_Plegma_ThingKey_Equals_2 generated for M:Yodiwo.API.Plegma.ThingKey.Equals(Yodiwo.API.Plegma.ThingKey@)
@@ -154,17 +154,17 @@ Done Building Project &quot;C:\Users\Nikos\OneDrive\Documents\Help\Working\Trans
 
 Build succeeded.
 
-Time Elapsed 00:00:01.57
-    Last step completed in 00:00:02.0085
+Time Elapsed 00:00:01.62
+    Last step completed in 00:00:02.0113
 </buildStep>
 <buildStep step="GenerateNamespaceSummaries">
 Generating namespace summary information...
-    Last step completed in 00:00:00.0786
+    Last step completed in 00:00:00.0727
 </buildStep>
 <buildStep step="CopyAdditionalContent">
 Copying additional content files...
 No additional content to copy
-    Last step completed in 00:00:00.0000
+    Last step completed in 00:00:00.0050
 </buildStep>
 <buildStep step="MergeTablesOfContents">
 Merging conceptual and additional tables of contents...
@@ -173,7 +173,7 @@ Merging conceptual and additional tables of contents...
 <buildStep step="GenerateIntermediateTableOfContents">
 Generating intermediate table of contents file...
 [C:\Windows\Microsoft.NET\Framework64\v4.0.30319\MSBuild.exe - GenerateIntermediateTOC.proj]
-Build started 06/03/2016 11:19:24 PM.
+Build started 13/04/2016 03:24:20 PM.
 Project &quot;C:\Users\Nikos\OneDrive\Documents\Help\Working\GenerateIntermediateTOC.proj&quot; on node 1 (default targets).
 GenerateIntermediateTOC:
   XslTransform (v2015.10.10.0)
@@ -184,24 +184,24 @@ Done Building Project &quot;C:\Users\Nikos\OneDrive\Documents\Help\Working\Gener
 
 Build succeeded.
 
-Time Elapsed 00:00:00.67
+Time Elapsed 00:00:00.77
 Generating conceptual content intermediate TOC file...
-    Last step completed in 00:00:01.1981
+    Last step completed in 00:00:01.1988
 </buildStep>
 <buildStep step="CreateBuildAssemblerConfigs">
 Creating Sandcastle configuration files...
     sandcastle.config
-    Last step completed in 00:00:00.1776
+    Last step completed in 00:00:00.4225
 </buildStep>
 <buildStep step="MergeCustomConfigs">
 Merging custom build component configurations
 C:\Users\Nikos\OneDrive\Documents\Help\Working\sandcastle.config
-    Last step completed in 00:00:00.0180
+    Last step completed in 00:00:00.0190
 </buildStep>
 <buildStep step="BuildReferenceTopics">
 Building reference help topics...
 [C:\Windows\Microsoft.NET\Framework64\v4.0.30319\MSBuild.exe - BuildReferenceTopics.proj]
-Build started 06/03/2016 11:19:25 PM.
+Build started 13/04/2016 03:24:22 PM.
 Project &quot;C:\Users\Nikos\OneDrive\Documents\Help\Working\BuildReferenceTopics.proj&quot; on node 1 (default targets).
 BuildReferenceTopics:
   BuildAssembler (v2015.10.10.0)
@@ -209,15 +209,15 @@ BuildReferenceTopics:
   Portions Copyright c 2006-2015, Eric Woodruff, All Rights Reserved.
   Loading configuration...
   Processing topics...
-  Processed 928 topic(s)
+  Processed 962 topic(s)
   CopyFromIndexComponent: &quot;reflection&quot; in-memory cache entries used: 5 of 15.
   CopyFromIndexComponent: &quot;comments&quot; in-memory cache entries used: 3 of 30.
 Done Building Project &quot;C:\Users\Nikos\OneDrive\Documents\Help\Working\BuildReferenceTopics.proj&quot; (default targets).
 
 Build succeeded.
 
-Time Elapsed 00:00:22.04
-    Last step completed in 00:00:22.4545
+Time Elapsed 00:00:29.21
+    Last step completed in 00:00:29.6417
 </buildStep>
 <buildStep step="CombiningIntermediateTocFiles">
 Combining conceptual and API intermediate TOC files...
@@ -233,11 +233,11 @@ E-Mail: Eric@EWoodruff.us
 Using LCID &#39;1033&#39;, code page &#39;65001&#39;, encoding charset &#39;UTF-8&#39;.
 
 Processing website files in C:\Users\Nikos\OneDrive\Documents\Help\Working\Output\Website
-Processed 928 HTML files
+Processed 962 HTML files
 Sorting keywords and generating See Also indices
 Saving website keyword index to C:\Users\Nikos\OneDrive\Documents\Help\Working\WebKI.xml
 Saving website table of contents to C:\Users\Nikos\OneDrive\Documents\Help\Working\WebTOC.xml
-    Last step completed in 00:00:05.0140
+    Last step completed in 00:00:07.7570
 </buildStep>
 <buildStep step="CopyStandardHelpContent">
 Copying standard help content...
@@ -316,34 +316,34 @@ C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyle
 C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\Web\icons\TocOpen.gif -&gt; C:\Users\Nikos\OneDrive\Documents\Help\Working\Output\Website\icons\TocOpen.gif
 C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\Web\scripts\branding-Website.js -&gt; C:\Users\Nikos\OneDrive\Documents\Help\Working\Output\Website\scripts\branding-Website.js
 C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\Web\scripts\jquery-1.11.0.min.js -&gt; C:\Users\Nikos\OneDrive\Documents\Help\Working\Output\Website\scripts\jquery-1.11.0.min.js
-    Last step completed in 00:00:00.2378
+    Last step completed in 00:00:00.5785
 </buildStep>
 <buildStep step="GenerateHelpFormatTableOfContents">
 Generating website table of contents file...
-    Last step completed in 00:00:00.0000
+    Last step completed in 00:00:00.0010
 </buildStep>
 <buildStep step="GenerateFullTextIndex">
 Generating full-text index for the website...
 
 <plugIn name="Lightweight Website Style" behavior="After" priority="1000">
 Adding lightweight search and TOC elements to each topic...
-</plugIn>    Last step completed in 00:00:13.2514
+</plugIn>    Last step completed in 00:00:21.9178
 </buildStep>
 <buildStep step="CopyingWebsiteFiles">
 Copying website files to output folder...
 
 Copied 500 files
 Copied 1000 files
-Copied 1316 files for the website content
-    Last step completed in 00:00:03.5790
+Copied 1357 files for the website content
+    Last step completed in 00:00:02.6916
 </buildStep>
 <buildStep step="CleanIntermediates">
 Removing intermediate files...
-    Last step completed in 00:00:00.5433
+    Last step completed in 00:00:00.6578
 </buildStep>
 <buildStep step="Completed">
 
-Build completed successfully at 06/03/2016 11:20:10 PM.  Total time: 00:00:53.1099
+Build completed successfully at 13/04/2016 03:25:24 PM.  Total time: 00:01:10.9535
 
 </buildStep>
 </shfbBuild>

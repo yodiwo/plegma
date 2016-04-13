@@ -127,6 +127,7 @@
     <HelpKINode Title="methods" Url="html/Methods_T_Yodiwo_API_Plegma_AudioContentDescriptor.htm" />
   </HelpKINode>
   <HelpKINode Title="AudioContentDescriptor.AudioContentDescriptor constructor" Url="html/M_Yodiwo_API_Plegma_AudioContentDescriptor__ctor.htm" />
+  <HelpKINode Title="AudioDescriptor enumeration member" Url="html/T_Yodiwo_API_Plegma_ePortType.htm" />
   <HelpKINode Title="B field" Url="html/F_Yodiwo_API_Plegma_YColor_B.htm" />
   <HelpKINode Title="BaseKey field" Url="html/F_Yodiwo_API_Plegma_GraphDescriptorKey_BaseKey.htm" />
   <HelpKINode Title="BinaryResourceContentType enumeration" Url="html/T_Yodiwo_API_Plegma_BinaryResourceContentType.htm" />
@@ -137,6 +138,7 @@
     <HelpKINode Title="fields" Url="html/Fields_T_Yodiwo_API_Plegma_BinaryResourceDescriptor.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Yodiwo_API_Plegma_BinaryResourceDescriptor.htm" />
   </HelpKINode>
+  <HelpKINode Title="BinaryResourceDescriptor enumeration member" Url="html/T_Yodiwo_API_Plegma_ePortType.htm" />
   <HelpKINode Title="BinaryResourceDescriptor.BinaryResourceDescriptor constructor" Url="html/Overload_Yodiwo_API_Plegma_BinaryResourceDescriptor__ctor.htm" />
   <HelpKINode Title="BinaryResourceDescriptor.ContentDescriptor field" Url="html/F_Yodiwo_API_Plegma_BinaryResourceDescriptor_ContentDescriptor.htm" />
   <HelpKINode Title="BinaryResourceDescriptor.ContentType field" Url="html/F_Yodiwo_API_Plegma_BinaryResourceDescriptor_ContentType.htm" />
@@ -256,6 +258,7 @@
     <HelpKINode Title="fields" Url="html/Fields_T_Yodiwo_API_Plegma_ConfigParameter.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Yodiwo_API_Plegma_ConfigParameter.htm" />
   </HelpKINode>
+  <HelpKINode Title="ConfigParameter.Description field" Url="html/F_Yodiwo_API_Plegma_ConfigParameter_Description.htm" />
   <HelpKINode Title="ConfigParameter.Name field" Url="html/F_Yodiwo_API_Plegma_ConfigParameter_Name.htm" />
   <HelpKINode Title="ConfigParameter.Value field" Url="html/F_Yodiwo_API_Plegma_ConfigParameter_Value.htm" />
   <HelpKINode Title="ConnectionAddress field" Url="html/F_Yodiwo_API_Plegma_RedisDBLocationDescriptor_ConnectionAddress.htm" />
@@ -334,6 +337,7 @@
   <HelpKINode Title="DeployedGraphKeys field" Url="html/F_Yodiwo_API_Plegma_LocallyDeployedGraphsMsg_DeployedGraphKeys.htm" />
   <HelpKINode Title="Description field">
     <HelpKINode Title="ConfigDescription.Description Field" Url="html/F_Yodiwo_API_Plegma_ConfigDescription_Description.htm" />
+    <HelpKINode Title="ConfigParameter.Description Field" Url="html/F_Yodiwo_API_Plegma_ConfigParameter_Description.htm" />
     <HelpKINode Title="Port.Description Field" Url="html/F_Yodiwo_API_Plegma_Port_Description.htm" />
     <HelpKINode Title="PortDescription.Description Field" Url="html/F_Yodiwo_API_Plegma_PortDescription_Description.htm" />
     <HelpKINode Title="ThingModelType.Description Field" Url="html/F_Yodiwo_API_Plegma_ThingModelType_Description.htm" />
@@ -345,6 +349,7 @@
     <HelpKINode Title="EndpointSyncReq.DesiredEndpoint Field" Url="html/F_Yodiwo_API_Plegma_EndpointSyncReq_DesiredEndpoint.htm" />
     <HelpKINode Title="LoginRsp.DesiredEndpoint Field" Url="html/F_Yodiwo_API_Plegma_LoginRsp_DesiredEndpoint.htm" />
   </HelpKINode>
+  <HelpKINode Title="devaddress field" Url="html/F_Yodiwo_API_Plegma_I2CCommand_devaddress.htm" />
   <HelpKINode Title="DriverKey field" Url="html/F_Yodiwo_API_Plegma_A2mcuActiveDriver_DriverKey.htm" />
   <HelpKINode Title="DriverKey structure">
     <HelpKINode Title="DriverKey Structure" Url="html/T_Yodiwo_API_Plegma_DriverKey.htm" />
@@ -413,6 +418,7 @@
   <HelpKINode Title="ePortConf enumeration" Url="html/T_Yodiwo_API_Plegma_ePortConf.htm" />
   <HelpKINode Title="ePortStateOperation enumeration" Url="html/T_Yodiwo_API_Plegma_ePortStateOperation.htm" />
   <HelpKINode Title="ePortType enumeration" Url="html/T_Yodiwo_API_Plegma_ePortType.htm" />
+  <HelpKINode Title="ePortType2Type method" Url="html/M_Yodiwo_API_Plegma_Port_ePortType2Type.htm" />
   <HelpKINode Title="Equality operator">
     <HelpKINode Title="BlockKey.Equality Operator " Url="html/M_Yodiwo_API_Plegma_BlockKey_op_Equality.htm" />
     <HelpKINode Title="DriverKey.Equality Operator " Url="html/M_Yodiwo_API_Plegma_DriverKey_op_Equality.htm" />
@@ -463,6 +469,35 @@
   <HelpKINode Title="FromBytes method" Url="html/M_Yodiwo_API_Plegma_NodeKey_FromBytes.htm" />
   <HelpKINode Title="G field" Url="html/F_Yodiwo_API_Plegma_YColor_G.htm" />
   <HelpKINode Title="Gateway enumeration member" Url="html/T_Yodiwo_API_Plegma_eNodeType.htm" />
+  <HelpKINode Title="GcmConnectionMsg class">
+    <HelpKINode Title="GcmConnectionMsg Class" Url="html/T_Yodiwo_API_Plegma_GcmConnectionMsg.htm" />
+    <HelpKINode Title="about GcmConnectionMsg class" Url="html/T_Yodiwo_API_Plegma_GcmConnectionMsg.htm" />
+    <HelpKINode Title="constructor" Url="html/M_Yodiwo_API_Plegma_GcmConnectionMsg__ctor.htm" />
+    <HelpKINode Title="fields" Url="html/Fields_T_Yodiwo_API_Plegma_GcmConnectionMsg.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Yodiwo_API_Plegma_GcmConnectionMsg.htm" />
+  </HelpKINode>
+  <HelpKINode Title="GcmConnectionMsg.GcmConnectionMsg constructor" Url="html/M_Yodiwo_API_Plegma_GcmConnectionMsg__ctor.htm" />
+  <HelpKINode Title="GcmConnectionMsg.NodeKey field" Url="html/F_Yodiwo_API_Plegma_GcmConnectionMsg_NodeKey.htm" />
+  <HelpKINode Title="GcmConnectionMsg.RegistrationId field" Url="html/F_Yodiwo_API_Plegma_GcmConnectionMsg_RegistrationId.htm" />
+  <HelpKINode Title="GcmDisconnectionMsg class">
+    <HelpKINode Title="GcmDisconnectionMsg Class" Url="html/T_Yodiwo_API_Plegma_GcmDisconnectionMsg.htm" />
+    <HelpKINode Title="about GcmDisconnectionMsg class" Url="html/T_Yodiwo_API_Plegma_GcmDisconnectionMsg.htm" />
+    <HelpKINode Title="constructor" Url="html/M_Yodiwo_API_Plegma_GcmDisconnectionMsg__ctor.htm" />
+    <HelpKINode Title="fields" Url="html/Fields_T_Yodiwo_API_Plegma_GcmDisconnectionMsg.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Yodiwo_API_Plegma_GcmDisconnectionMsg.htm" />
+  </HelpKINode>
+  <HelpKINode Title="GcmDisconnectionMsg.GcmDisconnectionMsg constructor" Url="html/M_Yodiwo_API_Plegma_GcmDisconnectionMsg__ctor.htm" />
+  <HelpKINode Title="GcmDisconnectionMsg.RegistrationId field" Url="html/F_Yodiwo_API_Plegma_GcmDisconnectionMsg_RegistrationId.htm" />
+  <HelpKINode Title="GcmMsg class">
+    <HelpKINode Title="GcmMsg Class" Url="html/T_Yodiwo_API_Plegma_GcmMsg.htm" />
+    <HelpKINode Title="about GcmMsg class" Url="html/T_Yodiwo_API_Plegma_GcmMsg.htm" />
+    <HelpKINode Title="constructor" Url="html/M_Yodiwo_API_Plegma_GcmMsg__ctor.htm" />
+    <HelpKINode Title="fields" Url="html/Fields_T_Yodiwo_API_Plegma_GcmMsg.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Yodiwo_API_Plegma_GcmMsg.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_Yodiwo_API_Plegma_GcmMsg.htm" />
+  </HelpKINode>
+  <HelpKINode Title="GcmMsg.GcmMsg constructor" Url="html/M_Yodiwo_API_Plegma_GcmMsg__ctor.htm" />
+  <HelpKINode Title="GcmMsg.PayloadType field" Url="html/F_Yodiwo_API_Plegma_GcmMsg_PayloadType.htm" />
   <HelpKINode Title="GeneratorIgnoreAttribute class">
     <HelpKINode Title="GeneratorIgnoreAttribute Class" Url="html/T_Yodiwo_API_Plegma_GeneratorIgnoreAttribute.htm" />
     <HelpKINode Title="about GeneratorIgnoreAttribute class" Url="html/T_Yodiwo_API_Plegma_GeneratorIgnoreAttribute.htm" />
@@ -500,6 +535,7 @@
   </HelpKINode>
   <HelpKINode Title="GetPort method" Url="html/Overload_Yodiwo_API_Plegma_Thing_GetPort.htm" />
   <HelpKINode Title="GetPortByName method" Url="html/M_Yodiwo_API_Plegma_Thing_GetPortByName.htm" />
+  <HelpKINode Title="GetStateObject method" Url="html/M_Yodiwo_API_Plegma_Port_GetStateObject.htm" />
   <HelpKINode Title="GIF enumeration member" Url="html/T_Yodiwo_API_Plegma_ImageFileFormat.htm" />
   <HelpKINode Title="GoogleDrive enumeration member" Url="html/T_Yodiwo_API_Plegma_RestServiceType.htm" />
   <HelpKINode Title="GraphDeploymentReq class">
@@ -657,6 +693,20 @@
   <HelpKINode Title="HttpLocationDescriptor.HttpLocationDescriptor constructor" Url="html/M_Yodiwo_API_Plegma_HttpLocationDescriptor__ctor.htm" />
   <HelpKINode Title="HttpLocationDescriptor.RestServiceType field" Url="html/F_Yodiwo_API_Plegma_HttpLocationDescriptor_RestServiceType.htm" />
   <HelpKINode Title="HttpLocationDescriptor.Uri field" Url="html/F_Yodiwo_API_Plegma_HttpLocationDescriptor_Uri.htm" />
+  <HelpKINode Title="I2CCommand class">
+    <HelpKINode Title="I2CCommand Class" Url="html/T_Yodiwo_API_Plegma_I2CCommand.htm" />
+    <HelpKINode Title="about I2CCommand class" Url="html/T_Yodiwo_API_Plegma_I2CCommand.htm" />
+    <HelpKINode Title="constructor" Url="html/M_Yodiwo_API_Plegma_I2CCommand__ctor.htm" />
+    <HelpKINode Title="fields" Url="html/Fields_T_Yodiwo_API_Plegma_I2CCommand.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Yodiwo_API_Plegma_I2CCommand.htm" />
+  </HelpKINode>
+  <HelpKINode Title="I2CCommand.devaddress field" Url="html/F_Yodiwo_API_Plegma_I2CCommand_devaddress.htm" />
+  <HelpKINode Title="I2CCommand.I2CCommand constructor" Url="html/M_Yodiwo_API_Plegma_I2CCommand__ctor.htm" />
+  <HelpKINode Title="I2CCommand.IsWrite field" Url="html/F_Yodiwo_API_Plegma_I2CCommand_IsWrite.htm" />
+  <HelpKINode Title="I2CCommand.ReadLength field" Url="html/F_Yodiwo_API_Plegma_I2CCommand_ReadLength.htm" />
+  <HelpKINode Title="I2CCommand.register field" Url="html/F_Yodiwo_API_Plegma_I2CCommand_register.htm" />
+  <HelpKINode Title="I2CCommand.value field" Url="html/F_Yodiwo_API_Plegma_I2CCommand_value.htm" />
+  <HelpKINode Title="I2CDescriptor enumeration member" Url="html/T_Yodiwo_API_Plegma_ePortType.htm" />
   <HelpKINode Title="IconURI field" Url="html/F_Yodiwo_API_Plegma_ThingUIHints_IconURI.htm" />
   <HelpKINode Title="Id field">
     <HelpKINode Title="DriverKey.Id Field" Url="html/F_Yodiwo_API_Plegma_DriverKey_Id.htm" />
@@ -683,6 +733,7 @@
   <HelpKINode Title="ImageContentDescriptor.Type field" Url="html/F_Yodiwo_API_Plegma_ImageContentDescriptor_Type.htm" />
   <HelpKINode Title="ImageFileFormat enumeration" Url="html/T_Yodiwo_API_Plegma_ImageFileFormat.htm" />
   <HelpKINode Title="ImageType enumeration" Url="html/T_Yodiwo_API_Plegma_ImageType.htm" />
+  <HelpKINode Title="IncRevNum method" Url="html/M_Yodiwo_API_Plegma_Port_IncRevNum.htm" />
   <HelpKINode Title="Indices field" Url="html/F_Yodiwo_API_Plegma_VirtualBlockEvent_Indices.htm" />
   <HelpKINode Title="Inequality operator">
     <HelpKINode Title="BlockKey.Inequality Operator " Url="html/M_Yodiwo_API_Plegma_BlockKey_op_Inequality.htm" />
@@ -744,6 +795,9 @@
     <HelpKINode Title="ThingKey.IsValid Property " Url="html/P_Yodiwo_API_Plegma_ThingKey_IsValid.htm" />
     <HelpKINode Title="UserKey.IsValid Property " Url="html/P_Yodiwo_API_Plegma_UserKey_IsValid.htm" />
   </HelpKINode>
+  <HelpKINode Title="IsWrite field" Url="html/F_Yodiwo_API_Plegma_I2CCommand_IsWrite.htm" />
+  <HelpKINode Title="JsonString enumeration member" Url="html/T_Yodiwo_API_Plegma_ePortType.htm" />
+  <HelpKINode Title="Key field" Url="html/F_Yodiwo_API_Plegma_ThingsGet_Key.htm" />
   <HelpKINode Title="KeySeparator field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_KeySeparator.htm" />
   <HelpKINode Title="KeysSentToNode enumeration member" Url="html/T_Yodiwo_API_Plegma_NodePairing_PairingStates.htm" />
   <HelpKINode Title="Label field">
@@ -828,8 +882,8 @@
   </HelpKINode>
   <HelpKINode Title="name field" Url="html/F_Yodiwo_API_Plegma_NodePairing_PairingNodeGetTokensRequest_name.htm" />
   <HelpKINode Title="NextRequested enumeration member" Url="html/T_Yodiwo_API_Plegma_NodePairing_PairingStates.htm" />
-  <HelpKINode Title="NodeID field" Url="html/F_Yodiwo_API_Plegma_NodeKey_NodeID.htm" />
   <HelpKINode Title="NodeId field" Url="html/F_Yodiwo_API_Plegma_GraphKey_NodeId.htm" />
+  <HelpKINode Title="NodeID field" Url="html/F_Yodiwo_API_Plegma_NodeKey_NodeID.htm" />
   <HelpKINode Title="NodeInfoReq class">
     <HelpKINode Title="NodeInfoReq Class" Url="html/T_Yodiwo_API_Plegma_NodeInfoReq.htm" />
     <HelpKINode Title="about NodeInfoReq class" Url="html/T_Yodiwo_API_Plegma_NodeInfoReq.htm" />
@@ -852,15 +906,17 @@
   <HelpKINode Title="NodeInfoRsp.Capabilities field" Url="html/F_Yodiwo_API_Plegma_NodeInfoRsp_Capabilities.htm" />
   <HelpKINode Title="NodeInfoRsp.Name field" Url="html/F_Yodiwo_API_Plegma_NodeInfoRsp_Name.htm" />
   <HelpKINode Title="NodeInfoRsp.NodeInfoRsp constructor" Url="html/Overload_Yodiwo_API_Plegma_NodeInfoRsp__ctor.htm" />
+  <HelpKINode Title="NodeInfoRsp.SupportedApiRev field" Url="html/F_Yodiwo_API_Plegma_NodeInfoRsp_SupportedApiRev.htm" />
   <HelpKINode Title="NodeInfoRsp.ThingsRevNum field" Url="html/F_Yodiwo_API_Plegma_NodeInfoRsp_ThingsRevNum.htm" />
   <HelpKINode Title="NodeInfoRsp.ThingTypes field" Url="html/F_Yodiwo_API_Plegma_NodeInfoRsp_ThingTypes.htm" />
   <HelpKINode Title="NodeInfoRsp.Type field" Url="html/F_Yodiwo_API_Plegma_NodeInfoRsp_Type.htm" />
-  <HelpKINode Title="nodeKey field" Url="html/F_Yodiwo_API_Plegma_NodePairing_PairingServerKeysResponse_nodeKey.htm" />
   <HelpKINode Title="NodeKey field">
-    <HelpKINode Title="ThingKey.NodeKey Field" Url="html/F_Yodiwo_API_Plegma_ThingKey_NodeKey.htm" />
+    <HelpKINode Title="GcmConnectionMsg.NodeKey Field" Url="html/F_Yodiwo_API_Plegma_GcmConnectionMsg_NodeKey.htm" />
     <HelpKINode Title="LoginRsp.NodeKey Field" Url="html/F_Yodiwo_API_Plegma_LoginRsp_NodeKey.htm" />
+    <HelpKINode Title="ThingKey.NodeKey Field" Url="html/F_Yodiwo_API_Plegma_ThingKey_NodeKey.htm" />
     <HelpKINode Title="NodePairingConstants.NodeKey Field" Url="html/F_Yodiwo_API_Plegma_NodePairing_NodePairingConstants_NodeKey.htm" />
   </HelpKINode>
+  <HelpKINode Title="nodeKey field" Url="html/F_Yodiwo_API_Plegma_NodePairing_PairingServerKeysResponse_nodeKey.htm" />
   <HelpKINode Title="NodeKey property" Url="html/P_Yodiwo_API_Plegma_GraphKey_NodeKey.htm" />
   <HelpKINode Title="NodeKey structure">
     <HelpKINode Title="NodeKey Structure" Url="html/T_Yodiwo_API_Plegma_NodeKey.htm" />
@@ -923,6 +979,7 @@
   <HelpKINode Title="NodePairingConstants.UserConfirmFullURI field" Url="html/F_Yodiwo_API_Plegma_NodePairing_NodePairingConstants_UserConfirmFullURI.htm" />
   <HelpKINode Title="NodePairingConstants.UserConfirmPageURI field" Url="html/F_Yodiwo_API_Plegma_NodePairing_NodePairingConstants_UserConfirmPageURI.htm" />
   <HelpKINode Title="NodePairingConstants.Uuid field" Url="html/F_Yodiwo_API_Plegma_NodePairing_NodePairingConstants_Uuid.htm" />
+  <HelpKINode Title="NodePairingConstants.UuidEntryURI field" Url="html/F_Yodiwo_API_Plegma_NodePairing_NodePairingConstants_UuidEntryURI.htm" />
   <HelpKINode Title="NodeUnpairedReq class">
     <HelpKINode Title="NodeUnpairedReq Class" Url="html/T_Yodiwo_API_Plegma_NodeUnpairedReq.htm" />
     <HelpKINode Title="about NodeUnpairedReq class" Url="html/T_Yodiwo_API_Plegma_NodeUnpairedReq.htm" />
@@ -942,18 +999,20 @@
   </HelpKINode>
   <HelpKINode Title="NodeUnpairedRsp.NodeUnpairedRsp constructor" Url="html/M_Yodiwo_API_Plegma_NodeUnpairedRsp__ctor.htm" />
   <HelpKINode Title="None enumeration member">
+    <HelpKINode Title="eConnectionFlags Enumeration" Url="html/T_Yodiwo_API_Plegma_eConnectionFlags.htm" />
     <HelpKINode Title="eNodeCapa Enumeration" Url="html/T_Yodiwo_API_Plegma_eNodeCapa.htm" />
     <HelpKINode Title="ePortConf Enumeration" Url="html/T_Yodiwo_API_Plegma_ePortConf.htm" />
     <HelpKINode Title="WebSocketMsg.eWSMsgId Enumeration" Url="html/T_Yodiwo_API_Plegma_WebSocketMsg_eWSMsgId.htm" />
     <HelpKINode Title="WrapperMsg.eMsgFlags Enumeration" Url="html/T_Yodiwo_API_Plegma_WrapperMsg_eMsgFlags.htm" />
   </HelpKINode>
+  <HelpKINode Title="NoUUIDAuthentication field" Url="html/F_Yodiwo_API_Plegma_NodePairing_PairingNodeGetTokensRequest_NoUUIDAuthentication.htm" />
   <HelpKINode Title="op field">
     <HelpKINode Title="EndpointSyncReq.op Field" Url="html/F_Yodiwo_API_Plegma_EndpointSyncReq_op.htm" />
     <HelpKINode Title="EndpointSyncRsp.op Field" Url="html/F_Yodiwo_API_Plegma_EndpointSyncRsp_op.htm" />
   </HelpKINode>
   <HelpKINode Title="Operation field">
-    <HelpKINode Title="PortStateReq.Operation Field" Url="html/F_Yodiwo_API_Plegma_PortStateReq_Operation.htm" />
-    <HelpKINode Title="PortStateRsp.Operation Field" Url="html/F_Yodiwo_API_Plegma_PortStateRsp_Operation.htm" />
+    <HelpKINode Title="PortStateGet.Operation Field" Url="html/F_Yodiwo_API_Plegma_PortStateGet_Operation.htm" />
+    <HelpKINode Title="PortStateSet.Operation Field" Url="html/F_Yodiwo_API_Plegma_PortStateSet_Operation.htm" />
     <HelpKINode Title="ThingsGet.Operation Field" Url="html/F_Yodiwo_API_Plegma_ThingsGet_Operation.htm" />
     <HelpKINode Title="ThingsSet.Operation Field" Url="html/F_Yodiwo_API_Plegma_ThingsSet_Operation.htm" />
   </HelpKINode>
@@ -961,6 +1020,7 @@
   <HelpKINode Title="Overwrite enumeration member" Url="html/T_Yodiwo_API_Plegma_eThingsOperation.htm" />
   <HelpKINode Title="Paired enumeration member" Url="html/T_Yodiwo_API_Plegma_NodePairing_PairingStates.htm" />
   <HelpKINode Title="Pairing enumeration member" Url="html/T_Yodiwo_API_Plegma_WebSocketMsg_eWSMsgId.htm" />
+  <HelpKINode Title="PairingCompletionInstructions field" Url="html/F_Yodiwo_API_Plegma_NodePairing_PairingNodeGetTokensRequest_PairingCompletionInstructions.htm" />
   <HelpKINode Title="PairingNodeGetKeysRequest class">
     <HelpKINode Title="PairingNodeGetKeysRequest Class" Url="html/T_Yodiwo_API_Plegma_NodePairing_PairingNodeGetKeysRequest.htm" />
     <HelpKINode Title="about PairingNodeGetKeysRequest class" Url="html/T_Yodiwo_API_Plegma_NodePairing_PairingNodeGetKeysRequest.htm" />
@@ -981,6 +1041,8 @@
   <HelpKINode Title="PairingNodeGetTokensRequest.description field" Url="html/F_Yodiwo_API_Plegma_NodePairing_PairingNodeGetTokensRequest_description.htm" />
   <HelpKINode Title="PairingNodeGetTokensRequest.image field" Url="html/F_Yodiwo_API_Plegma_NodePairing_PairingNodeGetTokensRequest_image.htm" />
   <HelpKINode Title="PairingNodeGetTokensRequest.name field" Url="html/F_Yodiwo_API_Plegma_NodePairing_PairingNodeGetTokensRequest_name.htm" />
+  <HelpKINode Title="PairingNodeGetTokensRequest.NoUUIDAuthentication field" Url="html/F_Yodiwo_API_Plegma_NodePairing_PairingNodeGetTokensRequest_NoUUIDAuthentication.htm" />
+  <HelpKINode Title="PairingNodeGetTokensRequest.PairingCompletionInstructions field" Url="html/F_Yodiwo_API_Plegma_NodePairing_PairingNodeGetTokensRequest_PairingCompletionInstructions.htm" />
   <HelpKINode Title="PairingNodeGetTokensRequest.PairingNodeGetTokensRequest constructor" Url="html/M_Yodiwo_API_Plegma_NodePairing_PairingNodeGetTokensRequest__ctor.htm" />
   <HelpKINode Title="PairingNodeGetTokensRequest.pathcss field" Url="html/F_Yodiwo_API_Plegma_NodePairing_PairingNodeGetTokensRequest_pathcss.htm" />
   <HelpKINode Title="PairingNodeGetTokensRequest.PublicKey field" Url="html/F_Yodiwo_API_Plegma_NodePairing_PairingNodeGetTokensRequest_PublicKey.htm" />
@@ -1023,6 +1085,7 @@
   <HelpKINode Title="Pattern field" Url="html/F_Yodiwo_API_Plegma_StateDescription_Pattern.htm" />
   <HelpKINode Title="Payload field" Url="html/F_Yodiwo_API_Plegma_WrapperMsg_Payload.htm" />
   <HelpKINode Title="PayloadSize field" Url="html/F_Yodiwo_API_Plegma_WrapperMsg_PayloadSize.htm" />
+  <HelpKINode Title="PayloadType field" Url="html/F_Yodiwo_API_Plegma_GcmMsg_PayloadType.htm" />
   <HelpKINode Title="Phase1Complete enumeration member" Url="html/T_Yodiwo_API_Plegma_NodePairing_PairingStates.htm" />
   <HelpKINode Title="PingReq class">
     <HelpKINode Title="PingReq Class" Url="html/T_Yodiwo_API_Plegma_PingReq.htm" />
@@ -1064,6 +1127,8 @@
   <HelpKINode Title="PlegmaAPI.s_ActivePortKeysMsg field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_s_ActivePortKeysMsg.htm" />
   <HelpKINode Title="PlegmaAPI.s_EndpointSyncReq field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_s_EndpointSyncReq.htm" />
   <HelpKINode Title="PlegmaAPI.s_EndpointSyncRsp field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_s_EndpointSyncRsp.htm" />
+  <HelpKINode Title="PlegmaAPI.s_GcmConnectionMsg field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_s_GcmConnectionMsg.htm" />
+  <HelpKINode Title="PlegmaAPI.s_GcmDisconnectionMsg field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_s_GcmDisconnectionMsg.htm" />
   <HelpKINode Title="PlegmaAPI.s_GenericRsp field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_s_GenericRsp.htm" />
   <HelpKINode Title="PlegmaAPI.s_GraphDeploymentReq field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_s_GraphDeploymentReq.htm" />
   <HelpKINode Title="PlegmaAPI.s_LocallyDeployedGraphsMsg field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_s_LocallyDeployedGraphsMsg.htm" />
@@ -1072,12 +1137,11 @@
   <HelpKINode Title="PlegmaAPI.s_NodeInfoReq field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_s_NodeInfoReq.htm" />
   <HelpKINode Title="PlegmaAPI.s_NodeInfoRsp field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_s_NodeInfoRsp.htm" />
   <HelpKINode Title="PlegmaAPI.s_NodeUnpairedReq field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_s_NodeUnpairedReq.htm" />
-  <HelpKINode Title="PlegmaAPI.s_NodeUnpairedRsp field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_s_NodeUnpairedRsp.htm" />
   <HelpKINode Title="PlegmaAPI.s_PingReq field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_s_PingReq.htm" />
   <HelpKINode Title="PlegmaAPI.s_PingRsp field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_s_PingRsp.htm" />
   <HelpKINode Title="PlegmaAPI.s_PortEventMsg field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_s_PortEventMsg.htm" />
-  <HelpKINode Title="PlegmaAPI.s_PortStateReq field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_s_PortStateReq.htm" />
-  <HelpKINode Title="PlegmaAPI.s_PortStateRsp field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_s_PortStateRsp.htm" />
+  <HelpKINode Title="PlegmaAPI.s_PortStateGet field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_s_PortStateGet.htm" />
+  <HelpKINode Title="PlegmaAPI.s_PortStateSet field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_s_PortStateSet.htm" />
   <HelpKINode Title="PlegmaAPI.s_ThingsGet field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_s_ThingsGet.htm" />
   <HelpKINode Title="PlegmaAPI.s_ThingsSet field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_s_ThingsSet.htm" />
   <HelpKINode Title="PlegmaAPI.s_VirtualBlockEventMsg field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_s_VirtualBlockEventMsg.htm" />
@@ -1088,22 +1152,24 @@
     <HelpKINode Title="constructor" Url="html/Overload_Yodiwo_API_Plegma_Port__ctor.htm" />
     <HelpKINode Title="fields" Url="html/Fields_T_Yodiwo_API_Plegma_Port.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Yodiwo_API_Plegma_Port.htm" />
-    <HelpKINode Title="properties" Url="html/Properties_T_Yodiwo_API_Plegma_Port.htm" />
   </HelpKINode>
   <HelpKINode Title="Port field" Url="html/F_Yodiwo_API_Plegma_ThingModelType_Port.htm" />
   <HelpKINode Title="Port.ConfFlags field" Url="html/F_Yodiwo_API_Plegma_Port_ConfFlags.htm" />
   <HelpKINode Title="Port.DeepClone method" Url="html/M_Yodiwo_API_Plegma_Port_DeepClone.htm" />
   <HelpKINode Title="Port.Description field" Url="html/F_Yodiwo_API_Plegma_Port_Description.htm" />
+  <HelpKINode Title="Port.ePortType2Type method" Url="html/M_Yodiwo_API_Plegma_Port_ePortType2Type.htm" />
+  <HelpKINode Title="Port.GetStateObject method" Url="html/M_Yodiwo_API_Plegma_Port_GetStateObject.htm" />
+  <HelpKINode Title="Port.IncRevNum method" Url="html/M_Yodiwo_API_Plegma_Port_IncRevNum.htm" />
   <HelpKINode Title="Port.ioDirection field" Url="html/F_Yodiwo_API_Plegma_Port_ioDirection.htm" />
   <HelpKINode Title="Port.Name field" Url="html/F_Yodiwo_API_Plegma_Port_Name.htm" />
   <HelpKINode Title="Port.Port constructor" Url="html/Overload_Yodiwo_API_Plegma_Port__ctor.htm" />
   <HelpKINode Title="Port.PortKey field" Url="html/F_Yodiwo_API_Plegma_Port_PortKey.htm" />
   <HelpKINode Title="Port.RevNum field" Url="html/F_Yodiwo_API_Plegma_Port_RevNum.htm" />
+  <HelpKINode Title="Port.Semantics field" Url="html/F_Yodiwo_API_Plegma_Port_Semantics.htm" />
   <HelpKINode Title="Port.State field" Url="html/F_Yodiwo_API_Plegma_Port_State.htm" />
   <HelpKINode Title="Port.State2Value method" Url="html/M_Yodiwo_API_Plegma_Port_State2Value.htm" />
   <HelpKINode Title="Port.ToString method" Url="html/M_Yodiwo_API_Plegma_Port_ToString.htm" />
   <HelpKINode Title="Port.Type field" Url="html/F_Yodiwo_API_Plegma_Port_Type.htm" />
-  <HelpKINode Title="Port.TypedState property" Url="html/P_Yodiwo_API_Plegma_Port_TypedState.htm" />
   <HelpKINode Title="Port.Update method" Url="html/M_Yodiwo_API_Plegma_Port_Update.htm" />
   <HelpKINode Title="PortConfiguration class">
     <HelpKINode Title="PortConfiguration Class" Url="html/T_Yodiwo_API_Plegma_PortConfiguration.htm" />
@@ -1187,7 +1253,7 @@
   <HelpKINode Title="PortKeyConverter.ConvertFrom method" Url="html/Overload_Yodiwo_API_Plegma_PortKeyConverter_ConvertFrom.htm" />
   <HelpKINode Title="PortKeyConverter.ConvertTo method" Url="html/Overload_Yodiwo_API_Plegma_PortKeyConverter_ConvertTo.htm" />
   <HelpKINode Title="PortKeyConverter.PortKeyConverter constructor" Url="html/M_Yodiwo_API_Plegma_PortKeyConverter__ctor.htm" />
-  <HelpKINode Title="PortKeys field" Url="html/F_Yodiwo_API_Plegma_PortStateReq_PortKeys.htm" />
+  <HelpKINode Title="PortKeys field" Url="html/F_Yodiwo_API_Plegma_PortStateGet_PortKeys.htm" />
   <HelpKINode Title="Ports field" Url="html/F_Yodiwo_API_Plegma_Thing_Ports.htm" />
   <HelpKINode Title="PortState class">
     <HelpKINode Title="PortState Class" Url="html/T_Yodiwo_API_Plegma_PortState.htm" />
@@ -1201,41 +1267,42 @@
   <HelpKINode Title="PortState.PortState constructor" Url="html/Overload_Yodiwo_API_Plegma_PortState__ctor.htm" />
   <HelpKINode Title="PortState.RevNum field" Url="html/F_Yodiwo_API_Plegma_PortState_RevNum.htm" />
   <HelpKINode Title="PortState.State field" Url="html/F_Yodiwo_API_Plegma_PortState_State.htm" />
-  <HelpKINode Title="PortStateReq class">
-    <HelpKINode Title="PortStateReq Class" Url="html/T_Yodiwo_API_Plegma_PortStateReq.htm" />
-    <HelpKINode Title="about PortStateReq class" Url="html/T_Yodiwo_API_Plegma_PortStateReq.htm" />
-    <HelpKINode Title="constructor" Url="html/Overload_Yodiwo_API_Plegma_PortStateReq__ctor.htm" />
-    <HelpKINode Title="fields" Url="html/Fields_T_Yodiwo_API_Plegma_PortStateReq.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Yodiwo_API_Plegma_PortStateReq.htm" />
+  <HelpKINode Title="PortStateGet class">
+    <HelpKINode Title="PortStateGet Class" Url="html/T_Yodiwo_API_Plegma_PortStateGet.htm" />
+    <HelpKINode Title="about PortStateGet class" Url="html/T_Yodiwo_API_Plegma_PortStateGet.htm" />
+    <HelpKINode Title="constructor" Url="html/Overload_Yodiwo_API_Plegma_PortStateGet__ctor.htm" />
+    <HelpKINode Title="fields" Url="html/Fields_T_Yodiwo_API_Plegma_PortStateGet.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Yodiwo_API_Plegma_PortStateGet.htm" />
   </HelpKINode>
-  <HelpKINode Title="PortStateReq.Operation field" Url="html/F_Yodiwo_API_Plegma_PortStateReq_Operation.htm" />
-  <HelpKINode Title="PortStateReq.PortKeys field" Url="html/F_Yodiwo_API_Plegma_PortStateReq_PortKeys.htm" />
-  <HelpKINode Title="PortStateReq.PortStateReq constructor" Url="html/Overload_Yodiwo_API_Plegma_PortStateReq__ctor.htm" />
-  <HelpKINode Title="PortStateReq.ToString method" Url="html/M_Yodiwo_API_Plegma_PortStateReq_ToString.htm" />
-  <HelpKINode Title="PortStateRsp class">
-    <HelpKINode Title="PortStateRsp Class" Url="html/T_Yodiwo_API_Plegma_PortStateRsp.htm" />
-    <HelpKINode Title="about PortStateRsp class" Url="html/T_Yodiwo_API_Plegma_PortStateRsp.htm" />
-    <HelpKINode Title="constructor" Url="html/M_Yodiwo_API_Plegma_PortStateRsp__ctor.htm" />
-    <HelpKINode Title="fields" Url="html/Fields_T_Yodiwo_API_Plegma_PortStateRsp.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Yodiwo_API_Plegma_PortStateRsp.htm" />
+  <HelpKINode Title="PortStateGet.Operation field" Url="html/F_Yodiwo_API_Plegma_PortStateGet_Operation.htm" />
+  <HelpKINode Title="PortStateGet.PortKeys field" Url="html/F_Yodiwo_API_Plegma_PortStateGet_PortKeys.htm" />
+  <HelpKINode Title="PortStateGet.PortStateGet constructor" Url="html/Overload_Yodiwo_API_Plegma_PortStateGet__ctor.htm" />
+  <HelpKINode Title="PortStateGet.ToString method" Url="html/M_Yodiwo_API_Plegma_PortStateGet_ToString.htm" />
+  <HelpKINode Title="PortStates field" Url="html/F_Yodiwo_API_Plegma_PortStateSet_PortStates.htm" />
+  <HelpKINode Title="PortStateSet class">
+    <HelpKINode Title="PortStateSet Class" Url="html/T_Yodiwo_API_Plegma_PortStateSet.htm" />
+    <HelpKINode Title="about PortStateSet class" Url="html/T_Yodiwo_API_Plegma_PortStateSet.htm" />
+    <HelpKINode Title="constructor" Url="html/M_Yodiwo_API_Plegma_PortStateSet__ctor.htm" />
+    <HelpKINode Title="fields" Url="html/Fields_T_Yodiwo_API_Plegma_PortStateSet.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Yodiwo_API_Plegma_PortStateSet.htm" />
   </HelpKINode>
-  <HelpKINode Title="PortStateRsp.Operation field" Url="html/F_Yodiwo_API_Plegma_PortStateRsp_Operation.htm" />
-  <HelpKINode Title="PortStateRsp.PortStateRsp constructor" Url="html/M_Yodiwo_API_Plegma_PortStateRsp__ctor.htm" />
-  <HelpKINode Title="PortStateRsp.PortStates field" Url="html/F_Yodiwo_API_Plegma_PortStateRsp_PortStates.htm" />
-  <HelpKINode Title="PortStateRsp.ToString method" Url="html/M_Yodiwo_API_Plegma_PortStateRsp_ToString.htm" />
-  <HelpKINode Title="PortStates field" Url="html/F_Yodiwo_API_Plegma_PortStateRsp_PortStates.htm" />
+  <HelpKINode Title="PortStateSet.Operation field" Url="html/F_Yodiwo_API_Plegma_PortStateSet_Operation.htm" />
+  <HelpKINode Title="PortStateSet.PortStates field" Url="html/F_Yodiwo_API_Plegma_PortStateSet_PortStates.htm" />
+  <HelpKINode Title="PortStateSet.PortStateSet constructor" Url="html/M_Yodiwo_API_Plegma_PortStateSet__ctor.htm" />
+  <HelpKINode Title="PortStateSet.ToString method" Url="html/M_Yodiwo_API_Plegma_PortStateSet_ToString.htm" />
   <HelpKINode Title="PortTypeDefaultValueDict field" Url="html/F_Yodiwo_API_Plegma_PortConfiguration_PortTypeDefaultValueDict.htm" />
   <HelpKINode Title="PortTypeDict field" Url="html/F_Yodiwo_API_Plegma_PortConfiguration_PortTypeDict.htm" />
   <HelpKINode Title="PortUID field" Url="html/F_Yodiwo_API_Plegma_PortKey_PortUID.htm" />
+  <HelpKINode Title="PropagateAllEvents enumeration member" Url="html/T_Yodiwo_API_Plegma_ePortConf.htm" />
   <HelpKINode Title="PublicKey field" Url="html/F_Yodiwo_API_Plegma_NodePairing_PairingNodeGetTokensRequest_PublicKey.htm" />
   <HelpKINode Title="R field" Url="html/F_Yodiwo_API_Plegma_YColor_R.htm" />
   <HelpKINode Title="Raster enumeration member" Url="html/T_Yodiwo_API_Plegma_ImageType.htm" />
+  <HelpKINode Title="ReadLength field" Url="html/F_Yodiwo_API_Plegma_I2CCommand_ReadLength.htm" />
   <HelpKINode Title="ReadOnly field">
     <HelpKINode Title="ConfigDescription.ReadOnly Field" Url="html/F_Yodiwo_API_Plegma_ConfigDescription_ReadOnly.htm" />
     <HelpKINode Title="StateDescription.ReadOnly Field" Url="html/F_Yodiwo_API_Plegma_StateDescription_ReadOnly.htm" />
   </HelpKINode>
   <HelpKINode Title="ReasonCode field" Url="html/F_Yodiwo_API_Plegma_NodeUnpairedReq_ReasonCode.htm" />
-  <HelpKINode Title="ReceiveAllEvents enumeration member" Url="html/T_Yodiwo_API_Plegma_ePortConf.htm" />
   <HelpKINode Title="RedirectUri field" Url="html/F_Yodiwo_API_Plegma_NodePairing_PairingNodeGetTokensRequest_RedirectUri.htm" />
   <HelpKINode Title="RedisDB enumeration member" Url="html/T_Yodiwo_API_Plegma_BinaryResourceLocationType.htm" />
   <HelpKINode Title="RedisDBLocationDescriptor class">
@@ -1248,12 +1315,18 @@
   <HelpKINode Title="RedisDBLocationDescriptor.ConnectionAddress field" Url="html/F_Yodiwo_API_Plegma_RedisDBLocationDescriptor_ConnectionAddress.htm" />
   <HelpKINode Title="RedisDBLocationDescriptor.DatabaseName field" Url="html/F_Yodiwo_API_Plegma_RedisDBLocationDescriptor_DatabaseName.htm" />
   <HelpKINode Title="RedisDBLocationDescriptor.RedisDBLocationDescriptor constructor" Url="html/M_Yodiwo_API_Plegma_RedisDBLocationDescriptor__ctor.htm" />
+  <HelpKINode Title="register field" Url="html/F_Yodiwo_API_Plegma_I2CCommand_register.htm" />
+  <HelpKINode Title="RegistrationId field">
+    <HelpKINode Title="GcmConnectionMsg.RegistrationId Field" Url="html/F_Yodiwo_API_Plegma_GcmConnectionMsg_RegistrationId.htm" />
+    <HelpKINode Title="GcmDisconnectionMsg.RegistrationId Field" Url="html/F_Yodiwo_API_Plegma_GcmDisconnectionMsg_RegistrationId.htm" />
+  </HelpKINode>
   <HelpKINode Title="Removable field" Url="html/F_Yodiwo_API_Plegma_Thing_Removable.htm" />
   <HelpKINode Title="Request enumeration member" Url="html/T_Yodiwo_API_Plegma_WrapperMsg_eMsgFlags.htm" />
   <HelpKINode Title="Required field" Url="html/F_Yodiwo_API_Plegma_ConfigDescription_Required.htm" />
   <HelpKINode Title="Reset enumeration member" Url="html/T_Yodiwo_API_Plegma_eA2mcuCtrlType.htm" />
   <HelpKINode Title="Response enumeration member" Url="html/T_Yodiwo_API_Plegma_WrapperMsg_eMsgFlags.htm" />
   <HelpKINode Title="RestAPIBaseRoute field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_RestAPIBaseRoute.htm" />
+  <HelpKINode Title="RestSample enumeration member" Url="html/T_Yodiwo_API_Plegma_eNodeType.htm" />
   <HelpKINode Title="RestServiceType enumeration" Url="html/T_Yodiwo_API_Plegma_RestServiceType.htm" />
   <HelpKINode Title="RestServiceType field" Url="html/F_Yodiwo_API_Plegma_HttpLocationDescriptor_RestServiceType.htm" />
   <HelpKINode Title="Revision field" Url="html/F_Yodiwo_API_Plegma_GraphDescriptorKey_Revision.htm" />
@@ -1266,12 +1339,14 @@
     <HelpKINode Title="VirtualBlockEvent.RevNum Field" Url="html/F_Yodiwo_API_Plegma_VirtualBlockEvent_RevNum.htm" />
   </HelpKINode>
   <HelpKINode Title="Scan enumeration member" Url="html/T_Yodiwo_API_Plegma_eThingsOperation.htm" />
+  <HelpKINode Title="Scannable enumeration member" Url="html/T_Yodiwo_API_Plegma_eNodeCapa.htm" />
   <HelpKINode Title="Searchable field" Url="html/F_Yodiwo_API_Plegma_ThingType_Searchable.htm" />
-  <HelpKINode Title="secretKey field" Url="html/F_Yodiwo_API_Plegma_NodePairing_PairingServerKeysResponse_secretKey.htm" />
   <HelpKINode Title="SecretKey field">
-    <HelpKINode Title="NodePairingConstants.SecretKey Field" Url="html/F_Yodiwo_API_Plegma_NodePairing_NodePairingConstants_SecretKey.htm" />
     <HelpKINode Title="LoginRsp.SecretKey Field" Url="html/F_Yodiwo_API_Plegma_LoginRsp_SecretKey.htm" />
+    <HelpKINode Title="NodePairingConstants.SecretKey Field" Url="html/F_Yodiwo_API_Plegma_NodePairing_NodePairingConstants_SecretKey.htm" />
   </HelpKINode>
+  <HelpKINode Title="secretKey field" Url="html/F_Yodiwo_API_Plegma_NodePairing_PairingServerKeysResponse_secretKey.htm" />
+  <HelpKINode Title="Semantics field" Url="html/F_Yodiwo_API_Plegma_Port_Semantics.htm" />
   <HelpKINode Title="Seq field" Url="html/F_Yodiwo_API_Plegma_A2mcuSequencedCommands_Seq.htm" />
   <HelpKINode Title="SeqNo field" Url="html/F_Yodiwo_API_Plegma_ApiMsg_SeqNo.htm" />
   <HelpKINode Title="SetEndpoint enumeration member" Url="html/T_Yodiwo_API_Plegma_eNodeSyncOperation.htm" />
@@ -1321,6 +1396,7 @@
   <HelpKINode Title="SubnodeId property" Url="html/P_Yodiwo_API_Plegma_ThingKey_SubnodeId.htm" />
   <HelpKINode Title="SubnodeKey property" Url="html/P_Yodiwo_API_Plegma_ThingKey_SubnodeKey.htm" />
   <HelpKINode Title="SubnodeKeyAsTkey property" Url="html/P_Yodiwo_API_Plegma_ThingKey_SubnodeKeyAsTkey.htm" />
+  <HelpKINode Title="SupportedApiRev field" Url="html/F_Yodiwo_API_Plegma_NodeInfoRsp_SupportedApiRev.htm" />
   <HelpKINode Title="SupportsGraphSolving enumeration member" Url="html/T_Yodiwo_API_Plegma_eNodeCapa.htm" />
   <HelpKINode Title="SVG enumeration member" Url="html/T_Yodiwo_API_Plegma_ImageFileFormat.htm" />
   <HelpKINode Title="Sync enumeration member" Url="html/T_Yodiwo_API_Plegma_eThingsOperation.htm" />
@@ -1330,6 +1406,8 @@
   <HelpKINode Title="s_ActivePortKeysMsg field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_s_ActivePortKeysMsg.htm" />
   <HelpKINode Title="s_EndpointSyncReq field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_s_EndpointSyncReq.htm" />
   <HelpKINode Title="s_EndpointSyncRsp field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_s_EndpointSyncRsp.htm" />
+  <HelpKINode Title="s_GcmConnectionMsg field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_s_GcmConnectionMsg.htm" />
+  <HelpKINode Title="s_GcmDisconnectionMsg field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_s_GcmDisconnectionMsg.htm" />
   <HelpKINode Title="s_GenericRsp field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_s_GenericRsp.htm" />
   <HelpKINode Title="s_GetKeysRequest field" Url="html/F_Yodiwo_API_Plegma_NodePairing_NodePairingConstants_s_GetKeysRequest.htm" />
   <HelpKINode Title="s_GetTokensRequest field" Url="html/F_Yodiwo_API_Plegma_NodePairing_NodePairingConstants_s_GetTokensRequest.htm" />
@@ -1341,17 +1419,15 @@
   <HelpKINode Title="s_NodeInfoReq field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_s_NodeInfoReq.htm" />
   <HelpKINode Title="s_NodeInfoRsp field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_s_NodeInfoRsp.htm" />
   <HelpKINode Title="s_NodeUnpairedReq field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_s_NodeUnpairedReq.htm" />
-  <HelpKINode Title="s_NodeUnpairedRsp field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_s_NodeUnpairedRsp.htm" />
   <HelpKINode Title="s_PingReq field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_s_PingReq.htm" />
   <HelpKINode Title="s_PingRsp field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_s_PingRsp.htm" />
   <HelpKINode Title="s_PortEventMsg field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_s_PortEventMsg.htm" />
-  <HelpKINode Title="s_PortStateReq field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_s_PortStateReq.htm" />
-  <HelpKINode Title="s_PortStateRsp field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_s_PortStateRsp.htm" />
+  <HelpKINode Title="s_PortStateGet field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_s_PortStateGet.htm" />
+  <HelpKINode Title="s_PortStateSet field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_s_PortStateSet.htm" />
   <HelpKINode Title="s_ThingsGet field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_s_ThingsGet.htm" />
   <HelpKINode Title="s_ThingsSet field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_s_ThingsSet.htm" />
   <HelpKINode Title="s_TokensResponse field" Url="html/F_Yodiwo_API_Plegma_NodePairing_NodePairingConstants_s_TokensResponse.htm" />
   <HelpKINode Title="s_VirtualBlockEventMsg field" Url="html/F_Yodiwo_API_Plegma_PlegmaAPI_s_VirtualBlockEventMsg.htm" />
-  <HelpKINode Title="Tag field" Url="html/F_Yodiwo_API_Plegma_Thing_Tag.htm" />
   <HelpKINode Title="TestEndpoint enumeration member" Url="html/T_Yodiwo_API_Plegma_eNodeType.htm" />
   <HelpKINode Title="TestGateway enumeration member" Url="html/T_Yodiwo_API_Plegma_eNodeType.htm" />
   <HelpKINode Title="Text enumeration member" Url="html/T_Yodiwo_API_Plegma_BinaryResourceContentType.htm" />
@@ -1377,7 +1453,6 @@
   <HelpKINode Title="Thing.Name field" Url="html/F_Yodiwo_API_Plegma_Thing_Name.htm" />
   <HelpKINode Title="Thing.Ports field" Url="html/F_Yodiwo_API_Plegma_Thing_Ports.htm" />
   <HelpKINode Title="Thing.Removable field" Url="html/F_Yodiwo_API_Plegma_Thing_Removable.htm" />
-  <HelpKINode Title="Thing.Tag field" Url="html/F_Yodiwo_API_Plegma_Thing_Tag.htm" />
   <HelpKINode Title="Thing.Thing constructor" Url="html/Overload_Yodiwo_API_Plegma_Thing__ctor.htm" />
   <HelpKINode Title="Thing.ThingKey field" Url="html/F_Yodiwo_API_Plegma_Thing_ThingKey.htm" />
   <HelpKINode Title="Thing.ToString method" Url="html/M_Yodiwo_API_Plegma_Thing_ToString.htm" />
@@ -1452,6 +1527,7 @@
     <HelpKINode Title="fields" Url="html/Fields_T_Yodiwo_API_Plegma_ThingsGet.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Yodiwo_API_Plegma_ThingsGet.htm" />
   </HelpKINode>
+  <HelpKINode Title="ThingsGet.Key field" Url="html/F_Yodiwo_API_Plegma_ThingsGet_Key.htm" />
   <HelpKINode Title="ThingsGet.Operation field" Url="html/F_Yodiwo_API_Plegma_ThingsGet_Operation.htm" />
   <HelpKINode Title="ThingsGet.RevNum field" Url="html/F_Yodiwo_API_Plegma_ThingsGet_RevNum.htm" />
   <HelpKINode Title="ThingsGet.ThingKey field" Url="html/F_Yodiwo_API_Plegma_ThingsGet_ThingKey.htm" />
@@ -1508,18 +1584,18 @@
   <HelpKINode Title="ThingUIHints.IconURI field" Url="html/F_Yodiwo_API_Plegma_ThingUIHints_IconURI.htm" />
   <HelpKINode Title="TIFF enumeration member" Url="html/T_Yodiwo_API_Plegma_ImageFileFormat.htm" />
   <HelpKINode Title="Timestamp field" Url="html/F_Yodiwo_API_Plegma_PortEvent_Timestamp.htm" />
+  <HelpKINode Title="Token1 field" Url="html/F_Yodiwo_API_Plegma_NodePairing_NodePairingConstants_Token1.htm" />
   <HelpKINode Title="token1 field">
     <HelpKINode Title="PairingNodeGetKeysRequest.token1 Field" Url="html/F_Yodiwo_API_Plegma_NodePairing_PairingNodeGetKeysRequest_token1.htm" />
     <HelpKINode Title="PairingServerTokensResponse.token1 Field" Url="html/F_Yodiwo_API_Plegma_NodePairing_PairingServerTokensResponse_token1.htm" />
   </HelpKINode>
-  <HelpKINode Title="Token1 field" Url="html/F_Yodiwo_API_Plegma_NodePairing_NodePairingConstants_Token1.htm" />
   <HelpKINode Title="Token1PostedToServer enumeration member" Url="html/T_Yodiwo_API_Plegma_NodePairing_PairingStates.htm" />
-  <HelpKINode Title="Token2 field" Url="html/F_Yodiwo_API_Plegma_NodePairing_NodePairingConstants_Token2.htm" />
   <HelpKINode Title="token2 field">
-    <HelpKINode Title="PairingNodeGetKeysRequest.token2 Field" Url="html/F_Yodiwo_API_Plegma_NodePairing_PairingNodeGetKeysRequest_token2.htm" />
     <HelpKINode Title="PairingNodePhase1Response.token2 Field" Url="html/F_Yodiwo_API_Plegma_NodePairing_PairingNodePhase1Response_token2.htm" />
+    <HelpKINode Title="PairingNodeGetKeysRequest.token2 Field" Url="html/F_Yodiwo_API_Plegma_NodePairing_PairingNodeGetKeysRequest_token2.htm" />
     <HelpKINode Title="PairingServerTokensResponse.token2 Field" Url="html/F_Yodiwo_API_Plegma_NodePairing_PairingServerTokensResponse_token2.htm" />
   </HelpKINode>
+  <HelpKINode Title="Token2 field" Url="html/F_Yodiwo_API_Plegma_NodePairing_NodePairingConstants_Token2.htm" />
   <HelpKINode Title="Token2PostedToServer enumeration member" Url="html/T_Yodiwo_API_Plegma_NodePairing_PairingStates.htm" />
   <HelpKINode Title="Token2SentToUser enumeration member" Url="html/T_Yodiwo_API_Plegma_NodePairing_PairingStates.htm" />
   <HelpKINode Title="TokensRequested enumeration member" Url="html/T_Yodiwo_API_Plegma_NodePairing_PairingStates.htm" />
@@ -1537,8 +1613,8 @@
     <HelpKINode Title="Port.ToString Method " Url="html/M_Yodiwo_API_Plegma_Port_ToString.htm" />
     <HelpKINode Title="PortEventMsg.ToString Method " Url="html/M_Yodiwo_API_Plegma_PortEventMsg_ToString.htm" />
     <HelpKINode Title="PortKey.ToString Method " Url="html/M_Yodiwo_API_Plegma_PortKey_ToString.htm" />
-    <HelpKINode Title="PortStateReq.ToString Method " Url="html/M_Yodiwo_API_Plegma_PortStateReq_ToString.htm" />
-    <HelpKINode Title="PortStateRsp.ToString Method " Url="html/M_Yodiwo_API_Plegma_PortStateRsp_ToString.htm" />
+    <HelpKINode Title="PortStateGet.ToString Method " Url="html/M_Yodiwo_API_Plegma_PortStateGet_ToString.htm" />
+    <HelpKINode Title="PortStateSet.ToString Method " Url="html/M_Yodiwo_API_Plegma_PortStateSet_ToString.htm" />
     <HelpKINode Title="Thing.ToString Method " Url="html/M_Yodiwo_API_Plegma_Thing_ToString.htm" />
     <HelpKINode Title="ThingKey.ToString Method " Url="html/M_Yodiwo_API_Plegma_ThingKey_ToString.htm" />
     <HelpKINode Title="UserKey.ToString Method " Url="html/M_Yodiwo_API_Plegma_UserKey_ToString.htm" />
@@ -1565,7 +1641,6 @@
     <HelpKINode Title="Thing.Type Field" Url="html/F_Yodiwo_API_Plegma_Thing_Type.htm" />
     <HelpKINode Title="ThingType.Type Field" Url="html/F_Yodiwo_API_Plegma_ThingType_Type.htm" />
   </HelpKINode>
-  <HelpKINode Title="TypedState property" Url="html/P_Yodiwo_API_Plegma_Port_TypedState.htm" />
   <HelpKINode Title="UIHints field" Url="html/F_Yodiwo_API_Plegma_Thing_UIHints.htm" />
   <HelpKINode Title="Undefined enumeration member">
     <HelpKINode Title="BinaryResourceContentType Enumeration" Url="html/T_Yodiwo_API_Plegma_BinaryResourceContentType.htm" />
@@ -1634,9 +1709,10 @@
   <HelpKINode Title="UserKeyConverter.UserKeyConverter constructor" Url="html/M_Yodiwo_API_Plegma_UserKeyConverter__ctor.htm" />
   <HelpKINode Title="userNodeRegistrationUrl field" Url="html/F_Yodiwo_API_Plegma_NodePairing_PairingNodePhase1Response_userNodeRegistrationUrl.htm" />
   <HelpKINode Title="UserRequested enumeration member" Url="html/T_Yodiwo_API_Plegma_eUnpairReason.htm" />
-  <HelpKINode Title="Uuid field" Url="html/F_Yodiwo_API_Plegma_NodePairing_NodePairingConstants_Uuid.htm" />
   <HelpKINode Title="uuid field" Url="html/F_Yodiwo_API_Plegma_NodePairing_PairingNodeGetTokensRequest_uuid.htm" />
+  <HelpKINode Title="Uuid field" Url="html/F_Yodiwo_API_Plegma_NodePairing_NodePairingConstants_Uuid.htm" />
   <HelpKINode Title="UUIDEntryRedirect enumeration member" Url="html/T_Yodiwo_API_Plegma_NodePairing_PairingStates.htm" />
+  <HelpKINode Title="UuidEntryURI field" Url="html/F_Yodiwo_API_Plegma_NodePairing_NodePairingConstants_UuidEntryURI.htm" />
   <HelpKINode Title="ValidateKey method" Url="html/M_Yodiwo_API_Plegma_Validators_ValidateKey.htm" />
   <HelpKINode Title="Validators class">
     <HelpKINode Title="Validators Class" Url="html/T_Yodiwo_API_Plegma_Validators.htm" />
@@ -1644,6 +1720,7 @@
     <HelpKINode Title="methods" Url="html/Methods_T_Yodiwo_API_Plegma_Validators.htm" />
   </HelpKINode>
   <HelpKINode Title="Validators.ValidateKey method" Url="html/M_Yodiwo_API_Plegma_Validators_ValidateKey.htm" />
+  <HelpKINode Title="value field" Url="html/F_Yodiwo_API_Plegma_I2CCommand_value.htm" />
   <HelpKINode Title="Value field" Url="html/F_Yodiwo_API_Plegma_ConfigParameter_Value.htm" />
   <HelpKINode Title="Values field" Url="html/F_Yodiwo_API_Plegma_VirtualBlockEvent_Values.htm" />
   <HelpKINode Title="Vector enumeration member" Url="html/T_Yodiwo_API_Plegma_ImageType.htm" />
@@ -1655,6 +1732,7 @@
     <HelpKINode Title="methods" Url="html/Methods_T_Yodiwo_API_Plegma_VideoContentDescriptor.htm" />
   </HelpKINode>
   <HelpKINode Title="VideoContentDescriptor.VideoContentDescriptor constructor" Url="html/M_Yodiwo_API_Plegma_VideoContentDescriptor__ctor.htm" />
+  <HelpKINode Title="VideoDescriptor enumeration member" Url="html/T_Yodiwo_API_Plegma_ePortType.htm" />
   <HelpKINode Title="VirtualBlockEvent class">
     <HelpKINode Title="VirtualBlockEvent Class" Url="html/T_Yodiwo_API_Plegma_VirtualBlockEvent.htm" />
     <HelpKINode Title="about VirtualBlockEvent class" Url="html/T_Yodiwo_API_Plegma_VirtualBlockEvent.htm" />
@@ -1754,6 +1832,9 @@
   <HelpKINode Title="Yodiwo.API.Plegma.ePortType enumeration" Url="html/T_Yodiwo_API_Plegma_ePortType.htm" />
   <HelpKINode Title="Yodiwo.API.Plegma.eThingsOperation enumeration" Url="html/T_Yodiwo_API_Plegma_eThingsOperation.htm" />
   <HelpKINode Title="Yodiwo.API.Plegma.eUnpairReason enumeration" Url="html/T_Yodiwo_API_Plegma_eUnpairReason.htm" />
+  <HelpKINode Title="Yodiwo.API.Plegma.GcmConnectionMsg class" Url="html/T_Yodiwo_API_Plegma_GcmConnectionMsg.htm" />
+  <HelpKINode Title="Yodiwo.API.Plegma.GcmDisconnectionMsg class" Url="html/T_Yodiwo_API_Plegma_GcmDisconnectionMsg.htm" />
+  <HelpKINode Title="Yodiwo.API.Plegma.GcmMsg class" Url="html/T_Yodiwo_API_Plegma_GcmMsg.htm" />
   <HelpKINode Title="Yodiwo.API.Plegma.GeneratorIgnoreAttribute class" Url="html/T_Yodiwo_API_Plegma_GeneratorIgnoreAttribute.htm" />
   <HelpKINode Title="Yodiwo.API.Plegma.GenericRsp class" Url="html/T_Yodiwo_API_Plegma_GenericRsp.htm" />
   <HelpKINode Title="Yodiwo.API.Plegma.GraphDeploymentReq class" Url="html/T_Yodiwo_API_Plegma_GraphDeploymentReq.htm" />
@@ -1765,6 +1846,7 @@
   <HelpKINode Title="Yodiwo.API.Plegma.GroupKey structure" Url="html/T_Yodiwo_API_Plegma_GroupKey.htm" />
   <HelpKINode Title="Yodiwo.API.Plegma.GroupKeyConverter class" Url="html/T_Yodiwo_API_Plegma_GroupKeyConverter.htm" />
   <HelpKINode Title="Yodiwo.API.Plegma.HttpLocationDescriptor class" Url="html/T_Yodiwo_API_Plegma_HttpLocationDescriptor.htm" />
+  <HelpKINode Title="Yodiwo.API.Plegma.I2CCommand class" Url="html/T_Yodiwo_API_Plegma_I2CCommand.htm" />
   <HelpKINode Title="Yodiwo.API.Plegma.ImageContentDescriptor class" Url="html/T_Yodiwo_API_Plegma_ImageContentDescriptor.htm" />
   <HelpKINode Title="Yodiwo.API.Plegma.ImageFileFormat enumeration" Url="html/T_Yodiwo_API_Plegma_ImageFileFormat.htm" />
   <HelpKINode Title="Yodiwo.API.Plegma.ImageType enumeration" Url="html/T_Yodiwo_API_Plegma_ImageType.htm" />
@@ -1798,8 +1880,8 @@
   <HelpKINode Title="Yodiwo.API.Plegma.PortKey structure" Url="html/T_Yodiwo_API_Plegma_PortKey.htm" />
   <HelpKINode Title="Yodiwo.API.Plegma.PortKeyConverter class" Url="html/T_Yodiwo_API_Plegma_PortKeyConverter.htm" />
   <HelpKINode Title="Yodiwo.API.Plegma.PortState class" Url="html/T_Yodiwo_API_Plegma_PortState.htm" />
-  <HelpKINode Title="Yodiwo.API.Plegma.PortStateReq class" Url="html/T_Yodiwo_API_Plegma_PortStateReq.htm" />
-  <HelpKINode Title="Yodiwo.API.Plegma.PortStateRsp class" Url="html/T_Yodiwo_API_Plegma_PortStateRsp.htm" />
+  <HelpKINode Title="Yodiwo.API.Plegma.PortStateGet class" Url="html/T_Yodiwo_API_Plegma_PortStateGet.htm" />
+  <HelpKINode Title="Yodiwo.API.Plegma.PortStateSet class" Url="html/T_Yodiwo_API_Plegma_PortStateSet.htm" />
   <HelpKINode Title="Yodiwo.API.Plegma.RedisDBLocationDescriptor class" Url="html/T_Yodiwo_API_Plegma_RedisDBLocationDescriptor.htm" />
   <HelpKINode Title="Yodiwo.API.Plegma.RestServiceType enumeration" Url="html/T_Yodiwo_API_Plegma_RestServiceType.htm" />
   <HelpKINode Title="Yodiwo.API.Plegma.StateDescription class" Url="html/T_Yodiwo_API_Plegma_StateDescription.htm" />
