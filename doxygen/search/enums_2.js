@@ -9,7 +9,7 @@ var searchData=
   ['enodetype',['eNodeType',['../namespace_yodiwo_1_1_a_p_i_1_1_plegma.html#afe9a940d4e2334a18c45ac6f143c5161',1,'Yodiwo::API::Plegma']]],
   ['eportconf',['ePortConf',['../namespace_yodiwo_1_1_a_p_i_1_1_plegma.html#ab5f10c8a418882aac9908bd0e8e41bca',1,'Yodiwo::API::Plegma']]],
   ['eportstateoperation',['ePortStateOperation',['../namespace_yodiwo_1_1_a_p_i_1_1_plegma.html#a914f481975b58752a14e17618393caa9',1,'Yodiwo::API::Plegma']]],
-  ['eporttype',['ePortType',['../namespace_yodiwo_1_1_a_p_i_1_1_plegma.html#ab9a970e9a41e2203908cd15368068227',1,'Yodiwo::API::Plegma']]],
+  ['eporttype',['ePortType',['../namespace_yodiwo_1_1_a_p_i_1_1_plegma.html#ae6368ad6ca447ceaa73ce7dab1201523',1,'Yodiwo::API::Plegma']]],
   ['ethingsoperation',['eThingsOperation',['../namespace_yodiwo_1_1_a_p_i_1_1_plegma.html#acac5d2ac97eb42e4f8e55c0ae240e2e7',1,'Yodiwo::API::Plegma']]],
   ['eunpairreason',['eUnpairReason',['../namespace_yodiwo_1_1_a_p_i_1_1_plegma.html#a0ce128418f86cf6349b2147bc0513418',1,'Yodiwo::API::Plegma']]],
   ['ewsmsgid',['eWSMsgId',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_web_socket_msg.html#a82bb48d8e9fecda76b93ec5b76b83b9d',1,'Yodiwo::API::Plegma::WebSocketMsg']]]

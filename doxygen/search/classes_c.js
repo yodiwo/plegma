@@ -13,6 +13,6 @@ var searchData=
   ['porteventmsg',['PortEventMsg',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_event_msg.html',1,'Yodiwo::API::Plegma']]],
   ['portkey',['PortKey',['../struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_key.html',1,'Yodiwo::API::Plegma']]],
   ['portstate',['PortState',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_state.html',1,'Yodiwo::API::Plegma']]],
-  ['portstatereq',['PortStateReq',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_state_req.html',1,'Yodiwo::API::Plegma']]],
-  ['portstatersp',['PortStateRsp',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_state_rsp.html',1,'Yodiwo::API::Plegma']]]
+  ['portstateget',['PortStateGet',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_state_get.html',1,'Yodiwo::API::Plegma']]],
+  ['portstateset',['PortStateSet',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_state_set.html',1,'Yodiwo::API::Plegma']]]
 ];

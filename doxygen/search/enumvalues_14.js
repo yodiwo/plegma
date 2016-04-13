@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['weburl',['WebUrl',['../namespace_yodiwo_1_1_a_p_i_1_1_media_streaming.html#a0d35071987e270aefdfaf36453ac371aaae3bafdb48674ef8fdd2e75613544972',1,'Yodiwo::API::MediaStreaming']]],
-  ['writedriconf',['WriteDriconf',['../namespace_yodiwo_1_1_a_p_i_1_1_plegma.html#a23e45fb0799a4d170474e725037e49d5ac9b1cb0016d57bac871568efc1f88aaa',1,'Yodiwo::API::Plegma']]],
-  ['wsendpoint',['WSEndpoint',['../namespace_yodiwo_1_1_a_p_i_1_1_plegma.html#afe9a940d4e2334a18c45ac6f143c5161abc04a49435bffc9e66fd8a8002de2599',1,'Yodiwo::API::Plegma']]],
-  ['wssample',['WSSample',['../namespace_yodiwo_1_1_a_p_i_1_1_plegma.html#afe9a940d4e2334a18c45ac6f143c5161a351cbac14f29b0dcd3e531713367689d',1,'Yodiwo::API::Plegma']]]
+  ['vector',['Vector',['../namespace_yodiwo_1_1_a_p_i_1_1_plegma.html#a04b6d9571a160042377043879e898a0ba57dea6f5039281b7fee517fc43bf3110',1,'Yodiwo::API::Plegma']]],
+  ['video',['Video',['../namespace_yodiwo_1_1_a_p_i_1_1_plegma.html#acd414de206c6f54066906e44ddf667c2a34e2d1989a1dbf75cd631596133ee5ee',1,'Yodiwo::API::Plegma']]],
+  ['videodescriptor',['VideoDescriptor',['../namespace_yodiwo_1_1_a_p_i_1_1_plegma.html#ae6368ad6ca447ceaa73ce7dab1201523add0c93a9fa9193ac7b5fb82f038f7776',1,'Yodiwo::API::Plegma']]]
 ];

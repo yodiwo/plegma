@@ -23,9 +23,9 @@ var _public_8cs =
     [ "PortEventMsg", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_event_msg.html", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_event_msg" ],
     [ "VirtualBlockEvent", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_virtual_block_event.html", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_virtual_block_event" ],
     [ "VirtualBlockEventMsg", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_virtual_block_event_msg.html", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_virtual_block_event_msg" ],
-    [ "PortStateReq", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_state_req.html", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_state_req" ],
+    [ "PortStateGet", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_state_get.html", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_state_get" ],
     [ "PortState", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_state.html", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_state" ],
-    [ "PortStateRsp", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_state_rsp.html", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_state_rsp" ],
+    [ "PortStateSet", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_state_set.html", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_state_set" ],
     [ "ActivePortKeysMsg", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_active_port_keys_msg.html", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_active_port_keys_msg" ],
     [ "LocallyDeployedGraphsMsg", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_locally_deployed_graphs_msg.html", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_locally_deployed_graphs_msg" ],
     [ "GraphDeploymentReq", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_graph_deployment_req.html", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_graph_deployment_req" ],
@@ -36,18 +36,22 @@ var _public_8cs =
     [ "A2mcuSequencedCommands", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_a2mcu_sequenced_commands.html", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_a2mcu_sequenced_commands" ],
     [ "A2mcuCtrl", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_a2mcu_ctrl.html", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_a2mcu_ctrl" ],
     [ "A2mcuCtrlReq", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_a2mcu_ctrl_req.html", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_a2mcu_ctrl_req" ],
+    [ "GcmConnectionMsg", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_gcm_connection_msg.html", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_gcm_connection_msg" ],
+    [ "GcmDisconnectionMsg", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_gcm_disconnection_msg.html", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_gcm_disconnection_msg" ],
     [ "eA2mcuCtrlType", "_public_8cs.html#a23e45fb0799a4d170474e725037e49d5", [
       [ "Reset", "_public_8cs.html#a23e45fb0799a4d170474e725037e49d5a526d688f37a86d3c3f27d0c5016eb71d", null ],
       [ "SetValue", "_public_8cs.html#a23e45fb0799a4d170474e725037e49d5a02805a1bfd3cf62fe0e90f41c945c6e0", null ],
       [ "WriteDriconf", "_public_8cs.html#a23e45fb0799a4d170474e725037e49d5ac9b1cb0016d57bac871568efc1f88aaa", null ]
     ] ],
     [ "eConnectionFlags", "_public_8cs.html#adcafc2909911e815f7803361fcaa0886", [
+      [ "None", "_public_8cs.html#adcafc2909911e815f7803361fcaa0886a6adf97f83acf6453d4a6a4b1070f3754", null ],
       [ "CreateNewEndpoint", "_public_8cs.html#adcafc2909911e815f7803361fcaa0886a11a02c24a637ef30ea479fbc71fb45e9", null ],
       [ "IsMasterEndpoint", "_public_8cs.html#adcafc2909911e815f7803361fcaa0886a6ebbf23358adab1e0ef5053caca02372", null ]
     ] ],
     [ "eNodeCapa", "_public_8cs.html#a271b3fa13d183907501a8e75d21504ca", [
       [ "None", "_public_8cs.html#a271b3fa13d183907501a8e75d21504caa6adf97f83acf6453d4a6a4b1070f3754", null ],
-      [ "SupportsGraphSolving", "_public_8cs.html#a271b3fa13d183907501a8e75d21504caa0f25ea1fe8f486c944dd0d31cefa58c6", null ]
+      [ "SupportsGraphSolving", "_public_8cs.html#a271b3fa13d183907501a8e75d21504caa0f25ea1fe8f486c944dd0d31cefa58c6", null ],
+      [ "Scannable", "_public_8cs.html#a271b3fa13d183907501a8e75d21504caa8c49ed07b99150c9cda9449248512c07", null ]
     ] ],
     [ "eNodeSyncOperation", "_public_8cs.html#a6eec09477b9a0517a70840a6e5b95f95", [
       [ "GetEndpoints", "_public_8cs.html#a6eec09477b9a0517a70840a6e5b95f95a8d83464d1a2b9b124c5bd84f457f64d7", null ],
@@ -61,7 +65,8 @@ var _public_8cs =
       [ "TestEndpoint", "_public_8cs.html#afe9a940d4e2334a18c45ac6f143c5161a9e986f488d228fdfb1e4cafb34552288", null ],
       [ "WSEndpoint", "_public_8cs.html#afe9a940d4e2334a18c45ac6f143c5161abc04a49435bffc9e66fd8a8002de2599", null ],
       [ "Android", "_public_8cs.html#afe9a940d4e2334a18c45ac6f143c5161ae84e30b9390cdb64db6db2c9ab87846d", null ],
-      [ "WSSample", "_public_8cs.html#afe9a940d4e2334a18c45ac6f143c5161a351cbac14f29b0dcd3e531713367689d", null ]
+      [ "WSSample", "_public_8cs.html#afe9a940d4e2334a18c45ac6f143c5161a351cbac14f29b0dcd3e531713367689d", null ],
+      [ "RestSample", "_public_8cs.html#afe9a940d4e2334a18c45ac6f143c5161a5d0a7886d292988428ae797c7d3098ee", null ]
     ] ],
     [ "ePortStateOperation", "_public_8cs.html#a914f481975b58752a14e17618393caa9", [
       [ "Invalid", "_public_8cs.html#a914f481975b58752a14e17618393caa9a4bbb8f967da6d1a610596d7257179c2b", null ],

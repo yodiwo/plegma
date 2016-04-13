@@ -1,5 +1,8 @@
 var searchData=
 [
+  ['gcmconnectionmsg',['GcmConnectionMsg',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_gcm_connection_msg.html',1,'Yodiwo::API::Plegma']]],
+  ['gcmdisconnectionmsg',['GcmDisconnectionMsg',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_gcm_disconnection_msg.html',1,'Yodiwo::API::Plegma']]],
+  ['gcmmsg',['GcmMsg',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_gcm_msg.html',1,'Yodiwo::API::Plegma']]],
   ['generatorignoreattribute',['GeneratorIgnoreAttribute',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_generator_ignore_attribute.html',1,'Yodiwo::API::Plegma']]],
   ['genericrsp',['GenericRsp',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_generic_rsp.html',1,'Yodiwo::API::Plegma']]],
   ['graphdeploymentreq',['GraphDeploymentReq',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_graph_deployment_req.html',1,'Yodiwo::API::Plegma']]],

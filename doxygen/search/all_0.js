@@ -35,6 +35,7 @@ var searchData=
   ['audiodata',['AudioData',['../class_yodiwo_1_1_a_p_i_1_1_media_streaming_1_1_audio_data.html',1,'Yodiwo::API::MediaStreaming']]],
   ['audiodatareq',['AudioDataReq',['../class_yodiwo_1_1_a_p_i_1_1_media_streaming_1_1_audio_data_req.html',1,'Yodiwo::API::MediaStreaming']]],
   ['audiodataresp',['AudioDataResp',['../class_yodiwo_1_1_a_p_i_1_1_media_streaming_1_1_audio_data_resp.html',1,'Yodiwo::API::MediaStreaming']]],
+  ['audiodescriptor',['AudioDescriptor',['../namespace_yodiwo_1_1_a_p_i_1_1_plegma.html#ae6368ad6ca447ceaa73ce7dab1201523ad9962c05ad55b4adf63f3b32665995e7',1,'Yodiwo::API::Plegma']]],
   ['audiodevdesc',['audiodevdesc',['../class_yodiwo_1_1_a_p_i_1_1_media_streaming_1_1_audio_server_connect_request.html#a8111c66555bf1c27855cf80f61a9dd4b',1,'Yodiwo::API::MediaStreaming::AudioServerConnectRequest']]],
   ['audiodevice',['audioDevice',['../class_yodiwo_1_1_a_p_i_1_1_media_streaming_1_1_audio_media_descriptor.html#a6179731b7ce14161feaf9cdb461ab4c1',1,'Yodiwo::API::MediaStreaming::AudioMediaDescriptor']]],
   ['audiodevuri',['audiodevuri',['../class_yodiwo_1_1_a_p_i_1_1_media_streaming_1_1_ongoing_media_stream_descriptor.html#a99cd347e46490fe303c2b7e958a31d77',1,'Yodiwo::API::MediaStreaming::OngoingMediaStreamDescriptor']]],

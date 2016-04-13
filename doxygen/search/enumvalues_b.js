@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['mp3url',['Mp3Url',['../namespace_yodiwo_1_1_a_p_i_1_1_media_streaming.html#a96955981824bdf952ee140658d589370af338f30d0e5044967183d456feaf39ee',1,'Yodiwo::API::MediaStreaming']]]
+  ['lcd',['LCD',['../namespace_yodiwo_1_1_a_p_i_1_1_plegma.html#a642d9abc16e86759303e8e9fd966baf0ad48d9783fee1f1e84a5acbd98169d047',1,'Yodiwo::API::Plegma']]]
 ];

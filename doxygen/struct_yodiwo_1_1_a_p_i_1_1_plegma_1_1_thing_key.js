@@ -1,7 +1,7 @@
 var struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_thing_key =
 [
     [ "ThingKey", "struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_thing_key.html#acd368c79c47d098caa6778f2cf51e1b5", null ],
-    [ "ThingKey", "struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_thing_key.html#abb04940c822587f95e063ffcc79cb594", null ],
+    [ "ThingKey", "struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_thing_key.html#ab21a9f883621b8a84c51da018348f985", null ],
     [ "ThingKey", "struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_thing_key.html#a544978ba25263bbc4acc932360e47b21", null ],
     [ "Equals", "struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_thing_key.html#a467c62cf0681d5ef529a0306764df944", null ],
     [ "Equals", "struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_thing_key.html#ad9199671df3908efda495ea5bb7da688", null ],
@@ -15,8 +15,8 @@ var struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_thing_key =
     [ "IsInvalid", "struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_thing_key.html#aabad8c9e5c8ee7efaf5f39ede1175a57", null ],
     [ "IsSpikeTKey", "struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_thing_key.html#a467c102d99c9470fe7e92561dd9a5f0e", null ],
     [ "IsValid", "struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_thing_key.html#a99e659eec30d92edd8ee59388b1dd4bf", null ],
-    [ "SpikeThingId", "struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_thing_key.html#a42bf505d9e430c5b3bfdd17399f7ca33", null ],
-    [ "SubnodeId", "struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_thing_key.html#a3ba3bf7918e8d73b4fe9074d3f3fec8b", null ],
+    [ "SpikeThingId", "struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_thing_key.html#a73d6aa68711aec35fb3d8cc0f5cbd2b6", null ],
+    [ "SubnodeId", "struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_thing_key.html#a510ae42e1887d7192fb59862487e9456", null ],
     [ "SubnodeKey", "struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_thing_key.html#a6ad120cf3b460b97a7caab29c9778c87", null ],
     [ "SubnodeKeyAsTkey", "struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_thing_key.html#ab908673a63c5e3132756d367e1646a0d", null ]
 ];

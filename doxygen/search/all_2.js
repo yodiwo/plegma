@@ -4,7 +4,7 @@ var searchData=
   ['capabilities',['Capabilities',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_node_info_rsp.html#aeec2e96b3bd73c51e587e8065b5493f9',1,'Yodiwo::API::Plegma::NodeInfoRsp']]],
   ['category',['Category',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_description.html#a6b94e78a6cbb8b05978f2257edf7a958',1,'Yodiwo::API::Plegma::PortDescription']]],
   ['cloudid',['CloudId',['../struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_node_key.html#a00df224596e0437d933ad16caa10de2f',1,'Yodiwo::API::Plegma::NodeKey']]],
-  ['color',['Color',['../namespace_yodiwo_1_1_a_p_i_1_1_plegma.html#ab9a970e9a41e2203908cd15368068227acb5feb1b7314637725a2e73bdc9f7295',1,'Yodiwo::API::Plegma']]],
+  ['color',['Color',['../namespace_yodiwo_1_1_a_p_i_1_1_plegma.html#ae6368ad6ca447ceaa73ce7dab1201523acb5feb1b7314637725a2e73bdc9f7295',1,'Yodiwo::API::Plegma']]],
   ['colordepth',['ColorDepth',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_image_content_descriptor.html#a123df41b8cc0ba04ed916a8cb6eaec26',1,'Yodiwo::API::Plegma::ImageContentDescriptor']]],
   ['commonmedia_2ecs',['CommonMedia.cs',['../_common_media_8cs.html',1,'']]],
   ['confflags',['ConfFlags',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port.html#ab23792b59f2f18b31fa080d268fcfa52',1,'Yodiwo::API::Plegma::Port']]],

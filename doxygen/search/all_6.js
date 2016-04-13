@@ -2,6 +2,9 @@ var searchData=
 [
   ['g',['G',['../struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_y_color.html#ad3ed3e386f02fe387994c691e89f7c59',1,'Yodiwo::API::Plegma::YColor']]],
   ['gateway',['Gateway',['../namespace_yodiwo_1_1_a_p_i_1_1_plegma.html#afe9a940d4e2334a18c45ac6f143c5161a926dec9494209cb088b4962509df1a91',1,'Yodiwo::API::Plegma']]],
+  ['gcmconnectionmsg',['GcmConnectionMsg',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_gcm_connection_msg.html',1,'Yodiwo::API::Plegma']]],
+  ['gcmdisconnectionmsg',['GcmDisconnectionMsg',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_gcm_disconnection_msg.html',1,'Yodiwo::API::Plegma']]],
+  ['gcmmsg',['GcmMsg',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_gcm_msg.html',1,'Yodiwo::API::Plegma']]],
   ['generatorignoreattribute',['GeneratorIgnoreAttribute',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_generator_ignore_attribute.html',1,'Yodiwo::API::Plegma']]],
   ['genericrsp',['GenericRsp',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_generic_rsp.html',1,'Yodiwo::API::Plegma']]],
   ['genericrsp',['GenericRsp',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_generic_rsp.html#a821c19bafdb1c201908034f39d863151',1,'Yodiwo::API::Plegma::GenericRsp']]],
@@ -14,6 +17,7 @@ var searchData=
   ['getpipesip',['GetPipeSip',['../namespace_yodiwo_1_1_a_p_i_1_1_media_streaming.html#a926023de54fd94e36f30dcacb39d2a04adccb794eb519cda6370aa590e8fcf730',1,'Yodiwo::API::MediaStreaming']]],
   ['getport',['GetPort',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_thing.html#ae0f13cf1c370035dd47a1f0a15606e9e',1,'Yodiwo.API.Plegma.Thing.GetPort(PortKey key)'],['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_thing.html#ae3ae09875d1561e3d45c03b1733ec675',1,'Yodiwo.API.Plegma.Thing.GetPort(int idx)']]],
   ['getportbyname',['GetPortByName',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_thing.html#a2b01ff062612ecd9d1224e62da134c2e',1,'Yodiwo::API::Plegma::Thing']]],
+  ['getstateobject',['GetStateObject',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port.html#acf2ff5b6b1aa997070da0a5144ae8e4d',1,'Yodiwo::API::Plegma::Port']]],
   ['gif',['GIF',['../namespace_yodiwo_1_1_a_p_i_1_1_plegma.html#adb28b1571d326cf5bdb516c74ca8a58ba95a66bab4c0c0fd8387e680daeff99a8',1,'Yodiwo::API::Plegma']]],
   ['googledrive',['GoogleDrive',['../namespace_yodiwo_1_1_a_p_i_1_1_plegma.html#a96cf46fb9bbe61674a0fb4397505e652a9ba2370f63838b8eb45caa7a4b2e971e',1,'Yodiwo::API::Plegma']]],
   ['graphdeploymentreq',['GraphDeploymentReq',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_graph_deployment_req.html',1,'Yodiwo::API::Plegma']]],
@@ -22,9 +26,9 @@ var searchData=
   ['graphdescriptorbasekey',['GraphDescriptorBaseKey',['../struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_graph_descriptor_base_key.html#a75ea4d890a6f4a5e2b5a04792043bbfa',1,'Yodiwo::API::Plegma::GraphDescriptorBaseKey']]],
   ['graphdescriptorkey',['GraphDescriptorKey',['../struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_graph_descriptor_key.html',1,'Yodiwo::API::Plegma']]],
   ['graphdescriptorkey',['GraphDescriptorKey',['../struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_graph_key.html#a364b6292c46e2743b3c74926f2f9ab18',1,'Yodiwo.API.Plegma.GraphKey.GraphDescriptorKey()'],['../struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_graph_descriptor_key.html#a4b93a3f35a42288d4bb2e0a60babeae0',1,'Yodiwo.API.Plegma.GraphDescriptorKey.GraphDescriptorKey(UserKey key, string name, int rev)'],['../struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_graph_descriptor_key.html#a1ec6d3b0008822af55affa947d32fd4f',1,'Yodiwo.API.Plegma.GraphDescriptorKey.GraphDescriptorKey(GraphDescriptorBaseKey desc, int rev)']]],
-  ['graphkey',['GraphKey',['../struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_block_key.html#a268a72135d02a1787b37f02da725cd67',1,'Yodiwo.API.Plegma.BlockKey.GraphKey()'],['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_graph_deployment_req.html#ad24ceac547935efb2751b160b1d3a133',1,'Yodiwo.API.Plegma.GraphDeploymentReq.GraphKey()'],['../struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_graph_key.html#a85f006050d61bd6fc268558e3f91d00b',1,'Yodiwo.API.Plegma.GraphKey.GraphKey()']]],
   ['graphkey',['GraphKey',['../struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_graph_key.html',1,'Yodiwo::API::Plegma']]],
+  ['graphkey',['GraphKey',['../struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_block_key.html#a268a72135d02a1787b37f02da725cd67',1,'Yodiwo.API.Plegma.BlockKey.GraphKey()'],['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_graph_deployment_req.html#ad24ceac547935efb2751b160b1d3a133',1,'Yodiwo.API.Plegma.GraphDeploymentReq.GraphKey()'],['../struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_graph_key.html#a85f006050d61bd6fc268558e3f91d00b',1,'Yodiwo.API.Plegma.GraphKey.GraphKey()']]],
   ['groupid',['GroupID',['../struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_group_key.html#a27a52d4d77aabe13bc274573bf0aca31',1,'Yodiwo::API::Plegma::GroupKey']]],
-  ['groupkey',['GroupKey',['../struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_group_key.html',1,'Yodiwo::API::Plegma']]],
-  ['groupkey',['GroupKey',['../struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_group_key.html#a3c96a306919a477f0a46679a530c47ec',1,'Yodiwo::API::Plegma::GroupKey']]]
+  ['groupkey',['GroupKey',['../struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_group_key.html#a3c96a306919a477f0a46679a530c47ec',1,'Yodiwo::API::Plegma::GroupKey']]],
+  ['groupkey',['GroupKey',['../struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_group_key.html',1,'Yodiwo::API::Plegma']]]
 ];

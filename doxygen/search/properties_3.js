@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['typedstate',['TypedState',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port.html#a98dc145ccebe26fef808094c2c47360a',1,'Yodiwo::API::Plegma::Port']]]
+  ['userkey',['UserKey',['../struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_graph_descriptor_key.html#a57c267a47d8d529b7ee4c36d3366a8f8',1,'Yodiwo::API::Plegma::GraphDescriptorKey']]]
 ];

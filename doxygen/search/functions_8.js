@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['nodeinforeq',['NodeInfoReq',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_node_info_req.html#a8fe2eebdbebd57bb28acb0e55bf148c9',1,'Yodiwo.API.Plegma.NodeInfoReq.NodeInfoReq()'],['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_node_info_req.html#a1fbd0fc24d7d5892558cf6d6e9acb051',1,'Yodiwo.API.Plegma.NodeInfoReq.NodeInfoReq(int seqNo)']]],
-  ['nodeinforsp',['NodeInfoRsp',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_node_info_rsp.html#a0125a19ee32b99ac0f1f23dfec32036b',1,'Yodiwo.API.Plegma.NodeInfoRsp.NodeInfoRsp()'],['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_node_info_rsp.html#af4bda4ee6fc8d656f987baf0b9c01047',1,'Yodiwo.API.Plegma.NodeInfoRsp.NodeInfoRsp(int seqNo)']]],
-  ['nodekey',['NodeKey',['../struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_node_key.html#a4fe3fd8dc1ecea3e74467c9fb44c5614',1,'Yodiwo.API.Plegma.NodeKey.NodeKey(string userId, uint nodeId)'],['../struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_node_key.html#a4b890637bc411be5b4bd68ad1f4e25c5',1,'Yodiwo.API.Plegma.NodeKey.NodeKey(UserKey userKey, uint nodeId)'],['../struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_node_key.html#a446e73c8b6b67673aaa528627e152b48',1,'Yodiwo.API.Plegma.NodeKey.NodeKey(string str)']]],
-  ['nodeunpairedreq',['NodeUnpairedReq',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_node_unpaired_req.html#a086d98ea78e784c7ab02eee6f3cb4c1c',1,'Yodiwo.API.Plegma.NodeUnpairedReq.NodeUnpairedReq()'],['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_node_unpaired_req.html#a6d7fdc57b9166ebede734b2b3efa7b83',1,'Yodiwo.API.Plegma.NodeUnpairedReq.NodeUnpairedReq(int seqNo)']]]
+  ['loginreq',['LoginReq',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_login_req.html#a0a349d39032568c6385e317c6c7745b6',1,'Yodiwo::API::Plegma::LoginReq']]],
+  ['loginrsp',['LoginRsp',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_login_rsp.html#a5a9e3182b4ec8173b659be68e6b7984c',1,'Yodiwo::API::Plegma::LoginRsp']]]
 ];

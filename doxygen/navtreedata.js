@@ -29,9 +29,9 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "_assembly_info_8cs.html",
-"class_yodiwo_1_1_a_p_i_1_1_media_streaming_1_1_video_data_req.html#ab7b9ac167cf189769caf6b27a8d0e776",
-"class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_thing.html#a1cec4eca07a5eb0a31ce51694cade0da",
-"struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_node_key.html#a21780b39c5a5fd32a57a9e0364fede7f"
+"class_yodiwo_1_1_a_p_i_1_1_media_streaming_1_1_ongoing_media_stream_descriptor.html#ad2a02b72b54f93f53686f881f888c738",
+"class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_state.html#a9836136a8c8b52475e8d9a41d8101971",
+"struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_graph_key.html#a1b2a6016ac5bb6ce41e5c5ec3898babe"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

@@ -1,18 +1,14 @@
 var searchData=
 [
-  ['maximum',['Maximum',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_state_description.html#affa6314b7efbc00dded268a7cadf2b70',1,'Yodiwo.API.Plegma.StateDescription.Maximum()'],['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_config_description.html#ab7ee597be8dbf6b0dc5493c262ed9e0c',1,'Yodiwo.API.Plegma.ConfigDescription.Maximum()']]],
-  ['maxkeylength',['MaxKeyLength',['../struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_user_key.html#a3f8e0b3ce22c99cb4e3b1ea4178da747',1,'Yodiwo.API.Plegma.UserKey.MaxKeyLength()'],['../struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_node_key.html#a69dcb7cb00a08527135d2f7ce29842fb',1,'Yodiwo.API.Plegma.NodeKey.MaxKeyLength()']]],
-  ['maxnodeidlength',['MaxNodeIDLength',['../struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_node_key.html#ae0d07708a3c1c4a9d9cee18da55edc2f',1,'Yodiwo::API::Plegma::NodeKey']]],
-  ['maxuseridlength',['MaxUserIDLength',['../struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_user_key.html#a663a9308aa2f8e2945df9ddd2eb95d38',1,'Yodiwo::API::Plegma::UserKey']]],
-  ['message',['Message',['../class_yodiwo_1_1_a_p_i_1_1_media_streaming_1_1_info_message.html#ae4af63c9d5274e7d012332c22b467a7b',1,'Yodiwo.API.MediaStreaming.InfoMessage.Message()'],['../class_yodiwo_1_1_a_p_i_1_1_media_streaming_1_1_error_message.html#ae898c81a7db18837ef498b547231f4ef',1,'Yodiwo.API.MediaStreaming.ErrorMessage.Message()'],['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_generic_rsp.html#ae6738d32a3faf5bd63f62dafaaf38106',1,'Yodiwo.API.Plegma.GenericRsp.Message()'],['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_node_unpaired_req.html#aa98033962e2afee1ee9cbbdefdaca38f',1,'Yodiwo.API.Plegma.NodeUnpairedReq.Message()']]],
-  ['minimum',['Minimum',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_state_description.html#a4b0f2454c0e365a87b5b0bb5490ec649',1,'Yodiwo.API.Plegma.StateDescription.Minimum()'],['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_config_description.html#aff4d4335d7c762cdba0964377f29f077',1,'Yodiwo.API.Plegma.ConfigDescription.Minimum()']]],
-  ['minkeylength',['MinKeyLength',['../struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_user_key.html#afdc1bea9abb753f11a421de4f25ac137',1,'Yodiwo.API.Plegma.UserKey.MinKeyLength()'],['../struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_node_key.html#a181f0afcf43b24bced593b23d436c134',1,'Yodiwo.API.Plegma.NodeKey.MinKeyLength()']]],
-  ['minnodeidlength',['MinNodeIDLength',['../struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_node_key.html#a86ef419bb4fadc881de95f91bd99b38d',1,'Yodiwo::API::Plegma::NodeKey']]],
-  ['minuseridlength',['MinUserIDLength',['../struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_user_key.html#a93ef1f0bec0e2c1b25a84e6dc42f4cef',1,'Yodiwo::API::Plegma::UserKey']]],
-  ['mjpegstream',['mjpegstream',['../class_yodiwo_1_1_a_p_i_1_1_media_streaming_1_1_video_server_feed_response.html#a1b5fa98a674d3f43790f9100586be50a',1,'Yodiwo::API::MediaStreaming::VideoServerFeedResponse']]],
-  ['mjpegtoken',['mjpegtoken',['../class_yodiwo_1_1_a_p_i_1_1_media_streaming_1_1_video_server_feed_response.html#aeaf44f91eeef31455af5eb586dc1bc58',1,'Yodiwo::API::MediaStreaming::VideoServerFeedResponse']]],
-  ['model',['Model',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_thing_type.html#a061ac7c5e2da7ef5905c45ef35538579',1,'Yodiwo::API::Plegma::ThingType']]],
-  ['mp3stream',['mp3stream',['../class_yodiwo_1_1_a_p_i_1_1_media_streaming_1_1_audio_server_feed_response.html#ab1b4e9e7c9b4ecae4ae822cbb0bd517b',1,'Yodiwo::API::MediaStreaming::AudioServerFeedResponse']]],
-  ['mp3url',['Mp3Url',['../namespace_yodiwo_1_1_a_p_i_1_1_media_streaming.html#a96955981824bdf952ee140658d589370af338f30d0e5044967183d456feaf39ee',1,'Yodiwo::API::MediaStreaming']]],
-  ['mqttmsg',['MqttMsg',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_mqtt_msg.html',1,'Yodiwo::API::Plegma']]]
+  ['label',['Label',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_config_description.html#a1f4dfb0a4395e4d88d2824ae537a9f4d',1,'Yodiwo.API.Plegma.ConfigDescription.Label()'],['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_description.html#a5ae5ba17701b62fff16f28d1fde52fed',1,'Yodiwo.API.Plegma.PortDescription.Label()']]],
+  ['latestapirev',['LatestApiRev',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_node_info_req.html#aa6580def094e114cf66af2f4e2d81e56',1,'Yodiwo::API::Plegma::NodeInfoReq']]],
+  ['lcd',['LCD',['../namespace_yodiwo_1_1_a_p_i_1_1_plegma.html#a642d9abc16e86759303e8e9fd966baf0ad48d9783fee1f1e84a5acbd98169d047',1,'Yodiwo::API::Plegma']]],
+  ['linearbytes',['linearBytes',['../class_yodiwo_1_1_a_p_i_1_1_media_streaming_1_1_audio_data.html#ae7e6b5c0d4415595cb30e3f3a607aa55',1,'Yodiwo.API.MediaStreaming.AudioData.linearBytes()'],['../class_yodiwo_1_1_a_p_i_1_1_media_streaming_1_1_video_data.html#a7898220093fcd7e1aefc2cc195f001bf',1,'Yodiwo.API.MediaStreaming.VideoData.linearBytes()']]],
+  ['locallydeployedgraphsmsg',['LocallyDeployedGraphsMsg',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_locally_deployed_graphs_msg.html',1,'Yodiwo::API::Plegma']]],
+  ['locationdescriptor',['LocationDescriptor',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_binary_resource_descriptor.html#abe1a79c69ca2f9137673d011da733623',1,'Yodiwo::API::Plegma::BinaryResourceDescriptor']]],
+  ['locationtype',['LocationType',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_binary_resource_descriptor.html#a7d9fd5d849f0e3d8d55d5121720efad9',1,'Yodiwo::API::Plegma::BinaryResourceDescriptor']]],
+  ['loginreq',['LoginReq',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_login_req.html',1,'Yodiwo::API::Plegma']]],
+  ['loginreq',['LoginReq',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_login_req.html#a0a349d39032568c6385e317c6c7745b6',1,'Yodiwo::API::Plegma::LoginReq']]],
+  ['loginrsp',['LoginRsp',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_login_rsp.html',1,'Yodiwo::API::Plegma']]],
+  ['loginrsp',['LoginRsp',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_login_rsp.html#a5a9e3182b4ec8173b659be68e6b7984c',1,'Yodiwo::API::Plegma::LoginRsp']]]
 ];

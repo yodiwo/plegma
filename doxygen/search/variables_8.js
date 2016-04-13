@@ -9,5 +9,6 @@ var searchData=
   ['intermediatecallee',['intermediateCallee',['../class_yodiwo_1_1_a_p_i_1_1_media_streaming_1_1_ongoing_media_stream_descriptor.html#ae7c586c44461860cda53908da03adeaa',1,'Yodiwo::API::MediaStreaming::OngoingMediaStreamDescriptor']]],
   ['iodirection',['ioDirection',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port.html#af7585ac3185d3450bdd396fb7c076cd1',1,'Yodiwo::API::Plegma::Port']]],
   ['isdeployed',['IsDeployed',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_state.html#aa05161ed8467b131232e121ff90746a3',1,'Yodiwo.API.Plegma.PortState.IsDeployed()'],['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_graph_deployment_req.html#af017df5e81fdcf68df8b5181108b6bc8',1,'Yodiwo.API.Plegma.GraphDeploymentReq.IsDeployed()']]],
-  ['issuccess',['IsSuccess',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_generic_rsp.html#a5f2c895333552a8e2efe18adce621374',1,'Yodiwo::API::Plegma::GenericRsp']]]
+  ['issuccess',['IsSuccess',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_generic_rsp.html#a5f2c895333552a8e2efe18adce621374',1,'Yodiwo::API::Plegma::GenericRsp']]],
+  ['iswrite',['IsWrite',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_i2_c_command.html#a7c07e6d83390418ef5a2ec43e2235ec2',1,'Yodiwo::API::Plegma::I2CCommand']]]
 ];
