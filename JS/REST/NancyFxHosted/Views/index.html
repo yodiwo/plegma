@@ -1,0 +1,204 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta charset="UTF-8">
+    <title>Rest Sample Node</title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <link rel="icon" type="image/png" href="/Content/img/favicon.png" />
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+    <!-- JQuery -->
+    <script src="/Content/js/jquery.min.js"></script>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="/Content/css/bootstrap.min.css">
+    <script src="/Content/js/bootstrap.min.js" type="text/javascript"></script>
+
+    <!-- Toastr -->
+    <script src="/Content/js/toastr.min.js"></script>
+    <link href="/Content/css/toastr.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="/Content/css/font-awesome.min.css">
+
+    <!-- AdminLTE -->
+    <link href="/Content/css/AdminLTE.css" rel="stylesheet" type="text/css" />
+    <script src="/Content/js/AdminLTEapp.min.js" type="text/javascript"></script>
+    <link href="/Content/css/skin-yodiwo.css" rel="stylesheet" type="text/css" />
+
+    <!-- Rest Node -->
+    <script src="/Content/js/restApi.js"></script>
+    <script src="/Content/js/restNode.js"></script>
+</head>
+<body class="sidebar-mini skin-yodiwo sidebar-collapse">
+    <!-- options for AdminLTE environment -->
+    <script>
+        var AdminLTEOptions = {
+            //BoxRefresh Plugin
+            enableBoxRefresh: false,
+            //Add slimscroll to navbar menus
+            //This requires you to load the slimscroll plugin
+            //in every page before app.js
+            navbarMenuSlimscroll: false,
+            navbarMenuSlimscrollWidth: "3px", //The width of the scroll bar
+            navbarMenuHeight: "200px", //The height of the inner menu
+            //Sidebar push menu toggle button selector
+            sidebarToggleSelector: "[data-toggle='offcanvas']",
+            //Activate sidebar push menu
+            sidebarPushMenu: false,
+            //Activate sidebar slimscroll if the fixed layout is set (requires SlimScroll Plugin)
+            sidebarSlimScroll: false,
+            //Enable sidebar expand on hover effect for sidebar mini
+            //This option is forced to true if both the fixed layout and sidebar mini
+            //are used together
+            sidebarExpandOnHover: false,
+            //BoxRefresh Plugin
+            enableBoxRefresh: false,
+            //Bootstrap.js tooltip
+            enableBSToppltip: true,
+            BSTooltipSelector: "[data-toggle='tooltip']",
+            //Enable Fast Click. Fastclick.js creates a more
+            //native touch experience with touch devices. If you
+            //choose to enable the plugin, make sure you load the script
+            //before AdminLTE's app.js
+            enableFastclick: false,
+            //Control Sidebar Options
+            enableControlSidebar: false,
+            controlSidebarOptions: {
+                //Which button should trigger the open/close event
+                toggleBtnSelector: "[data-toggle='control-sidebar']",
+                //The sidebar selector
+                selector: ".control-sidebar",
+                //Enable slide over content
+                slide: false
+            },
+            //Box Widget Plugin. Enable this plugin
+            //to allow boxes to be collapsed and/or removed
+            enableBoxWidget: false,
+            //Box Widget plugin options
+            boxWidgetOptions: {
+                boxWidgetIcons: {
+                    //Collapse icon
+                    collapse: 'fa-minus',
+                    //Open icon
+                    open: 'fa-plus',
+                    //Remove icon
+                    remove: 'fa-times'
+                },
+                boxWidgetSelectors: {
+                    //Remove button selector
+                    remove: '[data-widget="remove"]',
+                    //Collapse button selector
+                    collapse: '[data-widget="collapse"]'
+                }
+            },
+            //Direct Chat plugin options
+            directChat: {
+                //Enable direct chat by default
+                enable: false,
+                //The button to open and close the chat contacts pane
+                contactToggleSelector: '[data-widget="chat-pane-toggle"]'
+            },
+            //Define the set of colors to use globally around the website
+            colors: {
+                lightBlue: "#3c8dbc",
+                red: "#f56954",
+                green: "#00a65a",
+                aqua: "#00c0ef",
+                yellow: "#f39c12",
+                blue: "#0073b7",
+                navy: "#001F3F",
+                teal: "#39CCCC",
+                olive: "#3D9970",
+                lime: "#01FF70",
+                orange: "#FF851B",
+                fuchsia: "#F012BE",
+                purple: "#8E24AA",
+                maroon: "#D81B60",
+                black: "#222222",
+                gray: "#d2d6de"
+            },
+            //The standard screen sizes that bootstrap uses.
+            //If you change these in the variables.less file, change
+            //them here too.
+            screenSizes: {
+                xs: 480,
+                sm: 768,
+                md: 992,
+                lg: 1200
+            }
+        };
+        $.ajaxSetup({ cache: false });
+    </script>
+
+
+    <div class="wrapper">
+        <!-- =================================================================================== -->
+        <!-- Main Header -->
+        <header class="main-header">
+            <!-- Logo -->
+            <a href="/" class="logo" data-pjax="#RenderBody">
+                <span class="logo-mini"><img alt="Yodiwo" src="/Content/img/yodiwo_small.png"></span>
+                <span class="logo-lg"><img alt="Yodiwo" src="/Content/img/yodiwo.png"></span>
+            </a>
+        </header>
+        <!-- =================================================================================== -->
+        <div class="content-wrapper wsngeneral">
+            <!-- Main content -->
+            <div class="container">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding-top:1rem;">
+                    <button type="button" class="btn btn-warning" id="forget" style="display:none">Forget keys</button>
+                    <div class="box box-solid">
+                        <div class="box-header with-border">
+                            <h2>Rest Sample Things</h2>
+                        </div>
+                        <button type="button" class="btn btn-warning" id="start">Start Application</button>
+                        <div class="box-body">
+                            <!-- Inputs-->
+                            <div class="col-sm-12 col-md-6">
+                                <div class="form-group">
+                                    <label for="text">Text Input</label>
+                                    <input id="text" type="text" class="form-control input-lg" placeholder="Type some text and press Enter..." />
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="range">Slider</label>
+                                    <input id="range" type="range" min="0" max="1" step="0.01" />
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="checkbox">
+                                    <label>
+                                        <input id="checkbox" type="checkbox"> Checkbox 1
+                                    </label>
+                                </div>
+
+                                <div class="form-group">
+                                    <button id="button" type="button" class="btn btn-primary">Button</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- /.content -->
+        </div>
+        <!-- =================================================================================== -->
+        <!-- Main Footer -->
+        <footer class="main-footer" style="padding:3px">
+            <!-- To the right -->
+            <div class="pull-right hidden-xs">
+                ...
+            </div>
+            <!-- Default to the left -->
+            <strong>Copyright &copy; 2016 <a href="#">Yodiwo</a>.</strong> All rights reserved.
+        </footer>
+        <!-- =================================================================================== -->
+    </div><!-- ./wrapper -->
+</body>
+</html>
+
