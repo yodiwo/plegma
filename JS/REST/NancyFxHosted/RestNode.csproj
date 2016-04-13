@@ -40,14 +40,17 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Nancy">
-      <HintPath>..\..\ExternalsDLLs\Nancy.dll</HintPath>
+      <HintPath>..\..\..\external-libs\Csharp\DLLs\ThirdParty\Nancy.dll</HintPath>
     </Reference>
     <Reference Include="Nancy.Hosting.Self">
-      <HintPath>..\..\ExternalsDLLs\Nancy.Hosting.Self.dll</HintPath>
+      <HintPath>..\..\..\external-libs\Csharp\DLLs\ThirdParty\Nancy.Hosting.Self.dll</HintPath>
+    </Reference>
+    <Reference Include="Nancy.Serialization.JsonNet">
+      <HintPath>..\..\..\external-libs\Csharp\DLLs\ThirdParty\Nancy.Serialization.JsonNet.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\ExternalsDLLs\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\external-libs\Csharp\DLLs\ThirdParty\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -150,12 +153,6 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Yodiwo\APIs\Plegma\Yodiwo.API.Plegma.csproj">
-      <Project>{94f4ce90-200f-40ce-bf83-e15d147924f7}</Project>
-      <Name>Yodiwo.API.Plegma</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
