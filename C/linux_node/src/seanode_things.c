@@ -9,6 +9,7 @@
 #include "yodiwo_helpers.h"
 
 #define SENSOR_COMMAND "sensors | grep -oP 'Physical\\ id\\ 0:\\ *\\K([^\\s]*)'"
+//#define SENSOR_COMMAND "date"
 
 #define THING_NUM 3
 

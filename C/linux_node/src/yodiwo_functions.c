@@ -14,7 +14,7 @@
 
 int handle_nodeinforeq(char *json, size_t len, int syncId);
 int handle_thingsget(char *json, size_t len, int syncId);
-int handle_portstatersp(char *json, size_t len, int syncId);
+int handle_portstateset(char *json, size_t len, int syncId);
 int handle_activeportkeysmsg(char *json, size_t len, int syncId);
 int handle_porteventmsg(char *json, size_t len, int syncId);
 
@@ -39,7 +39,7 @@ message_translators translators[] = {
 //    {"thingsrsp", (func_ToJson *)Yodiwo_Plegma_ThingsRsp_ToJson, (func_FromJson *)Yodiwo_Plegma_ThingsRsp_FromJson, handle_thingsrsp},
     {s_PortEventMsg, (func_ToJson *)Yodiwo_Plegma_PortEventMsg_ToJson, (func_FromJson *)Yodiwo_Plegma_PortEventMsg_FromJson, handle_porteventmsg},
 //    {"portstatereq", (func_ToJson *)Yodiwo_Plegma_PortStateReq_ToJson, (func_FromJson *)Yodiwo_Plegma_PortStateReq_FromJson},
-    {s_PortStateRsp, (func_ToJson *)Yodiwo_Plegma_PortStateRsp_ToJson, (func_FromJson *)Yodiwo_Plegma_PortStateRsp_FromJson, handle_portstatersp},
+    {s_PortStateSet, (func_ToJson *)Yodiwo_Plegma_PortStateSet_ToJson, (func_FromJson *)Yodiwo_Plegma_PortStateSet_FromJson, handle_portstateset},
     {s_ActivePortKeysMsg, (func_ToJson *)Yodiwo_Plegma_ActivePortKeysMsg_ToJson, (func_FromJson *)Yodiwo_Plegma_ActivePortKeysMsg_FromJson, handle_activeportkeysmsg},
 };
 
@@ -313,7 +313,7 @@ int handle_portevent(Yodiwo_Plegma_PortEvent_t *event)
     return 0;
 }
 
-int handle_portstatersp(char *json, size_t len, int syncId)
+int handle_portstateset(char *json, size_t len, int syncId)
 {
     return 0;
 }

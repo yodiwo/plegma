@@ -159,6 +159,7 @@ int __get_tokens(pairing_context *ctx)
     else
     {
         printf("Error HTTP Post return code = %d\n", ret);
+        return -1;
     }
     return ret;
 

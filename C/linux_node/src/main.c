@@ -41,7 +41,7 @@ int main(int argc, char *argv[])
         start_main_agent();
     }
     thread_run(&sensor_thread_ctx, sensor_thread, NULL, 0, 0);
-    thread_run(&text_reader_thread_ctx, sensor_thread, NULL, 0, 0);
+    thread_run(&text_reader_thread_ctx, text_reader_thread, NULL, 0, 0);
     while(true) {
     	thread_wait(2000);
     }

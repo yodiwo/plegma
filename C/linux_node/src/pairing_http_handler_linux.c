@@ -120,7 +120,9 @@ void startpairing(struct mg_connection *nc, struct http_message *hm)
     	goto error;
     }
     pairing_state.next_url = get_next_url(hostname, port, urlBase);
-    pairing_get_tokens(&pairing_state);
+    i = pairing_get_tokens(&pairing_state);
+    if (i < 0)
+    	goto error;
     char *redirect = get_server_phase2_url(&pairing_state);
     printf("redirect url: %s\n", redirect);
     if (redirect) {

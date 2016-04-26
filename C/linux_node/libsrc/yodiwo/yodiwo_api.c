@@ -1,5 +1,5 @@
 /**
-* Created by ApiGenerator Tool (C) on 07-Mar-16 3:40:54 PM.
+* Created by ApiGenerator Tool (C) on 26-Apr-16 11:24:51 AM.
 */
 
 // This is only for windows testing
@@ -447,6 +447,9 @@ int Yodiwo_Plegma_Port_ToJson(char* jsonStart, size_t jsonSize, Yodiwo_Plegma_Po
 	*json = '\"'; json++;
 	json += snprintf(json, jsonEnd - json, ", \"ioDirection\" : %d", value->ioDirection); if (json >= jsonEnd) return -1;
 	json += snprintf(json, jsonEnd - json, ", \"Type\" : %d", value->Type); if (json >= jsonEnd) return -1;
+	json += snprintf(json, jsonEnd - json, ", \"Semantics\" : \""); if (json >= jsonEnd) return -1;
+	json += strcpy_escaped(json, value->Semantics); if (json + 1 >= jsonEnd) return -1;
+	*json = '\"'; json++;
 	json += snprintf(json, jsonEnd - json, ", \"State\" : \""); if (json >= jsonEnd) return -1;
 	json += strcpy_escaped(json, value->State); if (json + 1 >= jsonEnd) return -1;
 	*json = '\"'; json++;
@@ -553,6 +556,9 @@ int Yodiwo_Plegma_ConfigParameter_ToJson(char* jsonStart, size_t jsonSize, Yodiw
 	json += snprintf(json, jsonEnd - json, ", \"Value\" : \""); if (json >= jsonEnd) return -1;
 	json += strcpy_escaped(json, value->Value); if (json + 1 >= jsonEnd) return -1;
 	*json = '\"'; json++;
+	json += snprintf(json, jsonEnd - json, ", \"Description\" : \""); if (json >= jsonEnd) return -1;
+	json += strcpy_escaped(json, value->Description); if (json + 1 >= jsonEnd) return -1;
+	*json = '\"'; json++;
 	*json = '}'; json++;
 	*json = '\0'; json++;
 	return json - jsonStart;
@@ -596,6 +602,9 @@ int Yodiwo_Plegma_Thing_ToJson(char* jsonStart, size_t jsonSize, Yodiwo_Plegma_T
 	json += strcpy_escaped(json, value->BlockType); if (json + 1 >= jsonEnd) return -1;
 	*json = '\"'; json++;
 	json += snprintf(json, jsonEnd - json, ", \"Removable\" : %s", (value->Removable) ? "true" : "false"); if (json >= jsonEnd) return -1;
+	json += snprintf(json, jsonEnd - json, ", \"RESTUri\" : \""); if (json >= jsonEnd) return -1;
+	json += strcpy_escaped(json, value->RESTUri); if (json + 1 >= jsonEnd) return -1;
+	*json = '\"'; json++;
 	json += snprintf(json, jsonEnd - json, "%s", ", \"UIHints\" : ");
 	if ((len = Yodiwo_Plegma_ThingUIHints_ToJson(json, jsonEnd - json, &value->UIHints) - 1) < 0) return -1; else json += len;
 	*json = '}'; json++;
@@ -795,6 +804,7 @@ int Yodiwo_Plegma_NodeInfoRsp_ToJson(char* jsonStart, size_t jsonSize, Yodiwo_Pl
 	json += snprintf(json, jsonEnd - json, "%s", ", \"ThingTypes\" : ");
 	if ((len = Array_Yodiwo_Plegma_ThingType_ToJson(json, jsonEnd - json, &value->ThingTypes) - 1) < 0) return -1; else json += len;
 	json += snprintf(json, jsonEnd - json, ", \"ThingsRevNum\" : %d", value->ThingsRevNum); if (json >= jsonEnd) return -1;
+	json += snprintf(json, jsonEnd - json, ", \"SupportedApiRev\" : %d", value->SupportedApiRev); if (json >= jsonEnd) return -1;
 	json += snprintf(json, jsonEnd - json, "%s", ", \"BlockLibraries\" : ");
 	if ((len = Array_string_ToJson(json, jsonEnd - json, &value->BlockLibraries) - 1) < 0) return -1; else json += len;
 	*json = '}'; json++;
@@ -867,6 +877,9 @@ int Yodiwo_Plegma_ThingsGet_ToJson(char* jsonStart, size_t jsonSize, Yodiwo_Pleg
 	json += snprintf(json, jsonEnd - json, ", \"Operation\" : %d", value->Operation); if (json >= jsonEnd) return -1;
 	json += snprintf(json, jsonEnd - json, ", \"ThingKey\" : \""); if (json >= jsonEnd) return -1;
 	json += strcpy_escaped(json, value->ThingKey); if (json + 1 >= jsonEnd) return -1;
+	*json = '\"'; json++;
+	json += snprintf(json, jsonEnd - json, ", \"Key\" : \""); if (json >= jsonEnd) return -1;
+	json += strcpy_escaped(json, value->Key); if (json + 1 >= jsonEnd) return -1;
 	*json = '\"'; json++;
 	json += snprintf(json, jsonEnd - json, ", \"RevNum\" : %d", value->RevNum); if (json >= jsonEnd) return -1;
 	*json = '}'; json++;
@@ -977,7 +990,7 @@ int Yodiwo_Plegma_VirtualBlockEventMsg_ToJson(char* jsonStart, size_t jsonSize, 
 }
 
 // -----------------------------------------------------------------------------------------------------------------------
-int Yodiwo_Plegma_PortStateReq_ToJson(char* jsonStart, size_t jsonSize, Yodiwo_Plegma_PortStateReq_t *value)
+int Yodiwo_Plegma_PortStateGet_ToJson(char* jsonStart, size_t jsonSize, Yodiwo_Plegma_PortStateGet_t *value)
 {
 	char *json = jsonStart, *jsonEnd = json + jsonSize;
 	int len;
@@ -1009,7 +1022,7 @@ int Yodiwo_Plegma_PortState_ToJson(char* jsonStart, size_t jsonSize, Yodiwo_Pleg
 }
 
 // -----------------------------------------------------------------------------------------------------------------------
-int Yodiwo_Plegma_PortStateRsp_ToJson(char* jsonStart, size_t jsonSize, Yodiwo_Plegma_PortStateRsp_t *value)
+int Yodiwo_Plegma_PortStateSet_ToJson(char* jsonStart, size_t jsonSize, Yodiwo_Plegma_PortStateSet_t *value)
 {
 	char *json = jsonStart, *jsonEnd = json + jsonSize;
 	int len;
@@ -1067,6 +1080,26 @@ int Yodiwo_Plegma_GraphDeploymentReq_ToJson(char* jsonStart, size_t jsonSize, Yo
 }
 
 // -----------------------------------------------------------------------------------------------------------------------
+int Yodiwo_Plegma_ThingTypeLibrary_ToJson(char* jsonStart, size_t jsonSize, Yodiwo_Plegma_ThingTypeLibrary_t *value)
+{
+	char *json = jsonStart, *jsonEnd = json + jsonSize;
+	int len;
+	*json = '}'; json++;
+	*json = '\0'; json++;
+	return json - jsonStart;
+}
+
+// -----------------------------------------------------------------------------------------------------------------------
+int Yodiwo_Plegma_ModelTypeLibrary_ToJson(char* jsonStart, size_t jsonSize, Yodiwo_Plegma_ModelTypeLibrary_t *value)
+{
+	char *json = jsonStart, *jsonEnd = json + jsonSize;
+	int len;
+	*json = '}'; json++;
+	*json = '\0'; json++;
+	return json - jsonStart;
+}
+
+// -----------------------------------------------------------------------------------------------------------------------
 int Yodiwo_Plegma_NodePairing_PairingNodeGetTokensRequest_ToJson(char* jsonStart, size_t jsonSize, Yodiwo_Plegma_NodePairing_PairingNodeGetTokensRequest_t *value)
 {
 	char *json = jsonStart, *jsonEnd = json + jsonSize;
@@ -1089,8 +1122,12 @@ int Yodiwo_Plegma_NodePairing_PairingNodeGetTokensRequest_ToJson(char* jsonStart
 	json += snprintf(json, jsonEnd - json, ", \"pathcss\" : \""); if (json >= jsonEnd) return -1;
 	json += strcpy_escaped(json, value->pathcss); if (json + 1 >= jsonEnd) return -1;
 	*json = '\"'; json++;
+	json += snprintf(json, jsonEnd - json, ", \"PairingCompletionInstructions\" : \""); if (json >= jsonEnd) return -1;
+	json += strcpy_escaped(json, value->PairingCompletionInstructions); if (json + 1 >= jsonEnd) return -1;
+	*json = '\"'; json++;
 	json += snprintf(json, jsonEnd - json, "%s", ", \"PublicKey\" : ");
 	if ((len = Array_byte_ToJson(json, jsonEnd - json, &value->PublicKey) - 1) < 0) return -1; else json += len;
+	json += snprintf(json, jsonEnd - json, ", \"NoUUIDAuthentication\" : %s", (value->NoUUIDAuthentication) ? "true" : "false"); if (json >= jsonEnd) return -1;
 	*json = '}'; json++;
 	*json = '\0'; json++;
 	return json - jsonStart;
@@ -1155,6 +1192,30 @@ int Yodiwo_Plegma_NodePairing_PairingNodePhase1Response_ToJson(char* jsonStart, 
 	json += snprintf(json, jsonEnd - json, ", \"token2\" : \""); if (json >= jsonEnd) return -1;
 	json += strcpy_escaped(json, value->token2); if (json + 1 >= jsonEnd) return -1;
 	*json = '\"'; json++;
+	*json = '}'; json++;
+	*json = '\0'; json++;
+	return json - jsonStart;
+}
+
+// -----------------------------------------------------------------------------------------------------------------------
+int Yodiwo_Plegma_PortStateSemantics_Decimal_Range_ToJson(char* jsonStart, size_t jsonSize, Yodiwo_Plegma_PortStateSemantics_Decimal_Range_t *value)
+{
+	char *json = jsonStart, *jsonEnd = json + jsonSize;
+	int len;
+	json += snprintf(json, jsonEnd - json, "{ \"Min\" : %lf", value->Min); if (json >= jsonEnd) return -1;
+	json += snprintf(json, jsonEnd - json, ", \"Max\" : %lf", value->Max); if (json >= jsonEnd) return -1;
+	*json = '}'; json++;
+	*json = '\0'; json++;
+	return json - jsonStart;
+}
+
+// -----------------------------------------------------------------------------------------------------------------------
+int Yodiwo_Plegma_PortStateSemantics_Integer_Range_ToJson(char* jsonStart, size_t jsonSize, Yodiwo_Plegma_PortStateSemantics_Integer_Range_t *value)
+{
+	char *json = jsonStart, *jsonEnd = json + jsonSize;
+	int len;
+	json += snprintf(json, jsonEnd - json, "{ \"Min\" : %ld", value->Min); if (json >= jsonEnd) return -1;
+	json += snprintf(json, jsonEnd - json, ", \"Max\" : %ld", value->Max); if (json >= jsonEnd) return -1;
 	*json = '}'; json++;
 	*json = '\0'; json++;
 	return json - jsonStart;
@@ -1231,7 +1292,7 @@ Yodiwo_Plegma_Json_e Array_byte_FromJson(char* json, size_t jsonSize, Array_byte
 //	if (r < 1 || t[0].type != JSMN_ARRAY) return Yodiwo_JsonFailedObjectExpected;
 //
 //	array->num = Helper_Json_ParseArray(t, r);
-//	array->elems = (byte_t *)malloc(array->num*sizeof(byte_t));
+//	array->elems = (byte_t *)malloc(array->num * sizeof(byte_t));
 //	for (i = 0; i < array->num; i++) {
 //		if ((res = byte_FromJson(&json[t[i].start], t[i].end - t[i].start, &array->elems[i])) != Yodiwo_JsonSuccessParse) break;
 //	}
@@ -1250,7 +1311,7 @@ Yodiwo_Plegma_Json_e Array_Yodiwo_Plegma_ConfigParameter_FromJson(char* json, si
 	if (r < 1 || t[0].type != JSMN_ARRAY) return Yodiwo_JsonFailedObjectExpected;
 
 	array->num = Helper_Json_ParseArray(t, r);
-	array->elems = (Yodiwo_Plegma_ConfigParameter_t *)malloc(array->num*sizeof(Yodiwo_Plegma_ConfigParameter_t));
+	array->elems = (Yodiwo_Plegma_ConfigParameter_t *)malloc(array->num * sizeof(Yodiwo_Plegma_ConfigParameter_t));
 	for (i = 0; i < array->num; i++) {
 		if ((res = Yodiwo_Plegma_ConfigParameter_FromJson(&json[t[i].start], t[i].end - t[i].start, &array->elems[i])) != Yodiwo_JsonSuccessParse) break;
 	}
@@ -1269,7 +1330,7 @@ Yodiwo_Plegma_Json_e Array_Yodiwo_Plegma_Port_FromJson(char* json, size_t jsonSi
 	if (r < 1 || t[0].type != JSMN_ARRAY) return Yodiwo_JsonFailedObjectExpected;
 
 	array->num = Helper_Json_ParseArray(t, r);
-	array->elems = (Yodiwo_Plegma_Port_t *)malloc(array->num*sizeof(Yodiwo_Plegma_Port_t));
+	array->elems = (Yodiwo_Plegma_Port_t *)malloc(array->num * sizeof(Yodiwo_Plegma_Port_t));
 	for (i = 0; i < array->num; i++) {
 		if ((res = Yodiwo_Plegma_Port_FromJson(&json[t[i].start], t[i].end - t[i].start, &array->elems[i])) != Yodiwo_JsonSuccessParse) break;
 	}
@@ -1288,7 +1349,7 @@ Yodiwo_Plegma_Json_e Array_Yodiwo_Plegma_ConfigDescription_FromJson(char* json, 
 	if (r < 1 || t[0].type != JSMN_ARRAY) return Yodiwo_JsonFailedObjectExpected;
 
 	array->num = Helper_Json_ParseArray(t, r);
-	array->elems = (Yodiwo_Plegma_ConfigDescription_t *)malloc(array->num*sizeof(Yodiwo_Plegma_ConfigDescription_t));
+	array->elems = (Yodiwo_Plegma_ConfigDescription_t *)malloc(array->num * sizeof(Yodiwo_Plegma_ConfigDescription_t));
 	for (i = 0; i < array->num; i++) {
 		if ((res = Yodiwo_Plegma_ConfigDescription_FromJson(&json[t[i].start], t[i].end - t[i].start, &array->elems[i])) != Yodiwo_JsonSuccessParse) break;
 	}
@@ -1307,7 +1368,7 @@ Yodiwo_Plegma_Json_e Array_Yodiwo_Plegma_PortDescription_FromJson(char* json, si
 	if (r < 1 || t[0].type != JSMN_ARRAY) return Yodiwo_JsonFailedObjectExpected;
 
 	array->num = Helper_Json_ParseArray(t, r);
-	array->elems = (Yodiwo_Plegma_PortDescription_t *)malloc(array->num*sizeof(Yodiwo_Plegma_PortDescription_t));
+	array->elems = (Yodiwo_Plegma_PortDescription_t *)malloc(array->num * sizeof(Yodiwo_Plegma_PortDescription_t));
 	for (i = 0; i < array->num; i++) {
 		if ((res = Yodiwo_Plegma_PortDescription_FromJson(&json[t[i].start], t[i].end - t[i].start, &array->elems[i])) != Yodiwo_JsonSuccessParse) break;
 	}
@@ -1326,7 +1387,7 @@ Yodiwo_Plegma_Json_e Array_Yodiwo_Plegma_ThingModelType_FromJson(char* json, siz
 	if (r < 1 || t[0].type != JSMN_ARRAY) return Yodiwo_JsonFailedObjectExpected;
 
 	array->num = Helper_Json_ParseArray(t, r);
-	array->elems = (Yodiwo_Plegma_ThingModelType_t *)malloc(array->num*sizeof(Yodiwo_Plegma_ThingModelType_t));
+	array->elems = (Yodiwo_Plegma_ThingModelType_t *)malloc(array->num * sizeof(Yodiwo_Plegma_ThingModelType_t));
 	for (i = 0; i < array->num; i++) {
 		if ((res = Yodiwo_Plegma_ThingModelType_FromJson(&json[t[i].start], t[i].end - t[i].start, &array->elems[i])) != Yodiwo_JsonSuccessParse) break;
 	}
@@ -1345,7 +1406,7 @@ Yodiwo_Plegma_Json_e Array_Yodiwo_Plegma_ThingType_FromJson(char* json, size_t j
 	if (r < 1 || t[0].type != JSMN_ARRAY) return Yodiwo_JsonFailedObjectExpected;
 
 	array->num = Helper_Json_ParseArray(t, r);
-	array->elems = (Yodiwo_Plegma_ThingType_t *)malloc(array->num*sizeof(Yodiwo_Plegma_ThingType_t));
+	array->elems = (Yodiwo_Plegma_ThingType_t *)malloc(array->num * sizeof(Yodiwo_Plegma_ThingType_t));
 	for (i = 0; i < array->num; i++) {
 		if ((res = Yodiwo_Plegma_ThingType_FromJson(&json[t[i].start], t[i].end - t[i].start, &array->elems[i])) != Yodiwo_JsonSuccessParse) break;
 	}
@@ -1364,7 +1425,7 @@ Yodiwo_Plegma_Json_e Array_Yodiwo_Plegma_Thing_FromJson(char* json, size_t jsonS
 	if (r < 1 || t[0].type != JSMN_ARRAY) return Yodiwo_JsonFailedObjectExpected;
 
 	array->num = Helper_Json_ParseArray(t, r);
-	array->elems = (Yodiwo_Plegma_Thing_t *)malloc(array->num*sizeof(Yodiwo_Plegma_Thing_t));
+	array->elems = (Yodiwo_Plegma_Thing_t *)malloc(array->num * sizeof(Yodiwo_Plegma_Thing_t));
 	for (i = 0; i < array->num; i++) {
 		if ((res = Yodiwo_Plegma_Thing_FromJson(&json[t[i].start], t[i].end - t[i].start, &array->elems[i])) != Yodiwo_JsonSuccessParse) break;
 	}
@@ -1383,7 +1444,7 @@ Yodiwo_Plegma_Json_e Array_Yodiwo_Plegma_PortEvent_FromJson(char* json, size_t j
 	if (r < 1 || t[0].type != JSMN_ARRAY) return Yodiwo_JsonFailedObjectExpected;
 
 	array->num = Helper_Json_ParseArray(t, r);
-	array->elems = (Yodiwo_Plegma_PortEvent_t *)malloc(array->num*sizeof(Yodiwo_Plegma_PortEvent_t));
+	array->elems = (Yodiwo_Plegma_PortEvent_t *)malloc(array->num * sizeof(Yodiwo_Plegma_PortEvent_t));
 	for (i = 0; i < array->num; i++) {
 		if ((res = Yodiwo_Plegma_PortEvent_FromJson(&json[t[i].start], t[i].end - t[i].start, &array->elems[i])) != Yodiwo_JsonSuccessParse) break;
 	}
@@ -1402,7 +1463,7 @@ Yodiwo_Plegma_Json_e Array_Yodiwo_Plegma_VirtualBlockEvent_FromJson(char* json, 
 	if (r < 1 || t[0].type != JSMN_ARRAY) return Yodiwo_JsonFailedObjectExpected;
 
 	array->num = Helper_Json_ParseArray(t, r);
-	array->elems = (Yodiwo_Plegma_VirtualBlockEvent_t *)malloc(array->num*sizeof(Yodiwo_Plegma_VirtualBlockEvent_t));
+	array->elems = (Yodiwo_Plegma_VirtualBlockEvent_t *)malloc(array->num * sizeof(Yodiwo_Plegma_VirtualBlockEvent_t));
 	for (i = 0; i < array->num; i++) {
 		if ((res = Yodiwo_Plegma_VirtualBlockEvent_FromJson(&json[t[i].start], t[i].end - t[i].start, &array->elems[i])) != Yodiwo_JsonSuccessParse) break;
 	}
@@ -1421,7 +1482,7 @@ Yodiwo_Plegma_Json_e Array_Yodiwo_Plegma_PortState_FromJson(char* json, size_t j
 	if (r < 1 || t[0].type != JSMN_ARRAY) return Yodiwo_JsonFailedObjectExpected;
 
 	array->num = Helper_Json_ParseArray(t, r);
-	array->elems = (Yodiwo_Plegma_PortState_t *)malloc(array->num*sizeof(Yodiwo_Plegma_PortState_t));
+	array->elems = (Yodiwo_Plegma_PortState_t *)malloc(array->num * sizeof(Yodiwo_Plegma_PortState_t));
 	for (i = 0; i < array->num; i++) {
 		if ((res = Yodiwo_Plegma_PortState_FromJson(&json[t[i].start], t[i].end - t[i].start, &array->elems[i])) != Yodiwo_JsonSuccessParse) break;
 	}
@@ -1440,7 +1501,7 @@ Yodiwo_Plegma_Json_e Array_APIGenerator_AdditionalTypes_CNodeConfig_FromJson(cha
 	if (r < 1 || t[0].type != JSMN_ARRAY) return Yodiwo_JsonFailedObjectExpected;
 
 	array->num = Helper_Json_ParseArray(t, r);
-	array->elems = (APIGenerator_AdditionalTypes_CNodeConfig_t *)malloc(array->num*sizeof(APIGenerator_AdditionalTypes_CNodeConfig_t));
+	array->elems = (APIGenerator_AdditionalTypes_CNodeConfig_t *)malloc(array->num * sizeof(APIGenerator_AdditionalTypes_CNodeConfig_t));
 	for (i = 0; i < array->num; i++) {
 		if ((res = APIGenerator_AdditionalTypes_CNodeConfig_FromJson(&json[t[i].start], t[i].end - t[i].start, &array->elems[i])) != Yodiwo_JsonSuccessParse) break;
 	}
@@ -1620,9 +1681,11 @@ Yodiwo_Plegma_Json_e Yodiwo_Plegma_Port_FromJson(char* json, size_t jsonSize, Yo
 		{ "Description", 11, Parse_String, NULL, (void **)&value->Description },
 		{ "ioDirection", 11, Parse_Int, NULL, (void **)&value->ioDirection },
 		{ "Type", 4, Parse_Int, NULL, (void **)&value->Type },
+		{ "Semantics", 9, Parse_String, NULL, (void **)&value->Semantics },
 		{ "State", 5, Parse_String, NULL, (void **)&value->State },
 		{ "RevNum", 6, Parse_Int, NULL, (void **)&value->RevNum },
 		{ "ConfFlags", 9, Parse_Int, NULL, (void **)&value->ConfFlags },
+		{ "LastUpdatedTimestamp", 20, Parse_Int, NULL, (void **)&value->LastUpdatedTimestamp },
 	};
 	return HelperJsonParseExec(json, jsonSize, table, sizeof(table) / sizeof(table[0]));
 }
@@ -1706,6 +1769,7 @@ Yodiwo_Plegma_Json_e Yodiwo_Plegma_ConfigParameter_FromJson(char* json, size_t j
 	ParseTable table[] = {
 		{ "Name", 4, Parse_String, NULL, (void **)&value->Name },
 		{ "Value", 5, Parse_String, NULL, (void **)&value->Value },
+		{ "Description", 11, Parse_String, NULL, (void **)&value->Description },
 	};
 	return HelperJsonParseExec(json, jsonSize, table, sizeof(table) / sizeof(table[0]));
 }
@@ -1733,6 +1797,7 @@ Yodiwo_Plegma_Json_e Yodiwo_Plegma_Thing_FromJson(char* json, size_t jsonSize, Y
 		{ "Type", 4, Parse_String, NULL, (void **)&value->Type },
 		{ "BlockType", 9, Parse_String, NULL, (void **)&value->BlockType },
 		{ "Removable", 9, Parse_Bool, NULL, (void **)&value->Removable },
+		{ "RESTUri", 7, Parse_String, NULL, (void **)&value->RESTUri },
 		{ "UIHints", 7, NULL, (ParseFuncSubStruct *)Yodiwo_Plegma_ThingUIHints_FromJson, (void **)&value->UIHints },
 	};
 	return HelperJsonParseExec(json, jsonSize, table, sizeof(table) / sizeof(table[0]));
@@ -1874,6 +1939,7 @@ Yodiwo_Plegma_Json_e Yodiwo_Plegma_NodeInfoRsp_FromJson(char* json, size_t jsonS
 		{ "Capabilities", 12, Parse_Int, NULL, (void **)&value->Capabilities },
 		{ "ThingTypes", 10, NULL, (ParseFuncSubStruct *)Array_Yodiwo_Plegma_ThingType_FromJson, (void **)&value->ThingTypes },
 		{ "ThingsRevNum", 12, Parse_Int, NULL, (void **)&value->ThingsRevNum },
+		{ "SupportedApiRev", 15, Parse_Int, NULL, (void **)&value->SupportedApiRev },
 		{ "BlockLibraries", 14, NULL, (ParseFuncSubStruct *)Array_string_FromJson, (void **)&value->BlockLibraries },
 	};
 	return HelperJsonParseExec(json, jsonSize, table, sizeof(table) / sizeof(table[0]));
@@ -1934,6 +2000,7 @@ Yodiwo_Plegma_Json_e Yodiwo_Plegma_ThingsGet_FromJson(char* json, size_t jsonSiz
 		{ "SeqNo", 5, Parse_Int, NULL, (void **)&value->SeqNo },
 		{ "Operation", 9, Parse_Int, NULL, (void **)&value->Operation },
 		{ "ThingKey", 8, Parse_String, NULL, (void **)&value->ThingKey },
+		{ "Key", 3, Parse_String, NULL, (void **)&value->Key },
 		{ "RevNum", 6, Parse_Int, NULL, (void **)&value->RevNum },
 	};
 	return HelperJsonParseExec(json, jsonSize, table, sizeof(table) / sizeof(table[0]));
@@ -2024,9 +2091,9 @@ Yodiwo_Plegma_Json_e Yodiwo_Plegma_VirtualBlockEventMsg_FromJson(char* json, siz
 }
 
 // -----------------------------------------------------------------------------------------------------------------------
-Yodiwo_Plegma_Json_e Yodiwo_Plegma_PortStateReq_FromJson(char* json, size_t jsonSize, Yodiwo_Plegma_PortStateReq_t *value)
+Yodiwo_Plegma_Json_e Yodiwo_Plegma_PortStateGet_FromJson(char* json, size_t jsonSize, Yodiwo_Plegma_PortStateGet_t *value)
 {
-	memset(value, 0, sizeof(Yodiwo_Plegma_PortStateReq_t));
+	memset(value, 0, sizeof(Yodiwo_Plegma_PortStateGet_t));
 	ParseTable table[] = {
 		{ "SeqNo", 5, Parse_Int, NULL, (void **)&value->SeqNo },
 		{ "Operation", 9, Parse_Int, NULL, (void **)&value->Operation },
@@ -2049,9 +2116,9 @@ Yodiwo_Plegma_Json_e Yodiwo_Plegma_PortState_FromJson(char* json, size_t jsonSiz
 }
 
 // -----------------------------------------------------------------------------------------------------------------------
-Yodiwo_Plegma_Json_e Yodiwo_Plegma_PortStateRsp_FromJson(char* json, size_t jsonSize, Yodiwo_Plegma_PortStateRsp_t *value)
+Yodiwo_Plegma_Json_e Yodiwo_Plegma_PortStateSet_FromJson(char* json, size_t jsonSize, Yodiwo_Plegma_PortStateSet_t *value)
 {
-	memset(value, 0, sizeof(Yodiwo_Plegma_PortStateRsp_t));
+	memset(value, 0, sizeof(Yodiwo_Plegma_PortStateSet_t));
 	ParseTable table[] = {
 		{ "SeqNo", 5, Parse_Int, NULL, (void **)&value->SeqNo },
 		{ "Operation", 9, Parse_Int, NULL, (void **)&value->Operation },
@@ -2106,7 +2173,9 @@ Yodiwo_Plegma_Json_e Yodiwo_Plegma_NodePairing_PairingNodeGetTokensRequest_FromJ
 		{ "image", 5, Parse_String, NULL, (void **)&value->image },
 		{ "description", 11, Parse_String, NULL, (void **)&value->description },
 		{ "pathcss", 7, Parse_String, NULL, (void **)&value->pathcss },
+		{ "PairingCompletionInstructions", 29, Parse_String, NULL, (void **)&value->PairingCompletionInstructions },
 		{ "PublicKey", 9, NULL, (ParseFuncSubStruct *)Array_byte_FromJson, (void **)&value->PublicKey },
+		{ "NoUUIDAuthentication", 20, Parse_Bool, NULL, (void **)&value->NoUUIDAuthentication },
 	};
 	return HelperJsonParseExec(json, jsonSize, table, sizeof(table) / sizeof(table[0]));
 }
@@ -2151,6 +2220,28 @@ Yodiwo_Plegma_Json_e Yodiwo_Plegma_NodePairing_PairingNodePhase1Response_FromJso
 	ParseTable table[] = {
 		{ "userNodeRegistrationUrl", 23, Parse_String, NULL, (void **)&value->userNodeRegistrationUrl },
 		{ "token2", 6, Parse_String, NULL, (void **)&value->token2 },
+	};
+	return HelperJsonParseExec(json, jsonSize, table, sizeof(table) / sizeof(table[0]));
+}
+
+// -----------------------------------------------------------------------------------------------------------------------
+Yodiwo_Plegma_Json_e Yodiwo_Plegma_PortStateSemantics_Decimal_Range_FromJson(char* json, size_t jsonSize, Yodiwo_Plegma_PortStateSemantics_Decimal_Range_t *value)
+{
+	memset(value, 0, sizeof(Yodiwo_Plegma_PortStateSemantics_Decimal_Range_t));
+	ParseTable table[] = {
+		{ "Min", 3, Parse_Double, NULL, (void **)&value->Min },
+		{ "Max", 3, Parse_Double, NULL, (void **)&value->Max },
+	};
+	return HelperJsonParseExec(json, jsonSize, table, sizeof(table) / sizeof(table[0]));
+}
+
+// -----------------------------------------------------------------------------------------------------------------------
+Yodiwo_Plegma_Json_e Yodiwo_Plegma_PortStateSemantics_Integer_Range_FromJson(char* json, size_t jsonSize, Yodiwo_Plegma_PortStateSemantics_Integer_Range_t *value)
+{
+	memset(value, 0, sizeof(Yodiwo_Plegma_PortStateSemantics_Integer_Range_t));
+	ParseTable table[] = {
+		{ "Min", 3, Parse_Int, NULL, (void **)&value->Min },
+		{ "Max", 3, Parse_Int, NULL, (void **)&value->Max },
 	};
 	return HelperJsonParseExec(json, jsonSize, table, sizeof(table) / sizeof(table[0]));
 }

@@ -1,5 +1,5 @@
 /**
- * Created by ApiGenerator Tool (C) on 07-Mar-16 3:40:54 PM.
+ * Created by ApiGenerator Tool (C) on 26-Apr-16 11:24:49 AM.
  */
 
 #ifndef _Yodiwo_Plegma_H_
@@ -30,6 +30,11 @@ extern "C" {
 		Yodiwo_ePortType_Boolean = 4,
 		Yodiwo_ePortType_Color = 5,
 		Yodiwo_ePortType_String = 6,
+		Yodiwo_ePortType_VideoDescriptor = 7,
+		Yodiwo_ePortType_AudioDescriptor = 8,
+		Yodiwo_ePortType_BinaryResourceDescriptor = 9,
+		Yodiwo_ePortType_I2CDescriptor = 10,
+		Yodiwo_ePortType_JsonString = 11,
 	} Yodiwo_Plegma_ePortType;
 
 	typedef enum
@@ -43,8 +48,9 @@ extern "C" {
 	typedef enum
 	{
 		Yodiwo_ePortConf_None = 0,
-		Yodiwo_ePortConf_ReceiveAllEvents = 1,
+		Yodiwo_ePortConf_PropagateAllEvents = 1,
 		Yodiwo_ePortConf_IsTrigger = 2,
+		Yodiwo_ePortConf_DoNotNormalize = 4,
 	} Yodiwo_Plegma_ePortConf;
 
 	typedef enum
@@ -90,6 +96,7 @@ extern "C" {
 
 	typedef enum
 	{
+		Yodiwo_eConnectionFlags_None = 0,
 		Yodiwo_eConnectionFlags_CreateNewEndpoint = 1,
 		Yodiwo_eConnectionFlags_IsMasterEndpoint = 2,
 	} Yodiwo_Plegma_eConnectionFlags;
@@ -104,12 +111,14 @@ extern "C" {
 		Yodiwo_eNodeType_WSEndpoint = 5,
 		Yodiwo_eNodeType_Android = 6,
 		Yodiwo_eNodeType_WSSample = 200,
+		Yodiwo_eNodeType_RestSample = 201,
 	} Yodiwo_Plegma_eNodeType;
 
 	typedef enum
 	{
 		Yodiwo_eNodeCapa_None = 0,
 		Yodiwo_eNodeCapa_SupportsGraphSolving = 1,
+		Yodiwo_eNodeCapa_Scannable = 2,
 	} Yodiwo_Plegma_eNodeCapa;
 
 	typedef enum
@@ -168,6 +177,25 @@ extern "C" {
 		Yodiwo_PairingStates_Paired = 11,
 		Yodiwo_PairingStates_Failed = 12,
 	} Yodiwo_Plegma_NodePairing_PairingStates;
+
+	typedef enum
+	{
+		Yodiwo_Boolean_Format_TrueFalse = 0,
+		Yodiwo_Boolean_Format_OnOff = 1,
+		Yodiwo_Boolean_Format_YesNo = 2,
+		Yodiwo_Boolean_Format_EnabledDisabled = 3,
+		Yodiwo_Boolean_Format_EnableDisable = 4,
+		Yodiwo_Boolean_Format_ActiveInactive = 5,
+		Yodiwo_Boolean_Format_ActivateDeactivate = 6,
+		Yodiwo_Boolean_Format_ActivatedDeactivated = 7,
+	} Yodiwo_Plegma_PortStateSemantics_Boolean_Format;
+
+	typedef enum
+	{
+		Yodiwo_String_Case_None = 0,
+		Yodiwo_String_Case_Lower = 1,
+		Yodiwo_String_Case_Upper = 2,
+	} Yodiwo_Plegma_PortStateSemantics_String_Case;
 
 	typedef enum
 	{
@@ -264,9 +292,9 @@ extern "C" {
 	struct Yodiwo_Plegma_PortEventMsg;
 	struct Yodiwo_Plegma_VirtualBlockEvent;
 	struct Yodiwo_Plegma_VirtualBlockEventMsg;
-	struct Yodiwo_Plegma_PortStateReq;
+	struct Yodiwo_Plegma_PortStateGet;
 	struct Yodiwo_Plegma_PortState;
-	struct Yodiwo_Plegma_PortStateRsp;
+	struct Yodiwo_Plegma_PortStateSet;
 	struct Yodiwo_Plegma_ActivePortKeysMsg;
 	struct Yodiwo_Plegma_LocallyDeployedGraphsMsg;
 	struct Yodiwo_Plegma_GraphDeploymentReq;
@@ -276,11 +304,15 @@ extern "C" {
 	struct Yodiwo_Plegma_A2mcuSequencedCommands;
 	struct Yodiwo_Plegma_A2mcuCtrl;
 	struct Yodiwo_Plegma_A2mcuCtrlReq;
+	struct Yodiwo_Plegma_ThingTypeLibrary;
+	struct Yodiwo_Plegma_ModelTypeLibrary;
 	struct Yodiwo_Plegma_NodePairing_PairingNodeGetTokensRequest;
 	struct Yodiwo_Plegma_NodePairing_PairingNodeGetKeysRequest;
 	struct Yodiwo_Plegma_NodePairing_PairingServerTokensResponse;
 	struct Yodiwo_Plegma_NodePairing_PairingServerKeysResponse;
 	struct Yodiwo_Plegma_NodePairing_PairingNodePhase1Response;
+	struct Yodiwo_Plegma_PortStateSemantics_Decimal_Range;
+	struct Yodiwo_Plegma_PortStateSemantics_Integer_Range;
 	struct APIGenerator_AdditionalTypes_CNodeConfig;
 	struct APIGenerator_AdditionalTypes_CNodeCConfig;
 
@@ -512,9 +544,11 @@ extern "C" {
 		char* Description;
 		Yodiwo_Plegma_ioPortDirection ioDirection;
 		Yodiwo_Plegma_ePortType Type;
+		char* Semantics;
 		char* State;
 		uint32_t RevNum;
 		Yodiwo_Plegma_ePortConf ConfFlags;
+		uint64_t LastUpdatedTimestamp;
 	} Yodiwo_Plegma_Port_t;
 
 	typedef struct Yodiwo_Plegma_HttpLocationDescriptor
@@ -559,6 +593,7 @@ extern "C" {
 	{
 		char* Name;
 		char* Value;
+		char* Description;
 	} Yodiwo_Plegma_ConfigParameter_t;
 
 	///<summary>Collection of instructions ("hints") for how to present this thing in the Cyan UI</summary>
@@ -578,9 +613,11 @@ extern "C" {
 		char* Type;
 		char* BlockType;
 		bool Removable;
+		char* RESTUri;
 		Yodiwo_Plegma_ThingUIHints_t UIHints;
 	} Yodiwo_Plegma_Thing_t;
 
+	///<summary>General Response to request-type messages. Used to unblock requests waiting for responses that are of basic ACKnowledge type</summary>
 	typedef struct Yodiwo_Plegma_GenericRsp
 	{
 		int32_t SeqNo;
@@ -684,6 +721,7 @@ extern "C" {
 		Yodiwo_Plegma_eNodeCapa Capabilities;
 		Array_Yodiwo_Plegma_ThingType_t ThingTypes;
 		int32_t ThingsRevNum;
+		int32_t SupportedApiRev;
 		Array_string BlockLibraries;
 	} Yodiwo_Plegma_NodeInfoRsp_t;
 
@@ -727,11 +765,12 @@ extern "C" {
 		int32_t SeqNo;
 		Yodiwo_Plegma_eThingsOperation Operation;
 		char* ThingKey;
+		char* Key;
 		int32_t RevNum;
 	} Yodiwo_Plegma_ThingsGet_t;
 
-	///<summary>Node Things Response Response to a ThingsReq request
-///a ThingsRsp message should have:  - ThingsRsp.Operation set to ThingReq's operation              - ThingsRsp.Status set to True if ThingsReq was successfully handled and this Msg has valid data, False otherwise              - if ThingsRsp.Status is True, ThingsRsp.Data set to correspond to requested Req's operation, set to Null otherwise. ThingsRsp.Data is allowed to be null if originally requested operation does not expect back data, only status
+	///<summary>Node Things Response Response to a Yodiwo.API.Plegma.ThingsGet request
+///a ThingsSet message should have:  - Yodiwo.API.Plegma.ThingsSet.Operation set to ThingReq's operation              - Yodiwo.API.Plegma.ThingsSet.Status set to True if ThingsGet was successfully handled and this Msg has valid data, False otherwise              - if Yodiwo.API.Plegma.ThingsSet.Status is True, Yodiwo.API.Plegma.ThingsSet.Data set to correspond to requested Req's operation, set to Null otherwise. Yodiwo.API.Plegma.ThingsSet.Data is allowed to be null if originally requested operation does not expect back data, only status
 ///Direction: bidirectional (Node->Cloud and Cloud->Node)
 ///</summary>
 	typedef struct Yodiwo_Plegma_ThingsSet
@@ -792,15 +831,15 @@ extern "C" {
 		Array_Yodiwo_Plegma_VirtualBlockEvent_t BlockEvents;
 	} Yodiwo_Plegma_VirtualBlockEventMsg_t;
 
-	///<summary>Port State Request. Will result in a response of type Yodiwo.API.Plegma.PortStateRsp
+	///<summary>Port State Request. Will result in a response of type Yodiwo.API.Plegma.PortStateSet
 ///Direction: node->cloud
 ///</summary>
-	typedef struct Yodiwo_Plegma_PortStateReq
+	typedef struct Yodiwo_Plegma_PortStateGet
 	{
 		int32_t SeqNo;
 		Yodiwo_Plegma_ePortStateOperation Operation;
 		Array_string PortKeys;
-	} Yodiwo_Plegma_PortStateReq_t;
+	} Yodiwo_Plegma_PortStateGet_t;
 
 	///<summary>internal state of a referenced Port</summary>
 	typedef struct Yodiwo_Plegma_PortState
@@ -814,12 +853,12 @@ extern "C" {
 	///<summary>Active Port Keys Msg Informs Node of all currently active Ports (i.e. Ports that are connected and active in currently deployed graphs).  Should be used to 1. supress events from inactive ports, allowing more efficient use of medium, 2. sync Port states with the server
 ///Direction: Cloud -> Node
 ///</summary>
-	typedef struct Yodiwo_Plegma_PortStateRsp
+	typedef struct Yodiwo_Plegma_PortStateSet
 	{
 		int32_t SeqNo;
 		Yodiwo_Plegma_ePortStateOperation Operation;
 		Array_Yodiwo_Plegma_PortState_t PortStates;
-	} Yodiwo_Plegma_PortStateRsp_t;
+	} Yodiwo_Plegma_PortStateSet_t;
 
 	///<summary>Active Port Keys Msg Informs Node of all currently active Ports (i.e. Ports that are connected and active in currently deployed graphs).  Should be used by Nodes to supress events from inactive ports, allowing more efficient use of medium
 ///Direction: Cloud -> Node
@@ -846,6 +885,15 @@ extern "C" {
 		char* GraphDescriptor;
 	} Yodiwo_Plegma_GraphDeploymentReq_t;
 
+	///<summary></summary>
+	typedef struct Yodiwo_Plegma_ThingTypeLibrary
+	{
+	} Yodiwo_Plegma_ThingTypeLibrary_t;
+
+	typedef struct Yodiwo_Plegma_ModelTypeLibrary
+	{
+	} Yodiwo_Plegma_ModelTypeLibrary_t;
+
 	typedef struct Yodiwo_Plegma_NodePairing_PairingNodeGetTokensRequest
 	{
 		char* uuid;
@@ -854,7 +902,9 @@ extern "C" {
 		char* image;
 		char* description;
 		char* pathcss;
+		char* PairingCompletionInstructions;
 		Array_byte_t PublicKey;
+		bool NoUUIDAuthentication;
 	} Yodiwo_Plegma_NodePairing_PairingNodeGetTokensRequest_t;
 
 	typedef struct Yodiwo_Plegma_NodePairing_PairingNodeGetKeysRequest
@@ -880,6 +930,18 @@ extern "C" {
 		char* userNodeRegistrationUrl;
 		char* token2;
 	} Yodiwo_Plegma_NodePairing_PairingNodePhase1Response_t;
+
+	typedef struct Yodiwo_Plegma_PortStateSemantics_Decimal_Range
+	{
+		double Min;
+		double Max;
+	} Yodiwo_Plegma_PortStateSemantics_Decimal_Range_t;
+
+	typedef struct Yodiwo_Plegma_PortStateSemantics_Integer_Range
+	{
+		int64_t Min;
+		int64_t Max;
+	} Yodiwo_Plegma_PortStateSemantics_Integer_Range_t;
 
 	typedef struct APIGenerator_AdditionalTypes_CNodeConfig
 	{
@@ -955,17 +1017,21 @@ extern "C" {
 	int Yodiwo_Plegma_PortEventMsg_ToJson(char* json, size_t jsonSize, Yodiwo_Plegma_PortEventMsg_t *value);
 	int Yodiwo_Plegma_VirtualBlockEvent_ToJson(char* json, size_t jsonSize, Yodiwo_Plegma_VirtualBlockEvent_t *value);
 	int Yodiwo_Plegma_VirtualBlockEventMsg_ToJson(char* json, size_t jsonSize, Yodiwo_Plegma_VirtualBlockEventMsg_t *value);
-	int Yodiwo_Plegma_PortStateReq_ToJson(char* json, size_t jsonSize, Yodiwo_Plegma_PortStateReq_t *value);
+	int Yodiwo_Plegma_PortStateGet_ToJson(char* json, size_t jsonSize, Yodiwo_Plegma_PortStateGet_t *value);
 	int Yodiwo_Plegma_PortState_ToJson(char* json, size_t jsonSize, Yodiwo_Plegma_PortState_t *value);
-	int Yodiwo_Plegma_PortStateRsp_ToJson(char* json, size_t jsonSize, Yodiwo_Plegma_PortStateRsp_t *value);
+	int Yodiwo_Plegma_PortStateSet_ToJson(char* json, size_t jsonSize, Yodiwo_Plegma_PortStateSet_t *value);
 	int Yodiwo_Plegma_ActivePortKeysMsg_ToJson(char* json, size_t jsonSize, Yodiwo_Plegma_ActivePortKeysMsg_t *value);
 	int Yodiwo_Plegma_LocallyDeployedGraphsMsg_ToJson(char* json, size_t jsonSize, Yodiwo_Plegma_LocallyDeployedGraphsMsg_t *value);
 	int Yodiwo_Plegma_GraphDeploymentReq_ToJson(char* json, size_t jsonSize, Yodiwo_Plegma_GraphDeploymentReq_t *value);
+	int Yodiwo_Plegma_ThingTypeLibrary_ToJson(char* json, size_t jsonSize, Yodiwo_Plegma_ThingTypeLibrary_t *value);
+	int Yodiwo_Plegma_ModelTypeLibrary_ToJson(char* json, size_t jsonSize, Yodiwo_Plegma_ModelTypeLibrary_t *value);
 	int Yodiwo_Plegma_NodePairing_PairingNodeGetTokensRequest_ToJson(char* json, size_t jsonSize, Yodiwo_Plegma_NodePairing_PairingNodeGetTokensRequest_t *value);
 	int Yodiwo_Plegma_NodePairing_PairingNodeGetKeysRequest_ToJson(char* json, size_t jsonSize, Yodiwo_Plegma_NodePairing_PairingNodeGetKeysRequest_t *value);
 	int Yodiwo_Plegma_NodePairing_PairingServerTokensResponse_ToJson(char* json, size_t jsonSize, Yodiwo_Plegma_NodePairing_PairingServerTokensResponse_t *value);
 	int Yodiwo_Plegma_NodePairing_PairingServerKeysResponse_ToJson(char* json, size_t jsonSize, Yodiwo_Plegma_NodePairing_PairingServerKeysResponse_t *value);
 	int Yodiwo_Plegma_NodePairing_PairingNodePhase1Response_ToJson(char* json, size_t jsonSize, Yodiwo_Plegma_NodePairing_PairingNodePhase1Response_t *value);
+	int Yodiwo_Plegma_PortStateSemantics_Decimal_Range_ToJson(char* json, size_t jsonSize, Yodiwo_Plegma_PortStateSemantics_Decimal_Range_t *value);
+	int Yodiwo_Plegma_PortStateSemantics_Integer_Range_ToJson(char* json, size_t jsonSize, Yodiwo_Plegma_PortStateSemantics_Integer_Range_t *value);
 	int APIGenerator_AdditionalTypes_CNodeConfig_ToJson(char* json, size_t jsonSize, APIGenerator_AdditionalTypes_CNodeConfig_t *value);
 	int APIGenerator_AdditionalTypes_CNodeCConfig_ToJson(char* json, size_t jsonSize, APIGenerator_AdditionalTypes_CNodeCConfig_t *value);
 
@@ -1031,17 +1097,21 @@ extern "C" {
 	Yodiwo_Plegma_Json_e Yodiwo_Plegma_PortEventMsg_FromJson(char* json, size_t jsonSize, Yodiwo_Plegma_PortEventMsg_t *value);
 	Yodiwo_Plegma_Json_e Yodiwo_Plegma_VirtualBlockEvent_FromJson(char* json, size_t jsonSize, Yodiwo_Plegma_VirtualBlockEvent_t *value);
 	Yodiwo_Plegma_Json_e Yodiwo_Plegma_VirtualBlockEventMsg_FromJson(char* json, size_t jsonSize, Yodiwo_Plegma_VirtualBlockEventMsg_t *value);
-	Yodiwo_Plegma_Json_e Yodiwo_Plegma_PortStateReq_FromJson(char* json, size_t jsonSize, Yodiwo_Plegma_PortStateReq_t *value);
+	Yodiwo_Plegma_Json_e Yodiwo_Plegma_PortStateGet_FromJson(char* json, size_t jsonSize, Yodiwo_Plegma_PortStateGet_t *value);
 	Yodiwo_Plegma_Json_e Yodiwo_Plegma_PortState_FromJson(char* json, size_t jsonSize, Yodiwo_Plegma_PortState_t *value);
-	Yodiwo_Plegma_Json_e Yodiwo_Plegma_PortStateRsp_FromJson(char* json, size_t jsonSize, Yodiwo_Plegma_PortStateRsp_t *value);
+	Yodiwo_Plegma_Json_e Yodiwo_Plegma_PortStateSet_FromJson(char* json, size_t jsonSize, Yodiwo_Plegma_PortStateSet_t *value);
 	Yodiwo_Plegma_Json_e Yodiwo_Plegma_ActivePortKeysMsg_FromJson(char* json, size_t jsonSize, Yodiwo_Plegma_ActivePortKeysMsg_t *value);
 	Yodiwo_Plegma_Json_e Yodiwo_Plegma_LocallyDeployedGraphsMsg_FromJson(char* json, size_t jsonSize, Yodiwo_Plegma_LocallyDeployedGraphsMsg_t *value);
 	Yodiwo_Plegma_Json_e Yodiwo_Plegma_GraphDeploymentReq_FromJson(char* json, size_t jsonSize, Yodiwo_Plegma_GraphDeploymentReq_t *value);
+	Yodiwo_Plegma_Json_e Yodiwo_Plegma_ThingTypeLibrary_FromJson(char* json, size_t jsonSize, Yodiwo_Plegma_ThingTypeLibrary_t *value);
+	Yodiwo_Plegma_Json_e Yodiwo_Plegma_ModelTypeLibrary_FromJson(char* json, size_t jsonSize, Yodiwo_Plegma_ModelTypeLibrary_t *value);
 	Yodiwo_Plegma_Json_e Yodiwo_Plegma_NodePairing_PairingNodeGetTokensRequest_FromJson(char* json, size_t jsonSize, Yodiwo_Plegma_NodePairing_PairingNodeGetTokensRequest_t *value);
 	Yodiwo_Plegma_Json_e Yodiwo_Plegma_NodePairing_PairingNodeGetKeysRequest_FromJson(char* json, size_t jsonSize, Yodiwo_Plegma_NodePairing_PairingNodeGetKeysRequest_t *value);
 	Yodiwo_Plegma_Json_e Yodiwo_Plegma_NodePairing_PairingServerTokensResponse_FromJson(char* json, size_t jsonSize, Yodiwo_Plegma_NodePairing_PairingServerTokensResponse_t *value);
 	Yodiwo_Plegma_Json_e Yodiwo_Plegma_NodePairing_PairingServerKeysResponse_FromJson(char* json, size_t jsonSize, Yodiwo_Plegma_NodePairing_PairingServerKeysResponse_t *value);
 	Yodiwo_Plegma_Json_e Yodiwo_Plegma_NodePairing_PairingNodePhase1Response_FromJson(char* json, size_t jsonSize, Yodiwo_Plegma_NodePairing_PairingNodePhase1Response_t *value);
+	Yodiwo_Plegma_Json_e Yodiwo_Plegma_PortStateSemantics_Decimal_Range_FromJson(char* json, size_t jsonSize, Yodiwo_Plegma_PortStateSemantics_Decimal_Range_t *value);
+	Yodiwo_Plegma_Json_e Yodiwo_Plegma_PortStateSemantics_Integer_Range_FromJson(char* json, size_t jsonSize, Yodiwo_Plegma_PortStateSemantics_Integer_Range_t *value);
 	Yodiwo_Plegma_Json_e APIGenerator_AdditionalTypes_CNodeConfig_FromJson(char* json, size_t jsonSize, APIGenerator_AdditionalTypes_CNodeConfig_t *value);
 	Yodiwo_Plegma_Json_e APIGenerator_AdditionalTypes_CNodeCConfig_FromJson(char* json, size_t jsonSize, APIGenerator_AdditionalTypes_CNodeCConfig_t *value);
 
