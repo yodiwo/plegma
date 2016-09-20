@@ -1,0 +1,130 @@
+<resources>
+
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_pairing">Pairing Activity</string>
+    <string name="hardware_info">Hardware  Info</string>
+
+    <!-- UI Settings  -->
+    <string name="pref_device_name_key">device_name</string>
+    <string name="pref_device_name_default">Android</string>
+    <string name="pref_app_version">v1.0</string>
+    <string name="pref_app_version_key">app_version</string>
+    <string name="pref_reset_app_key">reset_app</string>
+    <string name="supported">Supported</string>
+    <string name="not_supported">Not supported</string>
+    <string name="enabled">Enabled</string>
+    <string name="disabled">Disabled</string>
+    <string name="gps">GPS</string>
+    <string name="wifi">WiFi</string>
+    <string name="mobile">Mobile</string>
+    <string name="network">Network</string>
+    <string name="gps_network">Gps/Network</string>
+
+    <!-- Log data -->
+    <string name="pref_log_data_key">log_data</string>
+    <string name="pref_log_data_default">true</string>
+
+    <!-- Sensors -->
+    <string name="ListSensors">Status of built-in Things</string>
+    <string name="Accelerometer">Accelerometer</string>
+    <string name="Gyroscope">Gyroscope</string>
+    <string name="Bluetooth">Bluetooth</string>
+    <string name="Brightness">Brightness</string>
+    <string name="Camera">Camera</string>
+    <string name="Location">Location</string>
+    <string name="NFC">NFC</string>
+    <string name="Proximity">Proximity</string>
+    <string name="Torch">Torch</string>
+    <string name="Rotation">Rotation</string>
+    <string name="Network">Network</string>
+    <string name="Status">Status</string>
+
+    <!-- Rest Settings  -->
+    <string name="pref_server_address_key">server_address</string>
+    <string name="pref_server_address_default">tcyan.yodiwo.com</string>
+    <string name="pref_server_use_ssl_key">server_use_ssl</string>
+    <string name="pref_server_use_ssl_default">true</string>
+    <string name="title_activity_pairing_web">PairingWebActivity</string>
+
+    <!-- MQTT Settings -->
+    <string name="pref_mqtt_address_key">mqtt_address</string>
+    <string name="pref_mqtt_address_default">tcyan.yodiwo.com</string>
+    <string name="pref_mqtt_use_ssl_key">mqtt_use_ssl</string>
+    <string name="pref_mqtt_use_ssl_default">true</string>
+
+    <!-- Transport protocol settings -->
+    <string name="pref_transport_protocol">transport protocol</string>
+    <string name="pref_transport_protocol_default">MQTT</string>
+    <string-array name="TransportProtocol">
+        <item>MQTT</item>
+        <item>GCM</item>
+    </string-array>
+    <string-array name="TransportProtocolValues">
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+    <!-- GCM settings -->
+    <string name="pref_gcm_sender_id_default">1234567</string>
+    <string name="pref_gcm_sender_id_key">sender_id</string>
+
+    <!-- Notifications settings -->
+    <string name="pref_notifications_enable_default">true</string>
+    <string name="pref_notifications_enable_key">notification_enable</string>
+    <string name="pref_notification_sound_mode_key">sound_mode</string>
+    <string name="pref_notification_sound_mode_default">Silent</string>
+    <string-array name="SoundMode">
+        <item>Silent</item>
+        <item>Sound</item>
+        <item>Vibrate</item>
+        <item>Sound and vibrate</item>
+    </string-array>
+    <string-array name="SoundModeValues">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
+    <!-- Pairing Settings  -->
+    <string name="pref_pairing_uuid_key">pairing_uuid</string>
+    <string name="pref_pairing_nodekey_key">pairing_node_key</string>
+    <string name="pref_pairing_nodesecret_key">pairing_node_secret</string>
+    <string name="pref_pairing_token1_key">pairing_token1_key</string>
+    <string name="pref_pairing_token2_key">pairing_token2_key</string>
+    <string name="paired">Paired</string>
+    <string name="unpaired">Unpaired</string>
+    <string name="pairing_ongoing">Pairing ongoing</string>
+    <string name="pairing_success">Pairing successful</string>
+    <string name="failed_to_get_tokens">Failed to get tokens</string>
+    <string name="failed_to_get_keys">Failed to get keys</string>
+    <string name="pref_pairing_subnodekey_key">pairing_subnode_key</string>
+
+    <!-- Thing Settings -->
+    <string name="pref_things_uuid_key">things_uuid</string>
+
+    <!-- Node Settings -->
+    <string name="pref_node_things_revnum">node_things_revnum</string>
+
+    <!-- Service Settings  -->
+    <string name="pref_service_brightness_key">service_brightness</string>
+    <string name="pref_service_brightness_default">true</string>
+    <string name="pref_service_accelerometer_key">service_accelerometer</string>
+    <string name="pref_service_accelerometer_default">true</string>
+    <string name="pref_service_gyroscope_key">service_gyroscope</string>
+    <string name="pref_service_gyroscope_default">true</string>
+    <string name="pref_service_rotation_key">service_rotation</string>
+    <string name="pref_service_rotation_default">true</string>
+    <string name="pref_service_location_key">service_location</string>
+    <string name="pref_service_location_default">false</string>
+    <string name="pref_service_wifi_key">service_wifi</string>
+    <string name="pref_service_wifi_default">false</string>
+    <string name="pref_service_bluetooth_key">service_bluetooth</string>
+    <string name="pref_service_bluetooth_default">false</string>
+    <string name="pref_about_version_key">settings_about_version_key</string>
+    <string name="prefTitle_about_version_key">Application Version</string>
+    <string name="pref_service_yodiup_address_key">service_yodiup_address_key</string>
+    <string name="pref_service_yodiup_address_title">YodiUp Address</string>
+    <string name="pref_service_yodiup_address_default">https://tup.yodiwo.com</string>
+
+</resources>

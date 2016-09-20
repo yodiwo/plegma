@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_id": "api-project-1068342325007",
+    "project_number": "1068342325007",
+    "name": "Yodiwo"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "",
+        "client_id": "android:com.yodiwo.yagent",
+        "client_type": 1,
+        "android_client_info": {
+          "package_name": "com.yodiwo.yagent",
+          "certificate_hash": []
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1068342325007-ajmvcpfshpick4hknbjjbrs45jjbl5k0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.yodiwo.yagent",
+            "certificate_hash": "5A026D0B0C8F953F8CC5CA11BF3F298EEF61A48B"
+          }
+        },
+        {
+          "client_id": "1068342325007-5briru8ugb9jup3saqp5nc8n4962m9bl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "cloud_messaging_service": {
+          "status": 2,
+          "apns_config": []
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1068342325007-5briru8ugb9jup3saqp5nc8n4962m9bl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "google_signin_service": {
+          "status": 2
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1068342325007:android:a309c6729752ee8a",
+        "client_id": "android:com.yodiwo.androidagent",
+        "client_type": 1,
+        "android_client_info": {
+          "package_name": "com.yodiwo.androidagent",
+          "certificate_hash": []
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1068342325007-5briru8ugb9jup3saqp5nc8n4962m9bl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "cloud_messaging_service": {
+          "status": 2,
+          "apns_config": []
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "google_signin_service": {
+          "status": 1
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "client_info": [],
+  "ARTIFACT_VERSION": "1"
+}
