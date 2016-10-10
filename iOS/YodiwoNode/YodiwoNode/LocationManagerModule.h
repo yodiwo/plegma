@@ -13,4 +13,12 @@
 
 - (void)start;
 
+- (void)startRegioningBeacons;
+
+- (void)startRangingBeacons;
+
+- (void)stopRegioningBeacons;
+
+- (void)stopRangingBeacons;
+
 @end

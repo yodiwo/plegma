@@ -44,13 +44,13 @@
 
 //******************************************************************************
 
-@implementation PortStateReq
+@implementation PortStateGet
 
 @end
 
 //******************************************************************************
 
-@implementation PortStateRsp
+@implementation PortStateSet
 
 @end
 

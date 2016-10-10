@@ -13,7 +13,6 @@
 		792D6BA51BCB977A0089E4C1 /* BluetoothManagerModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 792D6BA41BCB977A0089E4C1 /* BluetoothManagerModule.m */; };
 		7932E9A71B742F7700697018 /* PlegmaApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 7932E9A61B742F7700697018 /* PlegmaApi.m */; };
 		7932E9AA1B76AC1000697018 /* LocationManagerModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 7932E9A91B76AC1000697018 /* LocationManagerModule.m */; };
-		7932E9AD1B777D4200697018 /* Beacon.m in Sources */ = {isa = PBXBuildFile; fileRef = 7932E9AC1B777D4200697018 /* Beacon.m */; };
 		793B26481C0F08250074D041 /* ProtocolWrappers.m in Sources */ = {isa = PBXBuildFile; fileRef = 793B26471C0F08250074D041 /* ProtocolWrappers.m */; };
 		793B264B1C118C970074D041 /* Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 793B264A1C118C970074D041 /* Helper.m */; };
 		795299281B6B8FB30065CAEC /* NodeThingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 795299271B6B8FB20065CAEC /* NodeThingsViewController.m */; };
@@ -67,8 +66,6 @@
 		7932E9A61B742F7700697018 /* PlegmaApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlegmaApi.m; sourceTree = "<group>"; };
 		7932E9A81B76AC1000697018 /* LocationManagerModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationManagerModule.h; sourceTree = "<group>"; };
 		7932E9A91B76AC1000697018 /* LocationManagerModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationManagerModule.m; sourceTree = "<group>"; };
-		7932E9AB1B777D4200697018 /* Beacon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Beacon.h; sourceTree = "<group>"; };
-		7932E9AC1B777D4200697018 /* Beacon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Beacon.m; sourceTree = "<group>"; };
 		793B26461C0F08250074D041 /* ProtocolWrappers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProtocolWrappers.h; sourceTree = "<group>"; };
 		793B26471C0F08250074D041 /* ProtocolWrappers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProtocolWrappers.m; sourceTree = "<group>"; };
 		793B26491C118C970074D041 /* Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Helper.h; sourceTree = "<group>"; };
@@ -206,8 +203,6 @@
 				7963DC071B667D5E00FDC59D /* SettingsVault.m */,
 				797BF7161B723585008F2887 /* NodeThingsRegistry.h */,
 				797BF7171B723585008F2887 /* NodeThingsRegistry.m */,
-				7932E9AB1B777D4200697018 /* Beacon.h */,
-				7932E9AC1B777D4200697018 /* Beacon.m */,
 				793B26491C118C970074D041 /* Helper.h */,
 				793B264A1C118C970074D041 /* Helper.m */,
 			);
@@ -535,7 +530,6 @@
 				796970DA1B9585EF00F70C7A /* Mqtt.m in Sources */,
 				7952992F1B6D78C30065CAEC /* Thing.m in Sources */,
 				795299381B6E2ABB0065CAEC /* Keys.m in Sources */,
-				7932E9AD1B777D4200697018 /* Beacon.m in Sources */,
 				79DDAC9C1B619A03007AF94E /* main.m in Sources */,
 				79BF62391B6273FB00057140 /* YABPairingNodeGetTokensRequest.m in Sources */,
 				792D6BA51BCB977A0089E4C1 /* BluetoothManagerModule.m in Sources */,

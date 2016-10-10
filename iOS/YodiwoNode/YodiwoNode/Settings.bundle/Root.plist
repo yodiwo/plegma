@@ -76,32 +76,6 @@
 			<key>DefaultValue</key>
 			<true/>
 		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSGroupSpecifier</string>
-			<key>Title</key>
-			<string>Monitored iBeacons</string>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSTextFieldSpecifier</string>
-			<key>Title</key>
-			<string>UUID1:</string>
-			<key>Key</key>
-			<string>IBeaconParamsMonitoredUUID1</string>
-			<key>DefaultValue</key>
-			<string>00000000-0000-0000-0000-000000000000</string>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSTextFieldSpecifier</string>
-			<key>Title</key>
-			<string>UUID2:</string>
-			<key>Key</key>
-			<string>IBeaconParamsMonitoredUUID2</string>
-			<key>DefaultValue</key>
-			<string>00000000-0000-0000-0000-000000000001</string>
-		</dict>
 	</array>
 	<key>StringsTable</key>
 	<string>Root</string>

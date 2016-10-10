@@ -10,7 +10,6 @@
 #import "NodeThingsRegistry.h"
 #import "NodeController.h"
 #import "SettingsVault.h"
-#import "Beacon.h"
 
 #import <UIKit/UIKit.h>
 
@@ -20,7 +19,14 @@
 
 @property (strong, nonatomic) CLLocationManager *locationManager;
 
-@property (strong, nonatomic) NSMutableDictionary *beaconsDict; // of <uuid, Beacon>
+@property (strong, nonatomic) NSMutableSet *beaconsToRange; // of CLBeacon
+
+@property (strong, nonatomic) NSMutableDictionary *rangedBeaconsDict; // of <uuid, CLBeacon>
+
+@property (strong, nonatomic) NSMutableSet *beaconRegionsToMonitor; // of CLBeaconRegion
+
+@property (strong, nonatomic) NSMutableDictionary *regionedBeaconsDict; // of <uuid, CLBeaconRegion>
+
 
 @end
 
@@ -40,78 +46,104 @@
 
         _locationManager = [[CLLocationManager alloc] init];
 
+        if ([_locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]) {
+            [_locationManager requestAlwaysAuthorization];
+        }
+
         [_locationManager setDelegate:self];
     }
 
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(yodiwoThingUpdateNotification:)
+                                                 name:@"yodiwoThingUpdateNotification"
+                                               object:nil];
+    
     return _locationManager;
 }
 
--(NSMutableDictionary *)beaconsDict {
-    if (_beaconsDict == nil) {
-        _beaconsDict = [[NSMutableDictionary alloc] init];
+-(NSMutableDictionary *)rangedBeaconsDict {
+    if (_rangedBeaconsDict == nil) {
+        _rangedBeaconsDict = [[NSMutableDictionary alloc] init];
     }
 
-    return _beaconsDict;
+    return _rangedBeaconsDict;
 }
+
+-(NSMutableDictionary *)regionedBeaconsDict {
+    if (_regionedBeaconsDict == nil) {
+        _regionedBeaconsDict = [[NSMutableDictionary alloc] init];
+    }
+
+    return _regionedBeaconsDict;
+}
+
+-(NSMutableSet *)beaconsToRange {
+    if (_beaconsToRange == nil) {
+        _beaconsToRange = [[NSMutableSet alloc] init];
+    }
+
+    return _beaconsToRange;
+}
+
+-(NSMutableSet *)beaconRegionsToMonitor {
+    if (_beaconRegionsToMonitor == nil) {
+        _beaconRegionsToMonitor = [[NSMutableSet alloc] init];
+    }
+
+    return _beaconRegionsToMonitor;
+}
+
+
 //******************************************************************************
-
-
 
 
 ///***** Public api
 
 - (void)start {
 
-    if ([self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
-        [self.locationManager requestWhenInUseAuthorization];
-    }
-
     // GPS
     self.locationManager.distanceFilter = 100.0f; // accuracy in meters
     [self.locationManager startUpdatingLocation];
 
-    // iBeacon
-    Beacon *b1 = [[Beacon alloc] initWithFriendlyName:@"MonitoredUUID1"
-                                    shortDescription:@"Monitored beacon 1"
-                                   iBeaconIdentifier:@"MonitoredUUID1"
-                                         iBeaconUUID:[[SettingsVault sharedSettingsVault] getIBeaconParamsMonitoredUUID1]
-                                        iBeaconMajor:0
-                                        iBeaconMinor:0];
-
-    if([self isBeaconNameValid:b1.ibeacon.identifier] &&
-       [self isBeaconUuidValid:b1.ibeacon.proximityUUID.UUIDString]) {
-        [self.beaconsDict setObject:b1 forKey:b1.ibeacon.proximityUUID.UUIDString];
-    }
-
-    Beacon *b2 = [[Beacon alloc] initWithFriendlyName:@"MonitoredUUID2"
-                                     shortDescription:@"Monitored beacon 2"
-                                    iBeaconIdentifier:@"MonitoredUUID2"
-                                          iBeaconUUID:[[SettingsVault sharedSettingsVault] getIBeaconParamsMonitoredUUID2]
-                                         iBeaconMajor:0
-                                         iBeaconMinor:0];
-
-    if([self isBeaconNameValid:b2.ibeacon.identifier] &&
-       [self isBeaconUuidValid:b2.ibeacon.proximityUUID.UUIDString]) {
-        [self.beaconsDict setObject:b2 forKey:b2.ibeacon.proximityUUID.UUIDString];
-    }
-
-    for (Beacon *b in [self.beaconsDict allValues]) {
-        [self.locationManager startMonitoringForRegion:b.ibeacon];
-        [self.locationManager startRangingBeaconsInRegion:b.ibeacon];
-    }
-
     // Proximity sensor
     // Enabled monitoring of the sensor
     [[UIDevice currentDevice] setProximityMonitoringEnabled:YES];
-
-    // Set up an observer for proximity changes
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notifyProximitySensorStateChange:)
                                                  name:@"UIDeviceProximityStateDidChangeNotification" object:nil];
+
+    // iBeacon ranging
+    [self startRangingBeacons];
 }
+
+- (void)startRegioningBeacons {
+    for (CLBeaconRegion *br in self.beaconRegionsToMonitor) {
+        [self.locationManager startMonitoringForRegion:br];
+    }
+}
+
+- (void)stopRegioningBeacons {
+    for (CLBeaconRegion *br in self.beaconRegionsToMonitor) {
+        [self.locationManager stopMonitoringForRegion:br];
+    }
+}
+
+- (void)startRangingBeacons {
+    for (NSString *uuid in self.beaconsToRange) {
+        CLBeaconRegion *br = [[CLBeaconRegion alloc] initWithProximityUUID:[[NSUUID alloc] initWithUUIDString:uuid]
+                                                                identifier:uuid];
+        [self.locationManager startRangingBeaconsInRegion:br];
+    }
+}
+
+-(void)stopRangingBeacons {
+    for (NSString *uuid in self.beaconsToRange) {
+        CLBeaconRegion *br = [[CLBeaconRegion alloc] initWithProximityUUID:[[NSUUID alloc] initWithUUIDString:uuid]
+                                                                identifier:uuid];
+        [self.locationManager stopRangingBeaconsInRegion:br];
+    }
+}
+
 //******************************************************************************
-
-
-
 
 ///***** Delegates
 
@@ -171,35 +203,34 @@
     NSLog(@"Location manager failed: %@", error);
 }
 
+
 -(void)locationManager:(CLLocationManager *)manager
        didRangeBeacons:(NSArray *)beacons
               inRegion:(CLBeaconRegion *)region {
 
     NSString *message = @"";
 
-    // TODO: Add this as thing's ConfigParameter and factor out common code
-    NSString *monitoringMode = @"all";
-
     if(beacons.count > 0) {
-        if ([monitoringMode  isEqual: @"nearest"]) {
-            CLBeacon *nearestBeacon = beacons.firstObject;
+
+        // Clear ranged beacons dictionary
+        [self.rangedBeaconsDict removeAllObjects];
+
+        // Loop through all ranged beacons
+        for (CLBeacon *rangedB in beacons) {
 
             // Check if beacon exists in our monitored beacons
-            Beacon *b = [self.beaconsDict objectForKey:nearestBeacon.proximityUUID.UUIDString];
-            if (b == nil) {
+            if ([self.beaconsToRange containsObject:rangedB.proximityUUID.UUIDString] == NO) {
                 return;
             }
 
-            // Check if proximity to this beacon has changed since last notification
-            if(nearestBeacon.proximity == b.lastProximity) {
+            if (rangedB.proximity == CLProximityUnknown) {
                 return;
             }
 
-            // Update proximity level of this beacon
-            b.lastProximity = nearestBeacon.proximity;
-            [self.beaconsDict setObject:b forKey:b.ibeacon.proximityUUID.UUIDString];
+            // Set beacon in ranged beacons dictionary
+            [self.rangedBeaconsDict setObject:rangedB forKey:rangedB.proximityUUID.UUIDString];
 
-            switch(nearestBeacon.proximity) {
+            switch(rangedB.proximity) {
                 case CLProximityFar:
                     message = @"Far";
                     break;
@@ -215,12 +246,12 @@
             }
 
             // Notify cloud service
-            NSString *beaconUUID = nearestBeacon.proximityUUID.UUIDString;
-            NSString *beaconMajor = [nearestBeacon.major stringValue];
-            NSString *beaconMinor = [nearestBeacon.minor stringValue];
+            NSString *beaconUUID = rangedB.proximityUUID.UUIDString;
+            NSString *beaconMajor = [rangedB.major stringValue];
+            NSString *beaconMinor = [rangedB.minor stringValue];
             NSString *proximity = message;
             NSString *rssi = [NSString stringWithFormat:@"%ld",
-                              (long)nearestBeacon.rssi];
+                              (long)rangedB.rssi];
 
             NSArray *data = [NSArray arrayWithObjects:
                              beaconUUID,  // Port 0 update
@@ -231,91 +262,26 @@
                              nil];
             [[NodeController sharedNodeController] sendPortEventMsgFromThing:ThingNameLocationBeacon
                                                                     withData:data];
+            // Send local notification
+            NSString *localNotificationMsg = [[[@"Beacon: " stringByAppendingString:beaconUUID]
+                                               stringByAppendingString:@", Proximity: "]
+                                              stringByAppendingString:message];
+            [self sendLocalNotificationWithMessage:localNotificationMsg];
 
-            [self sendLocalNotificationWithMessage:message];
-            NSLog(@"%@", message);
+            // Debug log
+            NSLog(@"%@", localNotificationMsg);
 
             // Notify interested UIViewController
             NSDictionary *notParams = [NSDictionary dictionaryWithObjectsAndKeys:
                                        ThingNameLocationBeacon, @"thingName",
+                                       beaconUUID, @"uuid",
+                                       beaconMajor, @"major",
+                                       beaconMinor, @"minor",
+                                       rssi, @"rssi",
                                        proximity, @"proximity", nil];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"yodiwoUIUpdateNotification"
                                                                 object:self
                                                               userInfo:notParams];
-        }
-        else if([monitoringMode  isEqual: @"all"]) {
-
-            // Loop through all ranged beacons
-            for (CLBeacon *rangedB in beacons) {
-
-                // Check if beacon exists in our monitored beacons
-                Beacon *b = [self.beaconsDict objectForKey:rangedB.proximityUUID.UUIDString];
-                if (b == nil) {
-                    return;
-                }
-
-                // Check if proximity to this beacon has changed since last notification
-                if(rangedB.proximity == b.lastProximity) {
-                    return;
-                }
-
-                // Update proximity level of this beacon
-                b.lastProximity = rangedB.proximity;
-                [self.beaconsDict setObject:b forKey:b.ibeacon.proximityUUID.UUIDString];
-
-                switch(rangedB.proximity) {
-                    case CLProximityFar:
-                        message = @"Far";
-                        break;
-                    case CLProximityNear:
-                        message = @"Near";
-                        break;
-                    case CLProximityImmediate:
-                        message = @"Immediate";
-                        break;
-                    case CLProximityUnknown:
-                        message = @"Unknown";
-                        break;
-                }
-
-                // Notify cloud service
-                NSString *beaconUUID = rangedB.proximityUUID.UUIDString;
-                NSString *beaconMajor = [rangedB.major stringValue];
-                NSString *beaconMinor = [rangedB.minor stringValue];
-                NSString *proximity = message;
-                NSString *rssi = [NSString stringWithFormat:@"%ld",
-                                  (long)rangedB.rssi];
-
-                NSArray *data = [NSArray arrayWithObjects:
-                                 beaconUUID,  // Port 0 update
-                                 beaconMajor, // Port 1 update
-                                 beaconMinor, // Port 2 update
-                                 proximity,   // Port 3 update
-                                 rssi,        // Port 4 update
-                                 nil];
-                [[NodeController sharedNodeController] sendPortEventMsgFromThing:ThingNameLocationBeacon
-                                                                        withData:data];
-                // Send local notification
-                NSString *localNotificationMsg = [[[@"Beacon: " stringByAppendingString:beaconUUID]
-                                                        stringByAppendingString:@", Proximity: "]
-                                                            stringByAppendingString:message];
-                [self sendLocalNotificationWithMessage:localNotificationMsg];
-
-                // Debug log
-                NSLog(@"%@", localNotificationMsg);
-
-                // Notify interested UIViewController
-                NSDictionary *notParams = [NSDictionary dictionaryWithObjectsAndKeys:
-                                           ThingNameLocationBeacon, @"thingName",
-                                           beaconUUID, @"uuid",
-                                           beaconMajor, @"major",
-                                           beaconMinor, @"minor",
-                                           rssi, @"rssi",
-                                           proximity, @"proximity", nil];
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"yodiwoUIUpdateNotification"
-                                                                    object:self
-                                                                  userInfo:notParams];
-            }
         }
     }
 }
@@ -358,6 +324,44 @@
     [[NodeController sharedNodeController] sendPortEventMsgFromThing:ThingNameLocationProximity withData:data];
 }
 
+- (void)yodiwoThingUpdateNotification:(NSNotification *)notification {
+
+    // Get notification parameters
+    NSDictionary *notParams = [notification userInfo];
+
+    Thing *thing = [notParams objectForKey:@"thing"];
+    if (thing == nil) {
+        return;
+    }
+
+    if ([[[ThingKey alloc] initFromString:thing.ThingKey].thingUID isEqualToString:ThingNameLocationBeacon]) {
+        for (ConfigParameter *cp in thing.Config) {
+            if ([cp.Name isEqualToString:@"RangedUUIDList"]) {
+
+                // Clear set
+                [self.beaconsToRange removeAllObjects];
+
+                NSArray *uuidsToRange = [cp.Value componentsSeparatedByString:@","];
+
+                // If empty stop ranging
+                if ([uuidsToRange count] == 0) {
+                    [self stopRangingBeacons];
+                    return;
+                }
+
+                for (NSString *uuid in uuidsToRange) {
+
+                    // Add in set
+                    if ([self isBeaconUuidValid:uuid]) {
+                        [self.beaconsToRange addObject:uuid];
+                    }
+                }
+
+                [self startRangingBeacons];
+            }
+        }
+    }
+}
 //******************************************************************************
 
 

@@ -53,8 +53,8 @@ typedef NS_ENUM(NSInteger, EnumApiMessages)
     EnumApiMessages_ThingsGet = 4,
     EnumApiMessages_ThingsSet = 5,
     EnumApiMessages_PortEventMsg = 6,
-    EnumApiMessages_PortStateReq = 7,
-    EnumApiMessages_PortStateRsp = 8,
+    EnumApiMessages_PortStateGet = 7,
+    EnumApiMessages_PortStateSet = 8,
     EnumApiMessages_ActivePortKeysMsg = 9,
     EnumApiMessages_PingReq = 10,
     EnumApiMessages_PingRsp = 11,
@@ -115,10 +115,10 @@ volatile NSInteger __monotonicId = 0;
                                          [[PlegmaApi apiMsgNames] objectForKey:[ThingsSet class]],
                 [NSNumber numberWithInteger:EnumApiMessages_PortEventMsg],
                                          [[PlegmaApi apiMsgNames] objectForKey:[PortEventMsg class]],
-                [NSNumber numberWithInteger:EnumApiMessages_PortStateReq],
-                                         [[PlegmaApi apiMsgNames] objectForKey:[PortStateReq class]],
-                [NSNumber numberWithInteger:EnumApiMessages_PortStateRsp],
-                                         [[PlegmaApi apiMsgNames] objectForKey:[PortStateRsp class]],
+                [NSNumber numberWithInteger:EnumApiMessages_PortStateGet],
+                                         [[PlegmaApi apiMsgNames] objectForKey:[PortStateGet class]],
+                [NSNumber numberWithInteger:EnumApiMessages_PortStateSet],
+                                         [[PlegmaApi apiMsgNames] objectForKey:[PortStateSet class]],
                 [NSNumber numberWithInteger:EnumApiMessages_ActivePortKeysMsg],
                                          [[PlegmaApi apiMsgNames] objectForKey:[ActivePortKeysMsg class]],
                 [NSNumber numberWithInteger:EnumApiMessages_PingReq],
@@ -205,9 +205,9 @@ volatile NSInteger __monotonicId = 0;
     }
 
     Thing *thing = [self.thingsDict objectForKey:thingKey];
-    for (Port *port in thing.ports) {
-        [self.portKeyToPortDict removeObjectForKey:port.portKey];
-        [self.portKeyToThingDict removeObjectForKey:port.portKey];
+    for (Port *port in thing.Ports) {
+        [self.portKeyToPortDict removeObjectForKey:port.PortKey];
+        [self.portKeyToThingDict removeObjectForKey:port.PortKey];
     }
 
     [self.thingsDict removeObjectForKey:thingKey];
@@ -219,11 +219,11 @@ volatile NSInteger __monotonicId = 0;
         return false;
     }
 
-    [self.thingsDict setObject:thing forKey:thing.thingKey];
+    [self.thingsDict setObject:thing forKey:thing.ThingKey];
 
-    for (Port *port in thing.ports) {
-        [self.portKeyToPortDict setObject:port forKey:port.portKey];
-        [self.portKeyToThingDict setObject:thing forKey:port.portKey];
+    for (Port *port in thing.Ports) {
+        [self.portKeyToPortDict setObject:port forKey:port.PortKey];
+        [self.portKeyToThingDict setObject:thing forKey:port.PortKey];
     }
 
     return true;
@@ -247,15 +247,15 @@ volatile NSInteger __monotonicId = 0;
 
 
     NSUInteger portIndex = 0;
-    for (Port *port in ((Thing *)self.thingsDict[thingKey]).ports) {
-        if ([self.activePortKeysSet containsObject:port.portKey]) {
+    for (Port *port in ((Thing *)self.thingsDict[thingKey]).Ports) {
+        if ([self.activePortKeysSet containsObject:port.PortKey]) {
 
             // Update port state
-            port.state = [data objectAtIndex:portIndex];
+            port.State = [data objectAtIndex:portIndex];
 
             // Construct port event
             PortEvent *portEvent = [[PortEvent alloc] init];
-            portEvent.PortKey =  port.portKey;
+            portEvent.PortKey =  port.PortKey;
             portEvent.State = [data objectAtIndex:portIndex];
             if (portEvent.State == nil) {
                 NSAssert(true, @"About to send PortEvent with nil state");
@@ -294,15 +294,15 @@ volatile NSInteger __monotonicId = 0;
     msg.PortEvents = (id)[NSMutableArray new];
 
 
-    Port *port = [((Thing *)self.thingsDict[thingKey]).ports objectAtIndex:portIndex];
-    if ([self.activePortKeysSet containsObject:port.portKey]) {
+    Port *port = [((Thing *)self.thingsDict[thingKey]).Ports objectAtIndex:portIndex];
+    if ([self.activePortKeysSet containsObject:port.PortKey]) {
 
         // Update port state
-        port.state = state;
+        port.State = state;
 
         // Construct port event
         PortEvent *portEvent = [[PortEvent alloc] init];
-        portEvent.PortKey =  port.portKey;
+        portEvent.PortKey =  port.PortKey;
         portEvent.State = state;
         NSAssert(portEvent.State != nil,
                  @"About to send PortEvent with nil state");
@@ -341,7 +341,7 @@ volatile NSInteger __monotonicId = 0;
             rsp.ThingsRevNum = [[SettingsVault sharedSettingsVault] getNodeThingsRevNum];
             for (Thing *thing in [self.thingsDict allValues]) {
                 NodeThingType *nodeThingType = [NodeThingType new];
-                nodeThingType.Type = thing.type;
+                nodeThingType.Type = thing.Type;
                 nodeThingType.Searchable = YES;
                 nodeThingType.Description = @"";
 
@@ -366,11 +366,11 @@ volatile NSInteger __monotonicId = 0;
             break;
         }
 
-        // PortStateReq
-        case EnumApiMessages_PortStateReq:
+        // PortStateGet
+        case EnumApiMessages_PortStateGet:
         {
-            // Construct PortStateReq
-            PortStateReq *msg = [[PortStateReq alloc] init];
+            // Construct PortStateGet
+            PortStateGet *msg = [[PortStateGet alloc] init];
             msg.Operation = EnumStateOperation_ActivePortStates;
             msg.PortKeys = nil;
 
@@ -382,10 +382,10 @@ volatile NSInteger __monotonicId = 0;
             break;
         }
 
-        // PortStateRsp
-        case EnumApiMessages_PortStateRsp:
+        // PortStateSet
+        case EnumApiMessages_PortStateSet:
         {
-            PortStateRsp *rsp = [[PortStateRsp alloc] init];
+            PortStateSet *rsp = [[PortStateSet alloc] init];
             rsp.Operation = EnumStateOperation_ActivePortStates;
             rsp.PortStates = (id)[NSMutableArray new];
 
@@ -394,7 +394,7 @@ volatile NSInteger __monotonicId = 0;
 
                 PortState *ps = [PortState new];
                 ps.PortKey = pk;
-                ps.State = p.state;
+                ps.State = p.State;
                 ps.RevNum = 0;
                 ps.IsDeployed = YES;
 
@@ -494,9 +494,24 @@ volatile NSInteger __monotonicId = 0;
             break;
         }
 
+        // UnknownRsp
         case EnumCustomMessages_UnknownRsp:
         {
             UnknownRsp *rsp = [[UnknownRsp alloc] init];
+            NSString *payload = [rsp toJSONString];
+
+            [self transportSendApiRsp:payload forApiMsgName:apiMsgName withSyncId:syncId];
+        }
+
+        // GenericRsp
+        case EnumApiMessages_GenericRsp:
+        {
+            NSNumber *tmp = [data firstObject];
+            BOOL result = ([tmp integerValue] == 1) ? YES : NO;
+
+            GenericRsp *rsp = [[GenericRsp alloc] init];
+            rsp.IsSuccess = result;
+
             NSString *payload = [rsp toJSONString];
 
             [self transportSendApiRsp:payload forApiMsgName:apiMsgName withSyncId:syncId];
@@ -564,10 +579,10 @@ volatile NSInteger __monotonicId = 0;
             NSLog(@"Handler not implemented for ApiMessage of type: %@", apiMsgName);
             break;
         }
-        case EnumApiMessages_PortStateReq:
+        case EnumApiMessages_PortStateGet:
         {
             JSONModelError *error;
-            PortStateReq *req = [[PortStateReq alloc] initWithString:payload error:&error];
+            PortStateGet *req = [[PortStateGet alloc] initWithString:payload error:&error];
 
             if (error != nil) {
                 NSLog(@" %@ deserialization error: %@ (Sending UnknownRsp)", apiMsgName, error.description);
@@ -577,19 +592,19 @@ volatile NSInteger __monotonicId = 0;
                 break;
             }
 
-            [self sendApiMsgOfType:[[PlegmaApi apiMsgNames] objectForKey:[PortStateRsp class]]
+            [self sendApiMsgOfType:[[PlegmaApi apiMsgNames] objectForKey:[PortStateSet class]]
                         withSyncId:syncId
                     withParameters:[NSArray arrayWithObject:req]
                            andData:nil];
             break;
         }
-        case EnumApiMessages_PortStateRsp:
+        case EnumApiMessages_PortStateSet:
         {
             JSONModelError *error;
-            PortStateRsp *msg = [[PortStateRsp alloc] initWithString:payload error:&error];
+            PortStateSet *msg = [[PortStateSet alloc] initWithString:payload error:&error];
 
             NSInteger op = msg.Operation;
-            NSLog(@"PortStateRsp operation %ld", (long)op);
+            NSLog(@"PortStateSet operation %ld", (long)op);
 
             // Clear existing set of active port keys
             [self.activePortKeysSet removeAllObjects];
@@ -600,18 +615,18 @@ volatile NSInteger __monotonicId = 0;
 
                 // Update port states
                 Port *p = [self.portKeyToPortDict objectForKey:ps.PortKey];
-                p.state = ps.State;
+                p.State = ps.State;
 
                 // Inform UI
                 Thing *t = [self.portKeyToThingDict objectForKey:ps.PortKey];
                 NSString *notName = @"yodiwoThingUpdateNotification";
-                ThingKey *thingKey = [[ThingKey alloc] initFromString:t.thingKey];
+                ThingKey *thingKey = [[ThingKey alloc] initFromString:t.ThingKey];
                 NSString *thingName = thingKey.thingUID;
-                NSNumber *portIndex = [NSNumber numberWithUnsignedInteger:[t.ports indexOfObjectIdenticalTo:p]];
+                NSNumber *portIndex = [NSNumber numberWithUnsignedInteger:[t.Ports indexOfObjectIdenticalTo:p]];
                 NSDictionary *notParams = [NSDictionary dictionaryWithObjectsAndKeys:
                                            thingName, @"thingName",
                                            portIndex, @"portIndex",
-                                           p.state, @"newState",
+                                           p.State, @"newState",
                                            nil];
 
                 [[NSNotificationCenter defaultCenter] postNotificationName:notName
@@ -623,6 +638,12 @@ volatile NSInteger __monotonicId = 0;
                     [self.activePortKeysSet addObject:ps.PortKey];
                 }
             }
+
+            // Send GenericRsp
+            [[NodeController sharedNodeController] sendApiMsgOfType:[[PlegmaApi apiMsgNames] objectForKey:[GenericRsp class]]
+                                                         withSyncId:syncId
+                                                     withParameters:nil
+                                                            andData:[NSArray arrayWithObject:[NSNumber numberWithInt:1]]];
 
             break;
         }
@@ -655,8 +676,18 @@ volatile NSInteger __monotonicId = 0;
                 [[SettingsVault sharedSettingsVault] setNodeThingsRevNum:msg.RevNum];
 
                 for (Thing *thing in msg.Data) {
-                    [self removeThing:thing.thingKey];
+                    [self removeThing:thing.ThingKey];
                     [self addThing:thing];
+
+                    // Post notification
+                    NSString *notName = @"yodiwoThingUpdateNotification";
+                    NSDictionary *notParams = [NSDictionary dictionaryWithObjectsAndKeys:
+                                               thing, @"thing",
+                                               nil];
+
+                    [[NSNotificationCenter defaultCenter] postNotificationName:notName
+                                                                        object:self
+                                                                      userInfo:notParams];
                 }
             }
             else if (msg.Operation == EnumThingsOperation_Overwrite) {
@@ -668,6 +699,12 @@ volatile NSInteger __monotonicId = 0;
                     [self addThing:thing];
                 }
             }
+
+            // Send GenericRsp
+            [[NodeController sharedNodeController] sendApiMsgOfType:[[PlegmaApi apiMsgNames] objectForKey:[GenericRsp class]]
+                                                         withSyncId:syncId
+                                                     withParameters:nil
+                                                            andData:[NSArray arrayWithObject:[NSNumber numberWithInt:1]]];
 
             break;
         }
@@ -697,7 +734,7 @@ volatile NSInteger __monotonicId = 0;
             JSONModelError *error;
             PingRsp *msg = [[PingRsp alloc] initWithString:payload error:&error];
 
-            NSLog(@"Rx ping response: %d", msg.Data);
+            NSLog(@"Rx ping response: %ld", (long)msg.Data);
             
             break;
         }
@@ -717,18 +754,18 @@ volatile NSInteger __monotonicId = 0;
                 }
 
                 // Update state
-                port.state = pevent.State;
+                port.State = pevent.State;
 
                 // Post notification to be picked up by interested ViewControllers
-                Thing *t = [self.portKeyToThingDict objectForKey:port.portKey];
+                Thing *t = [self.portKeyToThingDict objectForKey:port.PortKey];
                 NSString *notName = @"yodiwoThingUpdateNotification";
-                ThingKey *thingKey = [[ThingKey alloc] initFromString:t.thingKey];
+                ThingKey *thingKey = [[ThingKey alloc] initFromString:t.ThingKey];
                 NSString *thingName = thingKey.thingUID;
-                NSNumber *portIndex = [NSNumber numberWithUnsignedInteger:[t.ports indexOfObjectIdenticalTo:port]];
+                NSNumber *portIndex = [NSNumber numberWithUnsignedInteger:[t.Ports indexOfObjectIdenticalTo:port]];
                 NSDictionary *notParams = [NSDictionary dictionaryWithObjectsAndKeys:
                                                             thingName, @"thingName",
                                                             portIndex, @"portIndex",
-                                                            port.state, @"newState",
+                                                            port.State, @"newState",
                                                             nil];
 
                 [[NSNotificationCenter defaultCenter] postNotificationName:notName

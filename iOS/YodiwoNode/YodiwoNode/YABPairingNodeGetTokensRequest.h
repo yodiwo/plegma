@@ -19,7 +19,8 @@
  */
 -(instancetype)initWithUuid:(NSString *)uuid
                        Name:(NSString *)name
-                RedirectUri:(NSString *)redirectUri NS_DESIGNATED_INITIALIZER;
+                RedirectUri:(NSString *)redirectUri
+    UseNoUUIDAuthentication:(BOOL)NoUUIDAuthentication NS_DESIGNATED_INITIALIZER;
 
 /*!
  * @discussion Initializer for YABPairingNodeGetTokensRequest class
@@ -35,6 +36,8 @@
  */
 +(instancetype)pairingNodeGetTokensRequestWithUuid:(NSString *)uuid
                                               Name:(NSString *)name
-                                       RedirectUri:(NSString *)redirectUri;
+                                       RedirectUri:(NSString *)redirectUri
+                              UseNoUUIDAuthentication:(BOOL)NoUUIDAuthentication
+;
 
 @end

@@ -46,12 +46,22 @@ typedef NS_ENUM(NSInteger, EnumPortConf)
     /*!
      * @discussion Port should receive all event , not only dirty ones
      */
-    EnumPortConf_ReceiveAllEvents = 1,
+    EnumPortConf_PropagateAllEvents = 1,
 
     /*!
      * @discussion Mark the port as a trigger port
      */
     EnumPortConf_IsTrigger = 2,
+
+    /*!
+     * @discussion Enable this flag to force raw values for the port.
+     */
+    EnumPortConf_DoNotNormalize = 4,
+
+    /*!
+     * @discussion If set port will only propagate "dirty" events, where the value actually changed and was not just triggered.
+     */
+    EnumPortConf_SupressIdenticalEvents = 8,
 };
 
 /*!
@@ -62,17 +72,17 @@ typedef NS_ENUM(NSInteger, EnumPortConf)
 /*!
  * @discussion Unavailable
  */
-@property (strong, nonatomic) NSString *portKey;
+@property (strong, nonatomic) NSString *PortKey;
 
 /*!
  * @discussion Unavailable
  */
-@property (strong, nonatomic) NSString *name;
+@property (strong, nonatomic) NSString<Optional> *Name;
 
 /*!
  * @discussion Unavailable
  */
-@property (strong, nonatomic) NSString *Description;
+@property (strong, nonatomic) NSString<Optional> *Description;
 
 /*!
  * @discussion Unavailable
@@ -82,17 +92,22 @@ typedef NS_ENUM(NSInteger, EnumPortConf)
 /*!
  * @discussion Unavailable
  */
-@property (nonatomic) EnumPortType type;
+@property (strong, nonatomic) NSString<Optional> *Semantics;
 
 /*!
  * @discussion Unavailable
  */
-@property (strong, nonatomic) NSString *state;
+@property (nonatomic) EnumPortType Type;
 
 /*!
  * @discussion Unavailable
  */
-@property (nonatomic) NSInteger revNum;
+@property (strong, nonatomic) NSString<Optional> *State;
+
+/*!
+ * @discussion Unavailable
+ */
+@property (nonatomic) NSInteger RevNum;
 
 /*!
  * @discussion Unavailable

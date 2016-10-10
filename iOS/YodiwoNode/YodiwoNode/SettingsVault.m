@@ -179,15 +179,6 @@
     return [self.settings boolForKey:@"MqttParamsUseSecureConnection"];
 }
 
--(NSString *)getIBeaconParamsMonitoredUUID1 {
-
-    return [self.settings stringForKey:@"IBeaconParamsMonitoredUUID1"];
-}
-
--(NSString *)getIBeaconParamsMonitoredUUID2 {
-
-    return [self.settings stringForKey:@"IBeaconParamsMonitoredUUID2"];
-}
 ///*****************************************************************************
 
 @end

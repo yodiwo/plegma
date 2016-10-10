@@ -358,6 +358,7 @@
             [self.gpsLocationMapView addAnnotation:ant];
         });
     }
+#if 0
     else if ([thingName isEqualToString:ThingNameLocationBeacon]) {
         if ( [((NSString *)[notParams objectForKey:@"uuid"])
               isEqualToString:[[SettingsVault sharedSettingsVault]
@@ -376,6 +377,7 @@
                        });
         }
     }
+#endif
     else if ([thingName isEqualToString:ThingNameShakeDetector]) {
         dispatch_async(dispatch_get_main_queue(), ^{
             self.deviceMotionLabel.text =
@@ -400,8 +402,8 @@
 
     [[SettingsVault sharedSettingsVault] setIsNodeApiConnected:YES];
 
-    // Send PortStateReq with node things
-    [[NodeController sharedNodeController] sendApiMsgOfType:[[PlegmaApi apiMsgNames] objectForKey:[PortStateReq class]]
+    // Send PortStateGet with node things
+    [[NodeController sharedNodeController] sendApiMsgOfType:[[PlegmaApi apiMsgNames] objectForKey:[PortStateGet class]]
                                                  withSyncId:0
                                              withParameters:nil
                                                     andData:nil];

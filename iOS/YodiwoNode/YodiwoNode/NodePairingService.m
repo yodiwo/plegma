@@ -63,7 +63,8 @@
     YABPairingNodeGetTokensRequest *getTokensReq = [YABPairingNodeGetTokensRequest
                                             pairingNodeGetTokensRequestWithUuid:[[SettingsVault sharedSettingsVault] getPairingParamsNodeUuid]
                                                                            Name:[[SettingsVault sharedSettingsVault] getPairingParamsNodeName]
-                                                                    RedirectUri:[self.pairingServerRoutesDict valueForKey:@"noderedirect"]];
+                                                                    RedirectUri:[self.pairingServerRoutesDict valueForKey:@"noderedirect"]
+                                                        UseNoUUIDAuthentication:YES];
 
     NSLog(@"NodePairingService: YABPairingNodeGetTokensRequest body -> %@", [getTokensReq toJSONString]);
 

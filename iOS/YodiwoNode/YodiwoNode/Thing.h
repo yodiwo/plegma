@@ -21,7 +21,12 @@
 /*!
  * @discussion Unavailable
  */
-@property (strong, nonatomic) NSString *iconUri;
+@property (strong, nonatomic) NSString<Optional> *IconURI;
+
+/*!
+ * @discussion Unavailable
+ */
+@property (strong, nonatomic) NSString<Optional> *Description;
 
 @end
 
@@ -35,12 +40,17 @@
 /*!
  * @discussion Unavailable
  */
-@property (strong, nonatomic) NSString *name;
+@property (strong, nonatomic) NSString *Name;
 
 /*!
  * @discussion Unavailable
  */
-@property (strong, nonatomic) NSString *value;
+@property (strong, nonatomic) NSString *Value;
+
+/*!
+ * @discussion Unavailable
+ */
+@property (strong, nonatomic) NSString<Optional> *Description;
 
 @end
 
@@ -58,37 +68,42 @@
 /*!
  * @discussion Unavailable
  */
-@property (strong, nonatomic) NSString *thingKey;
+@property (strong, nonatomic) NSString *ThingKey;
 
 /*!
  * @discussion Unavailable
  */
-@property (strong, nonatomic) NSString *name;
+@property (strong, nonatomic) NSString *Name;
 
 /*!
  * @discussion Unavailable
  */
-@property (strong, nonatomic) NSMutableArray<ConfigParameter> *config; // of ConfigParameter
+@property (strong, nonatomic) NSMutableArray<ConfigParameter,Optional> *Config; // of ConfigParameter
 
 /*!
  * @discussion Unavailable
  */
-@property (strong, nonatomic) NSMutableArray<Port> *ports; // of Port
+@property (strong, nonatomic) NSMutableArray<Port> *Ports; // of Port
 
 /*!
  * @discussion Unavailable
  */
-@property (strong, nonatomic) NSString *type;
+@property (strong, nonatomic) NSString *Type;
 
 /*!
  * @discussion Unavailable
  */
-@property (strong, nonatomic) NSString *blockType;
+@property (strong, nonatomic) NSString *BlockType;
 
 /*!
  * @discussion Unavailable
  */
-@property (strong, nonatomic) ThingUIHints *uiHints;
+@property (nonatomic) BOOL Removable;
+
+/*!
+ * @discussion Unavailable
+ */
+@property (strong, nonatomic) ThingUIHints *UIHints;
 
 -(instancetype)initWithThingKey:(NSString *)thingKey
                            name:(NSString *)name

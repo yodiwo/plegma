@@ -53,8 +53,8 @@ typedef NS_ENUM(NSInteger, EnumAPIType)
     EnumAPIType_ThingsSet = 6,
 
     EnumAPIType_PortEventMsg = 7,
-    EnumAPIType_PortStateReq = 8,
-    EnumAPIType_PortStateRsp = 9,
+    EnumAPIType_PortStateGet = 8,
+    EnumAPIType_PortStateSet = 9,
     EnumAPIType_ActivePortKeysMsg = 10,
 
     EnumAPIType_StreamOpenReq = 20,
@@ -538,7 +538,7 @@ typedef NS_ENUM(NSUInteger, EnumNodeUnpairedReasonCodes)
 /*!
  * @discussion Unavailable
  */
-@interface PortStateReq : APIMsg
+@interface PortStateGet : APIMsg
 
 /*!
  * @discussion Unavailable
@@ -548,7 +548,7 @@ typedef NS_ENUM(NSUInteger, EnumNodeUnpairedReasonCodes)
 /*!
  * @discussion Unavailable
  */
-@property (strong, nonatomic) NSMutableArray *PortKeys;
+@property (strong, nonatomic) NSMutableArray<Optional> *PortKeys;
 
 @end
 
@@ -557,7 +557,7 @@ typedef NS_ENUM(NSUInteger, EnumNodeUnpairedReasonCodes)
 /*!
  * @discussion Unavailable
  */
-@interface PortStateRsp : APIMsg
+@interface PortStateSet : APIMsg
 
 /*!
  * @discussion Unavailable
@@ -659,7 +659,7 @@ typedef NS_ENUM(NSUInteger, EnumNodeUnpairedReasonCodes)
 @property (nonatomic) NSInteger StatusCode;
 
 /*!
- * @discussion Ann optional message for the result
+ * @discussion An optional message for the result
  */
 @property (strong, nonatomic) NSString *Message;
 

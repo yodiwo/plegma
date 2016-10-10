@@ -61,23 +61,23 @@ NSString *const ThingNameAVTorch = @"iOSTorchLight";
                                                    andThingUid:thingUID];
 
         Port *port = [[Port  alloc] init];
-        port.name = @"Switch state";
+        port.Name = @"Switch state";
         port.ioDirection = EnumIOPortDirection_Output;
-        port.type = EnumPortType_Boolean;
-        port.portKey = [[[PortKey alloc] initWithThingKey:thingKey
+        port.Type = EnumPortType_Boolean;
+        port.PortKey = [[[PortKey alloc] initWithThingKey:thingKey
                                                andPortUid:@"0"] toString];
         NSMutableArray *ports = (id)[NSMutableArray new];
         [ports addObject:port];
 
         ThingUIHints *uiHints = [[ThingUIHints alloc] init];
-        uiHints.iconUri = @"/Content/VirtualGateway/img/switch.png";
+        uiHints.IconURI = @"/Content/VirtualGateway/img/switch.png";
 
         [[NodeController sharedNodeController]
                 addThing:[[Thing alloc] initWithThingKey:[thingKey toString]
                                                     name:[deviceName stringByAppendingString:thingUID]
                                                   config:nil
                                                    ports:ports
-                                                    type:@"iOSVirtual"
+                                                    type:@"com.yodiwo.input.switches.onoff"
                                                blockType:@""
                                                  uiHints:uiHints]];
     }
@@ -89,23 +89,23 @@ NSString *const ThingNameAVTorch = @"iOSTorchLight";
                                                    andThingUid:thingUID];
 
         Port *port = [[Port  alloc] init];
-        port.name = @"Slider value";
+        port.Name = @"Slider value";
         port.ioDirection = EnumIOPortDirection_Output;
-        port.type = EnumPortType_Decimal;
-        port.portKey = [[[PortKey alloc] initWithThingKey:thingKey
+        port.Type = EnumPortType_Decimal;
+        port.PortKey = [[[PortKey alloc] initWithThingKey:thingKey
                                                andPortUid:@"0"] toString];
         NSMutableArray *ports = (id)[NSMutableArray new];
         [ports addObject:port];
 
         ThingUIHints *uiHints = [[ThingUIHints alloc] init];
-        uiHints.iconUri = @"/Content/VirtualGateway/img/icon-thing-slider.png";
+        uiHints.IconURI = @"/Content/VirtualGateway/img/icon-thing-slider.png";
 
         [[NodeController sharedNodeController]
          addThing:[[Thing alloc] initWithThingKey:[thingKey toString]
                                              name:[deviceName stringByAppendingString:thingUID]
                                            config:nil
                                             ports:ports
-                                             type:@"iOSVirtual"
+                                             type:@"com.yodiwo.output.seekbars"
                                         blockType:@""
                                           uiHints:uiHints]];
     }
@@ -117,23 +117,23 @@ NSString *const ThingNameAVTorch = @"iOSTorchLight";
                                                    andThingUid:thingUID];
 
         Port *port = [[Port  alloc] init];
-        port.name = @"Text";
+        port.Name = @"Text";
         port.ioDirection = EnumIOPortDirection_Output;
-        port.type = EnumPortType_String;
-        port.portKey = [[[PortKey alloc] initWithThingKey:thingKey
+        port.Type = EnumPortType_String;
+        port.PortKey = [[[PortKey alloc] initWithThingKey:thingKey
                                                andPortUid:@"0"] toString];
         NSMutableArray *ports = (id)[NSMutableArray new];
         [ports addObject:port];
 
         ThingUIHints *uiHints = [[ThingUIHints alloc] init];
-        uiHints.iconUri = @"/Content/VirtualGateway/img/icon-thing-text.png";
+        uiHints.IconURI = @"/Content/VirtualGateway/img/icon-thing-text.png";
 
         [[NodeController sharedNodeController]
          addThing:[[Thing alloc] initWithThingKey:[thingKey toString]
                                              name:[deviceName stringByAppendingString:thingUID]
                                            config:nil
                                             ports:ports
-                                             type:@"iOSVirtual"
+                                             type:@"com.yodiwo.output.text"
                                         blockType:@""
                                           uiHints:uiHints]];
     }
@@ -146,30 +146,30 @@ NSString *const ThingNameAVTorch = @"iOSTorchLight";
 
         NSMutableArray *config = (id)[NSMutableArray new];
         ConfigParameter *cp = [[ConfigParameter alloc] init];
-        cp.name = @"Location update interval";
-        cp.value = @"";
+        cp.Name = @"Location update interval";
+        cp.Value = @"";
         [config addObject:cp];
 
         NSMutableArray *ports = (id)[NSMutableArray new];
         Port *port0 = [[Port  alloc] init];
-        port0.name = @"Friendly location name";
+        port0.Name = @"Friendly location name";
         port0.ioDirection = EnumIOPortDirection_Output;
-        port0.type = EnumPortType_String;
-        port0.portKey = [[[PortKey alloc] initWithThingKey:thingKey
+        port0.Type = EnumPortType_String;
+        port0.PortKey = [[[PortKey alloc] initWithThingKey:thingKey
                                                andPortUid:@"0"] toString];
 
         Port *port1 = [[Port  alloc] init];
-        port1.name = @"Latitude";
+        port1.Name = @"Latitude";
         port1.ioDirection = EnumIOPortDirection_Output;
-        port1.type = EnumPortType_String;
-        port1.portKey = [[[PortKey alloc] initWithThingKey:thingKey
+        port1.Type = EnumPortType_String;
+        port1.PortKey = [[[PortKey alloc] initWithThingKey:thingKey
                                                 andPortUid:@"1"] toString];
 
         Port *port2 = [[Port  alloc] init];
-        port2.name = @"Longitude";
+        port2.Name = @"Longitude";
         port2.ioDirection = EnumIOPortDirection_Output;
-        port2.type = EnumPortType_String;
-        port2.portKey = [[[PortKey alloc] initWithThingKey:thingKey
+        port2.Type = EnumPortType_String;
+        port2.PortKey = [[[PortKey alloc] initWithThingKey:thingKey
                                                 andPortUid:@"2"] toString];
 
         [ports addObject:port0];
@@ -177,14 +177,14 @@ NSString *const ThingNameAVTorch = @"iOSTorchLight";
         [ports addObject:port2];
 
         ThingUIHints *uiHints = [[ThingUIHints alloc] init];
-        uiHints.iconUri = @"/Content/VirtualGateway/img/gps.png";
+        uiHints.IconURI = @"/Content/VirtualGateway/img/gps.png";
 
         [[NodeController sharedNodeController]
                 addThing:[[Thing alloc] initWithThingKey:[thingKey toString]
                                                     name:[deviceName stringByAppendingString:thingUID]
                                                   config:config
                                                    ports:ports
-                                                    type:@"iOSSensor"
+                                                    type:@"iOSLocation"
                                                blockType:@""
                                                  uiHints:uiHints]];
     }
@@ -196,46 +196,59 @@ NSString *const ThingNameAVTorch = @"iOSTorchLight";
                                                    andThingUid:thingUID];
 
         NSMutableArray *config = (id)[NSMutableArray new];
-        ConfigParameter *cp = [[ConfigParameter alloc] init];
-        cp.name = @"List of iBeacons to range (Not yet implemented)";
-        cp.value = @"";
-        [config addObject:cp];
+        ConfigParameter *cp1 = [[ConfigParameter alloc] init];
+        cp1.Name = @"RangedUUIDList";
+        cp1.Value = @"";
+        cp1.Description = @"Comma separated list of iBeacon UUIDs to be ranged";
+        [config addObject:cp1];
+        ConfigParameter *cp2 = [[ConfigParameter alloc] init];
+        cp2.Name = @"MonitoredUUIDList";
+        cp2.Value = @"";
+        cp2.Description = @"Comma separated list of iBeacon UUIDs to be monitor";
+        [config addObject:cp2];
 
         NSMutableArray *ports = (id)[NSMutableArray new];
         Port *port0 = [[Port  alloc] init];
-        port0.name = @"iBeacon UUID";
+        port0.Name = @"iBeacon UUID";
         port0.ioDirection = EnumIOPortDirection_Output;
-        port0.type = EnumPortType_String;
-        port0.portKey = [[[PortKey alloc] initWithThingKey:thingKey
+        port0.Type = EnumPortType_String;
+        port0.PortKey = [[[PortKey alloc] initWithThingKey:thingKey
                                                 andPortUid:@"0"] toString];
+        port0.ConfFlags = EnumPortConf_SupressIdenticalEvents;
 
         Port *port1 = [[Port  alloc] init];
-        port1.name = @"iBeacon major value";
+        port1.Name = @"iBeacon major value";
         port1.ioDirection = EnumIOPortDirection_Output;
-        port1.type = EnumPortType_Integer;
-        port1.portKey = [[[PortKey alloc] initWithThingKey:thingKey
+        port1.Type = EnumPortType_Integer;
+        port1.PortKey = [[[PortKey alloc] initWithThingKey:thingKey
                                                 andPortUid:@"1"] toString];
+        port1.ConfFlags = EnumPortConf_SupressIdenticalEvents;
+
 
         Port *port2 = [[Port  alloc] init];
-        port2.name = @"iBeacon minor value";
+        port2.Name = @"iBeacon minor value";
         port2.ioDirection = EnumIOPortDirection_Output;
-        port2.type = EnumPortType_Integer;
-        port2.portKey = [[[PortKey alloc] initWithThingKey:thingKey
+        port2.Type = EnumPortType_Integer;
+        port2.PortKey = [[[PortKey alloc] initWithThingKey:thingKey
                                                 andPortUid:@"2"] toString];
+        port2.ConfFlags = EnumPortConf_SupressIdenticalEvents;
+
 
         Port *port3 = [[Port  alloc] init];
-        port3.name = @"Proximity level";
+        port3.Name = @"Proximity level";
         port3.ioDirection = EnumIOPortDirection_Output;
-        port3.type = EnumPortType_String;
-        port3.portKey = [[[PortKey alloc] initWithThingKey:thingKey
+        port3.Type = EnumPortType_String;
+        port3.PortKey = [[[PortKey alloc] initWithThingKey:thingKey
                                                 andPortUid:@"3"] toString];
+        port3.ConfFlags = EnumPortConf_SupressIdenticalEvents;
 
         Port *port4 = [[Port  alloc] init];
-        port4.name = @"RSSI";
+        port4.Name = @"RSSI";
         port4.ioDirection = EnumIOPortDirection_Output;
-        port4.type = EnumPortType_Integer;
-        port4.portKey = [[[PortKey alloc] initWithThingKey:thingKey
+        port4.Type = EnumPortType_Integer;
+        port4.PortKey = [[[PortKey alloc] initWithThingKey:thingKey
                                                 andPortUid:@"4"] toString];
+        port4.ConfFlags = EnumPortConf_SupressIdenticalEvents;
 
         [ports addObject:port0];
         [ports addObject:port1];
@@ -244,14 +257,14 @@ NSString *const ThingNameAVTorch = @"iOSTorchLight";
         [ports addObject:port4];
 
         ThingUIHints *uiHints = [[ThingUIHints alloc] init];
-        uiHints.iconUri = @"/Content/VirtualGateway/img/ibeacon.png";
+        uiHints.IconURI = @"/Content/VirtualGateway/img/ibeacon.png";
 
         [[NodeController sharedNodeController]
          addThing:[[Thing alloc] initWithThingKey:[thingKey toString]
                                              name:[deviceName stringByAppendingString:thingUID]
                                            config:config
                                             ports:ports
-                                             type:@"iOSSensor"
+                                             type:@"com.yodiwo.output.beacon"
                                         blockType:@""
                                           uiHints:uiHints]];
     }
@@ -263,23 +276,23 @@ NSString *const ThingNameAVTorch = @"iOSTorchLight";
                                                    andThingUid:thingUID];
 
         Port *port = [[Port  alloc] init];
-        port.name = @"User proximity state";
+        port.Name = @"User proximity state";
         port.ioDirection = EnumIOPortDirection_Output;
-        port.type = EnumPortType_Boolean;
-        port.portKey = [[[PortKey alloc] initWithThingKey:thingKey
+        port.Type = EnumPortType_Boolean;
+        port.PortKey = [[[PortKey alloc] initWithThingKey:thingKey
                                                andPortUid:@"0"] toString];
         NSMutableArray *ports = (id)[NSMutableArray new];
         [ports addObject:port];
 
         ThingUIHints *uiHints = [[ThingUIHints alloc] init];
-        uiHints.iconUri = @"/Content/VirtualGateway/img/icon-thing-proximity.png";
+        uiHints.IconURI = @"/Content/VirtualGateway/img/icon-thing-proximity.png";
 
         [[NodeController sharedNodeController]
          addThing:[[Thing alloc] initWithThingKey:[thingKey toString]
                                              name:[deviceName stringByAppendingString:thingUID]
                                            config:nil
                                             ports:ports
-                                             type:@"iOSSensor"
+                                             type:@"com.yodiwo.output.sensors.proximity"
                                         blockType:@""
                                           uiHints:uiHints]];
     }
@@ -291,23 +304,23 @@ NSString *const ThingNameAVTorch = @"iOSTorchLight";
                                                    andThingUid:thingUID];
 
         Port *port = [[Port  alloc] init];
-        port.name = @"Shake event";
+        port.Name = @"Shake event";
         port.ioDirection = EnumIOPortDirection_Output;
-        port.type = EnumPortType_Boolean;
-        port.portKey = [[[PortKey alloc] initWithThingKey:thingKey
+        port.Type = EnumPortType_Boolean;
+        port.PortKey = [[[PortKey alloc] initWithThingKey:thingKey
                                                andPortUid:@"0"] toString];
         NSMutableArray *ports = (id)[NSMutableArray new];
         [ports addObject:port];
 
         ThingUIHints *uiHints = [[ThingUIHints alloc] init];
-        uiHints.iconUri = @"/Content/VirtualGateway/img/icon-thing-shake.png";
+        uiHints.IconURI = @"/Content/VirtualGateway/img/icon-thing-shake.png";
 
         [[NodeController sharedNodeController]
          addThing:[[Thing alloc] initWithThingKey:[thingKey toString]
                                              name:[deviceName stringByAppendingString:thingUID]
                                            config:nil
                                             ports:ports
-                                             type:@"iOSSensor"
+                                             type:@"com.yodiwo.output.shakedetectors"
                                         blockType:@""
                                           uiHints:uiHints]];
     }
@@ -319,23 +332,23 @@ NSString *const ThingNameAVTorch = @"iOSTorchLight";
                                                    andThingUid:thingUID];
 
         Port *port = [[Port  alloc] init];
-        port.name = @"Detected user activity";
+        port.Name = @"Detected user activity";
         port.ioDirection = EnumIOPortDirection_Output;
-        port.type = EnumPortType_String;
-        port.portKey = [[[PortKey alloc] initWithThingKey:thingKey
+        port.Type = EnumPortType_String;
+        port.PortKey = [[[PortKey alloc] initWithThingKey:thingKey
                                                andPortUid:@"0"] toString];
         NSMutableArray *ports = (id)[NSMutableArray new];
         [ports addObject:port];
 
         ThingUIHints *uiHints = [[ThingUIHints alloc] init];
-        uiHints.iconUri = @"/Content/VirtualGateway/img/icon-thing-activitytracker.png";
+        uiHints.IconURI = @"/Content/VirtualGateway/img/icon-thing-activitytracker.png";
 
         [[NodeController sharedNodeController]
          addThing:[[Thing alloc] initWithThingKey:[thingKey toString]
                                              name:[deviceName stringByAppendingString:thingUID]
                                            config:nil
                                             ports:ports
-                                             type:@"iOSSensor"
+                                             type:@"iOSActivityTracker"
                                         blockType:@""
                                           uiHints:uiHints]];
     }
@@ -347,23 +360,23 @@ NSString *const ThingNameAVTorch = @"iOSTorchLight";
                                                    andThingUid:thingUID];
 
         Port *port = [[Port  alloc] init];
-        port.name = @"WiFi status";
+        port.Name = @"WiFi status";
         port.ioDirection = EnumIOPortDirection_Output;
-        port.type = EnumPortType_String;
-        port.portKey = [[[PortKey alloc] initWithThingKey:thingKey
+        port.Type = EnumPortType_String;
+        port.PortKey = [[[PortKey alloc] initWithThingKey:thingKey
                                                andPortUid:@"0"] toString];
         NSMutableArray *ports = (id)[NSMutableArray new];
         [ports addObject:port];
 
         ThingUIHints *uiHints = [[ThingUIHints alloc] init];
-        uiHints.iconUri = @"/Content/VirtualGateway/img/icon-thing-genericwifi.svg";
+        uiHints.IconURI = @"/Content/VirtualGateway/img/icon-thing-genericwifi.svg";
 
         [[NodeController sharedNodeController]
          addThing:[[Thing alloc] initWithThingKey:[thingKey toString]
                                              name:[deviceName stringByAppendingString:thingUID]
                                            config:nil
                                             ports:ports
-                                             type:@"iOSSensor"
+                                             type:@"iOSWiFiStatus"
                                         blockType:@""
                                           uiHints:uiHints]];
     }
@@ -375,31 +388,31 @@ NSString *const ThingNameAVTorch = @"iOSTorchLight";
                                                    andThingUid:thingUID];
 
         Port *port = [[Port  alloc] init];
-        port.name = @"Bluetooth status";
+        port.Name = @"Bluetooth status";
         port.ioDirection = EnumIOPortDirection_Output;
-        port.type = EnumPortType_String;
-        port.portKey = [[[PortKey alloc] initWithThingKey:thingKey
+        port.Type = EnumPortType_String;
+        port.PortKey = [[[PortKey alloc] initWithThingKey:thingKey
                                                andPortUid:@"0"] toString];
 
         Port *port1 = [[Port  alloc] init];
-        port1.name = @"Discovered peripheral";
+        port1.Name = @"Discovered peripheral";
         port1.ioDirection = EnumIOPortDirection_Output;
-        port1.type = EnumPortType_String;
-        port1.portKey = [[[PortKey alloc] initWithThingKey:thingKey
+        port1.Type = EnumPortType_String;
+        port1.PortKey = [[[PortKey alloc] initWithThingKey:thingKey
                                                andPortUid:@"1"] toString];
 
         Port *port2 = [[Port  alloc] init];
-        port2.name = @"RSSI";
+        port2.Name = @"RSSI";
         port2.ioDirection = EnumIOPortDirection_Output;
-        port2.type = EnumPortType_Integer;
-        port2.portKey = [[[PortKey alloc] initWithThingKey:thingKey
+        port2.Type = EnumPortType_Integer;
+        port2.PortKey = [[[PortKey alloc] initWithThingKey:thingKey
                                                andPortUid:@"2"] toString];
 
         Port *port3 = [[Port  alloc] init];
-        port3.name = @"Connected peripheral";
+        port3.Name = @"Connected peripheral";
         port3.ioDirection = EnumIOPortDirection_Output;
-        port3.type = EnumPortType_String;
-        port3.portKey = [[[PortKey alloc] initWithThingKey:thingKey
+        port3.Type = EnumPortType_String;
+        port3.PortKey = [[[PortKey alloc] initWithThingKey:thingKey
                                                 andPortUid:@"3"] toString];
 
         NSMutableArray *ports = (id)[NSMutableArray new];
@@ -409,14 +422,14 @@ NSString *const ThingNameAVTorch = @"iOSTorchLight";
         [ports addObject:port3];
 
         ThingUIHints *uiHints = [[ThingUIHints alloc] init];
-        uiHints.iconUri = @"/Content/VirtualGateway/img/icon-thing-genericbluetooth.svg";
+        uiHints.IconURI = @"/Content/VirtualGateway/img/icon-thing-genericbluetooth.svg";
 
         [[NodeController sharedNodeController]
          addThing:[[Thing alloc] initWithThingKey:[thingKey toString]
                                              name:[deviceName stringByAppendingString:thingUID]
                                            config:nil
                                             ports:ports
-                                             type:@"iOSSensor"
+                                             type:@"iOSBlouetoothStatus"
                                         blockType:@""
                                           uiHints:uiHints]];
     }
@@ -439,18 +452,18 @@ NSString *const ThingNameAVTorch = @"iOSTorchLight";
                                                    andThingUid:thingUID];
 
         Port *port = [[Port  alloc] init];
-        port.name = @"Text to show";
+        port.Name = @"Text to show";
         port.ioDirection = EnumIOPortDirection_Input;
-        port.type = EnumPortType_String;
-        port.portKey = [[[PortKey alloc] initWithThingKey:thingKey
+        port.Type = EnumPortType_String;
+        port.PortKey = [[[PortKey alloc] initWithThingKey:thingKey
                                                andPortUid:@"0"] toString];
-        port.ConfFlags = EnumPortConf_ReceiveAllEvents;
+        port.ConfFlags = EnumPortConf_PropagateAllEvents;
 
         NSMutableArray *ports = (id)[NSMutableArray new];
         [ports addObject:port];
 
         ThingUIHints *uiHints = [[ThingUIHints alloc] init];
-        uiHints.iconUri = @"/Content/VirtualGateway/img/icon-thing-text.png";
+        uiHints.IconURI = @"/Content/VirtualGateway/img/icon-thing-text.png";
 
         [[NodeController sharedNodeController]
          addThing:[[Thing alloc] initWithThingKey:[thingKey toString]
@@ -469,10 +482,10 @@ NSString *const ThingNameAVTorch = @"iOSTorchLight";
                                                    andThingUid:thingUID];
 
         Port *port = [[Port  alloc] init];
-        port.name = @"Input";
+        port.Name = @"Input";
         port.ioDirection = EnumIOPortDirection_Input;
-        port.type = EnumPortType_Boolean;
-        port.portKey = [[[PortKey alloc] initWithThingKey:thingKey
+        port.Type = EnumPortType_Boolean;
+        port.PortKey = [[[PortKey alloc] initWithThingKey:thingKey
                                                andPortUid:@"0"] toString];
         port.ConfFlags = EnumPortConf_No;
 
@@ -480,14 +493,14 @@ NSString *const ThingNameAVTorch = @"iOSTorchLight";
         [ports addObject:port];
 
         ThingUIHints *uiHints = [[ThingUIHints alloc] init];
-        uiHints.iconUri = @"/Content/VirtualGateway/img/icon-thing-genericlight.png";
+        uiHints.IconURI = @"/Content/VirtualGateway/img/icon-thing-genericlight.png";
 
         [[NodeController sharedNodeController]
          addThing:[[Thing alloc] initWithThingKey:[thingKey toString]
                                              name:[deviceName stringByAppendingString:thingUID]
                                            config:nil
                                             ports:ports
-                                             type:@"iOSVirtual"
+                                             type:@"com.yodiwo.input.lights.onoff"
                                         blockType:@""
                                           uiHints:uiHints]];
     }
@@ -499,10 +512,10 @@ NSString *const ThingNameAVTorch = @"iOSTorchLight";
                                                    andThingUid:thingUID];
 
         Port *port = [[Port  alloc] init];
-        port.name = @"Input";
+        port.Name = @"Input";
         port.ioDirection = EnumIOPortDirection_Input;
-        port.type = EnumPortType_Boolean;
-        port.portKey = [[[PortKey alloc] initWithThingKey:thingKey
+        port.Type = EnumPortType_Boolean;
+        port.PortKey = [[[PortKey alloc] initWithThingKey:thingKey
                                                andPortUid:@"0"] toString];
         port.ConfFlags = EnumPortConf_No;
 
@@ -510,14 +523,14 @@ NSString *const ThingNameAVTorch = @"iOSTorchLight";
         [ports addObject:port];
 
         ThingUIHints *uiHints = [[ThingUIHints alloc] init];
-        uiHints.iconUri = @"/Content/VirtualGateway/img/icon-thing-genericlight.png";
+        uiHints.IconURI = @"/Content/VirtualGateway/img/icon-thing-genericlight.png";
 
         [[NodeController sharedNodeController]
          addThing:[[Thing alloc] initWithThingKey:[thingKey toString]
                                              name:[deviceName stringByAppendingString:thingUID]
                                            config:nil
                                             ports:ports
-                                             type:@"iOSVirtual"
+                                             type:@"com.yodiwo.input.lights.onoff"
                                         blockType:@""
                                           uiHints:uiHints]];
     }
@@ -529,10 +542,10 @@ NSString *const ThingNameAVTorch = @"iOSTorchLight";
                                                    andThingUid:thingUID];
 
         Port *port = [[Port  alloc] init];
-        port.name = @"Torch light state";
+        port.Name = @"Torch light state";
         port.ioDirection = EnumIOPortDirection_Input;
-        port.type = EnumPortType_Boolean;
-        port.portKey = [[[PortKey alloc] initWithThingKey:thingKey
+        port.Type = EnumPortType_Boolean;
+        port.PortKey = [[[PortKey alloc] initWithThingKey:thingKey
                                                andPortUid:@"0"] toString];
         port.ConfFlags = EnumPortConf_No;
         
@@ -540,14 +553,14 @@ NSString *const ThingNameAVTorch = @"iOSTorchLight";
         [ports addObject:port];
 
         ThingUIHints *uiHints = [[ThingUIHints alloc] init];
-        uiHints.iconUri = @"/Content/VirtualGateway/img/icon-thing-generictorch.svg";
+        uiHints.IconURI = @"/Content/VirtualGateway/img/icon-thing-generictorch.svg";
 
         [[NodeController sharedNodeController]
          addThing:[[Thing alloc] initWithThingKey:[thingKey toString]
                                              name:[deviceName stringByAppendingString:thingUID]
                                            config:nil
                                             ports:ports
-                                             type:@"iOSActuator"
+                                             type:@"com.yodiwo.input.torches"
                                         blockType:@""
                                           uiHints:uiHints]];
     }

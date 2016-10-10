@@ -125,8 +125,10 @@
 
 // UIWebView
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
-    if([webView.request.URL.absoluteString hasSuffix:
-            [self.nodePairingService.pairingServerRoutesDict objectForKeyedSubscript:@"noderedirect"]]) {
+    NSString *checkUrl = [self.nodePairingService.pairingServerRoutesDict objectForKeyedSubscript:@"noderedirect"];
+    checkUrl = [checkUrl stringByAppendingString:@"?status=Success"];
+
+    if([webView.request.URL.absoluteString hasSuffix: checkUrl]) {
         NSLog(@"Pairing phase 1 completed succesfully");
 
         [self.pairingLoginWebView removeFromSuperview];

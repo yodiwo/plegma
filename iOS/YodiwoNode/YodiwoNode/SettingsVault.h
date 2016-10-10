@@ -52,10 +52,6 @@
 
 -(void)setNodePaired:(BOOL)status;
 
--(NSString *)getIBeaconParamsMonitoredUUID1;
-
--(NSString *)getIBeaconParamsMonitoredUUID2;
-
 -(NSInteger)getNodeThingsRevNum;
 
 -(void)setNodeThingsRevNum:(NSInteger)nodeThingsRevNum;

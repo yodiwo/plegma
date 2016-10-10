@@ -18,13 +18,13 @@
                       blockType:(NSString *)blockType
                         uiHints:(ThingUIHints *)uiHints {
     if (self = [super init]) {
-        _thingKey = thingKey;
-        _name = name;
-        _config = config;
-        _ports = ports;
-        _type = type;
-        _blockType = blockType;
-        _uiHints = uiHints;
+        _ThingKey = thingKey;
+        _Name = name;
+        _Config = config;
+        _Ports = ports;
+        _Type = type;
+        _BlockType = blockType;
+        _UIHints = uiHints;
     }
     
     return self;

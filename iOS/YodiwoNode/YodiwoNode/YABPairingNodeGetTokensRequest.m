@@ -13,7 +13,7 @@
 @property (strong, nonatomic) NSString *uuid;
 @property (strong, nonatomic) NSString *name;
 @property (strong, nonatomic) NSString *redirectUri;
-
+@property (nonatomic) BOOL NoUUIDAuthentication;
 @end
 
 
@@ -21,25 +21,30 @@
 
 -(instancetype)initWithUuid:(NSString *)uuid
                        Name:(NSString *)name
-                RedirectUri:(NSString *)redirectUri {
+                RedirectUri:(NSString *)redirectUri
+       UseNoUUIDAuthentication:(BOOL)NoUUIDAuthentication
+{
     self = [super init];
     if(self)
     {
         _uuid = uuid;
         _name = name;
         _redirectUri = redirectUri;
+        _NoUUIDAuthentication = NoUUIDAuthentication;
     }
     return self;
 }
 
 -(instancetype)init {
-    return [self initWithUuid:nil Name:nil RedirectUri:nil];
+    return [self initWithUuid:nil Name:nil RedirectUri:nil UseNoUUIDAuthentication:NO];
 }
 
 +(instancetype)pairingNodeGetTokensRequestWithUuid:(NSString *)uuid
                                               Name:(NSString *)name
-                                       RedirectUri:(NSString *)redirectUri {
-    return [[self alloc] initWithUuid:uuid Name:name RedirectUri:redirectUri];
+                                       RedirectUri:(NSString *)redirectUri
+                              UseNoUUIDAuthentication:(BOOL)NoUUIDAuthentication
+{
+    return [[self alloc] initWithUuid:uuid Name:name RedirectUri:redirectUri UseNoUUIDAuthentication:NoUUIDAuthentication];
 }
 
 @end
