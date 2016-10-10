@@ -1,0 +1,140 @@
+<manifest package="com.yodiwo.androidnode"
+          xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <uses-permission android:name="android.permission.NFC"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
+
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
+    <uses-feature android:name="android.hardware.camera.flash" android:required="false" />
+
+    <application
+        android:name=".core.BeaconHandler"
+        android:allowBackup="true"
+        android:fullBackupContent="true"
+        android:icon="@drawable/launcher_icon_yodiwo"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <!-- Splash screen -->
+        <activity
+            android:name=".core.SplashScreenActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:noHistory="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <!-- Main app activities -->
+        <activity
+            android:name=".core.MainActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <!-- Main services -->
+        <service
+            android:name=".core.ThingsModuleService"
+            android:enabled="true"
+            android:exported="false">
+        </service>
+
+        <!-- YAgent activities -->
+        <activity
+            android:name="com.yodiwo.androidagent.core.SettingsActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName=".core.MainActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".core.MainActivity"/>
+        </activity>
+
+        <activity
+            android:name="com.yodiwo.androidagent.core.ModalDialogActivity"
+            android:theme="@style/Theme.AppCompat.Dialog">
+        </activity>
+
+        <activity
+            android:name="com.yodiwo.androidagent.core.PairingActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_pairing"
+            android:parentActivityName=".core.MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".core.MainActivity"/>
+        </activity>
+
+        <activity
+            android:name="com.yodiwo.androidagent.core.PairingWebActivity"
+            android:label="@string/title_activity_pairing_web"
+            android:parentActivityName="com.yodiwo.androidagent.core.PairingActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.yodiwo.androidagent.core.PairingActivity"/>
+        </activity>
+
+        <!-- Yodiwo Agent srvices -->
+        <service
+            android:name="com.yodiwo.androidagent.core.NodeService"
+            android:enabled="true"
+            android:exported="false">
+        </service>
+
+        <service
+            android:name="com.yodiwo.androidagent.core.PairingService"
+            android:enabled="true"
+            android:exported="false">
+        </service>
+
+        <service
+            android:name="com.yodiwo.androidagent.rest.RestRxService"
+            android:enabled="true"
+            android:exported="false">
+        </service>
+
+        <service
+            android:name="org.eclipse.paho.android.service.MqttService">
+        </service>
+
+        <!-- Backup functionality -->
+        <meta-data android:name="com.google.android.backup.api_key"
+                   android:value="AEdPqrEAAAAIz-6q_iWwif_zrYdq92qLNHtXRP9NfPwkjRA1tQ" />
+
+        <!-- GCM listener service -->
+        <service
+            android:name="com.yodiwo.androidagent.gcm.GcmListener"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            </intent-filter>
+        </service>
+
+
+    </application>
+
+</manifest>

@@ -1,0 +1,30 @@
+<resources>
+
+    <style name="AppTheme.NoActionBar" parent="Theme.AppCompat">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar"/>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
+    <style name="AppTheme.PopupOverlay" parent="Base.ThemeOverlay.AppCompat.Dark"/>
+
+    <style name="AppTheme.AlertDialog" parent="Base.Theme.AppCompat.Dialog">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:background">@color/colorGrey</item>
+    </style>
+
+    <style name="MyDialogStyle" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textColorPrimary">@color/colorDarkGrey</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar.SplashScreen" parent="Theme.AppCompat">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+</resources>

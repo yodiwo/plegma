@@ -1,0 +1,8 @@
+<fragment
+    android:id="@+id/fragment"
+    android:name="com.yodiwo.androidnode.core.MainActivityFragment"
+    tools:layout="@layout/fragment_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"/>

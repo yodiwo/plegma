@@ -1,0 +1,126 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                tools:context=".core.PairingActivity"
+                android:background="@drawable/background_pairing">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_pairing"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight = "?attr/actionBarSize"
+        android:background="@color/colorPrimaryDark"
+        android:title=""
+        app:popupTheme="@style/AppTheme.PopupOverlay">
+    </android.support.v7.widget.Toolbar>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="60dp"
+        android:layout_marginBottom="30dp"
+        android:src="@drawable/yodiwo_logo_splash_screen" />
+
+    <!-- Pairing progress -->
+    <ProgressBar
+        android:id="@+id/pairing_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/label_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/imageView"
+        android:layout_marginTop="31dp"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:text="Status:"
+        android:textSize="16sp"
+        android:textColor="@color/colorWhite"/>
+
+    <TextView
+        android:id="@+id/status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/label_status"
+        android:layout_alignEnd="@+id/imageView"
+        android:layout_marginStart="5dp"
+        android:layout_toEndOf="@+id/label_status"
+        android:textStyle="italic"
+        android:text=". . ."
+        android:textSize="16sp"
+        android:textColor="@color/colorWhite"/>
+
+    <TextView
+        android:id="@+id/label_nodekey"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Node Key:"
+        android:textSize="16sp"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/label_status"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:textColor="@color/colorWhite"/>
+
+    <TextView
+        android:id="@+id/nodekey"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=". . ."
+        android:textSize="16sp"
+        android:textStyle="italic"
+        android:layout_alignEnd="@+id/status"
+        android:layout_marginStart="5dp"
+        android:layout_toEndOf="@+id/label_nodekey"
+        android:layout_alignBottom="@+id/label_nodekey"
+        android:textColor="@color/colorWhite"/>
+
+    <Button
+        android:id="@+id/button_pairing"
+        android:text="Pair"
+        android:textStyle="normal"
+        android:typeface="monospace"
+        android:textColor="#FFFFFF"
+        android:textSize="18dp"
+        android:layout_width="120dp"
+        android:layout_height="60dp"
+        android:background="@drawable/button_shape_pairing_activity"
+        android:shadowColor="#A8A8A8"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="5"
+        android:textAlignment="center"
+        android:layout_alignTop="@+id/button_unpairing"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"/>
+
+    <Button
+        android:id="@+id/button_unpairing"
+        android:text="Unpair"
+        android:textStyle="normal"
+        android:typeface="monospace"
+        android:layout_marginBottom="92dp"
+        android:textColor="#FFFFFF"
+        android:textSize="18dp"
+        android:layout_width="120dp"
+        android:layout_height="60dp"
+        android:background="@drawable/button_shape_pairing_activity"
+        android:shadowColor="#A8A8A8"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="5"
+        android:textAlignment="center"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"/>
+
+</RelativeLayout>

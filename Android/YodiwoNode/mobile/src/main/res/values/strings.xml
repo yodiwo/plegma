@@ -1,0 +1,52 @@
+<resources>
+    <string name="app_name">NeBiT</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_repairing">Pairing</string>
+    <string name="action_exit_app">Exit</string>
+    <string name="action_add_friend">Add friend</string>
+    <string name="action_live_view">Live view execution</string>
+    <string name="action_help">Help</string>
+    <string name="action_wisper_configuration">Wisper configuration</string>
+
+    <string name="welcome_wizard_apps">Welcome to this wizard</string>
+    <string name="liveview">Live view</string>
+    <string name="refreshing">Refreshing</string>
+    <string name="deploy_app">Deploy</string>
+    <string name="undeploy_app">Undeploy</string>
+
+    <string name="item_main_screen">Main screen</string>
+    <string name="item_things_shared_by_others">Things shared by others</string>
+    <string name="item_deployed_things">Deployed Things</string>
+    <string name="item_available_apps">Available applications</string>
+    <string name="item_info">Info</string>
+    <string name="item_your_nodes">Your nodes</string>
+    <string name="item_integration">Integration</string>
+    <string name="item_flic">Flic</string>
+
+    <string name="OK">OK</string>
+    <string name="email_hint">Enter email</string>
+    <string name="beacon_uuid_hint">EBEFD083-70A2-47C8-9837-E7B5634DF524</string>
+    <string name="not_supported_beacon_type">Not supported for this beacon type</string>
+    <string name="passphrase_hint">Password</string>
+    <string name="start_beaconing">Start beaconing</string>
+    <string name="stop_beaconing">Stop beaconing</string>
+    <string name="choose_ssid">Choose SSID</string>
+    <string name="apply_configuration">Apply configuration</string>
+    <string name="reset">Reset</string>
+
+    <string name="app_yodikit_beacon1_description">During this application, when beacon matches a predefined UUID, an email will be sent to you with the URL of the camera video stream.</string>
+    <string name="app_yodikit_beacon2_description">During this application, when beacon matches a predefined UUID, an alarm message will be sent to you via email.</string>
+    <string name="app_yodikit_beaconflic_description">During this application, when Beacon matches a predefined UUID, turn the energy meter on. Then, you can double click the Flic button to turn it off.</string>
+    <string name="app_yodikit_camera4_description">During this application, the ZWave door sensor will send an email with the URL of the video stream, when the door connected to the sensor opens.</string>
+    <string name="app_yodikit_doorsensor_description">During this application, the ZWave door open sensor will turn energy plug on, when the door connected to the sensor opens.</string>
+    <string name="app_yodikit_flic5_description">During this application you can take a (IP)camera snapshot using the Flic button. Use a single click to take the photo and it will automatically be shown on your NeBiT.</string>
+    <string name="app_yodikit_flic6_description">During this application you can control a smart plug using the Flic button. Use single click to turn on the smart plug and double click to turn it off.</string>
+    <string name="app_yodikit_flic7_description">During this application you can take a camera snapshot by clicking a Flic button. Use a single click to take the photo and it will automatically be shown on your NeBiT.</string>
+    <string name="app_yodikit_flic8_description">During this application you can control the mobile torch using a Flic button. Use a single click to turn the torch on and a long click to turn it off.</string>
+    <string name="app_yodikit_flic9_description">During this application you can send an audio message WHEREEEEE?????. Use a single click to send MSGA?? or double click to send MSGB????.</string>
+    <string name="app_yodikit_slider_description">During this application, you can control the servo of the camera using your NeBiT slider Thing.</string>
+    <string name="app_yodikit_switch1_description">During this application you can control the ZWave SmartPlug using a Switch Thing. When on, the energy consumption is shown on your NEBiT.</string>
+</resources>

@@ -1,0 +1,83 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:key="device_settings"
+        android:title="Device settings">
+
+        <EditTextPreference
+            android:defaultValue="@string/pref_device_name_default"
+            android:inputType="text"
+            android:key="@string/pref_device_name_key"
+            android:singleLine="true"
+            android:title="Name" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="transport_protocol"
+        android:title="Transport protocol">
+
+        <ListPreference
+            android:key="@string/pref_transport_protocol"
+            android:title="Select protocol"
+            android:defaultValue="1"
+            android:entries="@array/TransportProtocol"
+            android:entryValues="@array/TransportProtocolValues"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="notification_settings"
+        android:title="Notifications settings">
+
+        <SwitchPreference
+            android:defaultValue="@string/pref_notifications_enable_default"
+            android:key="@string/pref_notifications_enable_key"
+            android:title="Enable"
+            android:contentDescription="Send notifications when app is running in background">
+        </SwitchPreference>
+
+        <ListPreference
+            android:key="@string/pref_notification_sound_mode_key"
+            android:title="Sound mode"
+            android:defaultValue="1"
+            android:entries="@array/SoundMode"
+            android:entryValues="@array/SoundModeValues"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="log_data"
+        android:title="Log system messages">
+
+        <SwitchPreference
+            android:defaultValue="@string/pref_log_data_default"
+            android:key="@string/pref_log_data_key"
+            android:title="Enable"
+            android:contentDescription="Store system messages in NeBiT.log file">
+        </SwitchPreference>
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="reset_application"
+        android:title="Reset application">
+
+        <Preference
+            android:clickable="true"
+            android:key="@string/pref_reset_app_key"
+            android:title="Clean data" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="application_version"
+        android:title="Application version">
+
+        <EditTextPreference
+            android:defaultValue="@string/pref_app_version"
+            android:clickable="false"
+            android:editable="false"
+            android:key="@string/pref_app_version_key"
+            android:singleLine="true"
+            android:title="Version" />
+    </PreferenceCategory>
+    
+</PreferenceScreen>

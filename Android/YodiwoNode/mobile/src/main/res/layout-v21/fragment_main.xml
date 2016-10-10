@@ -1,0 +1,306 @@
+<ViewFlipper
+        android:id="@+id/viewFlipper"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                        xmlns:tools="http://schemas.android.com/tools"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:paddingLeft="@dimen/activity_horizontal_margin"
+                        android:paddingRight="@dimen/activity_horizontal_margin"
+                        android:paddingTop="@dimen/activity_vertical_margin"
+                        android:paddingBottom="@dimen/activity_vertical_margin"
+                        android:id="@+id/fragment_main"
+                        android:background="@drawable/background_main"
+                        tools:context=".core.MainActivityFragment">
+
+            <Button
+                style="@style/Base.TextAppearance.AppCompat.Widget.Button"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="Button1"
+                android:id="@+id/button1"
+                android:elevation="16dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true"/>
+
+            <Button
+                style="@style/Base.TextAppearance.AppCompat.Widget.Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Button2"
+                android:id="@+id/button2"
+                android:elevation="16dp"
+                android:layout_below="@+id/output_switch3"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true" />
+
+            <Button
+                style="@style/Base.TextAppearance.AppCompat.Widget.Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Button3"
+                android:elevation="16dp"
+                android:id="@+id/button3"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="false"/>
+
+            <SeekBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/seekBar"
+                android:elevation="16dp"
+                android:layout_above="@+id/output_switch3"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginBottom="10dp"
+                android:indeterminate="false" />
+
+            <Switch
+                style="@style/Base.TextAppearance.AppCompat.Widget.Switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="S1"
+                android:textColor="#fffefe"
+                android:elevation="16dp"
+                android:id="@+id/output_switch1"
+                android:layout_alignEnd="@+id/button1"
+                android:layout_alignTop="@+id/output_switch2"
+                android:layout_alignBottom="@+id/output_switch2"
+                android:layout_alignStart="@+id/button1"/>
+
+            <Switch
+                style="@style/Base.TextAppearance.AppCompat.Widget.Switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="S2"
+                android:textColor="#fffefe"
+                android:elevation="16dp"
+                android:id="@+id/output_switch2"
+                android:layout_alignEnd="@+id/button2"
+                android:layout_alignRight="@+id/button2"
+                android:layout_alignTop="@+id/output_switch3"
+                android:layout_alignBottom="@+id/output_switch3"
+                android:layout_alignStart="@+id/button2"/>
+
+            <Switch
+                style="@style/Base.TextAppearance.AppCompat.Widget.Switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="S3"
+                android:textColor="#fffefe"
+                android:elevation="16dp"
+                android:id="@+id/output_switch3"
+                android:layout_above="@+id/button3"
+                android:layout_marginBottom="10dp"
+                android:layout_alignEnd="@+id/button3"
+                android:layout_alignStart="@+id/button3"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Output to cloud:"
+                android:textStyle="italic"
+                android:id="@+id/textView"
+                android:layout_above="@+id/button_GPS"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="false"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Input from cloud:"
+                android:textStyle="italic"
+                android:id="@+id/textView2"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true" />
+
+            <Switch
+                style="@style/Base.TextAppearance.AppCompat.Widget.Switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="In1"
+                android:textColor="#fffefe"
+                android:elevation="16dp"
+                android:id="@+id/input_switch1"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/textView2"
+                android:focusableInTouchMode="false"
+                android:clickable="false"
+                android:focusable="false"
+                android:layout_alignParentStart="true"
+                android:layout_alignEnd="@+id/output_switch1"/>
+
+            <Switch
+                style="@style/Base.TextAppearance.AppCompat.Widget.Switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="In2"
+                android:textColor="#fffefe"
+                android:elevation="16dp"
+                android:id="@+id/input_switch2"
+                android:focusableInTouchMode="false"
+                android:clickable="false"
+                android:focusable="false"
+                android:layout_alignEnd="@+id/output_switch2"
+                android:layout_alignStart="@+id/output_switch2"
+                android:layout_alignTop="@+id/input_switch1"
+                android:layout_above="@+id/input_progressBar" />
+
+            <Switch
+                style="@style/Base.TextAppearance.AppCompat.Widget.Switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:elevation="16dp"
+                android:text="In3"
+                android:textColor="#fffefe"
+                android:id="@+id/input_switch3"
+                android:focusableInTouchMode="false"
+                android:clickable="false"
+                android:focusable="false"
+                android:layout_alignTop="@+id/input_switch2"
+                android:layout_alignBottom="@+id/input_switch2"
+                android:layout_alignEnd="@+id/button3"
+                android:layout_alignStart="@+id/button3"
+                android:layout_above="@+id/input_progressBar" />
+
+            <ProgressBar
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="wrap_content"
+                android:focusable="false"
+                android:elevation="16dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/input_progressBar"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/input_switch1"
+                android:layout_alignParentStart="true"
+                android:layout_alignEnd="@+id/seekBar"/>
+
+            <ImageButton
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:elevation="16dp"
+                android:id="@+id/input_button_color1"
+                android:layout_below="@+id/input_progressBar"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="15dp"
+                android:clickable="false"
+                android:background="@drawable/shape_button"
+                android:src="@drawable/icon_light"/>
+
+            <ImageButton
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:id="@+id/input_button_color2"
+                android:elevation="16dp"
+                android:clickable="false"
+                android:background="@drawable/shape_button"
+                android:layout_alignTop="@+id/input_button_color3"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/icon_light"/>
+
+            <ImageButton
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:elevation="16dp"
+                android:id="@+id/input_button_color3"
+                android:clickable="false"
+                android:background="@drawable/shape_button"
+                android:layout_alignTop="@+id/input_button_color1"
+                android:layout_alignEnd="@+id/input_switch3"
+                android:src="@drawable/icon_light"/>
+
+            <Button
+                style="@style/Base.TextAppearance.AppCompat.Widget.Button"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="Location"
+                android:elevation="16dp"
+                android:id="@+id/button_GPS"
+                android:layout_above="@+id/seekBar"
+                android:layout_alignEnd="@+id/seekBar"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/textView3"
+                android:layout_alignParentStart="true"
+                android:layout_alignEnd="@+id/input_button_color3"
+                android:layout_above="@+id/textView"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/input_button_color1"
+                android:enabled="true"
+                android:elevation="16dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginBottom="12dp"
+                android:textColor="#ffffff"/>
+
+            <SurfaceView
+                android:id="@+id/camera_preview"
+                android:layout_width="1dp"
+                android:layout_height="1dp"
+                android:visibility="visible"/>
+
+            <Button
+                style="@style/Base.TextAppearance.AppCompat.Widget.Button"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="Camera"
+                android:elevation="16dp"
+                android:id="@+id/camera_button"
+                android:layout_alignTop="@+id/button_GPS"
+                android:layout_alignParentStart="true"/>
+
+            <!-- Connectivity progress -->
+            <ProgressBar
+                android:id="@+id/connectivity_progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_centerInParent="true"
+                android:visibility="gone"
+                style="@android:style/Widget.DeviceDefault.ProgressBar.Large"/>
+
+        </RelativeLayout>
+
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:tools="http://schemas.android.com/tools"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorWhite"
+                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:paddingRight="@dimen/activity_horizontal_margin"
+                    android:paddingTop="@dimen/activity_vertical_margin"
+                    android:paddingBottom="@dimen/activity_vertical_margin"
+                    android:id="@+id/image_viewer_layout">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/imageToDisplay" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:id="@+id/image_save_button"
+            android:text="SAVE"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:id="@+id/image_delete_button"
+            android:text="DELETE"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"/>
+
+    </RelativeLayout>
+
+</ViewFlipper>
