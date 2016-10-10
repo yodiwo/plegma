@@ -25,10 +25,12 @@ namespace Yodiwo.YPChannel
         public String Message;
         public string ChannelKey;
         public UInt32 ChannelFlags;
+        public int ProtocolGroupSize;
 
         public class MessageTypeGroupPacked
         {
             public string GroupName;
+            public int GroupID;
             public string[] MessageTypes;
         }
         public MessageTypeGroupPacked[] ProtocolDefinitions;

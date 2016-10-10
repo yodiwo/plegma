@@ -5,7 +5,7 @@ using System.Linq;
 using System.Net;
 #if NETFX
 using System.Net.Sockets;
-#else
+#elif UNIVERSAL
 using Windows.Networking.Sockets;
 #endif
 using System.Reflection;
@@ -32,19 +32,24 @@ namespace Yodiwo.YPChannel.Transport.Sockets
 #if NETFX
         public Socket _sock;
         public Socket Sock => _sock;
-#else
+#elif UNIVERSAL
         public DatagramSocket _sock;
         public DatagramSocket Sock => _sock;
 #endif
         //------------------------------------------------------------------------------------------------------------------------
+#if NETFX
+        public Thread BroadcastTask;
+        public Thread DiscoveryTask;
+#elif UNIVERSAL
         public Task BroadcastTask;
         public Task DiscoveryTask;
+#endif
         //------------------------------------------------------------------------------------------------------------------------
         public bool IsRunning;
         //------------------------------------------------------------------------------------------------------------------------
         Type DiscoveryMessageType;
-        DiscoveryMessageBase DiscoveryMessage;
-        int DiscoveryMessageSize;
+        IDiscoveryMessageBase DiscoveryMessage;
+        int DiscoveryMessageMaxSize;
         byte[] DiscoveryMessageData;
         //------------------------------------------------------------------------------------------------------------------------
         public int myID = 0;
@@ -59,14 +64,14 @@ namespace Yodiwo.YPChannel.Transport.Sockets
             public RemoteEndpointID ID;
             public string IPAddress => ID.IPAddress;
             public DateTime LastMessageTimestamp;
-            public DiscoveryMessageBase LastDiscoveryMessage;
+            public IDiscoveryMessageBase LastDiscoveryMessage;
         }
         public readonly DictionaryTS<RemoteEndpointID, RemoteEndpointInfo> DiscoveredEndpoints = new DictionaryTS<RemoteEndpointID, RemoteEndpointInfo>();
         //------------------------------------------------------------------------------------------------------------------------
         public delegate void OnNewEndpointDiscoveredDelegate(RemoteEndpointInfo newEndpoint);
         public event OnNewEndpointDiscoveredDelegate OnNewEndpointDiscovered;
         //------------------------------------------------------------------------------------------------------------------------
-        public delegate void OnEndpointMsgRxDelegate(RemoteEndpointInfo endpoint, DiscoveryMessageBase msg);
+        public delegate void OnEndpointMsgRxDelegate(RemoteEndpointInfo endpoint, IDiscoveryMessageBase msg);
         public event OnEndpointMsgRxDelegate OnEndpointMsgRx;
         //------------------------------------------------------------------------------------------------------------------------
         public delegate void OnEndpointTimeoutDelegate(RemoteEndpointInfo endpoint);
@@ -80,7 +85,7 @@ namespace Yodiwo.YPChannel.Transport.Sockets
 
         #region Constructor
         //------------------------------------------------------------------------------------------------------------------------
-        public LANDiscoverer(DiscoveryMessageBase DiscoveryMessage, int BroadcastPort = DefaultBroadcastPort)
+        public LANDiscoverer(IDiscoveryMessageBase DiscoveryMessage, int DiscoveryMessageMaxSize = 1024, int BroadcastPort = DefaultBroadcastPort, int? ID = null)
         {
             DebugEx.Assert(DiscoveryMessage != null, "DiscoveryMessage cannot be null");
             if (DiscoveryMessage == null)
@@ -88,10 +93,19 @@ namespace Yodiwo.YPChannel.Transport.Sockets
 
             //keep info
             this.BroadcastPort = BroadcastPort;
+            this.DiscoveryMessageMaxSize = DiscoveryMessageMaxSize;
+
+            //set id
+            if (ID.HasValue)
+                myID = ID.Value;
 
             //generate id
             while (myID == 0)
-                myID = MathTools.GetRandomNumber();
+#if NETFX
+                myID = MathTools.GetRandomNumber(0, 10000);
+#elif UNIVERSAL
+                myID = MathTools.GetRandomNumber(20000, 100000);
+#endif
 
             //update discovery message
             UpdateDiscoveryMessage(DiscoveryMessage);
@@ -117,15 +131,18 @@ namespace Yodiwo.YPChannel.Transport.Sockets
                         _sock = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
                         _sock.EnableBroadcast = true;
                         _sock.ExclusiveAddressUse = false;
+                        _sock.DontFragment = true;
                         _sock.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
                         if (EnableDiscovery)
                             try { _sock.Bind(new IPEndPoint(IPAddress.Any, BroadcastPort)); } catch (Exception ex2) { DebugEx.Assert(ex2, "Discovery Bind failed"); }
-#else
+#elif UNIVERSAL
                         _sock = new DatagramSocket();
                         _sock.Control.DontFragment = true;
-                        _sock.MessageReceived += _sock_MessageReceived;
                         if (EnableDiscovery)
+                        {
+                            _sock.MessageReceived += _sock_MessageReceived;
                             try { _sock.BindServiceNameAsync(BroadcastPort.ToStringInvariant()).AsTask().Wait(); } catch (Exception ex2) { DebugEx.Assert(ex2, "Discovery Bind failed"); }
+                        }
 #endif
                     }
 
@@ -133,10 +150,25 @@ namespace Yodiwo.YPChannel.Transport.Sockets
                     IsRunning = true;
 #if NETFX
                     if (EnableDiscovery)
-                        DiscoveryTask = Task.Run((Action)DiscoveryTaskEntryPoint);
+                    {
+                        DiscoveryTask = new Thread(DiscoveryTaskEntryPoint);
+                        DiscoveryTask.Name = "YPC LANDiscoverer discovery heartbeat";
+                        DiscoveryTask.IsBackground = true;
+                        DiscoveryTask.Start();
+                    }
 #endif
+
                     if (EnableBroadcasting)
-                        BroadcastTask = Task.Run((Action)BroadcastTaskEntryPoint);
+                    {
+#if NETFX
+                        BroadcastTask = new Thread(BroadcastTaskEntryPoint);
+                        BroadcastTask.Name = "YPC LANDiscoverer broadcast heartbeat";
+                        BroadcastTask.IsBackground = true;
+                        BroadcastTask.Start();
+#elif UNIVERSAL
+                        BroadcastTask = BroadcastTaskEntryPoint();
+#endif
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -162,8 +194,14 @@ namespace Yodiwo.YPChannel.Transport.Sockets
 
                     //stop tasks
                     IsRunning = false;
+#if NETFX
+                    DiscoveryTask?.Join(200);
+                    BroadcastTask?.Join(200);
+#elif UNIVERSAL
                     DiscoveryTask?.Wait(200);
                     BroadcastTask?.Wait(200);
+#endif
+
                     DiscoveryTask = null;
                     BroadcastTask = null;
                 }
@@ -171,33 +209,46 @@ namespace Yodiwo.YPChannel.Transport.Sockets
             }
         }
         //------------------------------------------------------------------------------------------------------------------------
-        public void UpdateDiscoveryMessage(DiscoveryMessageBase _discoveryMessage)
+        public void UpdateDiscoveryMessage(IDiscoveryMessageBase _discoveryMessage)
         {
-            DebugEx.Assert(_discoveryMessage != null, "DiscoveryMessage cannot be null");
-            if (_discoveryMessage == null)
-                throw new NullReferenceException("DiscoveryMessage cannot be null");
+            try
+            {
+                DebugEx.Assert(_discoveryMessage != null, "DiscoveryMessage cannot be null");
+                if (_discoveryMessage == null)
+                    throw new NullReferenceException("DiscoveryMessage cannot be null");
 
-            //setup id on message
-            _discoveryMessage.Id = myID;
+                //setup id on message
+                _discoveryMessage.Id = myID;
 
-            //get size and type
-            var _discoveryMessageSize = Marshal.SizeOf(_discoveryMessage);
-            var _discoveryMessageType = _discoveryMessage.GetType();
+                //get size and type
+                var _discoveryMessageType = _discoveryMessage.GetType();
 
-            //create payload
-            var data = Tools.Marshalling.ToBytes((object)_discoveryMessage);
+                //create payload
+                var data = Tools.Marshalling.ToBytes(_discoveryMessage);
+                if (data == null)
+                    DebugEx.Assert("Could not get bytes from DicoveryMessage");
+                else
+                {
+                    var dataLen = data.Length;
+                    Array.Resize<byte>(ref data, data.Length + 2);
+                    for (int n = data.Length - 2; n >= 2; n--)
+                        data[n] = data[n - 2];
+                    data[0] = (byte)(dataLen & 0x000000FF);
+                    data[1] = (byte)((dataLen & 0x0000FF00) >> 8);
+                }
 
-            //update
-            this.DiscoveryMessage = _discoveryMessage;
-            this.DiscoveryMessageSize = _discoveryMessageSize;
-            this.DiscoveryMessageType = _discoveryMessageType;
-            this.DiscoveryMessageData = data;
-
+                //update
+                this.DiscoveryMessage = _discoveryMessage;
+                this.DiscoveryMessageType = _discoveryMessageType;
+                this.DiscoveryMessageData = data;
+            }
+            catch (Exception ex) { DebugEx.Assert(ex); }
         }
         //------------------------------------------------------------------------------------------------------------------------
 #if NETFX
         void DiscoveryTaskEntryPoint()
         {
+            byte[] buffer = new byte[DiscoveryMessageMaxSize];
             //heartbeat
             while (IsRunning && _sock?.IsBound == true)
             {
@@ -207,17 +258,35 @@ namespace Yodiwo.YPChannel.Transport.Sockets
                     var iep = new IPEndPoint(IPAddress.Any, BroadcastPort);
                     var ep = (EndPoint)iep;
 
+                    //clear buffer
+                    Array.Clear(buffer, 0, buffer.Length);
+
                     //receive packet
-                    byte[] buffer = new byte[DiscoveryMessageSize];
-                    var offset = 0;
-                    while (offset < DiscoveryMessageSize)
-                        offset += _sock.ReceiveFrom(buffer, offset, DiscoveryMessageSize - offset, SocketFlags.None, ref ep);
+                    var read = _sock.ReceiveFrom(buffer, 0, DiscoveryMessageMaxSize, SocketFlags.None, ref ep);
+                    if (read == 0 || read == -1)
+                    {
+                        Thread.Sleep(200);
+                        continue;
+                    }
+
+                    //get length
+                    var length = buffer[0] | (buffer[1] << 8);
 
                     //get address
                     var addr = ep.GetIPAddress();
 
-                    //handle new packet
-                    HandleNewPacket(buffer, addr.ToStringInvariant());
+                    try
+                    {
+                        //fixup buffer
+                        var fixed_buffer = buffer.Skip(2).Take(length).ToArray();
+
+                        //handle new packet
+                        HandleNewPacket(fixed_buffer, addr.ToStringInvariant());
+                    }
+                    catch { }
+
+                    //sleep
+                    Thread.Sleep(200);
                 }
                 catch (Exception ex) { DebugEx.TraceError(ex, "DiscoveryTaskEntryPoint error"); }
             }
@@ -234,7 +303,7 @@ namespace Yodiwo.YPChannel.Transport.Sockets
 
                 using (var reader = e.GetDataReader())
                 {
-                    var data = reader.DetachBuffer().ToArray();
+                    var data = reader.DetachBuffer().ToArray().Skip(2).ToArray();
                     HandleNewPacket(data, address);
                 }
             }
@@ -246,12 +315,12 @@ namespace Yodiwo.YPChannel.Transport.Sockets
             try
             {
                 //deserialize packet
-                DiscoveryMessageBase msg;
+                IDiscoveryMessageBase msg;
                 try
                 {
-                    msg = Tools.Marshalling.ToObject(DiscoveryMessageType, data) as DiscoveryMessageBase;
+                    msg = Tools.Marshalling.ToObject(DiscoveryMessageType, data) as IDiscoveryMessageBase;
                 }
-                catch (Exception ex1) { DebugEx.TraceError(ex1, "DiscoveryTaskEntryPoint could not unpack msg"); return; }
+                catch { return; }
 
                 //is it me? (then discard msg)
                 if (msg.Id == 0 || msg.Id == myID)
@@ -287,7 +356,11 @@ namespace Yodiwo.YPChannel.Transport.Sockets
             catch (Exception ex) { DebugEx.TraceError(ex, "DiscoveryTaskEntryPoint error"); }
         }
         //------------------------------------------------------------------------------------------------------------------------
+#if NETFX
         void BroadcastTaskEntryPoint()
+#elif UNIVERSAL
+        async Task BroadcastTaskEntryPoint()
+#endif
         {
             try
             {
@@ -306,15 +379,20 @@ namespace Yodiwo.YPChannel.Transport.Sockets
                             //send discovery request
 #if NETFX
                             _sock?.SendTo(data, iep);
-#else
-                            using (var stream = _sock.GetOutputStreamAsync(new Windows.Networking.HostName("255.255.255.255"), BroadcastPort.ToStringInvariant()).GetResults())
+#elif UNIVERSAL
+                            using (var stream = await _sock.GetOutputStreamAsync(new Windows.Networking.HostName("255.255.255.255"), BroadcastPort.ToStringInvariant()))
                                 stream.WriteAsync(data.AsBuffer(0, data.Length)).AsTask().Wait();
 #endif
                         }
-                        //wait
-                        Task.Delay(BroadcastDelay).Wait();
                     }
                     catch (Exception ex) { DebugEx.TraceError(ex, "BroadcastTaskEntryPoint error"); }
+
+                    //wait
+#if NETFX
+                    Thread.Sleep(BroadcastDelay);
+#elif UNIVERSAL
+                    await Task.Delay(BroadcastDelay).ConfigureAwait(false);
+#endif
                 }
             }
             catch (Exception ex) { DebugEx.TraceError(ex, "BroadcastTaskEntryPoint error"); }
@@ -343,15 +421,12 @@ namespace Yodiwo.YPChannel.Transport.Sockets
         #endregion
     }
 
-    [StructLayout(LayoutKind.Sequential)]
-    public class DiscoveryMessageBase
+
+    public interface IDiscoveryMessageBase
     {
         //Info
-        public int Id;
-        public int MajorVersion;
-        public int MinorVersion;
-        public int BuildVersion;
-        public int Flags;
+        int Id { get; set; }
+        int Flags { get; set; }
     }
 
 }

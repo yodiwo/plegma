@@ -5,7 +5,7 @@ using System.Net;
 #if NETFX
 using System.Net.Sockets;
 using System.Security.Cryptography.X509Certificates;
-#else
+#elif UNIVERSAL
 using Windows.Networking.Sockets;
 #endif
 using System.Text;
@@ -25,17 +25,30 @@ namespace Yodiwo.YPChannel.Transport.Sockets
         //------------------------------------------------------------------------------------------------------------------------
 #if NETFX
         Socket sock;
-#else
+#elif UNIVERSAL
         Windows.Networking.Sockets.StreamSocketListener sock;
 #endif
         //------------------------------------------------------------------------------------------------------------------------
+#if NETFX
+        Thread PortListener;
+#elif UNIVERSAL
         Task PortListener;
-        HashSetTS<ServerChannel> Channels = new HashSetTS<ServerChannel>();
+#endif
+        //------------------------------------------------------------------------------------------------------------------------
+        HashSetTS<ServerChannel> _Channels = new HashSetTS<ServerChannel>();
+        public IReadOnlySet<ServerChannel> Channels => _Channels;
+        //------------------------------------------------------------------------------------------------------------------------
+        public ISerializer MsgPackSerializer;
+        //------------------------------------------------------------------------------------------------------------------------
         public Func<Protocol[], Socket, ServerChannel> ChannelConstructor = null;
         int Port;
-        ChannelSerializationMode ChannelSerializationMode;
+        ChannelSerializationMode SupportedChannelSerializationModes;
+        ChannelSerializationMode PreferredChannelSerializationModes;
         //------------------------------------------------------------------------------------------------------------------------
         DictionaryTS<string, ServerChannel> IssuedKeys = new DictionaryTS<string, ServerChannel>();
+        //------------------------------------------------------------------------------------------------------------------------
+        public delegate bool OnNewSocketConnectionFilterDelegate(Server Server, string RemoteEndpointIP);
+        public OnNewSocketConnectionFilterDelegate OnNewSocketConnectionFilter = null;
         //------------------------------------------------------------------------------------------------------------------------
         public delegate void OnNewChannelHandler(Server Server, Channel Channel);
         public event OnNewChannelHandler OnNewChannel = null;
@@ -65,15 +78,16 @@ namespace Yodiwo.YPChannel.Transport.Sockets
 
         #region Constructors
         //------------------------------------------------------------------------------------------------------------------------
-        public Server(Protocol Protocol, ChannelSerializationMode ChannelSerializationMode = ChannelSerializationMode.MessagePack)
-            : this(new[] { Protocol }, ChannelSerializationMode: ChannelSerializationMode)
+        public Server(Protocol Protocol, ChannelSerializationMode SupportedChannelSerializationModes = ChannelSerializationMode.Json, ChannelSerializationMode PreferredChannelSerializationModes = ChannelSerializationMode.Json)
+            : this(new[] { Protocol }, SupportedChannelSerializationModes: SupportedChannelSerializationModes, PreferredChannelSerializationModes: PreferredChannelSerializationModes)
         {
         }
         //------------------------------------------------------------------------------------------------------------------------
-        public Server(Protocol[] Protocols, ChannelSerializationMode ChannelSerializationMode = ChannelSerializationMode.MessagePack)
+        public Server(Protocol[] Protocols, ChannelSerializationMode SupportedChannelSerializationModes = ChannelSerializationMode.Json, ChannelSerializationMode PreferredChannelSerializationModes = ChannelSerializationMode.Json)
         {
             this.Protocols = Protocols == null ? (Protocol[])null : (Protocol[])Protocols.Clone(); //copy here to avoid user changing stuff later on
-            this.ChannelSerializationMode = ChannelSerializationMode;
+            this.SupportedChannelSerializationModes = SupportedChannelSerializationModes;
+            this.PreferredChannelSerializationModes = PreferredChannelSerializationModes;
 
             //hook event for shutdown
             Channel.OnSystemShutDownRequest.Add(Yodiwo.WeakAction<object>.Create(ShutdownRedirect));
@@ -88,7 +102,7 @@ namespace Yodiwo.YPChannel.Transport.Sockets
         //------------------------------------------------------------------------------------------------------------------------
 #if NETFX
         public bool Start(int Port, X509Certificate2 certificate = null)
-#else
+#elif UNIVERSAL
         public bool Start(int Port)
 #endif
         {
@@ -113,10 +127,10 @@ namespace Yodiwo.YPChannel.Transport.Sockets
 #if NETFX
                     sock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                     sock.Bind(new IPEndPoint(IPAddress.Any, Port));
-#else
+#elif UNIVERSAL
                     sock = new StreamSocketListener();
                     sock.ConnectionReceived += Sock_ConnectionReceived;
-                    sock.BindEndpointAsync(new Windows.Networking.HostName("255.255.255.255"), Port.ToStringInvariant()).AsTask().Wait();
+                    sock.BindServiceNameAsync(Port.ToStringInvariant()).AsTask().Wait();
 #endif
                 }
                 catch (Exception ex)
@@ -131,12 +145,14 @@ namespace Yodiwo.YPChannel.Transport.Sockets
                 //log
 #if NETFX
                 DebugEx.TraceLog("YPServer (socks) started on port " + Port + "  (Secure=" + (certificate != null).ToStringInvariant() + ")");
-#else
+#elif UNIVERSAL
                 DebugEx.TraceLog("YPServer (socks) started on port " + Port + "  (Secure= False)");
 #endif
                 //start port listener
 #if NETFX
-                PortListener = new Task(PortListenerEntryPoint);
+                PortListener = new Thread(PortListenerEntryPoint);
+                PortListener.Name = "YPC Server PortListener thread";
+                PortListener.IsBackground = true;
                 PortListener.Start();
 #endif
                 //done
@@ -153,8 +169,8 @@ namespace Yodiwo.YPChannel.Transport.Sockets
                     //close all channels
                     if (CloseAllChannels)
                     {
-                        Channels.ForEach(c => { try { c.Close(); } catch (Exception ex) { DebugEx.Assert(ex, "Error while closing channel"); } });
-                        Channels.Clear();
+                        _Channels.ForEach(c => { try { c.Close("Server stopped"); } catch (Exception ex) { DebugEx.Assert(ex, "Error while closing channel"); } });
+                        _Channels.Clear();
                     }
 
                     //update flag
@@ -181,7 +197,11 @@ namespace Yodiwo.YPChannel.Transport.Sockets
                     sock = null;
 
                     //wait for task finish
-                    PortListener.Wait(1000);
+#if NETFX
+                    PortListener?.Join(1000);
+#elif UNIVERSAL
+                    PortListener?.Wait(1000);
+#endif
                     PortListener = null;
                 }
             }
@@ -196,6 +216,9 @@ namespace Yodiwo.YPChannel.Transport.Sockets
         {
             try
             {
+                //start listening
+                sock?.Listen(10);
+
                 //heartbeat
                 while (_IsRunning)
                 {
@@ -207,12 +230,9 @@ namespace Yodiwo.YPChannel.Transport.Sockets
                     if (__sock == null)
                         break;
 
-                    //start listening
-                    __sock.Listen(10);
-
                     //accept and get new socket
                     try { newsocket = __sock.Accept(); }
-                    catch (Exception ex) { DebugEx.TraceWarning(ex, "YPServer sock.Accept() exception"); continue; }
+                    catch (Exception ex) { DebugEx.TraceError(ex, "YPServer sock.Accept() exception"); continue; }
 
                     //handlew new connection
                     HandleNewConnection(newsocket);
@@ -222,8 +242,11 @@ namespace Yodiwo.YPChannel.Transport.Sockets
             {
                 DebugEx.Assert(ex, "YPChannel server heartbeat error");
             }
+
+            //inform for heartbeat end
+            DebugEx.TraceLog("YPChannel server heartbeat finished");
         }
-#else
+#elif UNIVERSAL
         private void Sock_ConnectionReceived(StreamSocketListener sender, StreamSocketListenerConnectionReceivedEventArgs args)
         {
             HandleNewConnection(args.Socket);
@@ -239,9 +262,20 @@ namespace Yodiwo.YPChannel.Transport.Sockets
                 {
 #if NETFX
                     var re = newsocket.RemoteEndPoint.GetIPAddress().ToStringInvariant();
-#else
+#elif UNIVERSAL
                     var re = newsocket.Information.RemoteAddress.ToStringInvariant();
 #endif
+                    //filtering
+                    if (OnNewSocketConnectionFilter != null && OnNewSocketConnectionFilter(this, re) == false)
+                    {
+#if NETFX
+                        try { newsocket.Close(); } catch { }
+#endif
+                        try { newsocket.Dispose(); } catch { }
+                        DebugEx.TraceWarning("Connection from " + re + " closed from filter");
+                        return;
+                    }
+
                     if (IsReconnectionThrottleEnabled && re != "127.0.0.1") //no reconnection throttle for localhost connections
                     {
                         var rbe = reconnectThrottleBookKeeper.TryGetOrDefault(re);
@@ -295,7 +329,7 @@ namespace Yodiwo.YPChannel.Transport.Sockets
 #endif
                             //create channel
                             var con = ChannelConstructor;
-                            var channel = con == null ? new ServerChannel(this, Protocols, ChannelSerializationMode, newsocket) : con(Protocols, newsocket);
+                            var channel = con == null ? new ServerChannel(this, Protocols, SupportedChannelSerializationModes, PreferredChannelSerializationModes, newsocket) : con(Protocols, newsocket);
                             if (channel == null)
                             {
                                 DebugEx.Assert("Could not create channel");
@@ -308,14 +342,14 @@ namespace Yodiwo.YPChannel.Transport.Sockets
 
                             //add to set
                             string channelKey = null;
-                            lock (Channels)
+                            lock (_Channels)
                             {
                                 //generate unique key
                                 while (IssuedKeys.ContainsKey(channelKey = MathTools.GenerateRandomAlphaNumericString(64))) ;
                                 //set on channel
                                 channel._ChannelKey = channelKey;
                                 //add to lookups
-                                Channels.Add(channel);
+                                _Channels.Add(channel);
                                 IssuedKeys.Add(channelKey, channel);
                             }
 
@@ -326,37 +360,40 @@ namespace Yodiwo.YPChannel.Transport.Sockets
                                 try
                                 {
                                     //wait
-                                    Task.Delay(30000).Wait();
+                                    Thread.Sleep(30000);
                                     //check
                                     if (!setupFinished)
                                     {
                                         DebugEx.TraceLog("ServerChannel setup timeout");
-                                        try { channel.Close(); } catch { }
+                                        try { channel.Close("ServerChannel setup timeout"); } catch { }
 #if NETFX
-                                        try { newsocket.Close(); } catch { }
+                                        try { newsocket?.Close(); } catch { }
 #endif
-                                        try { newsocket.Dispose(); } catch { }
+                                        try { newsocket?.Dispose(); } catch { }
                                     }
                                 }
                                 catch (Exception ex)
                                 {
                                     DebugEx.Assert(ex, "Unhandled exception");
 #if NETFX
-                                    try { newsocket.Close(); } catch { }
+                                    try { newsocket?.Close(); } catch { }
 #endif
-                                    try { newsocket.Dispose(); } catch { }
+                                    try { newsocket?.Dispose(); } catch { }
                                 }
                             });
+
+                            //set serializer
+                            channel.MsgPack = MsgPackSerializer;
 
                             //setup channel socket
                             if (channel.SetupServerSocket() == false)
                             {
 #if NETFX
-                                try { newsocket.Close(); } catch { }
+                                try { newsocket?.Close(); } catch { }
 #endif
-                                try { newsocket.Dispose(); } catch { }
+                                try { newsocket?.Dispose(); } catch { }
                                 //add to lookups
-                                Channels.Remove(channel);
+                                _Channels.Remove(channel);
                                 IssuedKeys.Remove(channelKey);
                                 return;
                             }
@@ -365,8 +402,7 @@ namespace Yodiwo.YPChannel.Transport.Sockets
                             setupFinished = true;
 
                             //call event
-                            if (OnNewChannel != null)
-                                OnNewChannel(this, channel);
+                            OnNewChannel?.Invoke(this, channel);
 
                             //start heartbeat
                             channel.Start();
@@ -414,7 +450,7 @@ namespace Yodiwo.YPChannel.Transport.Sockets
             try
             {
                 //remove from channel set
-                Channels.Remove(channel);
+                _Channels.Remove(channel);
                 IssuedKeys.Remove(channel.ChannelKey);
             }
             catch (Exception ex) { DebugEx.TraceError(ex, "Server onChannelClose() unhandled exception"); }

@@ -1,10 +1,11 @@
-﻿using System;
+﻿//#define CHECK_TYPES
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
-using MsgPack.Serialization;
 using System.Reflection;
 using System.Collections;
 using System.Threading.Tasks;
@@ -21,24 +22,42 @@ namespace Yodiwo.YPChannel
         internal string _ChannelKey = string.Empty;
         public string ChannelKey { get { return _ChannelKey; } }
         //------------------------------------------------------------------------------------------------------------------------
-        ChannelFlags _LocalChannelFlags = ChannelFlags.None;
+        ChannelFlags _LocalChannelFlags = ChannelFlags.None | ChannelFlags.GZip | ChannelFlags.Deflate | ChannelFlags.UsePayloadStr | ChannelFlags.AdaptiveProtocol;
         public ChannelFlags LocalChannelFlags { get { return _LocalChannelFlags; } }
         //------------------------------------------------------------------------------------------------------------------------
         ChannelFlags _RemoteChannelFlags = ChannelFlags.None;
         public ChannelFlags RemoteChannelFlags { get { return _RemoteChannelFlags; } }
         //------------------------------------------------------------------------------------------------------------------------
-        public readonly ChannelSerializationMode ChannelSerializationMode;
+        protected bool use_GZip => _LocalChannelFlags.HasFlag(ChannelFlags.GZip) && _RemoteChannelFlags.HasFlag(ChannelFlags.GZip);
+        protected bool use_Deflate => _LocalChannelFlags.HasFlag(ChannelFlags.Deflate) && _RemoteChannelFlags.HasFlag(ChannelFlags.Deflate);
+        protected bool use_Compression => use_GZip || use_Deflate;
+        protected bool use_PayloadStr => _LocalChannelFlags.HasFlag(ChannelFlags.UsePayloadStr) && _RemoteChannelFlags.HasFlag(ChannelFlags.UsePayloadStr);
+        //------------------------------------------------------------------------------------------------------------------------
+        /// <summary> The threshold (in bytes) after which the gzip enables </summary>
+        public int CompressThreshold = 1 * 1024;
+        //------------------------------------------------------------------------------------------------------------------------
+        const int ChannelProtocolGroupMessageCount = 1000000;
+        //------------------------------------------------------------------------------------------------------------------------
+        public readonly ChannelSerializationMode SupportedChannelSerializationModes;
+        public readonly ChannelSerializationMode PreferredChannelSerializationModes;
+        protected ChannelSerializationMode _ChannelSerializationMode = ChannelSerializationMode.Unkown;
+        public ChannelSerializationMode ChannelSerializationMode => _ChannelSerializationMode;
         //------------------------------------------------------------------------------------------------------------------------
         DateTime _channelCreatedTimestamp = DateTime.Now;
         public DateTime ChannelCreatedTimestamp => _channelCreatedTimestamp;
         //------------------------------------------------------------------------------------------------------------------------
-        internal protected Task task;
+#if UNIVERSAL
+        internal protected Task heartbeat;
+#else
+        internal protected Thread heartbeat;
+#endif
         object syncRoot = new object();
         object readLock = new object();
         object writeLock = new object();
         byte[] sizeBuf = new byte[2];
         Int32 messageIDCnt = 0;
         int heartBeatThreadID = -1;
+        public TimeSpan HeartBeatSpinDelay = TimeSpan.Zero;
         //------------------------------------------------------------------------------------------------------------------------
         public delegate bool OnNegiationEventHandler(Channel Channel);
         public OnNegiationEventHandler NegotiationHandler = null;
@@ -46,7 +65,7 @@ namespace Yodiwo.YPChannel
         public delegate void OnOpenEventHandler(Channel Channel);
         public event OnOpenEventHandler OnOpenEvent = null;
         //------------------------------------------------------------------------------------------------------------------------
-        public delegate void OnClosedEventHandler(Channel Channel);
+        public delegate void OnClosedEventHandler(Channel Channel, string Message);
         public event OnClosedEventHandler OnClosedEvent = null;
         //------------------------------------------------------------------------------------------------------------------------
         public delegate void OnMessageReceivedEventHandler(Channel Channel, YPMessage Message);
@@ -60,9 +79,10 @@ namespace Yodiwo.YPChannel
             public UInt32 RequestID;
             public MessageIE[] MessageIE;
             public byte[] Payload;
+            public string PayloadStr;
         }
         //------------------------------------------------------------------------------------------------------------------------
-        internal protected MessagePackSerializer<YPMessagePacked> MessagePackEncapsulationSerializer = MessagePackSerializer.Get<YPMessagePacked>();
+        public ISerializer MsgPack;
         internal protected Newtonsoft.Json.JsonSerializer JSONEncapsulationReadSerializer = new Newtonsoft.Json.JsonSerializer();
         internal protected Newtonsoft.Json.JsonSerializer JSONEncapsulationWriteSerializer = new Newtonsoft.Json.JsonSerializer();
         //------------------------------------------------------------------------------------------------------------------------
@@ -71,6 +91,7 @@ namespace Yodiwo.YPChannel
             public int Version;
             public Dictionary<Type, UInt32> ProtocolLookup = new Dictionary<Type, UInt32>();
             public Dictionary<UInt32, Type> ProtocolReverseLookup = new Dictionary<UInt32, Type>();
+            public Dictionary<string, int> ProtocolGroupId = new Dictionary<string, int>();
             public Dictionary<string, Type[]> ProtocolDefinitions = new Dictionary<string, Type[]>();
         }
         protected Dictionary<int, ProtocolHelper> ProtocolHelpers = new Dictionary<int, ProtocolHelper>();
@@ -81,13 +102,14 @@ namespace Yodiwo.YPChannel
             public UInt32 RequestID;
             public YPMessage resp = null;
         }
-        Dictionary<UInt32, RequestInfo> PendingRequests = new Dictionary<UInt32, RequestInfo>();
+        DictionaryTS<UInt32, RequestInfo> PendingRequests = new DictionaryTS<UInt32, RequestInfo>();
         //------------------------------------------------------------------------------------------------------------------------
         protected ChannelStates _State = ChannelStates.Initializing;
         public ChannelStates State { get { return _State; } }
         //------------------------------------------------------------------------------------------------------------------------
         public bool IsNegotiating { get { return _State == ChannelStates.Negotiating; } }
         public bool IsOpen { get { return _State == ChannelStates.Open; } }
+        public bool IsClosed { get { return _State == ChannelStates.Closed; } }
         //------------------------------------------------------------------------------------------------------------------------
         public abstract string LocalIdentifier { get; }
         public abstract string RemoteIdentifier { get; }
@@ -107,6 +129,7 @@ namespace Yodiwo.YPChannel
         public readonly ChannelRole ChannelRole;
         public readonly bool IsPoint2Point;
         //------------------------------------------------------------------------------------------------------------------------
+        const string IntrinsicMessages_GroupName = "Yodiwo.YPChannel.IntrinsicMessages";
         static Type[] IntrinsicMessages = new Type[]
         {
             typeof(HELLORequest),
@@ -142,7 +165,7 @@ namespace Yodiwo.YPChannel
             }
             catch { }
         }
-        #endregion 
+        #endregion
         //------------------------------------------------------------------------------------------------------------------------
         public bool EnableExtendedTypes = false;
         //------------------------------------------------------------------------------------------------------------------------
@@ -156,29 +179,44 @@ namespace Yodiwo.YPChannel
             get { return State == ChannelStates.Paused; }
             set
             {
-                lock (syncRoot)
-                {
-                    if (State == ChannelStates.Open || State == ChannelStates.Paused)
-                    {
-                        //change state to paused
-                        _State = value ? ChannelStates.Paused : ChannelStates.Open;
-                        //setup task completion
-                        if ((pauseCompletion == null && value == false) ||
-                            (pauseCompletion != null && value == true))
-                            return; //nothing to do
-                        else if (pauseCompletion != null && value == true)
-                            pauseCompletion = new TaskCompletionSource<bool>(false); //create a completion task
-                        else
-                            pauseCompletion.SetResult(true); //finish completion task
-                    }
-                }
+                if (State == ChannelStates.Open || State == ChannelStates.Paused)
+                    lock (syncRoot)
+                        if (State == ChannelStates.Open || State == ChannelStates.Paused)
+                        {
+                            //change state to paused
+                            _State = value ? ChannelStates.Paused : ChannelStates.Open;
+                            //setup task completion
+                            if ((pauseCompletion == null && value == false) ||
+                                (pauseCompletion != null && value == true))
+                                return; //nothing to do
+                            else if (pauseCompletion != null && value == true)
+                                pauseCompletion = new TaskCompletionSource<bool>(false); //create a completion task
+                            else
+                                pauseCompletion.SetResult(true); //finish completion task
+                        }
             }
         }
         //------------------------------------------------------------------------------------------------------------------------
-        public TimeSpan HeartBeatSpinDelay = TimeSpan.Zero;
-        //------------------------------------------------------------------------------------------------------------------------
         /// <summary> Custom to code to run at the start of each heartbeat</summary>
         public Action<Channel> HeartBeatPrepare = null;
+        //------------------------------------------------------------------------------------------------------------------------
+        //Keepalive mechanism
+#if UNIVERSAL
+        internal protected Task keepAliveTask;
+#else
+        internal protected Thread keepAliveTask;
+#endif
+        private object keepAliveTaskSyncLock = new object();
+        public bool IsKeepAliveEnabled = true;
+        public TimeSpan KeepAliveSpinDelay = TimeSpan.FromMinutes(5);
+        public TimeSpan KeepAlivePingTimeout = TimeSpan.FromMinutes(1);
+        //------------------------------------------------------------------------------------------------------------------------
+        DateTime _LastActivityTimestamp = DateTime.Now;
+        DateTime LastActivityTimestamp => _LastActivityTimestamp;
+        //------------------------------------------------------------------------------------------------------------------------
+        object _InactiveLineWarmupLocker = new object();
+        public TimeSpan InactiveLineWarmupTimeout = TimeSpan.FromMinutes(3);
+        public TimeSpan LineWarmupPingTimeout = TimeSpan.FromSeconds(5);
         //------------------------------------------------------------------------------------------------------------------------
         public bool AutoRedirect = true;
         public int MaximunRedirections = 10;
@@ -186,14 +224,14 @@ namespace Yodiwo.YPChannel
         //------------------------------------------------------------------------------------------------------------------------
         #endregion
 
-
         #region Constructors
         //------------------------------------------------------------------------------------------------------------------------
-        public Channel(Protocol[] Protocols, ChannelRole ChannelRole, ChannelSerializationMode ChannelSerializationMode, bool IsPoint2Point)
+        public Channel(Protocol[] Protocols, ChannelRole ChannelRole, ChannelSerializationMode SupportedChannelSerializationModes, ChannelSerializationMode PreferredChannelSerializationModes, bool IsPoint2Point)
         {
             //set
             this.ChannelRole = ChannelRole;
-            this.ChannelSerializationMode = ChannelSerializationMode;
+            this.SupportedChannelSerializationModes = SupportedChannelSerializationModes;
+            this.PreferredChannelSerializationModes = PreferredChannelSerializationModes;
             this.IsPoint2Point = IsPoint2Point;
 
             //build lookups    
@@ -215,14 +253,16 @@ namespace Yodiwo.YPChannel
                     UInt32 id = 0;
 
                     //build channel intrinsic protocol messages lookups
+                    protoHelper.ProtocolGroupId.Add(IntrinsicMessages_GroupName, 0);
                     for (UInt32 n = 0; n < IntrinsicMessages.Length; n++)
                     {
                         id++;
                         protoHelper.ProtocolLookup.Add(IntrinsicMessages[n], id);
                         protoHelper.ProtocolReverseLookup.Add(id, IntrinsicMessages[n]);
                     }
-                    DebugEx.Assert(id < 100, "Protocol Group Overflow");
-                    id = 100;
+                    protoHelper.ProtocolDefinitions.ForceAdd(IntrinsicMessages_GroupName, IntrinsicMessages);
+                    DebugEx.Assert(id < ChannelProtocolGroupMessageCount, "Protocol Group Overflow");
+                    id = ChannelProtocolGroupMessageCount;
 
                     //setup definitions
                     var gnIND = 0;
@@ -247,10 +287,11 @@ namespace Yodiwo.YPChannel
                         DebugEx.Assert(group.MessageTypes != null, "Null Protocol Group MessageTypes detected");
                         if (group.MessageTypes == null)
                             continue;
-                        DebugEx.Assert(group.MessageTypes.Length < 100, "Protocol Group Overflow");
+                        DebugEx.Assert(group.MessageTypes.Length < ChannelProtocolGroupMessageCount, "Protocol Group Overflow");
 
                         //compute id start for group
-                        id = (UInt32)((pGroup + 1) * 100);
+                        id = (UInt32)((pGroup + 1) * ChannelProtocolGroupMessageCount);
+                        protoHelper.ProtocolGroupId.Add(group.GroupName, pGroup + 1);
 
                         //add group items
                         for (int n = 0; n < group.MessageTypes.Length; n++)
@@ -272,8 +313,33 @@ namespace Yodiwo.YPChannel
         //------------------------------------------------------------------------------------------------------------------------
         #endregion
 
-
         #region Functions
+        //------------------------------------------------------------------------------------------------------------------------
+        protected void Reset(bool clearPendingRequests = true)
+        {
+            try
+            {
+                _State = ChannelStates.Initializing;
+                _closing = false;
+                ActiveProtocol = ProtocolHelpers.First().Value;
+                _redirections = 0;
+                messageIDCnt = 0;
+
+                //clear and unlock pending requests
+                if (clearPendingRequests)
+                {
+                    var preqs = PendingRequests.ToArray();
+                    PendingRequests.Clear();
+                    foreach (var entry in preqs)
+                    {
+                        entry.Value.resp = null;
+                        lock (entry.Value)
+                            Monitor.Exit(entry.Value);
+                    }
+                }
+            }
+            catch (Exception ex) { DebugEx.Assert(ex, "YPC Reset failed (name=" + Name + ")"); }
+        }
         //------------------------------------------------------------------------------------------------------------------------
         public void Start()
         {
@@ -285,13 +351,12 @@ namespace Yodiwo.YPChannel
             _State = ChannelStates.Negotiating;
 
             //start negotiation monitor
-            Task.Run(() =>
+            Task.Delay(NegotiationTimeout).ContinueWith(_ =>
             {
-                Task.Delay(NegotiationTimeout).Wait();
                 if (State == ChannelStates.Negotiating)
                 {
                     DebugEx.TraceError("Channel Negotation Timeout (name=" + Name + ")");
-                    Close();
+                    Close("Channel Negotation Timeout");
                 }
             });
 
@@ -320,10 +385,10 @@ namespace Yodiwo.YPChannel
                     };
                     _sendMessage(negResultMsg, null, null, false);
                     //give some time for the message to leave before force-closing the channel
-                    _flush();
-                    Task.Delay(200).Wait();
+                    _flush(200);
+                    Thread.Sleep(200);
                     //negotiation failed.. close channel
-                    Close();
+                    Close("Channel Negotation Failed");
                     return;
                 }
 
@@ -346,7 +411,51 @@ namespace Yodiwo.YPChannel
             }
 
             //start heartbeat thread
-            task = Task.Run((Action)HeartBeat);
+#if UNIVERSAL
+            heartbeat = Task.Factory.StartNew((Action)HeartBeatEntry, TaskCreationOptions.LongRunning);
+#else
+            heartbeat = new Thread(HeartBeatEntry);
+            heartbeat.Name = "YPChannel " + Name + " heartbeat";
+            heartbeat.IsBackground = true;
+            heartbeat.Start();
+#endif
+
+#if UNIVERSAL
+            keepAliveTask = Task.Factory.StartNew((Action)keepAliveEntry, TaskCreationOptions.LongRunning);
+#else
+            keepAliveTask = new Thread(keepAliveEntry);
+            keepAliveTask.Name = "YPChannel " + Name + " keepalive";
+            keepAliveTask.IsBackground = true;
+            keepAliveTask.Start();
+#endif
+        }
+        //------------------------------------------------------------------------------------------------------------------------
+        void keepAliveEntry()
+        {
+            try
+            {
+                while (State != ChannelStates.Closed)
+                {
+                    if (IsKeepAliveEnabled && State == ChannelStates.Open)
+                    {
+                        //ping
+                        var pong = Ping("keepalive", Timeout: KeepAlivePingTimeout);
+                        //in debug mode keep pinging but do not close channel if a timeout occurs
+                        if (pong == null)
+                        {
+#if !DEBUG
+                            Close("KeepAlive failed");  //failed to respond.. close channel
+                            return;                     //exit keepalive spin
+#endif
+                        }
+                    }
+
+                    //sleep
+                    lock (keepAliveTaskSyncLock)
+                        Monitor.Wait(keepAliveTaskSyncLock, (int)KeepAliveSpinDelay.TotalMilliseconds.ClampFloor(1000));
+                }
+            }
+            catch (Exception ex) { DebugEx.Assert(ex); }
         }
         //------------------------------------------------------------------------------------------------------------------------
         protected virtual bool doNegotiation()
@@ -371,6 +480,9 @@ namespace Yodiwo.YPChannel
                     return false;
                 }
 
+                //get flags
+                _RemoteChannelFlags = (ChannelFlags)heloRsp.ChannelFlags;
+
                 //activate protocol
                 if (ProtocolHelpers.ContainsKey(heloRsp.Version) == false)
                 {
@@ -378,10 +490,44 @@ namespace Yodiwo.YPChannel
                     return false;
                 }
                 else
-                    ActiveProtocol = ProtocolHelpers[heloRsp.Version];
+                {
+                    //clone and setup protocol
+                    ActiveProtocol = ProtocolHelpers[heloRsp.Version].ToJSON().FromJSON<ProtocolHelper>();
+                }
 
-                //get flags
-                _RemoteChannelFlags = (ChannelFlags)heloRsp.ChannelFlags;
+                //re-adjust protocol ids based on client information
+                if (_RemoteChannelFlags.HasFlag(ChannelFlags.AdaptiveProtocol))
+                {
+                    //adjust protocol ids
+                    var prevLookup = ActiveProtocol.ProtocolDefinitions.Select(kv => new KeyValuePair<string, HashSet<string>>(kv.Key, kv.Value.Select(v => v.AssemblyQualifiedName_Portable()).ToHashSet())).ToDictionary();
+                    ActiveProtocol.ProtocolGroupId.Clear();
+                    ActiveProtocol.ProtocolLookup.Clear();
+                    ActiveProtocol.ProtocolReverseLookup.Clear();
+
+                    //setup protocol
+                    foreach (var entry in heloRsp.ProtocolDefinitions)
+                        if (prevLookup.ContainsKey(entry.GroupName)) //check that we have this group
+                        {
+                            var groupDef = prevLookup[entry.GroupName];
+                            ActiveProtocol.ProtocolGroupId.Add(entry.GroupName, entry.GroupID);
+                            var id = (uint)entry.GroupID * (uint)heloRsp.ProtocolGroupSize;
+                            foreach (var msgTypeStr in entry.MessageTypes)
+                            {
+                                //move index
+                                id++;
+                                //add if valid
+                                if (groupDef.Contains(msgTypeStr)) //check that we have this type
+                                {
+                                    var type = TypeCache.GetType(msgTypeStr, DeFriendlify: false);
+                                    if (type != null)
+                                    {
+                                        ActiveProtocol.ProtocolLookup.Add(type, id);
+                                        ActiveProtocol.ProtocolReverseLookup.Add(id, type);
+                                    }
+                                }
+                            }
+                        }
+                }
 
                 //user negotiation
                 if (NegotiationHandler != null)
@@ -390,11 +536,15 @@ namespace Yodiwo.YPChannel
                         return false;
                 }
             }
-            catch (Exception ex) { DebugEx.Assert(ex, "Unhandle exception from derived class or event while negotiating channel open"); Close(); return false; }
+            catch (Exception ex)
+            {
+                DebugEx.Assert(ex, "Unhandled exception from derived class or event while negotiating channel open");
+                Close("Unhandled exception from derived class or event while negotiating channel open");
+                return false;
+            }
 
             //clear all requests
-            lock (PendingRequests)
-                PendingRequests.Clear();
+            PendingRequests.Clear();
 
             //negotiation completed
             return true;
@@ -407,25 +557,38 @@ namespace Yodiwo.YPChannel
             DebugEx.TraceLog("Opened channel (channel name=" + Name + ")");
 
             //raise event
-            try
+            try { OnOpenEvent?.Invoke(this); }
+            catch (Exception ex)
             {
-                if (OnOpenEvent != null)
-                    OnOpenEvent(this);
+                DebugEx.Assert(ex, "Unhandled exception from derived class or event while opening channel");
+                Close("Unhandled exception from derived class or event while opening channel");
+                return;
             }
-            catch (Exception ex) { DebugEx.Assert(ex, "Unhandle exception from derived class or event while opening channel"); Close(); return; }
         }
 
         //------------------------------------------------------------------------------------------------------------------------
         protected virtual void onRedirect(string Target)
         {
             //override withOUT calling base in order to redirect
-            Close();
+            Close("No redirection allowed");
         }
         //------------------------------------------------------------------------------------------------------------------------
-        public void Close()
+        public void Close(string Message)
         {
-            lock (syncRoot)
+            try
             {
+                int retries = 0;
+                while (!Monitor.TryEnter(syncRoot, 100))
+                {
+                    retries++;
+                    //not connected?
+                    if (_State == ChannelStates.Closed || _closing)
+                        return;
+                    else if (retries > 10)
+                        return;
+                    else
+                        Thread.Sleep(100);
+                }
                 try
                 {
                     //not connected
@@ -443,6 +606,7 @@ namespace Yodiwo.YPChannel
                     {
                         var negResultMsg = new ChannelCloseMessage()
                         {
+                            Message = Message,
                         };
                         _sendMessage(negResultMsg, null, null, false);
                     }
@@ -450,49 +614,42 @@ namespace Yodiwo.YPChannel
                     //set flag to closed (after sending message)
                     _State = ChannelStates.Closed;
 
+                    //inform keepalive
+                    lock (keepAliveTaskSyncLock)
+                        Monitor.PulseAll(keepAliveTaskSyncLock);
+
                     //give some time for the message to leave before force-closing the channel
-                    _flush();
-                    Task.Delay(100).Wait();
+                    _flush(200);
+                    Thread.Sleep(100);
 
                     //inform
-                    DebugEx.TraceLog("Closed channel (channel name=" + Name + ")");
+                    DebugEx.TraceLog("Closed channel (channel name=" + Name + ", reason=" + Message + ")");
 
-                    //examine pending requests
-                    lock (PendingRequests)
-                    {
-                        //unlock pending request threads
-                        foreach (var req in PendingRequests.Values)
-                            lock (req)
-                                Monitor.Pulse(req);
-
-                        //clear pending requests
-                        PendingRequests.Clear();
-                    }
+                    //unlock pending request threads and clear
+                    foreach (var req in PendingRequests.GetAndClear())
+                        if (Monitor.TryEnter(req, 500))
+                            Monitor.PulseAll(req);
 
                     //catch derived class or event exceptions
-                    try
-                    {
-                        //inform derived classes
-                        onClose();
-                        //raise event
-                        //TODO: raise event
-                        var cbClosed = OnClosedEvent;
-                        if (cbClosed != null)
-                            cbClosed(this);
-                    }
+                    try { onClose(Message); }
                     catch (Exception ex) { DebugEx.Assert(ex, "Unhandle exception from derived class or event  while closing channel"); }
+
+                    //raise event
+                    TaskEx.RunSafe(() => OnClosedEvent?.Invoke(this, Message));
                 }
-                catch (Exception ex) { DebugEx.Assert(ex, "Exception while closing channel"); }
+                finally { Monitor.Exit(syncRoot); }
             }
+            catch (Exception ex) { DebugEx.Assert(ex, "Exception while closing channel"); }
         }
         //------------------------------------------------------------------------------------------------------------------------
-        protected virtual void onClose()
+        protected virtual void onClose(string Message)
         {
             //nothing.. override to add stuff
         }
         //------------------------------------------------------------------------------------------------------------------------
-        internal void HeartBeat()
+        internal void HeartBeatEntry()
         {
+            string heartbeat_err_msg = null;
             try
             {
                 //heartbeat
@@ -502,31 +659,31 @@ namespace Yodiwo.YPChannel
                     if (!IsNegotiating && IsPaused)
                     {
                         var pc = pauseCompletion;
-                        if (pc != null)
-                            pc.Task.GetResults(); //wait for unpause
+                        pc?.Task?.GetResults(); //wait for unpause
                     }
 
                     //heartheat delay
                     if (HeartBeatSpinDelay != TimeSpan.Zero)
-                        Task.Delay(HeartBeatSpinDelay).Wait();
+                        Thread.Sleep(HeartBeatSpinDelay);
 
                     //custom prepare
-                    var _hbp = HeartBeatPrepare;
-                    if (_hbp != null)
-                        _hbp(this);
+                    HeartBeatPrepare?.Invoke(this);
 
                     //keep heartbeat thread id
 #if NETFX
                     heartBeatThreadID = System.Threading.Thread.CurrentThread.ManagedThreadId;
-#else
-                    heartBeatThreadID = task.Id;
+#elif UNIVERSAL
+                    heartBeatThreadID = heartbeat.Id;
 #endif
 
                     //receive message object
                     bool ChannelError;
                     var msg = messageReceiver(out ChannelError);
                     if (ChannelError)
+                    {
+                        heartbeat_err_msg = "Heartbeat error (messageReceiver)";
                         break;
+                    }
                     if (msg == null)
                         continue;
                     if (msg.Payload == null)
@@ -534,18 +691,17 @@ namespace Yodiwo.YPChannel
                         DebugEx.Assert("Null payload detected");
                         continue;
                     }
+
+                    //timestamp
+                    _LastActivityTimestamp = DateTime.Now;
+
                     //is response?
                     if (msg.Flags.HasFlag(MessageFlags.Response))
                     {
                         //get request id
                         var reqID = (UInt32)msg.RespondToRequestID;
                         //find request (and consume)
-                        RequestInfo req;
-                        lock (PendingRequests)
-                        {
-                            req = PendingRequests.TryGetOrDefault(reqID);
-                            PendingRequests.Remove(reqID);
-                        }
+                        var req = PendingRequests.TryGetAndRemove(reqID);
                         //check for valid object
                         if (req == null)
                         {
@@ -568,13 +724,36 @@ namespace Yodiwo.YPChannel
                             {
                                 var typed = msg.Payload as HELLORequest;
                                 //check for supported versions
-                                if (typed.SuportedProtocols.Contains(ActiveProtocol.Version) == false)
+                                if (typed?.SuportedProtocols?.Contains(ActiveProtocol.Version) == false)
                                 {
                                     DebugEx.Assert("No supported protocol version detected");
-                                    Close();
+                                    Close("No supported protocol version detected");
                                 }
                                 else
                                 {
+                                    //get flags
+                                    _RemoteChannelFlags = (ChannelFlags)typed.ChannelFlags;
+
+                                    //readjust groups sizes
+                                    if (!_RemoteChannelFlags.HasFlag(ChannelFlags.AdaptiveProtocol))
+                                    {
+                                        //default value to old default ---- for backward compatibility
+                                        var old_ProtocolGroupSize = 100;
+
+                                        //adjust protocol ids
+                                        var prevLookup = ActiveProtocol.ProtocolLookup.ToArray();
+                                        ActiveProtocol.ProtocolLookup.Clear();
+                                        ActiveProtocol.ProtocolReverseLookup.Clear();
+                                        foreach (var entry in prevLookup)
+                                        {
+                                            int groupID = (int)(entry.Value / (uint)ChannelProtocolGroupMessageCount);
+                                            var msgID = entry.Value % ChannelProtocolGroupMessageCount;
+                                            var finalID = (uint)(old_ProtocolGroupSize * groupID) + msgID;
+                                            ActiveProtocol.ProtocolLookup.Add(entry.Key, finalID);
+                                            ActiveProtocol.ProtocolReverseLookup.Add(finalID, entry.Key);
+                                        }
+                                    }
+
                                     //send response
                                     var helloResponse = new HELLOResponse()
                                     {
@@ -582,11 +761,13 @@ namespace Yodiwo.YPChannel
                                         Message = "Hello from " + LocalIdentifier,
                                         ChannelKey = ChannelKey,
                                         ChannelFlags = (UInt32)LocalChannelFlags,
+                                        ProtocolGroupSize = ChannelProtocolGroupMessageCount,
                                         ProtocolDefinitions = ActiveProtocol.ProtocolDefinitions
                                                                             .Select(kv =>
                                                                             new HELLOResponse.MessageTypeGroupPacked()
                                                                             {
                                                                                 GroupName = kv.Key,
+                                                                                GroupID = ActiveProtocol.ProtocolGroupId[kv.Key],
                                                                                 MessageTypes = kv.Value.Select(t => t.AssemblyQualifiedName_Portable()).ToArray()
                                                                             }).ToArray(),
                                     };
@@ -596,7 +777,7 @@ namespace Yodiwo.YPChannel
                             else
                             {
                                 DebugEx.Assert("Server received a HELLORequest from client.. Server doesn't like this");
-                                Close();
+                                Close("Server received a HELLORequest from client.. Server doesn't like this");
                             }
                         }
                         else if (msg.Payload is RedirectionMessage)
@@ -604,24 +785,24 @@ namespace Yodiwo.YPChannel
                             if (ChannelRole == YPChannel.ChannelRole.Client)
                             {
                                 var typed = msg.Payload as RedirectionMessage;
-                                if (!string.IsNullOrWhiteSpace(typed.RedirectionTarget) && AutoRedirect)
+                                if (!string.IsNullOrWhiteSpace(typed?.RedirectionTarget) && AutoRedirect)
                                 {
                                     _redirections++;
                                     if (_redirections >= MaximunRedirections)
-                                        Close();
+                                        Close("Maximun redirections reached");
                                     else
                                     {
-                                        DebugEx.TraceLog("YPChannel : redirecting client to " + typed.RedirectionTarget);
-                                        onRedirect(typed.RedirectionTarget);
+                                        DebugEx.TraceLog("YPChannel : redirecting client to " + typed?.RedirectionTarget);
+                                        onRedirect(typed?.RedirectionTarget);
                                     }
                                 }
                                 else
-                                    Close();
+                                    Close("Auto redirect not allowed");
                             }
                             else
                             {
                                 DebugEx.Assert("Server received a RedirectionMessage from client.. Server doesn't like this");
-                                Close();
+                                Close("Server received a RedirectionMessage from client.. Server doesn't like this");
                             }
                         }
                         else if (msg.Payload is NegotationFinishMessage)
@@ -630,23 +811,23 @@ namespace Yodiwo.YPChannel
                             {
                                 var typed = msg.Payload as NegotationFinishMessage;
                                 //open client-side channel
-                                if (typed.IsSuccessCode())
+                                if (typed?.IsSuccessCode() == true)
                                 {
                                     //keep channel key
-                                    _ChannelKey = typed.ChannelKey;
+                                    _ChannelKey = typed?.ChannelKey;
                                     //open channel
                                     onOpen();
                                 }
                                 else
                                 {
                                     //close channel
-                                    Close();
+                                    Close("NegotationFinishMessage report failure");
                                 }
                             }
                             else
                             {
                                 DebugEx.Assert("Server received a negotiation finish from client.. Server doesn't like this");
-                                Close();
+                                Close("Server received a negotiation finish from client.. Server doesn't like this");
                             }
                         }
                         else if (msg.Payload is BandwidthManagementMessage)
@@ -656,47 +837,47 @@ namespace Yodiwo.YPChannel
                         else if (msg.Payload is ChannelCloseMessage)
                         {
                             //closing channel
+                            var closeMsg = msg.Payload as ChannelCloseMessage;
                             if (State != ChannelStates.Closed)
-                                Close();
+                                Close("ChannelCloseMessage received (Message=" + closeMsg.Message + ")");
                         }
                         else if (msg.Payload is PingRequest)
                         {
                             try
                             {
                                 var pingMsg = (msg.Payload as PingRequest).Message;
-                                if (pingMsg == null || (pingMsg != null && pingMsg.Length < PongReplySizeLimit))
-                                {
-                                    var pongMsg = new PongResponse() { Message = pingMsg };
-                                    SendResponse(pongMsg, msg.MessageID);
-                                }
+                                if (msg.IsRequest)
+                                    if (pingMsg == null || pingMsg.Length < PongReplySizeLimit)
+                                    {
+                                        var pongMsg = new PongResponse() { Message = pingMsg };
+                                        SendResponse(pongMsg, msg.MessageID);
+                                    }
                             }
                             catch (Exception exx) { DebugEx.TraceError(exx, "Error while replying to ping"); }
                         }
                         else
                         {
                             //generic handler
-                            var OnMessageReceivedCB = OnMessageReceived;
-                            try
-                            {
-                                if (OnMessageReceivedCB != null)
-                                    OnMessageReceivedCB(this, msg);
-                            }
+                            try { OnMessageReceived?.Invoke(this, msg); }
                             catch (Exception ex) { DebugEx.Assert(ex, "YPChannel message handler caused an exception"); }
                         }
                     }
                 }
             }
-            catch (Exception ex) { DebugEx.Assert(ex, "Channel Heartbeat had exception"); }
+            catch (Exception ex)
+            {
+                DebugEx.Assert(ex, "Channel Heartbeat had exception");
+                heartbeat_err_msg = "Channel Heartbeat had exception. " + ex.Message;
+            }
 
             //close channel
-            Close();
+            Close(heartbeat_err_msg == null ? "Heartbeat exited" : heartbeat_err_msg);
         }
         //------------------------------------------------------------------------------------------------------------------------
-        protected virtual void _flush()
-        { }
+        protected virtual void _flush(int Timeout) { }
         //------------------------------------------------------------------------------------------------------------------------
         protected abstract YPMessagePacked _readPackedMessage();
-        protected abstract void _sendPackedMessage(YPMessagePacked msg);
+        protected abstract bool _sendPackedMessage(YPMessagePacked msg);
         //------------------------------------------------------------------------------------------------------------------------
         protected virtual YPMessage messageReceiver(out bool ChannelError)
         {
@@ -711,6 +892,8 @@ namespace Yodiwo.YPChannel
                     ChannelError = true;
                     return null;
                 }
+                //timestamp
+                _LastActivityTimestamp = DateTime.Now;
 
                 //unpack message
                 var msg = new YPMessage();
@@ -721,7 +904,7 @@ namespace Yodiwo.YPChannel
                 {
                     msg.MessageIE = new Dictionary<string, object>();
                     foreach (var ie in packedMsg.MessageIE)
-                        msg.MessageIE.Add(ie.Key, ie.Value.Object);
+                        msg.MessageIE.Add(ie.Key, ie.Value);
                 }
 
                 //unpack payload
@@ -742,18 +925,19 @@ namespace Yodiwo.YPChannel
                         return null;
                     }
                     ///unpack
-                    if (ChannelSerializationMode == YPChannel.ChannelSerializationMode.MessagePack)
+                    if (ChannelSerializationMode.HasFlag(YPChannel.ChannelSerializationMode.Json))
                     {
-                        var serializer2 = MessagePackSerializer.Get(objType);
-                        msg.Payload = serializer2.UnpackSingleObject(packedMsg.Payload);
+                        string str_msg = null;
+                        if (packedMsg.PayloadStr != null)
+                            str_msg = packedMsg.PayloadStr;
+                        else if (packedMsg.Payload != null)
+                            str_msg = System.Text.Encoding.UTF8.GetString(packedMsg.Payload);
+                        //deserialize
+                        msg.Payload = str_msg?.FromJSON(objType);
                     }
-                    else if (ChannelSerializationMode == YPChannel.ChannelSerializationMode.Json)
+                    else if (ChannelSerializationMode.HasFlag(YPChannel.ChannelSerializationMode.MessagePack))
                     {
-                        var serialiser = new Newtonsoft.Json.JsonSerializer();
-                        using (var memStream = new MemoryStream(packedMsg.Payload))
-                        using (StreamReader reader = new StreamReader(memStream, Encoding.UTF8))
-                        using (var jsonTextReader = new Newtonsoft.Json.JsonTextReader(reader))
-                            msg.Payload = JSONEncapsulationReadSerializer.Deserialize(jsonTextReader, objType);
+                        msg.Payload = MsgPack.Unpack(objType, packedMsg.Payload);
                     }
                     else
                     {
@@ -771,7 +955,7 @@ namespace Yodiwo.YPChannel
             {
                 DebugEx.Assert(ex, "MessageReceiver catched unhandled exception");
                 //Something went wrong here..
-                Task.Delay(50).Wait();
+                Thread.Sleep(50);
                 ChannelError = true;
                 return null;
             }
@@ -800,14 +984,14 @@ namespace Yodiwo.YPChannel
             if (IsNegotiating && ChannelRole != YPChannel.ChannelRole.Server)
             {
                 DebugEx.Assert("Only server can send responses while negotiating.");
-                Task.Delay(50).Wait(); //penalty
+                Thread.Sleep(50); //penalty
                 return null;
             }
 
             //check for closed channel
             if (_State == ChannelStates.Closed)
             {
-                Task.Delay(50).Wait(); //penalty
+                Thread.Sleep(50); //penalty
                 return null;
             }
 
@@ -818,20 +1002,20 @@ namespace Yodiwo.YPChannel
                 if (!IsOpen)
                 {
                     DebugEx.TraceWarning("Trying to send message on a channel that is not open (channel name=" + Name + " , msg=" + Payload.GetType() + ")");
-                    Task.Delay(50).Wait(); //failsafe penalty
+                    Thread.Sleep(50); //failsafe penalty
                     return null;
                 }
 
                 //get threadID and check it is heartbeat.. this will protect against deadlock
 #if NETFX
                 var tid = Thread.CurrentThread.ManagedThreadId;
-#else
+#elif UNIVERSAL
                 var tid = Task.CurrentId == null ? 0 : Task.CurrentId.Value;
 #endif
                 if (heartBeatThreadID == tid)
                 {
                     DebugEx.Assert("Cannot send a request from the same thread that you are handling incoming messages, as this will result in a deadlock." + Environment.NewLine + "Use a Task.Run() to send from a different thread");
-                    Task.Delay(50).Wait(); //failsafe penalty
+                    Thread.Sleep(50); //failsafe penalty
                     return null;
                 }
             }
@@ -846,27 +1030,32 @@ namespace Yodiwo.YPChannel
             };
             //add to dictionary
             if (!IsNegotiating)
-                lock (PendingRequests)
-                    PendingRequests.Add(id, req);
+                PendingRequests.Add(id, req);
 
             //lock on request (before sending message!)
             lock (req)
             {
                 //send message
-                _sendMessage(Payload, id, null, true);
-                if (IsNegotiating)
+                var res = _sendMessage(Payload, id, null, true);
+                if (!res)
+                {
+                    //if null(timeout) then remove id from dictionary
+                    PendingRequests.Remove(id);
+                    return null;
+                }
+                else if (IsNegotiating)
                 {
                     //warmup channel (flush)
-                    Task.Delay(50).Wait();
+                    Thread.Sleep(50);
                     //wait for response in the negotiating thread (heartbeat)
                     bool ChannelError;
                     YPMessage respMsg = null;
                     while (respMsg == null || (respMsg != null && respMsg.RespondToRequestID != id))
                     {
                         respMsg = messageReceiver(out ChannelError);
-                        if (ChannelError)
+                        if (ChannelError || respMsg?.Payload is ChannelCloseMessage)
                         {
-                            Close();
+                            Close("Channel error while negotiating");
                             return null;
                         }
                     }
@@ -885,8 +1074,7 @@ namespace Yodiwo.YPChannel
                     var resp = req.resp;
                     //if null(timeout) then remove id from dictionary
                     if (resp == null)
-                        lock (PendingRequests)
-                            PendingRequests.Remove(id);
+                        PendingRequests.Remove(id);
                     //return new response (null if timeout)
                     return resp;
                 }
@@ -898,70 +1086,73 @@ namespace Yodiwo.YPChannel
             return Task.Run(() => SendResponse(Payload, ResponseToMsg));
         }
         //------------------------------------------------------------------------------------------------------------------------
-        public virtual void SendResponse(object Payload, UInt32 ResponseToMsg)
+        public virtual bool SendResponse(object Payload, UInt32 ResponseToMsg)
         {
             if (IsNegotiating && ChannelRole != YPChannel.ChannelRole.Client)
             {
                 DebugEx.Assert("Only client can send responses while negotiating.");
-                Task.Delay(50).Wait();  //penalty
-                return;
+                Thread.Sleep(50);  //penalty
+                return false;
             }
-            _sendMessage(Payload, null, ResponseToMsg, false);
+            return _sendMessage(Payload, null, ResponseToMsg, false);
         }
         //------------------------------------------------------------------------------------------------------------------------
-        public virtual void SendMessage(object Payload)
+        public virtual bool SendMessage(object Payload)
         {
             if (IsNegotiating)
             {
                 DebugEx.Assert("Cannot send message while negotiating. Only Request/Respose");
-                Task.Delay(50).Wait();  //penalty
-                return;
+                Thread.Sleep(50);  //penalty
+                return false;
             }
-            _sendMessage(Payload, null, null, false);
+            return _sendMessage(Payload, null, null, false);
         }
         //------------------------------------------------------------------------------------------------------------------------
-        protected virtual void _sendMessage(object Payload, UInt32? MessageID, UInt32? ResponseToMsg, bool IsRequest)
+        protected virtual bool _sendMessage(object Payload, UInt32? MessageID, UInt32? ResponseToMsg, bool IsRequest)
         {
             //declares
             var flags = MessageFlags.None;
             var MessageIE = new List<MessageIE>();
 
-            //snaity check
+            //sanity check
             DebugEx.Assert(Payload != null, "Cannot send Null");
             if (Payload == null || ActiveProtocol == null)
             {
-                Task.Delay(50).Wait();  //failsafe penalty
-                return;
+                Thread.Sleep(50);  //failsafe penalty
+                return false;
             }
 
             //check if channel is open
             if (State == ChannelStates.Closed)
             {
                 DebugEx.TraceWarning("Trying to send message on a channel that is not open (channel name=" + Name + ")");
-                Task.Delay(50).Wait();  //failsafe penalty
-                return;
+                Thread.Sleep(50);  //failsafe penalty
+                return false;
+            }
+
+            //check channel activity
+            if (_State == ChannelStates.Open &&
+                !(Payload is PingRequest) && !(Payload is PongResponse) &&
+                !(Payload is ChannelCloseMessage) &&
+                (DateTime.Now - _LastActivityTimestamp) > InactiveLineWarmupTimeout)
+            {
+                lock (_InactiveLineWarmupLocker)
+                    if ((DateTime.Now - _LastActivityTimestamp) > InactiveLineWarmupTimeout)
+                    {
+                        //timestamp
+                        _LastActivityTimestamp = DateTime.Now;
+                        //test/warmup line
+                        var pong = Ping("line warmup", Timeout: LineWarmupPingTimeout);
+                        if (pong == null)
+                        {
+                            Close("Channel warmup ping failed");
+                            return false;
+                        }
+                    }
             }
 
             //get type
             var objType = Payload.GetType();
-
-            //serialize object(payload)
-            byte[] payloadBuffer;
-            ///unpack
-            if (ChannelSerializationMode == YPChannel.ChannelSerializationMode.MessagePack)
-            {
-                var serializer2 = MessagePackSerializer.Get(Payload.GetType());
-                payloadBuffer = serializer2.PackSingleObject(Payload);
-            }
-            else if (ChannelSerializationMode == YPChannel.ChannelSerializationMode.Json)
-            {
-                payloadBuffer = Payload.ToJSON2(HtmlEncode: false);
-            }
-            else
-            {
-                DebugEx.Assert("Unkown serialization method");
-                return;
-            }
 
             //get or generate id
             UInt32 id;
@@ -983,7 +1174,7 @@ namespace Yodiwo.YPChannel
                 else
                 {
                     DebugEx.Assert("Message is not part of protocol (" + objType.ToString() + ")");
-                    return;
+                    return false;
                 }
             }
 
@@ -1002,9 +1193,23 @@ namespace Yodiwo.YPChannel
                 Flags = (byte)flags,
                 MessageID = id,
                 RequestID = ResponseToMsg.HasValue ? ResponseToMsg.Value : 0,
-                Payload = payloadBuffer,
                 MessageIE = MessageIE.Count > 0 ? MessageIE.ToArray() : null,
             };
+
+            //serialize object (payload)
+            if (ChannelSerializationMode.HasFlag(YPChannel.ChannelSerializationMode.Json))
+            {
+                if (use_PayloadStr)
+                    msg.PayloadStr = Payload.ToJSON(HtmlEncode: false);
+                else
+                    msg.Payload = Payload.ToJSON2(HtmlEncode: false);
+            }
+            else if (ChannelSerializationMode.HasFlag(YPChannel.ChannelSerializationMode.MessagePack))
+            {
+                msg.Payload = MsgPack.Pack(Payload);
+            }
+            else
+                return false;
 
             //get writelock
             lock (writeLock)
@@ -1034,11 +1239,14 @@ namespace Yodiwo.YPChannel
 
                     //check for closed channel
                     if (State == ChannelStates.Closed)
-                        return;
+                        return false;
                 }
 
+                //timestamp
+                _LastActivityTimestamp = DateTime.Now;
+
                 //serialize and send message
-                _sendPackedMessage(msg);
+                return _sendPackedMessage(msg);
             }
         }
         //------------------------------------------------------------------------------------------------------------------------
@@ -1068,6 +1276,7 @@ namespace Yodiwo.YPChannel
         [System.Diagnostics.Conditional("DEBUG")]
         protected virtual void CheckType(Type type, string errorPath)
         {
+#if CHECK_TYPES
 #if DEBUG
             //ignore if checked already
             lock (CheckedTypes)
@@ -1079,7 +1288,7 @@ namespace Yodiwo.YPChannel
             //basic type check
 #if NETFX
             if (type.IsAbstract || type.IsInterface || type.GetType() == typeof(object) || type.IsNotPublic)
-#else
+#elif UNIVERSAL
             if (type.GetTypeInfo().IsAbstract || type.GetTypeInfo().IsInterface || type.GetType() == typeof(object) || type.GetTypeInfo().IsNotPublic)
 #endif
             {
@@ -1089,9 +1298,9 @@ namespace Yodiwo.YPChannel
 
             //check for StructLayout
 #if NETFX
-            if (!type.IsPrimitive && type != typeof(string) && !typeof(IList).IsAssignableFrom(type) && !type.IsArray && !type.IsEnum)
-#else
-            if (!type.GetTypeInfo().IsPrimitive && type != typeof(string) && !typeof(IList).GetTypeInfo().IsAssignableFrom(type.GetTypeInfo()) && !type.IsArray && !type.GetTypeInfo().IsEnum)
+            if (!type.IsPrimitive && type != typeof(string) && !typeof(IList).IsAssignableFrom(type) && !typeof(IDictionary).IsAssignableFrom(type) && !type.IsArray && !type.IsEnum)
+#elif UNIVERSAL
+            if (!type.GetTypeInfo().IsPrimitive && type != typeof(string) && !typeof(IList).GetTypeInfo().IsAssignableFrom(type.GetTypeInfo()) && !typeof(IDictionary).GetTypeInfo().IsAssignableFrom(type.GetTypeInfo()) && !type.IsArray && !type.GetTypeInfo().IsEnum)
 #endif
             {
                 //DebugEx.Assert(type.IsLayoutSequential, "Messages should define the StructLayout Attribute with Sequential layout" + Environment.NewLine + "Hint: add [StructLayout(LayoutKind.Sequential)] on class" + Environment.NewLine + "Type failed : " + type.GetFriendlyName() + Environment.NewLine + "Path: " + errorPath);
@@ -1099,7 +1308,7 @@ namespace Yodiwo.YPChannel
                 //check members
 #if NETFX
                 var members = type.GetMembers(BindingFlags.Public | BindingFlags.Instance);
-#else
+#elif UNIVERSAL
                 var members = type.GetTypeInfo().DeclaredMembers;
 #endif
                 foreach (var member in members)
@@ -1113,18 +1322,21 @@ namespace Yodiwo.YPChannel
                         if (memberType != null)
                             CheckType(memberType, errorPath + " -> " + member.Name);
                     }
-            }
         }
-        //------------------------------------------------------------------------------------------------------------------------
-        public TimeSpan Ping(string Message, TimeSpan? Timeout = null)
+#endif
+        }
+        //------------------------------------------------------------------------------------------------------------------------        
+        public TimeSpan? Ping(string Message, TimeSpan? Timeout = null)
         {
             var timestamp = DateTime.Now;
             var pingMsg = new PingRequest() { Message = Message };
             var pong = SendRequest<PongResponse>(pingMsg, Timeout: Timeout);
-            if (pingMsg.Message == pong.Message)
-                return DateTime.Now - timestamp;
+            if (pong == null)
+                return null;
+            else if (pingMsg.Message == pong.Message)
+                return TimeSpan.FromMilliseconds((DateTime.Now - timestamp).TotalMilliseconds.ClampFloor(0));
             else
-                return TimeSpan.Zero;
+                return null;
         }
         //------------------------------------------------------------------------------------------------------------------------
         ~Channel()
@@ -1132,7 +1344,7 @@ namespace Yodiwo.YPChannel
             try
             {
                 if (State != ChannelStates.Closed)
-                    Close();
+                    Close("Channel disposed (destructor)");
             }
             catch (Exception ex)
             {

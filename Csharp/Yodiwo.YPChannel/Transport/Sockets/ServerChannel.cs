@@ -7,7 +7,7 @@ using System.Net;
 using System.Net.Security;
 using System.Net.Sockets;
 using System.Security.Authentication;
-#else
+#elif UNIVERSAL
 using Windows.Networking.Sockets;
 #endif
 using System.Text;
@@ -31,8 +31,8 @@ namespace Yodiwo.YPChannel.Transport.Sockets
 
         #region Constructors
         //------------------------------------------------------------------------------------------------------------------------
-        public ServerChannel(Server Server, Protocol[] Protocols, ChannelSerializationMode ChannelSerializationMode, Socket _sock)
-            : base(Protocols, ChannelRole.Server, ChannelSerializationMode)
+        public ServerChannel(Server Server, Protocol[] Protocols, ChannelSerializationMode SupportedChannelSerializationModes, ChannelSerializationMode PreferredChannelSerializationModes, Socket _sock)
+            : base(Protocols, ChannelRole.Server, SupportedChannelSerializationModes, PreferredChannelSerializationModes)
         {
             this.Server = Server;
             this._sock = _sock;
@@ -45,7 +45,7 @@ namespace Yodiwo.YPChannel.Transport.Sockets
         //------------------------------------------------------------------------------------------------------------------------
 #if NETFX
         public virtual bool SetupServerSocket()
-#else
+#elif UNIVERSAL
         public virtual bool SetupServerSocket()
 #endif
         {
@@ -55,37 +55,16 @@ namespace Yodiwo.YPChannel.Transport.Sockets
                 bool isSecured = false;
                 string sslProtocol = "";
 
+                //check packer
+                if (SupportedChannelSerializationModes.HasFlag(ChannelSerializationMode.MessagePack))
+                    DebugEx.Assert(MsgPack != null, "MessagePack serializer not provided");
+
                 //create network stream
 #if NETFX
                 //Stream _netstream = new BufferedStream(new NetworkStream(base._sock, true));
                 Stream _netstream = new NetworkStream(base._sock, true);
-#endif
 
-                //read clients packers
-                var smode = new byte[1];
-#if NETFX
-                while (_sock.Receive(smode, 1, SocketFlags.None) != 1) ;
-#else
-                smode[0] = (byte)_sock.InputStream.AsStreamForRead().ReadByte();
-#endif
-                var clientPackers = (ChannelSerializationMode)smode[0];
-
-                //write packer
-                smode[0] = (byte)this.ChannelSerializationMode;
-#if NETFX
-                var _nodelay = _sock.NoDelay;
-                _sock.NoDelay = true; //Disable the Nagle Algorithm
-                _sock.Send(smode);
-                _sock.NoDelay = _nodelay; //Restore (default:enable) the Nagle Algorithm
-#else
-                {
-                    var wStream = _sock.OutputStream.AsStreamForWrite();
-                    wStream.WriteByte(smode[0]);
-                    wStream.Flush();
-                }
-#endif
                 //Wrap with a secure stream?
-#if NETFX
                 if (Server.Certificate != null)
                 {
                     var sslstream = new SslStream(_netstream, false);
@@ -119,12 +98,60 @@ namespace Yodiwo.YPChannel.Transport.Sockets
                         if (ex.InnerException != null && ex.InnerException.Message != ex.Message)
                             msg += "  (inner msg=" + ex.InnerException.Message + ")";
                         DebugEx.TraceError("Certificate not accepted, " + msg);
+                        try { Close("Certificate not accepted, " + msg); } catch { }
                         try { sslstream.Close(); base._sock.Dispose(); } catch { }
                         try { _netstream.Close(); _netstream.Dispose(); } catch { }
                         try { _sock.Close(); _sock.Dispose(); } catch { }
-                        try { Close(); } catch { }
                         return false; //failed
                     }
+                }
+#endif
+
+                //read clients packers
+                var clientPackers = ChannelSerializationMode.Unkown;
+                var clientPreferredPackers = ChannelSerializationMode.Unkown;
+#if NETFX
+                clientPackers = (ChannelSerializationMode)_netstream.ReadByte();
+                clientPreferredPackers = (ChannelSerializationMode)_netstream.ReadByte();
+#elif UNIVERSAL
+                clientPackers = (ChannelSerializationMode)_sock.InputStream.AsStreamForRead().ReadByte();
+                clientPreferredPackers = (ChannelSerializationMode)_sock.InputStream.AsStreamForRead().ReadByte();
+#endif
+
+                //filter packers
+                clientPackers = clientPackers & SupportedChannelSerializationModes;
+                clientPreferredPackers = clientPackers & clientPreferredPackers;
+                var serverPreferredPackers = clientPackers & PreferredChannelSerializationModes;
+                var commonPreferredPackers = clientPreferredPackers & serverPreferredPackers;
+
+                //choose packer
+                if ((_ChannelSerializationMode = _choosePacker(commonPreferredPackers)) == ChannelSerializationMode.Unkown &&
+                    (_ChannelSerializationMode = _choosePacker(clientPreferredPackers)) == ChannelSerializationMode.Unkown &&
+                    (_ChannelSerializationMode = _choosePacker(serverPreferredPackers)) == ChannelSerializationMode.Unkown &&
+                    (_ChannelSerializationMode = _choosePacker(clientPackers)) == ChannelSerializationMode.Unkown)
+                {
+                    DebugEx.TraceError("Could not decide on packer.");
+                    try { Close("Could not decide on packer."); } catch { }
+#if NETFX
+                    try { _netstream?.Close(); _netstream?.Dispose(); } catch { }
+                    try { _sock?.Close(); _sock?.Dispose(); } catch { }
+#elif UNIVERSAL
+                    try { _sock?.Dispose(); } catch { }
+#endif
+                    return false; //failed
+                }
+
+                //write packer
+#if NETFX
+                var _nodelay = _sock.NoDelay;
+                _sock.NoDelay = true; //Disable the Nagle Algorithm
+                _netstream.WriteByte((byte)_ChannelSerializationMode);
+                _sock.NoDelay = _nodelay; //Restore (default:enable) the Nagle Algorithm
+#elif UNIVERSAL
+                {
+                    var wStream = _sock.OutputStream.AsStreamForWrite();
+                    wStream.WriteByte((byte)_ChannelSerializationMode);
+                    wStream.Flush();
                 }
 #endif
 
@@ -134,7 +161,7 @@ namespace Yodiwo.YPChannel.Transport.Sockets
 #if NETFX
                     this.LocalHost = base._sock.LocalEndPoint.GetIPAddress().ToString();
                     this.RemotePort = _sock.LocalEndPoint.GetPort().ToStringInvariant();
-#else
+#elif UNIVERSAL
                     this.LocalHost = _sock.Information.LocalAddress.ToString();
                     this.RemotePort = _sock.Information.LocalPort;
 #endif
@@ -145,7 +172,7 @@ namespace Yodiwo.YPChannel.Transport.Sockets
 #if NETFX
                 this.RemoteHost = base._sock.RemoteEndPoint.GetIPAddress().ToString();
                 this.RemotePort = _sock.RemoteEndPoint.GetPort().ToStringInvariant();
-#else
+#elif UNIVERSAL
                 this.LocalHost = _sock.Information.RemoteAddress.ToString();
                 this.RemotePort = _sock.Information.RemotePort;
 #endif
@@ -156,7 +183,7 @@ namespace Yodiwo.YPChannel.Transport.Sockets
                 //setup stream
 #if NETFX
                 SetupStream(_netstream);
-#else
+#elif UNIVERSAL
                 SetupStream();
 #endif
 
@@ -170,14 +197,26 @@ namespace Yodiwo.YPChannel.Transport.Sockets
             }
         }
         //------------------------------------------------------------------------------------------------------------------------
-        protected override void onClose()
+        protected override void onClose(string Message)
         {
             try
             {
+                base.onClose(Message);
+
                 if (Server != null)
                     Server.onChannelClose(this);
             }
             catch (Exception ex) { DebugEx.TraceError(ex, "ServerChannel onClose() unhandled exception"); }
+        }
+        //------------------------------------------------------------------------------------------------------------------------
+        ChannelSerializationMode _choosePacker(ChannelSerializationMode modes)
+        {
+            if (modes.HasFlag(ChannelSerializationMode.Json))
+                return ChannelSerializationMode.Json;
+            else if (modes.HasFlag(ChannelSerializationMode.MessagePack))
+                return ChannelSerializationMode.MessagePack;
+            else
+                return ChannelSerializationMode.Unkown;
         }
         //------------------------------------------------------------------------------------------------------------------------
 #if DEBUG

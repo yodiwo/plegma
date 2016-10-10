@@ -31,6 +31,11 @@ namespace Yodiwo.YPChannel
     public enum ChannelFlags : uint
     {
         None = 0,
+        GZip = 1 << 0,
+        Deflate = 1 << 1,
+
+        UsePayloadStr = 1 << 20, //TODO: To be removed in the future
+        AdaptiveProtocol = 1 << 21, //TODO: To be removed in the future
     }
 
     [Flags]
@@ -40,6 +45,14 @@ namespace Yodiwo.YPChannel
         //Reserved = 1 << 0,
         Request = 1 << 1,
         Response = 1 << 2,
+    }
+
+    [Flags]
+    public enum PackedMessageFlags : byte
+    {
+        None = 0,
+        Compressed_GZip = 1 << 0,
+        Compressed_Deflate = 1 << 1,
     }
 
     public enum MessageIEValueType : byte
@@ -67,9 +80,9 @@ namespace Yodiwo.YPChannel
     public struct MessageIE
     {
         public string Key;
-        public YPCObject Value;
+        public object Value;
 
-        public MessageIE(string Key, object Value) { this.Key = Key; this.Value = new YPCObject(Value); }
+        public MessageIE(string Key, object Value) { this.Key = Key; this.Value = Value; }
     }
 
 
@@ -103,6 +116,8 @@ namespace Yodiwo.YPChannel
         Json = 1 << 1,
         //xxx = 1 << 2,
         //yyy = 1 << 3,
+
+        All = MessagePack | Json,
     }
 
 
