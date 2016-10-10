@@ -68,8 +68,8 @@ namespace Yodiwo.NodeLibrary.Transports
             {
                 var status = MqttClient.Start(Node.NodeKey,
                                               Node.NodeKey,
-                                              Node.NodeSecret,
-                                              cleanSession: false,
+                                              Node.NodeSecret.SecureStringToString(),
+                                              cleanSession: true,
                                               rxEvent: MqttClientMsgPublishReceived,
                                               subscribedEvent: MqttClientMsgSubscribed,
                                               unsubscribedEvent: MqttClientMsgUnsubscribed);
@@ -126,6 +126,9 @@ namespace Yodiwo.NodeLibrary.Transports
 
                     if (PlegmaAPI.ApiMsgNamesToTypes.ContainsKey(apiMsgType))
                         api_msg = wrapper_msg.Payload.FromJSON(PlegmaAPI.ApiMsgNamesToTypes[apiMsgType]);
+                    // for Warlock API Type Msgs
+                    else if (Yodiwo.API.Warlock.WarlockAPI.ApiMsgNamesToTypes.ContainsKey(apiMsgType))
+                        api_msg = wrapper_msg.Payload.FromJSON(Yodiwo.API.Warlock.WarlockAPI.ApiMsgNamesToTypes[apiMsgType]);
 
                     //if valid API message
                     if (api_msg != null)
@@ -133,7 +136,7 @@ namespace Yodiwo.NodeLibrary.Transports
                         //check if it is a new Request
                         if (wrapper_msg.IsRequest)
                         {
-                            var rsp = Node.HandleApiReq(api_msg);
+                            var rsp = Node.HandleApiReq(api_msg, (uint)wrapper_msg.SyncId);
                             if (rsp != null)
                             {
                                 //send response if handler created one
@@ -160,7 +163,7 @@ namespace Yodiwo.NodeLibrary.Transports
             }
         }
         //------------------------------------------------------------------------------------------------------------------------
-        public void SendMessage(API.Plegma.ApiMsg message)
+        public void SendMessage(API.ApiMsg message)
         {
             var msg = new MqttMsg()
             {
@@ -169,7 +172,7 @@ namespace Yodiwo.NodeLibrary.Transports
             this.MqttClient.PublishMqttMsg(msg, this.mqttCloudBrokerPubTopicPrefix + PlegmaAPI.ApiMsgNames[message.GetType()]);
         }
         //------------------------------------------------------------------------------------------------------------------------
-        public Trsp SendRequest<Trsp>(API.Plegma.ApiMsg request, TimeSpan? timeout = null)
+        public Trsp SendRequest<Trsp>(API.ApiMsg request, TimeSpan? timeout = null)
         {
             //check
             if (request == null)
@@ -211,12 +214,20 @@ namespace Yodiwo.NodeLibrary.Transports
             lock (w)
             {
                 //publish msg
-                this.MqttClient.PublishMqttMsg(msg, this.mqttCloudBrokerPubTopicPrefix + PlegmaAPI.ApiMsgNames[request.GetType()]);
+                if (request is Yodiwo.API.Warlock.WarlockApiMsg)
+                {
+                    this.MqttClient.PublishMqttMsg(msg, this.mqttCloudBrokerPubTopicPrefix + Yodiwo.API.Warlock.WarlockAPI.ApiMsgNames[request.GetType()]);
+                }
+                else if (request is Yodiwo.API.Plegma.PlegmaApiMsg)
+                {
+                    this.MqttClient.PublishMqttMsg(msg, this.mqttCloudBrokerPubTopicPrefix + PlegmaAPI.ApiMsgNames[request.GetType()]);
+                }
                 if (timeout == null)
                     Monitor.Wait(w);
                 else
                     Monitor.Wait(w, timeout.Value);
             }
+
 
             //remove if found
             lock (RpcPending)
@@ -229,7 +240,7 @@ namespace Yodiwo.NodeLibrary.Transports
                 return (Trsp)w.Response;
         }
         //------------------------------------------------------------------------------------------------------------------------
-        public void SendResponse(API.Plegma.ApiMsg response, int syncId)
+        public void SendResponse(API.ApiMsg response, int syncId)
         {
             var msg = new MqttMsg()
             {

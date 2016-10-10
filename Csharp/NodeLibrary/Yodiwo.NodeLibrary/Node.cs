@@ -7,8 +7,9 @@ using System.Net;
 using Yodiwo.API.Plegma;
 using System.Threading;
 using Yodiwo.YPChannel;
-using Yodiwo.Node.Pairing;
+using Yodiwo.NodeLibrary.Pairing;
 using System.Reflection;
+using System.Security;
 
 namespace Yodiwo.NodeLibrary
 {
@@ -16,15 +17,22 @@ namespace Yodiwo.NodeLibrary
     {
         #region Variables
         //------------------------------------------------------------------------------------------------------------------------
+        public const string ThingKeyUIDModuleIdSeparator = ":";
+        public const string DataIdentifier_Things = "Things.json";
+        //------------------------------------------------------------------------------------------------------------------------
+        bool _IsInitialized = false;
+        public bool IsInitialized => _IsInitialized;
+        //------------------------------------------------------------------------------------------------------------------------
         public object locker = new object();
         //------------------------------------------------------------------------------------------------------------------------
         public string uuid { get { return conf.uuid; } }
         public string Name { get { return conf.Name; } }
         public bool CanSolveGraphs { get { return conf.CanSolveGraphs; } }
+        public bool IsWarlock { get { return conf.IsWarlock; } }
         private NodeConfig conf;
         //------------------------------------------------------------------------------------------------------------------------
         public NodeKey NodeKey { get; private set; }
-        public string NodeSecret { get; private set; }
+        public SecureString NodeSecret { get; private set; }
         //------------------------------------------------------------------------------------------------------------------------
         private bool _IsPaired;
         public bool IsPaired { get { return _IsPaired; } }
@@ -38,11 +46,25 @@ namespace Yodiwo.NodeLibrary
         }
         private bool _IsConnectionEnabled = false;
         public bool IsConnectionEnabled { get { return _IsConnectionEnabled; } }
+        public bool AutoReconnect { get; set; } = true;
+        public TimeSpan AutoReconnectDelay { get; set; } = TimeSpan.FromSeconds(1);
+        //------------------------------------------------------------------------------------------------------------------------
+        public bool IsConnected
+        {
+            get
+            {
+                if (Transport == Transport.YPCHANNEL)
+                    return Channel?.IsOpen ?? false;
+                else
+                    throw new NotSupportedException();
+            }
+        }
         //------------------------------------------------------------------------------------------------------------------------
         //transports
         private Yodiwo.YPChannel.Transport.Sockets.Client Channel;
         private Transports.ITransportMQTT mqtthandler;
         private Yodiwo.RequestQueueConsumer<Tuple<string, string>> RestRequestConsumer;
+        public Action<Yodiwo.YPChannel.Transport.Sockets.Client> NewChannelSetup = null;
         //------------------------------------------------------------------------------------------------------------------------
         //pairing
         private IPairingModule _PairingModule;
@@ -58,9 +80,8 @@ namespace Yodiwo.NodeLibrary
         private DictionaryTS<ThingKey, Thing> _Things = new DictionaryTS<ThingKey, Thing>();
         public readonly ReadOnlyDictionary<ThingKey, Thing> Things;
 
-        private HashSet<Thing> limbo_things = new HashSet<Thing>(); //thing not yet assigned thing id
         private ListTS<ThingType> _thingTypes = new ListTS<ThingType>();
-        private int _ThingIDCnt = 0;
+
         private eNodeType nodeType;
         //------------------------------------------------------------------------------------------------------------------------
         //helpers for active things/port/ changes
@@ -69,16 +90,16 @@ namespace Yodiwo.NodeLibrary
         //Graphs
         public readonly Graphs.INodeGraphManager NodeGraphManager;
         //------------------------------------------------------------------------------------------------------------------------
-        public readonly DictionaryTS<Port, Action<string>> PortEventHandlers = new DictionaryTS<Port, Action<string>>();
+        public readonly DictionaryTS<Port, Action<string, bool>> PortEventHandlers = new DictionaryTS<Port, Action<string, bool>>();
+        public readonly DictionaryTS<Thing, Action<TupleS<Port, string>[], bool>> ThingEventHandlers = new DictionaryTS<Thing, Action<TupleS<Port, string>[], bool>>();
         //------------------------------------------------------------------------------------------------------------------------
         HashSetTS<INodeModule> _NodeModules = new HashSetTS<INodeModule>();
         public IReadOnlySet<INodeModule> NodeModules => _NodeModules;
-        DictionaryTS<INodeModule, ListTS<Yodiwo.API.Plegma.Thing>> _NodeModuleThings = new DictionaryTS<INodeModule, ListTS<Yodiwo.API.Plegma.Thing>>();
-        DictionaryTS<INodeModule, ListTS<Yodiwo.API.Plegma.ThingType>> _NodeModuleThingTypes = new DictionaryTS<INodeModule, ListTS<Yodiwo.API.Plegma.ThingType>>();
+        DictionaryTS<INodeModule, HashSetTS<Yodiwo.API.Plegma.Thing>> _NodeModuleThings = new DictionaryTS<INodeModule, HashSetTS<Yodiwo.API.Plegma.Thing>>();
         DictionaryTS<ThingKey, INodeModule> thingkey2module = new DictionaryTS<ThingKey, INodeModule>();
         //------------------------------------------------------------------------------------------------------------------------
         //delegates events that are exposed to user
-        public delegate void OnNodePairedDelegate(NodeKey nodekey, string nodesecret);
+        public delegate void OnNodePairedDelegate(NodeKey nodekey, SecureString nodesecret);
         public event OnNodePairedDelegate OnNodePaired;
 
         public delegate void OnNodePairingFailedDelegate(string Message);
@@ -90,6 +111,9 @@ namespace Yodiwo.NodeLibrary
         public delegate void OnTransportConnectedDelegate(Transport Transport, string msgStatus);
         public event OnTransportConnectedDelegate OnTransportConnected;
 
+        public delegate void OnTransportConnectionStartDelegate(Transport Transport);
+        public event OnTransportConnectionStartDelegate OnTransportConnectionStart;
+
         public delegate void OnTransportDisconnectedDelegate(Transport Transport, string msgStatus);
         public event OnTransportDisconnectedDelegate OnTransportDisconnected;
 
@@ -99,23 +123,29 @@ namespace Yodiwo.NodeLibrary
         public delegate void OnThingsRegisteredDelegate();
         public event OnThingsRegisteredDelegate OnThingsRegistered;
 
-        public delegate void OnChangedStateDelegate(Thing thing, Port port, String status);
+        public delegate void OnChangedStateDelegate(Thing thing, Port port, String status, bool isEvent);
         public event OnChangedStateDelegate OnChangedState;
+
+        public delegate void OnChangedStateGrouppedDelegate(Thing thing, List<TupleS<Port, String>> states);
+        public event OnChangedStateGrouppedDelegate OnChangedStateGroupped;
 
         public delegate void OnPortEventMsgProcessedDelegate(PortEventMsg msg);
         public event OnPortEventMsgProcessedDelegate OnPortEventMsgProcessed;
 
-        public delegate ApiMsg OnA2mcuActiveDriversReqDelegate(A2mcuActiveDriversReq request);
+        // public delegate void OnReceivedShareNotifyMsgDelegate(Yodiwo.API.Warlock.ShareNotifyMsg res);
+        //public event OnReceivedShareNotifyMsgDelegate OnReceivedShareNotifyMsg;
+
+        public delegate PlegmaApiMsg OnA2mcuActiveDriversReqDelegate(A2mcuActiveDriversReq request);
         public OnA2mcuActiveDriversReqDelegate OnA2mcuActiveDriversReq;
 
-        public delegate ApiMsg OnA2mcuCtrlReqDelegate(A2mcuCtrlReq request);
+        public delegate PlegmaApiMsg OnA2mcuCtrlReqDelegate(A2mcuCtrlReq request);
         public OnA2mcuCtrlReqDelegate OnA2mcuCtrlReq;
 
-        public delegate ApiMsg OnUnexpectedRequestDelegate(object request);
-        public OnUnexpectedRequestDelegate OnUnexpectedRequest;
+        public delegate PlegmaApiMsg OnUnexpectedRequestDelegate(object request);
+        public event OnUnexpectedRequestDelegate OnUnexpectedRequest;
 
         public delegate void OnUnexpectedMessageDelegate(object message);
-        public OnUnexpectedMessageDelegate OnUnexpectedMessage;
+        public event OnUnexpectedMessageDelegate OnUnexpectedMessage;
 
         public delegate void OnThingActivatedDelegate(Thing thing);
         public event OnThingActivatedDelegate OnThingActivated;
@@ -138,6 +168,9 @@ namespace Yodiwo.NodeLibrary
         public delegate bool OnThingDeleteRequestDelegate(Thing Thing);
         public OnThingDeleteRequestDelegate OnThingDeleteRequest;
 
+        public delegate void OnForgetMeDelegate();
+        public event OnForgetMeDelegate OnForgetMeCb;
+
         //------------------------------------------------------------------------------------------------------------------------
         //used to protect against IO race contitions
         DictionaryTS<string, object> IOLocker = new DictionaryTS<string, object>();
@@ -152,28 +185,21 @@ namespace Yodiwo.NodeLibrary
         //Discovery
         public readonly NodeDiscovery.NodeDiscoverManager NodeDiscovery;
         //------------------------------------------------------------------------------------------------------------------------
-        //random instance endpoint id
-        string desiredEndpoint = MathTools.GenerateRandomAlphaNumericString(16);
-        //------------------------------------------------------------------------------------------------------------------------
         #endregion
 
         #region Constructor
         //------------------------------------------------------------------------------------------------------------------------
         public Node(NodeConfig conf,
-                    IEnumerable<Thing> things,
                     IPairingModule pairingmodule,
                     DataLoadDelegate DataLoad,
                     DataSaveDelegate DataSave,
                     Graphs.INodeGraphManager NodeGraphManager = null,
                     Type MqttTransport = null,
                     List<ThingType> thingTypes = null,
-                    eNodeType nodeType = eNodeType.Unknown,
-                    IEnumerable<INodeModule> NodeModules = null
-                    )
+                    eNodeType nodeType = eNodeType.Unknown)
         {
             DebugEx.Assert(conf != null, "Cannot have null conf");
             this.conf = conf.Clone() as NodeConfig;
-            this.limbo_things.AddFromSource(things);
             this.Things = new ReadOnlyDictionary<ThingKey, Thing>(this._Things);
             this._thingTypes.AddFromSource(thingTypes);
             this.nodeType = nodeType;
@@ -181,32 +207,12 @@ namespace Yodiwo.NodeLibrary
             this.DataLoad = DataLoad;
             this.DataSave = DataSave;
             this.NodeGraphManager = NodeGraphManager;
-            this._NodeModules.AddFromSource(NodeModules);
 
-            //enumerate things and thingtypes for each module
-            if (this._NodeModules != null && this._NodeModules.Count > 0)
-            {
-                //gather module things & types
-                foreach (var module in this._NodeModules)
-                {
-                    //set as parent node
-                    module.Node = this;
-                    //enumerate things
-                    _NodeModuleThings.Add(module, module.EnumerateThings().ToListTS());
-                    //enumerate thingtypes
-                    _NodeModuleThingTypes.Add(module, module.EnumerateThingTypes().ToListTS());
-                }
-
-                //add module things to limbo
-                this.limbo_things.AddFromSource(_NodeModuleThings.SelectMany(e => e.Value));
-
-                //add types from modules
-                this._thingTypes.AddFromSource(_NodeModuleThingTypes.SelectMany(e => e.Value));
-            }
-
-            //Initialize Graph stuff
-            if (NodeGraphManager != null)
-                NodeGraphManager.Initialize(this);
+#if DEBUG
+            DebugEx.TraceLog("Starting NodeLibrary in DEBUG mode");
+#else
+            DebugEx.TraceLog("Starting NodeLibrary in RELEASE mode");
+#endif
 
             //create mqtt transport
             if (MqttTransport != null)
@@ -230,15 +236,55 @@ namespace Yodiwo.NodeLibrary
                 var port = MathTools.GetRandomNumber(conf.NodeDiscovery_YPCPort_Start, conf.NodeDiscovery_YPCPort_End);
                 this.NodeDiscovery = new NodeDiscovery.NodeDiscoverManager(this, YPCPort: port);
             }
+
+            //Initialize Graph stuff
+            if (NodeGraphManager != null)
+                NodeGraphManager.Initialize(this);
+
+            //inited
+            _IsInitialized = true;
         }
         //------------------------------------------------------------------------------------------------------------------------
         #endregion
 
         #region Functions
         //------------------------------------------------------------------------------------------------------------------------
+        public void DeInitialize()
+        {
+            try
+            {
+                //deinit
+                _IsInitialized = false;
+
+                //disconnect from server
+                Disconnect();
+
+                //deinit NodeDiscovery stuff
+                if (NodeDiscovery != null)
+                    NodeDiscovery.Deinitialize();
+
+                //deinit Graph stuff
+                if (NodeGraphManager != null)
+                    NodeGraphManager.DeInitialize();
+
+                //disconnect
+                Disconnect();
+            }
+            catch (Exception ex) { DebugEx.Assert(ex, "NodeLibrary DeInitialize failed"); }
+        }
+        //------------------------------------------------------------------------------------------------------------------------
+
+        public Task<bool> StartPairingAsync(string frontendUrl, string redirectUrl, string selfUrl = null)
+        {
+            return Task<bool>.Run(() => { return StartPairing(frontendUrl, redirectUrl, selfUrl: selfUrl); });
+        }
 
         public async Task<bool> StartPairing(string frontendUrl, string redirectUrl, string selfUrl = null)
         {
+            //null check
+            if (this._PairingModule == null)
+                return false;
+            //start pairing module
             var res = this._PairingModule.StartPair(frontendUrl, redirectUrl, conf, selfUrl, onPaired, onPairFailed);
             if (!res)
             {
@@ -247,53 +293,42 @@ namespace Yodiwo.NodeLibrary
             }
             //wait for pairing completion
             while (!_IsPaired)
-                await Task.Delay(300);
+                await Task.Delay(300).ConfigureAwait(false);
             return true;
         }
 
         //------------------------------------------------------------------------------------------------------------------------
 
         /// <summary>
-        /// Auto submit pairing request, fill UUID, wait for completion and retrieve nodekey/secretkey
-        /// Can be used if node is running on users machine.
+        /// Auto submit pairing request, wait for completion and retrieve nodekey/secretkey (used for Testing)
         /// </summary>
-        public void AutoPairing(string frontendUrl, string redirectUrl, IEnumerable<Cookie> cookies)
+        public void AutoPairing(string frontendUrl, IEnumerable<Cookie> cookies, string antiCSRFtoken)
         {
             try
             {
-                var backend = new Yodiwo.Node.Pairing.NodePairingBackend(frontendUrl, conf, onPaired, onPairFailed);
-                string token2 = backend.pairGetTokens(redirectUrl);
-                //send token request
-                var paramet = new Dictionary<string, string>()
-                {
-                    {"token2",token2},
-                };
-                var t = Tools.Http.RequestGET(backend.userUrl, paramet, cookies);
-
-                //wait
-                Task.Delay(2000).Wait();
+                var backend = new Yodiwo.NodeLibrary.Pairing.NodePairingBackend(frontendUrl, conf, onPaired, onPairFailed);
+                string token2 = backend.pairGetTokens(null);
 
                 //send uuidentry request
                 var paramet2 = new Dictionary<string, string>()
                 {
                     { "uuid", conf.uuid },
                     { "token2", token2},
+                    { "_token2", token2},
+                    { "NCSRF", antiCSRFtoken },
                 };
-                var t1 = Tools.Http.RequestGET(backend.pairingPostUrl + "/uuidentry", paramet2, cookies);
-                if (t1.StatusCode == HttpStatusCode.NotFound || t1.StatusCode == HttpStatusCode.RedirectMethod)
+                var t1 = Tools.Http.RequestPost(backend.pairingPostUrl + "/complete", paramet2, cookies);
+                if (t1.IsSuccessStatusCode)
                     backend.pairGetKeys();
                 else
                     DebugEx.Assert("Pairing failed (could not enter uuid)");
             }
-            catch (Exception ex)
-            {
-                DebugEx.Assert(ex, "Unhandled exception caught");
-            }
+            catch (Exception ex) { DebugEx.Assert(ex, "Unhandled exception caught"); }
         }
 
         //------------------------------------------------------------------------------------------------------------------------
 
-        private void onPaired(NodeKey nodeKey, string nodeSecret)
+        private void onPaired(NodeKey nodeKey, SecureString nodeSecret)
         {
             try
             {
@@ -303,17 +338,14 @@ namespace Yodiwo.NodeLibrary
                 //inform user
                 try
                 {
-                    OnNodePaired?.Invoke(this.NodeKey, this.NodeSecret);
+                    try { OnNodePaired?.Invoke(this.NodeKey, this.NodeSecret); } catch (Exception ex) { DebugEx.TraceError(ex, "UserCode exception caught"); }
                 }
                 catch (Exception ex) { DebugEx.Assert(ex, "Unhandled exception caught from user callback"); }
 
                 //finished pairing
                 this._PairingModule.EndPair();
             }
-            catch (Exception ex)
-            {
-                DebugEx.Assert(ex, "Unhandled exception caught");
-            }
+            catch (Exception ex) { DebugEx.Assert(ex, "Unhandled exception caught"); }
         }
 
         //------------------------------------------------------------------------------------------------------------------------
@@ -327,22 +359,25 @@ namespace Yodiwo.NodeLibrary
                 //inform user
                 try
                 {
-                    OnNodePairingFailed?.Invoke(Message);
+                    try { OnNodePairingFailed?.Invoke(Message); } catch (Exception ex) { DebugEx.TraceError(ex, "UserCode exception caught"); }
                 }
                 catch (Exception ex) { DebugEx.Assert(ex, "Unhandled exception caught from user callback"); }
 
                 //finished pairing
                 this._PairingModule.EndPair();
             }
-            catch (Exception ex)
-            {
-                DebugEx.Assert(ex, "Unhandled exception caught");
-            }
+            catch (Exception ex) { DebugEx.Assert(ex, "Unhandled exception caught"); }
         }
 
         //------------------------------------------------------------------------------------------------------------------------
 
-        public void SetupNodeKeys(NodeKey nk, string secret)
+        /// <summary>
+        /// set node and secret keys for Node
+        /// </summary>
+        /// <param name="nk"></param>
+        /// <param name="secret"></param>
+        /// <param name="setupThings">set to false to manually handle thing syncing</param>
+        public void SetupNodeKeys(NodeKey nk, SecureString secret)
         {
             try
             {
@@ -350,61 +385,45 @@ namespace Yodiwo.NodeLibrary
                 {
                     this.NodeKey = nk;
                     this.NodeSecret = secret;
-                    this._IsPaired = true;
+                    this._IsPaired = nk.IsValid && secret != null && secret.Length > 0;
 
-                    //setup thing keys
-                    _setupThings();
-
-                    //now we can load local graphs
-                    NodeGraphManager?.DeployGraphs();
-
-                    //start node discovery
-                    NodeDiscovery?.Initialize();
-                }
-            }
-            catch (Exception ex)
-            {
-                DebugEx.Assert(ex, "Unhandled exception caught");
-            }
-        }
-
-        //------------------------------------------------------------------------------------------------------------------------
-
-        void _setupThings()
-        {
-            try
-            {
-                lock (locker)
-                {
-                    if (limbo_things != null)
+                    //check
+                    if (!IsPaired)
                     {
-                        foreach (var thing in this.limbo_things)
-                        {
-                            //setup thing (keys etc)
-                            _setupThing(thing);
-
-                            //add to collection
-                            this._Things.ForceAdd(thing.ThingKey, thing);
-                        }
-                        //no longer needed
-                        this.limbo_things = null;
+                        DebugEx.TraceError("Invalid keys");
+                        return;
                     }
 
-                    //setup thingkey->module lookup dictionaries
-                    foreach (var kv in _NodeModuleThings)
-                        foreach (var thing in kv.Value)
-                            thingkey2module.Add(thing.ThingKey, kv.Key);
+                    //set key on modules
+                    lock (this._NodeModules)
+                        NodeModules.ForEach(m => { try { m.NodeKey = nk; } catch (Exception ex) { DebugEx.Assert(ex, "NodeModule exception while trying to set key"); } });
+
+                    //load things
+                    if (DataLoad != null)
+                        try
+                        {
+                            var thingsJSON_Buffer = DataLoad(DataIdentifier_Things, true);
+                            if (thingsJSON_Buffer != null && thingsJSON_Buffer.Length > 0)
+                            {
+                                var things = thingsJSON_Buffer.FromJSON<Thing[]>();
+                                foreach (var thing in things)
+                                    _AddThing(thing, null, SendToCloud: false, WriteToDisk: false);
+                            }
+                        }
+                        catch (Exception ex) { DebugEx.Assert(ex, "Thing loading failed"); }
+
+                    //now we can load local graphs
+                    try { NodeGraphManager?.DeployGraphs(); } catch (Exception ex) { DebugEx.Assert(ex, "Unhandled exception caught"); }
+
+                    //start node discovery
+                    try { NodeDiscovery?.Initialize(); } catch (Exception ex) { DebugEx.Assert(ex, "Unhandled exception caught"); }
                 }
             }
-            catch (Exception ex)
-            {
-                DebugEx.Assert(ex, "Unhandled exception caught");
-            }
+            catch (Exception ex) { DebugEx.Assert(ex, "Unhandled exception caught"); }
         }
-
         //------------------------------------------------------------------------------------------------------------------------
 
-        void _setupThing(Thing thing)
+        bool _setupThing(Thing thing)
         {
             try
             {
@@ -414,7 +433,8 @@ namespace Yodiwo.NodeLibrary
                 //reconstruct key
                 if (((ThingKey)thing.ThingKey).IsInvalid)
                 {
-                    thing.ThingKey = new ThingKey(this.NodeKey, Interlocked.Increment(ref _ThingIDCnt).ToStringInvariant());
+                    DebugEx.Assert("Invalid ThingKey specified for thing: " + thing.Name);
+                    return false;
                 }
                 else
                 {
@@ -436,163 +456,320 @@ namespace Yodiwo.NodeLibrary
                         port.PortKey = new PortKey(thing, pk.PortUID);
                     else
                     {
-                        var ind = port.PortKey.LastIndexOf('-');
-                        if (ind != -1 && ind + 1 < port.PortKey.Length)
-                            port.PortKey = new PortKey(thing, port.PortKey.Substring(ind + 1));
-                        else
-                        {
-                            DebugEx.Assert("Could not decide on portUID");
-                            port.PortKey = new PortKey(thing, MathTools.GetRandomNumber(100, 1000000).ToString());
-                        }
+                        DebugEx.Assert("No portkey specified for port");
+                        return false;
                     }
                 }
 
                 //fix thing states
                 foreach (var port in thing.Ports)
                 {
-                    if (port.Type == ePortType.String && port.State != null)
-                    {
-                        port.State = port.State.Replace("$NodeKey$", NodeKey);
-                        port.State = port.State.Replace("$ThingKey$", thing.ThingKey);
-                        port.State = port.State.Replace("$PortKey$", port.PortKey);
-                    }
+                    port.State = port.State.Replace("$NodeKey$", NodeKey)
+                                            .Replace("$ThingKey$", thing.ThingKey)
+                                            .Replace("$PortKey$", port.PortKey);
                 }
+                return true;
             }
-            catch (Exception ex)
-            {
-                DebugEx.Assert(ex, "Unhandled exception caught");
-            }
+            catch (Exception ex) { DebugEx.Assert(ex, "Unhandled exception caught"); return false; }
         }
 
         //------------------------------------------------------------------------------------------------------------------------
 
-        public void UpdateThing(Thing thing, bool SendToCloud = true) { AddThing(thing, SendToCloud: SendToCloud); }
-
-        public void AddThing(Thing thing, bool SendToCloud = true)
+        /// <summary> This will overwrite all things from cloud  </summary>
+        public bool OverwriteThings()
         {
             try
             {
                 lock (locker)
                 {
                     //still in limbo?
-                    if (limbo_things != null)
+                    if (!IsPaired)
                     {
-                        limbo_things.Add(thing);
-                        return;
+                        DebugEx.Assert("Cannot use node whilst not paired (call setupkeys first)");
+                        return false;
                     }
 
+                    //send update message
+                    var req = new ThingsSet()
+                    {
+                        Operation = eThingsOperation.Overwrite,
+                        Data = this._Things.Values.ToArray(),
+                        Status = true,
+                    };
+                    var rsp = SendRequest<GenericRsp>(req);
+                    if (rsp != null && rsp.IsSuccess)
+                    {
+                        DebugEx.TraceLog($"Successful overwrite of things");
+                        return true;
+                    }
+                    else
+                    {
+                        DebugEx.TraceError($"Overwrite of things failed with: {rsp?.Message}");
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex) { DebugEx.Assert(ex, "Unhandled exception caught"); return false; }
+        }
+
+        //------------------------------------------------------------------------------------------------------------------------
+        /*
+        public IEnumerable<Thing> AddThings(IEnumerable<Thing> things, bool SendToCloud = true) { return AddThings(things, null, SendToCloud: SendToCloud); }
+        public IEnumerable<Thing> AddThings(IEnumerable<Thing> things, INodeModule owner, bool SendToCloud = true)
+        {
+            bool error = false;
+            var _things = new List<Thing>();
+            try
+            {
+                if (things != null)
+                    foreach (var thing in things.ToList())
+                        try
+                        {
+                            var _t = AddThing(thing, SendToCloud: SendToCloud, owner: owner);
+                            if (_t != null)
+                                _things.Add(_t);
+                        }
+                        catch { error |= true; }
+            }
+            catch { error |= true; }
+            return _things;
+        }
+        */
+        //------------------------------------------------------------------------------------------------------------------------
+
+        public Thing UpdateThing(Thing thing, bool SendToCloud = true) { return UpdateThing(thing, null, SendToCloud: SendToCloud); }
+        public Thing UpdateThing(Thing thing, INodeModule owner, bool SendToCloud = true) { return AddThing(thing, owner, SendToCloud: SendToCloud); }
+
+        public Thing AddThing(Thing thing, bool SendToCloud = true) { return _AddThing(thing, null, SendToCloud: SendToCloud); }
+        public Thing AddThing(Thing thing, INodeModule owner, bool SendToCloud = true) { return _AddThing(thing, owner, SendToCloud: SendToCloud); }
+        private Thing _AddThing(Thing thing, INodeModule owner, bool SendToCloud = true, bool WriteToDisk = true)
+        {
+            try
+            {
+                lock (locker)
+                {
+                    //still in limbo?
+                    if (!IsPaired)
+                    {
+                        DebugEx.Assert("Cannot use node whilst not paired (call setupkeys first)");
+                        return null;
+                    }
+
+                    //fix macro
+                    thing.ThingKey = thing.ThingKey.Replace("$NodeKey$", NodeKey);
+
                     //setup thing
-                    _setupThing(thing);
+                    if (!_setupThing(thing))
+                        return null;
+
+                    //check thing ID if following rules
+                    if (owner != null)
+                    {
+                        var tk = (ThingKey)thing.ThingKey;
+                        if (!tk.ThingUID.StartsWith(owner.ModuleID + ThingKeyUIDModuleIdSeparator))
+                        {
+                            DebugEx.Assert("ThingUID must start with " + owner.ModuleID + ThingKeyUIDModuleIdSeparator);
+                            return null;
+                        }
+                    }
+
+                    //check ownership
+                    var _existingOwner = thingkey2module.TryGetOrDefault(thing.ThingKey);
+                    if (owner != null && _existingOwner != null && _existingOwner != owner)
+                    {
+                        DebugEx.Assert("Module adding thing that already belongs to another module");
+                        return null; //invalid owner
+                    }
+
+                    //find original thing
+                    Thing orThing = this._Things.TryGetOrDefault(thing.ThingKey, Default: thing);
+                    if (orThing != thing)
+                        orThing.Update(thing);
 
                     //add to collection
-                    this._Things.ForceAdd(thing.ThingKey, thing);
+                    this._Things.ForceAdd(orThing.ThingKey, orThing);
+
+                    //if has owner setup mappings
+                    if (owner != null)
+                    {
+                        _NodeModuleThings.TryGetOrDefault(owner)?.Add(orThing);
+                        thingkey2module.Add(orThing.ThingKey, owner);
+                    }
+
+                    //Save things
+                    if (WriteToDisk && DataSave != null)
+                        try
+                        {
+                            var things = Things.Values.ToArray();
+                            var json = things.ToJSON2();
+                            if (json != null && json.Length > 0)
+                                DataSave(DataIdentifier_Things, json, true);
+                        }
+                        catch (Exception ex) { DebugEx.Assert(ex, "Thing save failed"); }
 
                     //send update message
                     if (SendToCloud)
                     {
-                        var msg = new ThingsSet()
+                        var req = new ThingsSet()
                         {
                             Operation = eThingsOperation.Update,
-                            Data = new[] { thing },
+                            Data = new[] { orThing },
                             Status = true,
                         };
-                        SendMessage(msg);
+                        var rsp = SendRequest<GenericRsp>(req);
+                        if (rsp != null && rsp.IsSuccess)
+                            DebugEx.TraceLog($"Successful addition/updating of thing {thing.ThingKey}");
+                        else if (rsp == null)
+                            DebugEx.TraceError($"Addition/updating of thing {thing.ThingKey} failed (null response)");
+                        else
+                            DebugEx.TraceError($"Addition/updating of thing {thing.ThingKey} failed with: {rsp?.Message}");
                     }
+
+                    return orThing;
                 }
             }
-            catch (Exception ex)
-            {
-                DebugEx.Assert(ex, "Unhandled exception caught");
-            }
+            catch (Exception ex) { DebugEx.Assert(ex, "Unhandled exception caught"); return thing; }
         }
 
         //------------------------------------------------------------------------------------------------------------------------
 
-        public void RemoveThing(ThingKey thingkey, bool SendToCloud = true)
+        public bool RemoveThing(ThingKey thingkey, bool SendToCloud = true) { return RemoveThing(thingkey, null, SendToCloud: SendToCloud); }
+        public bool RemoveThing(ThingKey thingkey, INodeModule owner, bool SendToCloud = true)
         {
             try
             {
                 lock (locker)
                 {
                     //still in limbo?
-                    if (limbo_things != null)
+                    if (!IsPaired)
                     {
-                        limbo_things.RemoveWhere(t => t.ThingKey == thingkey);
-                        return;
+                        DebugEx.Assert("Cannot use node whilst not paired (call setupkeys first)");
+                        return false;
                     }
+
+                    //fix macro
+                    if (thingkey.NodeKey == "$NodeKey$")
+                        thingkey.NodeKey = NodeKey;
 
                     //find thing
                     var thing = this._Things.TryGetOrDefault(thingkey);
                     if (thing == null)
-                        return;
+                        return false;
+
+                    //check ownership
+                    var _existingOwner = thingkey2module.TryGetOrDefault(thingkey);
+                    if (_existingOwner != null && owner != null && _existingOwner != owner)
+                        return false; //invalid owner
 
                     //remove from collection
                     this._Things.Remove(thingkey);
 
+                    //remove owner setup mappings
+                    if (_existingOwner != null)
+                        _NodeModuleThings.TryGetOrDefault(_existingOwner)?.Remove(thing);
+                    thingkey2module.Remove(thingkey);
+
                     //send update message
                     if (SendToCloud)
                     {
-                        var msg = new ThingsSet()
+                        var req = new ThingsSet()
                         {
                             Operation = eThingsOperation.Delete,
                             Data = new[] { thing },
                             Status = true,
                         };
-                        SendMessage(msg);
+                        var rsp = SendRequest<GenericRsp>(req);
+                        if (rsp != null && rsp.IsSuccess)
+                        {
+                            DebugEx.TraceLog($"Successful removal of thing {thing.ThingKey} from cloud server");
+                            return true;
+                        }
+                        else
+                        {
+                            DebugEx.TraceError($"Removal of thing {thing.ThingKey} from cloud server failed with: {rsp?.Message}");
+                            return false;
+                        }
                     }
+                    else
+                        return true;
                 }
             }
-            catch (Exception ex)
-            {
-                DebugEx.Assert(ex, "Unhandled exception caught");
-            }
+            catch (Exception ex) { DebugEx.Assert(ex, "Unhandled exception caught"); return false; }
         }
 
         //------------------------------------------------------------------------------------------------------------------------
 
-
-        public void RemoveAllThings(bool SendToCloud = true)
+        public bool RemoveAllThings(bool SendToCloud = true, INodeModule owner = null)
         {
             try
             {
                 lock (locker)
                 {
+                    //still in limbo?
+                    if (!IsPaired)
+                    {
+                        DebugEx.Assert("Cannot use node whilst not paired (call setupkeys first)");
+                        return false;
+                    }
+
+                    //nothing to do
                     if (this._Things.Count == 0)
-                        return;
+                        return true;
 
-                    //gather things
-                    var things = this._Things.Values.ToArray();
+                    //if has owner get from owner else get orphans
+                    var toRemove = new HashSet<Thing>();
+                    if (owner != null)
+                    {
+                        var owned = _NodeModuleThings.TryGetOrDefault(owner);
+                        foreach (var thing in owned)
+                        {
+                            thingkey2module.Remove(thing.ThingKey);
+                            toRemove.Add(thing);
+                        }
+                    }
+                    else
+                        toRemove.AddFromSource(_Things.Where(tkv => !thingkey2module.ContainsKey(tkv.Key)).Select(tkv => tkv.Value));
 
-                    //remove from collection
-                    this._Things.Clear();
+                    //remove them
+                    foreach (var t in toRemove)
+                        _Things.Remove(t.ThingKey);
 
                     //send update message
                     if (SendToCloud)
                     {
-                        var msg = new ThingsSet()
+                        var req = new ThingsSet()
                         {
                             Operation = eThingsOperation.Delete,
-                            Data = things,
+                            Data = toRemove.ToArray(),
                             Status = true,
                         };
-                        SendMessage(msg);
+                        var rsp = SendRequest<GenericRsp>(req);
+                        if (rsp != null && rsp.IsSuccess)
+                        {
+                            DebugEx.TraceLog($"Successful delete of things");
+                            return true;
+                        }
+                        else
+                        {
+                            DebugEx.TraceError($"Delete of things failed with: {rsp?.Message}");
+                            return false;
+                        }
                     }
+                    else
+                        return true;
                 }
             }
-            catch (Exception ex)
-            {
-                DebugEx.Assert(ex, "Unhandled exception caught");
-            }
+            catch (Exception ex) { DebugEx.Assert(ex, "Unhandled exception caught"); return false; }
         }
 
         //------------------------------------------------------------------------------------------------------------------------
 
-        public void SetState(Thing thing, Port port, string state)
+        public void SetState(Thing thing, Port port, string state, bool IgnoreActivePortKeys = false)
         {
             try
             {
                 DebugEx.TraceLog("=====>Set State<====== " + port.PortKey.ToString() + " state: " + state);
-                SetState(new TupleS<Port, string>[] { new TupleS<Port, string>(port, state) });
+                SetState(new TupleS<Port, string>[] { new TupleS<Port, string>(port, state) }, IgnoreActivePortKeys: IgnoreActivePortKeys);
             }
             catch (Exception ex)
             {
@@ -602,7 +779,7 @@ namespace Yodiwo.NodeLibrary
 
         //------------------------------------------------------------------------------------------------------------------------
 
-        public void SetState(Port port, string state)
+        public void SetState(Port port, string state, bool IgnoreActivePortKeys = false)
         {
             try
             {
@@ -642,7 +819,68 @@ namespace Yodiwo.NodeLibrary
 
         //------------------------------------------------------------------------------------------------------------------------
 
-        public void SetState(PortKey portKey, string state)
+        void _setStateMacroFromModule(INodeModule module, string portKey, string state, bool IgnoreActivePortKeys = false)
+        {
+            //replace macros
+            portKey = portKey.Replace("$NodeKey$", NodeKey);
+            //set state
+            _setStateFromModule(module, portKey, state, IgnoreActivePortKeys: IgnoreActivePortKeys);
+        }
+
+        public void SetStateMacro(string portKey, string state, bool IgnoreActivePortKeys = false)
+        {
+            //replace macros
+            portKey = portKey.Replace("$NodeKey$", NodeKey);
+            //set state
+            SetState(portKey, state, IgnoreActivePortKeys: IgnoreActivePortKeys);
+        }
+        //------------------------------------------------------------------------------------------------------------------------
+
+        void _setStateMacroFromModule(INodeModule module, IEnumerable<TupleS<string, string>> states, bool IgnoreActivePortKeys = false)
+        {
+            //replace macros
+            var transformer = states.Select(kv => new TupleS<PortKey, string>((PortKey)(kv.Item1.Replace("$NodeKey$", NodeKey)), kv.Item2));
+            //set state
+            _setStateFromModule(module, transformer, IgnoreActivePortKeys: IgnoreActivePortKeys);
+        }
+
+        public void SetStateMacro(IEnumerable<TupleS<string, string>> states, bool IgnoreActivePortKeys = false)
+        {
+            //replace macros
+            var transformer = states.Select(kv => new TupleS<PortKey, string>((PortKey)(kv.Item1.Replace("$NodeKey$", NodeKey)), kv.Item2));
+            //set state
+            SetState(transformer, IgnoreActivePortKeys: IgnoreActivePortKeys);
+        }
+
+        //------------------------------------------------------------------------------------------------------------------------
+
+        bool _checkPortKeyBelongsToModule(INodeModule module, PortKey portKey)
+        {
+            //get stuff
+            if (module == null)
+                return false;
+            var thing = _Things.TryGetOrDefault(portKey.ThingKey);
+            if (thing == null)
+                return false;
+            var moduleThings = _NodeModuleThings.TryGetOrDefault(module);
+            if (moduleThings == null)
+                return false;
+
+            //check that module tried to set state to it's own thing
+            return moduleThings.Contains(thing);
+        }
+
+        //------------------------------------------------------------------------------------------------------------------------
+
+        void _setStateFromModule(INodeModule module, PortKey portKey, string state, bool IgnoreActivePortKeys = false)
+        {
+            if (_checkPortKeyBelongsToModule(module, portKey))
+                SetState(portKey, state, IgnoreActivePortKeys: IgnoreActivePortKeys);
+        }
+
+        //------------------------------------------------------------------------------------------------------------------------
+
+        public void SetState(PortKey portKey, string state, bool IgnoreActivePortKeys = false)
         {
             try
             {
@@ -655,7 +893,7 @@ namespace Yodiwo.NodeLibrary
                     return;
                 }
                 //set state
-                SetState(new TupleS<Port, string>[] { new TupleS<Port, string>(port, state) });
+                SetState(new TupleS<Port, string>[] { new TupleS<Port, string>(port, state) }, IgnoreActivePortKeys: IgnoreActivePortKeys);
             }
             catch (Exception ex)
             {
@@ -665,88 +903,92 @@ namespace Yodiwo.NodeLibrary
 
         //------------------------------------------------------------------------------------------------------------------------
 
-        public void SetState(IEnumerable<TupleS<PortKey, string>> states)
+        void _setStateFromModule(INodeModule module, IEnumerable<TupleS<PortKey, string>> states, bool IgnoreActivePortKeys = false)
         {
-            SetState(states.Select(t => new TupleS<Port, string>(GetPort(t.Item1), t.Item2)));
+            SetState(states.Where(t => _checkPortKeyBelongsToModule(module, t.Item1)), IgnoreActivePortKeys: IgnoreActivePortKeys);
         }
 
         //------------------------------------------------------------------------------------------------------------------------
 
-        public void SetState(IEnumerable<TupleS<Port, string>> states)
+        public void SetState(IEnumerable<TupleS<PortKey, string>> states, bool IgnoreActivePortKeys = false)
+        {
+            SetState(states.Select(t => new TupleS<Port, string>(GetPort(t.Item1), t.Item2)), IgnoreActivePortKeys: IgnoreActivePortKeys);
+        }
+
+        //------------------------------------------------------------------------------------------------------------------------
+
+        public void SetState(IEnumerable<TupleS<Port, string>> states, bool IgnoreActivePortKeys = false)
         {
             if (states == null)
                 return;
 
             try
             {
-                lock (locker)
+                //get to list
+                var stateList = states.Where(s => s.Item1 != null).ToList();
+
+                //filter out all ports with no state changed that did not flag themselves as ReceiveAllEvents
+                stateList.RemoveAll(t => t.Item1.State == t.Item2 && t.Item1.ConfFlags.HasFlag(ePortConf.SupressIdenticalEvents));
+
+                //first pass them from NodeGraphManager
+                var ngm = NodeGraphManager;
+                if (ngm != null)
+                    ngm.HandlePortStates(stateList);
+
+                //Process request
+                List<PortEvent> events = null;
+                foreach (var state in stateList)
                 {
-                    //get to list
-                    var stateList = states.ToList();
-
-                    //filter out all ports with no state changed that did not flag themselves as ReceiveAllEvents
-                    stateList.RemoveAll(t => t.Item1.State == t.Item2 && !t.Item1.ConfFlags.HasFlag(ePortConf.PropagateAllEvents));
-
-                    //first pass them from NodeGraphManager
-                    var ngm = NodeGraphManager;
-                    if (ngm != null)
-                        ngm.HandlePortStates(stateList);
-
-                    //Process request
-                    List<PortEvent> events = null;
-                    foreach (var state in stateList)
-                        if (state.Item1 != null)
-                        {
-                            //get keys
-                            var pk = (PortKey)state.Item1.PortKey;
-                            var thk = pk.ThingKey;
-
-                            //find thing
-                            Thing thing = null;
-                            if (_Things.TryGetValue(thk, out thing))
-                                if (thing != null)
-                                {
-                                    //get port
-                                    var port = thing.GetPort(pk);
-                                    if (port == null)
-                                        continue;
-
-                                    //update port state and increase revision
-                                    port.State = state.Item2;
-                                    port.IncRevNum();
-
-                                    //check if this port is active in a cloud graph
-                                    if (_CloudActivePortKeys.Contains(pk))
-                                    {
-                                        //create list if null
-                                        if (events == null)
-                                            events = new List<PortEvent>();
-                                        //add to event list
-                                        events.Add(new PortEvent(pk, state.Item2));
-                                    }
-                                }
-                        }
-
-                    //send message
-                    if (events != null && events.Count > 0)
+                    if (state.Item1 != null)
                     {
-                        DebugEx.TraceLog("========>Actual Set State<====== " + events[0].State);
-                        var msg = new Yodiwo.API.Plegma.PortEventMsg(0);
-                        msg.PortEvents = events.ToArray();
-                        SendMessage(msg);
+                        //get keys
+                        var pk = (PortKey)state.Item1.PortKey;
+                        var thk = pk.ThingKey;
+
+                        //find thing
+                        Thing thing = null;
+                        if (_Things.TryGetValue(thk, out thing))
+                        {
+                            if (thing != null)
+                            {
+                                //get port
+                                var port = thing.GetPort(pk);
+                                if (port == null)
+                                    continue;
+
+                                //update port state and increase revision
+                                port.SetState(state.Item2);
+
+                                //check if this port is active in a cloud graph
+                                if (IgnoreActivePortKeys || _CloudActivePortKeys.Contains(pk))
+                                {
+                                    //create list if null
+                                    if (events == null)
+                                        events = new List<PortEvent>();
+                                    //add to event list
+                                    events.Add(new PortEvent(pk, state.Item2));
+                                }
+                            }
+                        }
                     }
                 }
+                //send message
+                if (events != null && events.Count > 0)
+                {
+                    DebugEx.TraceLog("========>Actual Set State<====== " + events[0].State);
+                    var msg = new Yodiwo.API.Plegma.PortEventMsg(0);
+                    events.Where(e => e.Timestamp == 0).ForEach(e => e.Timestamp = DateTime.UtcNow.ToUnixMilli());
+                    msg.PortEvents = events.ToArray();
+                    SendMessage(msg);
+                }
             }
-            catch (Exception ex)
-            {
-                DebugEx.Assert(ex, "Unhandled exception caught");
-            }
+            catch (Exception ex) { DebugEx.Assert(ex, "Unhandled exception caught"); }
         }
 
         //------------------------------------------------------------------------------------------------------------------------
 
         /// <summary> Ping server. Returns the request Round-Trip-Time. If failed, it will return Timespan.Zero </summary>
-        public TimeSpan Ping(int cnt)
+        public TimeSpan Ping(int cnt = 123)
         {
             try
             {
@@ -771,26 +1013,69 @@ namespace Yodiwo.NodeLibrary
         {
             try
             {
+                //create groupping dictionary (if necessary)
+                var thingGroupped_module = _NodeModules.Count > 0 ? new Dictionary<ThingKey, List<TupleS<PortKey, string>>>() : null;
+                var thingGroupped_user = OnChangedStateGroupped != null || ThingEventHandlers.Count > 0 ? new Dictionary<Thing, List<TupleS<Port, string>>>() : null;
+
                 //raise events
                 foreach (var portevent in msg.PortEvents)
                 {
                     var pk = (PortKey)portevent.PortKey;
                     var thingKey = pk.ThingKey;
-                    var thing = _Things[thingKey];
-                    var port = thing.GetPort(pk);
+                    var thing = _Things.TryGetOrDefault(thingKey);
+                    var port = thing?.GetPort(pk);
+
+                    //port not found?
+                    if (thing == null || port == null)
+                        continue;
+
+                    //add to groups1
+                    if (thingGroupped_module != null)
+                    {
+                        var group1 = thingGroupped_module.TryGetOrDefault(thingKey);
+                        if (group1 == null)
+                            thingGroupped_module.Add(thingKey, group1 = new List<TupleS<PortKey, string>>());
+                        group1.Add(TupleS.Create(pk, portevent.State));
+                    }
+
+                    //add to groups2
+                    if (thingGroupped_user != null)
+                    {
+                        var group2 = thingGroupped_user.TryGetOrDefault(thing);
+                        if (group2 == null)
+                            thingGroupped_user.Add(thing, group2 = new List<TupleS<Port, string>>());
+                        group2.Add(TupleS.Create(port, portevent.State));
+                    }
+
+                    //update state
                     port.State = portevent.State;
 
                     //raise generic event
-                    OnChangedState?.Invoke(thing, port, portevent.State);
+                    try { OnChangedState?.Invoke(thing, port, portevent.State, isEvent: true); } catch (Exception ex) { DebugEx.TraceError(ex, "UserCode exception caught"); }
 
                     //raise port handlers
                     DebugEx.TraceLog("On Changed State:" + portevent.State);
-                    try { PortEventHandlers.TryGetOrDefault(port)?.Invoke(portevent.State); }
+                    try { PortEventHandlers.TryGetOrDefault(port)?.Invoke(portevent.State, true); }
                     catch (Exception ex) { DebugEx.TraceError(ex, "PortEventHandlers failed"); }
 
-                    //send to module
-                    thingkey2module.TryGetOrDefault(thing.ThingKey)?.SetThingsState(port.PortKey, portevent.State);
+                    //send to module (wait for up to 1 sec before movong on..)
+                    Task.Run(() => { try { thingkey2module.TryGetOrDefault(thing.ThingKey)?.SetThingsState(port.PortKey, portevent.State, true); } catch { } }).Wait(1000);
                 }
+
+                //send groupped to user
+                if (thingGroupped_user != null)
+                    foreach (var entry in thingGroupped_user)
+                    {
+                        //raise thing grouped events
+                        ThingEventHandlers.TryGetOrDefault(entry.Key)?.Invoke(entry.Value.ToArray(), true);
+                        //raise generic event
+                        try { OnChangedStateGroupped?.Invoke(entry.Key, entry.Value); } catch (Exception ex) { DebugEx.TraceError(ex, "UserCode exception caught"); }
+                    }
+
+                //send groupped to module
+                if (thingGroupped_module != null)
+                    foreach (var entry in thingGroupped_module)
+                        thingkey2module.TryGetOrDefault(entry.Key)?.SetThingsState(entry.Key, entry.Value, true);
 
                 //send to modules
                 {
@@ -802,18 +1087,18 @@ namespace Yodiwo.NodeLibrary
                             modules.Add(module);
                     }
                     foreach (var module in modules)
-                        try { module.OnPortEvent(msg); }
-                        catch (Exception ex) { DebugEx.TraceError(ex, "NodeModule OnPortEventProcessed failed"); }
+                        Task.Run(() =>
+                        {
+                            try { module.OnPortEvent(msg); }
+                            catch (Exception ex) { DebugEx.TraceError(ex, "NodeModule OnPortEventProcessed failed"); }
+                        }).Wait(1000);
                 }
 
                 //other processing
                 try { OnPortEventMsgProcessed?.Invoke(msg); }
                 catch (Exception ex) { DebugEx.TraceError(ex, "OnPortEventMsgProcessed failed"); }
             }
-            catch (Exception ex)
-            {
-                DebugEx.Assert(ex, "Unhandled exception caught");
-            }
+            catch (Exception ex) { DebugEx.Assert(ex, "Unhandled exception caught"); }
         }
 
         //------------------------------------------------------------------------------------------------------------------------
@@ -833,10 +1118,39 @@ namespace Yodiwo.NodeLibrary
 
         //------------------------------------------------------------------------------------------------------------------------
 
-        public IEnumerable<Thing> GetAllThings()
+        public IEnumerable<Thing> GetAllThings(bool forceUpdateFromCloud = false)
         {
             try
             {
+                if (forceUpdateFromCloud)
+                {
+                    var req = new ThingsGet()
+                    {
+                        Operation = eThingsOperation.Get,
+                        Key = null, //all things
+                                    //RevNum = 0
+                    };
+                    var rsp = SendRequest<ThingsSet>(req);
+                    if (rsp != null && rsp.Status)
+                    {
+                        if (rsp.Operation == eThingsOperation.Update)
+                        {
+                            foreach (var t in rsp.Data)
+                            {
+                                _Things.ForceAdd(t.ThingKey, t);
+                            }
+                            DebugEx.TraceLog($"Successful update of things {string.Join(",", rsp.Data.Select(t => t.ThingKey))}");
+                        }
+                        else if (rsp.Operation == eThingsOperation.Overwrite)
+                        {
+                            _Things.Clear();
+                            _Things.AddFromSource(rsp.Data.ToDictionary(t => (ThingKey)t.ThingKey, t => t));
+                            DebugEx.TraceLog($"Successful overwrote existing things with: {string.Join(",", rsp.Data.Select(t => t.ThingKey))}");
+                        }
+                    }
+                    else
+                        DebugEx.TraceError($"Update of all things from cloud failed");
+                }
                 return this._Things.Values;
             }
             catch (Exception ex)
@@ -856,10 +1170,7 @@ namespace Yodiwo.NodeLibrary
                 if (NodeGraphManager != null)
                     NodeGraphManager.OnConnectedToCloud();
             }
-            catch (Exception ex)
-            {
-                DebugEx.Assert(ex, "Unhandled exception caught");
-            }
+            catch (Exception ex) { DebugEx.Assert(ex, "Unhandled exception caught"); }
         }
 
         //------------------------------------------------------------------------------------------------------------------------
@@ -871,12 +1182,34 @@ namespace Yodiwo.NodeLibrary
 
         //------------------------------------------------------------------------------------------------------------------------
 
-        public void Connect()
+        public bool Connect()
+        {
+            //set flag
+            _IsConnectionEnabled = true;
+            return _connect(false);
+        }
+
+        bool _connect(bool isReconnection)
         {
             try
             {
-                //set flag
-                _IsConnectionEnabled = true;
+                //check keys
+                if (!_IsPaired || this.NodeKey.IsInvalid || this.NodeSecret == null)
+                {
+                    DebugEx.TraceError("Connection request while node is not paired");
+                    return false;
+                }
+
+                //stop auto-reconnection
+                if (isReconnection && !IsConnectionEnabled)
+                    return false;
+
+                //stop auto-reconnection
+                if (isReconnection && !AutoReconnect)
+                    return false;
+
+                //inform user
+                try { OnTransportConnectionStart?.Invoke(this._Transport); } catch { }
 
                 //connect YPChannel?
                 if (this._Transport == Transport.YPCHANNEL)
@@ -884,49 +1217,77 @@ namespace Yodiwo.NodeLibrary
                     var ret = _YPChannelConnectWithWorker(this.conf.YpServer, this.conf.YpchannelPort, this.conf.SecureYpc);
                     if (ret.IsSuccessful)
                     {
-                        OnConnectedToCloud();
-                        OnTransportConnected?.Invoke(Transport.YPCHANNEL, ret.Message);
+                        _OnConnected(Transport.YPCHANNEL, ret.Message);
                     }
                     else
                     {
                         DebugEx.TraceError("Could not connect YPChannel (Message:" + ret.Message + ")");
-                        OnTransportError?.Invoke(Transport.YPCHANNEL, TransportErrors.ConnectionEstablishFailed, ret.Message);
+                        Task.Run(() => { try { OnTransportError?.Invoke(Transport.YPCHANNEL, TransportErrors.ConnectionFailed, ret.Message); } catch (Exception ex) { DebugEx.TraceError(ex, "UserCode exception caught"); } });
                     }
+                    return ret;
                 }
                 //connect Mqtt?
-                if (this._Transport == Transport.MQTT)
+                else if (this._Transport == Transport.MQTT)
                 {
                     var ret = mqtthandler.ConnectWithWorker(this.conf.MqttBrokerHostname, this.conf.MqttUseSsl);
                     if (ret.IsSuccessful)
                     {
-                        OnConnectedToCloud();
-                        OnTransportConnected?.Invoke(Transport.MQTT, ret.Message);
+                        _OnConnected(Transport.MQTT, ret.Message);
                     }
                     else
                     {
-                        DebugEx.TraceError("Could not connect YPChannel (Message:" + ret.Message + ")");
-                        OnTransportError?.Invoke(Transport.MQTT, TransportErrors.ConnectionEstablishFailed, ret.Message);
+                        DebugEx.TraceError("Could not connect to MQTT (Message:" + ret.Message + ")");
+                        Task.Run(() => { try { OnTransportError?.Invoke(Transport.MQTT, TransportErrors.ConnectionFailed, ret.Message); } catch (Exception ex) { DebugEx.TraceError(ex, "UserCode exception caught"); } });
                     }
+                    return ret;
                 }
                 //"connect"(enable) Rest?
-                if (this._Transport == Transport.REST)
+                else if (this._Transport == Transport.REST)
                 {
                     var ret = _RestConnectWithWorker();
                     if (ret.IsSuccessful)
                     {
-                        OnConnectedToCloud();
-                        OnTransportConnected?.Invoke(Transport.REST, ret.Message);
+                        _OnConnected(Transport.REST, ret.Message);
                     }
                     else
                     {
-                        DebugEx.TraceError("Could not connect YPChannel (Message:" + ret.Message + ")");
-                        OnTransportError?.Invoke(Transport.REST, TransportErrors.ConnectionEstablishFailed, ret.Message);
+                        DebugEx.TraceError("Could not connect REST (Message:" + ret.Message + ")");
+                        Task.Run(() => { try { OnTransportError?.Invoke(Transport.REST, TransportErrors.ConnectionFailed, ret.Message); } catch (Exception ex) { DebugEx.TraceError(ex, "UserCode exception caught"); } });
                     }
+                    return ret;
                 }
+                else
+                    return false;
             }
-            catch (Exception ex)
+            catch (Exception ex) { DebugEx.Assert(ex, "Unhandled exception caught"); return false; }
+        }
+
+        //------------------------------------------------------------------------------------------------------------------------
+
+        private void _OnConnected(Transport transport, string message)
+        {
+            OnConnectedToCloud();
+            try { OnTransportConnected?.Invoke(transport, message); } catch (Exception ex) { DebugEx.TraceError(ex, "UserCode exception caught"); }
+
+            foreach (var module in NodeModules)
+                Task.Run(() =>
+                {
+                    try { module.OnTransportConnected(message); }
+                    catch (Exception ex) { DebugEx.TraceError(ex, "NodeModule OnTransportConnected failed for module " + module.Name); }
+                }).Wait(3000);
+        }
+
+        //------------------------------------------------------------------------------------------------------------------------
+
+        void _reConnectWithWorker()
+        {
+            if (AutoReconnect && _IsConnectionEnabled)
             {
-                DebugEx.Assert(ex, "Unhandled exception caught");
+                Task.Run(() =>
+                {
+                    Thread.Sleep((int)AutoReconnectDelay.TotalMilliseconds);
+                    try { _connect(true); } catch (Exception ex) { DebugEx.TraceError(ex, "Reconnection exception caught"); }
+                });
             }
         }
 
@@ -952,19 +1313,16 @@ namespace Yodiwo.NodeLibrary
                 }
                 if (Channel != null)
                 {
-                    Channel.Close();
+                    Channel.Close("Node disconnection");
                     Channel = null;
                 }
             }
-            catch (Exception ex)
-            {
-                DebugEx.Assert(ex, "Unhandled exception caught");
-            }
+            catch (Exception ex) { DebugEx.Assert(ex, "Unhandled exception caught"); }
         }
 
         //------------------------------------------------------------------------------------------------------------------------
 
-        public bool SendMessage(API.Plegma.ApiMsg msg)
+        public bool SendMessage(API.Plegma.PlegmaApiMsg msg)
         {
             try
             {
@@ -983,17 +1341,14 @@ namespace Yodiwo.NodeLibrary
                 var __mqtt = mqtthandler;
 
                 //send Message
-                if (this._Transport.HasFlag(Transport.YPCHANNEL) && __ypc != null && __ypc.IsOpen)
-                {
-                    __ypc.SendMessage(msg);
-                    return true;
-                }
-                else if (this._Transport.HasFlag(Transport.MQTT) && __mqtt != null && __mqtt.IsConnected)
+                if (this._Transport == Transport.YPCHANNEL)
+                    return __ypc.SendMessage(msg);
+                else if (this._Transport == Transport.MQTT)
                 {
                     __mqtt.SendMessage(msg);
                     return true;
                 }
-                else if (this._Transport.HasFlag(Transport.REST))
+                else if (this._Transport == Transport.REST)
                 {
                     string route;
                     if (PlegmaAPI.ApiMsgNames.TryGetValue(msgType, out route))
@@ -1016,7 +1371,7 @@ namespace Yodiwo.NodeLibrary
 
         //------------------------------------------------------------------------------------------------------------------------
 
-        public TResponse SendRequest<TResponse>(API.Plegma.ApiMsg msg)
+        public TResponse SendRequest<TResponse>(API.ApiMsg msg)
         {
             try
             {
@@ -1061,7 +1416,7 @@ namespace Yodiwo.NodeLibrary
 
         //------------------------------------------------------------------------------------------------------------------------
 
-        public ApiMsg HandleApiReq(object msg)
+        public PlegmaApiMsg HandleApiReq(object msg, uint requestID)
         {
             try
             {
@@ -1070,8 +1425,7 @@ namespace Yodiwo.NodeLibrary
                     var rsp = new LoginRsp()
                     {
                         NodeKey = this.NodeKey,
-                        SecretKey = this.NodeSecret,
-                        DesiredEndpoint = MathTools.GenerateRandomAlphaNumericString(16),
+                        SecretKey = this.NodeSecret.SecureStringToString(),
                     };
                     return rsp;
                 }
@@ -1082,28 +1436,32 @@ namespace Yodiwo.NodeLibrary
                         Name = conf.Name,
                         Type = (nodeType == eNodeType.Unknown) ? eNodeType.TestEndpoint : nodeType,
                         Capabilities = eNodeCapa.None |
-                                       (CanSolveGraphs ? eNodeCapa.SupportsGraphSolving : eNodeCapa.None),
+                                       (CanSolveGraphs ? eNodeCapa.SupportsGraphSolving : eNodeCapa.None) |
+                                       (IsWarlock ? eNodeCapa.IsWarlock : eNodeCapa.None),
                         ThingTypes = (this._thingTypes == null) ? null : this._thingTypes.ToArray(),
                         BlockLibraries = NodeGraphManager != null && CanSolveGraphs ? NodeGraphManager.BlockLibrariesNames : null,
+                        ThingsRevNum = 0,
+                        SupportedApiRev = 1
                     };
+                    var tmp = rsp.ToJSON();
                     return rsp;
                 }
                 else if (msg is NodeUnpairedReq)
                 {
                     var m = msg as NodeUnpairedReq;
-                    OnNodeUnpaired?.Invoke(m.ReasonCode, m.Message);
-                    this._IsPaired = false;
-                    this.NodeKey = null;
-                    this.NodeSecret = null;
-
-                    //just return empty rsp, acknowledging the unpairing
-                    return new NodeUnpairedRsp();
+                    //invoke event
+                    Task.Run(() => { try { OnNodeUnpaired?.Invoke(m.ReasonCode, m.Message); } catch (Exception ex) { DebugEx.TraceError(ex, "UserCode exception caught"); } });
+                    //just return simple rsp, acknowledging the unpairing
+                    Channel?.SendResponse(new GenericRsp() { IsSuccess = true }, requestID);
+                    //forget and forgive
+                    ForgetMe();
+                    return null;
                 }
                 else if (msg is Yodiwo.API.Plegma.ThingsGet)
                 {
                     var msgTyped = msg as ThingsGet;
                     var op = msgTyped.Operation;
-                    var tkey = (ThingKey)msgTyped.ThingKey;
+                    var tkey = (ThingKey)msgTyped.Key;
 
                     var rsp = new ThingsSet() { Operation = eThingsOperation.Invalid };
 
@@ -1123,16 +1481,14 @@ namespace Yodiwo.NodeLibrary
                                 return rsp;
                             }
                         }
-                        else
+                        else if (string.IsNullOrEmpty(msgTyped.Key))
                         {
-                            if (this._Things == null)
-                                return rsp;
-                            else
+                            if (this._Things != null)
                             {
                                 rsp.Operation = eThingsOperation.Update;
                                 rsp.Status = true;
                                 rsp.Data = this._Things.Values.ToArray();
-                                OnThingsRegistered?.Invoke();
+                                try { OnThingsRegistered?.Invoke(); } catch (Exception ex) { DebugEx.TraceError(ex, "UserCode exception caught"); }
                             }
                         }
                     }
@@ -1145,47 +1501,23 @@ namespace Yodiwo.NodeLibrary
                         {
                             var things = new List<Thing>();
                             //add from event
-                            things.AddFromSource(OnThingScanRequest?.Invoke(tkey));
+                            try { things.AddFromSource(OnThingScanRequest?.Invoke(tkey)); } catch (Exception ex) { DebugEx.TraceError(ex, "UserCode exception caught"); }
                             //add from modules
                             if (tkey.IsInvalid)
                                 foreach (var module in _NodeModules)
-                                    things.AddFromSource(module.Scan(default(ThingKey)));
+                                    try { things.AddFromSource(module.Scan(default(ThingKey))); } catch (Exception ex) { DebugEx.TraceError(ex, "UserCode exception caught"); }
                             else
-                                things.AddFromSource(thingkey2module.TryGetOrDefault(tkey)?.Scan(tkey));
+                                try { things.AddFromSource(thingkey2module.TryGetOrDefault(tkey)?.Scan(tkey)); } catch (Exception ex) { DebugEx.TraceError(ex, "UserCode exception caught"); }
                             //return result
                             rsp.Operation = eThingsOperation.Update;
                             rsp.Data = things.ToArray();
                             rsp.Status = true;
                         }
                     }
-                    else if (op == eThingsOperation.Delete)
+                    else if (op == eThingsOperation.Sync)
                     {
-                        //find thing
-                        var thing = Things.TryGetOrDefaultReadOnly(msgTyped.ThingKey);
-                        if (thing == null)
-                            return rsp;
-                        //remove from module
-                        var module = thingkey2module.TryGetOrDefault(thing.ThingKey);
-                        var modres = module?.Delete(new[] { thing });
-                        if (modres == true && module != null)
-                        {
-                            //remove from lookups
-                            _NodeModuleThings.TryGetOrDefault(module)?.Remove(thing);
-                            thingkey2module.Remove(thing.ThingKey);
-                        }
-                        //do callback
-                        var eventres = OnThingDeleteRequest?.Invoke(null);
-                        //respond
-                        if (modres == true || eventres == true)
-                        {
-                            //remove thing from nodelib
-                            RemoveThing(msgTyped.ThingKey, SendToCloud: false);
-                            rsp.Operation = eThingsOperation.Delete;
-                            rsp.Status = true;
-                        }
-                        else
-                            return rsp;
                     }
+
                     //return response
                     return rsp;
                 }
@@ -1193,20 +1525,48 @@ namespace Yodiwo.NodeLibrary
                 {
                     var msgTyped = msg as ThingsSet;
                     var op = msgTyped.Operation;
+                    var msgThings = msgTyped.Data;
 
                     var rsp = new GenericRsp()
                     {
                         IsSuccess = false
                     };
 
-                    //TODO: Dummy handler for thing deletion, implemenent this properly
                     if (op == eThingsOperation.Delete)
                     {
-                        rsp.IsSuccess = true;
+                        if (msgThings != null)
+                        {
+                            bool hadError = false;
+                            foreach (var thing in msgThings)
+                            {
+                                //remove from module
+                                var module = thingkey2module.TryGetOrDefault(thing.ThingKey);
+                                bool? modres = null;
+                                try { modres = module?.Delete(new[] { (ThingKey)thing.ThingKey }); } catch (Exception ex) { modres = false; DebugEx.TraceError(ex, "UserCode exception caught"); }
+                                if (modres == true && module != null)
+                                {
+                                    //remove from lookups
+                                    _NodeModuleThings.TryGetOrDefault(module)?.Remove(thing);
+                                    thingkey2module.Remove(thing.ThingKey);
+                                }
+                                //do callback
+                                bool? eventres = null;
+                                try { eventres = OnThingDeleteRequest?.Invoke(thing); } catch (Exception ex) { eventres = false; DebugEx.TraceError(ex, "UserCode exception caught"); }
+                                //respond
+                                if (modres != false && eventres != false)
+                                    //remove thing from nodelib
+                                    RemoveThing(thing.ThingKey, SendToCloud: false);
+                                else
+                                    hadError = true;
+                            }
+                            //fill response
+                            rsp.IsSuccess = !hadError;
+                        }
+                        else
+                            return rsp;
                     }
                     else if (op == eThingsOperation.Update)
                     {
-                        var msgThings = msgTyped.Data;
                         if (msgThings != null)
                         {
                             bool hadError = false;
@@ -1220,20 +1580,38 @@ namespace Yodiwo.NodeLibrary
                                     continue;
                                 }
                                 //find thing
+                                Thing before = null;
                                 var thing = Things.TryGetOrDefaultReadOnly(tk);
                                 if (thing == null)
                                 {
-                                    hadError = true;
-                                    continue;
+                                    //create an orphan
+                                    thing = msgThing;
+                                    _Things.Add(tk, thing);
                                 }
-                                //create a "previous" copy backup
-                                var before = thing.DeepClone();
-                                //update thing
-                                thing.Update(msgThing);
+                                else
+                                {
+                                    //create a "previous" copy backup
+                                    before = thing.DeepClone();
+                                    //update thing
+                                    thing.Update(msgThing);
+                                    //create a portstate update (implicitr portstate message)
+                                    HandlePortStateSet(new PortStateSet()
+                                    {
+                                        Operation = ePortStateOperation.SpecificKeys,
+                                        PortStates = thing.Ports.Select(p => new PortState()
+                                        {
+                                            IsDeployed = IsPortActive(p.PortKey),
+                                            PortKey = p.PortKey,
+                                            RevNum = p.RevNum,
+                                            State = p.State
+                                        }).ToArray(),
+                                    });
+                                }
+                                //inform module
+                                try { thingkey2module.TryGetOrDefault(tk)?.OnUpdateThing(thing); } catch (Exception ex) { DebugEx.TraceError(ex, "UserCode exception caught"); }
                                 //raise event
-                                OnThingUpdated?.Invoke(thing, before);
+                                try { OnThingUpdated?.Invoke(thing, before); } catch (Exception ex) { DebugEx.TraceError(ex, "UserCode exception caught"); }
                             }
-
                             //fill response
                             rsp.IsSuccess = !hadError;
                         }
@@ -1241,15 +1619,22 @@ namespace Yodiwo.NodeLibrary
                     //return response
                     return rsp;
                 }
-                else if (msg is Yodiwo.API.Plegma.PortStateReq)
+                else if (msg is Yodiwo.API.Plegma.PortStateGet)
                 {
-                    var msgRx = msg as PortStateReq;
+                    var msgRx = msg as PortStateGet;
                     var states = HandlePortStateReq(msgRx);
-                    var rsp = new PortStateRsp()
+                    var rsp = new PortStateSet()
                     {
-                        Operation = (msg as PortStateReq).Operation,
+                        Operation = (msg as PortStateGet).Operation,
                         PortStates = states
                     };
+                    return rsp;
+                }
+                else if (msg is Yodiwo.API.Plegma.PortStateSet)
+                {
+                    var msgRx = msg as PortStateSet;
+                    HandlePortStateSet(msgRx);
+                    var rsp = new GenericRsp();
                     return rsp;
                 }
                 else if (msg is Yodiwo.API.Plegma.PingReq)
@@ -1292,7 +1677,30 @@ namespace Yodiwo.NodeLibrary
                 }
                 else
                 {
-                    return OnUnexpectedRequest?.Invoke(msg);
+                    var ev = OnUnexpectedRequest;
+                    if (ev == null)
+                        return null;
+                    else
+                    {
+                        try
+                        {
+                            PlegmaApiMsg ret;
+                            var dels = ev.GetInvocationList();
+                            foreach (var del in dels)
+                            {
+                                try
+                                {
+                                    ret = del.DynamicInvoke(msg) as PlegmaApiMsg;
+                                    if (ret != null)
+                                        return ret;
+                                }
+                                catch (Exception ex) { DebugEx.TraceError(ex, "UserCode exception caught"); continue; }
+                            }
+                        }
+                        catch { }
+                        //failed
+                        return null;
+                    }
                 }
             }
             catch (Exception ex)
@@ -1303,8 +1711,80 @@ namespace Yodiwo.NodeLibrary
         }
 
         //------------------------------------------------------------------------------------------------------------------------
+        private void HandlePortStateSet(PortStateSet msg)
+        {
+            try
+            {
+                //create groupping dictionary (if necessary)
+                var thingGroupped_module = _NodeModules.Count > 0 ? new Dictionary<ThingKey, List<TupleS<PortKey, string>>>() : null;
+                var thingGroupped_user = OnChangedStateGroupped != null || ThingEventHandlers.Count > 0 ? new Dictionary<Thing, List<TupleS<Port, string>>>() : null;
 
-        private PortState[] HandlePortStateReq(PortStateReq req)
+                //raise events
+                foreach (var portevent in msg.PortStates)
+                {
+                    var pk = (PortKey)portevent.PortKey;
+                    var thingKey = pk.ThingKey;
+                    var thing = _Things.TryGetOrDefault(thingKey);
+                    var port = thing?.GetPort(pk);
+
+                    //port not found?
+                    if (thing == null || port == null)
+                        continue;
+
+                    //add to groups1
+                    if (thingGroupped_module != null)
+                    {
+                        var group1 = thingGroupped_module.TryGetOrDefault(thingKey);
+                        if (group1 == null)
+                            thingGroupped_module.Add(thingKey, group1 = new List<TupleS<PortKey, string>>());
+                        group1.Add(TupleS.Create(pk, portevent.State));
+                    }
+
+                    //add to groups2
+                    if (thingGroupped_user != null)
+                    {
+                        var group2 = thingGroupped_user.TryGetOrDefault(thing);
+                        if (group2 == null)
+                            thingGroupped_user.Add(thing, group2 = new List<TupleS<Port, string>>());
+                        group2.Add(TupleS.Create(port, portevent.State));
+                    }
+
+                    //update state
+                    port.State = portevent.State;
+
+                    //raise generic event
+                    try { OnChangedState?.Invoke(thing, port, portevent.State, isEvent: false); } catch (Exception ex) { DebugEx.TraceError(ex, "UserCode exception caught"); }
+
+                    //raise port handlers
+                    DebugEx.TraceLog("On Changed State:" + portevent.State);
+                    try { PortEventHandlers.TryGetOrDefault(port)?.Invoke(portevent.State, false); }
+                    catch (Exception ex) { DebugEx.TraceError(ex, "PortEventHandlers failed"); }
+
+                    //send to module (wait for up to 1 sec before movong on..)
+                    Task.Run(() => { try { thingkey2module.TryGetOrDefault(thing.ThingKey)?.SetThingsState(port.PortKey, portevent.State, false); } catch { } }).Wait(1000);
+                }
+
+                //send groupped to user
+                if (thingGroupped_user != null)
+                    foreach (var entry in thingGroupped_user)
+                    {
+                        //raise thing grouped events
+                        ThingEventHandlers.TryGetOrDefault(entry.Key)?.Invoke(entry.Value.ToArray(), false);
+                        //raise generic event
+                        try { OnChangedStateGroupped?.Invoke(entry.Key, entry.Value); } catch (Exception ex) { DebugEx.TraceError(ex, "UserCode exception caught"); }
+                    }
+
+                //send groupped to module
+                if (thingGroupped_module != null)
+                    foreach (var entry in thingGroupped_module)
+                        thingkey2module.TryGetOrDefault(entry.Key)?.SetThingsState(entry.Key, entry.Value, false);
+            }
+            catch (Exception ex) { DebugEx.Assert(ex, "Unhandled exception caught"); }
+        }
+
+        //------------------------------------------------------------------------------------------------------------------------
+
+        private PortState[] HandlePortStateReq(PortStateGet req)
         {
             try
             {
@@ -1326,10 +1806,17 @@ namespace Yodiwo.NodeLibrary
                     if (req.PortKeys != null)
                         foreach (var pk in req.PortKeys)
                         {
+                            //get key
                             var portkey = (PortKey)pk;
-                            if (portkey.IsInvalid) continue;
-                            var port = this._Things[portkey.ThingKey].Ports.Find(i => i.PortKey == portkey);
-                            if (port == null) continue;
+                            if (portkey.IsInvalid)
+                                continue;
+
+                            //find port
+                            var port = this._Things.TryGetOrDefault(portkey.ThingKey)?.Ports.Find(i => i.PortKey == portkey);
+                            if (port == null)
+                                continue;
+
+                            //add to states
                             var portState = new PortState()
                             {
                                 PortKey = pk,
@@ -1407,26 +1894,42 @@ namespace Yodiwo.NodeLibrary
                 //inform PORTS for deactivations
                 foreach (var pkey in prevActivePortKeys)
                     if (!newActivePortKeys.Contains(pkey))
+                    {
                         try { OnPortDeactivated?.Invoke(pkey); }
                         catch (Exception ex) { DebugEx.Assert(ex, "Unhandled exception caught in user code for OnPortDeactivated (PortID=" + pkey.PortUID + ")"); }
+                        //inform module
+                        try { thingkey2module.TryGetOrDefault(pkey.ThingKey)?.OnPortDeactivated(pkey); } catch (Exception ex) { DebugEx.TraceError(ex, "UserCode exception caught"); }
+                    }
 
                 //inform PORTS for activations
                 foreach (var pkey in newActivePortKeys)
                     if (!prevActivePortKeys.Contains(pkey))
+                    {
                         try { OnPortActivated?.Invoke(pkey); }
                         catch (Exception ex) { DebugEx.Assert(ex, "Unhandled exception caught in user code for OnPortActivated (PortID=" + pkey.PortUID + ")"); }
+                        //inform module
+                        try { thingkey2module.TryGetOrDefault(pkey.ThingKey)?.OnPortActivated(pkey); } catch (Exception ex) { DebugEx.TraceError(ex, "UserCode exception caught"); }
+                    }
 
                 //inform THINGS for deactivations
                 foreach (var thing in prevActiveThings)
                     if (!newActiveThings.Contains(thing))
+                    {
                         try { OnThingDeactivated?.Invoke(thing); }
                         catch (Exception ex) { DebugEx.Assert(ex, "Unhandled exception caught in user code for OnThingDeactivated (ThingName=" + thing.Name + ")"); }
+                        //inform module
+                        try { thingkey2module.TryGetOrDefault(thing.ThingKey)?.OnThingDeactivated(thing.ThingKey); } catch (Exception ex) { DebugEx.TraceError(ex, "UserCode exception caught"); }
+                    }
 
                 //inform THINGS for activation
                 foreach (var thing in newActiveThings)
                     if (!prevActiveThings.Contains(thing))
+                    {
                         try { OnThingActivated?.Invoke(thing); }
                         catch (Exception ex) { DebugEx.Assert(ex, "Unhandled exception caught in user code for OnThingActivated (ThingName=" + thing.Name + ")"); }
+                        //inform module
+                        try { thingkey2module.TryGetOrDefault(thing.ThingKey)?.OnThingActivated(thing.ThingKey); } catch (Exception ex) { DebugEx.TraceError(ex, "UserCode exception caught"); }
+                    }
 
                 //clear sets
                 prevActivePortKeys.Clear(); prevActivePortKeys = null;
@@ -1452,10 +1955,27 @@ namespace Yodiwo.NodeLibrary
             //finish
             EndActiveThingsUpdate(sets);
         }
-
         //------------------------------------------------------------------------------------------------------------------------
-
         public void HandleApiMsg(object msg)
+        {
+            if (msg is Yodiwo.API.Plegma.PlegmaApiMsg)
+                HandlePlegmaApiMsg(msg);
+            //else if (msg is Yodiwo.API.Warlock.WarlockApiMsg)
+            //    HandleWarlockApiMsg(msg);
+            else
+                try { OnUnexpectedMessage?.Invoke(msg); } catch (Exception ex) { DebugEx.TraceError(ex, "UserCode exception caught"); }
+        }
+        //------------------------------------------------------------------------------------------------------------------------
+        public void HandleWarlockApiMsg(object msg)
+        {
+            try
+            {
+                try { OnUnexpectedMessage?.Invoke(msg); } catch (Exception ex) { DebugEx.TraceError(ex, "UserCode exception caught"); }
+            }
+            catch (Exception ex) { DebugEx.Assert(ex, "Unhandled exception in node HandleWarlockApiMsg()"); }
+        }
+        //------------------------------------------------------------------------------------------------------------------------
+        public void HandlePlegmaApiMsg(object msg)
         {
             try
             {
@@ -1480,21 +2000,24 @@ namespace Yodiwo.NodeLibrary
                 {
                     HandlePortEventMsg(msg as Yodiwo.API.Plegma.PortEventMsg);
                 }
+                else if (msg is VirtualBlockEventMsg)
+                {
+                    //forward to node graph mngr
+                    NodeGraphManager?.HandleIncomingVirtualBlockEventMsg(msg as VirtualBlockEventMsg);
+                }
                 else
                 {
-                    OnUnexpectedMessage?.Invoke(msg);
+                    try { OnUnexpectedMessage?.Invoke(msg); } catch (Exception ex) { DebugEx.TraceError(ex, "UserCode exception caught"); }
                 }
             }
-            catch (Exception ex)
-            {
-                DebugEx.Assert(ex, "Unhandled exception in node HandleApiMsg()");
-            }
+            catch (Exception ex) { DebugEx.Assert(ex, "Unhandled exception in node HandlePlegmaApiMsg()"); }
         }
 
         //------------------------------------------------------------------------------------------------------------------------
 
         #region YPChannel
         //------------------------------------------------------------------------------------------------------------------------
+        bool _ypcConnecting = false;
 
         SimpleActionResult _YPChannelConnectWithWorker(string ypserver, int port, bool isSecure)
         {
@@ -1506,9 +2029,16 @@ namespace Yodiwo.NodeLibrary
                     if (this.NodeKey.IsValid)
                     {
                         //check if current channel is valid
-                        if (Channel != null && (Channel.RemoteHost != ypserver || Channel.RemotePort != port.ToStringInvariant()))
+                        if (Channel != null) //) && (Channel.RemoteHost != ypserver || Channel.RemotePort != port.ToStringInvariant()))
                         {
-                            Channel.Close();
+                            try
+                            {
+                                Channel.OnMessageReceived -= Channel_OnMessageReceived;
+                                Channel.OnClosedEvent -= Channel_OnClosedEvent;
+                                try { Channel.Close("Node disconnection (2)"); } catch { }
+                                try { Channel.Dispose(); } catch { }
+                            }
+                            catch { }
                             Channel = null;
                         }
                         //create new channel if needed
@@ -1520,24 +2050,33 @@ namespace Yodiwo.NodeLibrary
                                 Version = API.Plegma.PlegmaAPI.APIVersion,
                                 ProtocolDefinitions = new List<YPChannel.Protocol.MessageTypeGroup>()
                                 {
-                                    new YPChannel.Protocol.MessageTypeGroup() { GroupName = API.Plegma.PlegmaAPI.ApiGroupName,              MessageTypes = API.Plegma.PlegmaAPI.ApiMessages             },
-                                    new YPChannel.Protocol.MessageTypeGroup() { GroupName = API.Plegma.PlegmaAPI.ApiLogicGroupName,         MessageTypes = API.Plegma.PlegmaAPI.LogicApiMessages        },
-                                    new YPChannel.Protocol.MessageTypeGroup() { GroupName = Yodiwo.API.MediaStreaming.Video.ApiGroupName,   MessageTypes= Yodiwo.API.MediaStreaming.Video.ApiMessages   },
-                                    new YPChannel.Protocol.MessageTypeGroup() { GroupName = Yodiwo.API.MediaStreaming.Audio.ApiGroupName,   MessageTypes= Yodiwo.API.MediaStreaming.Audio.ApiMessages   },
+                                    new YPChannel.Protocol.MessageTypeGroup() { GroupName = API.Plegma.PlegmaAPI.ApiGroupName,      MessageTypes = API.Plegma.PlegmaAPI.ApiMessages      },
+                                    new YPChannel.Protocol.MessageTypeGroup() { GroupName = API.Plegma.PlegmaAPI.ApiLogicGroupName, MessageTypes = API.Plegma.PlegmaAPI.LogicApiMessages },
+                                    new YPChannel.Protocol.MessageTypeGroup() { GroupName = API.MediaStreaming.Video.ApiGroupName,  MessageTypes = API.MediaStreaming.Video.ApiMessages  },
+                                    new YPChannel.Protocol.MessageTypeGroup() { GroupName = API.MediaStreaming.Audio.ApiGroupName,  MessageTypes = API.MediaStreaming.Audio.ApiMessages  },
                                 },
                             };
                             //create channel
-                            Channel = new Yodiwo.YPChannel.Transport.Sockets.Client(proto);
+                            var supportedPackers = ChannelSerializationMode.Json;
+                            var preferredPackers = ChannelSerializationMode.Json;
+                            Channel = new Yodiwo.YPChannel.Transport.Sockets.Client(proto, SupportedChannelSerializationModes: supportedPackers, PreferredChannelSerializationModes: preferredPackers);
                             Channel.NoDelay = true; //Disable Nagle Algorithm since we care about latency more than throughput
                             Channel.Name = conf.Name;
                             Channel.OnMessageReceived += Channel_OnMessageReceived;
                             Channel.OnClosedEvent += Channel_OnClosedEvent;
+                            NewChannelSetup?.Invoke(Channel); //user setup
                         }
                         //close existing channel
                         if (Channel.IsOpen)
-                            Channel.Close();
+                            try { Channel.Close("Node disconnection (3)"); } catch { }
                         //connect
-                        return Channel.Connect(ypserver, port, isSecure, "*.yodiwo.com");
+                        _ypcConnecting = true;
+                        try
+                        {
+                            var res = Channel.Connect(ypserver, port, isSecure, conf.CertificationServerName);
+                            return res;
+                        }
+                        finally { _ypcConnecting = false; }
                     }
                     else
                         return new SimpleActionResult() { IsSuccessful = false, Message = "Nodekey" + this.NodeKey + " is not valid" };
@@ -1553,16 +2092,17 @@ namespace Yodiwo.NodeLibrary
         }
         //------------------------------------------------------------------------------------------------------------------------
 
-        private void Channel_OnClosedEvent(Channel Channel)
+        private void Channel_OnClosedEvent(Channel Channel, string Message)
         {
             try
             {
-                OnTransportDisconnected?.Invoke(Transport.YPCHANNEL, "Disconnected");
+                if (!_ypcConnecting)
+                    Task.Run(() => { try { OnTransportDisconnected?.Invoke(Transport.YPCHANNEL, Message); } catch (Exception ex) { DebugEx.TraceError(ex, "UserCode exception caught"); } });
+
+                if (AutoReconnect)
+                    _reConnectWithWorker();
             }
-            catch (Exception ex)
-            {
-                DebugEx.Assert(ex, "Unhandled exception caught");
-            }
+            catch (Exception ex) { DebugEx.Assert(ex, "Unhandled exception caught"); }
         }
 
         //------------------------------------------------------------------------------------------------------------------------
@@ -1571,12 +2111,13 @@ namespace Yodiwo.NodeLibrary
         {
             try
             {
+
                 var api_msg = Message.Payload;
 
                 //check if it is a new Request
                 if (Message.IsRequest)
                 {
-                    var rsp = HandleApiReq(api_msg);
+                    var rsp = HandleApiReq(api_msg, Message.MessageID);
                     if (rsp != null)
                     {
                         //send response if handler created one
@@ -1589,10 +2130,7 @@ namespace Yodiwo.NodeLibrary
                     HandleApiMsg(api_msg);
                 }
             }
-            catch (Exception ex)
-            {
-                DebugEx.Assert(ex, "Unhandled exception caught");
-            }
+            catch (Exception ex) { DebugEx.Assert(ex, "Unhandled exception caught"); }
         }
 
         //------------------------------------------------------------------------------------------------------------------------
@@ -1653,7 +2191,7 @@ namespace Yodiwo.NodeLibrary
                 //add msg name
                 restRoute += "/" + target_msg.Item1;
 
-                var res = Yodiwo.Tools.Http.Request(HttpMethods.Post, restRoute, target_msg.Item2, HttpRequestDataFormat.Json);
+                var res = Yodiwo.Tools.Http.RequestPost(restRoute, target_msg.Item2, HttpRequestDataFormat.Json);
                 if (res.StatusCode != System.Net.HttpStatusCode.OK)
                 {
                     DebugEx.Assert("REST resp(" + res.StatusCode + "): " + res.ResponseBodyText);
@@ -1796,7 +2334,7 @@ namespace Yodiwo.NodeLibrary
                 return true;
 
             //check local
-            if (NodeGraphManager.IsPortActive(key))
+            if (NodeGraphManager?.IsPortActive(key) == true)
                 return true;
 
             return false;
@@ -1828,37 +2366,166 @@ namespace Yodiwo.NodeLibrary
             try
             {
                 //fetch latest states from server
-                var req = new PortStateReq()
+                var req = new PortStateGet()
                 {
                     Operation = OnlyActivePorts ? ePortStateOperation.ActivePortStates : ePortStateOperation.AllPortStates,
                 };
-                var rsp = SendRequest<PortStateRsp>(req);
-                if (rsp == null)
-                    DebugEx.Assert("Null response when trying to decide port states");
-                else
+                var rsp = SendRequest<PortStateSet>(req);
+                if (rsp != null)
                 {
-                    //filter portstates to find the ports with different value (and build them as portevents array)
-                    var changedPorts = rsp.PortStates
-                                            .Where(ps =>
-                                            {
-                                                var pk = (PortKey)ps.PortKey;
-                                                if (pk.IsInvalid)
-                                                    return false;
-                                                var thing = Things.TryGetOrDefaultReadOnly(pk.ThingKey);
-                                                if (thing == null)
-                                                    return false;
-                                                try { return thing.Ports.FirstOrDefault(p => p.PortKey == ps.PortKey)?.State != ps.State; } catch { return false; }
-                                            })
-                                            .Select(ps => new PortEvent(ps.PortKey, ps.State))
-                                            .ToArray();
-                    //send state update
-                    HandlePortEventMsg(new PortEventMsg() { PortEvents = changedPorts });
+                    //handle state update
+                    HandlePortStateSet(rsp);
+                }
+                else
+                    DebugEx.Assert("Null response when trying to decide port states");
+            }
+            catch (Exception ex) { DebugEx.TraceError(ex, "Error while requesting state updates"); }
+        }
+
+        //------------------------------------------------------------------------------------------------------------------------
+
+        public void AddModule(INodeModule module)
+        {
+            try
+            {
+                lock (this._NodeModules)
+                {
+                    //add to modules
+                    this._NodeModules.Add(module);
+
+                    //set nodekey
+                    if (NodeKey.IsValid)
+                        try { module.NodeKey = NodeKey; } catch (Exception ex) { DebugEx.Assert(ex, "NodeModule exception while trying to set key"); }
+
+                    //register node hooks
+                    module.OnNodeModuleData1 = (p, s) => _setStateFromModule(module, p, s);
+                    module.OnNodeModuleData2 = (s) => _setStateFromModule(module, s);
+                    module.OnNodeModuleData3 = (p, s) => _setStateMacroFromModule(module, p, s);
+                    module.OnNodeModuleData4 = (s) => _setStateMacroFromModule(module, s);
+                    module.OnNodeModuleThingAdd = _moduleOnThingAddHandler;
+                    module.OnNodeModuleThingDelete = _moduleOnThingDeleteHandler;
+
+                    //enumerate things and keep for quick lookup
+                    var modThings = module.EnumerateThings().ToHashSetTS();
+                    _NodeModuleThings.Add(module, modThings);
+
+                    //Add module things
+                    foreach (var t in modThings)
+                        AddThing(t, owner: module);
+
+                    //add types from modules
+                    this._thingTypes.AddFromSource(module.EnumerateThingTypes());
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) { DebugEx.Assert(ex, "Unhandled exception caught"); }
+        }
+
+        //------------------------------------------------------------------------------------------------------------------------
+
+        public void RemoveModule(INodeModule module, bool SendToCloud = true)
+        {
+            try
             {
-                DebugEx.TraceError(ex, "Error while requesting state updates");
+                lock (this._NodeModules)
+                {
+                    //add to modules
+                    if (this._NodeModules.Remove(module))
+                    {
+                        //remove hooks from node
+                        module.OnNodeModuleData1 = null;
+                        module.OnNodeModuleData2 = null;
+                        module.OnNodeModuleData3 = null;
+                        module.OnNodeModuleData4 = null;
+                        module.OnNodeModuleThingAdd = null;
+                        module.OnNodeModuleThingDelete = null;
+
+                        //enumerate things and keep for quick lookup
+                        var modThings = _NodeModuleThings[module];
+                        _NodeModuleThings.Remove(module);
+
+                        //Add module things
+                        foreach (var t in modThings)
+                            RemoveThing(t.ThingKey, SendToCloud: SendToCloud, owner: module);
+                    }
+                }
             }
+            catch (Exception ex) { DebugEx.Assert(ex, "Unhandled exception caught"); }
+        }
+
+        //------------------------------------------------------------------------------------------------------------------------
+
+        void _moduleOnThingAddHandler(INodeModule module, IEnumerable<Thing> things)
+        {
+            if (things != null)
+                foreach (var tk in things)
+                    try { AddThing(tk, module); } catch (Exception ex) { DebugEx.Assert(ex, "Unhandled exception"); }
+        }
+
+        void _moduleOnThingDeleteHandler(INodeModule module, IEnumerable<ThingKey> things)
+        {
+            if (things != null)
+                foreach (var tk in things)
+                    try { RemoveThing(tk, module); } catch (Exception ex) { DebugEx.Assert(ex, "Unhandled exception"); }
+        }
+
+        //------------------------------------------------------------------------------------------------------------------------
+
+        public void ForgetMe(bool disconnect = true, bool purge = true)
+        {
+            try
+            {
+                //forget keys
+                this._IsPaired = false;
+                this.NodeKey = default(NodeKey);
+                this.NodeSecret = null;
+
+                //disconnect channels
+                if (disconnect)
+                    Disconnect();
+
+                //purge?
+                if (purge)
+                    try { Purge(); } catch (Exception ex) { DebugEx.Assert(ex, "Unhandled exception caught in Purge()"); }
+
+                //invoke event
+                try { OnForgetMeCb?.Invoke(); } catch (Exception ex) { DebugEx.Assert(ex, "Unhandled exception caught OnForgetMeCb"); }
+            }
+            catch (Exception ex) { DebugEx.Assert(ex, "Unhandled exception caught"); }
+        }
+
+        //------------------------------------------------------------------------------------------------------------------------
+
+        public void Unpair(bool disconnect = false, bool purge = true)
+        {
+            try
+            {
+                var unpairReq = new NodeUnpairedReq() { ReasonCode = eUnpairReason.UserRequested };
+                var rsp = SendRequest<GenericRsp>(unpairReq);
+                ForgetMe(disconnect: disconnect, purge: purge);
+            }
+            catch (Exception ex) { DebugEx.Assert(ex, "Unhandled exception caught"); }
+        }
+
+        //------------------------------------------------------------------------------------------------------------------------
+
+        public void Purge()
+        {
+            try
+            {
+                //purge graph manager
+                try { NodeGraphManager?.Purge(); } catch (Exception ex) { DebugEx.Assert(ex); }
+
+                //Purge saved information
+                try { DataSave?.Invoke(DataIdentifier_Things, new byte[0], true); } catch (Exception ex) { DebugEx.Assert(ex, "Thing purge failed"); }
+
+                //Purge nodekeys
+                try { OnNodePaired?.Invoke(default(NodeKey), "".ToSecureString()); } catch (Exception ex) { DebugEx.TraceError(ex, "Node keys purge failed"); }
+
+                //purge modules
+                foreach (var module in NodeModules)
+                    try { module.Purge(); } catch (Exception ex) { DebugEx.TraceError(ex, "UserCode exception caught"); }
+            }
+            catch (Exception ex) { DebugEx.Assert(ex, "Unhandled exception caught"); }
         }
 
         //------------------------------------------------------------------------------------------------------------------------

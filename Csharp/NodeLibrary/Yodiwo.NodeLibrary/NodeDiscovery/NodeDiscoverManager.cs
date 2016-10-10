@@ -32,9 +32,8 @@ namespace Yodiwo.NodeLibrary.NodeDiscovery
         //------------------------------------------------------------------------------------------------------------------------
         public DiscoveryMessage DiscoveryMessage = new DiscoveryMessage();
         //------------------------------------------------------------------------------------------------------------------------
-        DictionaryTS<LANDiscoverer.RemoteEndpointID, RemoteNode> connectingNodes = new DictionaryTS<LANDiscoverer.RemoteEndpointID, RemoteNode>();
-        //------------------------------------------------------------------------------------------------------------------------
         public readonly DictionaryTS<LANDiscoverer.RemoteEndpointID, RemoteNode> RemoteNodes = new DictionaryTS<LANDiscoverer.RemoteEndpointID, RemoteNode>();
+        public readonly DictionaryTS<NodeKey, RemoteNode> BrotherNodes = new DictionaryTS<NodeKey, RemoteNode>();
         //------------------------------------------------------------------------------------------------------------------------
         YPChannel.Transport.Sockets.Server _YPServer;
         public YPChannel.Transport.Sockets.Server YPServer => _YPServer;
@@ -44,7 +43,13 @@ namespace Yodiwo.NodeLibrary.NodeDiscovery
             Version = 1,
             ProtocolDefinitions = new List<YPChannel.Protocol.MessageTypeGroup>()
             {
-                //Basic group
+                //Plegma API group
+                new YPChannel.Protocol.MessageTypeGroup() { GroupName = API.Plegma.PlegmaAPI.ApiGroupName,      MessageTypes = API.Plegma.PlegmaAPI.ApiMessages      },
+                new YPChannel.Protocol.MessageTypeGroup() { GroupName = API.Plegma.PlegmaAPI.ApiLogicGroupName, MessageTypes = API.Plegma.PlegmaAPI.LogicApiMessages },
+                new YPChannel.Protocol.MessageTypeGroup() { GroupName = API.MediaStreaming.Video.ApiGroupName,  MessageTypes = API.MediaStreaming.Video.ApiMessages  },
+                new YPChannel.Protocol.MessageTypeGroup() { GroupName = API.MediaStreaming.Audio.ApiGroupName,  MessageTypes = API.MediaStreaming.Audio.ApiMessages  },
+
+                //BrotherHood api group
                 new YPChannel.Protocol.MessageTypeGroup()
                 {
                     GroupName = "NodeLibrary.BrotherhoodAPI",
@@ -53,7 +58,7 @@ namespace Yodiwo.NodeLibrary.NodeDiscovery
                         typeof(AssociationRequest),
                         typeof(AssociationResponse),
                     },
-                }
+                },
             },
         };
         //------------------------------------------------------------------------------------------------------------------------
@@ -65,6 +70,9 @@ namespace Yodiwo.NodeLibrary.NodeDiscovery
 
         public delegate void OnRemoteNodeAssociationDelegate(RemoteNode endpoint);
         public event OnRemoteNodeAssociationDelegate OnRemoteNodeAssociation;
+
+        public delegate void OnVBMReceivedDelegate(NodeKey BrotherNode, VirtualBlockEventMsg msg);
+        public event OnVBMReceivedDelegate OnVBMReceived = null;
         //------------------------------------------------------------------------------------------------------------------------
         #endregion
 
@@ -135,7 +143,8 @@ namespace Yodiwo.NodeLibrary.NodeDiscovery
                     //start ypserver
                     if (YPCPort != 0)
                     {
-                        _YPServer = new YPChannel.Transport.Sockets.Server(Protocol);
+                        var mode = YPChannel.ChannelSerializationMode.Json;
+                        _YPServer = new YPChannel.Transport.Sockets.Server(Protocol, SupportedChannelSerializationModes: mode, PreferredChannelSerializationModes: mode);
                         _YPServer.OnNewChannel += _YPServer_OnNewChannel;
                         _YPServer.Start(YPCPort);
                     }
@@ -168,7 +177,7 @@ namespace Yodiwo.NodeLibrary.NodeDiscovery
             }
         }
         //------------------------------------------------------------------------------------------------------------------------
-        private void Discoverer_OnEndpointMsgRx(YPChannel.Transport.Sockets.LANDiscoverer.RemoteEndpointInfo endpoint, YPChannel.Transport.Sockets.DiscoveryMessageBase __msg)
+        private void Discoverer_OnEndpointMsgRx(YPChannel.Transport.Sockets.LANDiscoverer.RemoteEndpointInfo endpoint, YPChannel.Transport.Sockets.IDiscoveryMessageBase __msg)
         {
             try
             {
@@ -177,85 +186,50 @@ namespace Yodiwo.NodeLibrary.NodeDiscovery
                 if (msg == null)
                     return;
 
+                //create remotenodekey
+                var rem_nodekey = API.Plegma.NodeKey.FromBytes(msg.NodeKey, 0);
+                if (rem_nodekey.IsInvalid)
+                    return;
+
                 //examine existing association
                 lock (RemoteNodes)
                 {
                     var remInfo = RemoteNodes.TryGetOrDefault(endpoint.ID);
                     if (remInfo == null)
                     {
-                        //try to find if is connecting
-                        remInfo = connectingNodes.TryGetOrDefault(endpoint.ID);
-                        if (remInfo == null)
+                        //inform
+                        DebugEx.TraceLog($"NodeDiscoverer : Discovered new node. (ip:{endpoint.IPAddress} nodekey:{rem_nodekey})");
+
+                        //create entry for remote node
+                        remInfo = new RemoteNode(Node, this)
                         {
-                            //create entry for remote node
-                            remInfo = new RemoteNode(Node, this)
-                            {
-                                RemoteEndpointID = endpoint.ID,
-                                DiscoveryMessage = msg,
-                                State = RemoteNode.RemoteNodeState.Unkown,
-                                RemoteNodeKey = API.Plegma.NodeKey.FromBytes(msg.NodeKey, 0),
-                            };
-                            if (remInfo.RemoteNodeKey.IsInvalid)
-                                return;
+                            RemoteEndpointID = endpoint.ID,
+                            DiscoveryMessage = msg,
+                            RemoteNodeKey = rem_nodekey,
+                        };
+                        //add to discovered remote nodes 
+                        RemoteNodes.Add(endpoint.ID, remInfo);
 
-                            //higher id is server
-                            if (DiscoveryMessage.Id > endpoint.ID.ID && YPCPort != 0)
-                                return; //let the other node connect on me
+                        //hookevents
+                        hookNewRemoteNodeEvents(remInfo);
 
-                            //add to connecting nodes 
-                            connectingNodes.Add(endpoint.ID, remInfo);
+                        //Start a connection attempt
+                        remInfo.StartConnectionTask();
 
-                            //raise event
-                            if (OnRemoteNodeDiscovery != null)
-                                Task.Run(() => OnRemoteNodeDiscovery?.Invoke(remInfo));
-
-                            //Start a connection attempt
-                            Task.Run(() => _StartConnectionAttempt(remInfo, msg));
-                        }
+                        //raise event
+                        if (OnRemoteNodeDiscovery != null)
+                            Task.Run(() => { try { OnRemoteNodeDiscovery?.Invoke(remInfo); } catch (Exception ex) { DebugEx.Assert(ex, "Unhandled exception"); } });
                     }
                     else
                     {
                         //start remote node connection
-                        if (remInfo.State == RemoteNode.RemoteNodeState.Disconnected)
-                            Task.Run(() => { try { remInfo.Connect(); } catch (Exception exx) { DebugEx.Assert(exx); } });
+                        if (!remInfo.IsDisposed &&
+                            (remInfo.ClientChannel == null || (remInfo.ClientChannel.State == YPChannel.ChannelStates.Closed && !remInfo.ConnectionTaskRunning)))
+                            remInfo.StartConnectionTask();
                     }
                 }
             }
             catch (Exception ex) { DebugEx.TraceError(ex, "DiscoveryTaskEntryPoint error"); }
-        }
-        //------------------------------------------------------------------------------------------------------------------------
-        void _StartConnectionAttempt(RemoteNode remInfo, DiscoveryMessage msg)
-        {
-            try
-            {
-                //inform
-                DebugEx.TraceLog($"NodeDiscoverer : Discovered new node. (ip:{remInfo.IPAddress} nodekey:{msg.NodeKey})");
-
-                //start remote node connection
-                if (remInfo.Connect(ignoreReconnectionPeriod: true))
-                {
-                    //Success !
-                    lock (RemoteNodes)
-                    {
-                        if (RemoteNodes.ContainsKey(remInfo.RemoteEndpointID) == false)
-                        {
-                            //add to lookup as a valid remote node
-                            RemoteNodes.Add(remInfo.RemoteEndpointID, remInfo);
-                            //raise event
-                            if (OnRemoteNodeAssociation != null)
-                                Task.Run(() => OnRemoteNodeAssociation?.Invoke(remInfo));
-                        }
-                        else
-                            remInfo._disconnect();
-                    }
-                }
-            }
-            catch (Exception exx) { DebugEx.Assert(exx); }
-            finally
-            {
-                //connection attempt finish (success or fail does not matter)
-                connectingNodes.Remove(remInfo.RemoteEndpointID);
-            }
         }
         //------------------------------------------------------------------------------------------------------------------------
         private void Discoverer_OnEndpointTimeout(LANDiscoverer.RemoteEndpointInfo endpoint)
@@ -279,23 +253,101 @@ namespace Yodiwo.NodeLibrary.NodeDiscovery
                 IPAddress = Channel.RemoteIdentifier,
                 ID = 0,
             };
-            //create entry for remote node
-            var remInfo = new RemoteNode(Node, this)
+
+            lock (RemoteNodes)
             {
-                RemoteEndpointID = id,
-                DiscoveryMessage = null,
-                State = RemoteNode.RemoteNodeState.Unkown,
-                RemoteNodeKey = default(NodeKey),
-            };
-            //setup channel
-            remInfo.SetupChannel(Channel);
+                //get or create entry for remote node
+                var remInfo = RemoteNodes.TryGetOrDefault(id);
+                if (remInfo == null)
+                {
+                    //create entry for remote node
+                    remInfo = new RemoteNode(Node, this)
+                    {
+                        RemoteEndpointID = id,
+                        DiscoveryMessage = null,
+                        RemoteNodeKey = default(NodeKey),
+                    };
+
+                    //add to discovered remote nodes 
+                    RemoteNodes.ForceAdd(id, remInfo);
+                }
+
+                //hookevents
+                hookNewRemoteNodeEvents(remInfo);
+
+                //setup channel
+                remInfo.SetupChannel(Channel);
+            }
         }
         //------------------------------------------------------------------------------------------------------------------------
-        internal void _raiseAssiciationEvent(RemoteNode remInfo)
+        void hookNewRemoteNodeEvents(RemoteNode remInfo)
         {
+            remInfo.OnChannelOpen += RemoteNode_OnChannelOpen;
+            remInfo.OnChannelClose += RemoteNode_OnChannelClose;
+            remInfo.OnVBMReceived += RemoteNode_OnVBMReceived;
+        }
+        //------------------------------------------------------------------------------------------------------------------------
+        private void RemoteNode_OnChannelOpen(RemoteNode RemoteNode)
+        {
+            BrotherNodes.Add(RemoteNode.RemoteNodeKey, RemoteNode);
             //raise event
             if (OnRemoteNodeAssociation != null)
-                Task.Run(() => OnRemoteNodeAssociation?.Invoke(remInfo));
+                Task.Run(() => { try { OnRemoteNodeAssociation?.Invoke(RemoteNode); } catch (Exception ex) { DebugEx.Assert(ex, "Unhandled exception"); } });
+        }
+        //------------------------------------------------------------------------------------------------------------------------
+        private void RemoteNode_OnChannelClose(RemoteNode RemoteNode)
+        {
+            if (!RemoteNode.IsConnected)
+                BrotherNodes.Remove(RemoteNode.RemoteNodeKey);
+        }
+        //------------------------------------------------------------------------------------------------------------------------
+        private void RemoteNode_OnVBMReceived(RemoteNode RemoteNode, VirtualBlockEventMsg msg)
+        {
+            OnVBMReceived?.Invoke(RemoteNode.RemoteNodeKey, msg);
+        }
+        //------------------------------------------------------------------------------------------------------------------------
+        public void SendVBMToBrothers(List<VirtualBlockEvent> events)
+        {
+            try
+            {
+                //split into packets-per brother
+                var brotherPackets = new Dictionary<NodeKey, List<VirtualBlockEvent>>();
+                foreach (var ev in events)
+                {
+                    var bk = (BlockKey)ev.BlockKey;
+                    var nk = bk.GraphKey.NodeKey;
+                    if (BrotherNodes.ContainsKey(nk))
+                    {
+                        //get (or create) packet list
+                        var packets = brotherPackets.TryGetOrDefault(nk);
+                        if (packets == null)
+                            brotherPackets.Add(nk, packets = new List<VirtualBlockEvent>());
+                        //add packet for brother node
+                        packets.Add(ev);
+                    }
+                }
+
+                //send to brothers and consume
+                foreach (var bpkv in brotherPackets)
+                {
+                    //get brother
+                    var brother = BrotherNodes.TryGetOrDefault(bpkv.Key);
+                    if (brother != null && brother.IsConnected)
+                    {
+                        var msgReq = new VirtualBlockEventMsg()
+                        {
+                            BlockEvents = bpkv.Value.ToArray(),
+                        };
+                        var rsp = brother.SendRequest<GenericRsp>(msgReq, Timeout: TimeSpan.FromSeconds(3));
+                        if (rsp != null && rsp.IsSuccess)
+                        {
+                            //consume events from original set
+                            msgReq.BlockEvents.ForEach(e => events.Remove(e));
+                        }
+                    }
+                }
+            }
+            catch (Exception ex) { DebugEx.Assert(ex, "Unhandled exception in SendVBMToBrothers"); }
         }
         //------------------------------------------------------------------------------------------------------------------------
         ~NodeDiscoverManager()

@@ -16,11 +16,15 @@ namespace Yodiwo.NodeLibrary
         public int YpchannelPort;
         public string YpServer;
         public bool SecureYpc;
+        public string CertificationServerName;
         public string MqttApiPasswd;
         public bool CanSolveGraphs;
+        public bool IsWarlock;
         public string Description;
         public string Image;
         public string Pathcss;
+        public string Pairing_CompletionInstructions;
+        public bool Pairing_NoUUIDAuthentication;
 
         public bool EnableNodeDiscovery;
         public int NodeDiscovery_YPCPort_Start; //Port range start
@@ -44,7 +48,7 @@ namespace Yodiwo.NodeLibrary
     public enum TransportErrors
     {
         None = 0,
-        ConnectionEstablishFailed,
+        ConnectionFailed,
         RxFail,
         TxFail,
         Other,

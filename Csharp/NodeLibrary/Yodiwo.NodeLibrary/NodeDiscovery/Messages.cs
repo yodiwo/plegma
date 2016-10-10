@@ -8,11 +8,20 @@ using System.Threading.Tasks;
 namespace Yodiwo.NodeLibrary.NodeDiscovery
 {
     [StructLayout(LayoutKind.Sequential)]
-    public class DiscoveryMessage : YPChannel.Transport.Sockets.DiscoveryMessageBase
+    public class DiscoveryMessage : YPChannel.Transport.Sockets.IDiscoveryMessageBase
     {
+        int _Id;
+        public int Id { get { return _Id; } set { _Id = value; } }
+        int _Flags;
+        public int Flags { get { return _Flags; } set { _Flags = value; } }
+        public int MajorVersion;
+        public int MinorVersion;
+        public int BuildVersion;
+
         //Info
         public int ProtocolVersion;
         public int YPChannelPort;
+
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Yodiwo.API.Plegma.NodeKey.MaxKeyLength)]
         public byte[] NodeKey = new byte[Yodiwo.API.Plegma.NodeKey.MaxKeyLength];
     }

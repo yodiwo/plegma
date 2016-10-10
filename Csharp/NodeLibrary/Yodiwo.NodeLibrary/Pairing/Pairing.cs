@@ -5,9 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
 using System.Diagnostics;
-using Yodiwo.NodeLibrary;
 
-namespace Yodiwo.Node.Pairing
+namespace Yodiwo.NodeLibrary.Pairing
 {
     public interface IPairingModule
     {
@@ -18,20 +17,31 @@ namespace Yodiwo.Node.Pairing
 
     public class CommonDevicePairingPolling : IPairingModule
     {
+        string pairingURI;
         private NodeConfig conf;
+        public Action<string> UriCustomLauncher = null;
+        public int SpinDelay = 1000; //in miliseconds
+
         public bool StartPair(string frontendUrl, string redirectUri, NodeConfig conf, string selfUrl, NodePairingBackend.OnPairedDelegate OnPairedcb, NodePairingBackend.OnPairingFailedDelegate OnPairingFailedCB)
         {
             this.conf = conf;
 
             //pairing backend
-            NodePairingBackend backend = new NodePairingBackend(frontendUrl, conf, OnPairedcb, OnPairingFailedCB);
+            var backend = new NodePairingBackend(frontendUrl, conf, OnPairedcb, OnPairingFailedCB);
             string token2 = backend.pairGetTokens(redirectUri);
-            var uri = backend.userUrl + "?token2=" + token2;
+            pairingURI = backend.pairingPostUrl + "/" + API.Plegma.NodePairing.NodePairingConstants.UserConfirmPageURI + "?token2=" + token2;
+
+            if (UriCustomLauncher != null)
+                UriCustomLauncher(pairingURI);
+            else
+            {
 #if NETFX
-            Process.Start(uri);
+                Process.Start(pairingURI);
 #else
-            Windows.System.Launcher.LaunchUriAsync(new Uri(uri)).AsTask();
+                Windows.System.Launcher.LaunchUriAsync(new Uri(pairingURI)).AsTask();
 #endif
+            }
+
             //wait for finish
             Task.Delay(1000).Wait();
             Task.Run(() =>
@@ -41,7 +51,7 @@ namespace Yodiwo.Node.Pairing
                     var keys = backend.pairGetKeys();
                     if (keys != null)
                         break;
-                    Task.Delay(1000).Wait();
+                    Task.Delay(SpinDelay).Wait();
                 }
             });
             return true;
@@ -49,6 +59,15 @@ namespace Yodiwo.Node.Pairing
 
         public void EndPair()
         {
+        }
+
+        public void RelaunchURI()
+        {
+#if NETFX
+            Process.Start(pairingURI);
+#else
+            Windows.System.Launcher.LaunchUriAsync(new Uri(pairingURI)).AsTask();
+#endif
         }
     }
 }

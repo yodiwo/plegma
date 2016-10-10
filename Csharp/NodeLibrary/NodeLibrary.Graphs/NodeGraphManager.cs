@@ -50,9 +50,9 @@ namespace Yodiwo.NodeLibrary.Graphs
         DictionaryTS<ThingKey, HashSetTS<BlockKey>> ThingKey2ThingInBlockKey = new DictionaryTS<ThingKey, HashSetTS<BlockKey>>();
         //------------------------------------------------------------------------------------------------------------------------
 #if NETFX
-        public string[] BlockLibrariesNames { get { return BlockLibrarians == null || BlockLibrarians.Length == 0 ? null : BlockLibrarians.Select(t => t.Assembly.NamePortable()).ToArray(); } }
+        public string[] BlockLibrariesNames { get { return BlockLibrarians == null || BlockLibrarians.Length == 0 ? null : BlockLibrarians.Select(t => t.Assembly.NamePortable().RemoveLast(".Universal")).ToArray(); } }
 #else
-        public string[] BlockLibrariesNames { get { return BlockLibrarians == null || BlockLibrarians.Length == 0 ? null : BlockLibrarians.Select(t => t.GetTypeInfo().Assembly.NamePortable()).ToArray(); } }
+        public string[] BlockLibrariesNames { get { return BlockLibrarians == null || BlockLibrarians.Length == 0 ? null : BlockLibrarians.Select(t => t.GetTypeInfo().Assembly.NamePortable().RemoveLast(".Universal")).ToArray(); } }
 #endif
         //------------------------------------------------------------------------------------------------------------------------
         HashSetTS<PortKey> _ActivePortKeys = new HashSetTS<PortKey>();
@@ -110,50 +110,141 @@ namespace Yodiwo.NodeLibrary.Graphs
         {
             try
             {
-                //send virtual block event msg
-                var msg = new VirtualBlockEventMsg()
-                {
-                    BlockEvents = ev.Where(e => e.RemoteVirtualInputBlockKey.IsValid)
+                //compile events
+                var events = ev.Where(e => e.RemoteVirtualInputBlockKey.IsValid)
                                     .Select(e => new VirtualBlockEvent()
                                     {
                                         BlockKey = e.RemoteVirtualInputBlockKey,
                                         Indices = e.Indices,
                                         Values = e.Values.Select(v => v.ToJSON()).ToArray(),
                                         RevNum = e.Revision,
-                                    }).ToArray(),
-                };
-                if (msg.BlockEvents.Length == 0)
+                                    })
+                                    .ToList();
+                if (events.Count == 0)
                     return;
 
-                //send message
-                Node.SendMessage(msg);
+                //redirect vbm to a brothernode?
+                if (Node.NodeDiscovery != null)
+                {
+                    //send to events to local brother nodes (set will be consumed up to a point)
+                    Node.NodeDiscovery.SendVBMToBrothers(events);
+                    //if nothing left then done!
+                    if (events.Count == 0)
+                        return;
+                }
 
+                //send virtual block event msg
+                var msg = new VirtualBlockEventMsg()
+                {
+                    BlockEvents = events.ToArray(),
+                };
+                Node.SendMessage(msg);
             }
-            catch (Exception ex)
-            {
-                DebugEx.Assert(ex, "Unhandled exception caught");
-            }
+            catch (Exception ex) { DebugEx.Assert(ex, "Unhandled exception caught"); }
         }
         //------------------------------------------------------------------------------------------------------------------------
         public void Initialize(Node ParentNode)
         {
+            try
+            {
+                lock (locker)
+                {
+                    //check
+                    if (IsInitialized)
+                        return;
+
+                    //keep
+                    this._Node = ParentNode;
+
+                    //hook on nodediscovery module
+                    if (Node.NodeDiscovery != null)
+                        Node.NodeDiscovery.OnVBMReceived += NodeDiscovery_OnVBMReceived;
+
+                    //start
+                    GraphManager.Start();
+
+                    //register for thing solve
+                    YEventRouter.EventRouter.AddEventHandler<Logic.Blocks.Things.EvThingSolved>(OnThingSolvedCb, 100);
+
+                    //set flag
+                    IsInitialized = true;
+                }
+            }
+            catch (Exception ex) { DebugEx.Assert(ex); }
+        }
+        //------------------------------------------------------------------------------------------------------------------------
+        public void DeInitialize()
+        {
+            try
+            {
+                lock (locker)
+                {
+                    //check
+                    if (!IsInitialized)
+                        return;
+
+                    //set flag
+                    IsInitialized = false;
+
+                    //unhook on nodediscovery module
+                    if (Node.NodeDiscovery != null)
+                        Node.NodeDiscovery.OnVBMReceived -= NodeDiscovery_OnVBMReceived;
+
+                    //start
+                    GraphManager.Stop();
+
+                    //register for thing solve
+                    YEventRouter.EventRouter.RemoveEventHandler<Logic.Blocks.Things.EvThingSolved>(OnThingSolvedCb);
+                }
+            }
+            catch (Exception ex) { DebugEx.Assert(ex); }
+        }
+        //------------------------------------------------------------------------------------------------------------------------
+        private void NodeDiscovery_OnVBMReceived(NodeKey BrotherNode, VirtualBlockEventMsg msg)
+        {
+            try
+            {
+                HandleIncomingVirtualBlockEventMsg(msg);
+            }
+            catch (Exception ex) { DebugEx.Assert(ex); }
+        }
+        //------------------------------------------------------------------------------------------------------------------------
+        public void HandleIncomingVirtualBlockEventMsg(VirtualBlockEventMsg msg)
+        {
             lock (locker)
             {
-                //check
-                if (IsInitialized)
-                    return;
+                List<Yodiwo.Logic.GraphManager.SimultaneousActionRequest> simReq = null;
 
-                //keep
-                this._Node = ParentNode;
+                //create a simultaneous action requests
+                foreach (var ev in msg.BlockEvents)
+                {
+                    var bk = (BlockKey)ev.BlockKey;
+                    if (bk.IsInvalid)
+                    {
+                        DebugEx.Assert("Invalid blockkey detected in received VirtualBlockEvent");
+                        continue;
+                    }
 
-                //start
-                GraphManager.Start();
+                    var _req = new Yodiwo.Logic.GraphManager.SimultaneousActionRequest()
+                    {
+                        BlockKey = bk,
+                        BlockActionData = new Logic.Blocks.Endpoints.Out.VirtualOutput.VirtualIOMsg()
+                        {
+                            RemoteVirtualInputBlockKey = bk,
+                            Indices = ev.Indices,
+                            Values = ev.Values,
+                            Revision = ev.RevNum,
+                        },
+                    };
+                    //add to simReq
+                    if (simReq == null)
+                        simReq = new List<GraphManager.SimultaneousActionRequest>();
+                    simReq.Add(_req);
+                }
 
-                //register for thing solve
-                YEventRouter.EventRouter.AddEventHandler<Logic.Blocks.Things.EvThingSolved>(OnThingSolvedCb, 100);
-
-                //set flag
-                IsInitialized = true;
+                //send action request
+                if (simReq != null && simReq.Count > 0)
+                    GraphManager.RequestGraphAction(simReq);
             }
         }
         //------------------------------------------------------------------------------------------------------------------------
@@ -168,10 +259,7 @@ namespace Yodiwo.NodeLibrary.Graphs
                 };
                 Node.SendMessage(msg);
             }
-            catch (Exception ex)
-            {
-                DebugEx.Assert(ex, "Unhandled exception");
-            }
+            catch (Exception ex) { DebugEx.Assert(ex, "Unhandled exception"); }
         }
         //------------------------------------------------------------------------------------------------------------------------
         public void DeployGraphs()
@@ -182,6 +270,7 @@ namespace Yodiwo.NodeLibrary.Graphs
                 var graphInfos = Node.LoadObject<Dictionary<string, string>>(DataIdentifier_Graphs, Secure: true);
                 //deploy them
                 if (graphInfos != null)
+                {
                     foreach (var entry in graphInfos)
                     {
                         var deploymsg = new GraphDeploymentReq()
@@ -190,13 +279,12 @@ namespace Yodiwo.NodeLibrary.Graphs
                             GraphDescriptor = entry.Value,
                             IsDeployed = true,
                         };
-                        HandleGraphDeploymentReq(deploymsg, true);
+                        try { HandleGraphDeploymentReq(deploymsg, true); }
+                        catch (Exception ex) { DebugEx.Assert(ex, "Unhandled exception caught"); }
                     }
+                }
             }
-            catch (Exception ex)
-            {
-                DebugEx.Assert(ex, "Unhandled exception caught");
-            }
+            catch (Exception ex) { DebugEx.Assert(ex, "Unhandled exception caught"); }
         }
         //------------------------------------------------------------------------------------------------------------------------
         public void Save()
@@ -214,10 +302,7 @@ namespace Yodiwo.NodeLibrary.Graphs
                         DebugEx.TraceError("Could not save graphs");
                 }
             }
-            catch (Exception ex)
-            {
-                DebugEx.Assert(ex, "Unhandled exception caught");
-            }
+            catch (Exception ex) { DebugEx.Assert(ex, "Unhandled exception caught"); }
         }
         //------------------------------------------------------------------------------------------------------------------------
         public Graph BuildGraph(GraphDescriptor graphDescriptor)
@@ -236,10 +321,14 @@ namespace Yodiwo.NodeLibrary.Graphs
                     (bmvType, blockMV) =>
                     {
                         // Handle YThing-constructed instantiation
-                        if (typeof(Logic.ThingBase).IsAssignableFrom(bmvType))
+#if NETFX
+                        if (typeof(Logic.BaseThings).IsAssignableFrom(bmvType))
+#elif UNIVERSAL
+                        if (typeof(Logic.BaseThings).GetTypeInfo().IsAssignableFrom(bmvType.GetTypeInfo()))
+#endif
                         {
                             //find thing key
-                            var thingKey = blockMV.Properties.Fields.Find(x => x.Name == nameof(Logic.ThingBase.ThingKey)).Value as string;
+                            var thingKey = blockMV.ThingKey;
 
                             var thing = Node.Things.TryGetOrDefaultReadOnly(thingKey);
                             if (thing == null)
@@ -249,8 +338,12 @@ namespace Yodiwo.NodeLibrary.Graphs
                             }
 
                             return bmvType
+#if NETFX
                                 .GetConstructor(new[] { typeof(Thing) })
-                                .Invoke(new[] { thing }) as Block;
+#elif UNIVERSAL
+                                .GetTypeInfo().DeclaredConstructors.FirstOrDefault(ci => ci.GetParameters().Length == 1 && ci.GetParameters()[0].ParameterType == typeof(Thing))
+#endif
+                                ?.Invoke(new[] { thing }) as Block;
                         }
                         else
                             return null;
@@ -388,7 +481,7 @@ namespace Yodiwo.NodeLibrary.Graphs
                     {
                         //deserialize graph descriptor
                         GraphDescriptor graphDescriptor;
-                        try { graphDescriptor = req.GraphDescriptor.FromJSON<GraphDescriptor>(); }
+                        try { graphDescriptor = GraphBuilder.GetGraphDescriptorFromJson(req.GraphDescriptor, false); }
                         catch (Exception ex)
                         {
                             DebugEx.Assert(ex, "Could not deserialize graph descriptor");
@@ -431,7 +524,14 @@ namespace Yodiwo.NodeLibrary.Graphs
                         //try deploy graph
                         try
                         {
-                            graph.OnDeploy(true, null);
+                            Exception exception;
+                            var depres = graph.OnDeploy(true, null, out exception);
+                            if (!depres)
+                            {
+                                res.IsSuccess = false;
+                                res.Message = "Graph OnDeploy() failed. Message : " + (exception?.Message ?? "null");
+                                return res;
+                            }
                         }
                         catch (Exception ex)
                         {
@@ -456,7 +556,7 @@ namespace Yodiwo.NodeLibrary.Graphs
                             Save();
 
                         //associate block keys
-                        foreach (var thingblock in graph.Blocks.OfType<ThingBase>())
+                        foreach (var thingblock in graph.Blocks.OfType<BaseThings>())
                         {
                             //Add to Thing2Block set
                             {
@@ -504,7 +604,13 @@ namespace Yodiwo.NodeLibrary.Graphs
                             var gi = Graphs[graphkey];
                             var graph = gi.Graph;
                             //inform graph
-                            try { graph.OnUndeploy(null); } catch (Exception ex) { DebugEx.Assert(ex, "Graph OnUndeploy failed"); }
+                            Exception exception;
+                            try
+                            {
+                                if (graph.OnUndeploy(null, out exception) == false)
+                                    DebugEx.Assert(exception, "Graph OnUndeploy failed");
+                            }
+                            catch (Exception ex) { DebugEx.Assert(ex, "Graph OnUndeploy failed"); }
                             //invalidate graph
                             _GraphManager.InvalidateGraph(graphkey);
                             //remove information
@@ -514,7 +620,7 @@ namespace Yodiwo.NodeLibrary.Graphs
                                 Save();
                             //disassociate block keys
                             if (graph != null)
-                                foreach (var thingblock in gi.Graph.Blocks.OfType<ThingBase>())
+                                foreach (var thingblock in gi.Graph.Blocks.OfType<BaseThings>())
                                 {
                                     //remove from thing2block
                                     {
@@ -547,6 +653,9 @@ namespace Yodiwo.NodeLibrary.Graphs
                 }
                 finally
                 {
+                    //begin activation state snapshot
+                    var sets = Node.BeginActiveThingsUpdate();
+
                     //update active ports/things
                     var activeThings = ThingKey2BlockKey.Where(kv => kv.Value.Count > 0)
                                                         .Select(kv => Node.Things.TryGetOrDefaultReadOnly(kv.Key))
@@ -561,6 +670,9 @@ namespace Yodiwo.NodeLibrary.Graphs
                     Interlocked.Exchange(ref _ActivePorts, activePorts);
                     Interlocked.Exchange(ref _ActiveThingKeys, activeThingKeys);
                     Interlocked.Exchange(ref _ActivePortKeys, activePortsKeys);
+
+                    //trigger node thing activation update
+                    Node.EndActiveThingsUpdate(sets);
                 }
                 //return result msg
                 return res;
@@ -593,6 +705,12 @@ namespace Yodiwo.NodeLibrary.Graphs
         //------------------------------------------------------------------------------------------------------------------------
         public bool IsPortActive(PortKey pk) { return _ActivePortKeys?.Contains(pk) ?? false; }
         public bool IsThingActive(ThingKey tk) { return _ActiveThingKeys?.Contains(tk) ?? false; }
+        //------------------------------------------------------------------------------------------------------------------------
+        public void Purge()
+        {
+            if (Node.SaveObject(DataIdentifier_Graphs, "", Secure: true) == false)
+                DebugEx.TraceError("Could not purge graphs");
+        }
         //------------------------------------------------------------------------------------------------------------------------
         #endregion
     }

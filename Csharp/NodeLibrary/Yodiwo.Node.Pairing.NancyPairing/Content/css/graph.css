@@ -1028,6 +1028,10 @@ tspan, text {
     opacity: 0.6;
 }
 
+    .graph-name-container .input-group span {
+        width: auto;
+    }
+
 #graph-name-basic-addon {
     background: rgba(0, 0, 0, 0.85);
     color: #fff;

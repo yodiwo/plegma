@@ -10,7 +10,7 @@ namespace Yodiwo.NodeLibrary.Transports
     {
         bool IsConnected { get; }
         void Disconnect();
-        void SendMessage(API.Plegma.ApiMsg msg);
-        Trsp SendRequest<Trsp>(API.Plegma.ApiMsg request, TimeSpan? timeout = null);
+        void SendMessage(API.ApiMsg msg);
+        Trsp SendRequest<Trsp>(API.ApiMsg request, TimeSpan? timeout = null);
     }
 }

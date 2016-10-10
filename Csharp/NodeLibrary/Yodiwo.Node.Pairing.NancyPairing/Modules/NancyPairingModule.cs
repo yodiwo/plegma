@@ -10,11 +10,11 @@ using Newtonsoft.Json;
 using Yodiwo.API.Plegma.NodePairing;
 using Yodiwo;
 
-namespace Yodiwo.Node.Pairing.NancyPairing
+namespace Yodiwo.NodeLibrary.Pairing.NancyPairing
 {
     public class NancyPairingModule : NancyModule
     {
-        public static Yodiwo.Node.Pairing.NodePairingBackend backend;
+        public static Yodiwo.NodeLibrary.Pairing.NodePairingBackend backend;
 
         public NancyPairingModule()
             : base("/pairing")
@@ -45,13 +45,15 @@ namespace Yodiwo.Node.Pairing.NancyPairing
                 string redirectUrl = this.Request.Url.SiteBase + "/pairing/next";
                 string token2 = backend.pairGetTokens(redirectUrl);
                 if (token2 != null)
-                {
-                    return Response.AsRedirect(backend.userUrl + "?token2=" + token2);
-                }
+                    return Response.AsRedirect(backend.pairingPostUrl + "/" + API.Plegma.NodePairing.NodePairingConstants.UserConfirmPageURI + "?token2=" + token2);
                 else
-                {
-                    return new Response { StatusCode = HttpStatusCode.Forbidden };
-                }
+                    return "Could not start pairing procedure";
+            };
+
+            Get["/retrievenodesinfo"] = parameters =>
+            {
+                var infos = parameters.infos;
+                return "Ok";
             };
 
             Get["/next"] = parameters =>

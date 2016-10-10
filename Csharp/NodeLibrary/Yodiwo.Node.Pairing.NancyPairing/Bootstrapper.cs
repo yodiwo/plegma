@@ -15,7 +15,7 @@ using Nancy.Serialization.JsonNet;
 using Nancy.Bootstrapper;
 using Nancy.Conventions;
 
-namespace Yodiwo.Node.Pairing.NancyPairing
+namespace Yodiwo.NodeLibrary.Pairing.NancyPairing
 {
     public class RazorConfig : IRazorConfiguration
     {

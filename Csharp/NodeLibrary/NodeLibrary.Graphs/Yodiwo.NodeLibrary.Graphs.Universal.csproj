@@ -2,66 +2,145 @@
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
-    <MinimumVisualStudioVersion>12.0</MinimumVisualStudioVersion>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{3E0F6978-1913-4F27-943C-3D8752A26DBA}</ProjectGuid>
+    <ProjectGuid>{72252426-E1F8-4C82-9651-C3158041B3DF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Yodiwo.NodeLibrary.Graphs</RootNamespace>
+    <RootNamespace>Yodiwo.NodeLibrary.Graphs.Universal</RootNamespace>
     <AssemblyName>Yodiwo.NodeLibrary.Graphs.Universal</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
+    <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
+    <TargetPlatformVersion>10.0.10586.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.10240.0</TargetPlatformMinVersion>
+    <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
-    <ProjectTypeGuids>{BC8A1FFA-BEE3-4634-8014-F334798102B3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <TargetPlatformIdentifier>Windows</TargetPlatformIdentifier>
-    <TargetPlatformVersion>8.1</TargetPlatformVersion>
+    <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;NETFX_CORE;WINDOWS_APP, UNIVERSAL</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;NETFX_CORE;WINDOWS_UWP, UNIVERSAL</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_APP, UNIVERSAL</DefineConstants>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP, UNIVERSAL</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;NETFX_CORE;WINDOWS_UWP, UNIVERSAL</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP, UNIVERSAL</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
+    <PlatformTarget>ARM</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\ARM\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;NETFX_CORE;WINDOWS_UWP, UNIVERSAL</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
+    <PlatformTarget>ARM</PlatformTarget>
+    <OutputPath>bin\ARM\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP, UNIVERSAL</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <PlatformTarget>x64</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;NETFX_CORE;WINDOWS_UWP, UNIVERSAL</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <PlatformTarget>x64</PlatformTarget>
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP, UNIVERSAL</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
   <ItemGroup>
-    <!-- A reference to the entire .NET Framework is automatically included -->
-    <ProjectReference Include="..\..\..\YodiwoSharp\YodiwoSharp\YodiwoSharp.Universal.csproj">
-      <Project>{668e9b49-659a-4544-b878-d749b90fe3b9}</Project>
-      <Name>YodiwoSharp.Universal</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\APIs\Plegma\Yodiwo.API.Plegma.Universal.csproj">
-      <Project>{d1a9b61c-433b-4958-8cca-88ced8765d53}</Project>
-      <Name>Yodiwo.API.Plegma.Universal</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Logic\Yodiwo.Logic\Yodiwo.Logic.Universal.csproj">
-      <Project>{883c13ec-c812-4851-b761-3b300846b307}</Project>
-      <Name>Yodiwo.Logic.Universal</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Yodiwo.NodeLibrary\Yodiwo.NodeLibrary.Universal.csproj">
-      <Project>{e6a1c976-1aab-4b21-8319-10aab9cfbe85}</Project>
-      <Name>Yodiwo.NodeLibrary.Universal</Name>
-    </ProjectReference>
+    <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="NodeGraphManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Properties\NodeLibrary.Graphs.Universal.rd.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <ProjectReference Include="..\..\..\YodiwoSharp\YodiwoSharp\YodiwoSharp.Universal.csproj">
+      <Project>{c7d15b5a-5e2b-4ebf-8ab0-6ad0fb76a6c1}</Project>
+      <Name>YodiwoSharp.Universal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\APIs\Plegma\Yodiwo.API.Plegma.Universal.csproj">
+      <Project>{f5b458c1-ca19-4798-9178-80640bf6790e}</Project>
+      <Name>Yodiwo.API.Plegma.Universal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Logic\Yodiwo.Logic.BlockLibrary.Basic\Yodiwo.Logic.BlockLibrary.Basic.Universal.csproj">
+      <Project>{34397ab4-c513-43be-bcbc-591d5d9fc51a}</Project>
+      <Name>Yodiwo.Logic.BlockLibrary.Basic.Universal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Logic\Yodiwo.Logic\Yodiwo.Logic.Universal.csproj">
+      <Project>{bd3136be-d903-4faf-acab-396c1674fcfa}</Project>
+      <Name>Yodiwo.Logic.Universal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Yodiwo.NodeLibrary\Yodiwo.NodeLibrary.Universal.csproj">
+      <Project>{6ad0e307-7c09-4cf7-bfec-e8fde772c309}</Project>
+      <Name>Yodiwo.NodeLibrary.Universal</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\..\ExternalsDLLs\Universal\Newtonsoft.Json.dll</HintPath>
     </Reference>
   </ItemGroup>
+  <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
+    <VisualStudioVersion>14.0</VisualStudioVersion>
+  </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

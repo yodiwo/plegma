@@ -11,6 +11,7 @@
     <AssemblyName>Yodiwo.NodeLibrary</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <ResolveNuGetPackages>false</ResolveNuGetPackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -68,6 +69,14 @@
     <ProjectReference Include="..\..\APIs\Plegma\Yodiwo.API.Plegma.csproj">
       <Project>{94f4ce90-200f-40ce-bf83-e15d147924f7}</Project>
       <Name>Yodiwo.API.Plegma</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\APIs\Yodiwo.API.Plegma.Code\Yodiwo.API.Plegma.Code.csproj">
+      <Project>{a753abd7-a52d-4905-8137-a8772c448cbd}</Project>
+      <Name>Yodiwo.API.Plegma.Code</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\APIs\Yodiwo.API.Warlock\Yodiwo.API.Warlock.csproj">
+      <Project>{9cd81319-0106-436a-89a5-4416b762da07}</Project>
+      <Name>Yodiwo.API.Warlock</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Yodiwo.YPChannel\Yodiwo.YPChannel.csproj">
       <Project>{536faa15-e738-445e-a2d8-ef989acb2c7f}</Project>

@@ -5,12 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Yodiwo.API.Plegma;
 using Yodiwo.API.Plegma.NodePairing;
-using Yodiwo.Node.Pairing;
 using System.Net;
-using System.ComponentModel;
-using Yodiwo.NodeLibrary;
+using System.Security;
 
-namespace Yodiwo.Node.Pairing
+namespace Yodiwo.NodeLibrary.Pairing
 {
     public class NodePairingBackend
     {
@@ -22,15 +20,13 @@ namespace Yodiwo.Node.Pairing
         string token1;
         string token2;
         public NodeKey? nodeKey;
-        public string secretKey;
+        public SecureString secretKey;
         //--------------------------------------------------------------------------------------------------------------------
-        public delegate void OnPairedDelegate(NodeKey nodeKey, string nodeSecret);
+        public delegate void OnPairedDelegate(NodeKey nodeKey, SecureString nodeSecret);
         public event OnPairedDelegate onPaired = delegate { };
         //--------------------------------------------------------------------------------------------------------------------
         public delegate void OnPairingFailedDelegate(string Message);
         public event OnPairingFailedDelegate onPairingFailed = delegate { };
-        //--------------------------------------------------------------------------------------------------------------------
-        public string userUrl { get { return pairingPostUrl + "/" + NodePairingConstants.UserConfirmPageURI; } }
         //--------------------------------------------------------------------------------------------------------------------
         PairingStates pairingState;
         //--------------------------------------------------------------------------------------------------------------------
@@ -61,6 +57,8 @@ namespace Yodiwo.Node.Pairing
                 image = this.conf.Image,
                 description = this.conf.Description,
                 pathcss = this.conf.Pathcss,
+                PairingCompletionInstructions = this.conf.Pairing_CompletionInstructions,
+                NoUUIDAuthentication = this.conf.Pairing_NoUUIDAuthentication,
                 RedirectUri = redirectUri,
             };
             var uri = this.pairingPostUrl + "/" + NodePairingConstants.s_GetTokensRequest;
@@ -78,7 +76,7 @@ namespace Yodiwo.Node.Pairing
             return null;
         }
         //--------------------------------------------------------------------------------------------------------------------
-        public Tuple<NodeKey, string> pairGetKeys()
+        public Tuple<NodeKey, SecureString> pairGetKeys()
         {
             if (pairingState != PairingStates.TokensSentToNode)
             {
@@ -89,11 +87,11 @@ namespace Yodiwo.Node.Pairing
             if (resp != null)
             {
                 this.nodeKey = resp.nodeKey;
-                this.secretKey = resp.secretKey;
-                if (this.nodeKey != null && !string.IsNullOrWhiteSpace(this.secretKey))
+                if (this.nodeKey != null && !string.IsNullOrWhiteSpace(resp.secretKey))
                 {
+                    this.secretKey = resp.secretKey.ToSecureString();
                     onPaired(this.nodeKey.Value, this.secretKey);
-                    return new Tuple<NodeKey, string>(this.nodeKey.Value, this.secretKey);
+                    return new Tuple<NodeKey, SecureString>(this.nodeKey.Value, this.secretKey);
                 }
                 else
                     onPairingFailed("NodeKey or SecretKey are invalid");

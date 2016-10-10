@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Nancy.Hosting.Self;
 using Yodiwo.NodeLibrary;
 
-namespace Yodiwo.Node.Pairing.NancyPairing
+namespace Yodiwo.NodeLibrary.Pairing.NancyPairing
 {
     public class NancyPairing : IPairingModule
     {
@@ -28,7 +28,7 @@ namespace Yodiwo.Node.Pairing.NancyPairing
                 this.conf = conf;
 
                 //pairing backend            
-                NancyPairingModule.backend = new Yodiwo.Node.Pairing.NodePairingBackend(frontendUrl, conf, OnPairedcb, OnPairingFailedCb);
+                NancyPairingModule.backend = new Yodiwo.NodeLibrary.Pairing.NodePairingBackend(frontendUrl, conf, OnPairedcb, OnPairingFailedCb);
                 startHttpServer(selfUrl);
                 return true;
             }
@@ -53,7 +53,7 @@ namespace Yodiwo.Node.Pairing.NancyPairing
             Task.Run(() =>
             {
                 //wait for a while to end service any requests (like the success page)
-                Task.Delay(500).Wait();
+                Task.Delay(3000).Wait();
                 //close it
                 lock (this)
                 {

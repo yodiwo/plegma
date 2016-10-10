@@ -11,15 +11,19 @@ namespace Yodiwo.NodeLibrary.Graphs
     {
         string[] BlockLibrariesNames { get; }
         void Initialize(Node ParentNode);
+        void DeInitialize();
         void DeployGraphs();
         void OnConnectedToCloud();
         GenericRsp HandleGraphDeploymentReq(GraphDeploymentReq req);
         void HandlePortStates(IEnumerable<TupleS<Port, string>> States);
+        void HandleIncomingVirtualBlockEventMsg(VirtualBlockEventMsg msg);
 
         IReadOnlySet<PortKey> ActivePortKeys { get; }
         IReadOnlySet<Thing> ActiveThings { get; }
 
         bool IsPortActive(PortKey pk);
         bool IsThingActive(ThingKey tk);
+
+        void Purge();
     }
 }
