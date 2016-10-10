@@ -12,14 +12,13 @@ namespace Yodiwo.API.Plegma.Code
 {
     public static class BinaryResourceAccessor
     {
-        private static DictionaryTS<BinaryResourceLocationType, Func<BinaryResourceDescriptor, Byte[]>> FetchHandlers;
-
+        private static DictionaryTS<eBinaryResourceLocationType, Func<BinaryResourceDescriptor, Byte[]>> FetchHandlers;
         static BinaryResourceAccessor()
         {
-            FetchHandlers = new DictionaryTS<BinaryResourceLocationType, Func<BinaryResourceDescriptor, byte[]>>();
+            FetchHandlers = new DictionaryTS<eBinaryResourceLocationType, Func<BinaryResourceDescriptor, byte[]>>();
 
-            FetchHandlers.Add(BinaryResourceLocationType.Http, HttpFetchHandler);
-            FetchHandlers.Add(BinaryResourceLocationType.RedisDB, RedisDBFetchHandler);
+            FetchHandlers.Add(eBinaryResourceLocationType.Http, HttpFetchHandler);
+            FetchHandlers.Add(eBinaryResourceLocationType.RedisDB, RedisDBFetchHandler);
         }
 
         /// <summary>
@@ -62,24 +61,24 @@ namespace Yodiwo.API.Plegma.Code
         /// 
         /// </summary>
         /// <returns></returns>
-        public static BinaryResourceDescriptor GetDescriptor(byte[] resource, BinaryResourceLocationType locationType, object locationDescriptor)
+        public static BinaryResourceDescriptor CreateDescriptor(byte[] resource, eBinaryResourceLocationType locationType, object locationDescriptor)
         {
             BinaryResourceDescriptor descriptor = new BinaryResourceDescriptor();
 
             try
             {
                 // Construct descriptor
-                if (locationType.Equals(BinaryResourceLocationType.Http))
+                if (locationType.Equals(eBinaryResourceLocationType.Http))
                 {
                     var locDesc = locationDescriptor as HttpLocationDescriptor;
-                    descriptor.LocationDescriptor = new HttpLocationDescriptor { Uri = locDesc.Uri };
+                    descriptor.LocationDescriptorJson = (new HttpLocationDescriptor { Uri = locDesc.Uri }).ToJSON();
 
                     // Use Dropbox's REST API to upload resource
                 }
-                else if (locationType.Equals(BinaryResourceLocationType.RedisDB))
+                else if (locationType.Equals(eBinaryResourceLocationType.RedisDB))
                 {
                     var locDesc = locationDescriptor as RedisDBLocationDescriptor;
-                    descriptor.LocationDescriptor = new RedisDBLocationDescriptor { };
+                    descriptor.LocationDescriptorJson = (new RedisDBLocationDescriptor()).ToJSON();
                 }
             }
             catch (Exception ex)
