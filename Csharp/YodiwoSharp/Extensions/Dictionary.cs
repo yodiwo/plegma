@@ -10,7 +10,7 @@ namespace Yodiwo
         //-----------------------------------------------------------------------------------------------------------------------------------------------------
         public static void AddFromSource<TKey, TValue>(this IDictionary<TKey, TValue> set, IEnumerable<KeyValuePair<TKey, TValue>> source)
         {
-            if (source != null)
+            if (source != null && set != null)
                 foreach (var entry in source)
                     set.ForceAdd(entry.Key, entry.Value);
         }
@@ -20,7 +20,7 @@ namespace Yodiwo
         {
             TValue val;
             DebugEx.Assert(Key != null, "Null key used in dictionary access");
-            if (Key != null && dictionary.TryGetValue(Key, out val))
+            if (dictionary != null && Key != null && dictionary.TryGetValue(Key, out val))
                 return val;
             else
                 return Default;
@@ -32,7 +32,7 @@ namespace Yodiwo
         {
             TValue val;
             DebugEx.Assert(Key != null, "Null key used in dictionary access");
-            if (Key != null && dictionary.TryGetValue(Key, out val))
+            if (dictionary != null && Key != null && dictionary.TryGetValue(Key, out val))
                 return val;
             else
                 return Default;
@@ -44,7 +44,7 @@ namespace Yodiwo
         {
             TValue val;
             DebugEx.Assert(Key != null, "Null key used in dictionary access");
-            if (Key != null && dictionary.TryGetValue(Key, out val))
+            if (dictionary != null && Key != null && dictionary.TryGetValue(Key, out val))
                 return Transform(val);
             else
                 return Default;
@@ -54,6 +54,8 @@ namespace Yodiwo
 
         public static Dictionary<TKey, TValue> Clone<TKey, TValue>(this IDictionary<TKey, TValue> dictionary)
         {
+            if (dictionary == null)
+                return null;
             var ret = new Dictionary<TKey, TValue>(capacity: dictionary.Count);
             try
             {
@@ -70,7 +72,7 @@ namespace Yodiwo
         public static void ForceAdd<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, TValue value)
         {
             DebugEx.Assert(key != null, "Null key used in dictionary access");
-            if (key == null)
+            if (dictionary == null || key == null)
                 return;
             try
             {
@@ -87,7 +89,7 @@ namespace Yodiwo
         public static bool TryAdd<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, TValue value, bool overwrite = false)
         {
             DebugEx.Assert(key != null, "Null key used in dictionary access");
-            if (key == null)
+            if (dictionary == null || key == null)
                 return false;
             try
             {

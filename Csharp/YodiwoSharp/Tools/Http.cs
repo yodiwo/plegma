@@ -18,6 +18,8 @@ namespace Yodiwo.Tools
     {
         public const string UserAgent = "Mozilla/5.0 (compatible; MSIE 6.0; Windows CE)";
 
+        public delegate void ProgressReportDelegate(long download, long total, double percentage);
+
         public struct RequestResult
         {
             public bool IsValid;
@@ -73,88 +75,141 @@ namespace Yodiwo.Tools
 
         public static RequestResult RequestGET(string url)
         {
-            return Request(HttpMethods.Get, url, null, HttpRequestDataFormat.FormData, null, null, null, null);
+            return Request(HttpMethods.Get, url, null, HttpRequestDataFormat.FormData, null, null, null, null, null);
+        }
+
+        public static RequestResult RequestGET(string url, ProgressReportDelegate progressReport)
+        {
+            return Request(HttpMethods.Get, url, null, HttpRequestDataFormat.FormData, null, null, null, null, progressReport);
         }
 
         public static RequestResult RequestGET(string url, ICredentials Credentials)
         {
-            return Request(HttpMethods.Get, url, null, HttpRequestDataFormat.FormData, null, null, Credentials, null);
+            return Request(HttpMethods.Get, url, null, HttpRequestDataFormat.FormData, null, null, Credentials, null, null);
+        }
+
+        public static RequestResult RequestGET(string url, ICredentials Credentials, ProgressReportDelegate progressReport)
+        {
+            return Request(HttpMethods.Get, url, null, HttpRequestDataFormat.FormData, null, null, Credentials, null, progressReport);
         }
 
         public static RequestResult RequestGET(string url, IEnumerable<Cookie> Cookies)
         {
-            return Request(HttpMethods.Get, url, null, HttpRequestDataFormat.FormData, null, Cookies, null, null);
+            return Request(HttpMethods.Get, url, null, HttpRequestDataFormat.FormData, null, Cookies, null, null, null);
+        }
+
+        public static RequestResult RequestGET(string url, IEnumerable<Cookie> Cookies, ProgressReportDelegate progressReport)
+        {
+            return Request(HttpMethods.Get, url, null, HttpRequestDataFormat.FormData, null, Cookies, null, null, progressReport);
         }
 
         public static RequestResult RequestGET(string url, IEnumerable<Cookie> Cookies, ICredentials Credentials)
         {
-            return Request(HttpMethods.Get, url, null, HttpRequestDataFormat.FormData, null, Cookies, Credentials, null);
+            return Request(HttpMethods.Get, url, null, HttpRequestDataFormat.FormData, null, Cookies, Credentials, null, null);
+        }
+
+        public static RequestResult RequestGET(string url, IEnumerable<Cookie> Cookies, ICredentials Credentials, ProgressReportDelegate progressReport)
+        {
+            return Request(HttpMethods.Get, url, null, HttpRequestDataFormat.FormData, null, Cookies, Credentials, null, progressReport);
         }
 
         public static RequestResult RequestGET(string url, Dictionary<string, string> data, IEnumerable<Cookie> Cookies)
         {
-            return Request(HttpMethods.Get, url + "?" + BuildParameters(data), null, HttpRequestDataFormat.Text, null, Cookies, null, null);
+            return Request(HttpMethods.Get, url + "?" + BuildParameters(data), null, HttpRequestDataFormat.Text, null, Cookies, null, null, null);
+        }
+
+        public static RequestResult RequestGET(string url, Dictionary<string, string> data, IEnumerable<Cookie> Cookies, ProgressReportDelegate progressReport)
+        {
+            return Request(HttpMethods.Get, url + "?" + BuildParameters(data), null, HttpRequestDataFormat.Text, null, Cookies, null, null, progressReport);
         }
 
         public static RequestResult RequestGET(string url, Dictionary<string, string> data, IEnumerable<Cookie> Cookies, ICredentials Credentials)
         {
-            return Request(HttpMethods.Get, url + "?" + BuildParameters(data), null, HttpRequestDataFormat.Text, null, Cookies, Credentials, null);
+            return Request(HttpMethods.Get, url + "?" + BuildParameters(data), null, HttpRequestDataFormat.Text, null, Cookies, Credentials, null, null);
+        }
+
+        public static RequestResult RequestGET(string url, Dictionary<string, string> data, IEnumerable<Cookie> Cookies, ICredentials Credentials, ProgressReportDelegate progressReport)
+        {
+            return Request(HttpMethods.Get, url + "?" + BuildParameters(data), null, HttpRequestDataFormat.Text, null, Cookies, Credentials, null, progressReport);
         }
 
         public static RequestResult Request(HttpMethods method, string url, string data, HttpRequestDataFormat dataFormat)
         {
-            return Request(method, url, data, dataFormat, null, null, null, null);
+            return Request(method, url, data, dataFormat, null, null, null, null, null);
         }
 
         public static RequestResult Request(HttpMethods method, string url, string data, HttpRequestDataFormat dataFormat, ICredentials Credentials)
         {
-            return Request(method, url, data, dataFormat, null, null, Credentials, null);
+            return Request(method, url, data, dataFormat, null, null, Credentials, null, null);
         }
 
         public static RequestResult Request(HttpMethods method, string url, string data, HttpRequestDataFormat dataFormat, Dictionary<string, string> headers, IEnumerable<Cookie> Cookies)
         {
-            return Request(method, url, data, dataFormat, headers, Cookies, null, null);
+            return Request(method, url, data, dataFormat, headers, Cookies, null, null, null);
         }
 
         public static RequestResult Request(HttpMethods method, string url, string data, HttpRequestDataFormat dataFormat, Dictionary<string, string> headers, IEnumerable<Cookie> Cookies, ICredentials Credentials)
         {
-            return Request(method, url, data, dataFormat, headers, Cookies, Credentials, null);
+            return Request(method, url, data, dataFormat, headers, Cookies, Credentials, null, null);
         }
 
         public static Task<RequestResult> RequestAsync(HttpMethods method, string url, string data, HttpRequestDataFormat dataFormat, Dictionary<string, string> headers, IEnumerable<Cookie> Cookies, Action<RequestResult> callback)
         {
-            return Task.Run(() => Request(method, url, data, dataFormat, headers, Cookies, null, callback));
+            return Task.Run(() => Request(method, url, data, dataFormat, headers, Cookies, null, callback, null));
+        }
+
+        public static RequestResult RequestPost(string url, string data, HttpRequestDataFormat dataFormat)
+        {
+            return Request(HttpMethods.Post, url, data, dataFormat, null, null, null, null, null);
         }
 
         public static RequestResult RequestPost(string url, string data, HttpRequestDataFormat dataFormat, IEnumerable<Cookie> Cookies)
         {
-            return Request(HttpMethods.Post, url, data, dataFormat, null, Cookies, null, null);
+            return Request(HttpMethods.Post, url, data, dataFormat, null, Cookies, null, null, null);
         }
 
         public static RequestResult RequestPost(string url, string data, HttpRequestDataFormat dataFormat, IEnumerable<Cookie> Cookies, ICredentials Credentials)
         {
-            return Request(HttpMethods.Post, url, data, dataFormat, null, Cookies, Credentials, null);
+            return Request(HttpMethods.Post, url, data, dataFormat, null, Cookies, Credentials, null, null);
         }
 
         public static RequestResult RequestPost(string url, Dictionary<string, string> data, IEnumerable<Cookie> Cookies)
         {
-            return Request(HttpMethods.Post, url, BuildParameters(data), HttpRequestDataFormat.FormData, null, Cookies, null, null);
+            return Request(HttpMethods.Post, url, BuildParameters(data), HttpRequestDataFormat.FormData, null, Cookies, null, null, null);
         }
 
         public static RequestResult RequestPost(string url, Dictionary<string, string> data, IEnumerable<Cookie> Cookies, ICredentials Credentials)
         {
-            return Request(HttpMethods.Post, url, BuildParameters(data), HttpRequestDataFormat.FormData, null, Cookies, Credentials, null);
+            return Request(HttpMethods.Post, url, BuildParameters(data), HttpRequestDataFormat.FormData, null, Cookies, Credentials, null, null);
         }
 
-        public static RequestResult Request(HttpMethods method, string url, string data, HttpRequestDataFormat dataFormat, Dictionary<string, string> headers, IEnumerable<Cookie> Cookies, ICredentials Credentials, Action<RequestResult> callback)
+        public static RequestResult Request(HttpMethods method, string url, string data, HttpRequestDataFormat dataFormat, Dictionary<string, string> headers, IEnumerable<Cookie> Cookies, ICredentials Credentials, Action<RequestResult> callback, ProgressReportDelegate progressReportCallback)
+        {
+            return _Request(method, url, data != null ? Encoding.UTF8.GetBytes(data) : null, dataFormat, headers, Cookies, Credentials, callback, progressReportCallback);
+        }
+
+        public static RequestResult RequestPost(string url, byte[] data, IEnumerable<Cookie> Cookies)
+        {
+            return _Request(HttpMethods.Post, url, data, HttpRequestDataFormat.Binary, null, Cookies, null, null, null);
+        }
+
+        public static RequestResult RequestPost(string url, byte[] data, IEnumerable<Cookie> Cookies, ICredentials Credentials)
+        {
+            return _Request(HttpMethods.Post, url, data, HttpRequestDataFormat.Binary, null, Cookies, Credentials, null, null);
+        }
+
+
+
+
+        private static RequestResult _Request(HttpMethods method, string url, byte[] data, HttpRequestDataFormat dataFormat, Dictionary<string, string> headers, IEnumerable<Cookie> Cookies, ICredentials Credentials, Action<RequestResult> callback, ProgressReportDelegate progressReportCallback)
         {
             //enable protocols
 #if NETFX
 #if __MonoCS__
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls;
+            try{ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls;}catch{}
 #warning WARNING the system is not secure when using only TLS1 !!!! you must use visual studio.
-#else
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
+#elif UNIVERSAL
+            try{ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;} catch{}
 #endif
 #endif
 
@@ -189,8 +244,12 @@ namespace Yodiwo.Tools
             webRequest.PreAuthenticate = true;
             webRequest.ServicePoint.Expect100Continue = false;
 
-            if (!EnvironmentEx.IsRunningOnMono)
+            //collect certificates
+            /*
+            if (!EnvironmentEx.IsRunningOnMono) 
                 webRequest.ClientCertificates = Tools.Certificates.CollectCertificates();
+            */
+
             webRequest.AllowAutoRedirect = true;
             webRequest.MaximumAutomaticRedirections = 10;
             webRequest.AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip | DecompressionMethods.None;
@@ -250,6 +309,16 @@ namespace Yodiwo.Tools
                         case HttpRequestDataFormat.Text:
                             contentType = "mime/text";
                             break;
+                        case HttpRequestDataFormat.Soap:
+                            if (headers.ContainsKey("SoapContent-Type"))
+                            {
+                                contentType = headers["SoapContent-Type"];
+                                webRequest.Headers.Remove("SoapContent-Type");
+                            }
+                            break;
+                        case HttpRequestDataFormat.Binary:
+                            contentType = "application/octet-stream";
+                            break;
                     }
                     webRequest.ContentType = contentType;
 #if NETFX
@@ -257,7 +326,7 @@ namespace Yodiwo.Tools
 #endif
 
                     //write body data
-                    var body_data = Encoding.UTF8.GetBytes(data);
+                    var body_data = data ?? new byte[0];
 #if NETFX
                     webRequest.ContentLength = body_data.Length;
                     using (var stream = webRequest.GetRequestStream())
@@ -331,12 +400,24 @@ namespace Yodiwo.Tools
                         {
                             using (var memStream = new MemoryStream())
                             {
-                                //unzip or just copy to memstream
-                                if (encoding != null && encoding.ToLowerInvariant() == "gzip")
-                                    using (var defStream = new GZipStream(respstream, CompressionMode.Decompress))
-                                        defStream.CopyTo(memStream);
+                                if (progressReportCallback == null)
+                                {
+                                    //unzip or just copy to memstream
+                                    if (encoding != null && encoding.ToLowerInvariant() == "gzip")
+                                        using (var defStream = new GZipStream(respstream, CompressionMode.Decompress))
+                                            defStream.CopyTo(memStream);
+                                    else
+                                        respstream.CopyTo(memStream);
+                                }
                                 else
-                                    respstream.CopyTo(memStream);
+                                {
+                                    //unzip or just copy to memstream
+                                    if (encoding != null && encoding.ToLowerInvariant() == "gzip")
+                                        using (var defStream = new GZipStream(respstream, CompressionMode.Decompress))
+                                            StreamCopy(defStream, memStream, progressReportCallback, response.ContentLength);
+                                    else
+                                        StreamCopy(respstream, memStream, progressReportCallback, response.ContentLength);
+                                }
 
                                 //get bytes
                                 bytes = memStream.ToArray();
@@ -376,23 +457,31 @@ namespace Yodiwo.Tools
             }
         }
 
-        //could have more control over what to return, but for the current use case it's exactly what we need
-#if NETFX
-        public static NameValueCollection GetQueryOrFragmentParameters(string url)
+
+        static void StreamCopy(Stream from, Stream to, ProgressReportDelegate cb, long ContentLength)
         {
-            var parts = url.Split(new[] { '?', '#' });
-            if (parts.Length <= 1)
+            byte[] buffer = new byte[4 * 1024];
+            long totalRead = 0;
+            double invContentLength = ContentLength == 0 ? 0 : 1d / ContentLength;
+            try
             {
-                return new NameValueCollection();
+                while (true)
+                {
+                    if (!from.CanRead)
+                        return;
+                    //copy
+                    var read = from.Read(buffer, 0, buffer.Length);
+                    if (read == 0 || read == -1)
+                        return;
+                    to.Write(buffer, 0, read);
+                    //accumulate and compute percentage
+                    totalRead += read;
+                    double perc = (totalRead * invContentLength).Saturate();
+                    try { cb?.Invoke(totalRead, ContentLength, perc); } catch { cb = null; } //if it causes exception then be gone with it
+                }
             }
-            var nvc = HttpUtility.ParseQueryString(parts[1]);
-            if (parts.Length > 2)
-            {
-                nvc.Add(HttpUtility.ParseQueryString(parts[2]));
-            }
-            return nvc;
+            finally { try { cb?.Invoke(totalRead, ContentLength, 1); } catch { } } //closure
         }
-#endif
 
         public static string BuildParameters(Dictionary<string, string> parameters)
         {

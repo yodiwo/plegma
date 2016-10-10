@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,6 +20,12 @@ namespace Yodiwo
                                                          Environment.OSVersion.Platform == PlatformID.Win32Windows;
 
         public static readonly string UserHomePath;
+#endif
+
+#if NETFX
+        public static readonly string Platform = Environment.OSVersion.Platform.ToString();
+#elif UNIVERSAL
+        public static readonly string Platform = "UWP"; //Universal Windows Platform
 #endif
 
         static EnvironmentEx()

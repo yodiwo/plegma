@@ -24,5 +24,28 @@ namespace Yodiwo
         {
             Task.Delay(delay).Wait();
         }
+
+        public static Task RunSafe(Action action, bool AssertException = true)
+        {
+            return Task.Run(() =>
+            {
+                try { action(); }
+                catch (Exception ex) { if (AssertException) DebugEx.Assert(ex); }
+            });
+        }
+
+        public static Task<T> RunSafe<T>(Func<T> action, bool AssertException = true, T Default = default(T))
+        {
+            return Task.Run(() =>
+            {
+                try { return action(); }
+                catch (Exception ex)
+                {
+                    if (AssertException)
+                        DebugEx.Assert(ex);
+                    return Default;
+                }
+            });
+        }
     }
 }

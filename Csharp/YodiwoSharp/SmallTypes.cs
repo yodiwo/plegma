@@ -27,6 +27,8 @@ namespace Yodiwo
         FormData,
         Text,
         Xml,
+        Soap,
+        Binary,
     }
 
 
@@ -37,4 +39,5 @@ namespace Yodiwo
 
         public static implicit operator Boolean(SimpleActionResult Result) { return Result.IsSuccessful; }
     }
+
 }

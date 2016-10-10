@@ -11,7 +11,7 @@ namespace Yodiwo
     {
         #region Variables
         //------------------------------------------------------------------------------------------------------------------------
-        object locker = new object();
+        protected object locker = new object();
         //------------------------------------------------------------------------------------------------------------------------
         protected Dictionary<TKey, TValue> InternalObject = null;
         //------------------------------------------------------------------------------------------------------------------------
@@ -58,7 +58,7 @@ namespace Yodiwo
 
         #region Functions
         //------------------------------------------------------------------------------------------------------------------------
-        void RebuildCachedCollections()
+        protected void RebuildCachedCollections()
         {
             lock (locker)
             {
@@ -385,6 +385,41 @@ namespace Yodiwo
                 if (InternalObject != null)
                     foreach (var entry in InternalObject)
                         yield return entry;
+        }
+        //------------------------------------------------------------------------------------------------------------------------
+        public TValue TryGetAndRemove(TKey key)
+        {
+            lock (locker)
+            {
+                if (InternalObject == null)
+                    return default(TValue);
+                else
+                {
+                    var ret = InternalObject.TryGetOrDefault(key);
+                    Remove(key);
+                    return ret;
+                }
+            }
+        }
+        //------------------------------------------------------------------------------------------------------------------------
+        public IEnumerable<KeyValuePair<TKey, TValue>> GetAndClear()
+        {
+            lock (locker)
+            {
+                RebuildCachedCollections();
+                var cached = cached_KeyValue == null ? empty_KeyValue : cached_KeyValue;
+                Clear();
+                return cached ?? Enumerable.Empty<KeyValuePair<TKey, TValue>>();
+            }
+        }
+        //-----------------------------------------------------------------------------------------------------------------------------------------------------
+        public DictionaryTS<TKey, TValue> Clone()
+        {
+            lock (locker)
+                if (InternalObject == null)
+                    return new DictionaryTS<TKey, TValue>();
+                else
+                    return new DictionaryTS<TKey, TValue>(InternalObject);
         }
         //------------------------------------------------------------------------------------------------------------------------
         public virtual IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()

@@ -35,7 +35,7 @@ namespace Yodiwo
                 var result = (Target == null | mi.IsStatic)
                     ? Delegate.CreateDelegate(delegateType, mi)
                     : Delegate.CreateDelegate(delegateType, Target, mi);
-#else
+#elif UNIVERSAL
                 var result = (Target == null | mi.IsStatic)
                     ? mi.CreateDelegate(delegateType, null)
                     : mi.CreateDelegate(delegateType, Target);

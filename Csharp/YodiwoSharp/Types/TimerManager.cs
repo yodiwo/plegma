@@ -65,7 +65,14 @@ namespace Yodiwo
             }
 
             //tick handler
-            Task.Run(() => req.Callback(req.UserData));
+            Task.Run(() =>
+            {
+                try
+                {
+                    req.Callback(req.UserData);
+                }
+                catch (Exception ex) { DebugEx.TraceErrorException(ex); }
+            });
         }
         //------------------------------------------------------------------------------------------------------------------------
         /// <summary>

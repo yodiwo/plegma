@@ -224,8 +224,21 @@ namespace Yodiwo
                 return _assemblyCache;
             }
 #elif UNIVERSAL
-            return Enumerable.Empty<Assembly>();
+            return EntryAssemblies;
 #endif
+        }
+        //------------------------------------------------------------------------------------------------------------------------
+        public static IEnumerable<Type> GetAllTypes()
+        {
+            foreach (var asm in TypeCache.GetAssemblies())
+            {
+                Type[] types = null;
+                try { types = asm.GetTypes(); } catch { }
+                if (types != null)
+                    foreach (var t in types)
+                        if (!t.Name.StartsWith("__"))
+                            yield return t;
+            }
         }
         //------------------------------------------------------------------------------------------------------------------------
         public static string StripAssemblies(string name, bool recersive = true)

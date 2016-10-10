@@ -153,11 +153,7 @@ namespace Yodiwo.Tools
             }
             else
             {
-#if NETFX
                 var subfields = originalType.GetFields().Where(sf => !sf.IsStatic);
-#elif UNIVERSAL
-                var subfields = originalType.GetTypeInfo().DeclaredFields.Where(sf => !sf.IsStatic);
-#endif
                 foreach (var sf in subfields)
                 {
                     var suboff = (int)Marshal.OffsetOf(originalType, sf.Name);
@@ -170,11 +166,7 @@ namespace Yodiwo.Tools
 
         public static void To(byte[] data, Type originalType, string fieldName, Endianness endianness)
         {
-#if NETFX
             var fieldInfo = originalType.GetField(fieldName);
-#elif UNIVERSAL
-            var fieldInfo = originalType.GetTypeInfo().GetDeclaredField(fieldName);
-#endif
             To(data, originalType, fieldInfo, endianness);
         }
 

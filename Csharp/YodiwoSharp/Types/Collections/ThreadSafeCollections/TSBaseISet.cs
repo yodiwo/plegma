@@ -206,6 +206,17 @@ namespace Yodiwo
                     yield return entry;
         }
         //------------------------------------------------------------------------------------------------------------------------
+        public IEnumerable<T> GetAndClear()
+        {
+            lock (InternalObject)
+            {
+                RebuildCachedCollections();
+                var cached = cached_Values == null ? empty : cached_Values;
+                Clear();
+                return cached ?? Enumerable.Empty<T>();
+            }
+        }
+        //------------------------------------------------------------------------------------------------------------------------
         public virtual IEnumerator<T> GetEnumerator()
         {
             lock (InternalObject)

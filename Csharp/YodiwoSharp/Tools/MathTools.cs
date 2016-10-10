@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -48,16 +49,19 @@ namespace Yodiwo
         /// 99.99% of the newvalue in 6 frames = 0.01 sec = 10 ms
         /// must be Lerp( oldvale , newvale , LerpSmoothing(..) );
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float LerpSmoothing(float Smoothing, float NormalizedDelta)
         {
             return (float)(1f - Math.Pow(Smoothing.Clamp(0, 1f), NormalizedDelta)).Saturate();
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float LerpSmoothing(float Smoothing, double NormalizedDelta)
         {
             return (float)(1f - Math.Pow(Smoothing.Clamp(0, 1f), NormalizedDelta)).Saturate();
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double LerpSmoothingD(float Smoothing, double NormalizedDelta)
         {
             return (1f - Math.Pow(Smoothing.Clamp(0, 1f), NormalizedDelta)).Saturate();
@@ -65,17 +69,20 @@ namespace Yodiwo
 
         //----------------------------------------------------------------------------------------------------------------------------------------------
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int GetRandomNumber<T>(T[] array)
         {
             return GetRandomNumber(0, array.Length);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int GetRandomNumber()
         {
             lock (objRandom)
                 return objRandom.Next();
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int GetRandomNumber(int Low, int High)
         {
             // Returns a random number,
@@ -86,6 +93,7 @@ namespace Yodiwo
 
         //----------------------------------------------------------------------------------------------------------------------------------------------
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float GetRandomNumber(float Low, float High)
         {
             return Low + GetRandomNumber_Normalized() * (High - Low);
@@ -93,6 +101,7 @@ namespace Yodiwo
 
         //----------------------------------------------------------------------------------------------------------------------------------------------
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool GetRandomBoolean()
         {
             lock (objRandom)
@@ -101,18 +110,21 @@ namespace Yodiwo
 
         //----------------------------------------------------------------------------------------------------------------------------------------------
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static T GetRandomItem<T>(T[] source)
         {
             int index;
             return GetRandomItem<T>(source, out index);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static T GetRandomItem<T>(IList<T> source)
         {
             int index;
             return GetRandomItem<T>(source, out index);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static T GetRandomItem<T>(IReadOnlyList<T> source)
         {
             int index;
@@ -121,6 +133,7 @@ namespace Yodiwo
 
         //----------------------------------------------------------------------------------------------------------------------------------------------
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static T GetRandomItem<T>(IList<T> source, out int Index)
         {
             Index = -1;
@@ -136,6 +149,7 @@ namespace Yodiwo
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static T GetRandomItem<T>(IReadOnlyList<T> source, out int Index)
         {
             Index = -1;
@@ -153,6 +167,7 @@ namespace Yodiwo
 
         //----------------------------------------------------------------------------------------------------------------------------------------------
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static T GetRandomItem<T>(T[] source, out int Index)
         {
             Index = -1;
@@ -201,6 +216,7 @@ namespace Yodiwo
 
         //----------------------------------------------------------------------------------------------------------------------------------------------
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static UInt64 GetRandomNumber64()
         {
             lock (objRandom)
@@ -215,6 +231,7 @@ namespace Yodiwo
 
         //----------------------------------------------------------------------------------------------------------------------------------------------
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float GetRandomNumber_Normalized()
         {
             lock (objRandom)
@@ -227,6 +244,7 @@ namespace Yodiwo
 
         //----------------------------------------------------------------------------------------------------------------------------------------------
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float GetRandomNumber_MinusOne2One()
         {
             lock (objRandom)
@@ -239,6 +257,7 @@ namespace Yodiwo
 
         //----------------------------------------------------------------------------------------------------------------------------------------------
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int PointsToPixels(int points, int dpi = 96)
         {
             return points * 96 / 72;
@@ -246,6 +265,7 @@ namespace Yodiwo
 
         //----------------------------------------------------------------------------------------------------------------------------------------------
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Swap<T>(ref T v1, ref T v2)
         {
             T tmp;
@@ -256,6 +276,7 @@ namespace Yodiwo
 
         //----------------------------------------------------------------------------------------------------------------------------------------------
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float ComputeKineticEnegry(float Velocity, float Mass)
         {
             return 0.5f * Velocity * Velocity * Mass;
@@ -270,11 +291,13 @@ namespace Yodiwo
         public static readonly ReadOnlyList<char> alphaNumeric = new ReadOnlyList<char>(alphabet.Concat(numbers).ToArray());
         public static readonly ReadOnlyList<char> alphaNumericlow = new ReadOnlyList<char>(alphaNumeric.Concat(alphabetLower).ToArray());
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static string GenerateRandomAlphaNumericString(int length, bool useLowCase = true)
         {
             return GenerateRandomString(length, useLowCase ? alphaNumericlow : alphaNumeric);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static string GenerateRandomString(int length, char[] charset)
         {
             var strbld = new StringBuilder(length);
@@ -283,6 +306,7 @@ namespace Yodiwo
             return strbld.ToString();
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static string GenerateRandomString(int length, IReadOnlyList<char> charset)
         {
             var strbld = new StringBuilder(length);

@@ -2,59 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace Yodiwo
 {
     public static partial class Extensions
     {
-        #region Settings
-        static JsonSerializerSettings settingsSafe = new JsonSerializerSettings()
-        {
-            TypeNameHandling = Newtonsoft.Json.TypeNameHandling.None,
-#if NETFX
-            TypeNameAssemblyFormat = System.Runtime.Serialization.Formatters.FormatterAssemblyStyle.Simple,
-#endif
-            StringEscapeHandling = StringEscapeHandling.Default,
-            Formatting = Formatting.None,
-        };
-
-        static JsonSerializerSettings settingsUnsafe = new JsonSerializerSettings()
-        {
-            TypeNameHandling = Newtonsoft.Json.TypeNameHandling.Auto,
-#if NETFX
-            TypeNameAssemblyFormat = System.Runtime.Serialization.Formatters.FormatterAssemblyStyle.Simple,
-#endif
-            StringEscapeHandling = StringEscapeHandling.Default,
-            Formatting = Formatting.None,
-        };
-
-
-        static JsonSerializerSettings settingsHtmlEscapeSafe = new JsonSerializerSettings()
-        {
-            TypeNameHandling = Newtonsoft.Json.TypeNameHandling.None,
-#if NETFX
-            TypeNameAssemblyFormat = System.Runtime.Serialization.Formatters.FormatterAssemblyStyle.Simple,
-#endif
-            StringEscapeHandling = StringEscapeHandling.EscapeHtml,
-            Formatting = Formatting.None,
-        };
-
-        static JsonSerializerSettings settingsHtmlEscapeUnsafe = new JsonSerializerSettings()
-        {
-            TypeNameHandling = Newtonsoft.Json.TypeNameHandling.Auto,
-#if NETFX
-            TypeNameAssemblyFormat = System.Runtime.Serialization.Formatters.FormatterAssemblyStyle.Simple,
-#endif
-            StringEscapeHandling = StringEscapeHandling.EscapeHtml,
-            Formatting = Formatting.None,
-        };
-        #endregion
+        const int MaxDepth = 200;
 
         //----------------------------------------------------------------------------------------------------------------------------------------------
 
         public static string ToJSON(this Object obj, bool HtmlEncode = false)
         {
-            return JsonConvert.SerializeObject(obj, HtmlEncode ? settingsHtmlEscapeUnsafe : settingsUnsafe);
+            return JsonConvert.SerializeObject(obj, HtmlEncode ? createSettings(true, true, null) : createSettings(true, false, null));
         }
 
         public static byte[] ToJSON2(this Object obj, bool HtmlEncode = false)
@@ -65,27 +25,30 @@ namespace Yodiwo
 
         //----------------------------------------------------------------------------------------------------------------------------------------------
 
-        public static object FromJSON(this string json, bool HtmlDecode = false, bool AllowExtendedTypes = false)
+        public static object FromJSON(this string json, bool HtmlDecode = false, bool AllowExtendedTypes = false, HashSet<Type> AllowedTypes = null)
         {
+            if (json == null) return null;
             if (HtmlDecode) json = json.HtmlDecode();
-            return string.IsNullOrEmpty(json) ? null : JsonConvert.DeserializeObject(json, AllowExtendedTypes ? settingsUnsafe : settingsSafe);
+            return string.IsNullOrEmpty(json) ? null : JsonConvert.DeserializeObject(json, AllowExtendedTypes ? createSettingsUnsafe(AllowedTypes) : createSettingsSafe(AllowedTypes));
         }
 
-        public static T FromJSON<T>(this string json, bool HtmlDecode = false, bool AllowExtendedTypes = false)
+        public static T FromJSON<T>(this string json, bool HtmlDecode = false, bool AllowExtendedTypes = false, HashSet<Type> AllowedTypes = null)
         {
+            if (json == null) return default(T);
             if (HtmlDecode) json = json.HtmlDecode();
-            return string.IsNullOrEmpty(json) ? default(T) : JsonConvert.DeserializeObject<T>(json, AllowExtendedTypes ? settingsUnsafe : settingsSafe);
+            return string.IsNullOrEmpty(json) ? default(T) : JsonConvert.DeserializeObject<T>(json, AllowExtendedTypes ? createSettingsUnsafe(AllowedTypes) : createSettingsSafe(AllowedTypes));
         }
 
-        public static object FromJSON(this string json, Type type, bool HtmlDecode = false, bool AllowExtendedTypes = false)
+        public static object FromJSON(this string json, Type type, bool HtmlDecode = false, bool AllowExtendedTypes = false, HashSet<Type> AllowedTypes = null)
         {
+            if (json == null) return null;
             if (HtmlDecode) json = json.HtmlDecode();
-            return string.IsNullOrEmpty(json) ? null : JsonConvert.DeserializeObject(json, type, AllowExtendedTypes ? settingsUnsafe : settingsSafe);
+            return string.IsNullOrEmpty(json) ? null : JsonConvert.DeserializeObject(json, type, AllowExtendedTypes ? createSettingsUnsafe(AllowedTypes) : createSettingsSafe(AllowedTypes));
         }
 
         //----------------------------------------------------------------------------------------------------------------------------------------------
 
-        public static object FromJSON(this byte[] json, bool HtmlDecode = false)
+        public static object FromJSON(this byte[] json, bool HtmlDecode = false, HashSet<Type> AllowedTypes = null)
         {
             if (json == null || json.Length == 0) return null;
 #if NETFX
@@ -94,10 +57,10 @@ namespace Yodiwo
             var str = System.Text.Encoding.UTF8.GetString(json, 0, json.Length);
 #endif
             if (HtmlDecode) str = str.HtmlDecode();
-            return string.IsNullOrEmpty(str) ? null : JsonConvert.DeserializeObject(str, settingsSafe);
+            return string.IsNullOrEmpty(str) ? null : JsonConvert.DeserializeObject(str, createSettingsSafe(AllowedTypes));
         }
 
-        public static T FromJSON<T>(this byte[] json, bool HtmlDecode = false)
+        public static T FromJSON<T>(this byte[] json, bool HtmlDecode = false, HashSet<Type> AllowedTypes = null)
         {
             if (json == null || json.Length == 0) return default(T);
 #if NETFX
@@ -106,7 +69,34 @@ namespace Yodiwo
             var str = System.Text.Encoding.UTF8.GetString(json, 0, json.Length);
 #endif
             if (HtmlDecode) str = str.HtmlDecode();
-            return string.IsNullOrEmpty(str) ? default(T) : JsonConvert.DeserializeObject<T>(str, settingsSafe);
+            return string.IsNullOrEmpty(str) ? default(T) : JsonConvert.DeserializeObject<T>(str, createSettingsSafe(AllowedTypes));
+        }
+
+        //----------------------------------------------------------------------------------------------------------------------------------------------
+
+        static JsonSerializerSettings createSettingsSafe(HashSet<Type> AllowedTypes) { return createSettings(false, false, AllowedTypes); }
+        static JsonSerializerSettings createSettingsUnsafe(HashSet<Type> AllowedTypes) { return createSettings(true, false, AllowedTypes); }
+
+        static JsonSerializerSettings createSettings(bool AllowExtendedTypes, bool HtmlEscape, HashSet<Type> AllowedTypes)
+        {
+#if UNIVERSAL
+            DebugEx.Assert(AllowedTypes == null, "AllowedTypes are not supported yet");
+#endif
+            return new JsonSerializerSettings()
+            {
+                TypeNameHandling = AllowExtendedTypes ? TypeNameHandling.Auto : Newtonsoft.Json.TypeNameHandling.None,
+#if NETFX
+                TypeNameAssemblyFormat = System.Runtime.Serialization.Formatters.FormatterAssemblyStyle.Simple,
+#endif
+                StringEscapeHandling = HtmlEscape ? StringEscapeHandling.EscapeHtml : StringEscapeHandling.Default,
+                Formatting = Formatting.None,
+                MissingMemberHandling = MissingMemberHandling.Ignore,
+                FloatParseHandling = FloatParseHandling.Double,
+                FloatFormatHandling = FloatFormatHandling.String,
+                Culture = System.Globalization.CultureInfo.InvariantCulture,
+                MaxDepth = MaxDepth,
+                AllowedTypes = AllowedTypes,
+            };
         }
 
         //----------------------------------------------------------------------------------------------------------------------------------------------

@@ -131,7 +131,7 @@ namespace Yodiwo
                     BaseStream.Close();
                     BaseStream.Dispose();
                 }
-                catch (Exception ex) { DebugEx.TraceError(ex, "Exception while closing underlying stream"); }
+                catch (Exception ex) { DebugEx.TraceError(ex, "Exception while closing underlying stream", reportIt: false); }
             }
         }
 #elif UNIVERSAL
@@ -145,7 +145,7 @@ namespace Yodiwo
                 {
                     BaseStream.Dispose();
                 }
-                catch (Exception ex) { DebugEx.TraceError(ex, "Exception while closing underlying stream"); }
+                catch (Exception ex) { DebugEx.TraceError(ex, "Exception while closing underlying stream", reportIt: false); }
             }
         }
 #endif
@@ -159,7 +159,7 @@ namespace Yodiwo
                     if (BaseStream != null)
                         BaseStream.Dispose();
                 }
-                catch (Exception ex) { DebugEx.TraceError(ex, "Exception while closing underlying stream"); }
+                catch (Exception ex) { DebugEx.TraceError(ex, "Exception while closing underlying stream", reportIt: false); }
             }
         }
         //------------------------------------------------------------------------------------------------------------------------

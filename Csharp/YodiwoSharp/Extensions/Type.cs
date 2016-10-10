@@ -17,7 +17,7 @@ namespace Yodiwo
                 return type.FullName.Split('`')[0] + "`" + type.GetGenericArguments().Count() + "[" + string.Join(", ", type.GetGenericArguments().Select(x => "[" + Name_Portable(x) + "]").ToArray()) + "]";
 #elif UNIVERSAL
             if (type.GetTypeInfo().IsGenericType)
-                return type.FullName.Split('`')[0] + "`" + type.GetTypeInfo().GenericTypeArguments.Count() + "[" + string.Join(", ", type.GetTypeInfo().GenericTypeArguments.Select(x => "[" + Name_Portable(x) + "]").ToArray()) + "]";
+                return type.FullName.Split('`')[0] + "`" + type.GenericTypeArguments.Length + "[" + string.Join(", ", type.GenericTypeArguments.Select(x => "[" + Name_Portable(x) + "]").ToArray()) + "]";
 #endif
             else
                 return type.FullName;
@@ -32,7 +32,7 @@ namespace Yodiwo
                 return type.FullName.Split('`')[0] + "`" + type.GetGenericArguments().Count() + "[" + string.Join(", ", type.GetGenericArguments().Select(x => "[" + AssemblyQualifiedName_Portable(x) + "]").ToArray()) + "] , " + type.Assembly.GetName().Name;
 #elif UNIVERSAL
             if (type.GetTypeInfo().IsGenericType)
-                return type.FullName.Split('`')[0] + "`" + type.GetTypeInfo().GenericTypeArguments.Count() + "[" + string.Join(", ", type.GetTypeInfo().GenericTypeArguments.Select(x => "[" + AssemblyQualifiedName_Portable(x) + "]").ToArray()) + "] , " + type.GetTypeInfo().Assembly.GetName().Name;
+                return type.FullName.Split('`')[0] + "`" + type.GenericTypeArguments.Length + "[" + string.Join(", ", type.GenericTypeArguments.Select(x => "[" + AssemblyQualifiedName_Portable(x) + "]").ToArray()) + "] , " + type.GetTypeInfo().Assembly.GetName().Name;
 #endif
             else
 #if NETFX
@@ -148,42 +148,51 @@ namespace Yodiwo
 
         public static bool IsList(this Type type)
         {
-#if NETFX
             return typeof(IList).IsAssignableFrom(type)
                     ||
                     (
+#if NETFX
                         type.IsGenericType &&
-                        type.GetGenericTypeDefinition().IsAssignableFrom(typeof(List<>))
-                    );
 #elif UNIVERSAL
-            return typeof(IList).GetTypeInfo().IsAssignableFrom(type.GetTypeInfo())
-                    ||
-                    (
                         type.GetTypeInfo().IsGenericType &&
-                        type.GetGenericTypeDefinition().GetTypeInfo().IsAssignableFrom(typeof(List<>).GetTypeInfo())
-                    );
 #endif
+                        type.GetGenericTypeDefinition() == typeof(List<>)
+                    );
         }
 
         //----------------------------------------------------------------------------------------------------------------------------------------------
 
         public static bool IsDictionary(this Type type)
         {
-#if NETFX
             return typeof(IDictionary).IsAssignableFrom(type)
                     ||
                     (
-                       type.IsGenericType &&
-                       type.GetGenericTypeDefinition().IsAssignableFrom(typeof(Dictionary<,>))
-                    );
+#if NETFX
+                        type.IsGenericType &&
 #elif UNIVERSAL
-            return typeof(IDictionary).GetTypeInfo().IsAssignableFrom(type.GetTypeInfo())
-                    ||
-                    (
-                       type.GetTypeInfo().IsGenericType &&
-                       type.GetGenericTypeDefinition().GetTypeInfo().IsAssignableFrom(typeof(Dictionary<,>).GetTypeInfo())
-                    );
+                        type.GetTypeInfo().IsGenericType &&
 #endif
+                       type.GetGenericTypeDefinition() == typeof(Dictionary<,>)
+                    );
+        }
+
+        //----------------------------------------------------------------------------------------------------------------------------------------------
+
+        public static bool IsInteger(this Type type)
+        {
+            return type == typeof(sbyte) || type == typeof(byte) ||
+                   type == typeof(Int16) || type == typeof(Int32) || type == typeof(Int64) ||
+                   type == typeof(UInt16) || type == typeof(UInt32) || type == typeof(UInt64);
+        }
+
+        public static bool IsDecimal(this Type type)
+        {
+            return type == typeof(float) || type == typeof(double) || type == typeof(decimal);
+
+        }
+        public static bool IsNumber(this Type type)
+        {
+            return type.IsInteger() || type.IsDecimal();
         }
 
         //----------------------------------------------------------------------------------------------------------------------------------------------

@@ -335,11 +335,7 @@ namespace Yodiwo.Tools
             }
             else
             {
-#if NETFX
                 var members = objType.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic).As<MemberInfo>();
-#elif UNIVERSAL
-                var members = objType.GetTypeInfo().DeclaredFields.As<MemberInfo>();
-#endif
                 //members = members.Concat(objType.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic).Where(p => p.CanRead && p.CanWrite && p.GetIndexParameters().Length == 0));
                 //process all fields
                 foreach (var mi in members)

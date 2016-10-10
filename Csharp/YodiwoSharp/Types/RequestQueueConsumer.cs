@@ -20,7 +20,11 @@ namespace Yodiwo
         bool _IsPaused = false;
         public bool IsPaused { get { return _IsPaused; } set { lock (RequestQueue) { _IsPaused = value; if (!value) Monitor.Pulse(RequestQueue); } } }
         //------------------------------------------------------------------------------------------------------------------------
+#if UNIVERSAL
         Task heartbeat;
+#else
+        Thread heartbeat;
+#endif
         //------------------------------------------------------------------------------------------------------------------------
         public delegate void RequestHandlerDelegate(T item);
         RequestHandlerDelegate RequestHandler;
@@ -71,8 +75,15 @@ namespace Yodiwo
                 _IsAlive = true;
 
                 //start heartbeat
-                heartbeat = new Task(HeartBeatEntryPoint);
+#if UNIVERSAL
+                heartbeat = Task.Factory.StartNew((Action)HeartBeatEntryPoint, TaskCreationOptions.LongRunning);
                 heartbeat.Start();
+#else
+                heartbeat = new Thread(HeartBeatEntryPoint);
+                heartbeat.Name = "RQC heartbeat";
+                heartbeat.IsBackground = true;
+                heartbeat.Start();
+#endif
             }
         }
         //------------------------------------------------------------------------------------------------------------------------
@@ -105,7 +116,7 @@ namespace Yodiwo
 
                     //sleepy time
                     if (SpinSleepPeriod > 0)
-                        Task.Delay(SpinSleepPeriod).Wait();
+                        Thread.Sleep(SpinSleepPeriod);
                 }
 
                 //handle it
@@ -128,7 +139,8 @@ namespace Yodiwo
                     DebugEx.Assert(ex, "Unhandled exception caught. Thrown by RequestHandler()");
                     //consume it (eg. drop request)
                     lock (RequestQueue)
-                        RequestQueue.Dequeue();
+                        if (RequestQueue.Count > 0)
+                            RequestQueue.Dequeue();
                 }
             }
         }
@@ -213,7 +225,11 @@ namespace Yodiwo
         {
             try
             {
+#if UNIVERSAL
                 Task _heartbeat = null;
+#else
+                Thread _heartbeat = null;
+#endif
                 lock (RequestQueue)
                 {
                     if (!_IsAlive)
@@ -231,7 +247,13 @@ namespace Yodiwo
                 {
                     //wait for finish
                     if (_heartbeat != null)
+                    {
+#if UNIVERSAL
                         _heartbeat.Wait(5000);
+#else
+                        _heartbeat.Join(5000);
+#endif
+                    }
                 }
                 catch { }
             }

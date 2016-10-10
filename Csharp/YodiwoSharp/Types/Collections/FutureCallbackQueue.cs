@@ -10,7 +10,7 @@ namespace Yodiwo
     /// <summary>
     /// You can use this to enqueue callbacks that will be called(async) at a specific future timestamp
     /// </summary>
-    public class FutureCallbackQueue<T>
+    public class FutureCallbackQueue<T> : IDisposable
     {
         #region Variables
         //------------------------------------------------------------------------------------------------------------------------
@@ -22,17 +22,25 @@ namespace Yodiwo
             public T UserData;
             public TimeSpan SleepTime;
             public DateTime WakeupTimestamp;
+            public bool AsyncCallback;
         }
         HeapPriorityQueue<RequestInfo> RequestQueue = null;
         Dictionary<Int64, RequestInfo> RequestLookup = new Dictionary<Int64, RequestInfo>();
         //------------------------------------------------------------------------------------------------------------------------
+#if NETFX
+        Thread heartbeat;
+#elif UNIVERSAL
         Task heartbeat;
+#endif
         object locker = new object();
         bool isRunning = true;
         //------------------------------------------------------------------------------------------------------------------------
         Int64 _idGen = 0;
         const int MaxSleepMiliseconds = 1 * 60 * 1000;
         const double MaxSleepMilisecondsD = (double)MaxSleepMiliseconds;
+        //------------------------------------------------------------------------------------------------------------------------
+        bool _IsDisposed = false;
+        public bool IsDisposed => _IsDisposed;
         //------------------------------------------------------------------------------------------------------------------------
         #endregion
 
@@ -44,7 +52,14 @@ namespace Yodiwo
             //create priority queue
             RequestQueue = new HeapPriorityQueue<RequestInfo>(QueueSize);
             //start heartbeat
-            heartbeat = Task.Run((Action)HeartBeatEntryPoint);
+#if NETFX
+            heartbeat = new Thread(HeartBeatEntryPoint);
+            heartbeat.Name = "FutureCallbackQueue heartbeat";
+            heartbeat.IsBackground = true;
+            heartbeat.Start();
+#elif UNIVERSAL
+            heartbeat = Task.Factory.StartNew((Action)HeartBeatEntryPoint, TaskCreationOptions.LongRunning);
+#endif
         }
         //------------------------------------------------------------------------------------------------------------------------
         #endregion
@@ -54,53 +69,86 @@ namespace Yodiwo
         //------------------------------------------------------------------------------------------------------------------------
         void HeartBeatEntryPoint()
         {
-            //declares
-            TimeSpan? timeout = null;
-            //spin
-            while (isRunning)
+            try
             {
-                lock (locker)
+                //declares
+                TimeSpan? timeout = null;
+                //spin
+                while (isRunning)
                 {
-                    //check pending requests.. if none the sleep the good sleep
-                    if (RequestQueue.Count == 0)
-                        timeout = TimeSpan.MaxValue; //infinite
-                    else
+                    lock (locker)
                     {
-                        //get first pending request (has smallest wake timestamp)
-                        var req = RequestQueue.First();
-                        //get remaining time
-                        var rem = req.WakeupTimestamp - DateTime.UtcNow;
-                        if (rem.TotalMilliseconds > 0.5d)
-                            timeout = rem;
+                        //check pending requests.. if none the sleep the good sleep
+                        if (RequestQueue.Count == 0)
+                            timeout = TimeSpan.MaxValue; //infinite
                         else
                         {
-                            //consume event
-                            RequestQueue.Dequeue();
-                            RequestLookup.Remove(req.RequestID);
-                            //fire event
-                            if (req.Callback != null)
-                                req.Callback(req.UserData);
-                            else if (req.WeakCallback != null)
-                                req.WeakCallback.Invoke(req.UserData);
+                            //get first pending request (has smallest wake timestamp)
+                            var req = RequestQueue.First();
+                            //get remaining time
+                            var rem = req.WakeupTimestamp - DateTime.UtcNow;
+                            if (rem.TotalMilliseconds > 0.5d)
+                                timeout = rem;
                             else
-                                DebugEx.Assert("Should not be here");
-                            //no timeout..keep spinning
-                            timeout = null;
+                            {
+                                //consume event
+                                RequestQueue.Dequeue();
+                                RequestLookup.Remove(req.RequestID);
+                                //callback
+                                if (req.AsyncCallback)
+                                {
+                                    Task.Run(() =>
+                                    {
+                                        try
+                                        {
+                                            //fire event
+                                            if (req.Callback != null)
+                                                req.Callback(req.UserData);
+                                            else if (req.WeakCallback != null)
+                                                req.WeakCallback.Invoke(req.UserData);
+                                            else
+                                                DebugEx.Assert("FutureCallbackQueue reqId:" + req.RequestID + " has no callback to invoke");
+                                        }
+                                        catch (Exception ex) { DebugEx.Assert(ex, "Unhandled exception in callback caught by FutureCallbackQueue"); }
+                                    });
+                                }
+                                else
+                                {
+                                    //exit lock to fire event
+                                    Monitor.Exit(locker);
+                                    try
+                                    {
+                                        //fire event
+                                        if (req.Callback != null)
+                                            req.Callback(req.UserData);
+                                        else if (req.WeakCallback != null)
+                                            req.WeakCallback.Invoke(req.UserData);
+                                        else
+                                            DebugEx.Assert("FutureCallbackQueue reqId:" + req.RequestID + " has no callback to invoke");
+                                    }
+                                    catch (Exception ex) { DebugEx.Assert(ex, "Unhandled exception in callback caught by FutureCallbackQueue"); }
+                                    finally { Monitor.Enter(locker); }
+                                }
+                                //no timeout..keep spinning
+                                timeout = null;
+                            }
+                        }
+
+                        //sleep/wait manager
+                        if (timeout.HasValue)
+                        {
+                            int _clampedTimeout = (int)timeout.Value.TotalMilliseconds.ClampCeil(MaxSleepMilisecondsD);
+                            Monitor.Wait(locker, _clampedTimeout);
+                            if (!isRunning)
+                                break;
                         }
                     }
-
-                    //sleep/wait manager
-                    if (timeout.HasValue)
-                    {
-                        int _clampedTimeout = (int)timeout.Value.TotalMilliseconds.ClampCeil(MaxSleepMilisecondsD);
-                        Monitor.Wait(locker, _clampedTimeout);
-                    }
-
                 }
             }
+            catch (Exception ex) { DebugEx.TraceError(ex, "FutureCallbackQueue heartbeat failed"); }
         }
         //------------------------------------------------------------------------------------------------------------------------
-        private long _Enqueue(Action<T> Callback, T UserData, TimeSpan SleepTime, DateTime wakeupTimestamp, bool StrongReference)
+        private long _Enqueue(Action<T> Callback, T UserData, TimeSpan SleepTime, DateTime wakeupTimestamp, bool StrongReference, bool AsyncCallback)
         {
             Int64 id = 0;
 
@@ -111,7 +159,8 @@ namespace Yodiwo
                 WeakCallback = null,
                 UserData = UserData,
                 SleepTime = SleepTime,
-                WakeupTimestamp = wakeupTimestamp
+                WakeupTimestamp = wakeupTimestamp,
+                AsyncCallback = AsyncCallback,
             };
 
             //setup callbacks
@@ -147,33 +196,83 @@ namespace Yodiwo
         }
 
         //------------------------------------------------------------------------------------------------------------------------
-        public Int64 Enqueue(Action<T> Callback, T UserData, TimeSpan SleepTime, bool StrongReference = false)
+        public Int64 Enqueue(Action<T> Callback, T UserData, TimeSpan SleepTime, bool StrongReference = false, bool AsyncCallback = true)
         {
             var wakeupTimestamp = DateTime.UtcNow + SleepTime;
 
-            return _Enqueue(Callback, UserData, SleepTime, wakeupTimestamp, StrongReference);
+            return _Enqueue(Callback, UserData, SleepTime, wakeupTimestamp, StrongReference, AsyncCallback);
         }
-
         //------------------------------------------------------------------------------------------------------------------------
-        public Int64 Enqueue(Action<T> Callback, T UserData, DateTime dateTime, bool StrongReference = false)
+        public Int64 Enqueue(Action<T> Callback, T UserData, DateTime dateTime, bool StrongReference = false, bool AsyncCallback = true)
         {
             var sleepTime = dateTime - DateTime.UtcNow;
 
-            return _Enqueue(Callback, UserData, sleepTime, dateTime, StrongReference);
+            return _Enqueue(Callback, UserData, sleepTime, dateTime, StrongReference, AsyncCallback);
         }
-
         //------------------------------------------------------------------------------------------------------------------------
-
+        public bool Cancel(Int64 id)
+        {
+            lock (locker)
+            {
+                var req = RequestLookup.TryGetOrDefault(id);
+                RequestLookup.Remove(id);
+                if (req != null)
+                {
+                    RequestQueue.Remove(req);
+                    Monitor.Pulse(locker);
+                    return true;
+                }
+            }
+            return false;
+        }
+        //------------------------------------------------------------------------------------------------------------------------
         public void Stop()
         {
             lock (locker)
             {
                 isRunning = false;
                 Monitor.Pulse(locker);
-                heartbeat.Wait(1000);
+#if NETFX
+                heartbeat?.Join(1000);
+#elif UNIVERSAL
+                heartbeat?.Wait(1000);
+#endif
+                heartbeat = null;
             }
         }
         //------------------------------------------------------------------------------------------------------------------------
+        public void Dispose()
+        {
+            if (_IsDisposed)
+                return;
+
+            //dispose 
+            try
+            {
+                lock (locker)
+                {
+                    if (_IsDisposed)
+                        return;
+                    else
+                        _IsDisposed = true;
+
+                    //stop it
+                    if (isRunning)
+                        Stop();
+                }
+            }
+            catch (Exception ex) { DebugEx.TraceError(ex, "FutureCallbackQueue dispose failed"); }
+        }
+        //------------------------------------------------------------------------------------------------------------------------
+        ~FutureCallbackQueue()
+        {
+            try
+            {
+                if (!_IsDisposed)
+                    Dispose();
+            }
+            catch (Exception ex) { DebugEx.TraceError(ex, "FutureCallbackQueue destructor failed"); }
+        }
         //------------------------------------------------------------------------------------------------------------------------
         #endregion
     }
@@ -185,8 +284,6 @@ namespace Yodiwo
     /// </summary>
     public class FutureCallbackQueue : FutureCallbackQueue<object>
     {
-        public static readonly FutureCallbackQueue GlobalQueue = new FutureCallbackQueue();
-
         public FutureCallbackQueue(int QueueSize = 100 * 1000) : base(QueueSize: QueueSize) { }
     }
 }

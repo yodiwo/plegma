@@ -10,16 +10,16 @@ namespace Yodiwo
 {
     public static class MessageBox
     {
-        public static IAsyncOperation<IUICommand> Show(string Message)
+        public static async Task Show(string Message)
         {
             var box = new MessageDialog(Message, "Message");
-            return box.ShowAsync();
+            await box.ShowAsync();
         }
 
-        public static IAsyncOperation<IUICommand> Show(string Message, string Title)
+        public static async Task Show(string Message, string Title)
         {
             var box = new MessageDialog(Message, Title);
-            return box.ShowAsync();
+            await box.ShowAsync();
         }
     }
 }

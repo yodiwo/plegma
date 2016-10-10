@@ -45,7 +45,7 @@ namespace Yodiwo
 
         #region Functions
         //--------------------------------------------------------------------------------------------------------------------------------------        
-        public bool AddEventHandler<T>(EventCb<T> cb, int Priority, bool ReceiveDerivedTypeEvents = true)
+        public bool AddEventHandler<T>(EventCb<T> cb, int priority, bool receiveDerivedTypeEvents = true)
         {
             //null check
             if (cb == null)
@@ -64,7 +64,7 @@ namespace Yodiwo
                     allRoutesForType = _ActiveRoutes[evType] = new SortedSetTS<EvHandler>(s_EvHandlerCmp);
 
                 //add to route
-                return allRoutesForType.Add(new EvHandler() { Cb = cb, Priority = Priority, ReceiveDerivedTypeEvents = ReceiveDerivedTypeEvents });
+                return allRoutesForType.Add(new EvHandler() { Cb = cb, Priority = priority, ReceiveDerivedTypeEvents = receiveDerivedTypeEvents });
             }
         }
         //--------------------------------------------------------------------------------------------------------------------------------------        
@@ -159,10 +159,21 @@ namespace Yodiwo
                 evInfo.IsDerivedMatch = true;
             }
         }
+
         //--------------------------------------------------------------------------------------------------------------------------------------        
         public Task TriggerEventAsync<T>(object sender, T ev)
         {
-            return Task.Run(() => _ExecuteHandler(sender, ev));
+#if DEBUG && NETFX
+            string stack = null;
+            try { stack = Environment.StackTrace; } catch { }
+#endif
+            return Task.Run(() =>
+            {
+#if DEBUG && NETFX
+                var daStack = stack;
+#endif
+                _ExecuteHandler(sender, ev);
+            });
         }
         //--------------------------------------------------------------------------------------------------------------------------------------        
         public void TriggerEvent<T>(object sender, T ev)
@@ -280,7 +291,6 @@ namespace Yodiwo
             DebugEx.TraceLog("Total time for " + g + " direct iterations = " + total_direct);
 
 
-            return;
             evr.TriggerEvent<Payload2>(null, new Payload2() { b = "Payload2" });
             evr.TriggerEvent<Payload1>(null, new Payload1() { a = "Payload1", c = "newtest" });
             Task.Delay(3000).Wait();

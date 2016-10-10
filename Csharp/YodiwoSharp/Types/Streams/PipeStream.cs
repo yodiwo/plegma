@@ -191,8 +191,6 @@ namespace Yodiwo
         ///<exception cref="T:System.ArgumentOutOfRangeException">offset or count is negative. </exception><filterpriority>1</filterpriority>
         public override int Read(byte[] buffer, int offset, int count)
         {
-            if (offset != 0)
-                throw new NotSupportedException("Offsets with value of non-zero are not supported");
             if (buffer == null)
                 throw new ArgumentException("Buffer is null");
             if (offset + count > buffer.Length)
@@ -229,7 +227,7 @@ namespace Yodiwo
         private bool ReadAvailable(int count)
         {
             return (Length >= count || mFlushed) &&
-                   (Length >= (count + 1) || !BlockLastReadBuffer);
+                   (Length >= count || !BlockLastReadBuffer);
         }
 
         ///<summary>

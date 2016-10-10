@@ -136,7 +136,7 @@ namespace Yodiwo
         public T Peek()
         {
             lock (InternalObject)
-                return InternalObject.Peek();
+                return InternalObject.Count > 0 ? InternalObject.Peek() : default(T);
         }
         //------------------------------------------------------------------------------------------------------------------------        
         public T[] ToArray()

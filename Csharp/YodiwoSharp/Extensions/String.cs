@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
+using System.Security;
 using System.Text;
-
 
 namespace Yodiwo
 {
@@ -38,12 +39,14 @@ namespace Yodiwo
             return source.IndexOf(toCheck, CaseSensitive ? StringComparison.Ordinal : StringComparison.OrdinalIgnoreCase) >= 0;
         }
         //----------------------------------------------------------------------------------------------------------------------------------------------
-#if NETFX
         public static bool ContainsInvariant(this string source, string toCheck, bool CaseSensitive)
         {
+#if NETFX
             return source.IndexOf(toCheck, CaseSensitive ? StringComparison.InvariantCulture : StringComparison.InvariantCultureIgnoreCase) >= 0;
-        }
+#elif UNIVERSAL
+            return source.IndexOf(toCheck, CaseSensitive ? StringComparison.Ordinal : StringComparison.OrdinalIgnoreCase) >= 0;
 #endif
+        }
         //----------------------------------------------------------------------------------------------------------------------------------------------
         public static bool Contains(this string source, string toCheck, StringComparison comp)
         {
@@ -70,6 +73,16 @@ namespace Yodiwo
                 return "";
             else
                 return value.Remove(value.Length - count);
+        }
+        //----------------------------------------------------------------------------------------------------------------------------------------------
+        public static string RemoveLast(this string value, string toRemove, bool CaseSensitive = true)
+        {
+            if (string.IsNullOrEmpty(value))
+                return value;
+            else if ((CaseSensitive ? value : value.ToUpperInvariant()).EndsWith((CaseSensitive ? toRemove : toRemove.ToUpperInvariant())))
+                return value.RemoveLast(toRemove.Length);
+            else
+                return value;
         }
         //----------------------------------------------------------------------------------------------------------------------------------------------
         public static float ParseToByte(this string value, byte Default = 0)
@@ -255,6 +268,19 @@ namespace Yodiwo
         }
         //----------------------------------------------------------------------------------------------------------------------------------------------
         /// <summary>
+        /// Get clamped-length substring
+        /// </summary>
+        public static string Clamp(this string source, int maxLength, string ClampTail = null)
+        {
+            if (source == null)
+                return null;
+            else if (source.Length <= maxLength)
+                return source;
+            else
+                return source.Substring(0, maxLength) + ClampTail;
+        }
+        //----------------------------------------------------------------------------------------------------------------------------------------------
+        /// <summary>
         /// Left of the n'th occurance of c
         /// </summary>
         /// <param name="source"></param>
@@ -408,16 +434,36 @@ namespace Yodiwo
                 return Convert.ToString(value, System.Globalization.CultureInfo.InvariantCulture);
         }
         //----------------------------------------------------------------------------------------------------------------------------------------------
-#if NETFX
-        public static System.Security.SecureString ToSecureString(this string str)
+        public static SecureString ToSecureString(this string str)
         {
-            var sec = new System.Security.SecureString();
-            foreach (var c in str)
-                sec.AppendChar(c);
-            sec.MakeReadOnly();
-            return sec;
+            if (str == null)
+                return null;
+            else
+            {
+                var sec = new SecureString();
+                foreach (var c in str)
+                    sec.AppendChar(c);
+                sec.MakeReadOnly();
+                return sec;
+            }
         }
+        //----------------------------------------------------------------------------------------------------------------------------------------------
+        public static String SecureStringToString(this SecureString value)
+        {
+            if (value == null)
+                return null;
+#if NETFX
+            IntPtr unmanagedString = IntPtr.Zero;
+            try
+            {
+                unmanagedString = Marshal.SecureStringToGlobalAllocUnicode(value);
+                return Marshal.PtrToStringUni(unmanagedString);
+            }
+            finally { Marshal.ZeroFreeGlobalAllocUnicode(unmanagedString); }
+#elif UNIVERSAL
+            return value?._value;
 #endif
+        }
         //----------------------------------------------------------------------------------------------------------------------------------------------
         public static IEnumerable<int> AllIndexesOf(this string str, string value)
         {

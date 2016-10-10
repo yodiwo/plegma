@@ -1,20 +1,27 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
-using System.Reflection;
+using System.Net;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Yodiwo
 {
     public static partial class Extensions
     {
         //----------------------------------------------------------------------------------------------------------------------------------------------
-
-        public static Type GetEnumUnderlyingType(this Type enumType)
+#if NETFX
+        public static string ToStringEx(this StackFrame f)
         {
-            return Enum.GetUnderlyingType(enumType);
+            var msg = "at " + f.GetMethod();
+            if (!string.IsNullOrEmpty(f.GetFileName()))
+            {
+                msg += "(file: " + f.GetFileName() + ":" + f.GetFileLineNumber() + ")";
+            }
+            return msg;
         }
-
+#endif
         //----------------------------------------------------------------------------------------------------------------------------------------------
     }
 }

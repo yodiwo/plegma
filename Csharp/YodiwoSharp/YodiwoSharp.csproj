@@ -97,7 +97,11 @@
     <Compile Include="Types\Collections\ReadOnlyArray.cs" />
     <Compile Include="Types\Collections\ReadOnlyDictionary.cs" />
     <Compile Include="Types\Collections\ReadOnlyList.cs" />
+    <Compile Include="Types\DBAttributes.cs" />
     <Compile Include="Types\MqttTopicNode.cs" />
+    <Compile Include="Types\SmallTypes\EventRouterBasicTypes.cs" />
+    <Compile Include="Types\SmallTypes\Markup.cs" />
+    <Compile Include="Types\SmallTypes\YIncident.cs" />
     <Compile Include="Types\Streams\StatisticsStream.cs" />
     <Compile Include="Types\TimerManager.cs" />
     <Compile Include="Types\Collections\ThreadSafeCollections\QueueTS.cs" />

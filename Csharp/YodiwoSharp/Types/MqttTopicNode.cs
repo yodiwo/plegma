@@ -136,7 +136,7 @@ namespace Yodiwo
             return false;
         }
         //------------------------------------------------------------------------------------------------------------------------
-        public ISet<TKey> GetKeys(string topic)
+        public ISet<TKey> GetKeysSet(string topic)
         {
             //check
             if (string.IsNullOrWhiteSpace(topic))
@@ -147,6 +147,19 @@ namespace Yodiwo
 
             //recursive find
             return _GetKeys(elements, 0).ToHashSet();
+        }
+        //------------------------------------------------------------------------------------------------------------------------
+        public IEnumerable<TKey> GetKeys(string topic)
+        {
+            //check
+            if (string.IsNullOrWhiteSpace(topic))
+                return new List<TKey>();
+
+            //break topic apart
+            var elements = splitTopic(topic);
+
+            //recursive find
+            return _GetKeys(elements, 0);
         }
         //------------------------------------------------------------------------------------------------------------------------
         IEnumerable<TKey> _GetKeys(string[] elements, int index)

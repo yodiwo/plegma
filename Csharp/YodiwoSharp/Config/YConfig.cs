@@ -19,11 +19,10 @@ namespace Yodiwo
         [JsonIgnore]
         public string Filename;
 
-
-        public YConfigBase(string fname) { this.Filename = fname; }
+        public YConfigBase(string fname) { this.Filename = FindFile(fname); }
         public YConfigBase() : this(null) { }
 
-        public abstract bool Retrieve();
+        public abstract bool Retrieve(Func<string, string> PreProccessContent = null);
         public abstract bool Save();
 
         public static int GetActiveID(string confTxt)
@@ -38,6 +37,38 @@ namespace Yodiwo
             json[nameof(YConfigBase.ActiveID)] = newID;
             return json.ToString();
         }
+
+        static string FindFile(string fname)
+        {
+            //default filename
+            if (string.IsNullOrWhiteSpace(fname))
+                return null;
+
+            //check if exists
+            if (File.Exists(fname))
+                return fname;
+
+            try
+            {
+                //find current assembly dir
+                string asmdir = null;
+#if !UNIVERSAL
+                try { asmdir = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location); } catch { }
+#endif
+                //check if conf file exists under the current assembly dir
+                if (asmdir != null && File.Exists(Path.Combine(asmdir, fname)))
+                    return Path.Combine(asmdir, fname);
+#if !UNIVERSAL
+                else if (File.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, fname)))
+                    return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, fname);
+                else if (File.Exists(Path.Combine(Environment.CurrentDirectory, fname)))
+                    return Path.Combine(Environment.CurrentDirectory, fname);
+#endif
+                else
+                    return fname;
+            }
+            catch { return fname; }
+        }
     }
 
     public class YConfig<T> : YConfigBase where T : IYConfigEntry
@@ -50,12 +81,13 @@ namespace Yodiwo
         public YConfig() : base() { }
         public YConfig(string fname) : base(fname) { }
 
-        public override bool Retrieve()
+        public override bool Retrieve(Func<string, string> PreProccessContent = null)
         {
             if (string.IsNullOrWhiteSpace(this.Filename))
                 return false;
 
-            var yconfig = Retrieve(this.Filename);
+            //check paths
+            var yconfig = Retrieve(this.Filename, PreProccessContent: PreProccessContent);
             if (yconfig != null && yconfig.IsValid)
             {
                 ActiveID = yconfig.ActiveID;
@@ -65,7 +97,7 @@ namespace Yodiwo
             return false;
         }
 
-        private static YConfig<T> Retrieve(string filename)
+        private static YConfig<T> Retrieve(string filename, Func<string, string> PreProccessContent = null)
         {
             if (string.IsNullOrWhiteSpace(filename))
                 return null;
@@ -79,14 +111,16 @@ namespace Yodiwo
                 var ss = new Tools.StorageService(false);
                 var content = ss.LoadFile(filename).GetResults();
 #endif
+                if (PreProccessContent != null)
+                    content = PreProccessContent(content);
                 //deserialize into List of Configurations and pick the active one
                 return content.FromJSON<YConfig<T>>();
             }
             catch (Exception ex)
             {
                 DebugEx.TraceLog("Failed to read config file : " + ex.Message);
+                return null;
             }
-            return null;
         }
 
         public override bool Save()
@@ -112,9 +146,9 @@ namespace Yodiwo
             }
         }
 
-        public T GetActiveConf()
+        public T GetActiveConf(string confid = null)
         {
-            return (T)this.Configs[this.ActiveID];
+            return (T)this.Configs[(confid != null) ? confid : this.ActiveID];
         }
 
         public void AddActiveConf(string Name, T cfg)

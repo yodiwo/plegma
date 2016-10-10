@@ -11,39 +11,53 @@ namespace Yodiwo.Tools
     {
         static object locker = new object();
         static X509CertificateCollection cached_Certificates;
-        static DateTime cache_Certificate_timestamp;
+        static DateTime cache_Certificate_timestamp = default(DateTime);
 
         public static X509CertificateCollection CollectCertificates()
         {
             lock (locker)
             {
-                if (cached_Certificates == null || (DateTime.Now - cache_Certificate_timestamp).TotalSeconds > 100)
+                //check cache
+                if (cached_Certificates == null || (DateTime.Now - cache_Certificate_timestamp).TotalSeconds > 30)
                 {
                     var certs = new X509CertificateCollection();
 
+                    //collect auth root store certs
                     try
                     {
                         //open auth root store
-                        X509Store authstore = new X509Store(StoreName.AuthRoot);
-                        authstore.Open(OpenFlags.ReadOnly);
+                        var store = new X509Store(StoreName.AuthRoot);
+                        store.Open(OpenFlags.ReadOnly);
 
+                        //collect
+                        certs.AddFromSource(store.Certificates);
+
+                        //close
+                        store.Close();
+                    }
+                    catch (Exception ex) { DebugEx.Assert(ex, "Could not collect certificates"); }
+
+                    //collect personal store
+                    try
+                    {
                         //open personal store
-                        var mystore = new X509Store(StoreName.My);
-                        mystore.Open(OpenFlags.ReadOnly);
+                        var store = new X509Store(StoreName.My);
+                        store.Open(OpenFlags.ReadOnly);
 
                         //collect certs                
-                        certs.AddFromSource(authstore.Certificates);
-                        certs.AddFromSource(mystore.Certificates);
+                        certs.AddFromSource(store.Certificates);
 
                         //close stores
-                        mystore.Close();
-                        authstore.Close();
+                        store.Close();
                     }
                     catch (Exception ex) { DebugEx.Assert(ex, "Could not collect certificates"); }
 
                     //cache for future use
                     cached_Certificates = certs;
+                    cache_Certificate_timestamp = DateTime.Now;
                 }
+
+                //return cached certs
                 return cached_Certificates;
             }
         }
