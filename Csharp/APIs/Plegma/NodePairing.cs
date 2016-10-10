@@ -15,7 +15,6 @@ namespace Yodiwo.API.Plegma.NodePairing
 
         public const string PairingRootURI = "pairing";
         public const string UserConfirmPageURI = "userconfirm";
-        public const string UserConfirmFullURI = PairingRootURI + "/" + UserConfirmPageURI;
 
         //Literal API names
         public const string s_GetTokensRequest = "gettokensreq";
@@ -65,7 +64,9 @@ namespace Yodiwo.API.Plegma.NodePairing
         public string image;
         public string description;
         public string pathcss;
+        public string PairingCompletionInstructions;
         public byte[] PublicKey;
+        public bool NoUUIDAuthentication;
     }
 
     public class PairingNodeGetKeysRequest
@@ -82,7 +83,7 @@ namespace Yodiwo.API.Plegma.NodePairing
         }
     }
 
-    public class PairingServerTokensResponse
+    public class PairingServerTokensResponse : GenericRsp
     {
         public string token1;
         public string token2;
@@ -96,7 +97,7 @@ namespace Yodiwo.API.Plegma.NodePairing
         }
     }
 
-    public class PairingServerKeysResponse
+    public class PairingServerKeysResponse : GenericRsp
     {
         public string nodeKey;
         public string secretKey;

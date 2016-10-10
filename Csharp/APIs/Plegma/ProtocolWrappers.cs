@@ -93,6 +93,8 @@ namespace Yodiwo.API.Plegma
             Pairing = 1,
             /// <summary> Plegma API message </summary>
             Api = 2,
+            /// <summary> Warlock API message </summary>
+            Warlock = 3,
         }
     }
 
@@ -106,6 +108,18 @@ namespace Yodiwo.API.Plegma
     /// </summary>
     public class MqttMsg : WrapperMsg
     {
+    }
+
+    #endregion
+
+    #region GCM
+
+    /// <summary>
+    /// Gcm message encapsulation class.
+    /// </summary>
+    public class GcmMsg : WrapperMsg
+    {
+        public string PayloadType;
     }
 
     #endregion

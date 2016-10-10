@@ -15,20 +15,17 @@ namespace Yodiwo.API.Plegma
     /// <summary>
     /// Base class of an API message, from which all message classes inherit
     /// </summary>
-    public abstract class ApiMsg
+    [Newtonsoft.Json.JsonSafeType()]
+    [Serializable]
+    public abstract class PlegmaApiMsg : Yodiwo.API.ApiMsg
     {
-        /// <summary>
-        /// Sequence number of this message
-        /// </summary>
-        public int SeqNo;
-
-        /// <summary>
-        /// API Message constructor
-        /// </summary>
-        public ApiMsg() { }
     }
 
-    public class GenericRsp : ApiMsg
+    /// <summary>
+    /// General Response to request-type messages. Used to unblock requests waiting for responses that are of basic ACKnowledge type
+    /// </summary>
+    [Serializable]
+    public class GenericRsp : PlegmaApiMsg
     {
         /// <summary> Indicate that the requested action was successful or not  </summary>
         public bool IsSuccess;
@@ -39,6 +36,9 @@ namespace Yodiwo.API.Plegma
         /// <summary> An optional message for the result </summary>
         public string Message;
 
+        /// <summary>
+        /// Generic response constructor
+        /// </summary>
         public GenericRsp() { }
     }
     #endregion
@@ -51,7 +51,8 @@ namespace Yodiwo.API.Plegma
     /// to be used only for transports that require explicit authentication via the API itself
     /// Direction: Cloud to Node
     /// </summary>
-    public class LoginReq : ApiMsg
+    [Serializable]
+    public class LoginReq : PlegmaApiMsg
     {
         /// <summary>
         /// constructor for login request
@@ -70,7 +71,8 @@ namespace Yodiwo.API.Plegma
     {
         None = 0,
         CreateNewEndpoint = 1 << 0,
-        IsMasterEndpoint = 1 << 1
+        IsMasterEndpoint = 1 << 1,
+        KillExistingNodeLinks = 1 << 2
     }
 
     /// <summary>
@@ -79,7 +81,8 @@ namespace Yodiwo.API.Plegma
     /// to be used only for transports that require explicit authentication via the API itself
     /// Direction: Node to Cloud
     /// </summary>
-    public class LoginRsp : ApiMsg
+    [Serializable]
+    public class LoginRsp : PlegmaApiMsg
     {
         /// <summary>
         /// NodeKey of Node
@@ -135,10 +138,14 @@ namespace Yodiwo.API.Plegma
         TestEndpoint,
         WSEndpoint,
         Android,
+        iOS,
+        SmartThingsEndPoint,
 
         //Samples
         WSSample = 200,
-        //XXX = 201
+        RestSample,
+        Virtual
+        //XXX = 202
     };
 
     /// <summary>
@@ -152,11 +159,17 @@ namespace Yodiwo.API.Plegma
 
         /// <summary>Node supports graph solving</summary>
         SupportsGraphSolving = 1 << 0,
+
+        /// <summary>Node supports scanning for new Things (i.e. Things are not just fixed at initial setup)</summary>
+        Scannable = 1 << 1,
+
+        /// <summary>Node supports the Warlock API</summary>
+        IsWarlock = 1 << 2,
     }
 
     #region Node Thing Type defs
-
-    public class StateDescription
+    [Serializable]
+    public class StateDescription       //oh: StateDescription
     {
         /// <summary>
         /// Minimum value
@@ -183,9 +196,11 @@ namespace Yodiwo.API.Plegma
         /// </summary>
         public ePortType Type;
     }
+
     /// <summary>
     /// Describes restrictions and gives information of a configuration parameter.
     /// </summary>
+    [Serializable]
     public class ConfigDescription
     {
         /// <summary>
@@ -229,10 +244,12 @@ namespace Yodiwo.API.Plegma
         /// </summary>
         public bool ReadOnly;
     }
+
     /// <summary>
     /// Describes restrictions and gives information of a port <see cref="Port"/>.
     /// </summary>
-    public class PortDescription
+    [Serializable]
+    public class PortDescription            //oh:  ChannelDefinition
     {
         /// <summary>
         /// Human readable description for this port (can be null)
@@ -254,10 +271,16 @@ namespace Yodiwo.API.Plegma
         /// Describes the state of this port<see cref="StateDescription"/>
         /// </summary>
         public StateDescription State;
+        /// <summary>
+        /// Describes the semantics of this port
+        /// </summary>
+        public string Semantics;
     }
+
     /// <summary>
     /// Base class that describes a Model of a Thing <see cref="Thing"/>
     /// </summary>
+    [Serializable]
     public class ThingModelType
     {
         /// <summary>
@@ -279,11 +302,13 @@ namespace Yodiwo.API.Plegma
         /// <summary>
         /// Describes the port(s) of this model<see cref="PortDescription"/>
         /// </summary>
-        public PortDescription[] Port;
+        public Dictionary<string, PortDescription> Ports;
     }
+
     /// <summary>
     /// Base class that describes a group of Thing Models <see cref="ThingModelType"/>
     /// </summary>
+    [Serializable]
     public class ThingType : IEquatable<ThingType>
     {
         /// <summary>
@@ -301,7 +326,7 @@ namespace Yodiwo.API.Plegma
         /// <summary>
         /// Describes the model(s) of this group<see cref="ThingModelType"/>
         /// </summary>
-        public ThingModelType[] Model;
+        public Dictionary<string, ThingModelType> Models;
 
         #region Equality
 
@@ -349,7 +374,8 @@ namespace Yodiwo.API.Plegma
     /// <para>Direction: Cloud->Node</para>
     /// <para>Node must reply with a <see cref="NodeInfoRsp"/></para>
     /// </summary>
-    public class NodeInfoReq : ApiMsg
+    [Serializable]
+    public class NodeInfoReq : PlegmaApiMsg
     {
         /// <summary>
         /// Informs of latest Plegma API Revision
@@ -391,7 +417,8 @@ namespace Yodiwo.API.Plegma
     /// <para>Direction: bidirectional (Node->Cloud and Cloud->Node)</para>
     /// In response to a <see cref="NodeInfoReq"/>
     /// </summary>
-    public class NodeInfoRsp : ApiMsg
+    [Serializable]
+    public class NodeInfoRsp : PlegmaApiMsg
     {
         /// <summary>
         /// Friendly name of responding Node
@@ -429,6 +456,21 @@ namespace Yodiwo.API.Plegma
         public string[] BlockLibraries;
 
         /// <summary>
+        /// Additional transient info that the node chooses to provide at each connection
+        /// This is shown / used by Workers, but is not save in any database
+        /// Allowed to be null / empty
+        /// </summary>
+        public Dictionary<string, string> TransientInfo;
+
+        /// <summary>
+        /// Additional non-transient info that the node chooses to provide
+        /// This is shown / used by Workers, and it is saved in the User Context database
+        /// Existing keys will get their values updated. Unknown keys are created.
+        /// Allowed to be null / empty
+        /// </summary>
+        public Dictionary<string, string> AdditionalInfo;
+
+        /// <summary>
         /// Node Info Response constructor
         /// </summary>
         public NodeInfoRsp()
@@ -453,6 +495,7 @@ namespace Yodiwo.API.Plegma
     /// <summary>
     /// Reason for Node Unpairing
     /// </summary>
+    [Serializable]
     public enum eUnpairReason : byte
     {
         /// <summary> Unknown Reason </summary>
@@ -469,7 +512,8 @@ namespace Yodiwo.API.Plegma
     /// Unpairing request, stating reason code and a possible custom message
     /// Direction: Cloud->Node
     /// </summary>
-    public class NodeUnpairedReq : ApiMsg
+    [Serializable]
+    public class NodeUnpairedReq : PlegmaApiMsg
     {
         /// <summary> Reason code of unpairing </summary>
         public eUnpairReason ReasonCode;
@@ -493,12 +537,6 @@ namespace Yodiwo.API.Plegma
         }
     }
 
-    /// <summary>
-    /// Unpairing Response. 
-    /// Allowed to be empty, exists to make sure that node does receive message before being forcefully disconnected
-    /// </summary>
-    public class NodeUnpairedRsp : ApiMsg { }
-
     #endregion
 
     #region EndpointSyncReq/Rsp
@@ -506,6 +544,7 @@ namespace Yodiwo.API.Plegma
     /// <summary>
     /// type of sync operation requested
     /// </summary>
+    [Serializable]
     public enum eNodeSyncOperation
     {
         /// <summary>
@@ -523,7 +562,8 @@ namespace Yodiwo.API.Plegma
     /// Endpoint Sync request, providing way for individual Node Links to become aware / influence Node operation
     /// Direction: Node(link) -> Cloud
     /// </summary>
-    public class EndpointSyncReq : ApiMsg
+    [Serializable]
+    public class EndpointSyncReq : PlegmaApiMsg
     {
         /// <summary>
         /// type of sync operation requested
@@ -555,7 +595,8 @@ namespace Yodiwo.API.Plegma
     /// Endpoint Sync response to previous request
     /// Direction: Cloud -> Node(link)
     /// </summary>
-    public class EndpointSyncRsp : ApiMsg
+    [Serializable]
+    public class EndpointSyncRsp : PlegmaApiMsg
     {
         /// <summary>
         /// operation being replied to
@@ -637,7 +678,8 @@ namespace Yodiwo.API.Plegma
     /// </para>
     /// <para>Direction: bidirectional (Node->Cloud and Cloud->Node)</para>
     /// </summary>
-    public class ThingsGet : ApiMsg
+    [Serializable]
+    public class ThingsGet : PlegmaApiMsg
     {
         /// <summary>
         /// Identifier of the operation requested; see <see cref="eThingsOperation"/>
@@ -645,10 +687,15 @@ namespace Yodiwo.API.Plegma
         public eThingsOperation Operation;
 
         /// <summary>
-        /// <see cref="ThingKey"/> of the <see cref="Thing"/> that this request refers to. If left null (invalid ThingKey)
-        /// then this operation refers to all of the Node's Things
+        /// [DEPRECATED] replaced by the more generic <see cref="ThingsGet.Key"/>
         /// </summary>
         public string ThingKey;
+
+        /// <summary>
+        /// String key that this request refers to (normally of type <see cref="Yodiwo.API.Plegma.ThingKey"/>).
+        /// If left null/empty then this operation refers to all of the Node's Things
+        /// </summary>
+        public string Key;
 
         /// <summary>
         /// Things revision number of sender; 0 if not available or applicable
@@ -661,6 +708,8 @@ namespace Yodiwo.API.Plegma
         public ThingsGet()
             : base()
         {
+            //handle backwards compatibility
+            this.ThingKey = this.Key;
         }
 
         /// <summary>
@@ -673,19 +722,21 @@ namespace Yodiwo.API.Plegma
         }
     }
 
+
     /// <summary>
     /// Node Things Response
-    /// Response to a <see cref="ThingsReq"/> request
+    /// Response to a <see cref="ThingsSet"/> request
     /// <para>
-    /// a ThingsRsp message should have:
-    ///  - <see cref="ThingsRsp.Operation"/> set to ThingReq's operation
-    ///  - <see cref="ThingsRsp.Status"/> set to True if ThingsReq was successfully handled and this Msg has valid data, False otherwise
-    ///  - if <see cref="ThingsRsp.Status"/> is True, <see cref="ThingsRsp.Data"/> set to correspond to requested Req's operation, set to Null otherwise. 
-    ///    <see cref="ThingsRsp.Data"/> is allowed to be null if originally requested operation does not expect back data, only status
+    /// a ThingsSet message should have:
+    ///  - <see cref="ThingsSet.Operation"/> set to ThingReq's operation
+    ///  - <see cref="ThingsSet.Status"/> set to True if ThingsGet was successfully handled and this Msg has valid data, False otherwise
+    ///  - if <see cref="ThingsSet.Status"/> is True, <see cref="ThingsSet.Data"/> set to correspond to requested Req's operation, set to Null otherwise. 
+    ///    <see cref="ThingsSet.Data"/> is allowed to be null if originally requested operation does not expect back data, only status
     /// </para>
     /// <para>Direction: bidirectional (Node->Cloud and Cloud->Node)</para>
     /// </summary>
-    public class ThingsSet : ApiMsg
+    [Serializable]
+    public class ThingsSet : PlegmaApiMsg
     {
         /// <summary>
         /// Identifier of this message's operation of type <see cref="eThingsOperation"/>
@@ -724,9 +775,8 @@ namespace Yodiwo.API.Plegma
     /// <summary>
     /// Node Ping Request
     /// </summary>
-
-
-    public class PingReq : ApiMsg
+    [Serializable]
+    public class PingReq : PlegmaApiMsg
     {
         /// <summary> A random number to verify the response </summary>
         public int Data;
@@ -743,7 +793,8 @@ namespace Yodiwo.API.Plegma
 
     // -------------------------------------------------------------------------------
 
-    public class PingRsp : ApiMsg
+    [Serializable]
+    public class PingRsp : PlegmaApiMsg
     {
         /// <summary> The data from the ping request </summary>
         public int Data;
@@ -770,6 +821,7 @@ namespace Yodiwo.API.Plegma
     /// <summary>
     /// Port Event class: used to describe a new event that should trigger an endpoint, either towards a node or the Cloud Services
     /// </summary>
+    [Serializable]
     public class PortEvent
     {
         /// <summary>
@@ -818,7 +870,8 @@ namespace Yodiwo.API.Plegma
     /// The main API message to exchange events between Nodes and the Yodiwo Cloud Service
     /// <para>Direction: bidirectional (Node->Cloud and Cloud->Node)</para>
     /// </summary>
-    public class PortEventMsg : ApiMsg
+    [Serializable]
+    public class PortEventMsg : PlegmaApiMsg
     {
         /// <summary>
         /// Array of <see cref="PortEvent"/> messages
@@ -862,6 +915,7 @@ namespace Yodiwo.API.Plegma
     /// <summary>
     /// VirtualBlock Event class: used to describe a new event that should trigger a virtual block endpoint, either towards a node or the Cloud Services
     /// </summary>
+    [Serializable]
     public class VirtualBlockEvent
     {
         /// <summary>
@@ -890,7 +944,8 @@ namespace Yodiwo.API.Plegma
     /// The main API message to exchange events between Nodes and the Yodiwo Cloud Service
     /// <para>Direction: bidirectional (Node->Cloud and Cloud->Node)</para>
     /// </summary>
-    public class VirtualBlockEventMsg : ApiMsg
+    [Serializable]
+    public class VirtualBlockEventMsg : PlegmaApiMsg
     {
         /// <summary>
         /// Array of <see cref="PortEvent"/> messages
@@ -937,7 +992,7 @@ namespace Yodiwo.API.Plegma
     #region Port state management
 
     /// <summary>
-    /// Allowed operations in <see cref="PortStateReq"/> messages
+    /// Allowed operations in <see cref="PortStateGet"/> messages
     /// </summary>
     public enum ePortStateOperation
     {
@@ -952,10 +1007,11 @@ namespace Yodiwo.API.Plegma
     }
 
     /// <summary>
-    /// Port State Request. Will result in a response of type <see cref="PortStateRsp"/>
+    /// Port State Request. Will result in a response of type <see cref="PortStateSet"/>
     /// <para>Direction: node->cloud</para>
     /// </summary>
-    public class PortStateReq : ApiMsg
+    [Serializable]
+    public class PortStateGet : PlegmaApiMsg
     {
         /// <summary>Type of operation requested</summary>
         public ePortStateOperation Operation;
@@ -967,7 +1023,7 @@ namespace Yodiwo.API.Plegma
         public String[] PortKeys;
 
         /// <summary>Port update request constructor</summary>
-        public PortStateReq()
+        public PortStateGet()
             : base()
         {
         }
@@ -975,7 +1031,7 @@ namespace Yodiwo.API.Plegma
         /// <summary>Port update request constructor with seq.number</summary>
         /// </summary>
         /// <param name="seqNo">sequence number of this message</param>
-        public PortStateReq(int seqNo)
+        public PortStateGet(int seqNo)
             : this()
         {
             this.SeqNo = seqNo;
@@ -989,6 +1045,7 @@ namespace Yodiwo.API.Plegma
     /// <summary>
     /// internal state of a referenced Port
     /// </summary>
+    [Serializable]
     public class PortState
     {
         /// <summary>
@@ -1040,7 +1097,8 @@ namespace Yodiwo.API.Plegma
     /// Should be used to 1. supress events from inactive ports, allowing more efficient use of medium, 2. sync Port states with the server
     /// <para>Direction: Cloud -> Node</para>
     /// </summary>
-    public class PortStateRsp : ApiMsg
+    [Serializable]
+    public class PortStateSet : PlegmaApiMsg
     {
         /// <summary>Type of operation responding to</summary>
         public ePortStateOperation Operation;
@@ -1051,7 +1109,7 @@ namespace Yodiwo.API.Plegma
         public PortState[] PortStates;
 
         /// <summary>Port update message constructor</summary>
-        public PortStateRsp()
+        public PortStateSet()
             : base()
         {
         }
@@ -1069,7 +1127,8 @@ namespace Yodiwo.API.Plegma
     /// Should be used by Nodes to supress events from inactive ports, allowing more efficient use of medium
     /// <para>Direction: Cloud -> Node</para>
     /// </summary>
-    public class ActivePortKeysMsg : ApiMsg
+    [Serializable]
+    public class ActivePortKeysMsg : PlegmaApiMsg
     {
         /// <summary>
         /// Array of portkeys of currently active Ports
@@ -1095,7 +1154,7 @@ namespace Yodiwo.API.Plegma
 
         public override string ToString()
         {
-            return "PortEventBatchMsg {" + ActivePortKeys == null ? "null" : string.Join<String>(",  ", ActivePortKeys) + "}";
+            return "ActivePortKeysMsg {" + ActivePortKeys == null ? "null" : string.Join<String>(",  ", ActivePortKeys) + "}";
         }
     }
 
@@ -1108,7 +1167,8 @@ namespace Yodiwo.API.Plegma
     /// <summary>
     /// Inform server for local deployed graphs (to sync up on connect)
     /// </summary>
-    public class LocallyDeployedGraphsMsg : ApiMsg
+    [Serializable]
+    public class LocallyDeployedGraphsMsg : PlegmaApiMsg
     {
         /// <summary> DeployedGraphKeys </summary>
         public string[] DeployedGraphKeys;
@@ -1117,7 +1177,8 @@ namespace Yodiwo.API.Plegma
     /// <summary>
     /// Node Graph Deploy/Undeploy Request (respond with <see cref="GenericRsp"/>)
     /// </summary>
-    public class GraphDeploymentReq : ApiMsg
+    [Serializable]
+    public class GraphDeploymentReq : PlegmaApiMsg
     {
         /// <summary> GraphKey </summary>
         public string GraphKey;
@@ -1134,6 +1195,7 @@ namespace Yodiwo.API.Plegma
     #region A2MCU / A2mcu API Messages
 
     // -------------------------------------------------------------------------------
+    [Serializable]
     public class A2mcuActiveDriver
     {
         public string BlockKey;
@@ -1143,21 +1205,25 @@ namespace Yodiwo.API.Plegma
         public A2mcuSequencedCommands Deinit;
     }
 
-    public class A2mcuActiveDriversReq : ApiMsg
+    [Serializable]
+    public class A2mcuActiveDriversReq : PlegmaApiMsg
     {
         public A2mcuActiveDriver[] ActiveDrivers;
     }
     // -------------------------------------------------------------------------------
+    [Serializable]
     public abstract class A2mcuConcurrent
     {
 
     }
 
+    [Serializable]
     public class A2mcuConcurrentCommands : A2mcuConcurrent
     {
         public IEnumerable<A2mcuCtrl> CtrlMsgs;
     }
 
+    [Serializable]
     public class A2mcuSequencedCommands
     {
         public IEnumerable<A2mcuConcurrent> Seq;
@@ -1169,6 +1235,7 @@ namespace Yodiwo.API.Plegma
         SetValue = 1,
         WriteDriconf = 2,
     }
+    [Serializable]
     public class A2mcuCtrl : A2mcuConcurrent
     {
         public eA2mcuCtrlType Type;
@@ -1177,9 +1244,41 @@ namespace Yodiwo.API.Plegma
         public object Data;
     }
 
-    public class A2mcuCtrlReq : ApiMsg
+    [Serializable]
+    public class A2mcuCtrlReq : PlegmaApiMsg
     {
         public A2mcuCtrl[] CtrlMsgs;
+    }
+
+    #endregion
+
+
+    #region GCM specific messages Messages
+
+    /// <summary>
+    /// GCM connection message
+    /// send by a GCM client to indicate that it can be reached over GCM
+    /// This is also used by the server to create the NodeKey - (GCM) Registration Id association, and authenticate Registration Ids
+    /// </summary>
+    [Serializable]
+    public class GcmConnectionMsg
+    {
+        /// <summary> NodeKey </summary>
+        public string NodeKey;
+
+        /// <summary> Registration Id issued by the GCM connection server </summary>
+        public string RegistrationId;
+    }
+
+    /// <summary>
+    /// GCM connection message
+    /// send by a GCM client to indicate that it can no longer be reached over GCM
+    /// </summary>
+    [Serializable]
+    public class GcmDisconnectionMsg
+    {
+        /// <summary> Registration Id issued by the GCM connection server </summary>
+        public string RegistrationId;
     }
 
     #endregion

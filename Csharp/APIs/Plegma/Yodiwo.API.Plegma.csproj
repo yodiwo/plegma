@@ -44,17 +44,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApiMsg.cs" />
     <Compile Include="Attributes.cs" />
     <Compile Include="AudioApi.cs" />
+    <Compile Include="BinaryResourceDescriptor.cs" />
     <Compile Include="CommonMedia.cs" />
+    <Compile Include="I2CCommand.cs" />
+    <Compile Include="IncidentDescriptor.cs" />
     <Compile Include="Keys.cs" />
+    <Compile Include="PortStateSemantics.cs" />
     <Compile Include="ProtocolWrappers.cs" />
     <Compile Include="Others.cs" />
     <Compile Include="Port.cs" />
     <Compile Include="Constants.cs" />
-    <Compile Include="BinaryResourceDescriptor.cs" />
     <Compile Include="Thing.cs" />
     <Compile Include="Public.cs" />
+    <Compile Include="ThingTypeModelLibrary.cs" />
     <Compile Include="ThingTypes.cs" />
     <Compile Include="PlegmaAPI.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

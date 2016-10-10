@@ -11,15 +11,21 @@ namespace Yodiwo.API.Plegma
     /// <summary>
     /// Configuration parameters for the thing in generic name-value pairs
     /// </summary>
+    [Serializable]
     public struct ConfigParameter
     {
+        /// <summary>Name of configuration parameter</summary>
         public string Name;
+        /// <summary>Value of configuration parameter</summary>
         public string Value;
+        /// <summary>Description and usage guidelines of configuration parameter</summary>
+        public string Description;
     }
 
     /// <summary>
     /// Collection of instructions ("hints") for how to present this thing in the Cyan UI
     /// </summary>
+    [Serializable]
     public struct ThingUIHints
     {
         /// <summary>URI of icon to show in Cyan for this thing</summary>
@@ -32,6 +38,7 @@ namespace Yodiwo.API.Plegma
     /// <summary>
     /// Main representation of a Thing that can interact with the Yodiwo cloud service
     /// </summary>
+    [Serializable]
     public class Thing
     {
         #region Fields/Properties
@@ -46,9 +53,14 @@ namespace Yodiwo.API.Plegma
         public string Name;
 
         /// <summary>
-        /// list of vendor provided configuration parameters
+        /// list of vendor provided configuration parameters (changeable by the user)
         /// </summary>
         public List<ConfigParameter> Config;
+
+        /// <summary>
+        /// list of vendor provided read-only information
+        /// </summary>
+        public List<ConfigParameter> ReadonlyInfo;
 
         /// <summary>
         /// list of ports (inputs / outputs) that this Thing implements
@@ -65,7 +77,7 @@ namespace Yodiwo.API.Plegma
         /// It can be left null if this Thing is to be modeled by the default Cyan UI blocks
         /// In this case Output-type Ports are gathered and represented as a Cyan UI Input Thing (thing->cloud events)
         /// and Input-type Ports are gathered and represented as a Cyan UI Output Thing (cloud->thing events)
-        /// Both event directions occur via the <see cref="PortEventMsg"/> and <see cref="PortEventBatchMsg"/> messages
+        /// Both event directions occur via the <see cref="PortEventMsg"/> messages
         /// </summary>
         public string BlockType;
 
@@ -75,15 +87,28 @@ namespace Yodiwo.API.Plegma
         public bool Removable;
 
         /// <summary>
+        /// Specifies a uri to which the cloud will post messages in case an RX-incapable node is connected.
+        /// Can be used as a return path for REST api. May be left null or empty.
+        /// </summary>
+        public string RESTUri;
+
+        /// <summary>
+        /// Specifies the Thing's hierarchy(ies) within the node's modeled ecosystem.
+        /// Each entry specifies a hierarchical view (separated by '/') of the Thing's position in the User's ecosystem of devices
+        /// May be left null or empty.
+        /// </summary>
+        public List<string> Hierarchies;
+
+        /// <summary>
         /// Hints for the UI system
         /// </summary>
         public ThingUIHints UIHints;
 
-
-        /// <summary> Helper (not part of thing description) </summary>
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         [NonSerialized]
-        [Newtonsoft.Json.JsonIgnore]
-        public object Tag;
+        public object Ything;
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+
         #endregion
 
         #region Constructors
@@ -93,6 +118,7 @@ namespace Yodiwo.API.Plegma
             this.ThingKey = key;
             this.Ports = ports;
             this.Config = new List<ConfigParameter>();
+            this.ReadonlyInfo = new List<ConfigParameter>();
         }
 
         public Thing(string uid, List<Port> ports, NodeKey nodeKey)
@@ -133,16 +159,20 @@ namespace Yodiwo.API.Plegma
         }
 
 
-        public virtual void Update(Thing incomingThing)
+        public virtual void Update(Thing incomingThing, bool UpdatePortStates = true)
         {
             DebugEx.Assert(this.ThingKey == incomingThing.ThingKey || ((ThingKey)this.ThingKey).IsInvalid, "Incompatible Things");
 
             this.ThingKey = incomingThing.ThingKey;
             this.Name = incomingThing.Name;
-            this.Config = incomingThing.Config.ToList();
+            this.Config = incomingThing.Config?.ToList();
+            this.ReadonlyInfo = incomingThing.ReadonlyInfo?.ToList();
             this.Type = incomingThing.Type;
             this.BlockType = incomingThing.BlockType;
+            this.Removable = incomingThing.Removable;
+            this.RESTUri = incomingThing.RESTUri;
             this.UIHints = incomingThing.UIHints;
+            this.Hierarchies = incomingThing.Hierarchies;
 
             lock (this)
             {
@@ -151,7 +181,12 @@ namespace Yodiwo.API.Plegma
                 {
                     var port = this.GetPort(p.PortKey);
                     if (port != null)
-                        port.Update(p);
+                    {
+                        if (UpdatePortStates)
+                            port.Update(p);
+                        else
+                            port.Update_Except_States(p);
+                    }
                     else
                         this.Ports.Add(p.DeepClone());
                 }
@@ -175,14 +210,66 @@ namespace Yodiwo.API.Plegma
             return newThing;
         }
 
+        public string GetConfigValue(string confName)
+        {
+            var cp = Config.GetConfigParam(confName);
+            return cp.Name == confName ? cp.Value : null;
+        }
+
+        public bool SetConfigValue(string confName, string value)
+        {
+            var removed = Config.RemoveAll(n => n.Name == confName);
+            if (removed != 0)
+            {
+                Config.Add(new ConfigParameter() { Value = value, Name = confName });
+            }
+            return removed != 0;
+        }
+
+        public string GetReadOnlyValue(string roName)
+        {
+            var cp = this.ReadonlyInfo.GetConfigParam(roName);
+            return cp.Name == roName ? cp.Value : null;
+        }
+
         public override string ToString()
         {
-            string str = "Key=" + this.ThingKey;
+            string str = "Key=" + this.ThingKey + " (" + Name + ")";
             foreach (var p in this.Ports)
                 str += " /port " + p;
             return str;
         }
 
+
+        public bool IsSameType(Thing thing)
+        {
+            if (!String.IsNullOrWhiteSpace(Type) && Type != thing.Type)
+                return false;
+
+            if (Ports.Count != thing.Ports.Count)
+                return false;
+
+            foreach (var pkv in thing.Ports)
+            {
+                // build the right PortKey
+                PortKey thingPortKey = PortKey.BuildFromArbitraryString(thing.ThingKey, ((PortKey)pkv.PortKey).PortUID);
+                Port Port = thing.GetPort(thingPortKey);
+                if (Port == null)
+                    DebugEx.Assert("could not find Port for pkey: " + thingPortKey);
+                if (Port.Type != pkv.Type)
+                    return false;
+            }
+            return true;
+        }
+
         #endregion
+    }
+
+    public static class ThingExtensions
+    {
+        public static ConfigParameter GetConfigParam(this IEnumerable<ConfigParameter> source, string confName)
+        {
+            return source.FirstOrDefault(n => n.Name == confName);
+        }
     }
 }

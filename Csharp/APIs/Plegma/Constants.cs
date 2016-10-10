@@ -8,6 +8,9 @@ namespace Yodiwo.API.Plegma
     {
         public const int YPChannelPort = 14623;
         public const string InvalidKeyString = "(Invalid Key)";
+
+        public const string ExtIpAddressKey = "ExternalIP";
+        public const string IntIpAddressKey = "InternalIP";
     }
 
     public static class A2mcuConfigConstants

@@ -19,6 +19,7 @@ namespace Yodiwo.API.Plegma
 #if NETFX
     [TypeConverter(typeof(UserKeyConverter))]
 #endif
+    [Serializable]
     public struct UserKey : IEquatable<UserKey>, IFillFromString
     {
         public /*readonly*/ string UserID;
@@ -39,6 +40,10 @@ namespace Yodiwo.API.Plegma
         public bool IsValid { get { return !string.IsNullOrEmpty(UserID) && UserID.Length >= MinUserIDLength && UserID.Length <= MaxUserIDLength && Validators.ValidateKey(UserID); } }
         [JsonIgnore]
         public bool IsInvalid { get { return !IsValid; } }
+
+        [JsonIgnore]
+        public static string BroadcastKey { get { return PlegmaAPI.BroadcastToken; } }
+
 
         #region Conversion to/from string key
 
@@ -170,6 +175,7 @@ namespace Yodiwo.API.Plegma
 #if NETFX
     [TypeConverter(typeof(NodeKeyConverter))]
 #endif
+    [Serializable]
     public struct NodeKey : IEquatable<NodeKey>, IFillFromString
     {
         public /*readonly*/ UserKey UserKey;
@@ -190,12 +196,15 @@ namespace Yodiwo.API.Plegma
         public const int MaxKeyLength = UserKey.MaxKeyLength + 1 + MaxNodeIDLength;
 
         [JsonIgnore]
-        public bool IsValid { get { return NodeID != default(uint) && UserKey.IsValid; } }
+        public bool IsValid { get { return NodeID != default(uint) && NodeID <= int.MaxValue && UserKey.IsValid; } }
         [JsonIgnore]
         public bool IsInvalid { get { return !IsValid; } }
 
         [JsonIgnore]
-        public const uint CloudId = uint.MaxValue;
+        public bool IsVirtual { get { return this.NodeID == CloudId; } }
+
+        [JsonIgnore]
+        public const int CloudId = int.MaxValue; //mongo cannot handle uint.max (convert.toInt32 causes overflow)
 
         #region Conversion to/from string key
 
@@ -216,6 +225,9 @@ namespace Yodiwo.API.Plegma
                 try
                 {
                     var key_separator = stringValue.LastIndexOf(PlegmaAPI.KeySeparator);
+                    if (key_separator == -1)
+                        return default(NodeKey);
+
                     var ret = new NodeKey(stringValue.Substring(0, key_separator), uint.Parse(stringValue.Substring(key_separator + 1)));
                     return ret.IsValid ? ret : default(NodeKey);
                 }
@@ -404,6 +416,7 @@ namespace Yodiwo.API.Plegma
 #if NETFX
     [TypeConverter(typeof(ThingKeyConverter))]
 #endif
+    [Serializable]
     public struct ThingKey : IEquatable<ThingKey>, IFillFromString
     {
         public /*readonly*/ NodeKey NodeKey;
@@ -414,6 +427,8 @@ namespace Yodiwo.API.Plegma
         [JsonIgnore]
         public bool IsInvalid { get { return !IsValid; } }
 
+        [JsonIgnore]
+        public bool IsVirtual { get { return this.NodeKey.NodeID == NodeKey.CloudId; } }
 
         #region Constructors
         public ThingKey(NodeKey nodeKey, string thingId)
@@ -435,7 +450,6 @@ namespace Yodiwo.API.Plegma
 
         public ThingKey(string str) { this = str; }
         #endregion
-
 
         #region Spike sub keys
         [JsonIgnore]
@@ -523,9 +537,14 @@ namespace Yodiwo.API.Plegma
                     try
                     {
                         var key_separator = stringValue.LastIndexOf(PlegmaAPI.KeySeparator);
-                        ret = new ThingKey(stringValue.Substring(0, key_separator), stringValue.Substring(key_separator + 1));
-                        //checks
-                        ret = ret.IsValid ? ret : default(ThingKey);
+                        if (key_separator == -1)
+                            ret = default(ThingKey);
+                        else
+                        {
+                            ret = new ThingKey(stringValue.Substring(0, key_separator), stringValue.Substring(key_separator + 1));
+                            //checks
+                            ret = ret.IsValid ? ret : default(ThingKey);
+                        }
                     }
                     catch { ret = default(ThingKey); }
                     cache_String2Key.ForceAdd(stringValue, ret);
@@ -534,9 +553,9 @@ namespace Yodiwo.API.Plegma
             }
         }
 
-        public static string BuildFromArbitraryString(string nodeKey, int subNodeId, uint spikeId)
+        public static string BuildFromArbitraryString(string nodeKey, string thingUIDPrefix, int subNodeId, uint spikeId)
         {
-            return nodeKey + PlegmaAPI.KeySeparator + subNodeId.ToStringInvariant() + SpikeSeparator + spikeId.ToStringInvariant();
+            return nodeKey + PlegmaAPI.KeySeparator + thingUIDPrefix + subNodeId.ToStringInvariant() + SpikeSeparator + spikeId.ToStringInvariant();
         }
 
         public static string BuildFromArbitraryString(string nodeKey, string ThingUID)
@@ -650,6 +669,7 @@ namespace Yodiwo.API.Plegma
 #if NETFX
     [TypeConverter(typeof(PortKeyConverter))]
 #endif
+    [Serializable]
     public struct PortKey : IEquatable<PortKey>, IFillFromString
     {
         public /*readonly*/ ThingKey ThingKey;
@@ -687,6 +707,9 @@ namespace Yodiwo.API.Plegma
                     try
                     {
                         var key_separator = stringValue.LastIndexOf(PlegmaAPI.KeySeparator);
+                        if (key_separator == -1)
+                            return default(PortKey);
+
                         ret = new PortKey(stringValue.Substring(0, key_separator), stringValue.Substring(key_separator + 1));
                         //checks
                         ret = ret.IsValid ? ret : default(PortKey);
@@ -699,7 +722,13 @@ namespace Yodiwo.API.Plegma
         }
         public static string BuildFromArbitraryString(string thingKey, string PortUID)
         {
-            return thingKey + PlegmaAPI.KeySeparator + PortUID.ToStringInvariant();
+            DebugEx.Assert(PortUID?.Contains(PlegmaAPI.KeySeparator) != true, $"PortUID {PortUID} cannot contain {PlegmaAPI.KeySeparator}");
+            return thingKey + PlegmaAPI.KeySeparator + PortUID.Replace(PlegmaAPI.KeySeparator, '_').ToStringInvariant();
+        }
+        public static string BuildFromArbitraryString(string nodekey, string thingUID, string PortUID)
+        {
+            DebugEx.Assert(PortUID?.Contains(PlegmaAPI.KeySeparator) != true, $"PortUID {PortUID} cannot contain {PlegmaAPI.KeySeparator}");
+            return nodekey + PlegmaAPI.KeySeparator + thingUID + PlegmaAPI.KeySeparator + PortUID.Replace(PlegmaAPI.KeySeparator, '_').ToStringInvariant();
         }
 
         public void FillFromString(string input)
@@ -816,6 +845,7 @@ namespace Yodiwo.API.Plegma
     #endregion
 
     #region GraphDescriptorBaseKey (no versioning)
+    [Serializable]
     public struct GraphDescriptorBaseKey : IEquatable<GraphDescriptorBaseKey>, IFillFromString
     {
         public  /*readonly*/ UserKey UserKey;
@@ -943,6 +973,7 @@ namespace Yodiwo.API.Plegma
 #if NETFX
     [TypeConverter(typeof(GraphDescriptorKeyConverter))]
 #endif
+    [Serializable]
     public struct GraphDescriptorKey : IEquatable<GraphDescriptorKey>
     {
         public  /*readonly*/ GraphDescriptorBaseKey BaseKey;
@@ -1089,6 +1120,7 @@ namespace Yodiwo.API.Plegma
 #if NETFX
     [TypeConverter(typeof(GraphKeyConverter))]
 #endif
+    [Serializable]
     public struct GraphKey : IEquatable<GraphKey>, IFillFromString
     {
         public  /*readonly*/ GraphDescriptorKey GraphDescriptorKey;
@@ -1233,6 +1265,10 @@ namespace Yodiwo.API.Plegma
     /// <summary>
     /// Globally unique identifier of a <see cref="Graph"/>'s <see cref="Block"/>
     /// </summary>
+#if NETFX
+    [TypeConverter(typeof(BlockKeyConverter))]
+#endif
+    [Serializable]
     public struct BlockKey : IEquatable<BlockKey>, IFillFromString
     {
         public  /*readonly*/ GraphKey GraphKey;
@@ -1377,6 +1413,7 @@ namespace Yodiwo.API.Plegma
 #if NETFX
     [TypeConverter(typeof(GroupKeyConverter))]
 #endif
+    [Serializable]
     public struct GroupKey : IEquatable<GroupKey>, IFillFromString
     {
         public /*readonly*/ UserKey UserKey;
@@ -1547,6 +1584,7 @@ namespace Yodiwo.API.Plegma
     /// <summary>
     /// Globally unique identifier of a <see cref="Graph"/>'s <see cref="Block"/>
     /// </summary>
+    [Serializable]
     public struct DriverKey : IEquatable<DriverKey>, IFillFromString
     {
         public eDriverType Type;
@@ -1684,4 +1722,314 @@ namespace Yodiwo.API.Plegma
 
     #endregion
 
+    #region UserApiKey
+    /// <summary>
+    /// Globally unique identifier of an Api Key (<see cref="ApiKeyInfo"/>)
+    /// </summary>
+#if NETFX
+    [TypeConverter(typeof(ApiKeyConverter))]
+#endif
+    [Serializable]
+    public struct UserApiKey
+    {
+        public UserKey Userkey;
+        public string ApiUID;
+
+        public UserApiKey(UserKey userkey, string apiUID)
+        {
+            this.Userkey = userkey;
+            this.ApiUID = apiUID;
+        }
+
+        public UserApiKey(string userid, string apiUID)
+        {
+            this.Userkey = new UserKey(userid);
+            this.ApiUID = apiUID;
+        }
+
+        [JsonIgnore]
+        public bool IsValid { get { return !String.IsNullOrEmpty(ApiUID) && Userkey.IsValid; } }
+        [JsonIgnore]
+        public bool IsInvalid { get { return !IsValid; } }
+
+        #region Implicit conversion to/from string key
+        public static implicit operator string(UserApiKey key)
+        {
+            return key.ToString();
+        }
+
+        public static implicit operator UserApiKey(string str)
+        {
+            return ConvertFromString(str);
+        }
+
+        public static UserApiKey ConvertFromString(string stringValue)
+        {
+            if (string.IsNullOrWhiteSpace(stringValue) || !Validators.ValidateKey(stringValue))
+            {
+                return default(UserApiKey);
+            }
+            else
+            {
+                try
+                {
+                    var key_separator_idx = stringValue.LastIndexOf(PlegmaAPI.KeySeparator);
+                    if (key_separator_idx == -1)
+                    {
+                        return default(UserApiKey);
+                    }
+
+                    var ret = new UserApiKey(stringValue.Substring(0, key_separator_idx), stringValue.Substring(key_separator_idx + 1));
+                    return ret.IsValid ? ret : default(UserApiKey);
+                }
+                catch (Exception ex)
+                {
+                    DebugEx.Assert(ex);
+                    return default(UserApiKey);
+                }
+            }
+        }
+
+        public void FillFromString(string input)
+        {
+            var key = ConvertFromString(input);
+            Userkey = key.Userkey;
+            ApiUID = key.ApiUID;
+        }
+
+        public override string ToString()
+        {
+            if (IsInvalid)
+                return Constants.InvalidKeyString;
+            else
+                return Userkey.ToString() + PlegmaAPI.KeySeparator + ApiUID.ToStringInvariant();
+        }
+
+        #endregion
+
+        #region Equality
+        public bool Equals(UserApiKey other)
+        {
+            return Equals(ref other);
+        }
+
+        public bool Equals(ref UserApiKey other)
+        {
+            return Userkey == other.Userkey && ApiUID == other.ApiUID;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (!(obj is UserApiKey)) return false;
+            return Equals((UserApiKey)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            int hash = 0;
+            hash = (hash * 397) ^ Userkey.GetHashCode();
+            hash = (hash * 397) ^ ApiUID?.GetHashCode() ?? 0;
+            return hash;
+        }
+
+        public static bool operator ==(UserApiKey left, UserApiKey right) { return left.Equals(ref right); }
+        public static bool operator !=(UserApiKey left, UserApiKey right) { return !left.Equals(ref right); }
+        #endregion
+    }
+
+    #region Converters
+#if NETFX
+    public class ApiKeyConverter : TypeConverter
+    {
+        public override object ConvertFrom(ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value)
+        {
+            if (value == null)
+                return null;
+
+            if (value is string)
+                return UserApiKey.ConvertFromString(value as string);
+            else
+                return base.ConvertFrom(context, culture, value);
+        }
+
+        public override object ConvertTo(ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value, Type destinationType)
+        {
+            if (value == null || destinationType == null)
+                return null;
+
+            if (destinationType == typeof(string))
+                return ((UserApiKey)value).ToString();
+            else
+                return base.ConvertTo(context, culture, value, destinationType);
+        }
+
+        public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
+        {
+            if (destinationType == typeof(string))
+                return true;
+            else
+                return base.CanConvertTo(context, destinationType);
+        }
+
+        public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
+        {
+            if (sourceType == typeof(string))
+                return true;
+            else
+                return base.CanConvertFrom(context, sourceType);
+        }
+    }
+#endif
+    #endregion
+
+    #endregion
+
+    #region BinaryResourceDescriptorKey
+
+    /// <summary>
+    /// Globally unique identifier of a <see cref="BinaryResourceDescriptor"/>
+    /// </summary>
+#if NETFX
+    [TypeConverter(typeof(BinaryResourceDescriptorKeyConverter))]
+#endif
+    [Serializable]
+    public struct BinaryResourceDescriptorKey : IEquatable<BinaryResourceDescriptorKey>, IFillFromString
+    {
+        public /*readonly*/ UserKey UserKey;
+        public /*readonly*/ string Id;
+
+        //public GroupKey(string userId, int groupId) { this.UserKey = new UserKey(userId); this.GroupID = groupId; }
+        public BinaryResourceDescriptorKey(UserKey userKey, string id) { this.UserKey = userKey; this.Id = id; }
+        //public GroupKey(string str) { this = str; }
+
+        [JsonIgnore]
+        public bool IsValid { get { return Id != default(string) && UserKey.IsValid; } }
+        [JsonIgnore]
+        public bool IsInvalid { get { return !IsValid; } }
+
+        #region Conversion to/from string key
+
+        public static implicit operator BinaryResourceDescriptorKey(string str)
+        {
+            return ConvertFromString(str);
+        }
+        public static implicit operator string(BinaryResourceDescriptorKey key)
+        {
+            return key.ToString();
+        }
+
+        public static BinaryResourceDescriptorKey ConvertFromString(string stringValue)
+        {
+            if (string.IsNullOrWhiteSpace(stringValue) || !Validators.ValidateKey(stringValue))
+                return default(BinaryResourceDescriptorKey);
+            else
+                try
+                {
+                    var key_separator = stringValue.LastIndexOf(PlegmaAPI.KeySeparator);
+                    var ret = new BinaryResourceDescriptorKey(stringValue.Substring(0, key_separator), stringValue.Substring(key_separator + 1));
+                    return ret.IsValid ? ret : default(BinaryResourceDescriptorKey);
+                }
+                catch
+                {
+                    return default(BinaryResourceDescriptorKey);
+                }
+        }
+
+        public void FillFromString(string input)
+        {
+            var key = ConvertFromString(input);
+            UserKey = key.UserKey;
+            Id = key.Id;
+        }
+
+        public override string ToString()
+        {
+            if (IsInvalid)
+                return Constants.InvalidKeyString;
+            else
+                return UserKey.ToString() + PlegmaAPI.KeySeparator + Id.ToStringInvariant();
+        }
+        #endregion
+
+        public string ToStringEx()
+        {
+            return "BRDKey:{" + UserKey + Id.ToStringInvariant() + "}";
+        }
+
+        #region Equality
+        public bool Equals(BinaryResourceDescriptorKey other)
+        {
+            return Equals(ref other);
+        }
+
+        public bool Equals(ref BinaryResourceDescriptorKey other)
+        {
+            return UserKey == other.UserKey && Id == other.Id;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (!(obj is BinaryResourceDescriptorKey)) return false;
+            return Equals((BinaryResourceDescriptorKey)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            int hash = 0;
+            hash = (hash * 397) ^ UserKey.GetHashCode();
+            hash = (hash * 397) ^ (Id == null ? 0 : Id.GetHashCode());
+            return hash;
+        }
+
+        public static bool operator ==(BinaryResourceDescriptorKey left, BinaryResourceDescriptorKey right) { return left.Equals(ref right); }
+        public static bool operator !=(BinaryResourceDescriptorKey left, BinaryResourceDescriptorKey right) { return !left.Equals(ref right); }
+        #endregion
+    }
+
+    #region Converters
+#if NETFX
+    public class BinaryResourceDescriptorKeyConverter : TypeConverter
+    {
+        public override object ConvertFrom(ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value)
+        {
+            if (value == null)
+                return null;
+
+            if (value is string)
+                return BinaryResourceDescriptorKey.ConvertFromString(value as string);
+            else
+                return base.ConvertFrom(context, culture, value);
+        }
+
+        public override object ConvertTo(ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value, Type destinationType)
+        {
+            if (value == null || destinationType == null)
+                return null;
+
+            if (destinationType == typeof(string))
+                return ((BinaryResourceDescriptorKey)value).ToString();
+            else
+                return base.ConvertTo(context, culture, value, destinationType);
+        }
+
+        public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
+        {
+            if (destinationType == typeof(string))
+                return true;
+            else
+                return base.CanConvertTo(context, destinationType);
+        }
+
+        public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
+        {
+            if (sourceType == typeof(string))
+                return true;
+            else
+                return base.CanConvertFrom(context, sourceType);
+        }
+    }
+#endif
+    #endregion
+
+    #endregion
 }

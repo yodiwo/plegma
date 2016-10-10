@@ -14,11 +14,17 @@ namespace Yodiwo.API.Plegma
         public const int APIVersion = 1;
 
         public const char KeySeparator = '-';
+        public const string BroadcastToken = "*";
 
         public const string RestAPIBaseRoute = "api";
 
         public const string ApiGroupName = "PlegmaAPI";
         public const string ApiLogicGroupName = "PlegmaAPI.Logic";
+        public const char ThingModelTypeSeparator = '.';
+        public const string ThingModelTypeSeparatorStr = ".";
+        public const string ThingModelTypeDefault = "default";
+        public const string ThingModelTypeSeparatorPlusDefault = ThingModelTypeSeparatorStr + ThingModelTypeDefault;
+
 
         /// <summary>
         /// List of all possible API messages that are exchanged between Nodes and the Yodiwo Cloud Service
@@ -30,23 +36,20 @@ namespace Yodiwo.API.Plegma
             typeof(NodeInfoReq),
             typeof(NodeInfoRsp),
             typeof(NodeUnpairedReq),
-            typeof(NodeUnpairedRsp),
             typeof(EndpointSyncReq),
             typeof(EndpointSyncRsp),
             typeof(ThingsGet),
             typeof(ThingsSet),
             typeof(PortEventMsg),
-            typeof(PortStateReq),
-            typeof(PortStateRsp),
+            typeof(PortStateGet),
+            typeof(PortStateSet),
             typeof(ActivePortKeysMsg),
             typeof(PingReq),
             typeof(PingRsp),
             typeof(VirtualBlockEventMsg),
-
             typeof(A2mcuActiveDriversReq),
             typeof(A2mcuCtrlReq),
-
-            typeof(GenericRsp)
+            typeof(GenericRsp),     //Only add new messaged to the botton of the list.. do not insert between previous types (breaks ypc protocol)
         };
 
         public static Type[] LogicApiMessages =
@@ -61,14 +64,13 @@ namespace Yodiwo.API.Plegma
         public const string s_NodeInfoReq = "nodeinforeq";
         public const string s_NodeInfoRsp = "nodeinforsp";
         public const string s_NodeUnpairedReq = "nodeunpairedreq";
-        public const string s_NodeUnpairedRsp = "nodeunpairedrsp";
         public const string s_EndpointSyncReq = "endpointsyncreq";
         public const string s_EndpointSyncRsp = "endpointsyncrsp";
         public const string s_ThingsGet = "thingsget";
         public const string s_ThingsSet = "thingsset";
         public const string s_PortEventMsg = "porteventmsg";
-        public const string s_PortStateReq = "portstatereq";
-        public const string s_PortStateRsp = "portstatersp";
+        public const string s_PortStateGet = "portstateget";
+        public const string s_PortStateSet = "portstateset";
         public const string s_ActivePortKeysMsg = "activeportkeysmsg";
         public const string s_PingReq = "pingreq";
         public const string s_PingRsp = "pingrsp";
@@ -82,37 +84,43 @@ namespace Yodiwo.API.Plegma
 
         public const string s_GenericRsp = "genericrsp";
 
+        public const string s_GcmConnectionMsg = "gcmconnectionmsg";
+
+        public const string s_GcmDisconnectionMsg = "gcmdisconnectionmsg";
+
 
         /// <summary>
         /// Dictionary that maps API classes to names. These names are the ones used for REST routes, MQTT topics, or RabbitMQ queue names
         /// </summary>
         public static Dictionary<Type, String> ApiMsgNames = new Dictionary<Type, string>()
         {
-            { typeof(LoginReq),            s_LoginReq                       },
-            { typeof(LoginRsp),            s_LoginRsp                       },
-            { typeof(NodeInfoReq),         s_NodeInfoReq                    },
-            { typeof(NodeInfoRsp),         s_NodeInfoRsp                    },
-            { typeof(NodeUnpairedReq),     s_NodeUnpairedReq                },
-            { typeof(NodeUnpairedRsp),     s_NodeUnpairedRsp                },
-            { typeof(EndpointSyncReq),     s_EndpointSyncReq                },
-            { typeof(EndpointSyncRsp),     s_EndpointSyncRsp                },
-            { typeof(ThingsGet),           s_ThingsGet                      },
-            { typeof(ThingsSet),           s_ThingsSet                      },
-            { typeof(PortEventMsg),        s_PortEventMsg                   },
-            { typeof(PortStateReq),        s_PortStateReq                   },
-            { typeof(PortStateRsp),        s_PortStateRsp                   },
-            { typeof(ActivePortKeysMsg),   s_ActivePortKeysMsg              },
-            { typeof(PingReq),             s_PingReq                        },
-            { typeof(PingRsp),             s_PingRsp                        },
+            { typeof(LoginReq),             s_LoginReq                      },
+            { typeof(LoginRsp),             s_LoginRsp                      },
+            { typeof(NodeInfoReq) ,         s_NodeInfoReq                   },
+            { typeof(NodeInfoRsp),          s_NodeInfoRsp                   },
+            { typeof(NodeUnpairedReq),      s_NodeUnpairedReq               },
+            { typeof(EndpointSyncReq),      s_EndpointSyncReq               },
+            { typeof(EndpointSyncRsp),      s_EndpointSyncRsp               },
+            { typeof(ThingsGet),            s_ThingsGet                     },
+            { typeof(ThingsSet),            s_ThingsSet                     },
+            { typeof(PortEventMsg),         s_PortEventMsg                  },
+            { typeof(PortStateGet),         s_PortStateGet                  },
+            { typeof(PortStateSet),         s_PortStateSet                  },
+            { typeof(ActivePortKeysMsg),    s_ActivePortKeysMsg             },
+            { typeof(PingReq),              s_PingReq                       },
+            { typeof(PingRsp),              s_PingRsp                       },
 
-            { typeof(VirtualBlockEventMsg),s_VirtualBlockEventMsg           },
-            { typeof(GraphDeploymentReq),  s_GraphDeploymentReq             },
+            { typeof(VirtualBlockEventMsg), s_VirtualBlockEventMsg          },
+            { typeof(GraphDeploymentReq),   s_GraphDeploymentReq            },
             { typeof(LocallyDeployedGraphsMsg), s_LocallyDeployedGraphsMsg  },
 
-            { typeof(A2mcuActiveDriversReq),s_A2mcuActiveDriversReq           },
-            { typeof(A2mcuCtrlReq),         s_A2mcuCtrlReq                    },
+            { typeof(A2mcuActiveDriversReq),s_A2mcuActiveDriversReq         },
+            { typeof(A2mcuCtrlReq),         s_A2mcuCtrlReq                  },
 
-            { typeof(GenericRsp),          s_GenericRsp                     },
+            { typeof(GcmConnectionMsg),     s_GcmConnectionMsg              },
+            { typeof(GcmDisconnectionMsg),  s_GcmDisconnectionMsg           },
+
+            { typeof(GenericRsp),           s_GenericRsp                    },
         };
 
         /// <summary>
