@@ -1,0 +1,50 @@
+{
+  "ActiveID": "Staging",
+  "Configs": {
+    "Local": {
+      "Name": "RaspberryPiGPIONode",
+      "Uuid": "RaspberryPiGPIONode",
+      "NodeKey": "",
+      "NodeSecret": "",
+      "FrontendServer": "http://localhost:3334",
+      "ApiServer": "localhost",
+      "YpchannelPort": 14623,
+      "YpchannelSecure": false,
+      "CertificateServerName": "*.yodiwo.com",
+      "LocalWebServer": "http://localhost:8035",
+      "CanSolveGraphs": false,
+      "PIN_Verification": "",
+      "NodeDiscovery": true
+    },
+    "Production": {
+      "Name": "RaspberryPiGPIONode",
+      "Uuid": "RaspberryPiGPIONode",
+      "NodeKey": "",
+      "NodeSecret": "",
+      "FrontendServer": "https://cyan.yodiwo.com",
+      "ApiServer": "api.yodiwo.com",
+      "YpchannelPort": 14623,
+      "YpchannelSecure": true,
+      "CertificateServerName": "*.yodiwo.com",
+      "LocalWebServer": "http://localhost:8035",
+      "CanSolveGraphs": false,
+      "PIN_Verification": "",
+      "NodeDiscovery": true
+    },
+    "Staging": {
+      "Name": "RaspberryPiGPIONode",
+      "Uuid": "RaspberryPiGPIONode",
+      "NodeKey": "",
+      "NodeSecret": "",
+      "FrontendServer": "https://tcyan.yodiwo.com",
+      "ApiServer": "tcyan.yodiwo.com",
+      "YpchannelPort": 14623,
+      "YpchannelSecure": true,
+      "CertificateServerName": "*.yodiwo.com",
+      "LocalWebServer": "http://localhost:3339",
+      "CanSolveGraphs": false,
+      "PIN_Verification": "",
+      "NodeDiscovery": true
+    }
+  }
+}
