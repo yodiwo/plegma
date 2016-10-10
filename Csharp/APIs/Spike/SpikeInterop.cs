@@ -37,7 +37,7 @@ namespace Yodiwo.API.Spike
     public enum eSpikeThingFlags
     {
         None = 0,
-        Removable = 1,
+        Removable = 1 << 0,
     }
 
     public enum eSpikeValueTypes
@@ -62,7 +62,7 @@ namespace Yodiwo.API.Spike
     public enum eSpikeDriconfTypes
     {
         InputSimple = 0,
-        InputI2c    = 1,
+        InputI2c = 1,
     }
 
     #endregion
