@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Yodiwo.NodeLibrary;
 using Yodiwo.NodeLibrary.Graphs;
 using Yodiwo.API.Plegma;
+using System.Security;
 
 namespace Yodiwo.Projects.SkyWriter
 {
@@ -45,19 +46,18 @@ namespace Yodiwo.Projects.SkyWriter
             };
 
             //prepare pairing module
-            var pairmodule = new Yodiwo.Node.Pairing.NancyPairing.NancyPairing();
+            var pairmodule = new Yodiwo.NodeLibrary.Pairing.NancyPairing.NancyPairing();
 
             //prepare node graph manager module
             var nodeGraphManager = new Yodiwo.NodeLibrary.Graphs.NodeGraphManager(
                                                 new Type[]
                                                     {
                                                         typeof(Yodiwo.Logic.BlockLibrary.Basic.Librarian),
-                                                        typeof(Yodiwo.Logic.BlockLibrary.Extended.Librarian),
+                                                        //typeof(Yodiwo.Logic.BlockLibrary.Extended.Librarian),
                                                     });
 
             //create node
             node = new Yodiwo.NodeLibrary.Node(conf,
-                                                Helper.GatherThings(this.pysharp),
                                                 pairmodule,
                                                 null, null,
                                                 NodeGraphManager: nodeGraphManager
@@ -72,12 +72,11 @@ namespace Yodiwo.Projects.SkyWriter
             node.OnTransportConnected += OnTransportConnectedCb;
             node.OnTransportDisconnected += OnTransportDisconnectedCb;
             node.OnTransportError += OnTransportErrorCb;
-            node.OnUnexpectedMessage = OnUnexpectedMessageCb;
+            node.OnUnexpectedMessage += OnUnexpectedMessageCb;
             node.OnThingActivated += OnThingActivatedCb;
             node.OnThingDeactivated += OnThingDeactivatedCb;
 
             //register port event handlers
-
 
             //start Pairing
             if (String.IsNullOrWhiteSpace(ActiveCfg.NodeKey))
@@ -87,10 +86,13 @@ namespace Yodiwo.Projects.SkyWriter
             }
             else
             {
-                node.SetupNodeKeys(ActiveCfg.NodeKey, ActiveCfg.NodeSecret);
+                node.SetupNodeKeys(ActiveCfg.NodeKey, ActiveCfg.NodeSecret.ToSecureString());
                 DebugEx.TraceLog("Node already paired: NodeKey = "
                     + ActiveCfg.NodeKey + ", NodeSecret = ", ActiveCfg.NodeSecret);
             }
+
+            //add things
+            Helper.CreateThings(this.pysharp, node);
 
             //connect
             node.Connect();
@@ -134,11 +136,11 @@ namespace Yodiwo.Projects.SkyWriter
             DebugEx.TraceLog("OnTransportError transport=" + Transport.ToString() + " msg=" + msg);
         }
 
-        void OnChangedStateCb(Thing thing, Port port, string state)
+        void OnChangedStateCb(Thing thing, Port port, string state, bool isEvent)
         {
         }
 
-        private ApiMsg OnUnexpectedRequestCb(object request)
+        private PlegmaApiMsg OnUnexpectedRequestCb(object request)
         {
             DebugEx.TraceLog("Unexpected request received.");
             return null;
@@ -151,10 +153,10 @@ namespace Yodiwo.Projects.SkyWriter
 
 
         //cb when node is paired
-        void OnPaired(NodeKey nodekey, string secret)
+        void OnPaired(NodeKey nodekey, SecureString secret)
         {
             ActiveCfg.NodeKey = nodekey;
-            ActiveCfg.NodeSecret = secret;
+            ActiveCfg.NodeSecret = secret.SecureStringToString();
             YConfig.Save();
         }
     }

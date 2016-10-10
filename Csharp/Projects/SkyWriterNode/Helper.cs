@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Yodiwo.API.Plegma;
+using Yodiwo.NodeLibrary;
 
 namespace Yodiwo.Projects.SkyWriter
 {
@@ -11,7 +12,7 @@ namespace Yodiwo.Projects.SkyWriter
     {
         public static Yodiwo.NodeLibrary.Node node;
         //things
-        internal static List<Thing> Things = new List<Thing>();
+        public static ListTS<Thing> Things = new ListTS<Thing>();
         public static Thing PositionThing;
         public static Thing GestureThing;
         //dictionary thing.name, skywriter sensor
@@ -19,20 +20,21 @@ namespace Yodiwo.Projects.SkyWriter
         //dictionary thing,skywritersensor
         public static Dictionary<Thing, SkyWriterSensor> Lookup = new Dictionary<Thing, SkyWriterSensor>();
 
-        public static List<Thing> GatherThings(Transport trans)
+        public static void CreateThings(Transport trans, Node node)
         {
             //setup Position  thing
             //3 ports (x,y,z)
             #region Setup Position thing
             {
-                var thing = PositionThing = new Yodiwo.API.Plegma.Thing()
+                var thing = new Yodiwo.API.Plegma.Thing()
                 {
-                    Type = "yodiwo.output.sensors.position",
+                    ThingKey = ThingKey.BuildFromArbitraryString("$NodeKey$", "PositionThing"),
+                    Type = ThingTypeLibrary.PositionSensor.Type + PlegmaAPI.ThingModelTypeSeparatorPlusDefault,
                     Name = "Position",
                     Config = null,
                     UIHints = new ThingUIHints()
                     {
-                        IconURI = "/Content/SkyWriter/img/position.png",
+                        IconURI = "/Content/img/icons/Generic/position.png",
                     },
                 };
                 thing.Ports = new List<Yodiwo.API.Plegma.Port>()
@@ -43,6 +45,7 @@ namespace Yodiwo.Projects.SkyWriter
                         Name = "Position x State",
                         State = "0",
                         Type = Yodiwo.API.Plegma.ePortType.String,
+                        PortModelId = ModelTypeLibrary.PositionSensorModel_XId,
                         PortKey = PortKey.BuildFromArbitraryString("$ThingKey$", "0")
                     },
                     new Yodiwo.API.Plegma.Port()
@@ -51,6 +54,7 @@ namespace Yodiwo.Projects.SkyWriter
                         Name = "Position y State",
                         State = "0",
                         Type = Yodiwo.API.Plegma.ePortType.String,
+                        PortModelId = ModelTypeLibrary.PositionSensorModel_YId,
                         PortKey = PortKey.BuildFromArbitraryString("$ThingKey$", "1")
                     },
                     new Yodiwo.API.Plegma.Port()
@@ -59,9 +63,11 @@ namespace Yodiwo.Projects.SkyWriter
                         Name = "Position z State",
                         State = "0",
                         Type = Yodiwo.API.Plegma.ePortType.String,
+                        PortModelId = ModelTypeLibrary.PositionSensorModel_ZId,
                         PortKey = PortKey.BuildFromArbitraryString("$ThingKey$", "2")
                     },
                 };
+                PositionThing = thing = node.AddThing(thing);
             }
             #endregion
 
@@ -69,14 +75,15 @@ namespace Yodiwo.Projects.SkyWriter
             // 5 ports(i.e tap:'center','flick':north2south,'touch':west...)
             #region Setup Gesture thing
             {
-                var thing = GestureThing = new Yodiwo.API.Plegma.Thing()
+                var thing = new Yodiwo.API.Plegma.Thing()
                 {
-                    Type = "yodiwo.output.gesture",
+                    ThingKey = ThingKey.BuildFromArbitraryString("$NodeKey$", "GestureThing"),
+                    Type = ThingTypeLibrary.GestureSensor.Type + PlegmaAPI.ThingModelTypeSeparatorPlusDefault,
                     Name = "Gesture",
                     Config = null,
                     UIHints = new ThingUIHints()
                     {
-                        IconURI = "/Content/SkyWriter/img/motion.png",
+                        IconURI = "/Content/img/icons/Generic/motion.png",
                     },
                 };
                 thing.Ports = new List<Yodiwo.API.Plegma.Port>()
@@ -87,6 +94,7 @@ namespace Yodiwo.Projects.SkyWriter
                         Name = "Tap",
                         State = "false",
                         Type = Yodiwo.API.Plegma.ePortType.String,
+                        PortModelId = ModelTypeLibrary.GestureSensorModel_TapId,
                         PortKey = PortKey.BuildFromArbitraryString("$ThingKey$", "0")
                     },
                     new Yodiwo.API.Plegma.Port()
@@ -95,6 +103,7 @@ namespace Yodiwo.Projects.SkyWriter
                         Name = "Touch",
                         State = "false",
                         Type = Yodiwo.API.Plegma.ePortType.String,
+                        PortModelId = ModelTypeLibrary.GestureSensorModel_TouchId,
                         PortKey = PortKey.BuildFromArbitraryString("$ThingKey$", "1")
                     },
                     new Yodiwo.API.Plegma.Port()
@@ -103,6 +112,7 @@ namespace Yodiwo.Projects.SkyWriter
                         Name = "DoubleTap",
                         State = "false",
                         Type = Yodiwo.API.Plegma.ePortType.String,
+                        PortModelId = ModelTypeLibrary.GestureSensorModel_DoubleTapId,
                         PortKey = PortKey.BuildFromArbitraryString("$ThingKey$", "2")
                     },
                     new Yodiwo.API.Plegma.Port()
@@ -111,6 +121,7 @@ namespace Yodiwo.Projects.SkyWriter
                         Name = "Airwheel",
                         State = "false",
                         Type = Yodiwo.API.Plegma.ePortType.String,
+                        PortModelId = ModelTypeLibrary.GestureSensorModel_AirwheelId,
                         PortKey = PortKey.BuildFromArbitraryString("$ThingKey$", "3")
                     },
                     new Yodiwo.API.Plegma.Port()
@@ -119,9 +130,11 @@ namespace Yodiwo.Projects.SkyWriter
                         Name = "Flick",
                         State = "false",
                         Type = Yodiwo.API.Plegma.ePortType.String,
+                        PortModelId = ModelTypeLibrary.GestureSensorModel_FlickId,
                         PortKey = PortKey.BuildFromArbitraryString("$ThingKey$", "4")
                     },
                 };
+                GestureThing = thing = node.AddThing(thing);
             }
             #endregion
 
@@ -141,8 +154,6 @@ namespace Yodiwo.Projects.SkyWriter
             //register events
             positionsensor.OnGetContinuousDatacb += p => OnGetPositionDatacb(positionsensor, p);
             gesturesensor.OnGetContinuousDatacb += p => OnGetGestureDatacb(gesturesensor, p);
-
-            return Things;
         }
 
 

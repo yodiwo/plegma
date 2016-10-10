@@ -43,6 +43,7 @@ namespace Yodiwo.Projects.SkyWriter
             sr = p.StandardOutput;
             //start reading from python
             PythonReader = Task.Run((Action)HandlePythonEvents);
+
             //python process start
         }
 
@@ -55,18 +56,35 @@ namespace Yodiwo.Projects.SkyWriter
             {
                 try
                 {
+                    eventstring = sr.ReadLine();
+                    if (eventstring == null)
+                    {
+                        Task.Delay(300).Wait();
+                        continue;
+                    }
                     while ((eventstring = sr.ReadLine()) != null)
                     {
+                        //Console.Write(".");
                         if (eventstring.Length > 0)
                         {
                             if (eventstring.ElementAt(0) != '{')
+                            {
                                 //why do i receive non-json?
+                                Console.WriteLine("non-json???");
+                                //Task.Delay(300).Wait();
+                                //eventstring = sr.ReadLine();
                                 continue;
-
+                            }
                             //DebugEx.TraceLog("Got from python: " + eventstring);
                             //todo
                             var msg = eventstring.FromJSON<SharpPy>();
                             OnRxMsgcb(msg);
+                        }
+                        else
+                        {
+                            Console.WriteLine("eventstring length equal to 0");
+                            //Task.Delay(300).Wait();
+                            //eventstring = sr.ReadLine();
                         }
                     }
                 }
