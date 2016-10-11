@@ -32,21 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Nancy, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\external-libs\Csharp\DLLs\ThirdParty\Nancy.dll</HintPath>
-    </Reference>
-    <Reference Include="Nancy.Hosting.Self, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\external-libs\Csharp\DLLs\ThirdParty\Nancy.Hosting.Self.dll</HintPath>
-    </Reference>
-    <Reference Include="Nancy.ViewEngines.Razor, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\external-libs\Csharp\DLLs\ThirdParty\Nancy.ViewEngines.Razor.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\external-libs\Csharp\DLLs\ThirdParty\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\external-libs\Csharp\DLLs\ThirdParty\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -56,11 +44,11 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="Yodiwo.Logic.BlockLibrary.Basic, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Yodiwo.Logic.BlockLibrary.Basic, Version=1.0.6128.17140, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\external-libs\Csharp\DLLs\Yodiwo\Yodiwo.Logic.BlockLibrary.Basic.dll</HintPath>
     </Reference>
-    <Reference Include="Yodiwo.Logic.BlockLibrary.Extended, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Yodiwo.Logic.BlockLibrary.Extended, Version=1.0.6128.17143, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\external-libs\Csharp\DLLs\Yodiwo\Yodiwo.Logic.BlockLibrary.Extended.dll</HintPath>
     </Reference>
