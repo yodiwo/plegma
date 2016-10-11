@@ -48,19 +48,11 @@ namespace Yodiwo.Projects.SkyWriter
             //prepare pairing module
             var pairmodule = new Yodiwo.NodeLibrary.Pairing.NancyPairing.NancyPairing();
 
-            //prepare node graph manager module
-            var nodeGraphManager = new Yodiwo.NodeLibrary.Graphs.NodeGraphManager(
-                                                new Type[]
-                                                    {
-                                                        typeof(Yodiwo.Logic.BlockLibrary.Basic.Librarian),
-                                                        //typeof(Yodiwo.Logic.BlockLibrary.Extended.Librarian),
-                                                    });
-
             //create node
             node = new Yodiwo.NodeLibrary.Node(conf,
                                                 pairmodule,
                                                 null, null,
-                                                NodeGraphManager: nodeGraphManager
+                                                NodeGraphManager: null
                                                 );
             Helper.node = node;
             //set TransPort

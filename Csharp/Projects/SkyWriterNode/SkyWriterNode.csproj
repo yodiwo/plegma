@@ -32,12 +32,25 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Nancy, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\external-libs\Csharp\DLLs\ThirdParty\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\..\external-libs\Csharp\DLLs\ThirdParty\Nancy.dll</HintPath>
+    </Reference>
+    <Reference Include="Nancy.Hosting.Self, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\external-libs\Csharp\DLLs\ThirdParty\Nancy.Hosting.Self.dll</HintPath>
+    </Reference>
+    <Reference Include="Nancy.ViewEngines.Razor, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\external-libs\Csharp\DLLs\ThirdParty\Nancy.ViewEngines.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\external-libs\Csharp\DLLs\ThirdParty\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -72,6 +85,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\NodeLibrary\Yodiwo.Node.Pairing.NancyPairing\Yodiwo.Node.Pairing.NancyPairing.csproj">
+      <Project>{8ccd87b9-d3af-4cff-80de-bc7cac1b6e43}</Project>
+      <Name>Yodiwo.Node.Pairing.NancyPairing</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\YodiwoSharp\YodiwoSharp.csproj">
       <Project>{8ae66abd-d963-4e83-83a3-330156cd37a3}</Project>
       <Name>YodiwoSharp</Name>
@@ -83,10 +100,6 @@
     <ProjectReference Include="..\..\NodeLibrary\NodeLibrary.Graphs\Yodiwo.NodeLibrary.Graphs.csproj">
       <Project>{038a37ca-f251-400b-8003-7eeaed77348c}</Project>
       <Name>Yodiwo.NodeLibrary.Graphs</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\NodeLibrary\Yodiwo.Node.Pairing.NancyPairing\Yodiwo.Node.Pairing.NancyPairing.csproj">
-      <Project>{8ccd87b9-d3af-4cff-80de-bc7cac1b6e43}</Project>
-      <Name>Yodiwo.Node.Pairing.NancyPairing</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\NodeLibrary\Yodiwo.NodeLibrary\Yodiwo.NodeLibrary.csproj">
       <Project>{8f830f7a-0a96-4329-847c-06b0a84ba4c4}</Project>
