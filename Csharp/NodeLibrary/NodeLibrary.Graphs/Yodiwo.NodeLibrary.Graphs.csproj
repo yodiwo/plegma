@@ -43,13 +43,13 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
-    <Reference Include="Yodiwo.Logic, Version=1.0.6127.30832, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Yodiwo.Logic, Version=1.0.6128.17140, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\external-libs\Csharp\DLLs\Yodiwo\Yodiwo.Logic.dll</HintPath>
+      <HintPath>..\..\..\external-libs\Csharp\DLLs\Yodiwo\Yodiwo.Logic.dll</HintPath>
     </Reference>
-    <Reference Include="Yodiwo.Logic.BlockLibrary.Basic, Version=1.0.6127.30835, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Yodiwo.Logic.BlockLibrary.Basic, Version=1.0.6128.17140, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\external-libs\Csharp\DLLs\Yodiwo\Yodiwo.Logic.BlockLibrary.Basic.dll</HintPath>
+      <HintPath>..\..\..\external-libs\Csharp\DLLs\Yodiwo\Yodiwo.Logic.BlockLibrary.Basic.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
