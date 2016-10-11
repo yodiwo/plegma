@@ -62,10 +62,6 @@
     <Compile Include="Transports\ITransportMQTT.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\YodiwoSharp\YodiwoSharp.csproj">
-      <Project>{8ae66abd-d963-4e83-83a3-330156cd37a3}</Project>
-      <Name>YodiwoSharp</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\APIs\Plegma\Yodiwo.API.Plegma.csproj">
       <Project>{94f4ce90-200f-40ce-bf83-e15d147924f7}</Project>
       <Name>Yodiwo.API.Plegma</Name>
@@ -74,13 +70,13 @@
       <Project>{a753abd7-a52d-4905-8137-a8772c448cbd}</Project>
       <Name>Yodiwo.API.Plegma.Code</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\APIs\Yodiwo.API.Warlock\Yodiwo.API.Warlock.csproj">
-      <Project>{9cd81319-0106-436a-89a5-4416b762da07}</Project>
-      <Name>Yodiwo.API.Warlock</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Yodiwo.YPChannel\Yodiwo.YPChannel.csproj">
       <Project>{536faa15-e738-445e-a2d8-ef989acb2c7f}</Project>
       <Name>Yodiwo.YPChannel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\YodiwoSharp\YodiwoSharp.csproj">
+      <Project>{8ae66abd-d963-4e83-83a3-330156cd37a3}</Project>
+      <Name>YodiwoSharp</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

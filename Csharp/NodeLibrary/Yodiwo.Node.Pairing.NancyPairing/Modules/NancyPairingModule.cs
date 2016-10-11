@@ -29,7 +29,7 @@ namespace Yodiwo.NodeLibrary.Pairing.NancyPairing
 
             Get["/"] = parameters =>
             {
-                return View["Index"];
+                return View["Pairing/Index"];
             };
 
 

@@ -30,24 +30,29 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Nancy">
-      <HintPath>..\..\..\ExternalsDLLs\Nancy.dll</HintPath>
+    <Reference Include="Nancy, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\external-libs\Csharp\DLLs\ThirdParty\Nancy.dll</HintPath>
     </Reference>
-    <Reference Include="Nancy.Hosting.Self">
-      <HintPath>..\..\..\ExternalsDLLs\Nancy.Hosting.Self.dll</HintPath>
+    <Reference Include="Nancy.Hosting.Self, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\external-libs\Csharp\DLLs\ThirdParty\Nancy.Hosting.Self.dll</HintPath>
     </Reference>
-    <Reference Include="Nancy.Serialization.JsonNet">
-      <HintPath>..\..\..\ExternalsDLLs\Nancy.Serialization.JsonNet.dll</HintPath>
+    <Reference Include="Nancy.Serialization.JsonNet, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\external-libs\Csharp\DLLs\ThirdParty\Nancy.Serialization.JsonNet.dll</HintPath>
     </Reference>
-    <Reference Include="Nancy.ViewEngines.Razor">
-      <HintPath>..\..\..\ExternalsDLLs\Nancy.ViewEngines.Razor.dll</HintPath>
+    <Reference Include="Nancy.ViewEngines.Razor, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\external-libs\Csharp\DLLs\ThirdParty\Nancy.ViewEngines.Razor.dll</HintPath>
     </Reference>
-    <Reference Include="Nancy.ViewEngines.Razor.BuildProviders">
-      <HintPath>..\..\..\ExternalsDLLs\Nancy.ViewEngines.Razor.BuildProviders.dll</HintPath>
+    <Reference Include="Nancy.ViewEngines.Razor.BuildProviders, Version=1.2.100.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\external-libs\Csharp\DLLs\ThirdParty\Nancy.ViewEngines.Razor.BuildProviders.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\ExternalsDLLs\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\..\external-libs\Csharp\DLLs\ThirdParty\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -56,8 +61,9 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="Westwind.RazorHosting">
-      <HintPath>..\..\..\ExternalsDLLs\Westwind.RazorHosting.dll</HintPath>
+    <Reference Include="Westwind.RazorHosting, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\external-libs\Csharp\DLLs\ThirdParty\Westwind.RazorHosting.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -67,13 +73,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Yodiwo.NodeLibrary\Yodiwo.NodeLibrary.csproj">
-      <Project>{8f830f7a-0a96-4329-847c-06b0a84ba4c4}</Project>
-      <Name>Yodiwo.NodeLibrary</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\YodiwoSharp\YodiwoSharp.csproj">
       <Project>{8ae66abd-d963-4e83-83a3-330156cd37a3}</Project>
       <Name>YodiwoSharp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Yodiwo.NodeLibrary\Yodiwo.NodeLibrary.csproj">
+      <Project>{8f830f7a-0a96-4329-847c-06b0a84ba4c4}</Project>
+      <Name>Yodiwo.NodeLibrary</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\APIs\Plegma\Yodiwo.API.Plegma.csproj">
       <Project>{94f4ce90-200f-40ce-bf83-e15d147924f7}</Project>

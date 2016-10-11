@@ -31,9 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\ExternalsDLLs\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\..\external-libs\Csharp\DLLs\ThirdParty\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -43,13 +43,13 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
-    <Reference Include="Yodiwo.Logic, Version=1.0.6124.29215, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Yodiwo.Logic, Version=1.0.6127.30832, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\external-libs\Csharp\DLLs\Yodiwo\Yodiwo.Logic.dll</HintPath>
+      <HintPath>..\..\..\..\external-libs\Csharp\DLLs\Yodiwo\Yodiwo.Logic.dll</HintPath>
     </Reference>
-    <Reference Include="Yodiwo.Logic.BlockLibrary.Basic, Version=1.0.6124.29216, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Yodiwo.Logic.BlockLibrary.Basic, Version=1.0.6127.30835, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\external-libs\Csharp\DLLs\Yodiwo\Yodiwo.Logic.BlockLibrary.Basic.dll</HintPath>
+      <HintPath>..\..\..\..\external-libs\Csharp\DLLs\Yodiwo\Yodiwo.Logic.BlockLibrary.Basic.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
