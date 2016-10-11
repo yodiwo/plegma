@@ -5,13 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Yodiwo.API.Plegma;
+using Yodiwo.NodeLibrary;
 
 namespace Yodiwo.Projects.GrovePi
 {
     public static class Helper
     {
         public static Yodiwo.NodeLibrary.Node node;
-        internal static List<Thing> Things = new List<Thing>();
+        public static ListTS<Thing> Things = new ListTS<Thing>();
         public static Thing BuzzerThing;
         public static Thing RgbLedThing;
         public static Thing SoundSensorThing;
@@ -28,7 +29,7 @@ namespace Yodiwo.Projects.GrovePi
 
         private static readonly string ThingsConfFileName = "conf_things.json";
 
-        public static List<Thing> GatherThings(Transport trans)
+        public static void CreateThings(Transport trans, Node node)
         {
             #region READ CONFIGURATION
 
@@ -36,7 +37,7 @@ namespace Yodiwo.Projects.GrovePi
             if (SavedThingsConfig == null)
             {
                 DebugEx.Assert("Could not retrieve or create config; startup failed");
-                return null;
+                return;
             }
 
             //use pin configuration from saved conf file
@@ -99,12 +100,13 @@ namespace Yodiwo.Projects.GrovePi
                 var samplePeriodConfig = new ConfigParameter() { Name = "SamplePeriod", Value = gpio_Sampling.ToStringInvariant() };
                 var thing = new Yodiwo.API.Plegma.Thing()
                 {
-                    Type = "yodiwo.inputoutput.gpios",
+                    ThingKey = ThingKey.BuildFromArbitraryString("$NodeKey$", "gpio_thing" + i),
+                    Type = ThingTypeLibrary.Gpio.Type + PlegmaAPI.ThingModelTypeSeparatorPlusDefault,
                     Name = "GPIO_" + i,
                     Config = new List<ConfigParameter>() { samplePeriodConfig },
                     UIHints = new ThingUIHints()
                     {
-                        IconURI = "/Content/Designer/img/BlockImages/icon-gpio.png",
+                        IconURI = "/Content/img/icons/Generic/gpio.png",
                     },
                 };
                 thing.Ports = new List<Yodiwo.API.Plegma.Port>()
@@ -113,6 +115,7 @@ namespace Yodiwo.Projects.GrovePi
                     {
                         ioDirection = Yodiwo.API.Plegma.ioPortDirection.Input,
                         Name = "GPO",
+                        PortModelId = ModelTypeLibrary.GpioModel_Id,
                         State = "false",
                         Type = Yodiwo.API.Plegma.ePortType.Boolean,
                         PortKey = PortKey.BuildFromArbitraryString("$ThingKey$", "GPO")
@@ -122,10 +125,12 @@ namespace Yodiwo.Projects.GrovePi
                         ioDirection = Yodiwo.API.Plegma.ioPortDirection.Output,
                         Name = "GPI",
                         State = "false",
+                        PortModelId = ModelTypeLibrary.GpioModel_Id,
                         Type = Yodiwo.API.Plegma.ePortType.Boolean,
                         PortKey = PortKey.BuildFromArbitraryString("$ThingKey$", "GPI")
                     }
                 };
+                thing = node.AddThing(thing);
                 gpio_things.Add(thing);
                 Things.Add(thing);
             }
@@ -152,14 +157,15 @@ namespace Yodiwo.Projects.GrovePi
             #region Setup Buzzer thing
             {
                 var pinConfig = new ConfigParameter() { Name = "Pin", Value = buzzerPin };
-                var thing = BuzzerThing = new Yodiwo.API.Plegma.Thing()
+                var thing = new Yodiwo.API.Plegma.Thing()
                 {
-                    Type = "yodiwo.input.buzzers",
+                    ThingKey = ThingKey.BuildFromArbitraryString("$NodeKey$", "buzzerthing"),
+                    Type = ThingTypeLibrary.Buzzer.Type + PlegmaAPI.ThingModelTypeSeparatorPlusDefault,
                     Name = "Buzzer",
                     Config = new List<ConfigParameter>() { pinConfig },
                     UIHints = new ThingUIHints()
                     {
-                        IconURI = "/Content/GrovePi/img/buzzer.png",
+                        IconURI = "/Content/img/icons/buzzer.png",
                     },
                 };
                 thing.Ports = new List<Yodiwo.API.Plegma.Port>()
@@ -169,10 +175,12 @@ namespace Yodiwo.Projects.GrovePi
                         ioDirection = Yodiwo.API.Plegma.ioPortDirection.Input,
                         Name = "BuzzerState",
                         State = "false",
+                        PortModelId = ModelTypeLibrary.BuzzerModel_Id,
                         Type = Yodiwo.API.Plegma.ePortType.Decimal,
                         PortKey = PortKey.BuildFromArbitraryString("$ThingKey$", "0")
                     }
                 };
+                BuzzerThing = thing = node.AddThing(thing);
             }
             #endregion
 
@@ -180,14 +188,15 @@ namespace Yodiwo.Projects.GrovePi
             #region SetUp RgbLedThing
             {
                 var pinConfig = new ConfigParameter() { Name = "Pin", Value = rgbLedPin };
-                var thing = RgbLedThing = new Yodiwo.API.Plegma.Thing()
+                var thing = new Yodiwo.API.Plegma.Thing()
                 {
-                    Type = "yodiwo.input.leds.onoff",
+                    ThingKey = ThingKey.BuildFromArbitraryString("$NodeKey$", "RgbLedThing"),
+                    Type = ThingTypeLibrary.Lights.Type + PlegmaAPI.ThingModelTypeSeparator + ThingTypeLibrary.Lights_BooleanModelType,
                     Name = "RgbLed",
                     Config = new List<ConfigParameter>() { pinConfig },
                     UIHints = new ThingUIHints()
                     {
-                        IconURI = "/Content/VirtualGateway/img/icon-thing-genericlight.png",
+                        IconURI = "/Content/img/icons/Generic/thing-genericlight.png",
                     },
                 };
                 thing.Ports = new List<Yodiwo.API.Plegma.Port>()
@@ -197,10 +206,12 @@ namespace Yodiwo.Projects.GrovePi
                         ioDirection = Yodiwo.API.Plegma.ioPortDirection.Input,
                         Name = "RgbLedState",
                         State = "false",
+                        PortModelId = ModelTypeLibrary.OnOffLightModel_Id,
                         Type = Yodiwo.API.Plegma.ePortType.Boolean,
                         PortKey = PortKey.BuildFromArbitraryString("$ThingKey$", "0")
                     }
                 };
+                RgbLedThing = thing = node.AddThing(thing);
             }
             #endregion
 
@@ -209,14 +220,15 @@ namespace Yodiwo.Projects.GrovePi
             {
                 var pinConfig = new ConfigParameter() { Name = "Pin", Value = soundSensorPin };
                 var samplePeriodConfig = new ConfigParameter() { Name = "SamplePeriod", Value = soundSensorSampling.ToStringInvariant() };
-                var thing = SoundSensorThing = new Yodiwo.API.Plegma.Thing()
+                var thing = new Yodiwo.API.Plegma.Thing()
                 {
-                    Type = "yodiwo.output.sensors.sound",
+                    ThingKey = ThingKey.BuildFromArbitraryString("$NodeKey$", "SoundSensorThing"),
+                    Type = ThingTypeLibrary.SoundSensor.Type + PlegmaAPI.ThingModelTypeSeparatorPlusDefault,
                     Name = "SoundSensor",
                     Config = new List<ConfigParameter>() { pinConfig, samplePeriodConfig },
                     UIHints = new ThingUIHints()
                     {
-                        IconURI = "/Content/GrovePi/img/sound.png",
+                        IconURI = "/Content/img/icons/sound.png",
                     },
                 };
                 thing.Ports = new List<Yodiwo.API.Plegma.Port>()
@@ -226,10 +238,12 @@ namespace Yodiwo.Projects.GrovePi
                         ioDirection = Yodiwo.API.Plegma.ioPortDirection.Output,
                         Name = "Value",
                         State = "0",
+                        PortModelId=ModelTypeLibrary.SoundSensorModel_Id,
                         Type = Yodiwo.API.Plegma.ePortType.Integer,
                         PortKey = PortKey.BuildFromArbitraryString("$ThingKey$", "0")
                     }
                 };
+                SoundSensorThing = thing = node.AddThing(thing);
             }
             #endregion
 
@@ -238,14 +252,15 @@ namespace Yodiwo.Projects.GrovePi
             {
                 var pinConfig = new ConfigParameter() { Name = "Pin", Value = lightSensorPin };
                 var samplePeriodConfig = new ConfigParameter() { Name = "SamplePeriod", Value = lightSensorSampling.ToStringInvariant() };
-                var thing = LightSensorThing = new Yodiwo.API.Plegma.Thing()
+                var thing = new Yodiwo.API.Plegma.Thing()
                 {
-                    Type = "yodiwo.output.sensors.light",
+                    ThingKey = ThingKey.BuildFromArbitraryString("$NodeKey$", "LightSensorThing"),
+                    Type = ThingTypeLibrary.LightSensor.Type + PlegmaAPI.ThingModelTypeSeparator + ThingTypeLibrary.LightSensor_NonNormalizedModelType,
                     Name = "LightSensor",
                     Config = new List<ConfigParameter>() { pinConfig, samplePeriodConfig },
                     UIHints = new ThingUIHints()
                     {
-                        IconURI = "/Content/GrovePi/img/light.png",
+                        IconURI = "/Content/img/icons/light.png",
                     },
                 };
                 thing.Ports = new List<Yodiwo.API.Plegma.Port>()
@@ -255,10 +270,12 @@ namespace Yodiwo.Projects.GrovePi
                         ioDirection = Yodiwo.API.Plegma.ioPortDirection.Output,
                         Name = "Lumens",
                         State = "0",
+                        PortModelId = ModelTypeLibrary.Brightness_Id,
                         Type = Yodiwo.API.Plegma.ePortType.Integer,
                         PortKey = PortKey.BuildFromArbitraryString("$ThingKey$", "0")
                     }
                 };
+                LightSensorThing = thing = node.AddThing(thing);
             }
             #endregion
 
@@ -267,14 +284,15 @@ namespace Yodiwo.Projects.GrovePi
             {
                 var pinConfig = new ConfigParameter() { Name = "Pin", Value = buttonPin };
                 var samplePeriodConfig = new ConfigParameter() { Name = "SamplePeriod", Value = buttonSampling.ToStringInvariant() };
-                var thing = ButtonSensorThing = new Yodiwo.API.Plegma.Thing()
+                var thing = new Yodiwo.API.Plegma.Thing()
                 {
-                    Type = "yodiwo.output.buttons",
+                    ThingKey = ThingKey.BuildFromArbitraryString("$NodeKey$", "ButtonSensorThing"),
+                    Type = ThingTypeLibrary.Button.Type + PlegmaAPI.ThingModelTypeSeparatorPlusDefault,
                     Name = "Button",
                     Config = new List<ConfigParameter>() { pinConfig, samplePeriodConfig },
                     UIHints = new ThingUIHints()
                     {
-                        IconURI = "/Content/VirtualGateway/img/icon-thing-genericbutton.png",
+                        IconURI = "/Content/img/icons/Generic/thing-genericbutton.png",
                     },
                 };
                 thing.Ports = new List<Yodiwo.API.Plegma.Port>()
@@ -284,10 +302,12 @@ namespace Yodiwo.Projects.GrovePi
                         ioDirection = Yodiwo.API.Plegma.ioPortDirection.Output,
                         Name = "ButtonState",
                         State = "0",
+                        PortModelId= ModelTypeLibrary.ButtonModel_OnOffActuatorId,
                         Type = Yodiwo.API.Plegma.ePortType.Boolean,
                         PortKey = PortKey.BuildFromArbitraryString("$ThingKey$", "0")
                     }
                 };
+                ButtonSensorThing = thing = node.AddThing(thing);
             }
             #endregion
 
@@ -296,14 +316,15 @@ namespace Yodiwo.Projects.GrovePi
             {
                 var pinConfig = new ConfigParameter() { Name = "Pin", Value = rotaryAnglePin };
                 var samplePeriodConfig = new ConfigParameter() { Name = "SamplePeriod", Value = rotaryAngleSampling.ToStringInvariant() };
-                var thing = RotaryAngleSensorThing = new Yodiwo.API.Plegma.Thing()
+                var thing = new Yodiwo.API.Plegma.Thing()
                 {
-                    Type = "yodiwo.output.seekbars",
+                    ThingKey = ThingKey.BuildFromArbitraryString("$NodeKey$", "RotaryAngleSensorThing"),
+                    Type = ThingTypeLibrary.Slider.Type + PlegmaAPI.ThingModelTypeSeparatorStr,
                     Name = "Rotary Angle Sensor",
                     Config = new List<ConfigParameter>() { pinConfig, samplePeriodConfig },
                     UIHints = new ThingUIHints()
                     {
-                        IconURI = "/Content/VirtualGateway/img/icon-thing-slider.png",
+                        IconURI = "/Content/img/icons/Generic/thing-slider.png",
                     },
                 };
                 thing.Ports = new List<Yodiwo.API.Plegma.Port>()
@@ -313,10 +334,12 @@ namespace Yodiwo.Projects.GrovePi
                         ioDirection = Yodiwo.API.Plegma.ioPortDirection.Output,
                         Name = "RotaryAngle",
                         State = "0",
+                        PortModelId =ModelTypeLibrary.SliderModel_Id,
                         Type = Yodiwo.API.Plegma.ePortType.Decimal,
                         PortKey = PortKey.BuildFromArbitraryString("$ThingKey$", "0")
                     }
                 };
+                RotaryAngleSensorThing = thing = node.AddThing(thing);
             }
             #endregion
 
@@ -326,14 +349,15 @@ namespace Yodiwo.Projects.GrovePi
             {
                 var pinConfig = new ConfigParameter() { Name = "Pin", Value = relayPin };
                 var samplePeriodConfig = new ConfigParameter() { Name = "SamplePeriod", Value = relaySampling.ToStringInvariant() };
-                var thing = RelaySensorThing = new Yodiwo.API.Plegma.Thing()
+                var thing = new Yodiwo.API.Plegma.Thing()
                 {
-                    Type = "yodiwo.output.relays",
+                    ThingKey = ThingKey.BuildFromArbitraryString("$NodeKey$", "RelaySensorThing"),
+                    Type = ThingTypeLibrary.SwitchActuator.Type + PlegmaAPI.ThingModelTypeSeparator + ThingTypeLibrary.SwitchActuator_RelayModelType,
                     Name = "Relay",
                     Config = new List<ConfigParameter>() { pinConfig, samplePeriodConfig },
                     UIHints = new ThingUIHints()
                     {
-                        IconURI = "/Content/GrovePi/img/relay.jpg",
+                        IconURI = "/Content/img/icons/relay.jpg",
                     },
                 };
                 thing.Ports = new List<Yodiwo.API.Plegma.Port>()
@@ -342,11 +366,13 @@ namespace Yodiwo.Projects.GrovePi
                     {
                         ioDirection = Yodiwo.API.Plegma.ioPortDirection.Output,
                         Name = "RelayState",
+                        PortModelId = ModelTypeLibrary.RelayModel_RelayId,
                         State = "0",
                         Type = Yodiwo.API.Plegma.ePortType.Integer,
                         PortKey = PortKey.BuildFromArbitraryString("$ThingKey$", "0")
                     }
                 };
+                RelaySensorThing = thing = node.AddThing(thing);
             }
             #endregion
 #endif
@@ -355,14 +381,15 @@ namespace Yodiwo.Projects.GrovePi
             {
                 var pinConfig = new ConfigParameter() { Name = "Pin", Value = htSensorPin };
                 var samplePeriodConfig = new ConfigParameter() { Name = "SamplePeriod", Value = htSensorSampling.ToStringInvariant() };
-                var thing = HTSensorThing = new Yodiwo.API.Plegma.Thing()
+                var thing = new Yodiwo.API.Plegma.Thing()
                 {
-                    Type = "yodiwo.output.sensors.enviromental",
+                    ThingKey = ThingKey.BuildFromArbitraryString("$NodeKey$", "HTSensorThing"),
+                    Type = ThingTypeLibrary.HTSensor.Type + PlegmaAPI.ThingModelTypeSeparatorPlusDefault,
                     Name = "Temperature and Humidity Sensor",
                     Config = new List<ConfigParameter>() { pinConfig, samplePeriodConfig },
                     UIHints = new ThingUIHints()
                     {
-                        IconURI = "/Content/GrovePi/img/ht.png",
+                        IconURI = "/Content/img/icons/ht.png",
                     },
                 };
                 thing.Ports = new List<Yodiwo.API.Plegma.Port>()
@@ -370,12 +397,14 @@ namespace Yodiwo.Projects.GrovePi
                     new Yodiwo.API.Plegma.Port()
                     {
                         ioDirection = Yodiwo.API.Plegma.ioPortDirection.Output,
+                        PortModelId = ModelTypeLibrary.HTSensorModel_TemperatureSensorId,
                         Name = "HT",
                         State = "0",
                         Type = Yodiwo.API.Plegma.ePortType.Integer,
                         PortKey = PortKey.BuildFromArbitraryString("$ThingKey$", "0")
                     }
                 };
+                HTSensorThing = thing = node.AddThing(thing);
             }
             #endregion
 
@@ -384,14 +413,15 @@ namespace Yodiwo.Projects.GrovePi
             {
                 var pinConfig = new ConfigParameter() { Name = "Pin", Value = ultrasonicPin };
                 var samplePeriodConfig = new ConfigParameter() { Name = "SamplePeriod", Value = ultrasonicSampling.ToStringInvariant() };
-                var thing = UltrasonicSensorThing = new Yodiwo.API.Plegma.Thing()
+                var thing = new Yodiwo.API.Plegma.Thing()
                 {
-                    Type = "yodiwo.output.sensors.ultrasonic",
+                    ThingKey = ThingKey.BuildFromArbitraryString("$NodeKey$", "UltrasonicSensorThing"),
+                    Type = ThingTypeLibrary.ProximitySensor.Type + PlegmaAPI.ThingModelTypeSeparator + ThingTypeLibrary.ProximitySensor_UltrasonicModelType,
                     Name = "Ultrasonic Sensor",
                     Config = new List<ConfigParameter>() { pinConfig, samplePeriodConfig },
                     UIHints = new ThingUIHints()
                     {
-                        IconURI = "/Content/GrovePi/img/proximity.png",
+                        IconURI = "/Content/img/icons/proximity.png",
                     },
                 };
                 thing.Ports = new List<Yodiwo.API.Plegma.Port>()
@@ -401,10 +431,12 @@ namespace Yodiwo.Projects.GrovePi
                         ioDirection = Yodiwo.API.Plegma.ioPortDirection.Output,
                         Name = "cm",
                         State = "0",
+                        PortModelId = ModelTypeLibrary.UltrasonicSensorModel_Id,
                         Type = Yodiwo.API.Plegma.ePortType.Integer,
                         PortKey = PortKey.BuildFromArbitraryString("$ThingKey$", "0")
                     }
                 };
+                UltrasonicSensorThing = thing = node.AddThing(thing);
             }
             #endregion
 
@@ -412,14 +444,15 @@ namespace Yodiwo.Projects.GrovePi
             #region SetUp LCDThing
             {
                 var pinConfig = new ConfigParameter() { Name = "Pin", Value = lcdPin };
-                var thing = LCDThing = new Yodiwo.API.Plegma.Thing()
+                var thing = new Yodiwo.API.Plegma.Thing()
                 {
-                    Type = "yodiwo.input.lcds",
+                    ThingKey = ThingKey.BuildFromArbitraryString("$NodeKey$", "LCDThing"),
+                    Type = ThingTypeLibrary.Lcd.Type + PlegmaAPI.ThingModelTypeSeparatorPlusDefault,
                     Name = "LCD",
                     Config = new List<ConfigParameter>() { pinConfig },
                     UIHints = new ThingUIHints()
                     {
-                        IconURI = "/Content/GrovePi/img/lcd.png",
+                        IconURI = "/Content/img/icons/lcd.png",
                     },
                 };
                 thing.Ports = new List<Yodiwo.API.Plegma.Port>()
@@ -429,10 +462,12 @@ namespace Yodiwo.Projects.GrovePi
                         ioDirection = Yodiwo.API.Plegma.ioPortDirection.Input,
                         Name = "Message",
                         State = "0",
+                        PortModelId= ModelTypeLibrary.LcdModel_Id,
                         Type = Yodiwo.API.Plegma.ePortType.String,
                         PortKey = PortKey.BuildFromArbitraryString("$ThingKey$", "0")
                     }
                 };
+                LCDThing = thing = node.AddThing(thing);
             }
             #endregion
 
@@ -447,7 +482,7 @@ namespace Yodiwo.Projects.GrovePi
             Things.Add(LightSensorThing);
             Things.Add(ButtonSensorThing);
             Things.Add(RotaryAngleSensorThing);
-            Things.Add(RelaySensorThing);
+            //Things.Add(RelaySensorThing);
             Things.Add(HTSensorThing);
             Things.Add(UltrasonicSensorThing);
             Things.Add(LCDThing);
@@ -495,8 +530,6 @@ namespace Yodiwo.Projects.GrovePi
             ultrasonicSensor.OnGetContinuousDatacb += data => OnGetContinuousDatacb(ultrasonicSensor, data);
 
             #endregion
-
-            return Things;
         }
 
 

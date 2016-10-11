@@ -59,6 +59,12 @@ namespace Yodiwo.Projects.GrovePi
             {
                 try
                 {
+                    eventstring = sr.ReadLine();
+                    if (eventstring == null)
+                    {
+                        Task.Delay(300).Wait();
+                        continue;
+                    }
                     while ((eventstring = sr.ReadLine()) != null)
                     {
                         if (eventstring.Length > 0)

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Yodiwo.NodeLibrary;
 using Yodiwo.API.Plegma;
+using System.Security;
 
 namespace Yodiwo.Projects.GrovePi
 {
@@ -39,11 +40,11 @@ namespace Yodiwo.Projects.GrovePi
                 YpchannelPort = ActiveCfg.YpchannelPort,
                 SecureYpc = ActiveCfg.YpchannelSecure,
                 FrontendServer = ActiveCfg.FrontendServer,
-                CanSolveGraphs = false,// deactivate for GrovePi
+                CanSolveGraphs = ActiveCfg.CanSolveGraphs
             };
 
             //prepare pairing module
-            var pairmodule = new Yodiwo.Node.Pairing.NancyPairing.NancyPairing();
+            var pairmodule = new Yodiwo.NodeLibrary.Pairing.NancyPairing.NancyPairing();
 
             //prepare node graph manager module
             var nodeGraphManager = new Yodiwo.NodeLibrary.Graphs.NodeGraphManager(
@@ -55,10 +56,8 @@ namespace Yodiwo.Projects.GrovePi
 
             //create node
             node = new Yodiwo.NodeLibrary.Node(conf,
-                                               Helper.GatherThings(this.pysharp),
                                                pairmodule,
-                                               null,
-                                               null,
+                                               null, null,
                                                NodeGraphManager: nodeGraphManager
                                                );
             Helper.node = node;
@@ -71,14 +70,10 @@ namespace Yodiwo.Projects.GrovePi
             node.OnTransportConnected += OnTransportConnectedCb;
             node.OnTransportDisconnected += OnTransportDisconnectedCb;
             node.OnTransportError += OnTransportErrorCb;
-            node.OnUnexpectedMessage = OnUnexpectedMessageCb;
+            node.OnUnexpectedMessage += OnUnexpectedMessageCb;
             node.OnPortActivated += OnPortActivatedCb;
             node.OnPortDeactivated += OnPortDeactivatedCb;
             node.OnThingUpdated += OnThingUpdated;
-
-
-            //register port event handlers
-            RegisterThingsHandlers();
 
             //start Pairing
             if (String.IsNullOrWhiteSpace(ActiveCfg.NodeKey))
@@ -88,10 +83,16 @@ namespace Yodiwo.Projects.GrovePi
             }
             else
             {
-                node.SetupNodeKeys(ActiveCfg.NodeKey, ActiveCfg.NodeSecret);
+                node.SetupNodeKeys(ActiveCfg.NodeKey, ActiveCfg.NodeSecret.ToSecureString());
                 DebugEx.TraceLog("Node already paired: NodeKey = "
-                    + ActiveCfg.NodeKey + ", NodeSecret = ", ActiveCfg.NodeSecret);
+                    + ActiveCfg.NodeKey + ", NodeSecret = " + ActiveCfg.NodeSecret);
             }
+
+            //add things
+            Helper.CreateThings(this.pysharp, node);
+
+            //register port event handlers
+            RegisterThingsHandlers();
 
             //connect
             node.Connect();
@@ -243,11 +244,11 @@ namespace Yodiwo.Projects.GrovePi
             DebugEx.TraceLog("OnTransportError transport=" + Transport.ToString() + " msg=" + msg);
         }
 
-        void OnChangedStateCb(Thing thing, Port port, string state)
+        void OnChangedStateCb(Thing thing, Port port, string state, bool isEvent)
         {
         }
 
-        private ApiMsg OnUnexpectedRequestCb(object request)
+        private PlegmaApiMsg OnUnexpectedRequestCb(object request)
         {
             DebugEx.TraceLog("Unexpected request received.");
             return null;
@@ -262,8 +263,6 @@ namespace Yodiwo.Projects.GrovePi
         //initialize GrovePi Platform
         public void InitializePlatform()
         {
-
-
         }
 
         public void RegisterThingsHandlers()
@@ -275,57 +274,70 @@ namespace Yodiwo.Projects.GrovePi
                     if (port.ioDirection == ioPortDirection.Input || port.ioDirection == ioPortDirection.InputOutput)
                     {
 
-                        node.PortEventHandlers[port] = data =>
+                        node.PortEventHandlers[port] = (data, isEvent) =>
                         {
+                            if (isEvent)
+                            {
 #if DEBUG
-                            DebugEx.TraceLog("buzzerData: " + data);
+                                DebugEx.TraceLog("buzzerData: " + data);
 #endif
-                            bool value;
-                            if (Boolean.TryParse(data, out value))
-                                gpio.Value.DigitalWrite(value ? "1" : "0");
+                                bool value;
+                                if (Boolean.TryParse(data, out value))
+                                    gpio.Value.DigitalWrite(value ? "1" : "0");
+                            }
                         };
+
                         break; //cheat
                     }
             }
             /* /A2MCU */
 
-            node.PortEventHandlers[Helper.BuzzerThing.Ports[0]] = data =>
+            node.PortEventHandlers[Helper.BuzzerThing.Ports[0]] = (data, isEvent) =>
             {
 #if DEBUG
                 DebugEx.TraceLog("buzzerData: " + data);
 #endif
-                Buzzer buzzerSensor = (Buzzer)Helper.Lookup[Helper.BuzzerThing];
-                //Buzzer buzzerSensor = (Buzzer)Helper.GroveSensors[Helper.BuzzerThing.Name];
-                buzzerSensor.DigitalWrite(data);
+                if (isEvent)
+                {
+                    Buzzer buzzerSensor = (Buzzer)Helper.Lookup[Helper.BuzzerThing];
+                    //Buzzer buzzerSensor = (Buzzer)Helper.GroveSensors[Helper.BuzzerThing.Name];
+                    buzzerSensor.DigitalWrite(data);
+                }
             };
-            node.PortEventHandlers[Helper.RgbLedThing.Ports[0]] = data =>
+            node.PortEventHandlers[Helper.RgbLedThing.Ports[0]] = (data, isEvent) =>
             {
 #if DEBUG
                 DebugEx.TraceLog("rgbLedData: " + data);
 #endif
-                RgbLed rgbLedSensor = (RgbLed)Helper.Lookup[Helper.RgbLedThing];
-                //RgbLed rgbLedSensor = (RgbLed)Helper.GroveSensors[Helper.RgbLedThing.Name];
-                rgbLedSensor.DigitalWrite(data);
+                if (isEvent)
+                {
+                    RgbLed rgbLedSensor = (RgbLed)Helper.Lookup[Helper.RgbLedThing];
+                    //RgbLed rgbLedSensor = (RgbLed)Helper.GroveSensors[Helper.RgbLedThing.Name];
+                    rgbLedSensor.DigitalWrite(data);
+                }
             };
 
-            node.PortEventHandlers[Helper.LCDThing.Ports[0]] = data =>
+            node.PortEventHandlers[Helper.LCDThing.Ports[0]] = (data, isEvent) =>
             {
 #if DEBUG
                 DebugEx.TraceLog("lcdData: " + data);
 #endif
-                LCD lcd = (LCD)Helper.Lookup[Helper.LCDThing];
-                //LCD lcd = (LCD)Helper.GroveSensors[Helper.LCDThing.Name];
-                lcd.Display(data);
+                if (isEvent)
+                {
+                    LCD lcd = (LCD)Helper.Lookup[Helper.LCDThing];
+                    //LCD lcd = (LCD)Helper.GroveSensors[Helper.LCDThing.Name];
+                    lcd.Display(data);
+                }
             };
 
         }
 
 
         //cb when node is paired
-        void OnPaired(NodeKey nodekey, string secret)
+        void OnPaired(NodeKey nodekey, SecureString secret)
         {
             ActiveCfg.NodeKey = nodekey;
-            ActiveCfg.NodeSecret = secret;
+            ActiveCfg.NodeSecret = secret.SecureStringToString();
             YConfig.Save();
         }
     }

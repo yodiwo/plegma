@@ -65,8 +65,8 @@ namespace Yodiwo.Projects.GrovePi
                     sensor.OnGetValue(rsp);
                 }
 
-                var wait_ms = (int)SamplingPeriod;
-                Task.Delay(wait_ms).Wait();
+                var wait_ms = Math.Max(200, (int)SamplingPeriod);
+                Thread.Sleep(wait_ms);
             }
         }
         //------------------------------------------------------------------------------------------------------------------------

@@ -62,6 +62,7 @@ namespace Yodiwo.Projects.GrovePi
         public string CertificateServerName;
         public string LocalWebServer;
         public string MqttApiPasswd;
+        public bool CanSolveGraphs;
     }
 
 }
