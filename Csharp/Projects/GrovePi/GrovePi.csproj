@@ -38,6 +38,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -81,6 +82,14 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\NodeLibrary\NodeLibrary.Graphs\Yodiwo.NodeLibrary.Graphs.csproj">
+      <Project>{038a37ca-f251-400b-8003-7eeaed77348c}</Project>
+      <Name>Yodiwo.NodeLibrary.Graphs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\NodeLibrary\Yodiwo.NodeLibrary\Yodiwo.NodeLibrary.csproj">
+      <Project>{8f830f7a-0a96-4329-847c-06b0a84ba4c4}</Project>
+      <Name>Yodiwo.NodeLibrary</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\YodiwoSharp\YodiwoSharp.csproj">
       <Project>{8ae66abd-d963-4e83-83a3-330156cd37a3}</Project>
       <Name>YodiwoSharp</Name>
@@ -89,17 +98,9 @@
       <Project>{94f4ce90-200f-40ce-bf83-e15d147924f7}</Project>
       <Name>Yodiwo.API.Plegma</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\NodeLibrary\NodeLibrary.Graphs\Yodiwo.NodeLibrary.Graphs.csproj">
-      <Project>{038a37ca-f251-400b-8003-7eeaed77348c}</Project>
-      <Name>Yodiwo.NodeLibrary.Graphs</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\NodeLibrary\Yodiwo.Node.Pairing.NancyPairing\Yodiwo.Node.Pairing.NancyPairing.csproj">
       <Project>{8ccd87b9-d3af-4cff-80de-bc7cac1b6e43}</Project>
       <Name>Yodiwo.Node.Pairing.NancyPairing</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\NodeLibrary\Yodiwo.NodeLibrary\Yodiwo.NodeLibrary.csproj">
-      <Project>{8f830f7a-0a96-4329-847c-06b0a84ba4c4}</Project>
-      <Name>Yodiwo.NodeLibrary</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

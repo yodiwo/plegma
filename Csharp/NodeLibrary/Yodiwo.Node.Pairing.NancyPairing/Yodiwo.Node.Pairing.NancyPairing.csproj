@@ -73,6 +73,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\APIs\Plegma\Yodiwo.API.Plegma.csproj">
+      <Project>{94f4ce90-200f-40ce-bf83-e15d147924f7}</Project>
+      <Name>Yodiwo.API.Plegma</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\YodiwoSharp\YodiwoSharp.csproj">
       <Project>{8ae66abd-d963-4e83-83a3-330156cd37a3}</Project>
       <Name>YodiwoSharp</Name>
@@ -80,10 +84,6 @@
     <ProjectReference Include="..\Yodiwo.NodeLibrary\Yodiwo.NodeLibrary.csproj">
       <Project>{8f830f7a-0a96-4329-847c-06b0a84ba4c4}</Project>
       <Name>Yodiwo.NodeLibrary</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\APIs\Plegma\Yodiwo.API.Plegma.csproj">
-      <Project>{94f4ce90-200f-40ce-bf83-e15d147924f7}</Project>
-      <Name>Yodiwo.API.Plegma</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
