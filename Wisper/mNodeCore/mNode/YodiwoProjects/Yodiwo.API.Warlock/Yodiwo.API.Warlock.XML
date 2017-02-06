@@ -1,0 +1,743 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Yodiwo.API.Warlock</name>
+    </assembly>
+    <members>
+        <member name="T:Yodiwo.API.Warlock.Private.TimelineDescriptorKey">
+            <summary>
+            Globally unique identifier of a <see cref="T:Yodiwo.API.Warlock.Private.TimelineDescriptor"/>
+            </summary>
+        </member>
+        <member name="T:Yodiwo.API.Warlock.Private.WarlockAuthenticationRequest">
+             <summary>
+            WarlockAuthenticationRequest: used as request from the Warlock server for the negotiation with a WarlockClient
+             </summary>
+        </member>
+        <member name="T:Yodiwo.API.Warlock.Private.WarlockAuthenticationResponse">
+             <summary>
+            WarlockAuthenticationResponse: used as response from the WarlockClient so as to authenticate itself to the WarlockServer
+             </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.Private.WarlockAuthenticationResponse.Secret">
+            <summary>secret that a WarlockClient has used so as to connect to the WarlockServer</summary>
+        </member>
+        <member name="T:Yodiwo.API.Warlock.OAuth">
+            <summary>
+            auxiliary class for OAuth stuff
+            </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.OAuth.Scopes">
+            <summary>
+            all available oauth scopes
+            </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.OAuth.ScopeSeparator">
+            <summary>
+            scope separator
+            </summary>
+        </member>
+        <member name="M:Yodiwo.API.Warlock.NotificationDescriptor.#ctor(Yodiwo.API.Warlock.NotificationDescriptor.NotificationDescriptorType,Yodiwo.API.Warlock.NotificationDescriptor.NotificationDescriptorOperationType,Yodiwo.API.Warlock.NotificationDescriptorRelatedObject,System.String)">
+            <summary>
+            Generate the graph model based on Logic.Graph.
+            </summary>
+        </member>
+        <member name="T:Yodiwo.API.Warlock.NotificationDescriptorKey">
+            <summary>
+            Globally unique identifier of a <see cref="T:Yodiwo.API.Warlock.NotificationDescriptor"/>
+            </summary>
+        </member>
+        <member name="T:Yodiwo.API.Warlock.WrapperMsg">
+            <summary>
+            Wrapper class mainly for providing synchronization services to sync-less protocols (mqtt, websockets, etc)
+            </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.WrapperMsg.Flags">
+            <summary> message flags (request/response, etc) </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.WrapperMsg.SyncId">
+            <summary>
+            for RPC blocking calls: synchronization ID
+            Message ID or Request message, or number of previous message that this message is responding to
+            </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.WrapperMsg.Payload">
+            <summary>
+            JSON Serialized payload
+            </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.WrapperMsg.PayloadSize">
+            <summary>
+            Size of packed/serialized payload
+            </summary>
+        </member>
+        <member name="P:Yodiwo.API.Warlock.WrapperMsg.IsRequest">
+            <summary>
+            (un)mark message as request / check if request
+            </summary>
+        </member>
+        <member name="P:Yodiwo.API.Warlock.WrapperMsg.IsResponse">
+            <summary>
+            (un)mark message as response / check if response
+            </summary>
+        </member>
+        <member name="T:Yodiwo.API.Warlock.WrapperMsg.eMsgFlags">
+            <summary>wrapper message flags</summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.WrapperMsg.eMsgFlags.None">
+            <summary>no flags (async message)</summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.WrapperMsg.eMsgFlags.Request">
+            <summary>message is a request</summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.WrapperMsg.eMsgFlags.Response">
+            <summary>message is a response to a request</summary>
+        </member>
+        <member name="T:Yodiwo.API.Warlock.WebSocketMsg">
+            <summary>
+            Websocket protocol wrapper. Inherits from base WrapperMsg, adds Id and Subid
+            </summary>  
+        </member>
+        <member name="F:Yodiwo.API.Warlock.WebSocketMsg.Id">
+            <summary>
+            Id of message (pairing, api, other message)
+            </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.WebSocketMsg.SubId">
+            <summary>
+            subid of message (type of api or pairing message)
+            </summary>
+        </member>
+        <member name="T:Yodiwo.API.Warlock.WebSocketMsg.eWSMsgId">
+            <summary> enum of message ID </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.WebSocketMsg.eWSMsgId.None">
+            <summary> no id / invalid </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.WebSocketMsg.eWSMsgId.Pairing">
+            <summary> Pairing type message </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.WebSocketMsg.eWSMsgId.Api">
+            <summary> Plegma API message </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.WebSocketMsg.eWSMsgId.Warlock">
+            <summary> Warlock API message </summary>
+        </member>
+        <member name="T:Yodiwo.API.Warlock.MqttMsg">
+            <summary>
+            Mqtt message encapsulation class.
+            </summary>
+        </member>
+        <member name="T:Yodiwo.API.Warlock.GcmMsg">
+            <summary>
+            Gcm message encapsulation class.
+            </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.NodeDescriptor.PairingTimestamp">
+            <summary>Creation (pairing) of node timestamp, in msec since the Unix Epoch</summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.NodeDescriptor.ThingsRevNum">
+            <summary>current Node's Things revision number, as defined in Plegma API</summary>
+        </member>
+        <member name="M:Yodiwo.API.Warlock.NodeDescriptor.PermissionsToString(Yodiwo.API.Warlock.eNodePermissions)">
+            <summary>
+            Map eNodePermissions to description
+            </summary>
+            <param name="Permissions"></param>
+            <returns></returns>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.WarlockAPI.APIVersion">
+            <summary>api current version</summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.WarlockAPI.ApiGroupName">
+            <summary>internal api name</summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.WarlockAPI.ApiMessages">
+            <summary>
+            List of all possible API messages that are exchanged between Nodes and the Yodiwo Cloud Service
+            </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.WarlockAPI.PermissionMatrix">
+            <summary>
+            Dictionary that maps API names to classes. These names are the ones used for REST routes, MQTT topics, or RabbitMQ queue names
+            </summary>
+        </member>
+        <member name="T:Yodiwo.API.Warlock.WarlockApiMsg">
+            <summary>
+            Base class of an API message, from which all message classes inherit
+            </summary>
+        </member>
+        <member name="T:Yodiwo.API.Warlock.GenericRsp">
+            <summary>
+            General Response to request-type messages. Used to unblock requests waiting for responses that are of basic ACKnowledge type
+            </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.GenericRsp.IsSuccess">
+            <summary>
+            Marks whether the referenced by Id request was successful or not. A value of <see langword="false"/>
+            means the request got handled but failed due to the reason provided in <see cref="F:Yodiwo.API.Warlock.GenericRsp.Message"/>
+            </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.GenericRsp.StatusCode">
+            <summary> An optional code for result </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.GenericRsp.Message">
+            <summary> An optional message for the result </summary>
+        </member>
+        <member name="M:Yodiwo.API.Warlock.GenericRsp.#ctor">
+            <summary>
+            Generic response constructor
+            </summary>
+        </member>
+        <member name="T:Yodiwo.API.Warlock.GetUserTokensRsp">
+            <summary>
+            response to a <see cref="T:Yodiwo.API.Warlock.GetUserTokensReq"/>
+            </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.GetUserTokensRsp.Tokens">
+            <summary>
+            source-key-to-token dictionary. Source key is the <see cref="T:Yodiwo.API.Warlock.GetUserTokensReq"/> entry
+            that matches the returned token value.
+            Tokens are transient and may stop working on further requests at any time, at which point 
+            the API client is advised to request new ones via <see cref="T:Yodiwo.API.Warlock.GetUserTokensReq"/>
+            
+            If multiple tokens match (i.e. there were duplicate requests) each one overwrites the previous one; so don't do that
+            </summary>
+        </member>
+        <member name="T:Yodiwo.API.Warlock.UserInfo">
+            <summary>
+            User Information
+            </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.UserInfo.UserToken">
+            <summary>User Token. Can be used for all user-related queries and references</summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.UserInfo.Username">
+            <summary>Username of user</summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.UserInfo.Name">
+            <summary>Name of User as retrieved by User's selected authentication provider or set by the user themselves</summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.UserInfo.Email">
+            <summary>Email of User as retrieved by User's selected authentication provider</summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.UserInfo.Avatar">
+            <summary>Avatar of User as retrieved by User's selected authentication provider</summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.UserInfo.LoggedIn">
+            <summary>True if user is currently logged in to the Cyan environment</summary>
+        </member>
+        <member name="M:Yodiwo.API.Warlock.UserInfo.ToString">
+            <summary>toString override</summary>
+        </member>
+        <member name="T:Yodiwo.API.Warlock.GetUserInfoRsp">
+            <summary>
+            response to a GetUserInfoReq
+            </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.GetUserInfoRsp.UserInfo">
+            <summary>
+            Dictionary Key: user token of user about which info is being provided
+            Dictionary Value: user info as a <see cref="F:Yodiwo.API.Warlock.GetUserInfoRsp.UserInfo"/> class
+            </summary>
+        </member>
+        <member name="T:Yodiwo.API.Warlock.GetFriendsRsp">
+            <summary>
+            response to <see cref="T:Yodiwo.API.Warlock.GetFriendsReq"/>
+            </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.GetFriendsRsp.Friends">
+            <summary>
+            list of user tokens that user is friends with
+            </summary>
+        </member>
+        <member name="T:Yodiwo.API.Warlock.GetThingsRsp">
+            <summary>
+            Get Things response as a dictionary of node keys to lists of Things
+            </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.GetThingsRsp.ThingsPerNode">
+            <summary>
+            Dictionary Key: node key of the things referenced in Value
+            Dictionary Value: list of Plegma API Things that belong to the node reference in the Key
+            </summary>
+        </member>
+        <member name="T:Yodiwo.API.Warlock.eShareActionType">
+            <summary>
+            Sharing Action type
+            </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.eShareActionType.Share">
+            <summary>
+            Explicit share request, must include specific ThingKey and specific User Id to share to
+            </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.eShareActionType.Unshare">
+            <summary>
+            Explicit unshare request, must include specific ThingKey and either a specific User Id to unshare from,
+            or a broadcast UserKey in order to unshare from all
+            </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.eShareActionType.Ask">
+            <summary>
+            Get sharing info for specified ThingKey. Specific ThingKey must be provided (no broadcast keys allowed). If
+            specific TargetUser is provided the response will inform whether Thing is shared with specific User (via the <see cref="F:Yodiwo.API.Warlock.GenericRsp.IsSuccess"/> field).
+            If broadcast UserKey is provided and the requesting User is the Thing's Owner, then the response will provide an array of users the Thing is currently shared to via <see cref="F:Yodiwo.API.Warlock.ShareActionRsp.Users"/>.
+            A broadcast UserKey cannot be used to request the list of users for a Thing that doesn't belong to the requester.
+            </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.eShareActionType.AskAll">
+            <summary>
+            Used to receive two Things lists:
+            - Things shared to the requesting user by other users (in <see cref="F:Yodiwo.API.Warlock.ShareActionRsp.ThingKeysByOthers"/>)
+            - Things shared to other users by the requesting user (in <see cref="F:Yodiwo.API.Warlock.ShareActionRsp.ThingKeysToOthers"/>)
+            </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.eShareActionType.Deny">
+            <summary>
+            Used to deny pending share or unshare request. 
+            Must include PendingToken and TargetUserToken
+            </summary>
+        </member>
+        <member name="T:Yodiwo.API.Warlock.ShareActionReq">
+            <summary>
+            Share Action sub-request
+            </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.ShareActionReq.Id">
+            <summary>
+            Id of specific sub-request. Can be ignored if Req consists of single action or requester doesn't require to match requests to responses
+            </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.ShareActionReq.Type">
+            <summary>
+            Type of action requested; see <see cref="T:Yodiwo.API.Warlock.eShareActionType"/>
+            </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.ShareActionReq.TargetUserToken">
+            <summary>
+            User Token of Target User the action is referring to, as retrieved by <see cref="T:Yodiwo.API.Warlock.GetUserTokensReq"/>. A wildcard key may be used to request info on all users for a single ThingKey
+            </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.ShareActionReq.ThingKey">
+            <summary>
+            Specific ThingKey of Thing that this action refers to. Mandatory for <see cref="F:Yodiwo.API.Warlock.eShareActionType.Share"/>, <see cref="F:Yodiwo.API.Warlock.eShareActionType.Unshare"/> and <see cref="F:Yodiwo.API.Warlock.eShareActionType.Ask"/>.
+            Ignored for <see cref="F:Yodiwo.API.Warlock.eShareActionType.AskAll"/>.
+            </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.ShareActionReq.PendingToken">
+            <summary>
+            If the request is used to answer a previously pending request, this token should be used to reference the initial request
+            </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.ShareGraphReq.Type">
+            <summary>
+            Type of action requested <see cref="T:Yodiwo.API.Warlock.eShareActionType"/>
+            </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.ShareGraphReq.GraphDescriptorKey">
+            <summary>
+            Shared graph's key
+            </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.ShareGraphReq.RequesterEmail">
+            <summary>
+            Email of user who made the request
+            </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.ShareGraphReq.NotificationDescriptorKey">
+            <summary>
+            Notification's key
+            </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.SharedGraphConfReq.Step">
+            <summary>
+             Current wizard step
+            </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.SharedGraphConfReq.GraphPath">
+            <summary>
+            Data to send to warlock after step 1 submission
+            </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.SharedGraphConfReq.ThingType2ThingKey">
+            <summary>
+            Data to send to warlock after step 2 submission
+            </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.SharedGraphConfRsp.ThingTypesInSharedGraph">
+            <summary>
+            Data to send to frontend to create view for step 2
+            </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.SharedGraphConfRsp.Errors">
+            <summary>
+            Errors found on current step
+            </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.SharedGraphConfRsp.IsFinished">
+            <summary>
+            Flag to indicate if graph configuration has completed
+            </summary>
+        </member>
+        <member name="T:Yodiwo.API.Warlock.ShareActionRsp">
+            <summary>
+            Share Action Response class. Each <see cref="T:Yodiwo.API.Warlock.ShareThingsRsp"/> message contains the same number of these as in 
+            the <see cref="T:Yodiwo.API.Warlock.ShareThingsReq"/> message it is responding to, and each <see cref="F:Yodiwo.API.Warlock.ShareActionRsp.Id"/> corresponds to a <see cref="F:Yodiwo.API.Warlock.ShareActionReq.Id"/>
+            </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.ShareActionRsp.Id">
+            <summary>
+            Id of request that this response refers to
+            </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.ShareActionRsp.IsPending">
+            <summary>
+            If true, the respective request was not completed because of an action pending on the receiver's part. In such a case <see cref="F:Yodiwo.API.Warlock.ShareActionRsp.PendingToken"/>
+            will be set to a value that will be provided as reference in a future <see cref="T:Yodiwo.API.Warlock.ShareNotifyMsg"/>
+            </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.ShareActionRsp.PendingToken">
+            <summary>
+            A token that can be used to match a currently pending operation to a future <see cref="T:Yodiwo.API.Warlock.ShareNotifyMsg"/>
+            </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.ShareActionRsp.ThingKeysToOthers">
+            <summary>
+            Contains Things shared to other users by the requesting user. Used only when <see cref="F:Yodiwo.API.Warlock.ShareActionReq.Type"/> is <see cref="F:Yodiwo.API.Warlock.eShareActionType.AskAll"/>
+            Dictionary Key is the User Token of the shared-to user, Value is the list of ThingKeys that are being shared to this User
+            Dictionary Key is the ThingKey that is being shared toward other users, Value is the list of User Tokens of the users that the thing is being shared to
+            </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.ShareActionRsp.ThingKeysByOthers">
+            <summary>
+            Contains Things shared to the requesting user by other users. Used only when <see cref="F:Yodiwo.API.Warlock.ShareActionReq.Type"/> is <see cref="F:Yodiwo.API.Warlock.eShareActionType.AskAll"/>
+            Dictionary Key is the User Token of the shared-from users, Value is the list of that user's shared ThingKeys
+            </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.ShareActionRsp.Users">
+            <summary>
+            (refers to <see cref="F:Yodiwo.API.Warlock.eShareActionType.Ask"/> requests only) Array of Users that referenced ThingKey is currently shared with. May be empty.
+            <para>Is left empty for <see cref="F:Yodiwo.API.Warlock.eShareActionType.Share"/> and <see cref="F:Yodiwo.API.Warlock.eShareActionType.Unshare"/> requests where the request outcome
+            is derived from the <see cref="F:Yodiwo.API.Warlock.GenericRsp.IsSuccess"/> and <see cref="F:Yodiwo.API.Warlock.GenericRsp.Message"/> fields</para>
+            </summary>
+        </member>
+        <member name="T:Yodiwo.API.Warlock.ShareThingsRsp">
+            <summary>
+            Response to a <see cref="T:Yodiwo.API.Warlock.ShareThingsReq"/> message
+            </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.ShareThingsRsp.Handled">
+            <summary>
+            indication of whether message as whole got handled or not;
+            <para>
+            <see langword="false"/> means that there was a premature error (e.g. bad request) and that the <see cref="T:Yodiwo.API.Warlock.ShareThingsRsp"/> field 
+            contains no data.
+            </para><para>
+            <see langword="true"/> means that the <see cref="T:Yodiwo.API.Warlock.ShareThingsRsp"/> field contains valid data
+            </para>
+            </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.ShareThingsRsp.ShareActionRsps">
+            <summary>
+            Array of sub-responses to each of <see cref="T:Yodiwo.API.Warlock.ShareThingsReq"/>'s sub-requests
+            </summary>
+        </member>
+        <member name="T:Yodiwo.API.Warlock.ShareNotification">
+            <summary>
+            Notification message; may inform about:
+             - something that happened successfully and Warlock subscribers need to be informed (<see cref="F:Yodiwo.API.Warlock.ShareNotification.PendingToken"/> is empty and <see cref="F:Yodiwo.API.Warlock.ShareNotification.IsSuccessful"/> is true
+             - a share event that is pending and requires user action (<see cref="F:Yodiwo.API.Warlock.ShareNotification.PendingToken"/> contains a token that can be used in a subsequent "answer" Share Request)
+            </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.ShareNotification.Type">
+            <summary>
+            Type of action that is being notified; see <see cref="T:Yodiwo.API.Warlock.eShareActionType"/>
+            </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.ShareNotification.PendingToken">
+            <summary>
+            If not empty, it holds a token that can be used to match a currently pending operation to a future <see cref="T:Yodiwo.API.Warlock.ShareNotifyMsg"/>
+            </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.ShareNotification.IsSuccessful">
+            <summary>
+            If <see cref="F:Yodiwo.API.Warlock.ShareNotification.PendingToken"/> not empty, this holds the outcome of previously-pending share action
+            </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.ShareNotification.RequestingUserToken">
+            <summary>
+            Token of User that requested the action this is referring to
+            </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.ShareNotification.TargetUserToken">
+            <summary>
+            UserKey of Target User the action is referring to
+            </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.ShareNotification.ThingKey">
+            <summary>
+            Specific ThingKey of Thing that this action refers to
+            </summary>
+        </member>
+        <member name="T:Yodiwo.API.Warlock.ShareNotifyMsg">
+            <summary>
+            Share notification message: sends one or more notifications about sharing events:
+             - either that something happened successfully and Warlock subscribers need to be informed
+             - or that a share event is pending and requires user action
+            </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.ShareNotifyMsg.Notifications">
+            <summary>
+            Array of notification messages, each one specifying a separate, independent sharing notification towards the receiver
+            </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.eGraphActionType.Deploy">
+            <summary>
+            Explicit deploy request, must include specific GraphDescriptorKey
+            </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.eGraphActionType.Undeploy">
+            <summary>
+            Explicit undeploy request, must include specific GraphDescriptorKey
+            </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.eGraphActionType.Validate">
+            <summary>
+            Validate selection request, must include GraphDescriptor in json
+            </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.eGraphActionType.Load">
+            <summary>
+            Explicit load request, must include specific GraphDescriptorKey
+            </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.eGraphActionType.Save">
+            <summary>
+            Save graph request, must include GraphDescriptor in json 
+            </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.eGraphActionType.Replace">
+            <summary>
+            Replace graph request, must include GraphDescriptor in json and 
+            graph's GraphDescriptorKey that will be replaced
+            </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.eGraphActionType.Import">
+            <summary>
+            import graph request, must include GraphDescriptor in json
+            </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.eGraphActionType.Export">
+            <summary>
+            Explicit export request, must include specific GraphDescriptorKey
+            </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.eGraphActionType.Remove">
+            <summary>
+            Explicit remove request, must include specific GraphDescriptorKey
+            </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.eGraphActionType.Info">
+            <summary>
+            Explicit graph info request, must include specific GraphDescriptorKey
+            Returns a GraphWrlkDescriptor <see cref="T:Yodiwo.API.Warlock.GraphWrlkDescriptor"/>
+            </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.eGraphActionType.Share">
+            <summary>
+            Share graph request, must include specific GraphDescriptorKey and TargetUserEmail
+            </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.GraphActionReq.ActionType">
+            <summary>
+            Type of graph action; see <see cref="T:Yodiwo.API.Warlock.eGraphActionType"/>
+            </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.GraphActionReq.GraphDescriptorKey">
+            <summary>
+            Specific GraphDescriptorKey of GraphDescriptor see <see cref="F:Yodiwo.API.Warlock.GraphDescriptorAndGroupNotificationInfo.GraphDescriptorKey"/> that this action refers to
+            </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.GraphActionReq.JsonData">
+            <summary>
+            Specific data in json that this action refers to. 
+            Can contain:
+                + GraphDescriptor see <see cref="F:Yodiwo.API.Warlock.GraphActionReq.GraphDescriptorKey"/>
+                + GraphActionUpdateReq see <see cref="T:Yodiwo.API.Warlock.GraphActionUpdateReq"/>
+            </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.GraphActionReq.TargetUserEmail">
+            <summary>
+            User's email to share to
+            </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.GraphActionRsp.GraphDescriptorKey">
+            <summary>
+            Specific GraphDescriptorKey of GraphDescriptor see <see cref="F:Yodiwo.API.Warlock.GraphActionRsp.GraphDescriptorKey"/> that this action refers to
+            </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.GraphActionRsp.JsonData">
+            <summary>
+            Specific data resulting from this action
+            Can contain:
+                + GraphDescriptor see <see cref="F:Yodiwo.API.Warlock.GraphActionRsp.GraphDescriptorKey"/>
+                + GraphWrlkDescriptor see <see cref="T:Yodiwo.API.Warlock.GraphWrlkDescriptor"/>
+            </summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.GraphActionRsp.isPending">
+            <summary>
+            If true, the respective request was not completed because of an action pending on the receiver's part
+            </summary>
+        </member>
+        <member name="T:Yodiwo.API.Warlock.MyHackingRsp">
+            <summary>
+            Just for Demo purposes (creating on-the-fly scenarios via node)
+            </summary>
+        </member>
+        <member name="T:Yodiwo.API.Warlock.ShareThingsReq">
+            <summary>Multiple share action requests.</summary>
+            <para>The response to this message is <see cref="T:Yodiwo.API.Warlock.ShareThingsRsp"/></para>
+        </member>
+        <!-- Badly formed XML comment ignored for member "F:Yodiwo.API.Warlock.ShareThingsReq.ShareActionReqs" -->
+        <member name="T:Yodiwo.API.Warlock.GetUserQuotaReq">
+            <summary>get quota for user; if target user different than asking user, it requires QuotaAdmin privilege level and upwards</summary>
+            <para>The response to this message is <see cref="T:Yodiwo.API.Warlock.GetUserQuotaRsp"/></para>
+        </member>
+        <member name="T:Yodiwo.API.Warlock.SetQuotaLimit">
+            <summary>set new quota limit; requires at least QuotaAdmin privileges</summary>
+            <para>The response to this message is <see cref="T:Yodiwo.API.Warlock.GenericRsp"/></para>
+        </member>
+        <member name="T:Yodiwo.API.Warlock.SetQuotaCurrentValue">
+            <summary>force set value for current quota period; quota type must be resettable; requires at least QuotaAdmin privileges</summary>
+            <para>The response to this message is <see cref="T:Yodiwo.API.Warlock.GenericRsp"/></para>
+        </member>
+        <member name="T:Yodiwo.API.Warlock.ResetQuotaPeriod">
+            <summary>reset quota counting period; quota type must be resettable; requires at least QuotaAdmin privileges</summary>
+            <para>The response to this message is <see cref="T:Yodiwo.API.Warlock.GenericRsp"/></para>
+        </member>
+        <member name="T:Yodiwo.API.Warlock.SetQuotaPeriodTimespan">
+            <summary>set new quota period timespan; quota type must be resettable; requires at least QuotaAdmin privileges</summary>
+            <para>The response to this message is <see cref="T:Yodiwo.API.Warlock.GenericRsp"/></para>
+        </member>
+        <member name="T:Yodiwo.API.Warlock.SetQuotaFlags">
+            <summary>set quota flags that are changeable; values of non-changeable flags are ignored; requires at least QuotaAdmin privileges</summary>
+            <para>The response to this message is <see cref="T:Yodiwo.API.Warlock.GenericRsp"/></para>
+        </member>
+        <member name="T:Yodiwo.API.Warlock.ClearQuotaFlags">
+            <summary>clear quota flags that are changeable; values of non-changeable flags are ignored; requires at least QuotaAdmin privileges</summary>
+            <para>The response to this message is <see cref="T:Yodiwo.API.Warlock.GenericRsp"/></para>
+        </member>
+        <member name="T:Yodiwo.API.Warlock.SetAlertPercentage">
+            <summary>set new Percentage value that should trigger an event if crossed</summary>
+            <para>The response to this message is <see cref="T:Yodiwo.API.Warlock.GenericRsp"/></para>
+        </member>
+        <member name="T:Yodiwo.API.Warlock.SetAlertPercentageForAllQuota">
+            <summary>set new Percentage value for all quota that should trigger an event if crossed</summary>
+            <para>The response to this message is <see cref="T:Yodiwo.API.Warlock.GenericRsp"/></para>
+        </member>
+        <member name="T:Yodiwo.API.Warlock.SetDefyQuotaFlag">
+            <summary>set or reset DefyQuotaLimits flag; If targetNkey is null, setting applies to full target User; If it's set and valid, the setting will apply to specific node; requires at least QuotaAdmin privileges</summary>
+            <para>The response to this message is <see cref="T:Yodiwo.API.Warlock.GenericRsp"/></para>
+        </member>
+        <member name="T:Yodiwo.API.Warlock.GetAllUserDescriptorsReq">
+            <summary>get all available users, either online or offline; requires ReadAdmin privilege level</summary>
+            <para>The response to this message is <see cref="T:Yodiwo.API.Warlock.GetAllUserDescriptorsRsp"/></para>
+        </member>
+        <member name="T:Yodiwo.API.Warlock.ChangePrivilegeLevel">
+            <summary>change user's privilege level; requires WriteAdmin privilege level</summary>
+            <para>The response to this message is <see cref="T:Yodiwo.API.Warlock.GenericRsp"/></para>
+        </member>
+        <member name="T:Yodiwo.API.Warlock.ChangeAccountLevel">
+            <summary>change user's account level; requires WriteAdmin privilege level</summary>
+            <para>The response to this message is <see cref="T:Yodiwo.API.Warlock.GenericRsp"/></para>
+        </member>
+        <member name="T:Yodiwo.API.Warlock.ParkUserReq">
+            <summary>remove a user from memory (requires WriteAdmin privileges)</summary>
+            <para>The response to this message is <see cref="T:Yodiwo.API.Warlock.GenericRsp"/></para>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.ParkUserReq.email">
+            <summary> user's email</summary>
+        </member>
+        <member name="T:Yodiwo.API.Warlock.DeleteUserReq">
+            <summary>delete a user (requires WriteAdmin privileges)</summary>
+            <para>The response to this message is <see cref="T:Yodiwo.API.Warlock.GenericRsp"/></para>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.DeleteUserReq.email">
+            <summary>user's email</summary>
+        </member>
+        <member name="T:Yodiwo.API.Warlock.EjectUserReq">
+            <summary>eject a user (requires WriteAdmin privileges)</summary>
+            <para>The response to this message is <see cref="T:Yodiwo.API.Warlock.GenericRsp"/></para>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.EjectUserReq.email">
+            <summary>user's email</summary>
+        </member>
+        <member name="T:Yodiwo.API.Warlock.BanUnBanUserReq">
+            <summary>ban/unban a user (requires WriteAdmin privileges)</summary>
+            <para>The response to this message is <see cref="T:Yodiwo.API.Warlock.GenericRsp"/></para>
+        </member>
+        <member name="T:Yodiwo.API.Warlock.UndeployExUserGraphReq">
+            <summary>undeploy a graph that belong to another user (requires WriteAdmin privileges)</summary>
+            <para>The response to this message is <see cref="T:Yodiwo.API.Warlock.GenericRsp"/></para>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.UndeployExUserGraphReq.graphDescriptorKey">
+            <summary>user's graphdescriptor key</summary>
+        </member>
+        <member name="T:Yodiwo.API.Warlock.GetUserIdReq">
+            <summary>get id from a user (requires ReadAdmin privileges)</summary>
+            <para>The response to this message is <see cref="T:Yodiwo.API.Warlock.GenericRsp"/></para>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.GetUserIdReq.email">
+            <summary>user's email</summary>
+        </member>
+        <member name="T:Yodiwo.API.Warlock.ChangeSmtpPasswordRequest">
+            <summary>change global smtp password (requires special privileges)</summary>
+            <para>The response to this message is <see cref="T:Yodiwo.API.Warlock.GenericRsp"/></para>
+        </member>
+        <member name="T:Yodiwo.API.Warlock.ClearRestServicesReq">
+            <summary>clear all services from a user (requires WriteAdmin privileges)</summary>
+            <para>The response to this message is <see cref="T:Yodiwo.API.Warlock.GenericRsp"/></para>
+        </member>
+        <member name="T:Yodiwo.API.Warlock.NodePairingRecoverNodesReq">
+            <summary>recover an already paired node</summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.NodePairingRecoverNodesReq.token2">
+            <summary> token which is linked to a pairing context</summary>
+        </member>
+        <member name="T:Yodiwo.API.Warlock.NodePairingCompleteReq">
+            <summary>complete pairing procedure</summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.NodePairingCompleteReq.token2">
+            <summary>token which is linked to a pairing context</summary>
+        </member>
+        <member name="T:Yodiwo.API.Warlock.EnumerateSaveandDeployedGraphsReq">
+            <summary>get the number of saved and deployed graphs</summary>
+            <para>The response to this message is <see cref="T:Yodiwo.API.Warlock.DashboardGraphsResponse"/></para>
+        </member>
+        <member name="T:Yodiwo.API.Warlock.GetSocialAccountsReq">
+            <summary>get user's social accounts descriptors(i.e facebook, hangouts, gmail</summary>
+            <para>The response to this message is <see cref="T:Yodiwo.API.Warlock.SocialAccountsRsp"/></para>
+        </member>
+        <member name="T:Yodiwo.API.Warlock.UnpairNodeReq">
+            <summary>used for unpairing a node</summary>
+            <para>The response to this message is <see cref="T:Yodiwo.API.Warlock.GenericRsp"/></para>
+        </member>
+        <member name="T:Yodiwo.API.Warlock.RemoveSocialAccountReq">
+            <summary>remove a social account from user's profile</summary>
+            <para>The response to this message is <see cref="T:Yodiwo.API.Warlock.GenericRsp"/></para>
+        </member>
+        <member name="T:Yodiwo.API.Warlock.GetToolboxModelViewReq">
+            <summary>get toolbox modelview</summary>
+        </member>
+        <member name="T:Yodiwo.API.Warlock.GetBlockDescriptorforBlockType">
+            <summary>get block descriptor for a blocktype</summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.GetBlockDescriptorforBlockType.type">
+            <summary>specific block type</summary>
+        </member>
+        <member name="T:Yodiwo.API.Warlock.GetAllImagesReq">
+            <summary>get all uploaded images</summary>
+        </member>
+    </members>
+</doc>

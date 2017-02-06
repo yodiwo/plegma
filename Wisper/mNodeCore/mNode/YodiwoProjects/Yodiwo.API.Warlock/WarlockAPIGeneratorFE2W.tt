@@ -1,0 +1,217 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Reflection" #>
+<#@ import namespace="System.Runtime.InteropServices"#>
+<#@ output extension=".cs" #>
+<#@ assembly name ="$(SolutionDir)Yodiwo\Yodiwo.Base\bin\Debug\Yodiwo.Base.dll" #>
+<#@ assembly name ="$(SolutionDir)Yodiwo\APIs\Plegma\bin\Debug\Yodiwo.API.Plegma.dll" #>
+<#@ assembly name ="$(SolutionDir)Yodiwo\APIs\Yodiwo.API.Warlock\bin\Debug\Yodiwo.API.Warlock.dll" #>
+<#@ assembly name ="$(SolutionDir)YodiwoSharp\YodiwoSharp\bin\Debug\YodiwoSharp.dll" #>
+using System;
+using System.Collections.Generic;
+using System.Collections;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Reflection;
+using Yodiwo;
+using Yodiwo.API.Plegma;
+using Yodiwo.API.Warlock.Private;
+
+
+namespace Yodiwo.API.Warlock
+{
+    //-----------------------------------------AUTO GENERATED CODE------------------------------------------------------------
+<#
+	var baseasm = typeof(Yodiwo.Base.AssemblyHook).Assembly;
+	var warlockasm = typeof(Yodiwo.API.Warlock.AssemblyHook).Assembly;
+	var plegmaasm = typeof(Yodiwo.API.Plegma.AssemblyHook).Assembly;
+	Type _targettype = baseasm.GetType("Yodiwo.Base.ApiFrontend.Warlock.WarlockMsgHandler");
+	
+	Type _usertype = baseasm.GetType("Yodiwo.Managers.UserMgmt.User");
+    Type _subusertype =plegmaasm.GetType("Yodiwo.API.Plegma.SubUserKey");
+	Type _warlockattribute = warlockasm.GetType("Yodiwo.API.Warlock.Private.WarlockHandlerAttribute");
+	Type _warlockdisplay = warlockasm.GetType("Yodiwo.API.Warlock.Private.WarlockDisplayAttribute");
+	MethodInfo[] methodInfos = _targettype.GetMethods(BindingFlags.Public | BindingFlags.Static | BindingFlags.Instance);
+	foreach (var m in methodInfos)
+	{
+	var iswarlockhandler =  m.IsDefined(_warlockattribute);
+	var hassummary = m.IsDefined(_warlockdisplay);
+	Yodiwo.API.Warlock.Private.WarlockDisplayAttribute summaryattr = null;
+    if (hassummary)
+    {
+	    summaryattr = m.GetCustomAttributes().First(i => i.GetType() == _warlockdisplay) as Yodiwo.API.Warlock.Private.WarlockDisplayAttribute ;
+#>
+    ///<summary><#=summaryattr.summary#></summary>
+<#
+if (!string.IsNullOrEmpty(summaryattr.returns))
+{
+#>
+    ///<para>The response to this message is <see cref="<#=summaryattr.returns #>"/></para>
+<#
+    }
+}
+if (iswarlockhandler)
+{
+	string classname = m.Name;
+	if (classname.StartsWith("Handle"))
+		classname= classname.Remove(0,6);
+#>
+    public class <#= classname #> : WarlockApiMsg
+    {
+	<#
+	var functionargs = m.GetParameters().Where(e => e.ParameterType != _usertype && e.ParameterType != _subusertype).ToList();
+	foreach (var arg in functionargs)
+	{
+		string typedname = NameType(arg.ParameterType);
+        var name = arg.Name;
+		if (hassummary && summaryattr.parameters!=null && summaryattr.parameters.Count>0)
+        {
+		if (summaryattr.parameters.Keys.Contains(name))
+        {
+	#>
+    ///<summary><#=summaryattr.parameters[name] #></summary>
+	<#
+        }
+    }
+	#>
+    public <#= typedname #> <#= name #>;
+	<#
+	}
+	#>
+}
+	//------------------------------------------------------------------------------------------------------------------------
+<#
+	    }
+	}
+						#>
+}
+<#+
+    public bool IsGenericList(Type type)
+        {
+            if (!type.IsGenericType)
+                return false;
+            var genericArguments = type.GetGenericArguments();
+            if (genericArguments.Length != 1)
+                return false;
+
+            var listType = typeof(IList<>).MakeGenericType(genericArguments);
+            return listType.IsAssignableFrom(type);
+        }
+#>
+
+<#+
+    public bool IsGenericSet(Type type)
+        {
+            if (!type.IsGenericType)
+                return false;
+            var genericArguments = type.GetGenericArguments();
+            if (genericArguments.Length != 1)
+                return false;
+
+            var hashType = typeof(ISet<>).MakeGenericType(genericArguments);
+            return hashType.IsAssignableFrom(type);
+        }
+#>
+
+<#+
+    public bool IsGenericDictionary(Type type)
+        {
+            if (!type.IsGenericType)
+                return false;
+            var genericArguments = type.GetGenericArguments();
+            if (genericArguments.Length != 2)
+                return false;
+
+            var dictType = typeof(IDictionary<,>).MakeGenericType(genericArguments);
+            return dictType.IsAssignableFrom(type);
+        }
+#>
+
+
+<#+
+    public string NameType(Type type)
+    {
+		if (!IsYodiwoType(type) &&!IsSystemType(type)&&!IsYodiwoArray(type))
+			WriteLine("Not Supported type :" + type.FullName);
+	    string typedname;
+        var isList = IsGenericList(type);
+		var isDictionary = IsGenericDictionary(type);
+		var isHashSet = IsGenericSet(type);
+
+		if (isList)
+		{
+			var st = type.GetGenericArguments().Single();
+			typedname = "List<" + st.Name + ">";
+		}
+		else if (isDictionary)
+		{
+		 var st1 = type.GetGenericArguments().First();
+		 var st2 = type.GetGenericArguments().Last();
+		 typedname = "Dictionary<" +st1.Name+","+st2.Name+">";
+        }
+		else if (isHashSet)
+        {
+			var st = type.GetGenericArguments().Single();
+			typedname = "HashSet<" + st.Name + ">";
+        }
+		else if(type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>) && type.IsValueType )
+        {
+		 var underlying =Nullable.GetUnderlyingType(type);
+		 typedname = underlying.Name;
+        }
+		else
+            typedname = type.FullName;
+		//needs discussion with gepa for dictionary sets etc
+		return typedname;
+    }
+#>
+
+<#+
+public bool IsYodiwoArray(Type type)
+{
+  if (type.IsArray)
+  {
+   var eltype = type.GetElementType();
+   var isyodiwo = IsYodiwoType(eltype);
+   return isyodiwo;
+  }
+  return false;
+}
+#>
+
+<#+
+    public bool IsYodiwoType(Type type)
+    {
+	   	List<Type>enabledtypes = new List<Type>();
+		var warlockasm = typeof(Yodiwo.API.Warlock.AssemblyHook).Assembly;
+		var plegmaasm = typeof(Yodiwo.API.Plegma.AssemblyHook).Assembly;
+		var ysharpasm = typeof(Yodiwo.AssemblyHook).Assembly;
+		enabledtypes.AddRange(warlockasm.GetTypes().ToList());
+		enabledtypes.AddRange(plegmaasm.GetTypes().ToList());
+		enabledtypes.AddRange(ysharpasm.GetTypes().ToList());
+		if (enabledtypes.Contains(type))
+			return true;
+		else
+			return false;
+    }
+#>
+
+<#+
+    public  bool IsSystemType(Type type)
+    {
+		if (type.IsPrimitive)
+			return true;
+	   	else if (type.Namespace.StartsWith("System"))
+			return true;		
+		else if (type.Module.ScopeName=="CommonLanguageRuntimeLibrary")
+			return true;
+		else
+			return false;
+    }
+#>

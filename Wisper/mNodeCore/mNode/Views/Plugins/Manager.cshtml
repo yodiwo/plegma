@@ -1,0 +1,32 @@
+﻿@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<dynamic>
+@{
+    Layout = ViewBag.IsPjax ? null : "/Layout.cshtml";
+}
+<div class="box box-solid">
+    <div class="box-header with-border">
+        <h1>Plugin Manager</h1>
+    </div>
+    <div class="box-body">
+        <a href="~/Plugins/Gallery">Go to plugins gallery</a><br />
+        <br />
+        <div>
+            <h3>Installed Plugins</h3><br />
+            @foreach (var pluginInfo in Model.Plugins)
+            {
+                <div>
+                    Name : @pluginInfo.Name<br />
+                    Version: @pluginInfo.Version<br />
+                    <a href="~/Plugins/ConfigurePlugin/@pluginInfo.PUID">Configure</a><br />
+
+                    <form action="~/Plugins/UninstallPlugin/@pluginInfo.PUID" method="post">
+                        <div class="form-group">
+                            <input class="btn btn-warning" type="submit" value="Delete" />
+                        </div>
+                    </form>
+
+                </div>
+                <br />
+            }
+            <br />
+        </div>
+    </div>

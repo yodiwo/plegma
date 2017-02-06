@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>YodiwoSharp</id>
+    <version>1.0.0</version>
+    <authors>Yodiwo</authors>
+    <owners>Yodiwo</owners>
+    <licenseUrl> http://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
+    <projectUrl>https://github.com/yodiwo/plegma/tree/master/Csharp/YodiwoSharp</projectUrl>
+    <iconUrl>https://avatars3.githubusercontent.com/u/13611447</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Yodiwo Tools</description>
+    <copyright>Copyright 2016</copyright>
+	<references>
+		<reference file="Newtonsoft.Json.dll" />
+		<reference file="YodiwoSharp.dll"/>
+	</references>
+  </metadata>
+<files>
+    <file src="..\..\ExternalsDLLs\Newtonsoft.Json.dll" target="lib\net4.5\Newtonsoft.Json.dll" />
+	<file src="bin\Release\YodiwoSharp.dll" target="lib\net4.5\YodiwoSharp.dll" />
+</files>
+</package>

@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{94F4CE90-200F-40CE-BF83-E15D147924F7}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Yodiwo.API.Plegma</RootNamespace>
+    <AssemblyName>Yodiwo.API.Plegma</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ResolveNuGetPackages>false</ResolveNuGetPackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;NETFX</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\Yodiwo.API.Plegma.xml</DocumentationFile>
+    <NoWarn>1591</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\Yodiwo.API.Plegma.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\ExternalLibraries\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ApiMsg.cs" />
+    <Compile Include="AssemblyHook.cs" />
+    <Compile Include="Attributes.cs" />
+    <Compile Include="AudioApi.cs" />
+    <Compile Include="Descriptors\IncidentDescriptor.cs" />
+    <Compile Include="CommonMedia.cs" />
+    <Compile Include="I2CCommand.cs" />
+    <Compile Include="Keys.cs" />
+    <Compile Include="LiveExecution.cs" />
+    <Compile Include="PortStateSemantics.cs" />
+    <Compile Include="ProtocolWrappers.cs" />
+    <Compile Include="Others.cs" />
+    <Compile Include="Port.cs" />
+    <Compile Include="Constants.cs" />
+    <Compile Include="Descriptors\BinaryResourceDescriptor.cs" />
+    <Compile Include="Thing.cs" />
+    <Compile Include="Public.cs" />
+    <Compile Include="ThingTypeModelLibrary.cs" />
+    <Compile Include="ThingTypes.cs" />
+    <Compile Include="PlegmaAPI.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="NodePairing.cs" />
+    <Compile Include="Validators.cs" />
+    <Compile Include="VideoAPI.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\YodiwoSharp\YodiwoSharp\YodiwoSharp.csproj">
+      <Project>{8ae66abd-d963-4e83-83a3-330156cd37a3}</Project>
+      <Name>YodiwoSharp</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>IF EXIST "C:\NuspecGeneratorTool\NuspecGenerator.exe" "C:\NuspecGeneratorTool\NuspecGenerator.exe" "$(ProjectPath)" "$(TargetFileName)" "$(SolutionDir) " "$(TargetDir) "  "$(SolutionFileName)"
+IF EXIST $(TargetDir)\$(TargetName).xml copy $(TargetDir)\$(TargetName).xml $(ProjectDir)</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

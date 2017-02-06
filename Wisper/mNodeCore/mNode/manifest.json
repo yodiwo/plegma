@@ -1,0 +1,13 @@
+﻿{
+    "Name": "Yodiwo mNode",
+    "Version": $Version$,
+    "PUID": "Yodiwo.mNode",
+    "Publisher": "Yodiwo",
+    "PublisherURL": "https://www.yodiwo.com",
+    "PackageURL": "https://www.yodiwo.com",
+    "PackageTypes": [ "Archive", "Debian", "Msi" ],
+    "SupportedPlatforms": "",
+    "Description": "Yodiwo mNode",
+    "FileSize": $Size$,
+    "Channels": [ "main" ],
+}

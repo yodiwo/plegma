@@ -1,0 +1,22 @@
+﻿@using System
+@using System.Linq
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<dynamic>
+@{
+    Layout = ViewBag.IsPjax ? null : "/Layout.cshtml";
+}
+<div class="box">
+    <div class="box-body" id="RenderBody">
+        <div class="callout callout-danger">
+            <h4>Pairing failed</h4>
+        </div>
+
+        <div>
+            <form action="/pairing/start" data-pjax="#RenderBody">
+                <div class="form-group">
+                    <input id="pair_btn" class="btn btn-warning" type="submit" value="Pair" onClick="this.disabled=true; this.value='Pairing…';" />
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>

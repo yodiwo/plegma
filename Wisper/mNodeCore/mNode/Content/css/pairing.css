@@ -1,0 +1,73 @@
+﻿body {
+    background: url('../img/Laptop-Lifestyle-Trading_original.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+
+.navbar {
+    background: black;
+}
+
+    .navbar label {
+        color: whitesmoke;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-size: 38px;
+        font-weight: 400;
+        display: block;
+    }
+
+.form-login .form-control {
+    position: relative;
+    font-size: 16px;
+    height: auto;
+    padding: 12px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.form-login .need-help {
+    color: whitesmoke;
+}
+
+.form-login .new-account {
+    color: whitesmoke;
+}
+
+.form-login .form-control:focus {
+    z-index: 5;
+}
+
+.need-help .new-account {
+    margin-top: 10px;
+}
+
+.pairgeneral {
+    background-color: #bfbfbf;
+    opacity: 0.95;
+    color: #000;
+}
+
+.headlabel {
+    padding: 10px 15px;
+    margin-bottom: 30px;
+    color: #b3b3b3;
+    background-color: #222d32;
+    text-align: center;
+}
+
+.rowtop {
+    margin-top: 100px;
+}
+
+.leftalign {
+    margin-left: 100px;
+}
+
+.custom-alert-warning {
+    background-color: #F7BA59 !important;
+    color: #5F5F5F !important;
+}
+
+.buttonpair {
+    margin-left: 20%;
+}

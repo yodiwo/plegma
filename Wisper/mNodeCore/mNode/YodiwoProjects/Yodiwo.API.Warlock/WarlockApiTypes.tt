@@ -1,0 +1,171 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Reflection" #>
+<#@ output extension=".cs" #>
+<#@ assembly name ="$(SolutionDir)Yodiwo\Yodiwo.Base\bin\Debug\Yodiwo.Base.dll" #>
+<#@ assembly name ="$(SolutionDir)Yodiwo\APIs\Plegma\bin\Debug\Yodiwo.API.Plegma.dll" #>
+<#@ assembly name ="$(SolutionDir)Yodiwo\APIs\Yodiwo.API.Warlock\bin\Debug\Yodiwo.API.Warlock.dll" #>
+<#@ assembly name ="$(SolutionDir)YodiwoSharp\YodiwoSharp\bin\Debug\YodiwoSharp.dll" #>
+using System;
+using System.Collections.Generic;
+using System.Collections;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Reflection;
+using Yodiwo;
+using Yodiwo.API.Plegma;
+using Yodiwo.API.Warlock.Private;
+
+
+namespace Yodiwo.API.Warlock
+{
+//-----------------------------------------AUTO GENERATED CODE--------------------------------------------------------------
+<#
+	var baseasm = typeof(Yodiwo.Base.AssemblyHook).Assembly;
+	var warlockasm = typeof(Yodiwo.API.Warlock.AssemblyHook).Assembly;
+	HashSet<string> warlockMessages = new HashSet<string>();
+	HashSet<Type> returntypes = new HashSet<Type>();
+	Dictionary<string,Yodiwo.API.Warlock.eNodePermissions> permissionhandlers = new Dictionary<string,Yodiwo.API.Warlock.eNodePermissions>();
+	Type _targettype = baseasm.GetType("Yodiwo.Base.ApiFrontend.Warlock.WarlockMsgHandler");	
+	Type _usertype = baseasm.GetType("Yodiwo.Managers.UserMgmt.User");
+	Type _warlockattribute = warlockasm.GetType("Yodiwo.API.Warlock.Private.WarlockHandlerAttribute");
+	Type _permissionattributes = warlockasm.GetType("Yodiwo.API.Warlock.Private.WarlockPermissionAttribute");
+	
+	MethodInfo[] methodInfos = _targettype.GetMethods(BindingFlags.Public | BindingFlags.Static | BindingFlags.Instance);
+	foreach (var m in methodInfos)
+	{
+	var iswarlockhandler =  m.IsDefined(_warlockattribute);
+	var permissions = m.IsDefined(_permissionattributes);
+	string classname = m.Name;
+			if (classname.StartsWith("Handle"))
+				classname= classname.Remove(0,6);
+		if (iswarlockhandler)
+        {
+			
+			returntypes.Add(m.ReturnType);
+			warlockMessages.Add(classname);
+        }
+		if (permissions)
+			{
+				var targetaddr= m.GetCustomAttributes().First(attr=> attr.GetType() == _permissionattributes);
+				var m_attr= targetaddr as Yodiwo.API.Warlock.Private.WarlockPermissionAttribute;
+				var curpermissions = m_attr.Permissions;
+				permissionhandlers.Add(classname, curpermissions);
+			}
+        }
+
+	#>
+	public static partial class WarlockAPI
+    {
+        /// <summary>api current version</summary>
+        public const int APIVersion = 1;
+
+        /// <summary>internal api name</summary>
+        public const string ApiGroupName = "WarlockAPI";
+
+		
+        /// <summary>
+        /// List of all possible API messages that are exchanged between Nodes and the Yodiwo Cloud Service
+        /// </summary>
+        public static Type[] ApiMessages =
+        {
+		<#
+	foreach(var wrlck in warlockMessages)
+    {
+	#>
+		typeof(<#=wrlck#>),
+	<#
+    }
+		#>
+			<#
+	foreach(var rettype in returntypes)
+    {
+	if (rettype!=typeof(void))
+    {
+	#>
+		typeof(<#=rettype.Name#>),
+	<#
+    }
+    }
+		#>
+		};
+
+
+			//Literal API names
+	<#
+	foreach(var wrlck in warlockMessages)
+    {
+	#>
+		 public static string s_<#=wrlck#> = nameof(<#=wrlck#>).ToLower();
+	<#
+    }
+		#>
+			<#
+	foreach(var rettype in returntypes)
+    {
+	if (rettype!=typeof(void))
+    {
+	#>
+		public static string s_<#=rettype.Name#> = nameof(<#=rettype.Name#>).ToLower();
+	<#
+	}
+    }
+	#>
+
+
+		public static Dictionary<Type, String> ApiMsgNames = new Dictionary<Type, string>()
+        {
+			
+		<#
+	foreach(var wrlck in warlockMessages)
+    {
+	#>
+		{typeof(<#=wrlck#>),s_<#=wrlck#> },
+	<#
+    }
+		#>
+			<#
+	foreach(var rettype in returntypes)
+    {
+	if (rettype!=typeof(void))
+    {
+	#>
+		{typeof(<#=rettype.Name#>),s_<#=rettype.Name#> },
+	<#
+    }
+    }
+		#>
+		};
+
+		        /// <summary>
+        /// Dictionary that maps API names to classes. These names are the ones used for REST routes, MQTT topics, or RabbitMQ queue names
+        /// </summary>
+        //public static Dictionary<String, Type> ApiMsgNamesToTypes = ApiMsgNames.Select(e => new KeyValuePair<string, Type>(e.Value, e.Key)).ToDictionary();
+
+		 public static Dictionary<Type, eNodePermissions> PermissionMatrix = new Dictionary<Type, eNodePermissions>()
+        {
+			<#
+			foreach(var item in permissionhandlers)
+			{
+			#>
+            {typeof(<#=item.Key#>),eNodePermissions.<#=item.Value#>},			
+			<#
+        }
+#>
+};
+ static WarlockAPI()
+        {
+            ExtendWarlockProtocol();
+        }
+
+        static partial void ExtendWarlockProtocol();
+
+	}
+	}
+		
