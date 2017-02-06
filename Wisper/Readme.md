@@ -30,12 +30,15 @@ Just run build from Visual Studio. The Yodiwo.mNode project will create a ready-
 
 The included sample Plugin code is meant to showcase writing and embedding a Plugin for mNode.
 
-After the Plugin is built, it must be placed in a new folder under /mNodeCore/mNode/bin/[Release]/Plugins/
+After the Plugin is built, it must be placed in a new folder under /mNodeCore/mNode/bin/Release/Plugins/
+
 This folder *must* have the same name as the Plugin's UID in its `manifest.json` file:
 ```
 ..
 "PUID": "Yodiwo.mNode.Plugins.TestPlugin",
 ..
 ```
+
+It is advised that Release mode is used, since the referenced DLLs include in the solution have also been built this way.
 
 When running mNode, the new Plugin will be identified and initialized; its registered Things will be sent to the cloud to be used in Apps in the Cyan Workflow Editor.
