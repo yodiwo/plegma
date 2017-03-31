@@ -19,6 +19,7 @@
       "RC_Password": "1234",
       "NodeType": "mnode",
       "mDNS": false,
+      "KeepAliveSpinDelaySec": 300,
       "PluginChannels": [ "main" ]
     },
     "Production": {
@@ -39,6 +40,7 @@
       "RC_Password": "1234",
       "NodeType": "mnode",
       "mDNS": false,
+      "KeepAliveSpinDelaySec": 300,
       "PluginChannels": [ "main" ]
     },
     "Staging": {
@@ -51,14 +53,15 @@
       "YpchannelSecure": true,
       "CertificateServerName": "*.yodiwo.com",
       "LocalWebServer": "http://localhost:8035",
-      "CanSolveGraphs": true,
+      "CanSolveGraphs": false,
       "Trace": "true",
-      "AutoUpdate": false,
+      "AutoUpdate": true,
       "UserAppDataDir": "%AppData%/Yodiwo/mNode",
       "NodeDiscovery": true,
       "RC_Password": "1234",
       "NodeType": "mnode",
       "mDNS": false,
+      "KeepAliveSpinDelaySec": 300,
       "PluginChannels": [ "main" ]
     },
     "DevMirror": {
@@ -79,6 +82,7 @@
       "RC_Password": "1234",
       "NodeType": "mnode",
       "mDNS": false,
+      "KeepAliveSpinDelaySec": 300,
       "PluginChannels": [ "main" ]
     }
   }

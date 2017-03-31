@@ -201,7 +201,7 @@ namespace Yodiwo.NodeLibrary.NodeDiscovery
                         DebugEx.TraceLog($"NodeDiscoverer : Discovered new node. (ip:{endpoint.IPAddress} nodekey:{rem_nodekey})");
 
                         //create entry for remote node
-                        remInfo = new RemoteNode(Node, this)
+                        remInfo = new RemoteNode(Node, TimeSpan.FromMinutes(5), this)
                         {
                             RemoteEndpointID = endpoint.ID,
                             DiscoveryMessage = msg,
@@ -261,7 +261,7 @@ namespace Yodiwo.NodeLibrary.NodeDiscovery
                 if (remInfo == null)
                 {
                     //create entry for remote node
-                    remInfo = new RemoteNode(Node, this)
+                    remInfo = new RemoteNode(Node, TimeSpan.FromMinutes(5), this)
                     {
                         RemoteEndpointID = id,
                         DiscoveryMessage = null,

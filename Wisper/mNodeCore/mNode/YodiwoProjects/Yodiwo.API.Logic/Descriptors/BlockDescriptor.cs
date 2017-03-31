@@ -94,6 +94,9 @@ namespace Yodiwo.Logic.Descriptors
         [DB_IgnoreIfDefault]
         public bool IsRestService;
         //-------------------------------------------------------------------------------------------------------------------------
+        [DB_IgnoreIfDefault]
+        public bool IsMacroBlock;
+        //-------------------------------------------------------------------------------------------------------------------------
         #endregion
 
         #region Constructors

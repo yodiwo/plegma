@@ -99,10 +99,10 @@ namespace Yodiwo.API.Warlock.Private
     public class GetTimelineDescriptorsReq : WarlockApiMsg
     {
         public UserKey RequestingUser;
-        public TimelineDescriptorType Type;
+        public eTimelineDescriptorType Type;
         public DateTime? FromTS = null;
         public DateTime? ToTS = null;
-        public TimelineDescriptorOperationType Operation = Private.TimelineDescriptorOperationType.Unknown;
+        public eTimelineDescriptorOperationType Operation = Private.eTimelineDescriptorOperationType.Unknown;
         public System.Int32 CurrentPage = -1;
         public System.Int32 PageSize = 0;
     }

@@ -67,7 +67,9 @@ namespace Yodiwo.mNode
 #if !DEBUG && !CleanShadowCacheOnStart
                     if (rnd.Next(0, 10) == 1)   //clean once every 10 restart
 #endif
+                    if (!IsRunningOnUnix) // Clean shadow cache is not needed in linux, because we using rsync with checksum
                     {
+                        Console.WriteLine($"{DateTime.Now} - Clean old shadow directory: {ShadowBaseDirectory}");
                         //clean previous shadow files
                         for (int n = 0; n < 20; n++)
                             try
@@ -82,14 +84,34 @@ namespace Yodiwo.mNode
                     //shadow copy files
                     try
                     {
-                        DirectoryCopy(OriginBaseDirectory,
-                                        ShadowBaseDirectory,
-                                        true,
-                                        overwrite: true,
-                                        OverwriteOnlyIfNewer: rnd.Next(0, 10) != 1, //usualy overwrite if newer.. but every now and then just overwrite everything
-                                        ignoreCopyErrors: true,
-                                        FileFilter: fileInfo => fileInfo.Name.ToLowerInvariant() != "yodiwo.mnode.exe"
-                                    );
+                        Console.WriteLine($"{DateTime.Now} - Start copy {OriginBaseDirectory} -> {ShadowBaseDirectory}");
+                        if (!IsRunningOnUnix)
+                        {
+                            DirectoryCopy(OriginBaseDirectory,
+                                            ShadowBaseDirectory,
+                                            true,
+                                            overwrite: false,
+                                            OverwriteOnlyIfNewer: true,
+                                            ignoreCopyErrors: true,
+                                            FileFilter: fileInfo => fileInfo.Name.ToLowerInvariant() != "yodiwo.mnode.exe"
+                                        );
+                        }
+                        else
+                        {
+                            var info = new ProcessStartInfo();
+                            info.FileName = "rsync";
+                            info.Arguments = $"-a --delete  --checksum --exclude 'Yodiwo.mNode.exe' {OriginBaseDirectory}/ {ShadowBaseDirectory}/";
+
+                            info.UseShellExecute = false;
+                            info.CreateNoWindow = true;
+
+                            info.RedirectStandardOutput = false;
+                            info.RedirectStandardError = false;
+
+                            var p = Process.Start(info);
+                            p.WaitForExit();
+                        }
+                        Console.WriteLine($"{DateTime.Now} - Finished copy");
                     }
                     catch (Exception) { }
                 }

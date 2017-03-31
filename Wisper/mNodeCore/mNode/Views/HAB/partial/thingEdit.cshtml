@@ -1,0 +1,167 @@
+﻿@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<Yodiwo.mNode.Openhab.Web.Modules.ThingModel>
+
+@{
+    Layout = ViewBag.IsPjax ? null : "/Layout.cshtml";
+}
+
+@functions
+{
+
+    string thingName(string thingLabel)
+    {
+        if (thingLabel == null)
+        {
+            return "[EMPTY LABEL]";
+        }
+
+        return thingLabel;
+    }
+    string groups(System.Collections.Generic.List<string> groupNames,System.Collections.Generic.IEnumerable<Yodiwo.HAB.Rest.Model.GroupItem> groups )
+    {
+        string res="";
+        foreach (var x in groupNames)
+        {
+            foreach (var y in groups)
+            {
+                if (x == y.name)
+                {
+                    res += y.label+ " ";
+                }
+            }
+        }
+        return res;
+    }
+    string groupids(System.Collections.Generic.List<string> groupNames)
+    {
+        string res = "";
+        foreach (var x in groupNames)
+        {
+           
+             res += x + " ";
+
+        }
+        return res;
+    }
+    bool inGroup(System.Collections.Generic.List<string> groupNames, string group)
+    {
+        foreach (var x in groupNames)
+        {
+            if (x == group)
+                return true;
+        }
+        return false;
+    }
+}
+@{
+    int i = 0;
+}
+<div class="box thingEdit">
+    <div class="box-header ">
+        <h3 class="box-title"><b>Edit Thing</b></h3>
+    </div><!-- /.box-header -->
+    <!-- form start -->
+    <form action="/hab/things/edit/@Model.thing.UID" method="POST">
+        <div class="box-body" style="display: block;">
+            <br />
+            <div class="row">
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-6">
+                    <h3>@thingName(@Model.thing.item.label).ToUpper() <small>@Model.type.label</small></h3>
+                    <p>@Model.type.description</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-6">
+                    <div class=" form-group">
+                        <label for="name">THING NAME</label>
+                        <p>Define a unique name for the thing</p>
+                        <input type="text" class="form-control" id="name" name="name" value="@Model.thing.item.label" placeholder="name">
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-6">
+                    <div class=" form-group">
+                        <label for="groups">GROUPS</label>
+                        <div class="input-group">
+                            <input type="hidden" id="groupids" name="groups" class=" form-control" value="@groupids(@Model.thing.item.groupNames)">
+                            <input type="text" id="groups" class="form-control" value="@groups(@Model.thing.item.groupNames,@Model.groups)">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default btn-flat" type="button" data-toggle="modal" data-target="#myModal">Add!</button>
+                            </span>
+                        </div><!-- /input-group -->
+                    </div>
+                </div>
+            </div>
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Group Selection</h4>
+                        </div>
+                        <div class="modal-body">
+                            @foreach (var y in @Model.groups)
+                            {
+                                <div class="checkbox">
+                                    <label><input type="checkbox" name="@y.label" value="@y.name" onclick="UpdateGroup(this)" checked="@inGroup(@Model.thing.item.groupNames,@y.name)">@y.label</label>
+                                </div>
+                            }
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default btn-flat" data-dismiss="modal">Done</button>
+                            <button type="button" class="btn btn-default btn-flat" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <hr />
+            </div>
+            <br />
+            <!-- FOR EACH -->
+            <div class="row">
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-6">
+                    <h3>Configuration Parameters</h3>
+                    <p>Configure parameters for the thing</p>
+                </div>
+            </div>
+            @foreach (var x in @Model.type.configParameters)
+            {
+                <div class="row">
+                    <div class="col-md-1">
+                    </div>
+                    <div class="col-md-6">
+                        <div class=" form-group">
+                            <label for="@x.label">@x.label</label>
+                            <input type="hidden" class="form-control" name="name[@i]" value="@x.name">
+                            <input type="text" class="form-control" id="@x.label" name="value[@i]" value="@Model.thing.configuration[@x.name]" placeholder="@x.label">
+                            <p>@x.description</p>
+                        </div>
+                    </div>
+                </div>
+                i++;
+            }
+
+        </div><!-- /.box-body -->
+        <div class="box-footer">
+            <div class="row">
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-default btn-flat">Save<i class="fa fa-fw fa-floppy-o"></i></button>
+                </div>
+            </div>
+        </div>
+    </form>
+    </div><!-- /.box -->

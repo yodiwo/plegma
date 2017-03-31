@@ -13,6 +13,15 @@ using Yodiwo.API.Warlock.Private;
 namespace Yodiwo.API.Warlock
 {
     //-----------------------------------------AUTO GENERATED CODE------------------------------------------------------------
+    public class AssignSipAccount : WarlockApiMsg
+    {
+	}
+	//------------------------------------------------------------------------------------------------------------------------
+    public class GetSharedThingsReq : WarlockApiMsg
+    {
+	    public List<ThingKey> ThingKeys;
+	}
+	//------------------------------------------------------------------------------------------------------------------------
     public class GetNodeDescriptorsReq : WarlockApiMsg
     {
 	    public List<NodeKey> NodeKeys;
@@ -223,6 +232,26 @@ namespace Yodiwo.API.Warlock
 	    public System.String[] Names;
 	}
 	//------------------------------------------------------------------------------------------------------------------------
+    public class AddNewLinkedUserReq : WarlockApiMsg
+    {
+	    public Yodiwo.API.Warlock.LinkedUserDescriptor linkedUserDescriptor;
+	}
+	//------------------------------------------------------------------------------------------------------------------------
+    public class RemoveLinkedUserReq : WarlockApiMsg
+    {
+	    public System.String LinkedUserEmail;
+	}
+	//------------------------------------------------------------------------------------------------------------------------
+    public class UpdateLinkedUserReq : WarlockApiMsg
+    {
+	    public Yodiwo.API.Warlock.LinkedUserDescriptor linkedUserDescriptor;
+	}
+	//------------------------------------------------------------------------------------------------------------------------
+    public class GetLinkedUsersReq : WarlockApiMsg
+    {
+	    public System.String linkedUserEmail;
+	}
+	//------------------------------------------------------------------------------------------------------------------------
     public class MyHackingReq : WarlockApiMsg
     {
 	    public System.String AppToken;
@@ -233,24 +262,58 @@ namespace Yodiwo.API.Warlock
 	    public Dictionary<String,Boolean> IsDataString;
 	}
 	//------------------------------------------------------------------------------------------------------------------------
-    public class AddNewLinkedUserReq : WarlockApiMsg
+    ///<summary>get all available user's database descriptors</summary>
+    ///<para>The response to this message is <see cref="GetDatabasesInfoRsp"/></para>
+    public class GetDatabasesInfoReq : WarlockApiMsg
     {
-	    public Yodiwo.API.Warlock.LinkedUserInfo LinkedUserInfo;
+	    public Yodiwo.API.Plegma.UserKey targetUserKey;
+	    public List<DbKey> DbNames;
 	}
 	//------------------------------------------------------------------------------------------------------------------------
-    public class RemoveLinkedUserReq : WarlockApiMsg
+    ///<summary>get all available databases' user descriptors</summary>
+    ///<para>The response to this message is <see cref="GetDatabasesUsersInfoRsp"/></para>
+    public class GetDatabasesUsersInfoReq : WarlockApiMsg
     {
-	    public System.String LinkedUserEmail;
+	    public Yodiwo.API.Plegma.UserKey targetUserKey;
+	    public List<DbKey> Usernames;
 	}
 	//------------------------------------------------------------------------------------------------------------------------
-    public class UpdateLinkedUserReq : WarlockApiMsg
+    ///<summary>get all available database descriptors of a database user</summary>
+    ///<para>The response to this message is <see cref="GetDatabasesInfoRsp"/></para>
+    public class GetDatabaseInstancesReq : WarlockApiMsg
     {
-	    public Yodiwo.API.Warlock.LinkedUserInfo linkedUserInfo;
+	    public Yodiwo.API.Plegma.UserKey targetUserKey;
+	    public Yodiwo.API.Plegma.DbKey DbUsername;
 	}
 	//------------------------------------------------------------------------------------------------------------------------
-    public class GetLinkedUserReq : WarlockApiMsg
+    ///<summary>get all available user descriptors of a database</summary>
+    ///<para>The response to this message is <see cref="GetDatabasesUsersInfoRsp"/></para>
+    public class GetDatabaseUsersInstancesReq : WarlockApiMsg
     {
-	    public System.String linkedUserEmail;
+	    public Yodiwo.API.Plegma.UserKey targetUserKey;
+	    public Yodiwo.API.Plegma.DbKey DbName;
+	}
+	//------------------------------------------------------------------------------------------------------------------------
+    ///<summary></summary>
+    ///<para>The response to this message is <see cref="GenericRsp"/></para>
+    public class DatabaseActionReq : WarlockApiMsg
+    {
+	    ///<summary>  Target UserKey</summary>
+	    public Yodiwo.API.Plegma.UserKey targetUserKey;
+	    ///<summary> Database's name that the action is referring to</summary>
+	    public System.String DbName;
+	    public System.String DbUsername;
+	    public System.String Password;
+	    public Yodiwo.API.Warlock.eDatabaseInfoReqType Action;
+	    public System.String[] Privileges;
+	}
+	//------------------------------------------------------------------------------------------------------------------------
+    ///<summary></summary>
+    ///<para>The response to this message is <see cref="GenericRsp"/></para>
+    public class DatabaseMultiActionReq : WarlockApiMsg
+    {
+	    ///<summary> Requests to handle</summary>
+	    public Yodiwo.API.Warlock.DatabaseActionReq[] Requests;
 	}
 	//------------------------------------------------------------------------------------------------------------------------
     public class RereadQuotaDataTablesReq : WarlockApiMsg
@@ -552,6 +615,11 @@ namespace Yodiwo.API.Warlock
 	    public System.Int32 stateSize;
 	}
 	//------------------------------------------------------------------------------------------------------------------------
+    public class CreateMatchingVirtualThingReq : WarlockApiMsg
+    {
+	    public Yodiwo.API.Plegma.ThingKey thingKey;
+	}
+	//------------------------------------------------------------------------------------------------------------------------
     public class BRDUploadReq : WarlockApiMsg
     {
 	    public Yodiwo.API.Plegma.BinaryResourceDescriptor Binaryresourcedescriptor;
@@ -696,15 +764,6 @@ namespace Yodiwo.API.Warlock
     {
 	    public System.Object socialdesc;
 	    public System.Type desctype;
-	}
-	//------------------------------------------------------------------------------------------------------------------------
-    public class AssignSipAccount : WarlockApiMsg
-    {
-	}
-	//------------------------------------------------------------------------------------------------------------------------
-    public class GetSharedThingsReq : WarlockApiMsg
-    {
-	    public List<ThingKey> ThingKeys;
 	}
 	//------------------------------------------------------------------------------------------------------------------------
 }

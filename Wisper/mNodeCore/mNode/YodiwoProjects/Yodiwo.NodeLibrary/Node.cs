@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Net;
 using Yodiwo.API.Plegma;
 using System.Threading;
+using Yodiwo;
 using Yodiwo.YPChannel;
 using Yodiwo.NodeLibrary.Pairing;
 using System.Reflection;
@@ -49,6 +50,7 @@ namespace Yodiwo.NodeLibrary
         public bool IsConnectionEnabled { get { return _IsConnectionEnabled; } }
         public bool AutoReconnect { get; set; } = true;
         public TimeSpan AutoReconnectDelay { get; set; } = TimeSpan.FromSeconds(1);
+        public TimeSpan keepAliveSpinDelay { get; set; }
         //------------------------------------------------------------------------------------------------------------------------
         public bool IsLinkUp { set; get; }
         //------------------------------------------------------------------------------------------------------------------------
@@ -211,6 +213,7 @@ namespace Yodiwo.NodeLibrary
                     Type MqttTransport = null,
                     List<ThingType> thingTypes = null,
                     eNodeType nodeType = eNodeType.Unknown,
+                    TimeSpan? keepAliveSpinDelay = null,
                     eConnectionFlags connFlags = eConnectionFlags.None)
         {
             DebugEx.Assert(conf != null, "Cannot have null conf");
@@ -223,6 +226,24 @@ namespace Yodiwo.NodeLibrary
             this.DataSave = DataSave;
             this.NodeGraphManager = NodeGraphManager;
             this.connectionFlags = connFlags;
+            this.keepAliveSpinDelay = (keepAliveSpinDelay == null) ? TimeSpan.FromMinutes(5) : keepAliveSpinDelay.Value;
+            //clampfloor keepalivespin delay
+            if (this.keepAliveSpinDelay.TotalMilliseconds < 1000)
+                this.keepAliveSpinDelay = TimeSpan.FromSeconds(1);
+
+            // Note: Prevent erroneous behaviour
+            // TODO: Needs further internal investigation/fixes 
+            //       CanSolveGraphs flag does not fully disable NodeGraphManager/Splitting functionality
+            if ((this.conf.CanSolveGraphs && (DataLoad == null || DataSave == null || NodeGraphManager == null)) ||
+                (!this.conf.CanSolveGraphs && NodeGraphManager != null))
+            {
+                this.conf.CanSolveGraphs = false;
+                this.NodeGraphManager = null;
+                this.DataLoad = null;
+                this.DataSave = null;
+                DebugEx.Assert("Error configuring graph solving functionality - Fog support is disabled");
+                DebugEx.TraceError("Error configuring graph solving functionality - Fog support is disabled");
+            }
 
 #if DEBUG
             DebugEx.TraceLog("Starting NodeLibrary in DEBUG mode");
@@ -254,8 +275,7 @@ namespace Yodiwo.NodeLibrary
             }
 
             //Initialize Graph stuff
-            if (NodeGraphManager != null)
-                NodeGraphManager.Initialize(this);
+            NodeGraphManager?.Initialize(this);
 
             //inited
             _IsInitialized = true;
@@ -276,12 +296,10 @@ namespace Yodiwo.NodeLibrary
                 Disconnect();
 
                 //deinit NodeDiscovery stuff
-                if (NodeDiscovery != null)
-                    try { NodeDiscovery?.Deinitialize(); } catch (Exception ex2) { DebugEx.Assert(ex2, "NodeDiscovery DeInitialize failed"); }
+                try { NodeDiscovery?.Deinitialize(); } catch (Exception ex2) { DebugEx.Assert(ex2, "NodeDiscovery DeInitialize failed"); }
 
                 //deinit Graph stuff
-                if (NodeGraphManager != null)
-                    try { NodeGraphManager?.DeInitialize(); } catch (Exception ex2) { DebugEx.Assert(ex2, "NodeDiscovery DeInitialize failed"); }
+                try { NodeGraphManager?.DeInitialize(); } catch (Exception ex2) { DebugEx.Assert(ex2, "NodeDiscovery DeInitialize failed"); }
 
                 //disconnect
                 Disconnect();
@@ -711,6 +729,17 @@ namespace Yodiwo.NodeLibrary
                         _NodeModuleThings.TryGetOrDefault(_existingOwner)?.Remove(thing);
                     thingkey2module.Remove(thingkey);
 
+                    //Save things
+                    if (DataSave != null)
+                        try
+                        {
+                            var things = Things.Values.ToArray();
+                            var json = things.ToJSON2();
+                            if (json != null && json.Length > 0)
+                                DataSave(DataIdentifier_Things, json, true);
+                        }
+                        catch (Exception ex) { DebugEx.Assert(ex, "Thing save failed"); }
+
                     //send update message
                     if (SendToCloud)
                     {
@@ -775,6 +804,17 @@ namespace Yodiwo.NodeLibrary
                     //remove them
                     foreach (var t in toRemove)
                         _Things.Remove(t.ThingKey);
+
+                    //Save things
+                    if (DataSave != null)
+                        try
+                        {
+                            var things = Things.Values.ToArray();
+                            var json = things.ToJSON2();
+                            if (json != null && json.Length > 0)
+                                DataSave(DataIdentifier_Things, json, true);
+                        }
+                        catch (Exception ex) { DebugEx.Assert(ex, "Thing save failed"); }
 
                     //send update message
                     if (SendToCloud)
@@ -1100,7 +1140,7 @@ namespace Yodiwo.NodeLibrary
                     try { OnChangedState?.Invoke(thing, port, portevent.State, isEvent: true); } catch (Exception ex) { DebugEx.TraceError(ex, "UserCode exception caught"); }
 
                     //raise port handlers
-                    DebugEx.TraceLog("On Changed State:" + portevent.State);
+                    DebugEx.TraceLog("On Changed State:" + portevent.State.Substring(0, Math.Min(portevent.State.Length, 80)));
                     try { PortEventHandlers.TryGetOrDefault(port)?.Invoke(portevent.State, true); }
                     catch (Exception ex) { DebugEx.TraceError(ex, "PortEventHandlers failed"); }
 
@@ -1221,6 +1261,7 @@ namespace Yodiwo.NodeLibrary
         {
             try
             {
+                DebugEx.TraceLog($"Connect to cloud via {transport}");
                 //inform node manager
                 if (NodeGraphManager != null)
                 {
@@ -1361,11 +1402,11 @@ namespace Yodiwo.NodeLibrary
         {
             if (AutoReconnect && _IsConnectionEnabled)
             {
-                Task.Run(() =>
+                Task.Delay((int)AutoReconnectDelay.TotalMilliseconds).ContinueWith(_ =>
                 {
-                    Thread.Sleep((int)AutoReconnectDelay.TotalMilliseconds);
                     try { _connect(true); } catch (Exception ex) { DebugEx.TraceError(ex, "Reconnection exception caught"); }
                 });
+
             }
         }
 
@@ -1507,6 +1548,7 @@ namespace Yodiwo.NodeLibrary
         {
             try
             {
+                DebugEx.TraceLog($"Node just msg of type {msg.GetType()}");
                 if (msg is Yodiwo.API.Plegma.LoginReq)
                 {
                     var rsp = new LoginRsp()
@@ -1545,6 +1587,7 @@ namespace Yodiwo.NodeLibrary
                 }
                 else if (msg is NodeUnpairedReq)
                 {
+                    DebugEx.TraceLog("NodeUnpairedReq just received!!!! Unpair node");
                     var m = msg as NodeUnpairedReq;
                     //invoke event
                     Task.Run(() => { try { OnNodeUnpaired?.Invoke(m.ReasonCode, m.Message); } catch (Exception ex) { DebugEx.TraceError(ex, "UserCode exception caught"); } });
@@ -1819,9 +1862,9 @@ namespace Yodiwo.NodeLibrary
                 var thingGroupped_user = OnChangedStateGroupped != null || ThingEventHandlers.Count > 0 ? new Dictionary<Thing, List<TupleS<Port, string>>>() : null;
 
                 //raise events
-                foreach (var portevent in msg.PortStates)
+                foreach (var portstate in msg.PortStates)
                 {
-                    var pk = (PortKey)portevent.PortKey;
+                    var pk = (PortKey)portstate.PortKey;
                     var thingKey = pk.ThingKey;
                     var thing = _Things.TryGetOrDefault(thingKey);
                     var port = thing?.GetPort(pk);
@@ -1836,7 +1879,7 @@ namespace Yodiwo.NodeLibrary
                         var group1 = thingGroupped_module.TryGetOrDefault(thingKey);
                         if (group1 == null)
                             thingGroupped_module.Add(thingKey, group1 = new List<TupleS<PortKey, string>>());
-                        group1.Add(TupleS.Create(pk, portevent.State));
+                        group1.Add(TupleS.Create(pk, portstate.State));
                     }
 
                     //add to groups2
@@ -1845,22 +1888,22 @@ namespace Yodiwo.NodeLibrary
                         var group2 = thingGroupped_user.TryGetOrDefault(thing);
                         if (group2 == null)
                             thingGroupped_user.Add(thing, group2 = new List<TupleS<Port, string>>());
-                        group2.Add(TupleS.Create(port, portevent.State));
+                        group2.Add(TupleS.Create(port, portstate.State));
                     }
 
                     //update state
-                    port.State = portevent.State;
+                    port.State = portstate.State;
 
                     //raise generic event
-                    try { OnChangedState?.Invoke(thing, port, portevent.State, isEvent: false); } catch (Exception ex) { DebugEx.TraceError(ex, "UserCode exception caught"); }
+                    try { OnChangedState?.Invoke(thing, port, portstate.State, isEvent: false); } catch (Exception ex) { DebugEx.TraceError(ex, "UserCode exception caught"); }
 
                     //raise port handlers
-                    DebugEx.TraceLog("On Changed State:" + portevent.State);
-                    try { PortEventHandlers.TryGetOrDefault(port)?.Invoke(portevent.State, false); }
+                    DebugEx.TraceLog("On Changed State:" + portstate.State.Substring(0, Math.Min(portstate.State.Length, 80)));
+                    try { PortEventHandlers.TryGetOrDefault(port)?.Invoke(portstate.State, false); }
                     catch (Exception ex) { DebugEx.TraceError(ex, "PortEventHandlers failed"); }
 
                     //send to module (wait for up to 1 sec before movong on..)
-                    Task.Run(() => { try { thingkey2module.TryGetOrDefault(thing.ThingKey)?.SetThingsState(port.PortKey, portevent.State, false); } catch { } }).Wait(1000);
+                    Task.Run(() => { try { thingkey2module.TryGetOrDefault(thing.ThingKey)?.SetThingsState(port.PortKey, portstate.State, false); } catch { } }).Wait(1000);
                 }
 
                 //send groupped to user
@@ -2170,11 +2213,12 @@ namespace Yodiwo.NodeLibrary
                             //create channel
                             var supportedPackers = ChannelSerializationMode.Json;
                             var preferredPackers = ChannelSerializationMode.Json;
-                            Channel = new Yodiwo.YPChannel.Transport.Sockets.Client(proto, SupportedChannelSerializationModes: supportedPackers, PreferredChannelSerializationModes: preferredPackers);
+                            Channel = new Yodiwo.YPChannel.Transport.Sockets.Client(proto, SupportedChannelSerializationModes: supportedPackers, PreferredChannelSerializationModes: preferredPackers, keepAliveSpinDelay: this.keepAliveSpinDelay);
                             Channel.NoDelay = true; //Disable Nagle Algorithm since we care about latency more than throughput
                             Channel.Name = conf.Name;
                             Channel.OnMessageReceived += Channel_OnMessageReceived;
                             Channel.OnClosedEvent += Channel_OnClosedEvent;
+                            Channel.KeepAliveSpinDelay = TimeSpan.FromSeconds(30);
                             NewChannelSetup?.Invoke(Channel); //user setup
                         }
 
@@ -2449,7 +2493,7 @@ namespace Yodiwo.NodeLibrary
                 return false;
 
             //check cloud
-            if (_CloudActivePortKeys.Contains(key))
+            if (_CloudActivePortKeys?.Contains(key) == true)
                 return true;
 
             //check local
@@ -2471,11 +2515,11 @@ namespace Yodiwo.NodeLibrary
                 return false;
 
             //check cloud
-            if (_CloudActiveThings.Contains(thing))
+            if (_CloudActiveThings?.Contains(thing) == true)
                 return true;
 
             //check local
-            if (NodeGraphManager.IsThingActive(key))
+            if (NodeGraphManager?.IsThingActive(key) == true)
                 return true;
 
             return false;
@@ -2625,6 +2669,7 @@ namespace Yodiwo.NodeLibrary
         {
             try
             {
+                DebugEx.TraceLog($"NodeUnpairedReq event is send");
                 var unpairReq = new NodeUnpairedReq() { ReasonCode = eUnpairReason.UserRequested };
                 var rsp = SendRequest<GenericRsp>(unpairReq);
                 ForgetMe(disconnect: disconnect, purge: purge);

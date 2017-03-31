@@ -36,7 +36,7 @@ namespace Yodiwo.API.Warlock
         public eNodeStatus Status;
         public int SupportedApiRev;
         /// <summary>Creation (pairing) of node timestamp, in msec since the Unix Epoch</summary>
-        public ulong PairingTimestamp;
+        public string PairingTimestamp;
         /// <summary>current Node's Things revision number, as defined in Plegma API</summary>
         public int ThingsRevNum;
         public List<ThingDescriptor> Things;
@@ -45,6 +45,7 @@ namespace Yodiwo.API.Warlock
         public QuotaDescriptor BytesIO;
         public QuotaDescriptor EventsIO;
         public Dictionary<string, UserApiKey> LinkedApiKeys;
+        public string PrimaryEmail;
         //-------------------------------------------------------------------------------------------------------------------------
         public bool IsVirtual { get { return NodeKey.IsVirtual; } }
         #endregion

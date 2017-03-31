@@ -8,7 +8,7 @@ using Yodiwo.API.Plegma;
 namespace Yodiwo.API.Warlock.Private
 {
     //------------------------------------------------------------------------------------------------------------------------
-    public enum TimelineDescriptorType
+    public enum eTimelineDescriptorType
     {
         Unknown,
         Accounts,
@@ -22,7 +22,7 @@ namespace Yodiwo.API.Warlock.Private
         User
     }
     //------------------------------------------------------------------------------------------------------------------------
-    public enum TimelineDescriptorOperationType
+    public enum eTimelineDescriptorOperationType
     {
         Unknown,
         Add,
@@ -71,8 +71,8 @@ namespace Yodiwo.API.Warlock.Private
         public Yodiwo.API.Warlock.Private.TimelineDescriptorKey TimelineDescriptorKey;
         public UserKey UserKey { get { return TimelineDescriptorKey.UserKey; } }
         //------------------------------------------------------------------------------------------------------------------------
-        public TimelineDescriptorType Type;
-        public TimelineDescriptorOperationType Operation;
+        public eTimelineDescriptorType Type;
+        public eTimelineDescriptorOperationType Operation;
         public DateTime DateTimeTS;
         public string Message;
         //------------------------------------------------------------------------------------------------------------------------
@@ -83,7 +83,7 @@ namespace Yodiwo.API.Warlock.Private
         //------------------------------------------------------------------------------------------------------------------------
         public TimelineDescriptor() { DateTimeTS = DateTime.UtcNow; }
         //------------------------------------------------------------------------------------------------------------------------
-        public TimelineDescriptor(TimelineDescriptorKey tldKey, TimelineDescriptorType Type, TimelineDescriptorOperationType Operation, DateTime Timestamp, TimelineInfo Info, string Message = "")
+        public TimelineDescriptor(TimelineDescriptorKey tldKey, eTimelineDescriptorType Type, eTimelineDescriptorOperationType Operation, DateTime Timestamp, TimelineInfo Info, string Message = "")
         {
             this.TimelineDescriptorKey = tldKey;
             this.Type = Type;
@@ -325,14 +325,17 @@ namespace Yodiwo.API.Warlock.Private
             set { this.Key = value; }
         }
         public string Name;
-        public long? LimitOld, LimitNew;
-        public long? TotalNumForPeriodOld, TotalNumForPeriodNew;
-        public long? TotalNumOld, TotalNumNew;
-        public TimeSpan? PeriodOld, PeriodNew;
+        public long? LimitOld, LimitCurrent;
+        public long? TotalNumForPeriodOld, TotalNumForPeriodCurrent;
+        public long? TotalNumOld, TotalNumCurrent;
+        public TimeSpan? PeriodOld, PeriodCurrent;
         public bool? ManualResetByUser;
         public bool? AfterManualLimitLift;
         public bool? AfterManualPeriodReset;
         public DateTime? StartOfPeriod;
+        public int? Percentage;
+        public long? Overage;
+
         //------------------------------------------------------------------------------------------------------------------------
         public QuotaTimelineInfo() : base() { }
     }

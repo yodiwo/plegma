@@ -18,6 +18,8 @@ namespace Yodiwo.API.Warlock
         public NotificationDescriptorType Type;
         public NotificationDescriptorOperationType Operation;
         public DateTime Timestamp;
+        public eSeverity Severity;
+        public bool IsModal;
         //------------------------------------------------------------------------------------------------------------------------
         #region helper variables for UI Notifications' Environment
         //------------------------------------------------------------------------------------------------------------------------
@@ -56,14 +58,16 @@ namespace Yodiwo.API.Warlock
         /// <summary>
         /// Generate the graph model based on Logic.Graph.
         /// </summary>
-        public NotificationDescriptor(NotificationDescriptorType Type, NotificationDescriptorOperationType Operation, NotificationDescriptorRelatedObject RelatedObject, string DescriptionMessage)
+        public NotificationDescriptor(NotificationDescriptorType type, NotificationDescriptorOperationType operation, NotificationDescriptorRelatedObject RelatedObject, string DescriptionMessage, eSeverity severity = eSeverity.Info, bool isModal = false)
             : this()
         {
             this.HasRelatedObject = RelatedObject != null;
             this.NotificationDescriptorRelatedObject = RelatedObject;
-            this.Type = Type;
-            this.Operation = Operation;
+            this.Type = type;
+            this.Operation = operation;
             this.Description = DescriptionMessage;
+            this.Severity = severity;
+            this.IsModal = isModal;
         }
 
         public enum NotificationDescriptorType
@@ -91,7 +95,17 @@ namespace Yodiwo.API.Warlock
             QuotaPercentageCrossed,
             QuotaLimitUncrossed,
             UnDeployAfterGroupRemove,
-            SharedGraph
+            SharedGraph,
+            PendingReqExpired,
+            LoraEvent,
+            LoraThingUpdate
+        }
+
+        public enum eSeverity
+        {
+            Info,
+            Warning,
+            Error
         }
     }
 
@@ -293,7 +307,8 @@ namespace Yodiwo.API.Warlock
         public bool AfterManualLimitLift;
         public bool AfterManualPeriodReset;
         public int Percentage;
-        public long Limit;
+        public long LimitCurrent;
+        public long TotalPeriodNumCurrent;
         public TimeSpan Period;
     }
     #endregion

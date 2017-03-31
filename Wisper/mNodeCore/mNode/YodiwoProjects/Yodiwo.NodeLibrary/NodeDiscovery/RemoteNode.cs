@@ -49,15 +49,17 @@ namespace Yodiwo.NodeLibrary.NodeDiscovery
         //-------------------------------------------------------------------------------------------------------------------------
         public bool ConnectionTaskRunning;
         //-------------------------------------------------------------------------------------------------------------------------
+        public TimeSpan keepAliveSpinDelay { get; set; }
         #endregion
 
         #region Constuctor
         //-------------------------------------------------------------------------------------------------------------------------
-        public RemoteNode(Node Node, NodeDiscoverManager NodeDiscoverManager)
+        public RemoteNode(Node Node, TimeSpan? keepAliveSpinDelay, NodeDiscoverManager NodeDiscoverManager)
         {
             //keep
             this.Node = Node;
             this.NodeDiscoverManager = NodeDiscoverManager;
+            this.keepAliveSpinDelay = keepAliveSpinDelay == null ? TimeSpan.FromMinutes(5) : keepAliveSpinDelay.Value;
         }
         //-------------------------------------------------------------------------------------------------------------------------
         #endregion

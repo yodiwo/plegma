@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8AE66ABD-D963-4E83-83A3-330156CD37A3}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Yodiwo</RootNamespace>
+    <AssemblyName>YodiwoSharp</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <ResolveNuGetPackages>false</ResolveNuGetPackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;NETFX, NEWTONSOFT, YODIWO, TRACE_ERROR</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX, NEWTONSOFT, YODIWO, TRACE_ERROR</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\ExternalLibraries\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyHook.cs" />
+    <Compile Include="Config\YConfig.cs" />
+    <Compile Include="Extensions\Stream.cs" />
+    <Compile Include="Extensions\Dictionary.cs" />
+    <Compile Include="Extensions\Double.cs" />
+    <Compile Include="Extensions\IList.cs" />
+    <Compile Include="Extensions\DateTime.cs" />
+    <Compile Include="Extensions\JSON.cs" />
+    <Compile Include="Extensions\Stack.cs" />
+    <Compile Include="Extensions\Sockets.cs" />
+    <Compile Include="Extensions\Task.cs" />
+    <Compile Include="Extensions\Array.cs" />
+    <Compile Include="Extensions\Assembly.cs" />
+    <Compile Include="Extensions\Type.cs" />
+    <Compile Include="Interfaces\IFillFromString.cs" />
+    <Compile Include="Interfaces\IReadOnlySet.cs" />
+    <Compile Include="Interfaces\IHasName.cs" />
+    <Compile Include="Interfaces\IDBObject.cs" />
+    <Compile Include="Queues\CircularBuffer.cs" />
+    <Compile Include="Queues\BlockingQueue\BlockingQueue.cs" />
+    <Compile Include="Queues\PriorityQueue\HeapPriorityQueue.cs" />
+    <Compile Include="Queues\PriorityQueue\IPriorityQueue.cs" />
+    <Compile Include="Queues\PriorityQueue\PriorityQueueNode.cs" />
+    <Compile Include="Tools\BigBitConverter.cs" />
+    <Compile Include="Tools\Certificates.cs" />
+    <Compile Include="Tools\ConvertEx.cs" />
+    <Compile Include="Cryptography\Crypto.cs" />
+    <Compile Include="Cryptography\Crypto_pbkdf2.cs" />
+    <Compile Include="Tools\DebugEx.cs" />
+    <Compile Include="Extensions\Enumerables.cs" />
+    <Compile Include="Extensions\Object.cs" />
+    <Compile Include="Extensions\Float.cs" />
+    <Compile Include="Extensions\Int.cs" />
+    <Compile Include="Extensions\ISet.cs" />
+    <Compile Include="Extensions\MemberInfo.cs" />
+    <Compile Include="Extensions\MethodInfo.cs" />
+    <Compile Include="Extensions\String.cs" />
+    <Compile Include="Tools\EnvironmentEx.cs" />
+    <Compile Include="Tools\FileSystem.cs" />
+    <Compile Include="Tools\MimeType.cs" />
+    <Compile Include="Tools\Html.cs" />
+    <Compile Include="Tools\Http.cs" />
+    <Compile Include="Tools\LinuxConfigParser.cs" />
+    <Compile Include="Tools\Marshalling.cs" />
+    <Compile Include="Tools\MathTools.cs" />
+    <Compile Include="Tools\Network.cs" />
+    <Compile Include="Tools\TaskEx.cs" />
+    <Compile Include="Tools\ToolBox.cs" />
+    <Compile Include="Tools\Validation.cs" />
+    <Compile Include="Tools\ReflectionHelpers.cs" />
+    <Compile Include="Tools\TypeCache.cs" />
+    <Compile Include="SmallTypes.cs" />
+    <Compile Include="Tools\WindowsNative.cs" />
+    <Compile Include="Types\Collections\DictionaryOfLists.cs" />
+    <Compile Include="Types\Collections\DictionaryOfSets.cs" />
+    <Compile Include="Types\Collections\ReadOnlyArray.cs" />
+    <Compile Include="Types\Collections\ReadOnlyDictionary.cs" />
+    <Compile Include="Types\Collections\ReadOnlyList.cs" />
+    <Compile Include="Types\DBAttributes.cs" />
+    <Compile Include="Types\MqttTopicNode.cs" />
+    <Compile Include="Types\RpcSync.cs" />
+    <Compile Include="Types\SmallTypes\EventRouterBasicTypes.cs" />
+    <Compile Include="Types\SmallTypes\Markup.cs" />
+    <Compile Include="Types\SmallTypes\YIncident.cs" />
+    <Compile Include="Types\Streams\StatisticsStream.cs" />
+    <Compile Include="Types\TimerManager.cs" />
+    <Compile Include="Types\Collections\ThreadSafeCollections\QueueTS.cs" />
+    <Compile Include="Types\Collections\ThreadSafeCollections\StackTS.cs" />
+    <Compile Include="Types\Collections\ThreadSafeCollections\TSBaseISet.cs" />
+    <Compile Include="Types\Collections\ThreadSafeCollections\SortedSetTS.cs" />
+    <Compile Include="Types\Collections\ThreadSafeCollections\HashSetTS.cs" />
+    <Compile Include="Types\Collections\ThreadSafeCollections\ListTS.cs" />
+    <Compile Include="Types\Collections\ThreadSafeCollections\DictionaryTS.cs" />
+    <Compile Include="Types\SmallTypes\TupleStructUnorderer.cs" />
+    <Compile Include="Types\SmallTypes\WeakAction.cs" />
+    <Compile Include="Types\YEventRouter.cs" />
+    <Compile Include="Types\RequestQueueConsumer.cs" />
+    <Compile Include="Types\Collections\FutureCallbackQueue.cs" />
+    <Compile Include="Types\Streams\PipeStream.cs" />
+    <Compile Include="Types\SmallTypes\TupleS.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Types\SmallTypes\OptionsList.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Redefines\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Queues\PriorityQueue\Source.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Tools\WindowsNative.SendInput.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent Condition=" '$(OS)' != 'Unix' ">IF EXIST "C:\NuspecGeneratorTool\NuspecGenerator.exe" "C:\NuspecGeneratorTool\NuspecGenerator.exe" "$(ProjectPath)" "$(TargetFileName)" "$(SolutionDir) " "$(TargetDir) "  "$(SolutionFileName)"</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

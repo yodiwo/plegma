@@ -1,0 +1,86 @@
+﻿
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<Yodiwo.mNode.Openhab.Web.Modules.ThingModel>
+
+@{
+    Layout = ViewBag.IsPjax ? null : "/Layout.cshtml";
+}
+@functions
+{
+
+    string thingName(string thingLabel)
+    {
+        if (thingLabel == null)
+        {
+            return "[EMPTY LABEL]";
+        }
+
+        return thingLabel;
+    }
+    string channelName(string thing, string channel)
+    {
+        return thing+":"+channel;
+    }
+}
+<div class="box thingChannels">
+    <div class="box-header ">
+        <h3 class="box-title"><b>Edit Think Channels</b></h3>
+    </div><!-- /.box-header -->
+    <div class="box-body" style="display: block;">
+        <br />
+        <div class="row">
+            <div class="col-md-1">
+            </div>
+            <div class="col-md-6">
+                <h3>@thingName(@Model.thing.item.label).ToUpper() <small>@Model.type.label</small></h3>
+                <p>@Model.type.description</p>
+                <h2>Channels</h2>
+            </div>
+
+        </div>
+        <!-- FOR EACH -->
+        @foreach (var x in @Model.thing.channels)
+        {
+            <div class="row">
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-1">
+                    <!-- if /things/{thing}/channels/{id}/unlink/{item}-->
+                    @if (@x.linkedItems.Count == 0)
+                    {
+                        <form action="/hab/things/@Model.thing.UID/channels/link/@channelName(@Model.thing.UID,@x.id)" method="post">
+                            <button type="submit" class="btn btn-default btn-flat">
+                                <i class="fa fa-fw fa-2x fa-unlink"></i>
+                            </button>
+                        </form>
+                    }
+                    else
+                    {
+                        <form action="/hab/things/@Model.thing.UID/channels/unlink/@channelName(@Model.thing.UID,@x.id)" method="post">
+                            <button type="submit" class="btn btn-default btn-flat">
+                                <i class="fa fa-fw fa-2x fa-link"></i>
+                            </button>
+                        </form>
+                    }
+                </div>
+                <div class="col-md-8">
+                    @foreach (var y in @Model.type.channels)
+                    {
+                        if (y.id == x.id)
+                        {
+                            <h3>@y.label</h3>
+                            <p>@Model.thing.UID : @x.id</p>
+                            <p>@y.description</p>
+                        }
+                    }
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-9">
+                    <hr>
+                </div>
+            </div>
+        }
+    </div><!-- /.box-body -->
+</div><!-- /.box -->

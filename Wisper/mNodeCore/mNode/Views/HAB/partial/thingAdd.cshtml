@@ -1,0 +1,55 @@
+﻿@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<Yodiwo.mNode.Plugins.Openhab.Rest.Model.ThingType>
+@{
+    Layout = ViewBag.IsPjax ? null : "/Layout.cshtml";
+}
+@{
+    int i = 0;
+}
+<div class="box discovery">
+    <div class="box-header ">
+        <h3 class="box-title"><b> Add @Model.label </b><small>@Model.UID</small></h3>
+        <p>@Model.description</p>
+    </div><!-- /.box-header -->
+    <!-- form start -->
+    <form action="/hab/things/add" method="post">
+        <div class=" box-body" style="display: block;">
+        <div class="row">
+            <div class="col-md-1">
+            </div>
+            <div class="col-md-6">
+                <div class=" form-group">
+                    <label for="id">ID</label>
+                    <p>Define a unique identifier</p>
+                    <input type="hidden" class="form-control" name="prefix" value="@Model.UID">
+                    <input type="text" class="form-control" id="id" name="id" placeholder="id">
+                </div>
+            </div>
+        </div>
+        <!-- FOR EACH -->
+        @foreach (var x in @Model.configParameters)
+        {
+            <div class="row">
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-6">
+                    <div class=" form-group">
+                        <label for="@x.name">@x.label</label>
+                        <p>@x.description</p>
+                        <input type="hidden" class="form-control" name="name[@i]" value="@x.name">
+                        <input type="text" class="form-control" id="@x.name" name="value[@i]" placeholder="@x.label">
+                    </div>
+                </div>
+            </div>
+            i++;
+        }
+</div><!-- /.box-body -->
+        <div class="box-footer">
+            <div class="row">
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-default btn-flat">Add<i class="fa fa-fw fa-plus"></i></button>
+                </div>
+            </div>
+    </form>
+    </div><!-- /.box -->

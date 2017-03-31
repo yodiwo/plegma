@@ -48,7 +48,6 @@ namespace Yodiwo.API.Warlock
     }
     #endregion
 
-
     #region User Query API messages
 
 
@@ -140,26 +139,6 @@ namespace Yodiwo.API.Warlock
         }
     }
 
-    public class LinkedUserInfo
-    {
-        public SubUserKey SubUserKey;
-        public bool IsPrimary;
-        public string Name;
-        public string FirstName;
-        public string LastName;
-        public string Email;
-        public string UserName;
-        public string AvatarUri;
-        public string TimeZoneId;
-        public string Token;
-        public string Locale;
-        public bool LoggedIn;
-        public DateTime CreatedTime;
-        public DateTime UpdatedTime;
-        public eUserPrivilegeLevel PrivilegeLevel;
-
-    }
-
     /// <summary>
     /// response to a GetUserInfoReq
     /// </summary>
@@ -216,7 +195,6 @@ namespace Yodiwo.API.Warlock
     }
 
     #endregion
-
 
     #region Sharing Ctrl API messages
 
@@ -318,6 +296,12 @@ namespace Yodiwo.API.Warlock
         /// Notification's key
         /// </summary>
         public NotificationDescriptorKey NotificationDescriptorKey;
+
+        /// <summary>
+        /// Pending token
+        /// </summary>
+        public string PendingToken;
+
     }
 
     public class SharedGraphConfReq : GenericRsp
@@ -507,7 +491,6 @@ namespace Yodiwo.API.Warlock
 
     #endregion
 
-
     #region Graphs Ctrl API messages
 
     public enum eGraphActionType : byte
@@ -573,6 +556,11 @@ namespace Yodiwo.API.Warlock
         /// Share graph request, must include specific GraphDescriptorKey and TargetUserEmail
         /// </summary>
         Share,
+
+        /// <summary>
+        /// This request sets BlockMgr as dirty so as to create the new block 
+        /// </summary>
+        CreateMacroBlock,
     }
 
     public class GraphActionReq : WarlockApiMsg
@@ -674,7 +662,6 @@ namespace Yodiwo.API.Warlock
 
     #endregion
 
-
     #region Hackingstuff
 
     /// <summary>
@@ -692,7 +679,6 @@ namespace Yodiwo.API.Warlock
 
     #endregion
 
-
     #region warlock-extra-capabilities
     //warlock extra capabilities
 
@@ -706,14 +692,14 @@ namespace Yodiwo.API.Warlock
         public string Message;
     }
 
-    public class RegisterUserKey
+    public class RegisterUserKeyReq
     {
-        public HashSetTS<UserKey> Userkeys;
+        public HashSet<UserKey> Userkeys;
     }
 
     public class UnRegisterUserKey
     {
-        public HashSetTS<UserKey> Userkeys;
+        public HashSet<UserKey> Userkeys;
     }
 
     public class GetSharedThingsRsp : GenericRsp
@@ -767,7 +753,7 @@ namespace Yodiwo.API.Warlock
     public class GetAllPortsRsp : GenericValueST<List<PortInformation>> { };
     public class GetAllPortKeysRsp : GenericValueST<List<PortKey>> { };
     public class GetUserDescriptorRsp : GenericValueST<UserDescriptor> { };
-    public class GetLinkedUserDescriptor : GenericValueST<LinkedUserInfo> { };
+    public class GetLinkedUserDescriptors : GenericValueST<List<LinkedUserDescriptor>> { };
     public class GetAllUserDescriptorsRsp : GenericValueST<List<UserDescriptor>> { };
     public class NodePairingRecoverRsp : GenericValueST<NodePairingModelView> { };
     public class GetToolboxModelViewRsp : GenericValueST<string> { };
@@ -823,7 +809,6 @@ namespace Yodiwo.API.Warlock
     public class BookmarkableLoadRoute : GenericRsp
     {
         public GraphDescriptorKey GraphDescriptorKey;
-        public bool IsPlacer;
     }
 
     public class BinaryResourceDescRsp : GenericRsp
@@ -912,6 +897,11 @@ namespace Yodiwo.API.Warlock
         public bool UserIsLocked;
     }
 
+    public class RegisterUserKeyRsp : GenericRsp
+    {
+        public Dictionary<UserKey, bool> RspPerUkey;
+    }
+
     public class UserDescriptor
     {
         public UserKey UserKey;
@@ -933,9 +923,10 @@ namespace Yodiwo.API.Warlock
         public bool AccountLocked;
 
         #region UserDescriptor Constructors
-        public UserDescriptor(UserKey usrKey)
+        public UserDescriptor(UserKey userkey, SubUserKey subUserKey)
         {
-            UserKey = usrKey;
+            UserKey = userkey;
+            SubUserKey = subUserKey;
         }
         #endregion
     }
@@ -1133,6 +1124,33 @@ namespace Yodiwo.API.Warlock
         public ThingKey ThingKey;
         public bool IsLoRaThing;
     }
+
+    #region Databases Query
+
+    public class GetDatabasesInfoRsp : GenericValueST<List<DatabaseInfoDescriptor>> { };
+
+    public class GetDatabasesUsersInfoRsp : GenericValueST<List<DatabaseUserInfoDescriptor>> { };
+
+    public enum eDatabaseInfoReqType
+    {
+        INVALID_ACTION = 0,
+        ADD_DATABASE,
+        ADD_USER,
+        DROP_DATABASE,
+        DROP_USER,
+        // values below are for user only 
+        LINK,
+        UNLINK
+    }
+
+    // multi actions responses
+    public class DatabaseMultiActionRsp : GenericRsp
+    {
+        // SeqNO -> Response
+        public Dictionary<int, Yodiwo.API.Warlock.GenericRsp> Responses;
+    }
+
+    #endregion
 
     //------------------------------------------------------------------------------------------------------------------------
     public class CreateValueTriggerGraphEvent : WarlockApiMsg

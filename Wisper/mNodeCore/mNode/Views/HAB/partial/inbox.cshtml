@@ -1,0 +1,56 @@
+﻿@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<System.Collections.Generic.IEnumerable<Yodiwo.mNode.Plugins.Openhab.Rest.Model.DiscoveryResult>>
+@{
+    Layout = ViewBag.IsPjax ? null : "/Layout.cshtml";
+}
+
+<div class="box inbox">
+    <div class="box-header ">
+        <h3 class="box-title"><b>Discovered Things</b></h3>
+    </div><!-- /.box-header -->
+    <div class="box-body" style="display: block;">
+        <br />
+        @foreach (var x in @Model)
+        {
+            <div class="row">
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-1 text-center">
+                    <form action="/hab/inbox/approve/@x.thingUID" method="post">
+                        <button type="submit" id="@x.thingUID" name="approve" class="btn btn-default btn-flat">
+                            <i class="fa fa-fw fa-check"></i>Approve
+                        </button>
+                    </form>
+                </div>
+                <div class="col-md-4 text-left">
+                    <div onclick="" style="cursor: pointer;">
+                        <big><b>@x.label.ToUpper()</b></big><small>&nbsp;&nbsp;@x.flag</small>
+                        <br />
+                        @x.thingUID
+
+                    </div>
+                </div>
+                <div class="col-md-1 text-center">
+                    <form action="/hab/inbox/ignore/@x.thingUID" method="post">
+                        <button type="submit" id="@x.thingUID" name="ignore" class="btn btn-default btn-flat">
+                            <i class="fa fa-fw fa-remove"></i>Ignore
+                        </button>
+                    </form>
+                </div>
+                <div class="col-md-1 text-center">
+                    <form action="/hab/inbox/delete/@x.thingUID" method="post">
+                        <button type="submit" id="@x.thingUID" name="delete" class="btn btn-default btn-flat">
+                            <i class="fa fa-fw -o fa-trash"></i>Delete
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-7">
+                    <hr>
+                </div>
+            </div>
+        }
+    </div><!-- /.box-body -->
+</div><!-- /.box -->

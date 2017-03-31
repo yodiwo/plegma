@@ -35,7 +35,7 @@
     <DocumentationFile>bin\Release\Yodiwo.API.Warlock.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\ExternalLibraries\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -49,9 +49,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LinkedUserDescriptor.cs" />
     <Compile Include="ApiKeyDescriptor.cs" />
     <Compile Include="AssemblyHook.cs" />
     <Compile Include="BinaryResourceDescriptorHelper.cs" />
+    <Compile Include="DatabaseInfoDescriptor.cs" />
+    <Compile Include="DocumentationDescriptor.cs" />
     <Compile Include="Private\TimelineDescriptor.cs" />
     <Compile Include="GraphDescriptor.cs" />
     <Compile Include="GroupDescriptor.cs" />
@@ -117,11 +120,11 @@
     <Compile Include="SipAccount.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Plegma\Yodiwo.API.Plegma.csproj">
+    <ProjectReference Include="..\Yodiwo.Api.Plegma\Yodiwo.API.Plegma.csproj">
       <Project>{94f4ce90-200f-40ce-bf83-e15d147924f7}</Project>
       <Name>Yodiwo.API.Plegma</Name>
     </ProjectReference>
-    <ProjectReference Include="..\YodiwoSharp\YodiwoSharp\YodiwoSharp.csproj">
+    <ProjectReference Include="..\YodiwoSharp\YodiwoSharp.csproj">
       <Project>{8ae66abd-d963-4e83-83a3-330156cd37a3}</Project>
       <Name>YodiwoSharp</Name>
     </ProjectReference>

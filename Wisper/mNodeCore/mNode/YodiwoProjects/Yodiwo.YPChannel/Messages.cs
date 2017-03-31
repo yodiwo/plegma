@@ -1,0 +1,142 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Yodiwo.YPChannel
+{
+    /// <summary>
+    /// Message used by server to inform client about the negotiation start
+    /// </summary>
+    public class HELLORequest
+    {
+        public int[] SuportedProtocols;
+        public String Message;
+        public UInt32 ChannelFlags;
+        public string ChannelKey;
+    }
+    /// <summary>
+    /// Message used by client to inform server about the negotiation start
+    /// </summary>
+    public class HELLOResponse
+    {
+        public int Version;
+        public String Message;
+        public string ChannelKey;
+        public UInt32 ChannelFlags;
+        public int ProtocolGroupSize;
+
+        public class MessageTypeGroupPacked
+        {
+            public string GroupName;
+            public int GroupID;
+            public string[] MessageTypes;
+        }
+        public MessageTypeGroupPacked[] ProtocolDefinitions;
+    }
+
+    /// <summary>
+    /// Message used by server to inform client about the negotiation results
+    /// </summary>
+    public class NegotationFinishMessage
+    {
+        public YPCStatusCodes StatusCode;
+        public String Message;
+        public string ChannelKey;
+
+        public bool IsSuccessCode() { return (int)StatusCode >= 200 && (int)StatusCode < 300; }
+    }
+
+    /// <summary>
+    /// Message used by channel to inform client about channel closing
+    /// </summary>
+    public class ChannelCloseMessage
+    {
+        public String Message;
+    }
+
+    /// <summary>
+    /// Message used by channel to monitor/measure connection
+    /// </summary>
+    public class PingRequest
+    {
+        public String Message;
+    }
+
+    /// <summary>
+    /// Message used by channel to monitor/measure connection
+    /// </summary>
+    public class PongResponse
+    {
+        public String Message;
+    }
+
+    /// <summary>
+    /// Message used by channel to inform about stream open
+    /// </summary>
+    public class StreamOpenRequest
+    {
+        public UInt32 StreamID;
+        public UInt32 Flags;
+    }
+
+    /// <summary>
+    /// Message used by channel to inform about stream open status
+    /// </summary>
+    public class StreamOpenResponse
+    {
+        public bool Result;
+        public string Message;
+        public UInt32 Flags;
+    }
+
+    /// <summary>
+    /// Message used by channel to inform about remote stream close
+    /// </summary>
+    public class StreamClosed
+    {
+        public UInt32 StreamID;
+        public string Message;
+        public UInt32 Flags;
+    }
+
+    /// <summary>
+    /// Message used by channel to transfer stream data chunks
+    /// </summary>
+    public class StreamFragment
+    {
+        public UInt32 StreamID;
+        public byte[] Data;
+    }
+
+    /// <summary>
+    /// Message used by channel to inform about bandwidth management
+    /// </summary>
+    public class BandwidthManagementMessage
+    {
+        public bool Enable;
+        public uint BandwidthCap;    // max bytes per sec (uint.MaxValue equals no limit)
+        public uint MessageCap;      // max messages per sec (uint.MaxValue equals no limit)
+    }
+
+    /// <summary>
+    /// Message used by server to inform client for redirection
+    /// </summary>
+    public class RedirectionMessage
+    {
+        public YPCStatusCodes StatusCode;
+        public string RedirectionTarget;
+        public string Message;
+    }
+
+    /// <summary>
+    /// Message used by channel to inform remote endpoint for errors
+    /// </summary>
+    public class ErrorMessage
+    {
+        public eTraceType Type;
+        public String Message;
+    }
+
+}

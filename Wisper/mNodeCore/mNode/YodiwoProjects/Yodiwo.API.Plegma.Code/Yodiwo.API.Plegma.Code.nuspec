@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Yodiwo.Api.Plegma.Code</id>
+    <version>1.0.0</version>
+    <authors>Yodiwo</authors>
+    <owners>Yodiwo</owners>
+    <licenseUrl> http://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
+    <projectUrl>https://github.com/yodiwo/plegma/tree/master/Csharp/APIs/Yodiwo.API.Plegma.Code</projectUrl>
+    <iconUrl>https://avatars3.githubusercontent.com/u/13611447</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Yodiwo.API.Plegma.Code</description>
+    <copyright>Copyright 2016</copyright>
+	<dependencies>
+      <dependency id="YodiwoSharp" version="1.0.0" />
+	  <dependency id="Yodiwo.Api.Plegma" version="1.0.0" />
+    </dependencies>	
+  </metadata>
+     <files>
+	<file src="bin\Release\Yodiwo.API.Plegma.Code.dll" target="lib\net4.5\Yodiwo.API.Plegma.Code.dll" />
+	</files>
+</package>

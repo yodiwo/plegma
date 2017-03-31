@@ -37,7 +37,7 @@
             scope separator
             </summary>
         </member>
-        <member name="M:Yodiwo.API.Warlock.NotificationDescriptor.#ctor(Yodiwo.API.Warlock.NotificationDescriptor.NotificationDescriptorType,Yodiwo.API.Warlock.NotificationDescriptor.NotificationDescriptorOperationType,Yodiwo.API.Warlock.NotificationDescriptorRelatedObject,System.String)">
+        <member name="M:Yodiwo.API.Warlock.NotificationDescriptor.#ctor(Yodiwo.API.Warlock.NotificationDescriptor.NotificationDescriptorType,Yodiwo.API.Warlock.NotificationDescriptor.NotificationDescriptorOperationType,Yodiwo.API.Warlock.NotificationDescriptorRelatedObject,System.String,Yodiwo.API.Warlock.NotificationDescriptor.eSeverity,System.Boolean)">
             <summary>
             Generate the graph model based on Logic.Graph.
             </summary>
@@ -350,6 +350,11 @@
             Notification's key
             </summary>
         </member>
+        <member name="F:Yodiwo.API.Warlock.ShareGraphReq.PendingToken">
+            <summary>
+            Pending token
+            </summary>
+        </member>
         <member name="F:Yodiwo.API.Warlock.SharedGraphConfReq.Step">
             <summary>
              Current wizard step
@@ -549,6 +554,11 @@
             Share graph request, must include specific GraphDescriptorKey and TargetUserEmail
             </summary>
         </member>
+        <member name="F:Yodiwo.API.Warlock.eGraphActionType.CreateMacroBlock">
+            <summary>
+            This request sets BlockMgr as dirty so as to create the new block 
+            </summary>
+        </member>
         <member name="F:Yodiwo.API.Warlock.GraphActionReq.ActionType">
             <summary>
             Type of graph action; see <see cref="T:Yodiwo.API.Warlock.eGraphActionType"/>
@@ -600,6 +610,39 @@
             <para>The response to this message is <see cref="T:Yodiwo.API.Warlock.ShareThingsRsp"/></para>
         </member>
         <!-- Badly formed XML comment ignored for member "F:Yodiwo.API.Warlock.ShareThingsReq.ShareActionReqs" -->
+        <member name="T:Yodiwo.API.Warlock.GetDatabasesInfoReq">
+            <summary>get all available user's database descriptors</summary>
+            <para>The response to this message is <see cref="T:Yodiwo.API.Warlock.GetDatabasesInfoRsp"/></para>
+        </member>
+        <member name="T:Yodiwo.API.Warlock.GetDatabasesUsersInfoReq">
+            <summary>get all available databases' user descriptors</summary>
+            <para>The response to this message is <see cref="T:Yodiwo.API.Warlock.GetDatabasesUsersInfoRsp"/></para>
+        </member>
+        <member name="T:Yodiwo.API.Warlock.GetDatabaseInstancesReq">
+            <summary>get all available database descriptors of a database user</summary>
+            <para>The response to this message is <see cref="T:Yodiwo.API.Warlock.GetDatabasesInfoRsp"/></para>
+        </member>
+        <member name="T:Yodiwo.API.Warlock.GetDatabaseUsersInstancesReq">
+            <summary>get all available user descriptors of a database</summary>
+            <para>The response to this message is <see cref="T:Yodiwo.API.Warlock.GetDatabasesUsersInfoRsp"/></para>
+        </member>
+        <member name="T:Yodiwo.API.Warlock.DatabaseActionReq">
+            <summary></summary>
+            <para>The response to this message is <see cref="T:Yodiwo.API.Warlock.GenericRsp"/></para>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.DatabaseActionReq.targetUserKey">
+            <summary>  Target UserKey</summary>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.DatabaseActionReq.DbName">
+            <summary> Database's name that the action is referring to</summary>
+        </member>
+        <member name="T:Yodiwo.API.Warlock.DatabaseMultiActionReq">
+            <summary></summary>
+            <para>The response to this message is <see cref="T:Yodiwo.API.Warlock.GenericRsp"/></para>
+        </member>
+        <member name="F:Yodiwo.API.Warlock.DatabaseMultiActionReq.Requests">
+            <summary> Requests to handle</summary>
+        </member>
         <member name="T:Yodiwo.API.Warlock.GetUserQuotaReq">
             <summary>get quota for user; if target user different than asking user, it requires QuotaAdmin privilege level and upwards</summary>
             <para>The response to this message is <see cref="T:Yodiwo.API.Warlock.GetUserQuotaRsp"/></para>

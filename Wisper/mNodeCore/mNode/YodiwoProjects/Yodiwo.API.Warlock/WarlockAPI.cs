@@ -24,7 +24,8 @@ namespace Yodiwo.API.Warlock
             typeof(LiveKeysAddMsg),
             typeof(LiveKeysDelMsg),
             typeof(LiveValuesMsg),
-            typeof(RegisterUserKey),
+            typeof(RegisterUserKeyReq),
+            typeof(RegisterUserKeyRsp),
             typeof(UnRegisterUserKey),
             typeof(EmailRequest),
             typeof(UserLoginReq),
@@ -44,7 +45,8 @@ namespace Yodiwo.API.Warlock
 
         public static string s_LiveKeysAddMsg = nameof(LiveKeysAddMsg).ToLower();
         public static string s_LiveKeysDelMsg = nameof(LiveKeysDelMsg).ToLower();
-        public static string s_RegisterUserKey = nameof(RegisterUserKey).ToLower();
+        public static string s_RegisterUserKeyReq = nameof(RegisterUserKeyReq).ToLower();
+        public static string s_RegisterUserKeyRsp = nameof(RegisterUserKeyRsp).ToLower();
         public static string s_UnRegisterUserKey = nameof(UnRegisterUserKey).ToLower();
         public static string s_EmailRequest = nameof(EmailRequest).ToLower();
         public static string s_UserLoginReq = nameof(UserLoginReq).ToLower();
@@ -74,7 +76,8 @@ namespace Yodiwo.API.Warlock
             {
                 {typeof(LiveKeysAddMsg),s_LiveKeysAddMsg },
                 {typeof(LiveKeysDelMsg),s_LiveKeysDelMsg },
-                {typeof(RegisterUserKey),s_RegisterUserKey },
+                {typeof(RegisterUserKeyReq),s_RegisterUserKeyReq },
+                {typeof(RegisterUserKeyRsp),s_RegisterUserKeyRsp },
                 {typeof(UnRegisterUserKey), s_UnRegisterUserKey},
                 {typeof(EmailRequest), s_EmailRequest},
                 {typeof(UserLoginReq), s_UserLoginReq},

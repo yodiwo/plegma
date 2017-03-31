@@ -27,7 +27,9 @@ namespace Yodiwo.API.Warlock
         /// </summary>
         public static Type[] ApiMessages =
         {
-				typeof(GetNodeDescriptorsReq),
+				typeof(AssignSipAccount),
+			typeof(GetSharedThingsReq),
+			typeof(GetNodeDescriptorsReq),
 			typeof(NodeCreateReq),
 			typeof(NodeDisableReq),
 			typeof(NodeEnableReq),
@@ -60,11 +62,17 @@ namespace Yodiwo.API.Warlock
 			typeof(CreateUserApiKeyInfo),
 			typeof(LinkApiKeytoNode),
 			typeof(GetUserTokensReq),
-			typeof(MyHackingReq),
 			typeof(AddNewLinkedUserReq),
 			typeof(RemoveLinkedUserReq),
 			typeof(UpdateLinkedUserReq),
-			typeof(GetLinkedUserReq),
+			typeof(GetLinkedUsersReq),
+			typeof(MyHackingReq),
+			typeof(GetDatabasesInfoReq),
+			typeof(GetDatabasesUsersInfoReq),
+			typeof(GetDatabaseInstancesReq),
+			typeof(GetDatabaseUsersInstancesReq),
+			typeof(DatabaseActionReq),
+			typeof(DatabaseMultiActionReq),
 			typeof(RereadQuotaDataTablesReq),
 			typeof(GetUserQuotaReq),
 			typeof(SetQuotaLimit),
@@ -106,6 +114,7 @@ namespace Yodiwo.API.Warlock
 			typeof(GetAllPortKeys),
 			typeof(GetAllPorts),
 			typeof(PortConfigurationReq),
+			typeof(CreateMatchingVirtualThingReq),
 			typeof(BRDUploadReq),
 			typeof(GetBinaryResourceDesciptorsRequest),
 			typeof(CreateSnapshotReq),
@@ -134,9 +143,9 @@ namespace Yodiwo.API.Warlock
 			typeof(CreateFirstAuthUrl),
 			typeof(AddConfiguredRestService),
 			typeof(AddSocialAccount),
-			typeof(AssignSipAccount),
-			typeof(GetSharedThingsReq),
-						typeof(NodeDescriptorsRsp),
+						typeof(GenericValue),
+			typeof(GetSharedThingsRsp),
+			typeof(NodeDescriptorsRsp),
 			typeof(NodeCreateRsp),
 			typeof(GenericRsp),
 			typeof(GetThingTypesRsp),
@@ -155,8 +164,11 @@ namespace Yodiwo.API.Warlock
 			typeof(GetFriendsRsp),
 			typeof(CreateApiKeyRsp),
 			typeof(GetUserTokensRsp),
+			typeof(GetLinkedUserDescriptors),
 			typeof(MyHackingRsp),
-			typeof(GetLinkedUserDescriptor),
+			typeof(GetDatabasesInfoRsp),
+			typeof(GetDatabasesUsersInfoRsp),
+			typeof(DatabaseMultiActionRsp),
 			typeof(GetUserQuotaRsp),
 			typeof(GetAllUserDescriptorsRsp),
 			typeof(NodePairingRecoverRsp),
@@ -172,7 +184,6 @@ namespace Yodiwo.API.Warlock
 			typeof(GrafanaSnapshotCreateResponse),
 			typeof(LoadGraphsResp),
 			typeof(LoadFilesResp),
-			typeof(GenericValue),
 			typeof(MultiGraphActionRsp),
 			typeof(SharedGraphConfRsp),
 			typeof(GetUpdatedUserDescRsp),
@@ -180,11 +191,12 @@ namespace Yodiwo.API.Warlock
 			typeof(GlobalConfiguredServiceResp),
 			typeof(RestServiceRsp),
 			typeof(SocialAccountRsp),
-			typeof(GetSharedThingsRsp),
 			};
 
 
 			//Literal API names
+			 public static string s_AssignSipAccount = nameof(AssignSipAccount).ToLower();
+			 public static string s_GetSharedThingsReq = nameof(GetSharedThingsReq).ToLower();
 			 public static string s_GetNodeDescriptorsReq = nameof(GetNodeDescriptorsReq).ToLower();
 			 public static string s_NodeCreateReq = nameof(NodeCreateReq).ToLower();
 			 public static string s_NodeDisableReq = nameof(NodeDisableReq).ToLower();
@@ -218,11 +230,17 @@ namespace Yodiwo.API.Warlock
 			 public static string s_CreateUserApiKeyInfo = nameof(CreateUserApiKeyInfo).ToLower();
 			 public static string s_LinkApiKeytoNode = nameof(LinkApiKeytoNode).ToLower();
 			 public static string s_GetUserTokensReq = nameof(GetUserTokensReq).ToLower();
-			 public static string s_MyHackingReq = nameof(MyHackingReq).ToLower();
 			 public static string s_AddNewLinkedUserReq = nameof(AddNewLinkedUserReq).ToLower();
 			 public static string s_RemoveLinkedUserReq = nameof(RemoveLinkedUserReq).ToLower();
 			 public static string s_UpdateLinkedUserReq = nameof(UpdateLinkedUserReq).ToLower();
-			 public static string s_GetLinkedUserReq = nameof(GetLinkedUserReq).ToLower();
+			 public static string s_GetLinkedUsersReq = nameof(GetLinkedUsersReq).ToLower();
+			 public static string s_MyHackingReq = nameof(MyHackingReq).ToLower();
+			 public static string s_GetDatabasesInfoReq = nameof(GetDatabasesInfoReq).ToLower();
+			 public static string s_GetDatabasesUsersInfoReq = nameof(GetDatabasesUsersInfoReq).ToLower();
+			 public static string s_GetDatabaseInstancesReq = nameof(GetDatabaseInstancesReq).ToLower();
+			 public static string s_GetDatabaseUsersInstancesReq = nameof(GetDatabaseUsersInstancesReq).ToLower();
+			 public static string s_DatabaseActionReq = nameof(DatabaseActionReq).ToLower();
+			 public static string s_DatabaseMultiActionReq = nameof(DatabaseMultiActionReq).ToLower();
 			 public static string s_RereadQuotaDataTablesReq = nameof(RereadQuotaDataTablesReq).ToLower();
 			 public static string s_GetUserQuotaReq = nameof(GetUserQuotaReq).ToLower();
 			 public static string s_SetQuotaLimit = nameof(SetQuotaLimit).ToLower();
@@ -264,6 +282,7 @@ namespace Yodiwo.API.Warlock
 			 public static string s_GetAllPortKeys = nameof(GetAllPortKeys).ToLower();
 			 public static string s_GetAllPorts = nameof(GetAllPorts).ToLower();
 			 public static string s_PortConfigurationReq = nameof(PortConfigurationReq).ToLower();
+			 public static string s_CreateMatchingVirtualThingReq = nameof(CreateMatchingVirtualThingReq).ToLower();
 			 public static string s_BRDUploadReq = nameof(BRDUploadReq).ToLower();
 			 public static string s_GetBinaryResourceDesciptorsRequest = nameof(GetBinaryResourceDesciptorsRequest).ToLower();
 			 public static string s_CreateSnapshotReq = nameof(CreateSnapshotReq).ToLower();
@@ -292,9 +311,9 @@ namespace Yodiwo.API.Warlock
 			 public static string s_CreateFirstAuthUrl = nameof(CreateFirstAuthUrl).ToLower();
 			 public static string s_AddConfiguredRestService = nameof(AddConfiguredRestService).ToLower();
 			 public static string s_AddSocialAccount = nameof(AddSocialAccount).ToLower();
-			 public static string s_AssignSipAccount = nameof(AssignSipAccount).ToLower();
-			 public static string s_GetSharedThingsReq = nameof(GetSharedThingsReq).ToLower();
-						public static string s_NodeDescriptorsRsp = nameof(NodeDescriptorsRsp).ToLower();
+						public static string s_GenericValue = nameof(GenericValue).ToLower();
+			public static string s_GetSharedThingsRsp = nameof(GetSharedThingsRsp).ToLower();
+			public static string s_NodeDescriptorsRsp = nameof(NodeDescriptorsRsp).ToLower();
 			public static string s_NodeCreateRsp = nameof(NodeCreateRsp).ToLower();
 			public static string s_GenericRsp = nameof(GenericRsp).ToLower();
 			public static string s_GetThingTypesRsp = nameof(GetThingTypesRsp).ToLower();
@@ -313,8 +332,11 @@ namespace Yodiwo.API.Warlock
 			public static string s_GetFriendsRsp = nameof(GetFriendsRsp).ToLower();
 			public static string s_CreateApiKeyRsp = nameof(CreateApiKeyRsp).ToLower();
 			public static string s_GetUserTokensRsp = nameof(GetUserTokensRsp).ToLower();
+			public static string s_GetLinkedUserDescriptors = nameof(GetLinkedUserDescriptors).ToLower();
 			public static string s_MyHackingRsp = nameof(MyHackingRsp).ToLower();
-			public static string s_GetLinkedUserDescriptor = nameof(GetLinkedUserDescriptor).ToLower();
+			public static string s_GetDatabasesInfoRsp = nameof(GetDatabasesInfoRsp).ToLower();
+			public static string s_GetDatabasesUsersInfoRsp = nameof(GetDatabasesUsersInfoRsp).ToLower();
+			public static string s_DatabaseMultiActionRsp = nameof(DatabaseMultiActionRsp).ToLower();
 			public static string s_GetUserQuotaRsp = nameof(GetUserQuotaRsp).ToLower();
 			public static string s_GetAllUserDescriptorsRsp = nameof(GetAllUserDescriptorsRsp).ToLower();
 			public static string s_NodePairingRecoverRsp = nameof(NodePairingRecoverRsp).ToLower();
@@ -330,7 +352,6 @@ namespace Yodiwo.API.Warlock
 			public static string s_GrafanaSnapshotCreateResponse = nameof(GrafanaSnapshotCreateResponse).ToLower();
 			public static string s_LoadGraphsResp = nameof(LoadGraphsResp).ToLower();
 			public static string s_LoadFilesResp = nameof(LoadFilesResp).ToLower();
-			public static string s_GenericValue = nameof(GenericValue).ToLower();
 			public static string s_MultiGraphActionRsp = nameof(MultiGraphActionRsp).ToLower();
 			public static string s_SharedGraphConfRsp = nameof(SharedGraphConfRsp).ToLower();
 			public static string s_GetUpdatedUserDescRsp = nameof(GetUpdatedUserDescRsp).ToLower();
@@ -338,13 +359,14 @@ namespace Yodiwo.API.Warlock
 			public static string s_GlobalConfiguredServiceResp = nameof(GlobalConfiguredServiceResp).ToLower();
 			public static string s_RestServiceRsp = nameof(RestServiceRsp).ToLower();
 			public static string s_SocialAccountRsp = nameof(SocialAccountRsp).ToLower();
-			public static string s_GetSharedThingsRsp = nameof(GetSharedThingsRsp).ToLower();
 	
 
 		public static Dictionary<Type, String> ApiMsgNames = new Dictionary<Type, string>()
         {
 			
-				{typeof(GetNodeDescriptorsReq),s_GetNodeDescriptorsReq },
+				{typeof(AssignSipAccount),s_AssignSipAccount },
+			{typeof(GetSharedThingsReq),s_GetSharedThingsReq },
+			{typeof(GetNodeDescriptorsReq),s_GetNodeDescriptorsReq },
 			{typeof(NodeCreateReq),s_NodeCreateReq },
 			{typeof(NodeDisableReq),s_NodeDisableReq },
 			{typeof(NodeEnableReq),s_NodeEnableReq },
@@ -377,11 +399,17 @@ namespace Yodiwo.API.Warlock
 			{typeof(CreateUserApiKeyInfo),s_CreateUserApiKeyInfo },
 			{typeof(LinkApiKeytoNode),s_LinkApiKeytoNode },
 			{typeof(GetUserTokensReq),s_GetUserTokensReq },
-			{typeof(MyHackingReq),s_MyHackingReq },
 			{typeof(AddNewLinkedUserReq),s_AddNewLinkedUserReq },
 			{typeof(RemoveLinkedUserReq),s_RemoveLinkedUserReq },
 			{typeof(UpdateLinkedUserReq),s_UpdateLinkedUserReq },
-			{typeof(GetLinkedUserReq),s_GetLinkedUserReq },
+			{typeof(GetLinkedUsersReq),s_GetLinkedUsersReq },
+			{typeof(MyHackingReq),s_MyHackingReq },
+			{typeof(GetDatabasesInfoReq),s_GetDatabasesInfoReq },
+			{typeof(GetDatabasesUsersInfoReq),s_GetDatabasesUsersInfoReq },
+			{typeof(GetDatabaseInstancesReq),s_GetDatabaseInstancesReq },
+			{typeof(GetDatabaseUsersInstancesReq),s_GetDatabaseUsersInstancesReq },
+			{typeof(DatabaseActionReq),s_DatabaseActionReq },
+			{typeof(DatabaseMultiActionReq),s_DatabaseMultiActionReq },
 			{typeof(RereadQuotaDataTablesReq),s_RereadQuotaDataTablesReq },
 			{typeof(GetUserQuotaReq),s_GetUserQuotaReq },
 			{typeof(SetQuotaLimit),s_SetQuotaLimit },
@@ -423,6 +451,7 @@ namespace Yodiwo.API.Warlock
 			{typeof(GetAllPortKeys),s_GetAllPortKeys },
 			{typeof(GetAllPorts),s_GetAllPorts },
 			{typeof(PortConfigurationReq),s_PortConfigurationReq },
+			{typeof(CreateMatchingVirtualThingReq),s_CreateMatchingVirtualThingReq },
 			{typeof(BRDUploadReq),s_BRDUploadReq },
 			{typeof(GetBinaryResourceDesciptorsRequest),s_GetBinaryResourceDesciptorsRequest },
 			{typeof(CreateSnapshotReq),s_CreateSnapshotReq },
@@ -451,9 +480,9 @@ namespace Yodiwo.API.Warlock
 			{typeof(CreateFirstAuthUrl),s_CreateFirstAuthUrl },
 			{typeof(AddConfiguredRestService),s_AddConfiguredRestService },
 			{typeof(AddSocialAccount),s_AddSocialAccount },
-			{typeof(AssignSipAccount),s_AssignSipAccount },
-			{typeof(GetSharedThingsReq),s_GetSharedThingsReq },
-						{typeof(NodeDescriptorsRsp),s_NodeDescriptorsRsp },
+						{typeof(GenericValue),s_GenericValue },
+			{typeof(GetSharedThingsRsp),s_GetSharedThingsRsp },
+			{typeof(NodeDescriptorsRsp),s_NodeDescriptorsRsp },
 			{typeof(NodeCreateRsp),s_NodeCreateRsp },
 			{typeof(GenericRsp),s_GenericRsp },
 			{typeof(GetThingTypesRsp),s_GetThingTypesRsp },
@@ -472,8 +501,11 @@ namespace Yodiwo.API.Warlock
 			{typeof(GetFriendsRsp),s_GetFriendsRsp },
 			{typeof(CreateApiKeyRsp),s_CreateApiKeyRsp },
 			{typeof(GetUserTokensRsp),s_GetUserTokensRsp },
+			{typeof(GetLinkedUserDescriptors),s_GetLinkedUserDescriptors },
 			{typeof(MyHackingRsp),s_MyHackingRsp },
-			{typeof(GetLinkedUserDescriptor),s_GetLinkedUserDescriptor },
+			{typeof(GetDatabasesInfoRsp),s_GetDatabasesInfoRsp },
+			{typeof(GetDatabasesUsersInfoRsp),s_GetDatabasesUsersInfoRsp },
+			{typeof(DatabaseMultiActionRsp),s_DatabaseMultiActionRsp },
 			{typeof(GetUserQuotaRsp),s_GetUserQuotaRsp },
 			{typeof(GetAllUserDescriptorsRsp),s_GetAllUserDescriptorsRsp },
 			{typeof(NodePairingRecoverRsp),s_NodePairingRecoverRsp },
@@ -489,7 +521,6 @@ namespace Yodiwo.API.Warlock
 			{typeof(GrafanaSnapshotCreateResponse),s_GrafanaSnapshotCreateResponse },
 			{typeof(LoadGraphsResp),s_LoadGraphsResp },
 			{typeof(LoadFilesResp),s_LoadFilesResp },
-			{typeof(GenericValue),s_GenericValue },
 			{typeof(MultiGraphActionRsp),s_MultiGraphActionRsp },
 			{typeof(SharedGraphConfRsp),s_SharedGraphConfRsp },
 			{typeof(GetUpdatedUserDescRsp),s_GetUpdatedUserDescRsp },
@@ -497,7 +528,6 @@ namespace Yodiwo.API.Warlock
 			{typeof(GlobalConfiguredServiceResp),s_GlobalConfiguredServiceResp },
 			{typeof(RestServiceRsp),s_RestServiceRsp },
 			{typeof(SocialAccountRsp),s_SocialAccountRsp },
-			{typeof(GetSharedThingsRsp),s_GetSharedThingsRsp },
 			};
 
 		        /// <summary>

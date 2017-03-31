@@ -1,0 +1,69 @@
+﻿@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<System.Collections.Generic.IEnumerable<Yodiwo.mNode.Plugins.Openhab.Rest.Model.Thing>>
+@{
+    Layout = ViewBag.IsPjax ? null : "/Layout.cshtml";
+}
+
+@functions
+{
+
+    string thingName(string thingLabel)
+    {
+        if (thingLabel == null)
+        {
+            return "[EMPTY LABEL]";
+        }
+
+        return thingLabel;
+    }
+}
+
+<div class="box things">
+    <div class="box-header ">
+        <h3 class="box-title"><b>Things</b></h3>
+    </div><!-- /.box-header -->
+    <div class="box-body" style="display: block;">
+        <br />
+        <!-- FOR EACH -->
+        @foreach (var x in @Model)
+        {
+            <div class="row">
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-1 text-center">
+                    <div class="btn-group" onclick="pjaxnavigateTo('/hab/things/channels/@x.UID')">
+                        <button type="button" id="@x.UID" name="channels" class="btn btn-default btn-flat">
+                            <i class="fa fa-fw fa-link"></i>channels
+                        </button>
+                    </div>
+                </div>
+                <div class="col-md-4 text-left">
+                    <div onclick="" style="cursor: pointer;">
+                        <big><b>@thingName(@x.item.label).ToUpper()</b></big><small>&nbsp;&nbsp;@x.status</small>
+                        <br />
+                        @x.UID
+
+                    </div>
+                </div>
+                <div class="col-md-1 text-center">
+                    <button type="button" id="@x.UID" name="edit" class="btn btn-default btn-flat" onclick="pjaxnavigateTo('/hab/things/edit/@x.UID')">
+                        <i class="fa fa-fw fa-pencil"></i>Edit
+                    </button>
+                </div>
+                <div class="col-md-1 text-center">
+                    <form action="/hab/things/delete/@x.UID" method="post">
+                        <button type="submit" id="@x.UID" name="delete" class="btn btn-default btn-flat">
+                            <i class="fa fa-fw fa-trash"></i>Delete
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-7">
+                    <hr>
+                </div>
+            </div>
+        }
+    </div><!-- /.box-body -->
+</div><!-- /.box -->

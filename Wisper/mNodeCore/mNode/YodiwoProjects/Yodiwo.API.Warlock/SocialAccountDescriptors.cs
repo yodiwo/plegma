@@ -176,6 +176,30 @@ namespace Yodiwo.API.Warlock
         #endregion
     }
 
+    public class UserGsheetsDescriptor
+    {
+
+        #region Variables
+        //-------------------------------------------------------------------------------------------------------------------------
+        public string email;
+        public TokenResponse tokenresponse;
+
+        //-------------------------------------------------------------------------------------------------------------------------
+        #endregion
+
+        #region Constructors
+        //-------------------------------------------------------------------------------------------------------------------------
+        public UserGsheetsDescriptor() { }
+        //-------------------------------------------------------------------------------------------------------------------------
+        public UserGsheetsDescriptor(string email, TokenResponse tokenresp)
+        {
+            this.email = email;
+            this.tokenresponse = tokenresp;
+        }
+
+        #endregion
+    }
+
     public class TokenResponse
     {
         public string access_token;
@@ -219,6 +243,7 @@ namespace Yodiwo.API.Warlock
         public List<UserLyncDescriptor> Lync;
         public List<UserSkypeDescriptor> Skype;
         public List<UserGmailDescriptor> Gmail;
+        public List<UserGsheetsDescriptor> Gsheets;
         public List<RestServiceBlockDescriptor> RestService;
         //-------------------------------------------------------------------------------------------------------------------------
         #endregion
@@ -227,7 +252,7 @@ namespace Yodiwo.API.Warlock
         //-------------------------------------------------------------------------------------------------------------------------
         public UserSocialAccountsDescriptor() { }
         //-------------------------------------------------------------------------------------------------------------------------
-        public UserSocialAccountsDescriptor(List<UserFacebookDescriptor> Facebook, List<UserHangoutsDescriptor> Hangout, List<UserIrcDescriptor> Irc, List<UserSipDescriptor> Sip, List<UserLyncDescriptor> Lync, List<UserSkypeDescriptor> Skype, List<RestServiceBlockDescriptor> RestService, List<UserGmailDescriptor> Gmail)
+        public UserSocialAccountsDescriptor(List<UserFacebookDescriptor> Facebook, List<UserHangoutsDescriptor> Hangout, List<UserIrcDescriptor> Irc, List<UserSipDescriptor> Sip, List<UserLyncDescriptor> Lync, List<UserSkypeDescriptor> Skype, List<RestServiceBlockDescriptor> RestService, List<UserGmailDescriptor> Gmail, List<UserGsheetsDescriptor> Gsheets)
         {
             this.Facebook = Facebook;
             this.Hangout = Hangout;
@@ -236,6 +261,7 @@ namespace Yodiwo.API.Warlock
             this.Lync = Lync;
             this.Skype = Skype;
             this.Gmail = Gmail;
+            this.Gsheets = Gsheets;
             this.RestService = RestService;
         }
 

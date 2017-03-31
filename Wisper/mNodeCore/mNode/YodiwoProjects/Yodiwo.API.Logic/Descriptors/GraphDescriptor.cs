@@ -8,7 +8,6 @@ using Newtonsoft.Json;
 
 namespace Yodiwo.Logic.Descriptors
 {
-
     public class GraphDescriptor
     {
         #region Variables
@@ -44,20 +43,20 @@ namespace Yodiwo.Logic.Descriptors
                         var realConnections = new List<ConnectionDescriptor>();
 
                         // add connections between blocks
-                        realConnections.AddFromSource<ConnectionDescriptor>(block2BlockConnections);
-                        // validate linkPoints
+                        realConnections.AddFromSource(block2BlockConnections);
 
-                        List<ConnectionDescriptor> block2LinkPointConnection, LinkPoint2BlockConnection;
-                        if (_LinkPointsHelpers(out block2LinkPointConnection, out LinkPoint2BlockConnection))
+                        // validate linkPoints
+                        List<ConnectionDescriptor> connections2LinkPoints, connectionsFromLinkPoints;
+                        if (_LinkPointsHelpers(out connections2LinkPoints, out connectionsFromLinkPoints))
                         {
-                            foreach (var connection in block2LinkPointConnection)
+                            foreach (var connection in connections2LinkPoints)
                             {
                                 // get input point
                                 var inputPoint = LinkPoints.Find(x => x.UID == connection.ToID);
                                 if (inputPoint != null)
                                 {
                                     // get output point
-                                    var outputPoint = LinkPoint2BlockConnection.Find(x => x.FromID == inputPoint.ConnectedPointUID);
+                                    var outputPoint = connectionsFromLinkPoints.Find(x => x.FromID == inputPoint.ConnectedPointUID);
                                     if (outputPoint != null)
                                     {
                                         realConnections.Add(new ConnectionDescriptor()
@@ -76,14 +75,13 @@ namespace Yodiwo.Logic.Descriptors
                                 else
                                     DebugEx.Assert("Should not be here.");
                             }
-                            return realConnections;
+                            return RemoveGraphIOsConns(realConnections);
                         }
                         else
-                            return realConnections;
+                            return RemoveGraphIOsConns(realConnections);
                     }
                     else
-                        // this graph contains no link points, all connections are 'real'
-                        return Connections;
+                        return RemoveGraphIOsConns(Connections);
                 }
                 catch (Exception ex)
                 {
@@ -102,7 +100,40 @@ namespace Yodiwo.Logic.Descriptors
         public List<LinkPointDescriptor> LinkPoints;
 
         [DB_IgnoreIfDefault]
-        public string FriendlyName;
+        [DB_IgnoreIfEmpty]
+        public List<GraphIODescriptor> Inputs;
+
+        [DB_IgnoreIfDefault]
+        [DB_IgnoreIfEmpty]
+        public List<GraphIODescriptor> Outputs;
+
+        #region Macro block info
+
+        [DB_IgnoreIfDefault]
+        public bool HasMacroBlock { get; set; }
+
+        [DB_IgnoreIfDefault]
+        public String MacroBlockName;
+
+        [DoNotStoreInDB]
+        public static readonly string MacroBlockType = "MacroBlock";
+
+        [DB_IgnoreIfDefault]
+        [DB_IgnoreIfEmpty]
+        public String Description;
+
+        [DB_IgnoreIfDefault]
+        [DB_IgnoreIfEmpty]
+        public String FriendlyImageSource;
+
+        [DB_IgnoreIfDefault]
+        [DB_IgnoreIfEmpty]
+        public String Hierarchy;
+
+        #endregion
+
+        [DB_IgnoreIfDefault]
+        public String FriendlyName;
 
         [DB_IgnoreIfDefault]
         public String Path;
@@ -133,7 +164,6 @@ namespace Yodiwo.Logic.Descriptors
 
         [DB_IgnoreIfDefault]
         public float Zoom = 0.0f;
-
         //-------------------------------------------------------------------------------------------------------------------------
         #endregion
 
@@ -146,6 +176,8 @@ namespace Yodiwo.Logic.Descriptors
             Blocks = new List<BlockDescriptor>();
             Annotations = new List<AnnotationDescriptor>();
             LinkPoints = new List<LinkPointDescriptor>();
+            Inputs = new List<GraphIODescriptor>();
+            Outputs = new List<GraphIODescriptor>();
             CreatedTimestamp = DateTime.UtcNow;
             UpdatedTimestamp = DateTime.UtcNow;
         }
@@ -176,39 +208,58 @@ namespace Yodiwo.Logic.Descriptors
             return this.MemberwiseClone() as GraphDescriptor;
         }
         //-------------------------------------------------------------------------------------------------------------------------
-        private bool _LinkPointsHelpers(out List<ConnectionDescriptor> block2LinkPointConnection, out List<ConnectionDescriptor> LinkPoint2BlockConnection)
+        private bool _LinkPointsHelpers(out List<ConnectionDescriptor> connections2LinkPoints, out List<ConnectionDescriptor> connectionsFromLinkPoints)
         {
-            block2LinkPointConnection = new List<ConnectionDescriptor>();
-            LinkPoint2BlockConnection = new List<ConnectionDescriptor>();
+            connections2LinkPoints = new List<ConnectionDescriptor>();
+            connectionsFromLinkPoints = new List<ConnectionDescriptor>();
 
             if (LinkPoints == null || LinkPoints.Count == 0)
                 return true;
 
             // get all blocks' uids
             List<int> blockUIDs = Blocks?.Select(x => x.UID).ToList();
+            // get graph's inputs/outputs uids (if any)
+            var graphIOsUIDs = Inputs.Concat(Outputs).Select(x => x.UID)?.ToList();
 
             // get all connections from Block to Block
             var block2BlockConnections = Connections.FindAll(x => blockUIDs.Contains(x.FromID) && blockUIDs.Contains(x.ToID));
-
-            // non real connections are the difference between 'block2BlockConnections' and 'Connections'
-            var nonRealConnections = Connections.Except<ConnectionDescriptor>(block2BlockConnections)?.ToList();
+            // get all connections with graph io elements
+            var graphIOWithBlockConns = Connections.FindAll(x => (graphIOsUIDs.Contains(x.FromID) && blockUIDs.Contains(x.ToID))
+            || (graphIOsUIDs.Contains(x.ToID) && blockUIDs.Contains(x.FromID)));
+            // non real connections are those which contains link points
+            var nonRealConnections = Connections.Except(block2BlockConnections.Concat(graphIOWithBlockConns))?.ToList();
             // GraphDescriptor contains not connected link points?
             if (nonRealConnections == null && nonRealConnections.Count == 0)
                 return false;
 
-            // get all connections from block to linkpoint
-            block2LinkPointConnection = nonRealConnections.FindAll(x => blockUIDs.Contains(x.FromID) && !blockUIDs.Contains(x.ToID))?.ToList();
+            // get all connections to link points
+            connections2LinkPoints = nonRealConnections.FindAll(x => (blockUIDs.Contains(x.FromID) && !blockUIDs.Contains(x.ToID))
+            || graphIOsUIDs.Contains(x.FromID) && !graphIOsUIDs.Contains(x.ToID))?.ToList();
             // GraphDescriptor contains not connected link points?
-            if (block2LinkPointConnection == null && block2LinkPointConnection.Count == 0)
+            if (connections2LinkPoints == null && connections2LinkPoints.Count == 0)
                 return false;
 
-            // get all connections from linkpoint to block
-            LinkPoint2BlockConnection = nonRealConnections.Except<ConnectionDescriptor>(block2LinkPointConnection)?.ToList();
+            // get all connections from link points
+            connectionsFromLinkPoints = nonRealConnections.FindAll(x => (blockUIDs.Contains(x.ToID) && !blockUIDs.Contains(x.FromID))
+            || graphIOsUIDs.Contains(x.ToID) && !graphIOsUIDs.Contains(x.FromID))?.ToList();
             // GraphDescriptor has a non even count of connections between link points?
-            if (block2LinkPointConnection.Count != LinkPoint2BlockConnection.Count)
+            if (connections2LinkPoints.Count != connectionsFromLinkPoints.Count)
                 return false;
 
             return true;
+        }
+        //-------------------------------------------------------------------------------------------------------------------------
+        public List<ConnectionDescriptor> RemoveGraphIOsConns(List<ConnectionDescriptor> connections)
+        {
+            // check that there graph io elements
+            if (Inputs.Count == 0 && Outputs.Count == 0)
+                return connections;
+            // get graph's inputs/outputs uids
+            var graphIOsUIDs = Inputs.Concat(Outputs).Select(x => x.UID)?.ToList();
+            // find and remove connections with graph io elements
+            var graphIOConnections = connections.FindAll(x => graphIOsUIDs.Contains(x.FromID) || graphIOsUIDs.Contains(x.ToID));
+            // return inner connections for graph descriptor
+            return connections.Except(graphIOConnections)?.ToList();
         }
 
         #endregion

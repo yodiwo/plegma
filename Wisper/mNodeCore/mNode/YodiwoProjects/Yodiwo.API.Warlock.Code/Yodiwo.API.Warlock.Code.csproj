@@ -53,21 +53,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Plegma\Yodiwo.API.Plegma.csproj">
+    <ProjectReference Include="..\Yodiwo.Api.Plegma\Yodiwo.API.Plegma.csproj">
       <Project>{94f4ce90-200f-40ce-bf83-e15d147924f7}</Project>
       <Name>Yodiwo.API.Plegma</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Yodiwo.API.Logic\Yodiwo.API.Logic.csproj">
-      <Project>{3f252b6e-143d-49dc-af08-fc2143662d01}</Project>
-      <Name>Yodiwo.API.Logic</Name>
     </ProjectReference>
     <ProjectReference Include="..\Yodiwo.API.Warlock\Yodiwo.API.Warlock.csproj">
       <Project>{9cd81319-0106-436a-89a5-4416b762da07}</Project>
       <Name>Yodiwo.API.Warlock</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\YodiwoSharp\YodiwoSharp\YodiwoSharp.csproj">
-      <Project>{8ae66abd-d963-4e83-83a3-330156cd37a3}</Project>
-      <Name>YodiwoSharp</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

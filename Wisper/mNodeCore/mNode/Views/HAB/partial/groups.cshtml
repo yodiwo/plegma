@@ -1,0 +1,53 @@
+﻿@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<System.Collections.Generic.IEnumerable<Yodiwo.mNode.Plugins.Openhab.Rest.Model.GroupItem>>
+@{
+    Layout = ViewBag.IsPjax ? null : "/Layout.cshtml";
+}
+
+<div class="box groups">
+    <div class="box-header ">
+        <h3 class="box-title"><b>Configured Groups</b></h3>
+    </div><!-- /.box-header -->
+    <div class="box-body" style="display: block;">
+        <br />
+        <!-- FOR EACH -->
+        <div class="row">
+            <div class="col-md-1">
+            </div>
+            <div class="col-md-1">
+                <a href="/hab/groups/add/" class="btn btn-default btn-flat">Add<i class="fa fa-fw fa-plus"></i></a>
+            </div>
+        </div>
+        <br />
+        @foreach (var x in @Model)
+        {
+            <div class="row">
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-4 text-left">
+                    <div>
+                        <big><b>@x.label</b></big>
+                    </div>
+                </div>
+                <div class="col-md-2 text-right">
+                    <form action="/hab/groups/delete" method="post">
+                        <div class="btn-group" >
+                            <input type="hidden" class="form-control" name="name" value="@x.name">
+                            <button type="submit" id="@x.name" name="@x.name" class="btn btn-default btn-flat">
+                                <i class="fa fa-fw -o fa-trash"></i>Delete
+                            </button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-6">
+                    <hr>
+                </div>
+            </div>
+
+        }
+    </div><!-- /.box-body -->
+</div><!-- /.box -->

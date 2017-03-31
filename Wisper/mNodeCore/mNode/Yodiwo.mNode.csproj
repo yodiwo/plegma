@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{A6763BAE-9AEC-4ABA-A4D1-66D0058E2481}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Yodiwo.mNode</RootNamespace>
     <AssemblyName>Yodiwo.mNode</AssemblyName>
@@ -299,10 +299,6 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="YodiwoProjects\Plegma\Yodiwo.API.Plegma.csproj">
-      <Project>{94f4ce90-200f-40ce-bf83-e15d147924f7}</Project>
-      <Name>Yodiwo.API.Plegma</Name>
-    </ProjectReference>
     <ProjectReference Include="YodiwoProjects\Yodiwo.API.Logic\Yodiwo.API.Logic.csproj">
       <Project>{3f252b6e-143d-49dc-af08-fc2143662d01}</Project>
       <Name>Yodiwo.API.Logic</Name>
@@ -318,10 +314,6 @@
     <ProjectReference Include="YodiwoProjects\Yodiwo.NodeLibrary\Yodiwo.NodeLibrary.csproj">
       <Project>{8f830f7a-0a96-4329-847c-06b0a84ba4c4}</Project>
       <Name>Yodiwo.NodeLibrary</Name>
-    </ProjectReference>
-    <ProjectReference Include="YodiwoProjects\YodiwoSharp\YodiwoSharp\YodiwoSharp.csproj">
-      <Project>{8ae66abd-d963-4e83-83a3-330156cd37a3}</Project>
-      <Name>YodiwoSharp</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

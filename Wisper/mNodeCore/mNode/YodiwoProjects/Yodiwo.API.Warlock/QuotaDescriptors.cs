@@ -52,6 +52,7 @@ namespace Yodiwo.API.Warlock
         public TimeSpan Period;
         public DateTime QuotaCycleStartCurrent;
         public DateTime QuotaCycleStartNext;
+        public TimeSpan QuotaCycleTimeLeft;
         //-------------------------------------------------------------------------------------------------------------------------
         #endregion
 

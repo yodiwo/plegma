@@ -8,12 +8,37 @@ using Yodiwo.Logic;
 
 namespace Yodiwo.Logic
 {
+    public class ThingSolveOpResult
+    {
+        [Flags]
+        public enum eThingSolveErrorCodes
+        {
+            OK = 0,
+            ThingDoesNotExist = 1,
+            ThingIsNotCurrentlyConnected = 2,
+            NoPendingReqFound = 4,
+            OtherError = 256  //exception, etc
+        }
+        public bool IsSuccess;
+        public string ErrMsg;
+        public eThingSolveErrorCodes ErrCode;
+        public object SyncId;
+        public NodeKey NodeKey;
+        public ThingKey ThingKey;
+    }
+    public class ThingResponseAction
+    {
+        public ThingSolveOpResult Result;
+        public PortEvent[] PortEvents; //unused
+    }
+
     public class ThingUpdateAction
     {
         public PortKey PortKey;
         public string PortState;
         public NodeKey OriginNodeKey;
         public string OriginEndpointKey;
+        public object SyncId;
     }
 
     public struct PortUpdateMessage
@@ -32,6 +57,7 @@ namespace Yodiwo.Logic
         public bool IsWarmupSolve;
         public string TargetNodeKey;
         public string TargetEndpointKey;
+        public object SyncId;
     }
 
     public class EvThingInSolved : EvThingSolved { }
