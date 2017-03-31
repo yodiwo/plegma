@@ -26,17 +26,25 @@ The built Node is also configurable to act as a local Fog Gateway providing auto
 ##### __Build__
 Just run build from Visual Studio. The Yodiwo.mNode project will create a ready-to-execute build for Windows or Linux under Mono (version 4.2+ is suggested)
 
+-- -
+
 #### __Plugins__
 
-The included sample Plugin code is meant to showcase writing and embedding a Plugin for mNode.
+The included sample Plugins code is meant to showcase writing and embedding a Plugin for mNode.
+Currently the included plugins are:
+- _PInvoke_: allows using C code via a simple C# to C message exchange mechanism with message queues
+- _Serial Port_: exposes a serial port as input and output Things on Cyan
+- _Flic.io_: integrates with [Flic bluetooth buttons](https://flic.io) and exposes each paired button as a separate Thing. Verified on Raspberry Pi 2/3 with [Flic.io's hci library](https://github.com/50ButtonsEach/fliclib-linux-hci)
+- _ZWave_: integrates with [Razberry](https://razberry.z-wave.me/) Z-Wave bridge for Raspberry Pi 2/3
+
 
 After the Plugin is built, it must be placed in a new folder under /mNodeCore/mNode/bin/Release/Plugins/
 
 This folder *must* have the same name as the Plugin's UID in its `manifest.json` file:
 ```
-..
+[..]
 "PUID": "Yodiwo.mNode.Plugins.TestPlugin",
-..
+[..]
 ```
 
 It is advised that Release mode is used, since the referenced DLLs include in the solution have also been built this way.
