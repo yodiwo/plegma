@@ -1,0 +1,15 @@
+﻿{
+  "ActiveID": "$Role$",
+  "Configs": {
+    "Local": { //local
+      "SerialPort": "com3"
+    },
+    "Production": { //remote
+      "SerialPort": "/dev/ttyAMA0"
+    },
+    "Staging": { //remote
+      "SerialPort": "/dev/ttyAMA0"
+    }
+
+  }
+}

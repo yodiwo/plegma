@@ -1,0 +1,32 @@
+﻿{
+  "ActiveID": "$Role$",
+  "Configs": {
+    "Local": { //local
+      "PythonServer": "http://localhost:8080/",
+      "restrouteremoveflic": "removeflic",
+      "FlicDaemonHostname": "127.0.0.1",
+      "FlicDaemonPort": 5551
+    },
+    "Production": { //remote
+      "PythonServer": "http://localhost:8080/",
+      "restrouteremoveflic": "removeflic",
+      "FlicDaemonHostname": "127.0.0.1",
+      "FlicDaemonPort": 5551
+
+    },
+    "Staging": { //remote
+      "PythonServer": "http://localhost:8080/",
+      "restrouteremoveflic": "removeflic",
+      "FlicDaemonHostname": "127.0.0.1",
+      "FlicDaemonPort": 5551
+
+    },
+    "DevMirror": { //remote
+      "PythonServer": "http://localhost:8080/",
+      "restrouteremoveflic": "removeflic",
+      "FlicDaemonHostname": "127.0.0.1",
+      "FlicDaemonPort": 5551
+    }
+
+  }
+}

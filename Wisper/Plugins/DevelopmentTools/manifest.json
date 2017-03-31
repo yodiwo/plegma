@@ -1,0 +1,25 @@
+﻿{
+    "Name": "Development Tools",
+    "Version": "$Version$",
+    "PUID": "Yodiwo.mNode.Plugins.DevelopmentTools",
+    "Publisher": "Yodiwo",
+    "PublisherURL": "https://www.yodiwo.com",
+    "PackageURL": "https://www.yodiwo.com",
+    "PackageTypes": [ "Extension" ],
+    "SupportedPlatforms": "",
+    "ShortDescription": "Development Tools",
+    "Description": "Development Tools",
+    "IconUri": "http://ubites.com/wp-content/uploads/2015/11/test_icon.gif",
+    "ImageUri": "http://ubites.com/wp-content/uploads/2015/11/test_icon.gif",
+    "FileSize": "$Size$",
+
+    "Channels": [ "main", "yodikit" ],
+    "PluginAPI_MinVersion": 0,
+    "PluginAPI_MaxVersion": 0,
+
+    "PluginType": "Normal",
+
+    "EntryAssembly": "Yodiwo.mNode.Plugins.DevelopmentTools.dll",
+
+    "Permissions": [ "Unrestricted" ]
+}

@@ -1,0 +1,25 @@
+﻿{
+    "Name": "Samples - PInvoke",
+    "Version": "$Version$",
+    "PUID": "Yodiwo.mNode.Plugins.Samples_PInvoke",
+    "Publisher": "Yodiwo",
+    "PublisherURL": "https://www.yodiwo.com",
+    "PackageURL": "https://www.yodiwo.com",
+    "PackageTypes": [ "Extension" ],
+    "SupportedPlatforms": "",
+    "ShortDescription": "Sample to demonstrate PInvoke functionality",
+    "Description": "Sample to demonstrate PInvoke functionality",
+    "IconUri": "https://tcyan.yodiwo.com/Content/img/icons/Generic/toggle.png",
+    "ImageUri": "https://tcyan.yodiwo.com/Content/img/icons/Generic/toggle.png",
+    "FileSize": "$Size$",
+
+    "Channels": [ "main" ],
+    "PluginAPI_MinVersion": 0,
+    "PluginAPI_MaxVersion": 0,
+
+    "PluginType": "Normal",
+
+    "EntryAssembly": "Yodiwo.mNode.Plugins.Samples.PInvoke.dll",
+
+    "Permissions": [ "Unrestricted" ]
+}

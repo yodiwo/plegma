@@ -1,0 +1,25 @@
+﻿{
+    "Name": "Flic.io Integration",
+    "Version": "$Version$",
+    "PUID": "Yodiwo.mNode.Plugins.Integration_Flic",
+    "Publisher": "Yodiwo",
+    "PublisherURL": "https://www.yodiwo.com",
+    "PackageURL": "https://www.yodiwo.com",
+    "PackageTypes": [ "Extension" ],
+    "SupportedPlatforms": "",
+    "ShortDescription": "Integration with Flic BLE buttons",
+    "Description": "Adds integration with Flic.io Bluetooth Low Energy (BLE) buttons",
+    "IconUri": "https://lh3.googleusercontent.com/UdNdRUCho-KNse2XTHZIeNIiA27kWdpL-N7r8ISkc_fT9jalRIcxIGHx5f_1eQ-RzFLo=w300",
+    "ImageUri": "https://lh3.googleusercontent.com/UdNdRUCho-KNse2XTHZIeNIiA27kWdpL-N7r8ISkc_fT9jalRIcxIGHx5f_1eQ-RzFLo=w300",
+    "FileSize": "$Size$",
+
+    "Channels": [ "main", "yodikit" ],
+    "PluginAPI_MinVersion": 0,
+    "PluginAPI_MaxVersion": 0,
+
+    "PluginType": "Normal",
+
+    "EntryAssembly": "Yodiwo.mNode.Plugins.Integration_Flic.dll",
+
+    "Permissions": [ "Unrestricted" ]
+}

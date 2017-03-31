@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.10
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yodiwo.mNode", "mNodeCore\mNode\Yodiwo.mNode.csproj", "{A6763BAE-9AEC-4ABA-A4D1-66D0058E2481}"
 EndProject
@@ -21,7 +21,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yodiwo.mNode.Plugins.TestPl
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{2D7FB04C-5D9A-467D-B524-F06A6F80F375}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yodiwo.mNode.Plugins.Samples.PInvoke", "Plugins\PInvoke\Yodiwo.mNode.Plugins.Samples.PInvoke.csproj", "{A733D88D-AD15-4BE9-B055-75AE4477D6EB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yodiwo.mNode.Plugins.Samples_PInvoke", "Plugins\PInvoke\Yodiwo.mNode.Plugins.Samples_PInvoke.csproj", "{A733D88D-AD15-4BE9-B055-75AE4477D6EB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yodiwo.mNode.Plugins.DevelopmentTools", "Plugins\DevelopmentTools\Yodiwo.mNode.Plugins.DevelopmentTools.csproj", "{F6F97FA5-2263-44F1-BF23-0C2048D52C83}"
 EndProject
