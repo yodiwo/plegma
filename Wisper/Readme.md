@@ -36,6 +36,7 @@ Currently the included plugins are:
 - _Serial Port_: exposes a serial port as input and output Things on Cyan
 - _Flic.io_: integrates with [Flic bluetooth buttons](https://flic.io) and exposes each paired button as a separate Thing. Verified on Raspberry Pi 2/3 with [Flic.io's hci library](https://github.com/50ButtonsEach/fliclib-linux-hci)
 - _ZWave_: integrates with [Razberry](https://razberry.z-wave.me/) Z-Wave bridge for Raspberry Pi 2/3
+- _CPP_: allows native C++11/C development without needing any custom C# glue code
 
 
 After the Plugin is built, it must be placed in a new folder under /mNodeCore/mNode/bin/Release/Plugins/

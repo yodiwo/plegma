@@ -62,7 +62,7 @@
     <Compile Include="Transports\ITransportMQTT.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\APIs\Yodiwo.API.Plegma.Code\Yodiwo.API.Plegma.Code.csproj">
+    <ProjectReference Include="..\Yodiwo.API.Plegma.Code\Yodiwo.API.Plegma.Code.csproj">
       <Project>{a753abd7-a52d-4905-8137-a8772c448cbd}</Project>
       <Name>Yodiwo.API.Plegma.Code</Name>
     </ProjectReference>
