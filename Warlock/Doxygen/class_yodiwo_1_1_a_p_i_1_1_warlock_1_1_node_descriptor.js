@@ -1,0 +1,28 @@
+var class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_node_descriptor =
+[
+    [ "NodeDescriptor", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_node_descriptor.html#a750477366e7dcf02854a56f7e94d882f", null ],
+    [ "ActiveInfo", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_node_descriptor.html#ab9218d0c7d4bb094cb18655c7d9e2d56", null ],
+    [ "AdditionalInfo", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_node_descriptor.html#adb89a38dc61563ce7da3036cb6afdca3", null ],
+    [ "BytesIO", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_node_descriptor.html#a95608ce3376b9e6e9b9e4531bba96235", null ],
+    [ "Capabilities", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_node_descriptor.html#a1e3bf2de888fc0b59e53e0038cb17cad", null ],
+    [ "CapabilitiesStr", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_node_descriptor.html#a2e549d0bd1c3e46694a074251fe8f70b", null ],
+    [ "EventsIO", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_node_descriptor.html#a225506c5de2f5b0a39d996af237710a8", null ],
+    [ "IgnoreQuota", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_node_descriptor.html#a4b494697e6b3aea2924eb42dac338b5b", null ],
+    [ "IsDisabled", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_node_descriptor.html#acffabec3bd9505a2a5a6495d89177d8f", null ],
+    [ "LinkedApiKeys", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_node_descriptor.html#a34a39377094d32c21dbad687840b5f03", null ],
+    [ "Name", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_node_descriptor.html#a9e506d1ec7256bd49f3bb1505fca7a57", null ],
+    [ "NodeKey", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_node_descriptor.html#a933045d5fc967230b18494fc3c3d5c01", null ],
+    [ "PairingTimestamp", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_node_descriptor.html#a2211d777df668d4f698d576de5069e60", null ],
+    [ "Permissions", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_node_descriptor.html#a6ee28cbf4c41e09ef2d47090ca7bffc4", null ],
+    [ "SecretKey", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_node_descriptor.html#adedd6812ffdb415aa241cd15d0abf035", null ],
+    [ "Status", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_node_descriptor.html#ae9450859038fe1de0be799f19925cd66", null ],
+    [ "SupportedApiRev", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_node_descriptor.html#a6d1a6b14577751ba6b3ccb00cb057bd1", null ],
+    [ "Things", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_node_descriptor.html#aa0626f0f28841be67712d16343b7ae28", null ],
+    [ "ThingsCount", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_node_descriptor.html#a35273f446c6d10c53d007d6f1d3c2865", null ],
+    [ "ThingsRevNum", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_node_descriptor.html#a2ca624754b2cb58deb569d2b8872e982", null ],
+    [ "Type", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_node_descriptor.html#af0dd822ad0e7a0ee90cf335383febde0", null ],
+    [ "TypeStr", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_node_descriptor.html#af5cfde57e966cca9ed6ee991a787d029", null ],
+    [ "Uuid", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_node_descriptor.html#a049d451a5a77768e4df273a67db37d32", null ],
+    [ "IsVirtual", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_node_descriptor.html#a294573b8a1a320fe9b2b7f4a999df732", null ],
+    [ "PermissionsStr", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_node_descriptor.html#afe7db09cc53bbce160999102cb397590", null ]
+];

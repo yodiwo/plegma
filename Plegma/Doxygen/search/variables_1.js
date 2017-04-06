@@ -1,0 +1,22 @@
+var searchData=
+[
+  ['b',['B',['../struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_y_color.html#a9c78d127ce39e8cb78d1bce7e04a6ed2',1,'Yodiwo::API::Plegma::YColor']]],
+  ['basekey',['BaseKey',['../struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_graph_descriptor_key.html#aa12d57cab149d7edf463b664fa8b0d60',1,'Yodiwo::API::Plegma::GraphDescriptorKey']]],
+  ['beacondetectormodel',['BeaconDetectorModel',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_model_type_library.html#a4e5623d4d9a60545753c5e57b8468ee2',1,'Yodiwo::API::Plegma::ModelTypeLibrary']]],
+  ['beacondetectormodel_5fid',['BeaconDetectorModel_Id',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_model_type_library.html#aa3f4ba687758465e9abf3e258bb1e9f4',1,'Yodiwo::API::Plegma::ModelTypeLibrary']]],
+  ['blockevents',['BlockEvents',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_virtual_block_event_msg.html#a8ce41be2c9d40a360aff32641c26c0b8',1,'Yodiwo::API::Plegma::VirtualBlockEventMsg']]],
+  ['blockid',['BlockId',['../struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_block_key.html#ad45956d16818f0da0cac174d03ec784f',1,'Yodiwo::API::Plegma::BlockKey']]],
+  ['blockkey',['BlockKey',['../class_yodiwo_1_1_a_p_i_1_1_logic_1_1_live_execution_solve.html#a5f04e9c03a5c0df6bffc74cd75a0698c',1,'Yodiwo.API.Logic.LiveExecutionSolve.BlockKey()'],['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_virtual_block_event.html#aba7e5e53eb70a0dcf9c73547e0215fec',1,'Yodiwo.API.Plegma.VirtualBlockEvent.BlockKey()'],['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_a2mcu_active_driver.html#a263d7127e34feb52c08cc8ec77c8f8c4',1,'Yodiwo.API.Plegma.A2mcuActiveDriver.BlockKey()'],['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_a2mcu_ctrl.html#a5a6fe7b875a3f2ded2cb1db85476bf71',1,'Yodiwo.API.Plegma.A2mcuCtrl.BlockKey()']]],
+  ['blocklibraries',['BlockLibraries',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_node_info_rsp.html#a8b385462eb82ee5dc939d536db9c4b3c',1,'Yodiwo::API::Plegma::NodeInfoRsp']]],
+  ['blocktype',['BlockType',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_thing.html#a8c6dcb734d210bbe66067f29678c4e29',1,'Yodiwo::API::Plegma::Thing']]],
+  ['bluetoothmodel',['BluetoothModel',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_model_type_library.html#a0012cb17c2564c184019157c7b1d6e44',1,'Yodiwo::API::Plegma::ModelTypeLibrary']]],
+  ['bluetoothmodel_5fid',['BluetoothModel_Id',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_model_type_library.html#ab95f606532490bd19d4abd9af80a3707',1,'Yodiwo::API::Plegma::ModelTypeLibrary']]],
+  ['brightness_5fid',['Brightness_Id',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_model_type_library.html#a885025a7ff363a0811958413dc8e3054',1,'Yodiwo::API::Plegma::ModelTypeLibrary']]],
+  ['brightnessmodel',['BrightnessModel',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_model_type_library.html#afcb3a335c41fa04719292a2a8b7065ba',1,'Yodiwo::API::Plegma::ModelTypeLibrary']]],
+  ['brightnessnormalizedmodel',['BrightnessNormalizedModel',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_model_type_library.html#ad44e5d70119b307388805bc30c63ad2f',1,'Yodiwo::API::Plegma::ModelTypeLibrary']]],
+  ['brightnessnormalizedmodel_5fid',['BrightnessNormalizedModel_Id',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_model_type_library.html#a41b1ddc81a5a27669a0a175677001a57',1,'Yodiwo::API::Plegma::ModelTypeLibrary']]],
+  ['buttonmodel',['ButtonModel',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_model_type_library.html#a8b391adac2004bdf550070c5fb474d08',1,'Yodiwo::API::Plegma::ModelTypeLibrary']]],
+  ['buttonmodel_5fonoffactuatorid',['ButtonModel_OnOffActuatorId',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_model_type_library.html#abcb436d3ee55711ecf079ec3e6ed5efd',1,'Yodiwo::API::Plegma::ModelTypeLibrary']]],
+  ['buzzermodel',['BuzzerModel',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_model_type_library.html#ab74f3c8febd86a36491247fde9c01ff9',1,'Yodiwo::API::Plegma::ModelTypeLibrary']]],
+  ['buzzermodel_5fid',['BuzzerModel_Id',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_model_type_library.html#a2699c5a390c3e29edeb401b918176bd3',1,'Yodiwo::API::Plegma::ModelTypeLibrary']]]
+];

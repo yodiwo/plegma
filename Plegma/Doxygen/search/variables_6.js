@@ -1,0 +1,21 @@
+var searchData=
+[
+  ['g',['G',['../struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_y_color.html#ad3ed3e386f02fe387994c691e89f7c59',1,'Yodiwo::API::Plegma::YColor']]],
+  ['gesturesensormodel',['GestureSensorModel',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_model_type_library.html#a6dc236d67bae4ecf85af33b3932870ed',1,'Yodiwo::API::Plegma::ModelTypeLibrary']]],
+  ['gesturesensormodel_5fairwheelid',['GestureSensorModel_AirwheelId',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_model_type_library.html#a138e45e212b73175721dbdd43330636c',1,'Yodiwo::API::Plegma::ModelTypeLibrary']]],
+  ['gesturesensormodel_5fdoubletapid',['GestureSensorModel_DoubleTapId',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_model_type_library.html#a6ef23675ffba29cce4805096e809d811',1,'Yodiwo::API::Plegma::ModelTypeLibrary']]],
+  ['gesturesensormodel_5fflickid',['GestureSensorModel_FlickId',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_model_type_library.html#a8853343ac88c875ae3e878eefdbf4ec5',1,'Yodiwo::API::Plegma::ModelTypeLibrary']]],
+  ['gesturesensormodel_5ftapid',['GestureSensorModel_TapId',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_model_type_library.html#a201fae91a89739726e58400771d8e13f',1,'Yodiwo::API::Plegma::ModelTypeLibrary']]],
+  ['gesturesensormodel_5ftouchid',['GestureSensorModel_TouchId',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_model_type_library.html#a134b2f16176287bb2cc68f64a4d5ff04',1,'Yodiwo::API::Plegma::ModelTypeLibrary']]],
+  ['gkeymagic',['GkeyMagic',['../struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_group_key.html#ad37f5c461a9b7617bb8a90a8b675a077',1,'Yodiwo::API::Plegma::GroupKey']]],
+  ['gpiomodel',['GpioModel',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_model_type_library.html#a511fa1cdc103866a05ec68c22c9f2f32',1,'Yodiwo::API::Plegma::ModelTypeLibrary']]],
+  ['gpiomodel_5fid',['GpioModel_Id',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_model_type_library.html#a12030e9dcfbcbb6695cc5268233f9683',1,'Yodiwo::API::Plegma::ModelTypeLibrary']]],
+  ['graphdescriptor',['GraphDescriptor',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_graph_deployment_req.html#a2fb349aa300cf22600fbc1cb8cf9dc43',1,'Yodiwo::API::Plegma::GraphDeploymentReq']]],
+  ['graphdescriptorkey',['GraphDescriptorKey',['../struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_graph_key.html#a364b6292c46e2743b3c74926f2f9ab18',1,'Yodiwo::API::Plegma::GraphKey']]],
+  ['graphkey',['GraphKey',['../struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_block_key.html#a268a72135d02a1787b37f02da725cd67',1,'Yodiwo.API.Plegma.BlockKey.GraphKey()'],['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_graph_deployment_req.html#ad24ceac547935efb2751b160b1d3a133',1,'Yodiwo.API.Plegma.GraphDeploymentReq.GraphKey()']]],
+  ['groupid',['GroupID',['../struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_group_key.html#a27a52d4d77aabe13bc274573bf0aca31',1,'Yodiwo::API::Plegma::GroupKey']]],
+  ['gyroscopesensormodel',['GyroscopeSensorModel',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_model_type_library.html#ace1ba95e628c6af2f076be49ec0f71f0',1,'Yodiwo::API::Plegma::ModelTypeLibrary']]],
+  ['gyroscopesensormodel_5fxid',['GyroscopeSensorModel_XId',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_model_type_library.html#af6a443c055dc73675bdece1461f32e0f',1,'Yodiwo::API::Plegma::ModelTypeLibrary']]],
+  ['gyroscopesensormodel_5fyid',['GyroscopeSensorModel_YId',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_model_type_library.html#a41c14a8c113ef3e2529d9df9e8be19d3',1,'Yodiwo::API::Plegma::ModelTypeLibrary']]],
+  ['gyroscopesensormodel_5fzid',['GyroscopeSensorModel_ZId',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_model_type_library.html#a759aa32bcf0d43999ce23c904a596c00',1,'Yodiwo::API::Plegma::ModelTypeLibrary']]]
+];
