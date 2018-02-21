@@ -105,7 +105,8 @@
     <Reference Include="Yodiwo.mNode.Core">
       <HintPath>YodiwoLibraries\Yodiwo.mNode.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Yodiwo.mNode.Plugin">
+    <Reference Include="Yodiwo.mNode.Plugin, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>YodiwoLibraries\Yodiwo.mNode.Plugin.dll</HintPath>
     </Reference>
     <Reference Include="Yodiwo.mNode.UIProviders.RemoteControl">
@@ -121,7 +122,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>YodiwoLibraries\Yodiwo.NodeLibrary.Graphs.dll</HintPath>
     </Reference>
-    <Reference Include="Yodiwo.YPChannel">
+    <Reference Include="Yodiwo.YPChannel, Version=1.0.6626.23760, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>YodiwoLibraries\Yodiwo.YPChannel.dll</HintPath>
     </Reference>
   </ItemGroup>
