@@ -37,7 +37,7 @@
     </Reference>
     <Reference Include="NLog, Version=4.1.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\ExternalsDLLs\NLog.dll</HintPath>
+      <HintPath>..\..\..\external-libs\Csharp\DLLs\ThirdParty\NLog.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -52,7 +52,7 @@
       <HintPath>..\..\mNodeCore\mNode\YodiwoLibraries\Yodiwo.mNode.Plugin.dll</HintPath>
     </Reference>
     <Reference Include="ZWaveLib">
-      <HintPath>..\..\..\..\..\ExternalsDLLs\ZWaveLib.dll</HintPath>
+      <HintPath>..\..\..\external-libs\Csharp\DLLs\ThirdParty\ZWaveLib.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
