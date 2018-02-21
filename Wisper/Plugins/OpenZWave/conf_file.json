@@ -1,0 +1,25 @@
+﻿{
+  "ActiveID": "$Role$",
+  "Configs": {
+    "Local": { //local
+      "SerialPort": "/dev/ttyAMA0",
+      "OpenZWaveDirectory": "/home/pi/open-zwave1/",
+      "ConfigurePluginPath": "http://localhost:8090"
+    },
+    "Production": { //remote
+      "SerialPort": "/dev/ttyAMA0",
+      "OpenZWaveDirectory": "/home/pi/open-zwave1/",
+      "ConfigurePluginPath": "http://localhost:8090"
+    },
+    "Staging": { //remote
+      "SerialPort": "/dev/ttyAMA0",
+      "OpenZWaveDirectory": "/home/pi/open-zwave1/",
+      "ConfigurePluginPath": "http://localhost:8090"
+    },
+    "DevMirror": { //remote
+      "SerialPort": "/dev/ttyAMA0",
+      "OpenZWaveDirectory": "/home/pi/open-zwave1/",
+      "ConfigurePluginPath": "http://localhost:8090"
+    }
+  }
+}

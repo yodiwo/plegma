@@ -805,9 +805,12 @@
             Describes the semantics of this port
             </summary>
         </member>
+        <member name="F:Yodiwo.API.Plegma.PortDescription.ioDirection">
+            <summary>Direction (<see cref="T:Yodiwo.API.Plegma.ioPortDirection"/>) of Port</summary>
+        </member>
         <member name="T:Yodiwo.API.Plegma.ThingModelType">
             <summary>
-            Base class that describes a Model of a Thing <see cref="T:Yodiwo.API.Plegma.Thing"/>
+            Base class that describes the Model of a Thing <see cref="T:Yodiwo.API.Plegma.Thing"/>
             </summary>
         </member>
         <member name="F:Yodiwo.API.Plegma.ThingModelType.Id">
@@ -830,9 +833,14 @@
             Describes the configuration parameter(s) of this model<see cref="T:Yodiwo.API.Plegma.ConfigDescription"/>
             </summary>
         </member>
-        <member name="F:Yodiwo.API.Plegma.ThingModelType.Ports">
+        <member name="F:Yodiwo.API.Plegma.ThingModelType.PortModels">
             <summary>
             Describes the port(s) of this model<see cref="T:Yodiwo.API.Plegma.PortDescription"/>
+            </summary>
+        </member>
+        <member name="F:Yodiwo.API.Plegma.ThingModelType.NumPorts">
+            <summary>
+            Number of ports (if greater than 1) per PortModel <see cref="F:Yodiwo.API.Plegma.ThingModelType.PortModels"/>. 
             </summary>
         </member>
         <member name="T:Yodiwo.API.Plegma.ThingType">

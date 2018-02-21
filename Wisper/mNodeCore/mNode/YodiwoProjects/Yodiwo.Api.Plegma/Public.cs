@@ -286,10 +286,12 @@ namespace Yodiwo.API.Plegma
         /// Describes the semantics of this port
         /// </summary>
         public string Semantics;
+        /// <summary>Direction (<see cref="ioPortDirection"/>) of Port</summary>
+        public ioPortDirection ioDirection;
     }
 
     /// <summary>
-    /// Base class that describes a Model of a Thing <see cref="Thing"/>
+    /// Base class that describes the Model of a Thing <see cref="Thing"/>
     /// </summary>
     [Serializable]
     public class ThingModelType
@@ -313,7 +315,11 @@ namespace Yodiwo.API.Plegma
         /// <summary>
         /// Describes the port(s) of this model<see cref="PortDescription"/>
         /// </summary>
-        public Dictionary<string, PortDescription> Ports;
+        public Dictionary<string, PortDescription> PortModels;
+        /// <summary>
+        /// Number of ports (if greater than 1) per PortModel <see cref="PortModels"/>. 
+        /// </summary>
+        public Dictionary<string, int> NumPorts;
     }
 
     /// <summary>

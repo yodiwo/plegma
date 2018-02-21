@@ -1,0 +1,25 @@
+﻿{
+  "Name": "ZWave Bridge",
+  "Version": "$Version$",
+  "PUID": "Yodiwo.mNode.Plugins.Bridge_OZWave",
+  "Publisher": "Yodiwo",
+  "PublisherURL": "https://www.yodiwo.com",
+  "PackageURL": "https://www.yodiwo.com",
+  "PackageTypes": [ "Extension" ],
+  "SupportedPlatforms": "",
+  "ShortDescription": "Bridges mNode to ZWave devices",
+  "Description": "Bridges mNode to ZWave devices",
+  "IconUri": "http://products.z-wavealliance.org/ProductImages/Index?productName=ZC08-12070004",
+  "ImageUri": "http://products.z-wavealliance.org/ProductImages/Index?productName=ZC08-12070004",
+  "FileSize": "$Size$",
+
+  "Channels": [ "main", "yodikit" ],
+  "PluginAPI_MinVersion": 0,
+  "PluginAPI_MaxVersion": 0,
+
+  "PluginType": "Normal",
+
+  "EntryAssembly": "Yodiwo.mNode.Plugins.Bridge_OZWave.dll",
+
+  "Permissions": [ "Unrestricted" ]
+}

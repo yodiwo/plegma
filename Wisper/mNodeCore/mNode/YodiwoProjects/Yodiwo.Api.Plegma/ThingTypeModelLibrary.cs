@@ -48,694 +48,526 @@ namespace Yodiwo.API.Plegma
             catch (Exception ex) { DebugEx.Assert(ex, "ThingTypeLibrary"); }
         }
 
+        // ---------------------------------------------------------------------------------------------
+
         #region Thing Types
 
         #region GPIO
-        public const string Gpio_Type = "com.yodiwo.inout.gpios";
+        public const string Gpio_Type = "com.yodiwo.gpios";
+        public const string GpioDefault_ModelType = PlegmaAPI.ThingModelTypeDefault;
+        public const string GpioInput_ModelType = "input";
+        public const string GpioOutput_ModelType = "output";
         public static ThingType Gpio = new ThingType
         {
             Type = Gpio_Type,
             Description = "GPIOs",
             Models = new Dictionary<string, ThingModelType>()
             {
-                { PlegmaAPI.ThingModelTypeDefault, ModelTypeLibrary.GpioModel },
+                { GpioDefault_ModelType, ModelTypeLibrary.GpioModel },
+                { GpioInput_ModelType, ModelTypeLibrary.GpioInputModel },
+                { GpioOutput_ModelType, ModelTypeLibrary.GpioOutputModel },
             },
         };
 
         #endregion
 
-        #region Text in and Out
-        public const string TextIO_Type = "com.yodiwo.inout.text";
-        public static ThingType TextIO = new ThingType
+        #region Text
+        public const string Text_Type = "com.yodiwo.text";
+        public const string TextIO_ModelType = PlegmaAPI.ThingModelTypeDefault;
+        public const string TextTypewriter_ModelType = "typewriter";
+        public const string TextConsole_ModelType = "console";
+        public static ThingType Text = new ThingType
         {
-            Type = TextIO_Type,
-            Description = "Text in and Text Out",
-            Models = new Dictionary<string, ThingModelType>()
-            {
-                { PlegmaAPI.ThingModelTypeDefault, ModelTypeLibrary.TextIO },
-            },
-        };
-        #endregion
-
-        #region simple ThingIn ON-OFF switches
-
-        public const string SwitchActuator_Type = "com.yodiwo.out.switches.onoff";
-        public const string SwitchActuator_CheckBoxModelType = "checkbox";
-        public const string SwitchActuator_RelayModelType = "relay";
-        public static ThingType SwitchActuator = new ThingType
-        {
-            Type = SwitchActuator_Type,
-            Description = "On/Off Switch Actuators",
-            Models = new Dictionary<string, ThingModelType>()
-            {
-                 { PlegmaAPI.ThingModelTypeDefault, ModelTypeLibrary.OnOffSwitchActuatorModel },
-                 { SwitchActuator_CheckBoxModelType, ModelTypeLibrary.CheckboxActuatorModel },
-                 { SwitchActuator_RelayModelType, ModelTypeLibrary.RelayModel },
-            },
-        };
-
-        #endregion
-
-        #region simple ThingOut ON-OFF switches
-
-        public const string Switch_Type = "com.yodiwo.in.switches.onoff";
-        public const string Switch_CheckBoxModelType = "checkbox";
-        public static ThingType Switch = new ThingType
-        {
-            Type = Switch_Type,
-            Description = "On/Off Switch Sinks",
-            Models = new Dictionary<string, ThingModelType>()
-            {
-                { PlegmaAPI.ThingModelTypeDefault, ModelTypeLibrary.OnOffSwitchSinkModel },
-                { Switch_CheckBoxModelType, ModelTypeLibrary.CheckboxSinkModel },
-
-            },
-        };
-
-        #endregion
-
-        #region LightControls ThingIn
-        public const string LightControls_Type = "com.yodiwo.out.light.controls";
-        public const string LightControls_DimmerModelType = "dimmer";
-        public static ThingType LightControls = new ThingType
-        {
-            Type = LightControls_Type,
-            Description = "Light Controls",
-            Models = new Dictionary<string, ThingModelType>()
-            {
-                { LightControls_DimmerModelType, ModelTypeLibrary.DimmerActuatorModel },
-            },
-        };
-
-        #endregion
-
-        #region Lights ThingOut
-
-        public const string Lights_Type = "com.yodiwo.in.lights";
-        public const string Lights_DimmerModelType = "dimmer";
-        public const string Lights_BooleanModelType = "lights";
-        //???
-        public static ThingType Lights = new ThingType
-        {
-            Type = Lights_Type,
-            Description = "Light",
-            Models = new Dictionary<string, ThingModelType>()
-            {
-              { Lights_DimmerModelType,  ModelTypeLibrary.DimmerSinkModel },
-              { Lights_BooleanModelType, ModelTypeLibrary.OnOffLightModel },
-            },
-        };
-
-        #endregion
-
-        #region typewriter ThingIn
-        public const string TextOut_Type = "com.yodiwo.out.text";
-        public const string TextOut_ConsoleModelType = "Console";
-        public static ThingType TextOut = new ThingType
-        {
-            Type = TextOut_Type,
+            Type = Text_Type,
             Description = "TypeWriter",
             Models = new Dictionary<string, ThingModelType>()
             {
-                { PlegmaAPI.ThingModelTypeDefault, ModelTypeLibrary.TypeWriterModel },
-                { TextOut_ConsoleModelType, ModelTypeLibrary.ConsoleModel }
+                { TextIO_ModelType, ModelTypeLibrary.TextIOModel },
+                { TextTypewriter_ModelType, ModelTypeLibrary.TypeWriterModel },
+                { TextConsole_ModelType, ModelTypeLibrary.ConsoleModel }
             },
         };
-
         #endregion
 
-        #region textable ThingOut
-        public const string TextIn_Type = "com.yodiwo.in.text";
-        public const string TextIn_ConsoleModelType = "Console";
-        public static ThingType TextIn = new ThingType
+        #region Switches
+        public const string Switch_Type = "com.yodiwo.switches";
+        public const string SwitchActuator_ModelType = "actuator.onoff";
+        public const string SwitchActuatorCheckBox_ModelType = "actuator.checkbox";
+        public const string SwitchActuatorRelay_ModelType = "actuator.relay";
+        public const string SwitchActuatorDimmer_ModelType = "actuator.dimmer";
+        public const string SwitchActuatorAndroid_ModelType = "actuator.android";
+        public const string SwitchSink_ModelType = "sink.onoff";
+        public const string SwitchSinkCheckBox_ModelType = "sink.checkbox";
+        public const string SwitchSinkAndroid_ModelType = "sink.android";
+        public static ThingType Switches = new ThingType
         {
-            Type = TextIn_Type,
-            Description = "Text",
+            Type = Switch_Type,
+            Description = "Switches",
             Models = new Dictionary<string, ThingModelType>()
             {
-                { PlegmaAPI.ThingModelTypeSeparatorPlusDefault, ModelTypeLibrary.TextableModel },
-                { TextIn_ConsoleModelType, ModelTypeLibrary.ConsoleModel }
+                 { SwitchActuator_ModelType, ModelTypeLibrary.SwitchOnOffActuatorModel },
+                 { SwitchActuatorCheckBox_ModelType, ModelTypeLibrary.CheckboxActuatorModel },
+                 { SwitchActuatorRelay_ModelType, ModelTypeLibrary.RelayActuatorModel },
+                 { SwitchActuatorDimmer_ModelType, ModelTypeLibrary.SwitchDimmerActuatorModel },
+                 { SwitchActuatorAndroid_ModelType, ModelTypeLibrary.SwitchAndroidActuatorModel },
+                 { SwitchSink_ModelType, ModelTypeLibrary.SwitchOnOffSinkModel },
+                 { SwitchSinkCheckBox_ModelType, ModelTypeLibrary.CheckboxSinkModel },
+                 { SwitchSinkAndroid_ModelType, ModelTypeLibrary.SwitchAndroidSinkModel },
             },
         };
-
         #endregion
 
-        #region slider ThingIn
-
-        public const string Slider_Type = "com.yodiwo.out.seekbars";
-        public static ThingType Slider = new ThingType
+        #region Lights
+        public const string Lights_Type = "com.yodiwo.lights";
+        public const string LightsDimmer_ModelType = "dimmer";
+        public const string LightsDimmerNormalized_ModelType = "dimmer.normalized";
+        public const string LightsAndroid_ModelType = "android";
+        public const string LightsBoolean_ModelType = "onoff";
+        public static ThingType Lights = new ThingType
         {
-            Type = Slider_Type,
-            Description = "Slider",
+            Type = Lights_Type,
+            Description = "Lights",
             Models = new Dictionary<string, ThingModelType>()
             {
-                { PlegmaAPI.ThingModelTypeDefault, ModelTypeLibrary.SliderModel },
+                { LightsDimmer_ModelType,  ModelTypeLibrary.LightsDimmerModel },
+                { LightsDimmerNormalized_ModelType,  ModelTypeLibrary.LightsDimmerNormalizedModel },
+                { LightsAndroid_ModelType,  ModelTypeLibrary.LightsAndroidModel },
+                { LightsBoolean_ModelType, ModelTypeLibrary.LightOnOffModel },
             },
         };
 
         #endregion
 
-        #region progressbar ThingOut
+        #region Seekbars
 
-        public const string Progressbar_Type = "com.yodiwo.in.seekbars";
-        public static ThingType Progressbar = new ThingType
+        public const string Seekbar_Type = "com.yodiwo.seekbars";
+        public const string SeekbarSlider_ModelType = "slider";
+        public const string SeekbarProgressbar_ModelType = "progressbar";
+        public static ThingType Seekbar = new ThingType
         {
-            Type = Progressbar_Type,
-            Description = "Progress bars",
+            Type = Seekbar_Type,
+            Description = "Seekbars",
             Models = new Dictionary<string, ThingModelType>()
             {
-                { PlegmaAPI.ThingModelTypeDefault, ModelTypeLibrary.ProgressbarModel },
+                { SeekbarSlider_ModelType, ModelTypeLibrary.SliderModel },
+                { SeekbarProgressbar_ModelType, ModelTypeLibrary.ProgressbarModel },
             },
         };
 
-        #endregion
+        #endregion        
 
-        #region ON-OFF buttons ThingIn
-        public const string Button_Type = "com.yodiwo.out.buttons";
+        #region Buttons
+        public const string Button_Type = "com.yodiwo.buttons";
+        public const string ButtonFlic_ModelType = "flic";
+        public const string ButtonAndroid_ModelType = "android";
+        public const string ButtonDefault_ModelType = PlegmaAPI.ThingModelTypeDefault;
         public static ThingType Button = new ThingType
         {
             Type = Button_Type,
             Description = "Button Actuators",
             Models = new Dictionary<string, ThingModelType>()
             {
-                { PlegmaAPI.ThingModelTypeDefault, ModelTypeLibrary.ButtonModel },
+                { ButtonDefault_ModelType, ModelTypeLibrary.ButtonModel },
+                { ButtonFlic_ModelType, ModelTypeLibrary.FlicButtonModel },
+                { ButtonAndroid_ModelType, ModelTypeLibrary.ButtonAndroidModel },
             },
         };
 
         #endregion
 
-        #region Location ThingIn
-        public const string LocationCoordinates_Type = "com.yodiwo.out.location.coordinates";
-        public static ThingType LocationCoordinates = new ThingType
+        #region Location
+        public const string Location_Type = "com.yodiwo.location";
+        public const string LocationCoordinates_ModelType = "coordinates";
+        public const string LocationInfo_ModelType = "info";
+        public const string LocationCoordinatesTriggered_ModelType = "coordinates.triggered";
+        public const string LocationInfoTriggered_ModelType = "info.triggered";
+        public static ThingType Location = new ThingType
         {
-            Type = LocationCoordinates_Type,
-            Description = "Location Coordinates",
+            Type = Location_Type,
+            Description = "Location",
             Models = new Dictionary<string, ThingModelType>()
             {
-                { PlegmaAPI.ThingModelTypeDefault, ModelTypeLibrary.LocationCoordinatesModel },
+                { LocationCoordinates_ModelType, ModelTypeLibrary.LocationCoordinatesModel },
+                { LocationInfo_ModelType, ModelTypeLibrary.LocationInfoModel },
+                { LocationCoordinatesTriggered_ModelType, ModelTypeLibrary.TriggeredLocationCoordinatesModel },
+                { LocationInfoTriggered_ModelType, ModelTypeLibrary.TriggeredLocationInfoModel },
             },
         };
-
-        public const string LocationAddress_Type = "com.yodiwo.out.location.address";
-        public static ThingType LocationAddress = new ThingType
-        {
-            Type = LocationAddress_Type,
-            Description = "Location Address",
-            Models = new Dictionary<string, ThingModelType>()
-            {
-                { PlegmaAPI.ThingModelTypeDefault, ModelTypeLibrary.LocationAddressModel },
-        },
-        };
-
         #endregion
 
-        #region Wifi ThingIn
-        public const string WifiInfo_Type = "com.yodiwo.out.wifi.info";
+        #region Wifi
+        public const string Wifi_Type = "com.yodiwo.wifi";
+        public const string WifiStatus_ModelType = "status";
+        public const string WifiRssi_ModelType = "rssi";
+        public const string WifiSsid_ModelType = "ssid";
+        public const string WifiBssid_ModelType = "bssid";
+        public const string WifiInfo_ModelType = "info";
         public static ThingType WifiInfo = new ThingType
         {
-            Type = WifiInfo_Type,
+            Type = WifiInfo_ModelType,
             Description = "Wifi Info",
             Models = new Dictionary<string, ThingModelType>()
             {
-                { PlegmaAPI.ThingModelTypeDefault, ModelTypeLibrary.WifiInfoModel },
+                { WifiStatus_ModelType, ModelTypeLibrary.WifiStatusModel },
+                { WifiRssi_ModelType, ModelTypeLibrary.WifiRssiModel },
+                { WifiSsid_ModelType, ModelTypeLibrary.WifiSsidModel },
+                { WifiBssid_ModelType, ModelTypeLibrary.WifiBssidModel },
+                { WifiInfo_ModelType, ModelTypeLibrary.WifiInfoModel },
             },
         };
-        public const string WifiStrength_Type = "com.yodiwo.out.wifi.strength";
-        public static ThingType WifiStrength = new ThingType
-        {
-            Type = WifiStrength_Type,
-            Description = "Wifi Strength",
-            Models = new Dictionary<string, ThingModelType>()
-            {
-                { PlegmaAPI.ThingModelTypeDefault, ModelTypeLibrary.WifiStrengthModel },
-            },
-        };
-
         #endregion
 
-        #region Bluetooth ThingIn 
-
-        public const string Bluetooth_Type = "com.yodiwo.out.bluetooth";
+        #region Bluetooth
+        public const string Bluetooth_Type = "com.yodiwo.bluetooth";
+        public const string BluetoothDefault_ModelType = PlegmaAPI.ThingModelTypeDefault;
+        public const string BluetoothTriggered_ModelType = "triggered";
         public static ThingType Bluetooth = new ThingType
         {
             Type = Bluetooth_Type,
             Description = "Bluetooth",
             Models = new Dictionary<string, ThingModelType>()
             {
-                { PlegmaAPI.ThingModelTypeDefault, ModelTypeLibrary.BluetoothModel },
+                { BluetoothDefault_ModelType, ModelTypeLibrary.BluetoothModel },
+                { BluetoothTriggered_ModelType, ModelTypeLibrary.TriggeredBluetoothModel },
             },
         };
-
         #endregion
 
-        #region Nfc ThingIn
-        public const string Nfc_Type = "com.yodiwo.out.nfc";
-        public static ThingType Nfc = new ThingType
-        {
-            Type = Nfc_Type,
-            Description = "Nfc",
-            Models = new Dictionary<string, ThingModelType>()
-            {
-                { PlegmaAPI.ThingModelTypeDefault, ModelTypeLibrary.NfcModel },
-            },
-        };
-
-        #endregion
-
-        #region Shake detector ThingIn
-        public const string ShakeDetector_Type = "com.yodiwo.out.shakedetectors";
-        public static ThingType ShakeDetector = new ThingType
-        {
-            Type = ShakeDetector_Type,
-            Description = "Shake Detectors",
-            Models = new Dictionary<string, ThingModelType>()
-            {
-                { PlegmaAPI.ThingModelTypeDefault, ModelTypeLibrary.ShakeDetectorModel },
-            },
-        };
-
-        #endregion
-
-        #region Android Intent ThingOut
-        public const string AndroidIntent_Type = "com.yodiwo.in.androidintent";
-        public static ThingType AndroidIntent = new ThingType
-        {
-            Type = AndroidIntent_Type,
-            Description = "Android Intents",
-            Models = new Dictionary<string, ThingModelType>()
-            {
-                { PlegmaAPI.ThingModelTypeDefault, ModelTypeLibrary.AndroidIntentModel },
-            },
-        };
-
-        #endregion
-
-        #region Camera ThingIn
-        public const string Camera_Type = "com.yodiwo.out.cameras";
+        #region Camera
+        public const string Camera_Type = "com.yodiwo.cameras";
+        public const string CameraDefault_ModelType = PlegmaAPI.ThingModelTypeDefault;
+        public const string CameraTriggered_ModelType = "trigger";
+        public const string CameraOnVif_ModelType = "onvif";
         public static ThingType Camera = new ThingType
         {
             Type = Camera_Type,
             Description = "Cameras",
             Models = new Dictionary<string, ThingModelType>()
             {
-                { PlegmaAPI.ThingModelTypeDefault, ModelTypeLibrary.CameraModel },
+                { CameraDefault_ModelType, ModelTypeLibrary.CameraModel },
+                { CameraOnVif_ModelType, ModelTypeLibrary.OnVifCameraModel },
+                { CameraTriggered_ModelType, ModelTypeLibrary.TriggeredCameraModel },
             },
         };
 
         #endregion
 
-        #region Microphone ThingIn
-        public const string Microphone_Type = "com.yodiwo.out.microphones";
+        #region Beacon reader
+        public const string BeaconReader_Type = "com.yodiwo.beacon";
+        public const string BeaconReaderDefault_ModelType = PlegmaAPI.ThingModelTypeDefault;
+        public const string BeaconReaderSensors_ModelType = "withsensors";
+        public static ThingType BeaconDetector = new ThingType
+        {
+            Type = BeaconReader_Type,
+            Description = "Beacon Reader",
+            Models = new Dictionary<string, ThingModelType>()
+            {
+                { BeaconReaderDefault_ModelType, ModelTypeLibrary.BeaconReaderModel },
+                { BeaconReaderSensors_ModelType, ModelTypeLibrary.BeaconReaderSensorsModel },
+            },
+        };
+        #endregion
+
+        #region Nfc
+        public const string Nfc_Type = "com.yodiwo.nfc";
+        public const string NfcDefault_ModelType = PlegmaAPI.ThingModelTypeDefault;
+        public static ThingType Nfc = new ThingType
+        {
+            Type = Nfc_Type,
+            Description = "Nfc",
+            Models = new Dictionary<string, ThingModelType>()
+            {
+                { NfcDefault_ModelType, ModelTypeLibrary.NfcModel },
+            },
+        };
+
+        #endregion        
+
+        #region Android Intent
+        public const string AndroidIntent_Type = "com.yodiwo.androidintent";
+        public const string AndroidIntentDefault_ModelType = PlegmaAPI.ThingModelTypeDefault;
+        public static ThingType AndroidIntent = new ThingType
+        {
+            Type = AndroidIntent_Type,
+            Description = "Android Intents",
+            Models = new Dictionary<string, ThingModelType>()
+            {
+                { AndroidIntentDefault_ModelType, ModelTypeLibrary.AndroidIntentModel },
+            },
+        };
+
+        #endregion
+
+        #region Microphone
+        public const string Microphone_Type = "com.yodiwo.microphones";
+        public const string MicrophoneDefault_ModelType = PlegmaAPI.ThingModelTypeDefault;
         public static ThingType Microphone = new ThingType
         {
             Type = Microphone_Type,
             Description = "Microphones",
             Models = new Dictionary<string, ThingModelType>()
             {
-                { PlegmaAPI.ThingModelTypeDefault, ModelTypeLibrary.MicrophoneModel },
+                { MicrophoneDefault_ModelType, ModelTypeLibrary.MicrophoneModel },
             },
         };
 
         #endregion
 
-        #region Buzzer ThingOut
-        public const string Buzzer_Type = "com.yodiwo.in.buzzers";
+        #region Buzzer
+        public const string Buzzer_Type = "com.yodiwo.buzzers";
+        public const string BuzzerDefault_ModelType = PlegmaAPI.ThingModelTypeDefault;
         public static ThingType Buzzer = new ThingType
         {
             Type = Buzzer_Type,
             Description = "Buzzers",
             Models = new Dictionary<string, ThingModelType>()
             {
-                { PlegmaAPI.ThingModelTypeDefault, ModelTypeLibrary.BuzzerModel },
+                { BuzzerDefault_ModelType, ModelTypeLibrary.BuzzerModel },
             },
         };
 
         #endregion
 
-        #region LCD thingOut
-        public const string Lcd_Type = "com.yodiwo.in.lcds";
-        public static ThingType Lcd = new ThingType
-        {
-            Type = Lcd_Type,
-            Description = "LCDs",
-            Models = new Dictionary<string, ThingModelType>()
-            {
-                { PlegmaAPI.ThingModelTypeDefault, ModelTypeLibrary.LcdModel },
-            },
-        };
-
-        #endregion
-
-        #region SipPhone thingOut
-
-        public const string SipPhone_Type = "com.yodiwo.in.sipphones";
+        #region SipPhone
+        public const string SipPhone_Type = "com.yodiwo.sipphones";
+        public const string SipPhoneDefault_ModelType = PlegmaAPI.ThingModelTypeDefault;
         public static ThingType SipPhone = new ThingType
         {
             Type = SipPhone_Type,
             Description = "SipPhone",
             Models = new Dictionary<string, ThingModelType>()
             {
-                { PlegmaAPI.ThingModelTypeDefault, ModelTypeLibrary.SipPhoneModel },
+                { SipPhoneDefault_ModelType, ModelTypeLibrary.SipPhoneModel },
             },
         };
-
         #endregion
 
-        #region Speech recognition thingIn
-
-        public const string SpeechRecognition_Type = "com.yodiwo.out.speechrecognition";
+        #region Speech recognition
+        public const string SpeechRecognition_Type = "com.yodiwo.speechrecognition";
+        public const string SpeechRecognitionDefault_ModelType = PlegmaAPI.ThingModelTypeDefault;
         public static ThingType SpeechRecognition = new ThingType
         {
             Type = SpeechRecognition_Type,
             Description = "SpeechRecognition",
             Models = new Dictionary<string, ThingModelType>()
             {
-                { PlegmaAPI.ThingModelTypeDefault, ModelTypeLibrary.SpeechRecognitionModel },
+                { SpeechRecognitionDefault_ModelType, ModelTypeLibrary.SpeechRecognitionModel },
             },
         };
-
         #endregion
 
-        #region Text2Speech thingOut
-        public const string Text2Speech_Type = "com.yodiwo.in.text2speech";
+        #region Text2Speech
+        public const string Text2Speech_Type = "com.yodiwo.text2speech";
+        public const string Text2SpeechDefault_ModelType = PlegmaAPI.ThingModelTypeDefault;
         public static ThingType Text2Speech = new ThingType
         {
             Type = Text2Speech_Type,
             Description = "Text To Speech",
             Models = new Dictionary<string, ThingModelType>()
             {
-                { PlegmaAPI.ThingModelTypeDefault, ModelTypeLibrary.Text2SpeechModel },
+                { Text2SpeechDefault_ModelType, ModelTypeLibrary.Text2SpeechModel },
             },
         };
 
         #endregion
 
-        #region Gesture ThingIn
-
-        public const string GestureSensor_Type = "com.yodiwo.out.sensors.gesture";
-        public static ThingType GestureSensor = new ThingType
+        #region Sensors 
+        public const string Sensor_Type = "com.yodiwo.sensors";
+        public const string GestureSensor_ModelType = "gesture";
+        public const string PositionSensor_ModelType = "position";
+        public const string AccelerometerSensor_ModelType = "accelerometer";
+        public const string RotationSensor_ModelType = "rotation";
+        public const string RotationEulerSensor_ModelType = "rotation.euler";
+        public const string GyroscopeSensor_ModelType = "gyroscope";
+        public const string MagnetometerSensor_ModelType = "magnetometer";
+        public const string SoundSensor_ModelType = "sound";
+        public const string HumiditySensor_ModelType = "humidity";
+        public const string TemperatureSensor_ModelType = "temperature";
+        public const string HTSensor_ModelType = "humiditytemperature";
+        public const string LightSensor_ModelType = "brightness";
+        public const string LightSensorNonNormalized_ModelType = "brightness.nonNormalized";
+        public const string ProximitySensor_ModelType = "proximity";
+        public const string ProximityUltrasonicSensor_ModelType = "proximity.ultrasonic";
+        public const string DoorSensor_ModelType = "door";
+        public const string SmartPlugSensor_ModelType = "smart.plug";
+        public const string DoorlockSensor_ModelType = "doorlock";
+        public const string AirConditionSensor_ModelType = "air.condition";
+        public const string ZWaveSensor_ModelType = "z-wave";
+        public const string ShakeDetectorSensor_ModelType = "shakedetector";
+        public static ThingType Sensors = new ThingType
         {
-            Type = GestureSensor_Type,
-            Description = "Gesture Sensors",
+            Type = Sensor_Type,
+            Description = "Sensors",
             Models = new Dictionary<string, ThingModelType>()
             {
-                { PlegmaAPI.ThingModelTypeDefault, ModelTypeLibrary.GestureSensorModel },
+                { GestureSensor_ModelType, ModelTypeLibrary.GestureSensorModel },
+                { PositionSensor_ModelType, ModelTypeLibrary.PositionSensorModel },
+                { AccelerometerSensor_ModelType, ModelTypeLibrary.AccelerometerSensorModel },
+                { RotationSensor_ModelType, ModelTypeLibrary.RotationSensorModel },
+                { RotationEulerSensor_ModelType, ModelTypeLibrary.RotationEulerSensorModel },
+                { GyroscopeSensor_ModelType, ModelTypeLibrary.GyroscopeSensorModel },
+                { MagnetometerSensor_ModelType, ModelTypeLibrary.MagnetometerSensorModel },
+                { SoundSensor_ModelType, ModelTypeLibrary.SoundSensorModel },
+                { HumiditySensor_ModelType, ModelTypeLibrary.HumiditySensorModel },
+                { TemperatureSensor_ModelType, ModelTypeLibrary.TemperatureSensorModel },
+                { HTSensor_ModelType, ModelTypeLibrary.HTSensorModel },
+                { LightSensor_ModelType, ModelTypeLibrary.BrightnessNormalizedModel },
+                { LightSensorNonNormalized_ModelType, ModelTypeLibrary.BrightnessModel },
+                { ProximitySensor_ModelType, ModelTypeLibrary.ProximitySensorModel },
+                { ProximityUltrasonicSensor_ModelType, ModelTypeLibrary.UltrasonicSensorModel },
+                { DoorlockSensor_ModelType, ModelTypeLibrary.DoorlockSensorModel },
+                { AirConditionSensor_ModelType, ModelTypeLibrary.AirConditionSensorModel },
+                { DoorSensor_ModelType, ModelTypeLibrary.DoorSensorModel },
+                { SmartPlugSensor_ModelType, ModelTypeLibrary.SmartPlugSensorModel },
+                { ZWaveSensor_ModelType, ModelTypeLibrary.ZWaveSensorModel },
+                { ShakeDetectorSensor_ModelType, ModelTypeLibrary.ShakeDetectorModel },
             },
         };
-
         #endregion
 
-        #region Position sensor ThingIn
+        // TODO 666: merge the below ThingTypes
 
-        public const string PositionSensor_Type = "com.yodiwo.out.sensors.position";
-        public static ThingType PositionSensor = new ThingType
+        #region LCD
+        public const string Lcd_Type = "com.yodiwo.lcds";
+        public const string LcdDefault_ModelType = PlegmaAPI.ThingModelTypeDefault;
+        public static ThingType Lcd = new ThingType
         {
-            Type = PositionSensor_Type,
-            Description = "Position Sensors",
+            Type = Lcd_Type,
+            Description = "LCDs",
             Models = new Dictionary<string, ThingModelType>()
             {
-                { PlegmaAPI.ThingModelTypeDefault, ModelTypeLibrary.PositionSensorModel },
+                { LcdDefault_ModelType, ModelTypeLibrary.LcdModel },
             },
         };
 
         #endregion
 
-        #region Beacon detector ThingIn
-
-        public const string BeaconDetector_Type = "com.yodiwo.out.beacon";
-        public static ThingType BeaconDetector = new ThingType
-        {
-            Type = BeaconDetector_Type,
-            Description = "Beacon Detector",
-            Models = new Dictionary<string, ThingModelType>()
-            {
-                { PlegmaAPI.ThingModelTypeDefault, ModelTypeLibrary.BeaconDetectorModel },
-            },
-        };
-
-        #endregion
-
-        #region Accelerometer Sensor ThingIn
-        public const string AccelerometerSensor_Type = "com.yodiwo.out.sensors.accelerometer";
-        public static ThingType AccelerometerSensor = new ThingType
-        {
-            Type = AccelerometerSensor_Type,
-            Description = "Accelerometer Sensors",
-            Models = new Dictionary<string, ThingModelType>()
-            {
-                { PlegmaAPI.ThingModelTypeDefault, ModelTypeLibrary.AccelerometerSensorModel },
-            },
-        };
-
-        #endregion
-
-        #region Rotation Sensor ThingIn
-        public const string RotationSensor_Type = "com.yodiwo.out.sensors.rotation";
-        public static ThingType RotationSensor = new ThingType
-        {
-            Type = RotationSensor_Type,
-            Description = "Rotation Sensors",
-            Models = new Dictionary<string, ThingModelType>()
-            {
-                { PlegmaAPI.ThingModelTypeDefault, ModelTypeLibrary.RotationSensorModel },
-            },
-        };
-
-        #endregion
-
-        #region Rotation  EulerSensor ThingIn
-        public const string RotationEulerSensor_Type = "com.yodiwo.out.sensors.rotationeuler";
-        public static ThingType RotationEulerSensor = new ThingType
-        {
-            Type = RotationEulerSensor_Type,
-            Description = "Rotation Sensors",
-            Models = new Dictionary<string, ThingModelType>()
-            {
-                { PlegmaAPI.ThingModelTypeDefault, ModelTypeLibrary.RotationEulerSensorModel },
-
-            },
-        };
-        #endregion
-
-        #region Gyroscope Sensor ThingIn
-        public const string GyroscopeSensor_Type = "com.yodiwo.out.sensors.gyroscope";
-        public static ThingType GyroscopeSensor = new ThingType
-        {
-            Type = GyroscopeSensor_Type,
-            Description = "Gyroscope Sensors",
-            Models = new Dictionary<string, ThingModelType>()
-            {
-                { PlegmaAPI.ThingModelTypeDefault, ModelTypeLibrary.GyroscopeSensorModel },
-            },
-        };
-
-        #endregion
-
-        #region Light sensors ThingIn
-        public const string LightSensor_Type = "com.yodiwo.out.sensors.light";
-        public const string LightSensor_NonNormalizedModelType = "nonNormalized";
-        public static ThingType LightSensor = new ThingType
-        {
-            Type = LightSensor_Type,
-            Description = "Light Sensors",
-            Models = new Dictionary<string, ThingModelType>()
-            {
-                { PlegmaAPI.ThingModelTypeDefault, ModelTypeLibrary.BrightnessNormalizedModel },
-                { LightSensor_NonNormalizedModelType, ModelTypeLibrary.BrightnessModel },
-            },
-        };
-
-        #endregion
-
-        #region Magnetometer Sensor ThingIn
-
-        public const string MagnetometerSensor_Type = "com.yodiwo.out.sensors.magnetometer";
-        public static ThingType MagnetometerSensor = new ThingType
-        {
-            Type = MagnetometerSensor_Type,
-            Description = "Magnetometers",
-            Models = new Dictionary<string, ThingModelType>()
-             {
-                { PlegmaAPI.ThingModelTypeDefault, ModelTypeLibrary.MagnetometerSensorModel },
-            },
-        };
-
-        #endregion
-
-        #region Proximity Sensor ThingIn
-
-        public const string ProximitySensor_Type = "com.yodiwo.out.sensors.proximity";
-        public const string ProximitySensor_UltrasonicModelType = "ultrasonic";
-        public static ThingType ProximitySensor = new ThingType
-        {
-            Type = ProximitySensor_Type,
-            Description = "Proximity Sensors",
-            Models = new Dictionary<string, ThingModelType>()
-             {
-                { PlegmaAPI.ThingModelTypeDefault, ModelTypeLibrary.ProximitySensorModel },
-                { ProximitySensor_UltrasonicModelType, ModelTypeLibrary.UltrasonicSensorModel },
-            },
-        };
-
-        #endregion
-
-        #region Sound sensor ThingIn
-
-        public const string SoundSensor_Type = "com.yodiwo.out.sensors.sound";
-        public static ThingType SoundSensor = new ThingType
-        {
-            Type = SoundSensor_Type,
-            Description = "Sound Sensors",
-            Models = new Dictionary<string, ThingModelType>()
-            {
-                { PlegmaAPI.ThingModelTypeDefault, ModelTypeLibrary.SoundSensorModel },
-            },
-        };
-
-        #endregion
-
-        #region Humidity sensor ThingIn
-
-        public const string HumiditySensor_Type = "com.yodiwo.out.sensors.humidity";
-        public static ThingType HumiditySensor = new ThingType
-        {
-            Type = HumiditySensor_Type,
-            Description = "Humidity Sensors",
-            Models = new Dictionary<string, ThingModelType>()
-            {
-                { PlegmaAPI.ThingModelTypeDefault, ModelTypeLibrary.HumiditySensorModel },
-            },
-        };
-
-        #endregion
-
-        #region Temperature sensor ThingIn
-        public const string TemperatureSensor_Type = "com.yodiwo.out.sensors.temperature";
-        public static ThingType TemperatureSensor = new ThingType
-        {
-            Type = TemperatureSensor_Type,
-            Description = "Temperature Sensors",
-            Models = new Dictionary<string, ThingModelType>()
-            {
-                { PlegmaAPI.ThingModelTypeDefault, ModelTypeLibrary.TemperatureSensorModel },
-            },
-        };
-
-        #endregion
-
-        #region Enviromental sensor ThingIn
-        public const string HTSensor_Type = "com.yodiwo.out.sensors.ht";
-        public static ThingType HTSensor = new ThingType
-        {
-            Type = HTSensor_Type,
-            Description = "Humidity and Temperature Sensor",
-            Models = new Dictionary<string, ThingModelType>()
-            {
-                { PlegmaAPI.ThingModelTypeDefault, ModelTypeLibrary.HTSensorModel },
-            },
-        };
-
-        #endregion
-
-        #region grouped connectivity ThingIn
-        public const string Connectivity_Type = "com.yodiwo.out.connectivity";
-        public static ThingType Connectivity = new ThingType
-        {
-            Type = Connectivity_Type,
-            Description = "Connectivity",
-            Models = new Dictionary<string, ThingModelType>()
-            {
-                {"Nfc", ModelTypeLibrary.NfcModel },
-                {"WifiInfo", ModelTypeLibrary.WifiInfoModel },
-                {"WifiStrength", ModelTypeLibrary.WifiStrengthModel },
-                {"Bluetooth", ModelTypeLibrary.BluetoothModel },
-            },
-        };
-        #endregion
-
-        #region FleetMgr ThingOut
-        public const string FleetMgr_Type = "com.yodiwo.in.fleetmgr.default";
+        #region FleetMgr
+        public const string FleetMgr_Type = "com.yodiwo.fleetmgr";
+        public const string FleetMgrDefault_ModelType = PlegmaAPI.ThingModelTypeDefault;
         public static ThingType FleetMgr = new ThingType
         {
-            Type = Connectivity_Type,
+            Type = FleetMgr_Type,
             Description = "Fleet Manager",
             Models = new Dictionary<string, ThingModelType>()
             {
-                {PlegmaAPI.ThingModelTypeDefault, ModelTypeLibrary.FleetMgrModel },
+                {FleetMgrDefault_ModelType, ModelTypeLibrary.FleetMgrModel },
 
             },
         };
         #endregion
 
-        #region Displayer ThingOut
-        public const string Displayer_Type = "com.yodiwo.in.displayer.default";
+        #region Displayer
+        public const string Displayer_Type = "com.yodiwo.displayer";
+        public const string DisplayerDefault_ModelType = PlegmaAPI.ThingModelTypeDefault;
         public static ThingType Displayer = new ThingType
         {
-            Type = Connectivity_Type,
+            Type = Displayer_Type,
             Description = "Displayer",
+            Models = new Dictionary<string, ThingModelType>()
+            {
+                {DisplayerDefault_ModelType, ModelTypeLibrary.DisplayerModel },
+
+            },
         };
         #endregion
 
-        #region Displayer ThingOut
-        public const string Gallery_Type = "com.yodiwo.in.gallery.default";
+        #region Gallery
+        public const string Gallery_Type = "com.yodiwo.gallery";
+        public const string GalleryDefault_ModelType = PlegmaAPI.ThingModelTypeDefault;
         public static ThingType Gallery = new ThingType
         {
-            Type = Connectivity_Type,
+            Type = Gallery_Type,
             Description = "Gallery",
+            Models = new Dictionary<string, ThingModelType>()
+            {
+                {GalleryDefault_ModelType, ModelTypeLibrary.GalleryModel },
+
+            },
         };
         #endregion
 
-        #region Flickr ThingOut
-        public const string Flickr_Type = "com.yodiwo.flickr.default";
+        #region Flickr
+        public const string Flickr_Type = "com.yodiwo.flickr";
+        public const string FlickrDefault_ModelType = PlegmaAPI.ThingModelTypeDefault;
         public static ThingType Flickr = new ThingType
         {
-            Type = Connectivity_Type,
+            Type = Flickr_Type,
             Description = "Flickr",
+            Models = new Dictionary<string, ThingModelType>()
+            {
+                {FlickrDefault_ModelType, ModelTypeLibrary.FlickrModel },
+
+            },
         };
         #endregion
 
-        #region RegionViewer ThingOut
-        public const string RegionViewer_Type = "com.yodiwo.in.regionviewer.default";
+        #region RegionViewer
+        public const string RegionViewer_Type = "com.yodiwo.regionviewer";
+        public const string RegionViewerDefault_ModelType = PlegmaAPI.ThingModelTypeDefault;
         public static ThingType RegionViewer = new ThingType
         {
-            Type = Connectivity_Type,
+            Type = RegionViewer_Type,
             Description = "Region Viewer",
+            Models = new Dictionary<string, ThingModelType>()
+            {
+                {RegionViewerDefault_ModelType, ModelTypeLibrary.RegionViewerModel },
+
+            },
         };
         #endregion
 
-        #region RegionViewer ThingIn
-        public const string Label_Type = "com.yodiwo.out.label.default";
+        #region Label
+        public const string Label_Type = "com.yodiwo.label.default";
         public static ThingType Label = new ThingType
         {
-            Type = Connectivity_Type,
+            Type = Label_Type,
             Description = "Label",
         };
+        #endregion       
+
+        #region Data plotter
+        public const string DataPlotter_Type = "com.yodiwo.dataplotter";
+        public const string DataPlotterDefault_ModelType = PlegmaAPI.ThingModelTypeDefault;
+        public static ThingType DataPlotter = new ThingType
+        {
+            Type = DataPlotter_Type,
+            Description = "Data plotter",
+            Models = new Dictionary<string, ThingModelType>()
+            {
+                {DataPlotterDefault_ModelType, ModelTypeLibrary.DataPlotterModel },
+
+            },
+        };
         #endregion
-
-
+        // end of TODO 666
         #endregion //of Thing Types
     }
 
+    // ---------------------------------------------------------------------------------------------
 
     public class ModelTypeLibrary
     {
         #region Model Types
 
-        public const string OnOffSwitchActuatorModel_Id = "OnOffSwitchActuator";
-        public static ThingModelType OnOffSwitchActuatorModel = new ThingModelType
+        // -----------------------
+        // switch actuator
+        public const string SwitchOnOffActuator_PortModelId = "OnOffSwitchActuator";
+        public static ThingModelType SwitchOnOffActuatorModel = new ThingModelType
         {
             Name = "Simple On/Off Switch Actuator",
-            Id = PlegmaAPI.ThingModelTypeDefault,
+            Id = ThingTypeLibrary.SwitchActuator_ModelType,
             Description = "Simple On/Off Switch Actuator",
-            Ports = new Dictionary<string, PortDescription>()
+            PortModels = new Dictionary<string, PortDescription>()
             {
                 {
-                    OnOffSwitchActuatorModel_Id,
+                    SwitchOnOffActuator_PortModelId,
                     new PortDescription()
                     {
                         Description = "On/Off",
-                        Id = OnOffSwitchActuatorModel_Id,
+                        Id = SwitchOnOffActuator_PortModelId,
                         Label = "On/Off",
+                        ioDirection = ioPortDirection.Output,
                         State = new StateDescription()
                         {
                             Type = ePortType.Boolean,
@@ -745,21 +577,83 @@ namespace Yodiwo.API.Plegma
             }
         };
 
-
-        public const string OnOffSwitchSinkModel_Id = "OnOffSwitchSink";
-        public static ThingModelType OnOffSwitchSinkModel = new ThingModelType
+        // -----------------------
+        // android switch actuator
+        public static ThingModelType SwitchAndroidSinkModel = new ThingModelType
         {
             Name = "Simple On/Off Switch Sink",
-            Id = PlegmaAPI.ThingModelTypeDefault,
-            Description = "On/Off Switch Sink",
-            Ports = new Dictionary<string, PortDescription>()
+            Id = ThingTypeLibrary.SwitchSinkAndroid_ModelType,
+            Description = "Simple On/Off Switch Sink",
+            PortModels = new Dictionary<string, PortDescription>()
             {
                 {
-                    OnOffSwitchSinkModel_Id,
+                    SwitchOnOffSink_PortModelId,
                     new PortDescription()
                     {
                         Description = "On/Off",
-                        Id = OnOffSwitchSinkModel_Id,
+                        Id = SwitchOnOffSink_PortModelId,
+                        Label = "On/Off",
+                        ioDirection = ioPortDirection.Input,
+                        State = new StateDescription()
+                        {
+                            Type = ePortType.Boolean,
+                        },
+                    }
+                }
+            },
+            NumPorts = new Dictionary<string, int>()
+            {
+                { SwitchOnOffSink_PortModelId, 3}, // 3 ports with the same PortModel
+            }
+        };
+
+        // -----------------------
+        // android switch sink
+        public static ThingModelType SwitchAndroidActuatorModel = new ThingModelType
+        {
+            Name = "Simple On/Off Switch Actuator",
+            Id = ThingTypeLibrary.SwitchActuator_ModelType,
+            Description = "Simple On/Off Switch Actuator",
+            PortModels = new Dictionary<string, PortDescription>()
+            {
+                {
+                    SwitchOnOffActuator_PortModelId,
+                    new PortDescription()
+                    {
+                        Description = "On/Off",
+                        Id = SwitchOnOffActuator_PortModelId,
+                        Label = "On/Off",
+                        ioDirection = ioPortDirection.Output,
+                        State = new StateDescription()
+                        {
+                            Type = ePortType.Boolean,
+                        },
+                    }
+                }
+            },
+            NumPorts = new Dictionary<string, int>()
+            {
+                { SwitchOnOffActuator_PortModelId, 3} // 3 ports with the same PortModel
+            }
+        };
+
+        // -----------------------
+        // switch sink
+        public const string SwitchOnOffSink_PortModelId = "OnOffSwitchSink";
+        public static ThingModelType SwitchOnOffSinkModel = new ThingModelType
+        {
+            Name = "Simple On/Off Switch Sink",
+            Id = ThingTypeLibrary.SwitchSink_ModelType,
+            Description = "On/Off Switch Sink",
+            PortModels = new Dictionary<string, PortDescription>()
+            {
+                {
+                    SwitchOnOffSink_PortModelId,
+                    new PortDescription()
+                    {
+                        Description = "On/Off",
+                        Id = SwitchOnOffSink_PortModelId,
+                        ioDirection = ioPortDirection.Input,
                         Label = "On/Off",
                         State = new StateDescription()
                         {
@@ -770,20 +664,23 @@ namespace Yodiwo.API.Plegma
             }
         };
 
-        public const string DimmerActuatorModel_Id = "DimmerActuator";
-        public static ThingModelType DimmerActuatorModel = new ThingModelType
+        // -----------------------
+        // dimmer actuator
+        public const string SwitchDimmerActuator_PortModelId = "DimmerActuator";
+        public static ThingModelType SwitchDimmerActuatorModel = new ThingModelType
         {
             Name = "Simple Dimmer Actuator",
-            Id = PlegmaAPI.ThingModelTypeDefault,
+            Id = ThingTypeLibrary.SwitchActuatorDimmer_ModelType,
             Description = "Simple Dimmer Actuator",
-            Ports = new Dictionary<string, PortDescription>()
+            PortModels = new Dictionary<string, PortDescription>()
             {
                 {
-                    DimmerActuatorModel_Id,
+                    SwitchDimmerActuator_PortModelId,
                     new PortDescription()
                     {
                         Description = "Dimmer Actuator",
-                        Id = DimmerActuatorModel_Id,
+                        Id = SwitchDimmerActuator_PortModelId,
+                        ioDirection = ioPortDirection.Output,
                         Label = "Dimmer Actuator",
                         State = new StateDescription()
                         {
@@ -797,21 +694,23 @@ namespace Yodiwo.API.Plegma
             }
         };
 
-        public const string DimmerSinkModel_Id = "Dimmer";
-        public const string DimmerSinkModel_NormalizedId = "NormalizedDimmer";
-        public static ThingModelType DimmerSinkModel = new ThingModelType
+        // -----------------------
+        // dimmer sink
+        public const string LightsDimmer_PortModelId = "DimmableLight";
+        public static ThingModelType LightsDimmerModel = new ThingModelType
         {
             Name = "Simple Dimmer Sink",
-            Id = ThingTypeLibrary.Lights_DimmerModelType,
+            Id = ThingTypeLibrary.LightsDimmer_ModelType,
             Description = "Simple Dimmer Sink",
-            Ports = new Dictionary<string, PortDescription>()
+            PortModels = new Dictionary<string, PortDescription>()
             {
                 {
-                    DimmerSinkModel_Id,
+                    LightsDimmer_PortModelId,
                     new PortDescription()
                     {
                         Description = "Dimmer Sink",
-                        Id = DimmerSinkModel_Id,
+                        Id = LightsDimmer_PortModelId,
+                        ioDirection = ioPortDirection.Input,
                         Label = "Dimmer Sink",
                         State = new StateDescription()
                         {
@@ -822,12 +721,24 @@ namespace Yodiwo.API.Plegma
                         }
                     }
                 },
+            }
+        };
+
+        public const string LightsDimmerNormalized_PortModelId = "NormalizedDimmableLight";
+        public static ThingModelType LightsDimmerNormalizedModel = new ThingModelType
+        {
+            Name = "Simple normalized Dimmable Lights",
+            Id = ThingTypeLibrary.LightsDimmerNormalized_ModelType,
+            Description = "Simple normalized Dimmable Lights",
+            PortModels = new Dictionary<string, PortDescription>()
+            {
                 {
-                    DimmerSinkModel_NormalizedId,
+                    LightsDimmerNormalized_PortModelId,
                     new PortDescription()
                     {
                         Description = "Dimmable Light",
-                        Id = DimmerSinkModel_NormalizedId,
+                        Id = LightsDimmerNormalized_PortModelId,
+                        ioDirection = ioPortDirection.Input,
                         Label = "Dimmable Light",
                         State = new StateDescription()
                         {
@@ -841,22 +752,55 @@ namespace Yodiwo.API.Plegma
             }
         };
 
-
-        public const string ButtonModel_OnOffActuatorId = "OnOffActuator";
-        public static ThingModelType ButtonModel = new ThingModelType
+        public static ThingModelType LightsAndroidModel = new ThingModelType
         {
-            Name = "Simple On/Off Actuator",
-            Id = PlegmaAPI.ThingModelTypeDefault,
-            Description = "Simple On/Off Actuator",
-            Ports = new Dictionary<string, PortDescription>()
+            Name = "Simple normalized Dimmable Lights",
+            Id = ThingTypeLibrary.LightsAndroid_ModelType,
+            Description = "Simple normalized Dimmable Lights",
+            PortModels = new Dictionary<string, PortDescription>()
             {
                 {
-                    ButtonModel_OnOffActuatorId,
+                    LightsDimmerNormalized_PortModelId,
+                    new PortDescription()
+                    {
+                        Description = "Dimmable Light",
+                        Id = LightsDimmerNormalized_PortModelId,
+                        ioDirection = ioPortDirection.Input,
+                        Label = "Dimmable Light",
+                        State = new StateDescription()
+                        {
+                            Minimum = 0.0,
+                            Maximum = 1.0,
+                            Step = 0.01,
+                            Type = ePortType.Decimal,
+                        }
+                    }
+                }
+            },
+            NumPorts = new Dictionary<string, int>()
+            {
+                { LightsDimmerNormalized_PortModelId, 3}
+            }
+        };
+
+        // -----------------------
+        // button
+        public const string Button_PortModelId = "Button";
+        public static ThingModelType ButtonModel = new ThingModelType
+        {
+            Name = "Button",
+            Id = ThingTypeLibrary.ButtonDefault_ModelType,
+            Description = "Simple Button",
+            PortModels = new Dictionary<string, PortDescription>()
+            {
+                {
+                    Button_PortModelId,
                     new PortDescription
                     {
-                        Description = "On/Off Actuator",
-                        Id = ButtonModel_OnOffActuatorId,
-                        Label = "On/Off Actuator",
+                        Description = "Button",
+                        Id = Button_PortModelId,
+                        ioDirection=ioPortDirection.Output,
+                        Label = "Button",
                         State = new StateDescription()
                         {
                             Type = ePortType.Boolean,
@@ -866,20 +810,138 @@ namespace Yodiwo.API.Plegma
             }
         };
 
-        public const string TypeWriterModel_Id = "TypeWriter";
+        // -----------------------
+        // flic button model type
+        public const string ButtonFlicSingleClick_PortModelId = "FlicButtonSingleClick";
+        public const string ButtonFlicDoubleClick_PortModelId = "FlicButtonDoubleClick";
+        public const string ButtonFlicLongClick_PortModelId = "FlicButtonLongClick";
+        public static ThingModelType FlicButtonModel = new ThingModelType
+        {
+            Name = "Flic Actuator",
+            Id = ThingTypeLibrary.ButtonFlic_ModelType,
+            Description = "Flick Actuator",
+            PortModels = new Dictionary<string, PortDescription>()
+            {
+                {
+                    ButtonFlicSingleClick_PortModelId,
+                    new PortDescription
+                    {
+                        Description = "Single-click On/Off Actuator",
+                        Id = ButtonFlicSingleClick_PortModelId,
+                        ioDirection=ioPortDirection.Output,
+                        Label = "Single-click Actuator On/Off Actuator",
+                        State = new StateDescription()
+                        {
+                            Type = ePortType.Boolean,
+                        }
+                    }
+                },
+                {
+                    ButtonFlicDoubleClick_PortModelId,
+                    new PortDescription
+                    {
+                        Description = "Double-click On/Off Actuator",
+                        Id = ButtonFlicDoubleClick_PortModelId,
+                        ioDirection=ioPortDirection.Output,
+                        Label = "Double-click Actuator On/Off Actuator",
+                        State = new StateDescription()
+                        {
+                            Type = ePortType.Boolean,
+                        }
+                    }
+                },
+                {
+                    ButtonFlicLongClick_PortModelId,
+                    new PortDescription
+                    {
+                        Description = "Long-click On/Off Actuator",
+                        Id = ButtonFlicLongClick_PortModelId,
+                        ioDirection=ioPortDirection.Output,
+                        Label = "Long-click Actuator On/Off Actuator",
+                        State = new StateDescription()
+                        {
+                            Type = ePortType.Boolean,
+                        }
+                    }
+                }
+            }
+        };
+
+        // -----------------------
+        // android button
+        public const string ButtonAndroid_PortModelId = "AndroidButton";
+        public static ThingModelType ButtonAndroidModel = new ThingModelType
+        {
+            Name = "Simple Button",
+            Id = ThingTypeLibrary.ButtonAndroid_ModelType,
+            Description = "Simple Button",
+            PortModels = new Dictionary<string, PortDescription>()
+            {
+                {
+                    ButtonAndroid_PortModelId,
+                    new PortDescription
+                    {
+                        Description = "On/Off Actuator",
+                        Id = ButtonAndroid_PortModelId,
+                        ioDirection=ioPortDirection.Output,
+                        Label = "On/Off Actuator",
+                        State = new StateDescription()
+                        {
+                            Type = ePortType.Boolean,
+                        }
+                    }
+                }
+            },
+            NumPorts = new Dictionary<string, int>()
+            {
+                { ButtonAndroid_PortModelId, 3}
+            }
+        };
+
+        // -----------------------
+        // textIO
+        public const string TextIO_PortModelId = "TextIO";
+        public static ThingModelType TextIOModel = new ThingModelType
+        {
+            Name = "Text I/O",
+            Id = ThingTypeLibrary.TextIO_ModelType,
+            Description = "Text I/O",
+            PortModels = new Dictionary<string, PortDescription>()
+            {
+                {
+                    TextIO_PortModelId,
+                    new PortDescription()
+                    {
+                        Description = "TextIO",
+                        Id = TextIO_PortModelId,
+                        ioDirection = ioPortDirection.InputOutput,
+                        Label = "TextIO",
+                        State = new StateDescription()
+                        {
+                            Type = ePortType.String,
+                        }
+                    }
+                }
+            }
+        };
+
+        // -----------------------
+        //typewriter
+        public const string TypeWriter_PortModelId = "TypeWriter";
         public static ThingModelType TypeWriterModel = new ThingModelType
         {
             Name = "Simple Typewriter",
-            Id = PlegmaAPI.ThingModelTypeDefault,
+            Id = ThingTypeLibrary.TextTypewriter_ModelType,
             Description = "Simple Typewriter",
-            Ports = new Dictionary<string, PortDescription>()
+            PortModels = new Dictionary<string, PortDescription>()
             {
                 {
-                    TypeWriterModel_Id,
+                    TypeWriter_PortModelId,
                     new PortDescription()
                     {
                         Description = "Typewriter",
-                        Id = TypeWriterModel_Id,
+                        Id = TypeWriter_PortModelId,
+                        ioDirection = ioPortDirection.Output,
                         Label = "Typewriter",
                         State = new StateDescription()
                         {
@@ -890,44 +952,23 @@ namespace Yodiwo.API.Plegma
             }
         };
 
-        public const string TextableModel_Id = "Textable";
-        public static ThingModelType TextableModel = new ThingModelType
-        {
-            Name = "Simple Textable",
-            Id = PlegmaAPI.ThingModelTypeDefault,
-            Description = "Simple Textable",
-            Ports = new Dictionary<string, PortDescription>()
-            {
-                {
-                    TextableModel_Id,
-                    new PortDescription()
-                    {
-                        Description = "Textable",
-                        Id = TextableModel_Id,
-                        Label = "Textable",
-                        State = new StateDescription()
-                        {
-                            Type = ePortType.String,
-                        }
-                    }
-                }
-            }
-        };
-
-        public const string ConsoleModel_Id = "Console";                //TODO: how does this differ from the prev. model?
+        // -----------------------
+        // console
+        public const string Console_PortModelId = "Console";
         public static ThingModelType ConsoleModel = new ThingModelType
         {
             Name = "Simple Console",
-            Id = ThingTypeLibrary.TextIn_ConsoleModelType,
+            Id = ThingTypeLibrary.TextConsole_ModelType,
             Description = "Simple Console",
-            Ports = new Dictionary<string, PortDescription>()
+            PortModels = new Dictionary<string, PortDescription>()
             {
                 {
-                    ConsoleModel_Id,
+                    Console_PortModelId,
                     new PortDescription()
                     {
                         Description = "Console",
-                        Id = ConsoleModel_Id,
+                        Id = Console_PortModelId,
+                        ioDirection = ioPortDirection.Input,
                         Label = "Console",
                         State = new StateDescription()
                         {
@@ -938,20 +979,23 @@ namespace Yodiwo.API.Plegma
             }
         };
 
-        public const string CheckboxActuatorModel_Id = "CheckBoxActuator";
+        // -----------------------
+        // checkbox actuator
+        public const string CheckboxActuator_PortModelId = "CheckBoxActuator";
         public static ThingModelType CheckboxActuatorModel = new ThingModelType
         {
             Name = "Simple Checkbox Actuator",
-            Id = ThingTypeLibrary.SwitchActuator_CheckBoxModelType,
+            Id = ThingTypeLibrary.SwitchActuatorCheckBox_ModelType,
             Description = "Simple Checkbox Actuator",
-            Ports = new Dictionary<string, PortDescription>()
+            PortModels = new Dictionary<string, PortDescription>()
             {
                 {
-                    CheckboxActuatorModel_Id,
+                    CheckboxActuator_PortModelId,
                     new PortDescription()
                     {
                         Description = "Checkbox Actuator",
-                        Id = CheckboxActuatorModel_Id,
+                        Id = CheckboxActuator_PortModelId,
+                        ioDirection = ioPortDirection.Output,
                         Label = "Checkbox Actuator",
                         State = new StateDescription()
                         {
@@ -962,20 +1006,23 @@ namespace Yodiwo.API.Plegma
             }
         };
 
-        public const string CheckboxSinkModel_Id = "CheckBoxSink";
+        // -----------------------
+        // checkbox sink
+        public const string CheckboxSink_PortModelId = "CheckBoxSink";
         public static ThingModelType CheckboxSinkModel = new ThingModelType
         {
             Name = "Simple Checkbox Sink",
-            Id = ThingTypeLibrary.Switch_CheckBoxModelType,
+            Id = ThingTypeLibrary.SwitchSinkCheckBox_ModelType,
             Description = "Simple Checkbox Sink",
-            Ports = new Dictionary<string, PortDescription>
+            PortModels = new Dictionary<string, PortDescription>
             {
                 {
-                    CheckboxSinkModel_Id,
+                    CheckboxSink_PortModelId,
                     new PortDescription()
                     {
                         Description = "Checkbox Sink",
-                        Id = CheckboxSinkModel_Id,
+                        Id = CheckboxSink_PortModelId,
+                        ioDirection = ioPortDirection.Input,
                         Label = "Checkbox Sink",
                         State = new StateDescription()
                         {
@@ -986,20 +1033,23 @@ namespace Yodiwo.API.Plegma
             }
         };
 
-        public const string SliderModel_Id = "Slider";
+        // -----------------------
+        // slider
+        public const string Slider_PortModelId = "Slider";
         public static ThingModelType SliderModel = new ThingModelType
         {
             Name = "Simple Slider",
-            Id = PlegmaAPI.ThingModelTypeDefault,
+            Id = ThingTypeLibrary.SeekbarSlider_ModelType,
             Description = "Simple Slider",
-            Ports = new Dictionary<string, PortDescription>
+            PortModels = new Dictionary<string, PortDescription>
             {
                 {
-                    SliderModel_Id,
+                    Slider_PortModelId,
                     new PortDescription()
                     {
                         Description = "Slider",
-                        Id = SliderModel_Id,
+                        Id = Slider_PortModelId,
+                        ioDirection = ioPortDirection.Output,
                         Label = "Slider",
                         State = new StateDescription()
                         {
@@ -1013,21 +1063,24 @@ namespace Yodiwo.API.Plegma
             }
         };
 
-        public const string ProgressbarModel_Id = "ProgressBar";
+        // -----------------------
+        // progressbar
+        public const string Progressbar_PortModelId = "ProgressBar";
         public static ThingModelType ProgressbarModel = new ThingModelType
         {
             Name = "Simple Progress Bar",
-            Id = PlegmaAPI.ThingModelTypeDefault,
+            Id = ThingTypeLibrary.SeekbarProgressbar_ModelType,
             Description = "Simple Progress Bar",
-            Ports = new Dictionary<string, PortDescription>
+            PortModels = new Dictionary<string, PortDescription>
             {
                 {
-                    ProgressbarModel_Id,
+                    Progressbar_PortModelId,
                     new PortDescription()
                     {
                         Description = "Progress bar",
-                        Id = ProgressbarModel_Id,
+                        Id = Progressbar_PortModelId,
                         Label = "Progress bar",
+                        ioDirection = ioPortDirection.Input,
                         State = new StateDescription()
                         {
                             Minimum = 0.0,
@@ -1040,20 +1093,23 @@ namespace Yodiwo.API.Plegma
             }
         };
 
-        public const string OnOffLightModel_Id = "OnOffLight";
-        public static ThingModelType OnOffLightModel = new ThingModelType
+        // -----------------------
+        // on-off light
+        public const string LightOnOff_PortModelId = "OnOffLight";
+        public static ThingModelType LightOnOffModel = new ThingModelType
         {
             Name = "Simple On/Off Light",
-            Id = ThingTypeLibrary.Lights_BooleanModelType,
+            Id = ThingTypeLibrary.LightsBoolean_ModelType,
             Description = "Simple On/Off Light",
-            Ports = new Dictionary<string, PortDescription>
+            PortModels = new Dictionary<string, PortDescription>
             {
                 {
-                    OnOffLightModel_Id,
+                    LightOnOff_PortModelId,
                     new PortDescription()
                     {
                         Description = "On/Off Light",
-                        Id = PlegmaAPI.ThingModelTypeDefault,
+                        Id = LightOnOff_PortModelId,
+                        ioDirection = ioPortDirection.Input,
                         Label = "On/Off Light",
                         State = new StateDescription()
                         {
@@ -1064,21 +1120,41 @@ namespace Yodiwo.API.Plegma
             }
         };
 
-        public const string LocationCoordinatesModel_Id = "LocationCoordinates";
+        // -----------------------
+        // location coordinates
+        public const string LocationLatitude_PortModelId = "LocationLatitude";
+        public const string LocationLongitude_PortModelId = "LocationLongitude";
         public static ThingModelType LocationCoordinatesModel = new ThingModelType
         {
-            Name = "Mobile Location Coordinates",
-            Id = PlegmaAPI.ThingModelTypeDefault,
-            Description = "Mobile Location Coordinates",
-            Ports = new Dictionary<string, PortDescription>
+            Name = "Location Coordinates",
+            Id = ThingTypeLibrary.LocationCoordinates_ModelType,
+            Description = "Location Coordinates",
+            PortModels = new Dictionary<string, PortDescription>
             {
                 {
-                    LocationCoordinatesModel_Id,
+                    LocationLatitude_PortModelId,
                     new PortDescription()
                     {
-                        Description = "Location Coordinates",
-                        Id = LocationCoordinatesModel_Id,
-                        Label = "Location Coordinates",
+                        Description = "Latitude",
+                        Id = LocationLatitude_PortModelId,
+                        ioDirection = ioPortDirection.Output,
+                        Label = "Latitude",
+                        State = new StateDescription()
+                        {
+                            Minimum = 0.0,
+                            Maximum = 1.0,
+                            Type = ePortType.DecimalHigh,
+                        }
+                    }
+                },
+                {
+                    LocationLongitude_PortModelId,
+                    new PortDescription()
+                    {
+                        Description = "Longitude",
+                        Id = LocationLongitude_PortModelId,
+                        ioDirection = ioPortDirection.Output,
+                        Label = "Longitude",
                         State = new StateDescription()
                         {
                             Minimum = 0.0,
@@ -1090,21 +1166,87 @@ namespace Yodiwo.API.Plegma
             }
         };
 
-        public const string LocationAddressModel_Id = "LocationAddress";
-        public static ThingModelType LocationAddressModel = new ThingModelType
+        // -----------------------
+        // location info
+        public const string LocationInfo_PortModelId = "LocationInfo";
+        public const string LocationAddress_PortModelId = "LocationAddress";
+        public const string LocationCountry_PortModelId = "LocationCountry";
+        public const string LocationPostalCode_PortModelId = "LocationPostalCode";
+        public static ThingModelType LocationInfoModel = new ThingModelType
         {
-            Name = "Mobile Location Address",
-            Id = PlegmaAPI.ThingModelTypeDefault,
-            Description = "Mobile Location Address",
-            Ports = new Dictionary<string, PortDescription>
+            Name = "Location Info",
+            Id = ThingTypeLibrary.LocationInfo_ModelType,
+            Description = "Location Info",
+            PortModels = new Dictionary<string, PortDescription>
             {
                 {
-                    LocationAddressModel_Id,
+                    LocationLatitude_PortModelId,
                     new PortDescription()
                     {
-                        Description = "Location Address",
-                        Id = LocationAddressModel_Id,
-                        Label = "Location Address",
+                        Description = "Latitude",
+                        Id = LocationLatitude_PortModelId,
+                        ioDirection = ioPortDirection.Output,
+                        Label = "Latitude",
+                        State = new StateDescription()
+                        {
+                            Minimum = 0.0,
+                            Maximum = 1.0,
+                            Type = ePortType.DecimalHigh,
+                        }
+                    }
+                },
+                {
+                    LocationLongitude_PortModelId,
+                    new PortDescription()
+                    {
+                        Description = "Longitude",
+                        Id = LocationLongitude_PortModelId,
+                        ioDirection = ioPortDirection.Output,
+                        Label = "Longitude",
+                        State = new StateDescription()
+                        {
+                            Minimum = 0.0,
+                            Maximum = 1.0,
+                            Type = ePortType.DecimalHigh,
+                        }
+                    }
+                },
+                {
+                    LocationAddress_PortModelId,
+                    new PortDescription()
+                    {
+                        Description = "Address",
+                        Id = LocationAddress_PortModelId,
+                        ioDirection = ioPortDirection.Output,
+                        Label = "Address",
+                        State = new StateDescription()
+                        {
+                            Type = ePortType.String,
+                        }
+                    }
+                },
+                {
+                    LocationCountry_PortModelId,
+                    new PortDescription()
+                    {
+                        Description = "Country",
+                        Id = LocationCountry_PortModelId,
+                        ioDirection = ioPortDirection.Output,
+                        Label = "Country",
+                        State = new StateDescription()
+                        {
+                            Type = ePortType.String,
+                        }
+                    }
+                },
+                {
+                    LocationPostalCode_PortModelId,
+                    new PortDescription()
+                    {
+                        Description = "PostalCode",
+                        Id = LocationPostalCode_PortModelId,
+                        ioDirection = ioPortDirection.Output,
+                        Label = "PostalCode",
                         State = new StateDescription()
                         {
                             Type = ePortType.String,
@@ -1114,21 +1256,228 @@ namespace Yodiwo.API.Plegma
             }
         };
 
-        public const string BluetoothModel_Id = "Bluetooth";
+        // -----------------------
+        // triggered location coordinates
+        public const string TriggeredLocation_PortModelId = "Location trigger";
+        public static ThingModelType TriggeredLocationCoordinatesModel = new ThingModelType
+        {
+            Name = "Location Coordinates",
+            Id = ThingTypeLibrary.LocationCoordinatesTriggered_ModelType,
+            Description = "Location Coordinates",
+            PortModels = new Dictionary<string, PortDescription>
+            {
+                {
+                    LocationLatitude_PortModelId,
+                    new PortDescription()
+                    {
+                        Description = "Latitude",
+                        Id = LocationLatitude_PortModelId,
+                        ioDirection = ioPortDirection.Output,
+                        Label = "Latitude",
+                        State = new StateDescription()
+                        {
+                            Minimum = 0.0,
+                            Maximum = 1.0,
+                            Type = ePortType.DecimalHigh,
+                        }
+                    }
+                },
+                {
+                    LocationLongitude_PortModelId,
+                    new PortDescription()
+                    {
+                        Description = "Longitude",
+                        Id = LocationLongitude_PortModelId,
+                        ioDirection = ioPortDirection.Output,
+                        Label = "Longitude",
+                        State = new StateDescription()
+                        {
+                            Minimum = 0.0,
+                            Maximum = 1.0,
+                            Type = ePortType.DecimalHigh,
+                        }
+                    }
+                },
+                {
+                    TriggeredLocation_PortModelId,
+                    new PortDescription()
+                    {
+                        Description = "Location Trigger",
+                        Id = TriggeredLocation_PortModelId,
+                        ioDirection = ioPortDirection.Input,
+                        Label = "Location Trigger",
+                        State = new StateDescription()
+                        {
+                            Type = ePortType.Boolean,
+                        }
+                    }
+                }
+            }
+        };
+
+        // -----------------------
+        // triggered location info
+        public static ThingModelType TriggeredLocationInfoModel = new ThingModelType
+        {
+            Name = "Location Info with trigger",
+            Id = ThingTypeLibrary.LocationInfoTriggered_ModelType,
+            Description = "Location Info with trigger",
+            PortModels = new Dictionary<string, PortDescription>
+            {
+                {
+                    LocationLatitude_PortModelId,
+                    new PortDescription()
+                    {
+                        Description = "Latitude",
+                        Id = LocationLatitude_PortModelId,
+                        ioDirection = ioPortDirection.Output,
+                        Label = "Latitude",
+                        State = new StateDescription()
+                        {
+                            Minimum = 0.0,
+                            Maximum = 1.0,
+                            Type = ePortType.DecimalHigh,
+                        }
+                    }
+                },
+                {
+                    LocationLongitude_PortModelId,
+                    new PortDescription()
+                    {
+                        Description = "Longitude",
+                        Id = LocationLongitude_PortModelId,
+                        ioDirection = ioPortDirection.Output,
+                        Label = "Longitude",
+                        State = new StateDescription()
+                        {
+                            Minimum = 0.0,
+                            Maximum = 1.0,
+                            Type = ePortType.DecimalHigh,
+                        }
+                    }
+                },
+                {
+                    LocationAddress_PortModelId,
+                    new PortDescription()
+                    {
+                        Description = "Address",
+                        Id = LocationAddress_PortModelId,
+                        ioDirection = ioPortDirection.Output,
+                        Label = "Address",
+                        State = new StateDescription()
+                        {
+                            Type = ePortType.String,
+                        }
+                    }
+                },
+                {
+                    LocationCountry_PortModelId,
+                    new PortDescription()
+                    {
+                        Description = "Country",
+                        Id = LocationCountry_PortModelId,
+                        ioDirection = ioPortDirection.Output,
+                        Label = "Country",
+                        State = new StateDescription()
+                        {
+                            Type = ePortType.String,
+                        }
+                    }
+                },
+                {
+                    LocationPostalCode_PortModelId,
+                    new PortDescription()
+                    {
+                        Description = "PostalCode",
+                        Id = LocationPostalCode_PortModelId,
+                        ioDirection = ioPortDirection.Output,
+                        Label = "PostalCode",
+                        State = new StateDescription()
+                        {
+                            Type = ePortType.String,
+                        }
+                    }
+                },
+                {
+                    TriggeredLocation_PortModelId,
+                    new PortDescription()
+                    {
+                        Description = "Location Trigger",
+                        Id = TriggeredLocation_PortModelId,
+                        ioDirection = ioPortDirection.Input,
+                        Label = "Location Trigger",
+                        State = new StateDescription()
+                        {
+                            Type = ePortType.Boolean,
+                        }
+                    }
+                }
+            }
+        };
+
+        // -----------------------
+        // bluetooth
+        public const string BluetoothPowerStatus_PortModelId = "BluetoothPowerStatus";
+        public const string BluetoothConnectionStatus_PortModelId = "BluetoothConnectionStatus";
+        public const string BluetoothPairedDevices_PortModelId = "BluetoothPairedDevices";
+        public const string BluetoothDiscoveredDevices_PortModelId = "BluetoothDiscoveredDevices";
         public static ThingModelType BluetoothModel = new ThingModelType
         {
-            Name = "Simple Bluetooth",
-            Id = PlegmaAPI.ThingModelTypeDefault,
-            Description = "Simple Bluetooth",
-            Ports = new Dictionary<string, PortDescription>
+            Name = "Bluetooth info",
+            Id = ThingTypeLibrary.BluetoothDefault_ModelType,
+            Description = "Bluetooth info",
+            PortModels = new Dictionary<string, PortDescription>
             {
                 {
-                    BluetoothModel_Id,
+                    BluetoothPowerStatus_PortModelId,
                     new PortDescription()
                     {
-                        Description = "Bluetooth",
-                        Id = BluetoothModel_Id,
-                        Label = "Bluetooth",
+                        Description = "Bluetooth Power Status",
+                        Id = BluetoothPowerStatus_PortModelId,
+                        ioDirection = ioPortDirection.Output,
+                        Label = "Bluetooth Power Status",
+                        State = new StateDescription()
+                        {
+                            Type = ePortType.String,
+                        }
+                    }
+                },
+                {
+                    BluetoothConnectionStatus_PortModelId,
+                    new PortDescription()
+                    {
+                        Description = "Bluetooth Connection Status",
+                        Id = BluetoothConnectionStatus_PortModelId,
+                        ioDirection = ioPortDirection.Output,
+                        Label = "Bluetooth Connection Status",
+                        State = new StateDescription()
+                        {
+                            Type = ePortType.String,
+                        }
+                    }
+                },
+                {
+                    BluetoothPairedDevices_PortModelId,
+                    new PortDescription()
+                    {
+                        Description = "Bluetooth Paired Devices",
+                        Id = BluetoothPairedDevices_PortModelId,
+                        ioDirection = ioPortDirection.Output,
+                        Label = "Bluetooth Paired Devices",
+                        State = new StateDescription()
+                        {
+                            Type = ePortType.String,
+                        }
+                    }
+                },
+                {
+                    BluetoothDiscoveredDevices_PortModelId,
+                    new PortDescription()
+                    {
+                        Description = "Bluetooth Discovered Devices",
+                        Id = BluetoothDiscoveredDevices_PortModelId,
+                        ioDirection = ioPortDirection.Output,
+                        Label = "Bluetooth Discovered Devices",
                         State = new StateDescription()
                         {
                             Type = ePortType.String,
@@ -1138,22 +1487,123 @@ namespace Yodiwo.API.Plegma
             }
         };
 
-        public const string AccelerometerSensorModel_XId = "X";
-        public const string AccelerometerSensorModel_YId = "Y";
-        public const string AccelerometerSensorModel_ZId = "Z";
+        // -----------------------
+        // bluetooth with trigger
+        public const string TriggeredBluetoothDiscovery_PortModelId = "TriggeredBluetoothDiscovery";
+        public const string TriggeredBluetoothPairedDevices_PortModelId = "TriggeredBluetoothPairedDevices";
+        public static ThingModelType TriggeredBluetoothModel = new ThingModelType
+        {
+            Name = "Bluetooth info with trigger",
+            Id = ThingTypeLibrary.BluetoothTriggered_ModelType,
+            Description = "Bluetooth info with trigger",
+            PortModels = new Dictionary<string, PortDescription>
+            {
+                {
+                    BluetoothPowerStatus_PortModelId,
+                    new PortDescription()
+                    {
+                        Description = "Bluetooth Power Status",
+                        Id = BluetoothPowerStatus_PortModelId,
+                        ioDirection = ioPortDirection.Output,
+                        Label = "Bluetooth Power Status",
+                        State = new StateDescription()
+                        {
+                            Type = ePortType.String,
+                        }
+                    }
+                },
+                {
+                    BluetoothConnectionStatus_PortModelId,
+                    new PortDescription()
+                    {
+                        Description = "Bluetooth Connection Status",
+                        Id = BluetoothConnectionStatus_PortModelId,
+                        ioDirection = ioPortDirection.Output,
+                        Label = "Bluetooth Connection Status",
+                        State = new StateDescription()
+                        {
+                            Type = ePortType.String,
+                        }
+                    }
+                },
+                {
+                    BluetoothPairedDevices_PortModelId,
+                    new PortDescription()
+                    {
+                        Description = "Bluetooth Paired Devices",
+                        Id = BluetoothPairedDevices_PortModelId,
+                        ioDirection = ioPortDirection.Output,
+                        Label = "Bluetooth Paired Devices",
+                        State = new StateDescription()
+                        {
+                            Type = ePortType.String,
+                        }
+                    }
+                },
+                {
+                    BluetoothDiscoveredDevices_PortModelId,
+                    new PortDescription()
+                    {
+                        Description = "Bluetooth Discovered Devices",
+                        Id = BluetoothDiscoveredDevices_PortModelId,
+                        ioDirection = ioPortDirection.Output,
+                        Label = "Bluetooth Discovered Devices",
+                        State = new StateDescription()
+                        {
+                            Type = ePortType.String,
+                        }
+                    }
+                },
+                {
+                    TriggeredBluetoothDiscovery_PortModelId,
+                    new PortDescription()
+                    {
+                        Description = "Trigger device discovery",
+                        Id = TriggeredBluetoothDiscovery_PortModelId,
+                        ioDirection = ioPortDirection.Input,
+                        Label = "Trigger device discovery",
+                        State = new StateDescription()
+                        {
+                            Type = ePortType.Boolean,
+                        }
+                    }
+                },
+                {
+                    TriggeredBluetoothPairedDevices_PortModelId,
+                    new PortDescription()
+                    {
+                        Description = "Request paired devices",
+                        Id = TriggeredBluetoothPairedDevices_PortModelId,
+                        ioDirection = ioPortDirection.Input,
+                        Label = "Request paired devices",
+                        State = new StateDescription()
+                        {
+                            Type = ePortType.Boolean,
+                        }
+                    }
+                }
+            }
+        };
+
+        // -----------------------
+        // accelerometer
+        public const string AccelerometerSensorX_PortModelId = "X";
+        public const string AccelerometerSensorY_PortModelId = "Y";
+        public const string AccelerometerSensorZ_PortModelId = "Z";
         public static ThingModelType AccelerometerSensorModel = new ThingModelType
         {
             Name = "Simple Accelerometer",
-            Id = PlegmaAPI.ThingModelTypeDefault,
+            Id = ThingTypeLibrary.AccelerometerSensor_ModelType,
             Description = "Simple Accelerometer",
-            Ports = new Dictionary<string, PortDescription>
+            PortModels = new Dictionary<string, PortDescription>
             {
                 {
-                    AccelerometerSensorModel_XId,
+                    AccelerometerSensorX_PortModelId,
                     new PortDescription()
                     {
                         Description = "Accelerometer",
-                        Id = AccelerometerSensorModel_XId,
+                        Id = AccelerometerSensorX_PortModelId,
+                        ioDirection =ioPortDirection.Output,
                         Label = "Accelerometer",
                         State = new StateDescription()
                         {
@@ -1165,11 +1615,12 @@ namespace Yodiwo.API.Plegma
                     }
                 },
                 {
-                    AccelerometerSensorModel_YId,
+                    AccelerometerSensorY_PortModelId,
                     new PortDescription()
                     {
                         Description = "Accelerometer",
-                        Id = AccelerometerSensorModel_YId,
+                        Id = AccelerometerSensorY_PortModelId,
+                        ioDirection =ioPortDirection.Output,
                         Label = "Accelerometer",
                         State = new StateDescription()
                         {
@@ -1181,11 +1632,12 @@ namespace Yodiwo.API.Plegma
                     }
                 },
                 {
-                    AccelerometerSensorModel_ZId,
+                    AccelerometerSensorZ_PortModelId,
                     new PortDescription()
                     {
                         Description = "Accelerometer",
-                        Id = AccelerometerSensorModel_ZId,
+                        Id = AccelerometerSensorZ_PortModelId,
+                        ioDirection =ioPortDirection.Output,
                         Label = "Accelerometer",
                         State = new StateDescription()
                         {
@@ -1199,22 +1651,25 @@ namespace Yodiwo.API.Plegma
             }
         };
 
-        public const string GyroscopeSensorModel_XId = "X";
-        public const string GyroscopeSensorModel_YId = "Y";
-        public const string GyroscopeSensorModel_ZId = "Z";
+        // -----------------------
+        // gyro
+        public const string GyroscopeSensorX_PortModelId = "X";
+        public const string GyroscopeSensorY_PortModelId = "Y";
+        public const string GyroscopeSensorZ_PortModelId = "Z";
         public static ThingModelType GyroscopeSensorModel = new ThingModelType
         {
             Name = "Simple Gyroscope",
-            Id = PlegmaAPI.ThingModelTypeDefault,
+            Id = ThingTypeLibrary.GyroscopeSensor_ModelType,
             Description = "Simple Gyroscope",
-            Ports = new Dictionary<string, PortDescription>
+            PortModels = new Dictionary<string, PortDescription>
             {
                 {
-                    GyroscopeSensorModel_XId,
+                    GyroscopeSensorX_PortModelId,
                     new PortDescription()
                     {
                         Description = "Gyroscope",
-                        Id = GyroscopeSensorModel_XId,
+                        Id = GyroscopeSensorX_PortModelId,
+                        ioDirection =ioPortDirection.Output,
                         Label = "Gyroscope",
                         State = new StateDescription()
                         {
@@ -1226,11 +1681,12 @@ namespace Yodiwo.API.Plegma
                     }
                 },
                 {
-                    GyroscopeSensorModel_YId,
+                    GyroscopeSensorY_PortModelId,
                     new PortDescription()
                     {
                         Description = "Gyroscope",
-                        Id = GyroscopeSensorModel_YId,
+                        Id = GyroscopeSensorY_PortModelId,
+                        ioDirection =ioPortDirection.Output,
                         Label = "Gyroscope",
                         State = new StateDescription()
                         {
@@ -1242,11 +1698,12 @@ namespace Yodiwo.API.Plegma
                     }
                 },
                 {
-                    GyroscopeSensorModel_ZId,
+                    GyroscopeSensorZ_PortModelId,
                     new PortDescription()
                     {
                         Description = "Gyroscope",
-                        Id = GyroscopeSensorModel_ZId,
+                        Id = GyroscopeSensorZ_PortModelId,
+                        ioDirection =ioPortDirection.Output,
                         Label = "Gyroscope",
                         State = new StateDescription()
                         {
@@ -1260,23 +1717,26 @@ namespace Yodiwo.API.Plegma
             }
         };
 
-        public const string RotationSensorModel_WId = "W";
-        public const string RotationSensorModel_XId = "X";
-        public const string RotationSensorModel_YId = "Y";
-        public const string RotationSensorModel_ZId = "Z";
+        // -----------------------
+        // rotation
+        public const string RotationSensorW_PortModelId = "W";
+        public const string RotationSensorX_PortModelId = "X";
+        public const string RotationSensorY_PortModelId = "Y";
+        public const string RotationSensorZ_PortModelId = "Z";
         public static ThingModelType RotationSensorModel = new ThingModelType
         {
             Name = "Simple Rotation",
-            Id = PlegmaAPI.ThingModelTypeDefault,
+            Id = ThingTypeLibrary.RotationSensor_ModelType,
             Description = "Simpleoattion",
-            Ports = new Dictionary<string, PortDescription>
+            PortModels = new Dictionary<string, PortDescription>
             {
                 {
-                    RotationSensorModel_WId,
+                    RotationSensorW_PortModelId,
                     new PortDescription()
                     {
                         Description = "Rotation",
-                        Id = RotationSensorModel_WId,
+                        Id = RotationSensorW_PortModelId,
+                        ioDirection =ioPortDirection.Output,
                         Label = "Rotation",
                         State = new StateDescription()
                         {
@@ -1288,11 +1748,12 @@ namespace Yodiwo.API.Plegma
                     }
                 },
                 {
-                    RotationSensorModel_XId,
+                    RotationSensorX_PortModelId,
                     new PortDescription()
                     {
                         Description = "Rotation",
-                        Id = RotationSensorModel_XId,
+                        Id = RotationSensorX_PortModelId,
+                        ioDirection =ioPortDirection.Output,
                         Label = "Rotation",
                         State = new StateDescription()
                         {
@@ -1304,11 +1765,12 @@ namespace Yodiwo.API.Plegma
                     }
                 },
                 {
-                    RotationSensorModel_YId,
+                    RotationSensorY_PortModelId,
                     new PortDescription()
                     {
                         Description = "Rotation",
-                        Id = RotationSensorModel_YId,
+                        Id = RotationSensorY_PortModelId,
+                        ioDirection =ioPortDirection.Output,
                         Label = "Rotation",
                         State = new StateDescription()
                         {
@@ -1320,11 +1782,12 @@ namespace Yodiwo.API.Plegma
                     }
                 },
                 {
-                    RotationSensorModel_ZId,
+                    RotationSensorZ_PortModelId,
                     new PortDescription()
                     {
                         Description = "Rotation",
-                        Id = RotationSensorModel_ZId,
+                        Id = RotationSensorZ_PortModelId,
+                        ioDirection =ioPortDirection.Output,
                         Label = "Rotation",
                         State = new StateDescription()
                         {
@@ -1338,23 +1801,25 @@ namespace Yodiwo.API.Plegma
             }
         };
 
-        public const string RotationEulerSensorModel_PhiId = "Phi";
-        public const string RotationEulerSensorModel_ThetaId = "Theta";
-        public const string RotationEulerSensorModel_PsiId = "Psi";
-
+        // -----------------------
+        // rotation euler
+        public const string RotationEulerSensorPhi_PortModelId = "Phi";
+        public const string RotationEulerSensorTheta_PortModelId = "Theta";
+        public const string RotationEulerSensorPsi_PortModelId = "Psi";
         public static ThingModelType RotationEulerSensorModel = new ThingModelType
         {
             Name = "Simple Rotation Euler",
-            Id = PlegmaAPI.ThingModelTypeDefault,
+            Id = ThingTypeLibrary.RotationEulerSensor_ModelType,
             Description = "Simple Rotation Euler",
-            Ports = new Dictionary<string, PortDescription>()
+            PortModels = new Dictionary<string, PortDescription>()
             {
                 {
-                    RotationEulerSensorModel_PhiId,
+                    RotationEulerSensorPhi_PortModelId,
                     new PortDescription()
                     {
                         Description = "Rotation EUler",
-                        Id = RotationEulerSensorModel_PhiId,
+                        Id = RotationEulerSensorPhi_PortModelId,
+                        ioDirection =ioPortDirection.Output,
                         Label = "Rotation Euler",
                         State = new StateDescription()
                         {
@@ -1366,11 +1831,12 @@ namespace Yodiwo.API.Plegma
                     }
                 },
                 {
-                    RotationEulerSensorModel_ThetaId,
+                    RotationEulerSensorTheta_PortModelId,
                     new PortDescription()
                     {
                         Description = "Rotation EUler",
-                        Id = RotationEulerSensorModel_ThetaId,
+                        Id = RotationEulerSensorTheta_PortModelId,
+                        ioDirection =ioPortDirection.Output,
                         Label = "Rotation Euler",
                         State = new StateDescription()
                         {
@@ -1382,11 +1848,12 @@ namespace Yodiwo.API.Plegma
                     }
                 },
                 {
-                    RotationEulerSensorModel_PsiId,
+                    RotationEulerSensorPsi_PortModelId,
                     new PortDescription()
                     {
                         Description = "Rotation EUler",
-                        Id = RotationEulerSensorModel_PsiId,
+                        Id = RotationEulerSensorPsi_PortModelId,
+                        ioDirection =ioPortDirection.Output,
                         Label = "Rotation Euler",
                         State = new StateDescription()
                         {
@@ -1400,20 +1867,23 @@ namespace Yodiwo.API.Plegma
             }
         };
 
-        public const string NfcModel_Id = "Nfc";
+        // -----------------------
+        // nfc model
+        public const string Nfc_PortModelId = "Nfc";
         public static ThingModelType NfcModel = new ThingModelType
         {
             Name = "Simple Nfc",
-            Id = PlegmaAPI.ThingModelTypeDefault,
+            Id = ThingTypeLibrary.NfcDefault_ModelType,
             Description = "Simple Nfc",
-            Ports = new Dictionary<string, PortDescription>()
+            PortModels = new Dictionary<string, PortDescription>()
             {
                 {
-                    NfcModel_Id,
+                    Nfc_PortModelId,
                     new PortDescription()
                     {
                         Description = "Nfc",
-                        Id = NfcModel_Id,
+                        Id = Nfc_PortModelId,
+                        ioDirection=ioPortDirection.Output,
                         Label = "Nfc",
                         State = new StateDescription()
                         {
@@ -1424,20 +1894,23 @@ namespace Yodiwo.API.Plegma
             }
         };
 
-        public const string BrightnessNormalizedModel_Id = "BrightnessNormalized";
+        // -----------------------
+        // brigthness normalized model
+        public const string BrightnessNormalized_PortModelId = "BrightnessNormalized";
         public static ThingModelType BrightnessNormalizedModel = new ThingModelType
         {
             Name = "Simple Brightness",
-            Id = PlegmaAPI.ThingModelTypeDefault,
+            Id = ThingTypeLibrary.LightSensor_ModelType,
             Description = "Simple Brightness",
-            Ports = new Dictionary<string, PortDescription>()
+            PortModels = new Dictionary<string, PortDescription>()
             {
                 {
-                    BrightnessNormalizedModel_Id,
+                    BrightnessNormalized_PortModelId,
                     new PortDescription()
                     {
                         Description = "Brightness",
-                        Id = BrightnessNormalizedModel_Id,
+                        Id = BrightnessNormalized_PortModelId,
+                        ioDirection =ioPortDirection.Output,
                         Label = "Brightness",
                         State = new StateDescription()
                         {
@@ -1451,20 +1924,23 @@ namespace Yodiwo.API.Plegma
             }
         };
 
-        public const string Brightness_Id = "Brightness";
+        // -----------------------
+        // brigthness model
+        public const string Brightness_PortModelId = "Brightness";
         public static ThingModelType BrightnessModel = new ThingModelType
         {
             Name = "Simple Light Sensor",
-            Id = ThingTypeLibrary.LightSensor_NonNormalizedModelType,
+            Id = ThingTypeLibrary.LightSensorNonNormalized_ModelType,
             Description = "Simple Light Sensor",
-            Ports = new Dictionary<string, PortDescription>()
+            PortModels = new Dictionary<string, PortDescription>()
             {
                 {
-                    Brightness_Id,
+                    Brightness_PortModelId,
                     new PortDescription()
                     {
                         Description = "Light Sensor",
-                        Id = Brightness_Id,
+                        Id = Brightness_PortModelId,
+                        ioDirection =ioPortDirection.Output,
                         Label = "Light Sensor",
                         State = new StateDescription()
                         {
@@ -1478,20 +1954,23 @@ namespace Yodiwo.API.Plegma
             }
         };
 
-        public const string ProximitySensorModel_Id = "Proximity";
+        // -----------------------
+        // proximity sensor model
+        public const string ProximitySensor_PortModelId = "Proximity";
         public static ThingModelType ProximitySensorModel = new ThingModelType
         {
             Name = "Simple Proximity",
-            Id = PlegmaAPI.ThingModelTypeDefault,
+            Id = ThingTypeLibrary.ProximitySensor_ModelType,
             Description = "Simple Proximity",
-            Ports = new Dictionary<string, PortDescription>()
+            PortModels = new Dictionary<string, PortDescription>()
             {
                 {
-                    ProximitySensorModel_Id,
+                    ProximitySensor_PortModelId,
                     new PortDescription()
                     {
                         Description = "Proximity",
-                        Id = ProximitySensorModel_Id,
+                        Id = ProximitySensor_PortModelId,
+                        ioDirection =ioPortDirection.Output,
                         Label = "Proximity",
                         State = new StateDescription()
                         {
@@ -1502,45 +1981,24 @@ namespace Yodiwo.API.Plegma
             }
         };
 
-        public const string WifiInfoModel_Id = "WifiInfo";
-        public static ThingModelType WifiInfoModel = new ThingModelType
+        // -----------------------
+        // wifi status model
+        public const string WifiStatus_PortModelId = "WifiStatus";
+        public static ThingModelType WifiStatusModel = new ThingModelType
         {
-            Name = "Simple Wifi Info",
-            Id = PlegmaAPI.ThingModelTypeDefault,
-            Description = "Simple Wifi Info",
-            Ports = new Dictionary<string, PortDescription>()
+            Name = "Wifi Status",
+            Id = ThingTypeLibrary.WifiStatus_ModelType,
+            Description = "Wifi Status",
+            PortModels = new Dictionary<string, PortDescription>()
             {
                 {
-                    WifiInfoModel_Id,
+                    WifiStatus_PortModelId,
                     new PortDescription()
                     {
-                        Description = "Wifi Info",
-                        Id = WifiInfoModel_Id,
-                        Label = "Wifi Info",
-                        State = new StateDescription()
-                        {
-                            Type = ePortType.Integer,
-                        }
-                    }
-                }
-            }
-        };
-
-        public const string WifiStrengthModel_Id = "WifiStrength";
-        public static ThingModelType WifiStrengthModel = new ThingModelType
-        {
-            Name = "Simple Wifi Strength",
-            Id = PlegmaAPI.ThingModelTypeDefault,
-            Description = "Mobile Wifi Strength",
-            Ports = new Dictionary<string, PortDescription>()
-            {
-                {
-                    WifiStrengthModel_Id,
-                    new PortDescription()
-                    {
-                        Description = "Wifi Strength",
-                        Id = WifiStrengthModel_Id,
-                        Label = "Wifi Strength",
+                        Description = "Wifi Status",
+                        Id = WifiStatus_PortModelId,
+                        ioDirection = ioPortDirection.Output,
+                        Label = "Wifi Status",
                         State = new StateDescription()
                         {
                             Type = ePortType.String,
@@ -1550,19 +2008,171 @@ namespace Yodiwo.API.Plegma
             }
         };
 
-        public const string ShakeDetectorModel_Id = "ShakeDetector";
+        // -----------------------
+        // wifi rssi model
+        public const string WifiRssi_PortModelId = "WifiRssi";
+        public static ThingModelType WifiRssiModel = new ThingModelType
+        {
+            Name = "Wifi Rssi",
+            Id = ThingTypeLibrary.WifiRssi_ModelType,
+            Description = "Wifi Rssi",
+            PortModels = new Dictionary<string, PortDescription>()
+            {
+                {
+                    WifiRssi_PortModelId,
+                    new PortDescription()
+                    {
+                        Description = "Wifi Rssi",
+                        Id = WifiRssi_PortModelId,
+                        ioDirection = ioPortDirection.Output,
+                        Label = "Wifi Rssi",
+                        State = new StateDescription()
+                        {
+                            Type = ePortType.Integer,
+                        }
+                    }
+                }
+            }
+        };
+
+        // -----------------------
+        // wifi ssid model
+        public const string WifiSsid_PortModelId = "WifiSsid";
+        public static ThingModelType WifiSsidModel = new ThingModelType
+        {
+            Name = "Wifi Ssid",
+            Id = ThingTypeLibrary.WifiSsid_ModelType,
+            Description = "Wifi Ssid",
+            PortModels = new Dictionary<string, PortDescription>()
+            {
+                {
+                    WifiSsid_PortModelId,
+                    new PortDescription()
+                    {
+                        Description = "Wifi Ssid",
+                        Id = WifiSsid_PortModelId,
+                        ioDirection = ioPortDirection.Output,
+                        Label = "Wifi Ssid",
+                        State = new StateDescription()
+                        {
+                            Type = ePortType.String,
+                        }
+                    }
+                }
+            }
+        };
+
+        // -----------------------
+        // wifi Bssid model
+        public const string WifiBssid_PortModelId = "WifiBssid";
+        public static ThingModelType WifiBssidModel = new ThingModelType
+        {
+            Name = "Wifi Bssid",
+            Id = ThingTypeLibrary.WifiBssid_ModelType,
+            Description = "Wifi Bssid",
+            PortModels = new Dictionary<string, PortDescription>()
+            {
+                {
+                    WifiBssid_PortModelId,
+                    new PortDescription()
+                    {
+                        Description = "Wifi Bssid",
+                        ioDirection = ioPortDirection.Output,
+                        Id = WifiBssid_PortModelId,
+                        Label = "Wifi Bssid",
+                        State = new StateDescription()
+                        {
+                            Type = ePortType.String,
+                        }
+                    }
+                }
+            }
+        };
+
+        // -----------------------
+        // wifi info model
+        public static ThingModelType WifiInfoModel = new ThingModelType
+        {
+            Name = "Wifi Info",
+            Id = ThingTypeLibrary.WifiInfo_ModelType,
+            Description = "Wifi Info",
+            PortModels = new Dictionary<string, PortDescription>()
+            {
+                {
+                    WifiStatus_PortModelId,
+                    new PortDescription()
+                    {
+                        Description = "Wifi Status",
+                        Id = WifiStatus_PortModelId,
+                        ioDirection = ioPortDirection.Output,
+                        Label = "Wifi Status",
+                        State = new StateDescription()
+                        {
+                            Type = ePortType.String,
+                        }
+                    }
+                },
+                {
+                    WifiRssi_PortModelId,
+                    new PortDescription()
+                    {
+                        Description = "Wifi Rssi",
+                        Id = WifiRssi_PortModelId,
+                        ioDirection = ioPortDirection.Output,
+                        Label = "Wifi Rssi",
+                        State = new StateDescription()
+                        {
+                            Type = ePortType.Integer,
+                        }
+                    }
+                },
+                {
+                    WifiSsid_PortModelId,
+                    new PortDescription()
+                    {
+                        Description = "Wifi Ssid",
+                        Id = WifiSsid_PortModelId,
+                        ioDirection = ioPortDirection.Output,
+                        Label = "Wifi Ssid",
+                        State = new StateDescription()
+                        {
+                            Type = ePortType.String,
+                        }
+                    }
+                },
+                {
+                    WifiBssid_PortModelId,
+                    new PortDescription()
+                    {
+                        Description = "Wifi Bssid",
+                        Id = WifiBssid_PortModelId,
+                        ioDirection = ioPortDirection.Output,
+                        Label = "Wifi Bssid",
+                        State = new StateDescription()
+                        {
+                            Type = ePortType.String,
+                        }
+                    }
+                }
+            }
+        };
+
+        // -----------------------
+        // shake detector model
+        public const string ShakeDetector_PortModelId = "ShakeDetector";
         public static ThingModelType ShakeDetectorModel = new ThingModelType
         {
             Name = "Simple Shake Detector",
-            Id = PlegmaAPI.ThingModelTypeDefault,
+            Id = ThingTypeLibrary.ShakeDetectorSensor_ModelType,
             Description = "Simple Shake Detector",
-            Ports = new Dictionary<string, PortDescription>()
+            PortModels = new Dictionary<string, PortDescription>()
             {
                 {
-                    ShakeDetectorModel_Id, new PortDescription()
+                    ShakeDetector_PortModelId, new PortDescription()
                     {
                         Description = "Shake Detector",
-                        Id = ShakeDetectorModel_Id,
+                        Id = ShakeDetector_PortModelId,
+                        ioDirection=ioPortDirection.Output,
                         Label = "Shake Detector",
                         State = new StateDescription()
                         {
@@ -1573,44 +2183,132 @@ namespace Yodiwo.API.Plegma
             }
         };
 
-        public const string CameraModel_Id = "Camera Feed";
+        // -----------------------
+        // camera model
+        public const string Camera_PortModelId = "Camera Feed";
         public static ThingModelType CameraModel = new ThingModelType
         {
             Name = "Simple Camera",
-            Id = PlegmaAPI.ThingModelTypeDefault,
+            Id = ThingTypeLibrary.CameraDefault_ModelType,
             Description = "Simple Camera",
-            Ports = new Dictionary<string, PortDescription>()
+            PortModels = new Dictionary<string, PortDescription>()
             {
                 {
-                    CameraModel_Id,
+                    Camera_PortModelId,
                     new PortDescription()
                     {
                         Description = "Camera",
-                        Id = CameraModel_Id,
+                        Id = Camera_PortModelId,
+                        ioDirection = ioPortDirection.Output,
                         Label = "Camera",
                         State = new StateDescription()
                         {
-                            Type = ePortType.String,
+                            Type = ePortType.BinaryResourceDescriptor,
                         }
                     }
                 }
             }
         };
 
-        public const string MicrophoneModel_Id = "Microphone";
+        // -----------------------
+        // camera trigger model
+        public const string TriggeredCamera_PortModelId = "Camera trigger";
+        public static ThingModelType TriggeredCameraModel = new ThingModelType
+        {
+            Name = "Simple Camera with trigger",
+            Id = ThingTypeLibrary.CameraTriggered_ModelType,
+            Description = "Simple Camera with trigger",
+            PortModels = new Dictionary<string, PortDescription>()
+            {
+                {
+                    Camera_PortModelId,
+                    new PortDescription()
+                    {
+                        Description = "Camera",
+                        Id = Camera_PortModelId,
+                        ioDirection = ioPortDirection.Output,
+                        Label = "Camera",
+                        State = new StateDescription()
+                        {
+                            Type = ePortType.BinaryResourceDescriptor,
+                        }
+                    }
+                },
+                {
+                    TriggeredCamera_PortModelId,
+                    new PortDescription()
+                    {
+                        Description = "Camera Trigger",
+                        Id = TriggeredCamera_PortModelId,
+                        ioDirection = ioPortDirection.Input,
+                        Label = "Camera Trigger",
+                        State = new StateDescription()
+                        {
+                            Type = ePortType.Boolean,
+                        }
+                    }
+                }
+            }
+        };
+
+        // -----------------------
+        // OnVif camera model
+        public const string OnVifCamera_PortModelId = "OnVifCamera";
+        public static ThingModelType OnVifCameraModel = new ThingModelType
+        {
+            Name = "OnVif Camera",
+            Id = ThingTypeLibrary.CameraOnVif_ModelType,
+            Description = "OnVif Camera",
+            PortModels = new Dictionary<string, PortDescription>()
+            {
+                {
+                    Camera_PortModelId,
+                    new PortDescription()
+                    {
+                        Description = "Camera",
+                        Id = Camera_PortModelId,
+                        ioDirection = ioPortDirection.Output,
+                        Label = "Camera",
+                        State = new StateDescription()
+                        {
+                            Type = ePortType.String,
+                        }
+                    }
+                },
+                {
+                    OnVifCamera_PortModelId,
+                    new PortDescription()
+                    {
+                        Description = "Streaming",
+                        Id = OnVifCamera_PortModelId,
+                        ioDirection = ioPortDirection.Output,
+                        Label = "Streaming",
+                        State = new StateDescription()
+                        {
+                            Type = ePortType.VideoDescriptor,
+                        }
+                    }
+                }
+            }
+        };
+
+        // -----------------------
+        // microphone model
+        public const string Microphone_PortModelId = "Microphone";
         public static ThingModelType MicrophoneModel = new ThingModelType
         {
             Name = "Simple Microphone",
-            Id = PlegmaAPI.ThingModelTypeDefault,
+            Id = ThingTypeLibrary.MicrophoneDefault_ModelType,
             Description = "Simple Microphone",
-            Ports = new Dictionary<string, PortDescription>()
+            PortModels = new Dictionary<string, PortDescription>()
             {
                 {
-                    MicrophoneModel_Id,
+                    Microphone_PortModelId,
                     new PortDescription()
                     {
                         Description = "Microphone",
-                        Id = MicrophoneModel_Id,
+                        Id = Microphone_PortModelId,
+                        ioDirection =ioPortDirection.Output,
                         Label = "Microphone",
                         State = new StateDescription()
                         {
@@ -1621,20 +2319,23 @@ namespace Yodiwo.API.Plegma
             }
         };
 
-        public const string SipPhoneModel_Id = "SipPhone";
+        // -----------------------
+        // sip model
+        public const string SipPhone_PortModelId = "SipPhone";
         public static ThingModelType SipPhoneModel = new ThingModelType
         {
             Name = "Simple SipPhone",
-            Id = PlegmaAPI.ThingModelTypeDefault,
+            Id = ThingTypeLibrary.SipPhoneDefault_ModelType,
             Description = "Simple SipPhone",
-            Ports = new Dictionary<string, PortDescription>()
+            PortModels = new Dictionary<string, PortDescription>()
             {
                 {
-                    SipPhoneModel_Id,
+                    SipPhone_PortModelId,
                     new PortDescription()
                     {
                         Description = "SipPhone",
-                        Id = SipPhoneModel_Id,
+                        Id = SipPhone_PortModelId,
+                        ioDirection =ioPortDirection.Input,
                         Label = "SipPhone",
                         State = new StateDescription()
                         {
@@ -1645,20 +2346,23 @@ namespace Yodiwo.API.Plegma
             }
         };
 
-        public const string SpeechRecognitionModel_Id = "SpeechRecognition";
+        // -----------------------
+        // speech recognition model
+        public const string SpeechRecognition_PortModelId = "SpeechRecognition";
         public static ThingModelType SpeechRecognitionModel = new ThingModelType
         {
             Name = "Simple Speech Recognition",
-            Id = PlegmaAPI.ThingModelTypeDefault,
+            Id = ThingTypeLibrary.SpeechRecognitionDefault_ModelType,
             Description = "Simple SpeechRecognition",
-            Ports = new Dictionary<string, PortDescription>()
+            PortModels = new Dictionary<string, PortDescription>()
             {
                 {
-                    SpeechRecognitionModel_Id,
+                    SpeechRecognition_PortModelId,
                     new PortDescription()
                     {
                         Description = "SpeechRecognition",
-                        Id = SpeechRecognitionModel_Id,
+                        Id = SpeechRecognition_PortModelId,
+                        ioDirection =ioPortDirection.Output,
                         Label = "SpeechRecognition",
                         State = new StateDescription()
                         {
@@ -1669,20 +2373,23 @@ namespace Yodiwo.API.Plegma
             }
         };
 
-        public const string Text2SpeechModel_Id = "Text2Speech";
+        // -----------------------
+        // txt2speech model
+        public const string Text2Speech_PortModelId = "Text2Speech";
         public static ThingModelType Text2SpeechModel = new ThingModelType
         {
             Name = "Simple Text to Speech",
-            Id = PlegmaAPI.ThingModelTypeDefault,
+            Id = ThingTypeLibrary.Text2SpeechDefault_ModelType,
             Description = "Simple Text to Speech",
-            Ports = new Dictionary<string, PortDescription>()
+            PortModels = new Dictionary<string, PortDescription>()
             {
                 {
-                    Text2SpeechModel_Id,
+                    Text2Speech_PortModelId,
                     new PortDescription()
                     {
                         Description = "Text to Speech",
-                        Id = Text2SpeechModel_Id,
+                        Id = Text2Speech_PortModelId,
+                        ioDirection =ioPortDirection.Input,
                         Label = "Text to Speech",
                         State = new StateDescription()
                         {
@@ -1693,20 +2400,23 @@ namespace Yodiwo.API.Plegma
             }
         };
 
-        public const string SoundSensorModel_Id = "SoundSensor";
+        // -----------------------
+        // sound sensor model
+        public const string SoundSensor_PortModelId = "SoundSensor";
         public static ThingModelType SoundSensorModel = new ThingModelType
         {
             Name = "Simple Sound Sensor",
-            Id = PlegmaAPI.ThingModelTypeDefault,
+            Id = ThingTypeLibrary.SoundSensor_ModelType,
             Description = "Simple Sound Sensor",
-            Ports = new Dictionary<string, PortDescription>()
+            PortModels = new Dictionary<string, PortDescription>()
             {
                 {
-                    SoundSensorModel_Id,
+                    SoundSensor_PortModelId,
                     new PortDescription()
                     {
                         Description = "Sound Sensor",
-                        Id = SoundSensorModel_Id,
+                        Id = SoundSensor_PortModelId,
+                        ioDirection =ioPortDirection.Output,
                         Label = "Sound Sensor",
                         State = new StateDescription()
                         {
@@ -1720,20 +2430,23 @@ namespace Yodiwo.API.Plegma
             }
         };
 
-        public const string HumiditySensorModel_Id = "HumiditySensor";
+        // -----------------------
+        // humidity sensor model
+        public const string HumiditySensor_PortModelId = "HumiditySensor";
         public static ThingModelType HumiditySensorModel = new ThingModelType
         {
             Name = "Simple Humidity Sensor",
-            Id = PlegmaAPI.ThingModelTypeDefault,
+            Id = ThingTypeLibrary.HumiditySensor_ModelType,
             Description = "Simple Humidity Sensor",
-            Ports = new Dictionary<string, PortDescription>()
+            PortModels = new Dictionary<string, PortDescription>()
             {
                 {
-                    HumiditySensorModel_Id,
+                    HumiditySensor_PortModelId,
                     new PortDescription()
                     {
                         Description = "Humidity Sensor",
-                        Id = HumiditySensorModel_Id,
+                        Id = HumiditySensor_PortModelId,
+                        ioDirection =ioPortDirection.Output,
                         Label = "Humidity Sensor",
                         State = new StateDescription()
                         {
@@ -1747,20 +2460,23 @@ namespace Yodiwo.API.Plegma
             }
         };
 
-        public const string BuzzerModel_Id = "Buzzer";
+        // -----------------------
+        // buzzer model
+        public const string Buzzer_PortModelId = "Buzzer";
         public static ThingModelType BuzzerModel = new ThingModelType
         {
             Name = "Simple Buzzer",
-            Id = PlegmaAPI.ThingModelTypeDefault,
+            Id = ThingTypeLibrary.BuzzerDefault_ModelType,
             Description = "Buzzer",
-            Ports = new Dictionary<string, PortDescription>()
+            PortModels = new Dictionary<string, PortDescription>()
             {
                 {
-                    BuzzerModel_Id,
+                    Buzzer_PortModelId,
                     new PortDescription()
                     {
                         Description = "Buzzer",
-                        Id = BuzzerModel_Id,
+                        Id = Buzzer_PortModelId,
+                        ioDirection =ioPortDirection.Input,
                         Label = "Buzzer",
                         State = new StateDescription()
                         {
@@ -1773,22 +2489,22 @@ namespace Yodiwo.API.Plegma
             }
         };
 
-        public const string HTSensorModel_TemperatureSensorId = "TemperatureSensor";
-        public const string HTSensorModel_HumiditySensorId = "HumiditySensor";
-
+        // -----------------------
+        // ht sensor model
         public static ThingModelType HTSensorModel = new ThingModelType
         {
-            Name = "Humidity and Temperature Sensor Sensor",
-            Id = PlegmaAPI.ThingModelTypeDefault,
+            Name = "Humidity and Temperature Sensor",
+            Id = ThingTypeLibrary.HTSensor_ModelType,
             Description = "HT Sensor",
-            Ports = new Dictionary<string, PortDescription>()
+            PortModels = new Dictionary<string, PortDescription>()
             {
                 {
-                    HTSensorModel_TemperatureSensorId,
+                    TemperatureSensor_PortModelId,
                     new PortDescription()
                     {
                         Description = "Temperature Sensor",
-                        Id = HTSensorModel_TemperatureSensorId,
+                        Id = TemperatureSensor_PortModelId,
+                        ioDirection =ioPortDirection.Output,
                         Label = "Temperature Sensor",
                         State = new StateDescription()
                         {
@@ -1797,11 +2513,12 @@ namespace Yodiwo.API.Plegma
                     }
                 },
                 {
-                    HTSensorModel_HumiditySensorId,
+                    HumiditySensor_PortModelId,
                     new PortDescription()
                     {
                         Description = "Humidity Sensor",
-                        Id =  HTSensorModel_HumiditySensorId,
+                        Id =  HumiditySensor_PortModelId,
+                        ioDirection =ioPortDirection.Output,
                         Label = "Humidity Sensor",
                         State = new StateDescription()
                         {
@@ -1812,20 +2529,23 @@ namespace Yodiwo.API.Plegma
             }
         };
 
-        public const string TemperatureSensorModel_Id = "Temperature";
+        // -----------------------
+        // temperature sensor model
+        public const string TemperatureSensor_PortModelId = "Temperature";
         public static ThingModelType TemperatureSensorModel = new ThingModelType
         {
-            Name = "Temperature Sensor Sensor",
-            Id = PlegmaAPI.ThingModelTypeDefault,
+            Name = "Temperature Sensor",
+            Id = ThingTypeLibrary.TemperatureSensor_ModelType,
             Description = "Temperature Sensor",
-            Ports = new Dictionary<string, PortDescription>()
+            PortModels = new Dictionary<string, PortDescription>()
             {
                 {
-                    TemperatureSensorModel_Id,
+                    TemperatureSensor_PortModelId,
                     new PortDescription()
                     {
                         Description = "Temperature Sensor",
-                        Id = TemperatureSensorModel_Id,
+                        Id = TemperatureSensor_PortModelId,
+                        ioDirection =ioPortDirection.Output,
                         Label = "Temperature Sensor",
                         State = new StateDescription()
                         {
@@ -1836,20 +2556,23 @@ namespace Yodiwo.API.Plegma
             }
         };
 
-        public const string UltrasonicSensorModel_Id = "UltrasonicSensor";
+        // -----------------------
+        // ultrasonic sensor model
+        public const string UltrasonicSensor_PortModelId = "UltrasonicSensor";
         public static ThingModelType UltrasonicSensorModel = new ThingModelType
         {
             Name = "Simple Ultrasonic Sensor",
-            Id = ThingTypeLibrary.ProximitySensor_UltrasonicModelType,
+            Id = ThingTypeLibrary.ProximityUltrasonicSensor_ModelType,
             Description = "Simple Ultrasonic Sensor",
-            Ports = new Dictionary<string, PortDescription>()
+            PortModels = new Dictionary<string, PortDescription>()
             {
                 {
-                    UltrasonicSensorModel_Id,
+                    UltrasonicSensor_PortModelId,
                     new PortDescription()
                     {
                         Description = "Ultrasonic Sensor",
-                        Id = UltrasonicSensorModel_Id,
+                        Id = UltrasonicSensor_PortModelId,
+                        ioDirection =ioPortDirection.Output,
                         Label = "Ultrasonic Sensor",
                         State = new StateDescription()
                         {
@@ -1863,20 +2586,23 @@ namespace Yodiwo.API.Plegma
             }
         };
 
-        public const string LcdModel_Id = "LCD";
+        // -----------------------
+        // lcd model
+        public const string Lcd_PortModelId = "LCD";
         public static ThingModelType LcdModel = new ThingModelType
         {
             Name = "Simple Lcd",
-            Id = PlegmaAPI.ThingModelTypeDefault,
+            Id = ThingTypeLibrary.LcdDefault_ModelType,
             Description = "Simple Lcd",
-            Ports = new Dictionary<string, PortDescription>()
+            PortModels = new Dictionary<string, PortDescription>()
             {
                 {
-                    LcdModel_Id,
+                    Lcd_PortModelId,
                     new PortDescription()
                     {
                         Description = "Lcd",
-                        Id = LcdModel_Id,
+                        Id = Lcd_PortModelId,
+                        ioDirection =ioPortDirection.Input,
                         Label = "Lcd",
                         State = new StateDescription()
                         {
@@ -1887,20 +2613,23 @@ namespace Yodiwo.API.Plegma
             }
         };
 
-        public const string RelayModel_Id = "Relay";
-        public static ThingModelType RelayModel = new ThingModelType
+        // -----------------------
+        // relay model
+        public const string Relay_PortModelId = "Relay";
+        public static ThingModelType RelayActuatorModel = new ThingModelType
         {
             Name = "Simple Relay",
-            Id = ThingTypeLibrary.SwitchActuator_RelayModelType,
+            Id = ThingTypeLibrary.SwitchActuatorRelay_ModelType,
             Description = "Simple Relay",
-            Ports = new Dictionary<string, PortDescription>()
+            PortModels = new Dictionary<string, PortDescription>()
             {
                 {
-                    RelayModel_Id,
+                    Relay_PortModelId,
                     new PortDescription()
                     {
                         Description = "Relay",
-                        Id = RelayModel_Id ,
+                        Id = Relay_PortModelId ,
+                        ioDirection = ioPortDirection.Output,
                         Label = "Relay",
                         State = new StateDescription()
                         {
@@ -1911,25 +2640,27 @@ namespace Yodiwo.API.Plegma
             }
         };
 
-        public const string GestureSensorModel_TapId = "Tap";
-        public const string GestureSensorModel_TouchId = "Touch";
-        public const string GestureSensorModel_AirwheelId = "Airwheel";
-        public const string GestureSensorModel_DoubleTapId = "DoubleTap";
-        public const string GestureSensorModel_FlickId = "Flick";
-
+        // -----------------------
+        // gesture sensor model
+        public const string GestureSensorTap_PortModelId = "Tap";
+        public const string GestureSensorTouch_PortModelId = "Touch";
+        public const string GestureSensorAirwheel_PortModelId = "Airwheel";
+        public const string GestureSensorDoubleTap_PortModelId = "DoubleTap";
+        public const string GestureSensorFlick_PortModelId = "Flick";
         public static ThingModelType GestureSensorModel = new ThingModelType
         {
             Name = "Simple Gesture Sensor",
-            Id = PlegmaAPI.ThingModelTypeDefault,
+            Id = ThingTypeLibrary.GestureSensor_ModelType,
             Description = "Simple Gesture Sensor",
-            Ports = new Dictionary<string, PortDescription>()
+            PortModels = new Dictionary<string, PortDescription>()
             {
                 {
-                    GestureSensorModel_TapId,
+                    GestureSensorTap_PortModelId,
                     new PortDescription()
                     {
                         Description = "Gesture Sensor",
-                        Id = GestureSensorModel_TapId,
+                        Id = GestureSensorTap_PortModelId,
+                        ioDirection =ioPortDirection.Output,
                         Label = "Gesture Sensor",
                         State = new StateDescription()
                         {
@@ -1938,11 +2669,12 @@ namespace Yodiwo.API.Plegma
                     }
                 },
                 {
-                    GestureSensorModel_TouchId,
+                    GestureSensorTouch_PortModelId,
                     new PortDescription()
                     {
                         Description = "Gesture Sensor",
-                        Id = GestureSensorModel_TouchId,
+                        Id = GestureSensorTouch_PortModelId,
+                        ioDirection =ioPortDirection.Output,
                         Label = "Gesture Sensor",
                         State = new StateDescription()
                         {
@@ -1951,11 +2683,12 @@ namespace Yodiwo.API.Plegma
                     }
                 },
                 {
-                    GestureSensorModel_DoubleTapId,
+                    GestureSensorDoubleTap_PortModelId,
                     new PortDescription()
                     {
                         Description = "Gesture Sensor",
-                        Id = GestureSensorModel_DoubleTapId,
+                        Id = GestureSensorDoubleTap_PortModelId,
+                        ioDirection =ioPortDirection.Output,
                         Label = "Gesture Sensor",
                         State = new StateDescription()
                         {
@@ -1964,11 +2697,12 @@ namespace Yodiwo.API.Plegma
                     }
                 },
                 {
-                    GestureSensorModel_FlickId,
+                    GestureSensorFlick_PortModelId,
                     new PortDescription()
                     {
                         Description = "Gesture Sensor",
-                        Id = GestureSensorModel_FlickId,
+                        Id = GestureSensorFlick_PortModelId,
+                        ioDirection =ioPortDirection.Output,
                         Label = "Gesture Sensor",
                         State = new StateDescription()
                         {
@@ -1977,11 +2711,12 @@ namespace Yodiwo.API.Plegma
                     }
                 },
                 {
-                    GestureSensorModel_AirwheelId,
+                    GestureSensorAirwheel_PortModelId,
                     new PortDescription()
                     {
                         Description = "Gesture Sensor",
-                        Id = GestureSensorModel_AirwheelId,
+                        Id = GestureSensorAirwheel_PortModelId,
+                        ioDirection =ioPortDirection.Output,
                         Label = "Gesture Sensor",
                         State = new StateDescription()
                         {
@@ -1992,22 +2727,25 @@ namespace Yodiwo.API.Plegma
             }
         };
 
-        public const string PositionSensorModel_XId = "X";
-        public const string PositionSensorModel_YId = "Y";
-        public const string PositionSensorModel_ZId = "Z";
+        // -----------------------
+        // position sensor model
+        public const string PositionSensorX_PortModelId = "X";
+        public const string PositionSensorY_PortModelId = "Y";
+        public const string PositionSensorZ_PortModelId = "Z";
         public static ThingModelType PositionSensorModel = new ThingModelType
         {
             Name = "Simple Position Sensor",
-            Id = PlegmaAPI.ThingModelTypeDefault,
+            Id = ThingTypeLibrary.PositionSensor_ModelType,
             Description = "Simple Position Sensor",
-            Ports = new Dictionary<string, PortDescription>()
+            PortModels = new Dictionary<string, PortDescription>()
             {
                 {
-                    PositionSensorModel_XId,
+                    PositionSensorX_PortModelId,
                     new PortDescription()
                     {
                         Description = "Position Sensor",
-                        Id = PositionSensorModel_XId,
+                        Id = PositionSensorX_PortModelId,
+                        ioDirection =ioPortDirection.Output,
                         Label = "Position Sensor",
                         State = new StateDescription()
                         {
@@ -2016,11 +2754,12 @@ namespace Yodiwo.API.Plegma
                     }
                 },
                 {
-                    PositionSensorModel_YId,
+                    PositionSensorY_PortModelId,
                     new PortDescription()
                     {
                         Description = "Position Sensor",
-                        Id = PositionSensorModel_YId,
+                        Id = PositionSensorY_PortModelId,
+                        ioDirection =ioPortDirection.Output,
                         Label = "Position Sensor",
                         State = new StateDescription()
                         {
@@ -2029,11 +2768,12 @@ namespace Yodiwo.API.Plegma
                     }
                 },
                 {
-                    PositionSensorModel_ZId,
+                    PositionSensorZ_PortModelId,
                     new PortDescription()
                     {
                         Description = "Position Sensor",
-                        Id = PositionSensorModel_ZId,
+                        Id = PositionSensorZ_PortModelId,
+                        ioDirection =ioPortDirection.Output,
                         Label = "Position Sensor",
                         State = new StateDescription()
                         {
@@ -2044,21 +2784,115 @@ namespace Yodiwo.API.Plegma
             }
         };
 
-        public const string BeaconDetectorModel_Id = "BeaconDetector";
-        public static ThingModelType BeaconDetectorModel = new ThingModelType
+        // -----------------------
+        // beacon reader model
+        public const string BeaconReaderUuid_PortModelId = "BeaconUUID";
+        public const string BeaconReaderMajorValue_PortModelId = "BeaconMajorValue";
+        public const string BeaconReaderMinorValue_PortModelId = "BeaconMinorValue";
+        public const string BeaconReaderTxPower_PortModelId = "BeaconTxPower";
+        public const string BeaconReaderDistance_PortModelId = "BeaconDistance";
+        public const string BeaconReaderRssi_PortModelId = "BeaconRssi";
+        public const string BeaconReaderTypeCode_PortModelId = "BeaconTypeCode";
+        public const string BeaconReaderTemperature_PortModelId = "BeaconTemperature";
+        public static ThingModelType BeaconReaderModel = new ThingModelType
         {
-            Name = "Simple Beacon Detector",
-            Id = PlegmaAPI.ThingModelTypeDefault,
-            Description = "Simple Beacon Detector",
-            Ports = new Dictionary<string, PortDescription>()
+            Name = "Beacon Reader",
+            Id = ThingTypeLibrary.BeaconReaderDefault_ModelType,
+            Description = "Beacon Reader",
+            PortModels = new Dictionary<string, PortDescription>()
             {
                 {
-                    BeaconDetectorModel_Id,
+                    BeaconReaderUuid_PortModelId,
                     new PortDescription()
                     {
-                        Description = "Beacon Detector",
-                        Id = BeaconDetectorModel_Id,
-                        Label = "Beacon Detector",
+                        Description = "UUID",
+                        Id = BeaconReaderUuid_PortModelId,
+                        ioDirection = ioPortDirection.Output,
+                        Label = "UUID",
+                        State = new StateDescription()
+                        {
+                            Type = ePortType.String,
+                        }
+                    }
+                },
+                {
+                    BeaconReaderMajorValue_PortModelId,
+                    new PortDescription()
+                    {
+                        Description = "Major value",
+                        Id = BeaconReaderMajorValue_PortModelId,
+                        ioDirection = ioPortDirection.Output,
+                        Label = "Major value",
+                        State = new StateDescription()
+                        {
+                            Type = ePortType.String,
+                        }
+                    }
+                },
+                {
+                    BeaconReaderMinorValue_PortModelId,
+                    new PortDescription()
+                    {
+                        Description = "Minor Value",
+                        Id = BeaconReaderMinorValue_PortModelId,
+                        ioDirection =ioPortDirection.Output,
+                        Label = "MinorvValue",
+                        State = new StateDescription()
+                        {
+                            Type = ePortType.String,
+                        }
+                    }
+                },
+                {
+                    BeaconReaderTxPower_PortModelId,
+                    new PortDescription()
+                    {
+                        Description = "Tx Power",
+                        Id = BeaconReaderTxPower_PortModelId,
+                        ioDirection = ioPortDirection.Output,
+                        Label = "Tx Power",
+                        State = new StateDescription()
+                        {
+                            Type = ePortType.String,
+                        }
+                    }
+                },
+                {
+                    BeaconReaderRssi_PortModelId,
+                    new PortDescription()
+                    {
+                        Description = "Rssi",
+                        Id = BeaconReaderRssi_PortModelId,
+                        ioDirection = ioPortDirection.Output,
+                        Label = "Rssi",
+                        State = new StateDescription()
+                        {
+                            Type = ePortType.String,
+                        }
+                    }
+                },
+                {
+                    BeaconReaderDistance_PortModelId,
+                    new PortDescription()
+                    {
+                        Description = "Distance",
+                        Id = BeaconReaderDistance_PortModelId,
+                        ioDirection = ioPortDirection.Output,
+                        Label = "Distance",
+                        State = new StateDescription()
+                        {
+                            Type = ePortType.String,
+                        }
+                    }
+                },
+                {
+                    BeaconReaderTypeCode_PortModelId,
+                    new PortDescription()
+                    {
+                        Description = "Type Code",
+                        Id = BeaconReaderTypeCode_PortModelId,
+                        ioDirection =ioPortDirection.Output,
+                        Label = "Type Code",
                         State = new StateDescription()
                         {
                             Type = ePortType.String,
@@ -2068,23 +2902,147 @@ namespace Yodiwo.API.Plegma
             }
         };
 
-        public const string MagnetometerSensorModel_XId = "X";
-        public const string MagnetometerSensorModel_YId = "Y";
-        public const string MagnetometerSensorModel_ZId = "Z";
+        public static ThingModelType BeaconReaderSensorsModel = new ThingModelType
+        {
+            Name = "Beacon Reader with sensors",
+            Id = ThingTypeLibrary.BeaconReaderSensors_ModelType,
+            Description = "Beacon Reader with sensors",
+            PortModels = new Dictionary<string, PortDescription>()
+            {
+                {
+                    BeaconReaderUuid_PortModelId,
+                    new PortDescription()
+                    {
+                        Description = "UUID",
+                        Id = BeaconReaderUuid_PortModelId,
+                        ioDirection = ioPortDirection.Output,
+                        Label = "UUID",
+                        State = new StateDescription()
+                        {
+                            Type = ePortType.String,
+                        }
+                    }
+                },
+                {
+                    BeaconReaderMajorValue_PortModelId,
+                    new PortDescription()
+                    {
+                        Description = "Major value",
+                        Id = BeaconReaderMajorValue_PortModelId,
+                        ioDirection = ioPortDirection.Output,
+                        Label = "Major value",
+                        State = new StateDescription()
+                        {
+                            Type = ePortType.String,
+                        }
+                    }
+                },
+                {
+                    BeaconReaderMinorValue_PortModelId,
+                    new PortDescription()
+                    {
+                        Description = "Minor Value",
+                        Id = BeaconReaderMinorValue_PortModelId,
+                        ioDirection =ioPortDirection.Output,
+                        Label = "MinorvValue",
+                        State = new StateDescription()
+                        {
+                            Type = ePortType.String,
+                        }
+                    }
+                },
+                {
+                    BeaconReaderTxPower_PortModelId,
+                    new PortDescription()
+                    {
+                        Description = "Tx Power",
+                        Id = BeaconReaderTxPower_PortModelId,
+                        ioDirection = ioPortDirection.Output,
+                        Label = "Tx Power",
+                        State = new StateDescription()
+                        {
+                            Type = ePortType.String,
+                        }
+                    }
+                },
+                {
+                    BeaconReaderRssi_PortModelId,
+                    new PortDescription()
+                    {
+                        Description = "Rssi",
+                        Id = BeaconReaderRssi_PortModelId,
+                        ioDirection = ioPortDirection.Output,
+                        Label = "Rssi",
+                        State = new StateDescription()
+                        {
+                            Type = ePortType.String,
+                        }
+                    }
+                },
+                {
+                    BeaconReaderDistance_PortModelId,
+                    new PortDescription()
+                    {
+                        Description = "Distance",
+                        Id = BeaconReaderDistance_PortModelId,
+                        ioDirection = ioPortDirection.Output,
+                        Label = "Distance",
+                        State = new StateDescription()
+                        {
+                            Type = ePortType.String,
+                        }
+                    }
+                },
+                {
+                    BeaconReaderTypeCode_PortModelId,
+                    new PortDescription()
+                    {
+                        Description = "Type Code",
+                        Id = BeaconReaderTypeCode_PortModelId,
+                        ioDirection =ioPortDirection.Output,
+                        Label = "Type Code",
+                        State = new StateDescription()
+                        {
+                            Type = ePortType.String,
+                        }
+                    }
+                },
+                {
+                    BeaconReaderTemperature_PortModelId,
+                    new PortDescription()
+                    {
+                        Description = "Temperature",
+                        Id = BeaconReaderTemperature_PortModelId,
+                        ioDirection =ioPortDirection.Output,
+                        Label = "Temperature",
+                        State = new StateDescription()
+                        {
+                            Type = ePortType.String,
+                        }
+                    }
+                }
+            }
+        };
 
+        // -----------------------
+        // magnetometer model
+        public const string MagnetometerSensorX_PortModelId = "X";
+        public const string MagnetometerSensorY_PortModelId = "Y";
+        public const string MagnetometerSensorZ_PortModelId = "Z";
         public static ThingModelType MagnetometerSensorModel = new ThingModelType
         {
             Name = "Simple Magnetometer Sensor",
-            Id = PlegmaAPI.ThingModelTypeDefault,
+            Id = ThingTypeLibrary.MagnetometerSensor_ModelType,
             Description = "Simple Magnetometer Sensor",
-            Ports = new Dictionary<string, PortDescription>()
+            PortModels = new Dictionary<string, PortDescription>()
             {
                 {
-                    MagnetometerSensorModel_XId ,
+                    MagnetometerSensorX_PortModelId ,
                     new PortDescription()
                     {
                         Description = "Magnetometer Sensor",
-                        Id = MagnetometerSensorModel_XId ,
+                        Id = MagnetometerSensorX_PortModelId ,
+                        ioDirection =ioPortDirection.Output,
                         Label = "Magnetometer Sensor",
                         State = new StateDescription()
                         {
@@ -2096,11 +3054,12 @@ namespace Yodiwo.API.Plegma
                     }
                 },
                 {
-                    MagnetometerSensorModel_YId ,
+                    MagnetometerSensorY_PortModelId ,
                     new PortDescription()
                     {
                         Description = "Magnetometer Sensor",
-                        Id = MagnetometerSensorModel_YId ,
+                        Id = MagnetometerSensorY_PortModelId ,
+                        ioDirection =ioPortDirection.Output,
                         Label = "Magnetometer Sensor",
                         State = new StateDescription()
                         {
@@ -2112,11 +3071,12 @@ namespace Yodiwo.API.Plegma
                     }
                 },
                 {
-                    MagnetometerSensorModel_ZId ,
+                    MagnetometerSensorZ_PortModelId ,
                     new PortDescription()
                     {
                         Description = "Magnetometer Sensor",
-                        Id = MagnetometerSensorModel_ZId ,
+                        Id = MagnetometerSensorZ_PortModelId ,
+                        ioDirection =ioPortDirection.Output,
                         Label = "Magnetometer Sensor",
                         State = new StateDescription()
                         {
@@ -2130,21 +3090,26 @@ namespace Yodiwo.API.Plegma
             }
         };
 
-        public const string GpioModel_Id = "GPIO";
+        // -----------------------
+        // gpio model
+        public const string Gpio_PortModelId = "GPIO";
+        public const string GpioInput_PortModelId = "InputGPIO";
+        public const string GpioOutput_PortModelId = "OutputGPIO";
         public static ThingModelType GpioModel = new ThingModelType
         {
             Name = "Simple Gpio",
-            Id = PlegmaAPI.ThingModelTypeDefault,
+            Id = ThingTypeLibrary.GpioDefault_ModelType,
             Description = "Simple Gpio",
-            Ports = new Dictionary<string, PortDescription>()
+            PortModels = new Dictionary<string, PortDescription>()
             {
                 {
-                    GpioModel_Id,
+                    Gpio_PortModelId,
                     new PortDescription()
                     {
                         Description = "Gpio",
-                        Id = GpioModel_Id,
+                        Id = Gpio_PortModelId,
                         Label = "Gpio",
+                        ioDirection = ioPortDirection.InputOutput,
                         State = new StateDescription()
                         {
                             Type = ePortType.Boolean,
@@ -2154,21 +3119,21 @@ namespace Yodiwo.API.Plegma
             }
         };
 
-        public const string TextIO_Id = "Text";
-        public static ThingModelType TextIO = new ThingModelType
+        public static ThingModelType GpioInputModel = new ThingModelType
         {
-            Name = "Text Input and Output",
-            Id = PlegmaAPI.ThingModelTypeDefault,
-            Description = "Text IN OUT",
-            Ports = new Dictionary<string, PortDescription>()
+            Name = "Simple Gpio",
+            Id = ThingTypeLibrary.GpioInput_ModelType,
+            Description = "Simple Gpio",
+            PortModels = new Dictionary<string, PortDescription>()
             {
                 {
-                    TextIO_Id,
+                    GpioInput_PortModelId,
                     new PortDescription()
                     {
-                        Description = "Text",
-                        Id = TextIO_Id,
-                        Label = "Text",
+                        Description = "Gpio",
+                        Id = GpioInput_PortModelId,
+                        Label = "Gpio",
+                        ioDirection = ioPortDirection.Input,
                         State = new StateDescription()
                         {
                             Type = ePortType.Boolean,
@@ -2178,20 +3143,47 @@ namespace Yodiwo.API.Plegma
             }
         };
 
-        public const string AndroidIntentModel_Id = "AndroidIntent";
+        public static ThingModelType GpioOutputModel = new ThingModelType
+        {
+            Name = "Simple Gpio",
+            Id = ThingTypeLibrary.GpioOutput_ModelType,
+            Description = "Simple Gpio",
+            PortModels = new Dictionary<string, PortDescription>()
+            {
+                {
+                    GpioOutput_PortModelId,
+                    new PortDescription()
+                    {
+                        Description = "Gpio",
+                        Id = GpioOutput_PortModelId,
+                        Label = "Gpio",
+                        ioDirection = ioPortDirection.Output,
+                        State = new StateDescription()
+                        {
+                            Type = ePortType.Boolean,
+                        }
+                    }
+                }
+            }
+        };
+
+        // -----------------------
+        // android intent model
+        public const string AndroidIntent_PortModelId = "AndroidIntent";
         public static ThingModelType AndroidIntentModel = new ThingModelType
         {
             Name = "Simple Android Intent",
-            Id = PlegmaAPI.ThingModelTypeDefault,
+            Id = ThingTypeLibrary.AndroidIntentDefault_ModelType,
             Description = "Simple Android Intent",
-            Ports = new Dictionary<string, PortDescription>()
+            PortModels = new Dictionary<string, PortDescription>()
             {
                 {
-                    AndroidIntentModel_Id,
+                    AndroidIntent_PortModelId,
                     new PortDescription()
                     {
                         Description = "Android Intent",
-                        Id = AndroidIntentModel_Id,
+                        Id = AndroidIntent_PortModelId,
+                        ioDirection=ioPortDirection.Input,
                         Label = "Android Intent",
                         State = new StateDescription()
                         {
@@ -2202,21 +3194,23 @@ namespace Yodiwo.API.Plegma
             }
         };
 
-
-        public const string FleetMgrModel_Id = "Coordinates";
+        // -----------------------
+        // fleet mgr model
+        public const string FleetMgr_PortModelId = "FleetMgr";
         public static ThingModelType FleetMgrModel = new ThingModelType
         {
             Name = "Fleet Manager Info",
-            Id = PlegmaAPI.ThingModelTypeDefault,
+            Id = ThingTypeLibrary.FleetMgrDefault_ModelType,
             Description = "Fleet Manager Info",
-            Ports = new Dictionary<string, PortDescription>()
+            PortModels = new Dictionary<string, PortDescription>()
             {
                 {
-                    AndroidIntentModel_Id,
+                    FleetMgr_PortModelId,
                     new PortDescription()
                     {
                         Description = "Fleet Manager Info",
-                        Id = AndroidIntentModel_Id,
+                        Id = FleetMgr_PortModelId,
+                        ioDirection = ioPortDirection.Input,
                         Label = "Fleet Manager Info",
                         State = new StateDescription()
                         {
@@ -2227,73 +3221,343 @@ namespace Yodiwo.API.Plegma
             }
         };
 
+        // -----------------------
+        // displayer model
+        public const string Displayer_PortModelId = "Displayer";
+        public static ThingModelType DisplayerModel = new ThingModelType
+        {
+            Name = "Displayer",
+            Id = ThingTypeLibrary.DisplayerDefault_ModelType,
+            Description = "Displayer",
+            PortModels = new Dictionary<string, PortDescription>()
+            {
+                {
+                    Displayer_PortModelId,
+                    new PortDescription()
+                    {
+                        Description = "Displayer",
+                        Id = Displayer_PortModelId,
+                        ioDirection = ioPortDirection.Input,
+                        Label = "Displayer",
+                        State = new StateDescription()
+                        {
+                            Type = ePortType.String,
+                        }
+                    }
+                }
+            }
+        };
+
+        // -----------------------
+        // gallery model
+        public const string Gallery_PortModelId = "Gallery";
+        public static ThingModelType GalleryModel = new ThingModelType
+        {
+            Name = "Gallery",
+            Id = ThingTypeLibrary.GalleryDefault_ModelType,
+            Description = "Gallery",
+            PortModels = new Dictionary<string, PortDescription>()
+            {
+                {
+                    Gallery_PortModelId,
+                    new PortDescription()
+                    {
+                        Description = "Gallery",
+                        Id = Gallery_PortModelId,
+                        ioDirection = ioPortDirection.Input,
+                        Label = "Gallery",
+                        State = new StateDescription()
+                        {
+                            Type = ePortType.String,
+                        }
+                    }
+                }
+            }
+        };
+
+        // -----------------------
+        //  flickr model
+        public const string Flickr_PortModelId = "Flickr";
+        public static ThingModelType FlickrModel = new ThingModelType
+        {
+            Name = "Flickr",
+            Id = ThingTypeLibrary.FlickrDefault_ModelType,
+            Description = "Flickr",
+            PortModels = new Dictionary<string, PortDescription>()
+            {
+                {
+                    Flickr_PortModelId,
+                    new PortDescription()
+                    {
+                        Description = "Flickr",
+                        Id = Flickr_PortModelId,
+                        ioDirection = ioPortDirection.Input,
+                        Label = "Flickr",
+                        State = new StateDescription()
+                        {
+                            Type = ePortType.String,
+                        }
+                    }
+                }
+            }
+        };
+
+        // -----------------------
+        // Region viewer model
+        public const string RegionViewer_PortModelId = "RegionViewer";
+        public static ThingModelType RegionViewerModel = new ThingModelType
+        {
+            Name = "RegionViewer",
+            Id = ThingTypeLibrary.RegionViewerDefault_ModelType,
+            Description = "RegionViewer",
+            PortModels = new Dictionary<string, PortDescription>()
+            {
+                {
+                    RegionViewer_PortModelId,
+                    new PortDescription()
+                    {
+                        Description = "RegionViewer",
+                        Id = RegionViewer_PortModelId,
+                        ioDirection = ioPortDirection.Input,
+                        Label = "RegionViewer",
+                        State = new StateDescription()
+                        {
+                            Type = ePortType.String,
+                        }
+                    }
+                }
+            }
+        };
+
+        // -----------------------
+        // Doorlock sensor model
+        public const string DoorlockSensor_PortModelId = "Doorlock sensor";
+        public static ThingModelType DoorlockSensorModel = new ThingModelType
+        {
+            Name = "Doorlock sensor",
+            Id = ThingTypeLibrary.DoorlockSensor_ModelType,
+            Description = "Doorlock sensor",
+            PortModels = new Dictionary<string, PortDescription>()
+            {
+                {
+                    DoorlockSensor_PortModelId,
+                    new PortDescription()
+                    {
+                        Description = "Doorlock sensor",
+                        Id = DoorlockSensor_PortModelId,
+                        ioDirection =ioPortDirection.Input,
+                        Label = "Doorlock sensor",
+                        State = new StateDescription()
+                        {
+                            Type = ePortType.Boolean,
+                        }
+                    }
+                }
+            }
+        };
+
+        // -----------------------
+        // door sensor model
+        public const string AirConditionSensor_PortModelId = "Air condition sensor";
+        public static ThingModelType AirConditionSensorModel = new ThingModelType
+        {
+            Name = "Air condition sensor",
+            Id = ThingTypeLibrary.AirConditionSensor_ModelType,
+            Description = "Air condition sensor",
+            PortModels = new Dictionary<string, PortDescription>()
+            {
+                {
+                    AirConditionSensor_PortModelId,
+                    new PortDescription()
+                    {
+                        Description = "Air condition sensor",
+                        Id = AirConditionSensor_PortModelId,
+                        ioDirection =ioPortDirection.InputOutput,
+                        Label = "Air condition sensor",
+                        State = new StateDescription()
+                        {
+                            Type = ePortType.String,
+                        }
+                    }
+                }
+            }
+        };
+
+        // -----------------------
+        // door sensor model
+        public const string DoorSensor_PortModelId = "Door sensor";
+        public static ThingModelType DoorSensorModel = new ThingModelType
+        {
+            Name = "Door sensor",
+            Id = ThingTypeLibrary.DoorSensor_ModelType,
+            Description = "Door sensor",
+            PortModels = new Dictionary<string, PortDescription>()
+            {
+                {
+                    DoorSensor_PortModelId,
+                    new PortDescription()
+                    {
+                        Description = "Door sensor",
+                        Id = DoorSensor_PortModelId,
+                        ioDirection =ioPortDirection.Output,
+                        Label = "Door sensor",
+                        State = new StateDescription()
+                        {
+                            Type = ePortType.Boolean,
+                        }
+                    }
+                }
+            }
+        };
+
+        // -----------------------
+        // Smart plug sensor model
+        public const string SmartPlugSensor_PortModelId = "Smart plug sensor";
+        public static ThingModelType SmartPlugSensorModel = new ThingModelType
+        {
+            Name = "Smart plug sensor",
+            Id = ThingTypeLibrary.SmartPlugSensor_ModelType,
+            Description = "Smart plug sensor",
+            PortModels = new Dictionary<string, PortDescription>()
+            {
+                {
+                    SmartPlugSensor_PortModelId,
+                    new PortDescription()
+                    {
+                        Description = "Smart plug sensor",
+                        Id = SmartPlugSensor_PortModelId,
+                        ioDirection =ioPortDirection.Input,
+                        Label = "Smart plug sensor",
+                        State = new StateDescription()
+                        {
+                            Type = ePortType.Boolean,
+                        }
+                    }
+                }
+            }
+        };
+
+        // -----------------------
+        // Z-Wave sensor model
+        public const string ZWaveSensor_PortModelId = "ZWave sensor";
+        public static ThingModelType ZWaveSensorModel = new ThingModelType
+        {
+            Name = "ZWave sensor",
+            Id = ThingTypeLibrary.ZWaveSensor_ModelType,
+            Description = "ZWave sensor",
+            PortModels = new Dictionary<string, PortDescription>()
+            {
+                {
+                    ZWaveSensor_PortModelId,
+                    new PortDescription()
+                    {
+                        Description = "ZWave sensor",
+                        Id = ZWaveSensor_PortModelId,
+                        ioDirection =ioPortDirection.Undefined,
+                        Label = "ZWave sensor",
+                        State = new StateDescription()
+                        {
+                            Type = ePortType.Undefined,
+                        }
+                    }
+                }
+            }
+        };
+
+        // -----------------------
+        // data plotter model
+        public const string DataPlotter_PortModelId = "DataPlotter";
+        public static ThingModelType DataPlotterModel = new ThingModelType
+        {
+            Name = "Data Plotter",
+            Id = ThingTypeLibrary.DataPlotterDefault_ModelType,
+            Description = "Data Plotter",
+            PortModels = new Dictionary<string, PortDescription>()
+            {
+                {
+                    DataPlotter_PortModelId,
+                    new PortDescription()
+                    {
+                        Description = "Data Plotter",
+                        Id = DataPlotter_PortModelId,
+                        ioDirection = ioPortDirection.Output,
+                        Label = "Data Plotter",
+                        State = new StateDescription()
+                        {
+                            Type = ePortType.String,
+                        }
+                    }
+                }
+            }
+        };
         #endregion
     }
 
+    // ---------------------------------------------------------------------------------------------
 
     public static class ThingTypesMigrator
     {
         public static Dictionary<string, string> OldTypeToNewType = new Dictionary<string, string>()
         {
-            { "com.yodiwo.input.lights.dimmable", ThingTypeLibrary.Lights_Type + PlegmaAPI.ThingModelTypeSeparator + ThingTypeLibrary.Lights_DimmerModelType },
-            { "com.yodiwo.input.console", ThingTypeLibrary.TextIn_Type + PlegmaAPI.ThingModelTypeSeparatorPlusDefault },
-            { "com.yodiwo.input.text", ThingTypeLibrary.TextIn_Type + PlegmaAPI.ThingModelTypeSeparatorPlusDefault },
-            { "com.yodiwo.output.seekbars", ThingTypeLibrary.Slider_Type + PlegmaAPI.ThingModelTypeSeparatorPlusDefault },
+            { "com.yodiwo.input.lights.dimmable", ThingTypeLibrary.Lights_Type + PlegmaAPI.ThingModelTypeSeparator + ThingTypeLibrary.LightsDimmer_ModelType },
+            { "com.yodiwo.input.console", ThingTypeLibrary.Text_Type + PlegmaAPI.ThingModelTypeSeparator + ThingTypeLibrary.TextConsole_ModelType },
+            { "com.yodiwo.input.text", ThingTypeLibrary.Text_Type + PlegmaAPI.ThingModelTypeSeparator + ThingTypeLibrary.TextConsole_ModelType },
+            { "com.yodiwo.output.seekbars", ThingTypeLibrary.Seekbar_Type + PlegmaAPI.ThingModelTypeSeparatorPlusDefault },
             { "yodiwo.output.camera", ThingTypeLibrary.Camera_Type + PlegmaAPI.ThingModelTypeSeparatorPlusDefault },
-            { "yodiwo.inputoutput.text", ThingTypeLibrary.TextIO_Type + PlegmaAPI.ThingModelTypeSeparatorPlusDefault },
-            { "yodiwo.input.lights.dimmable", ThingTypeLibrary.Lights_Type + PlegmaAPI.ThingModelTypeSeparator + ThingTypeLibrary.Lights_DimmerModelType },
-            { "yodiwo.output.seekbars", ThingTypeLibrary.Slider_Type + PlegmaAPI.ThingModelTypeSeparatorPlusDefault },
+            { "yodiwo.inputoutput.text", ThingTypeLibrary.Text_Type + PlegmaAPI.ThingModelTypeSeparatorPlusDefault },
+            { "yodiwo.input.lights.dimmable", ThingTypeLibrary.Lights_Type + PlegmaAPI.ThingModelTypeSeparator + ThingTypeLibrary.LightsDimmer_ModelType },
+            { "yodiwo.output.seekbars", ThingTypeLibrary.Seekbar_Type + PlegmaAPI.ThingModelTypeSeparatorPlusDefault },
             { "yodiwo.output.buttons", ThingTypeLibrary.Button_Type + PlegmaAPI.ThingModelTypeSeparatorPlusDefault },
             { "com.yodiwo.output.buttons", ThingTypeLibrary.Button_Type + PlegmaAPI.ThingModelTypeSeparatorPlusDefault },
             { "yodiwo.output.microphones", ThingTypeLibrary.Microphone_Type + PlegmaAPI.ThingModelTypeSeparatorPlusDefault },
             { "yodiwo.output.lcds", ThingTypeLibrary.Lcd_Type + PlegmaAPI.ThingModelTypeSeparatorPlusDefault },
-            { "com.yodiwo.output.sensors.light", ThingTypeLibrary.LightSensor_Type + PlegmaAPI.ThingModelTypeSeparator + ThingTypeLibrary.LightSensor_NonNormalizedModelType },
+            { "com.yodiwo.output.sensors.light", ThingTypeLibrary.LightSensor_ModelType + PlegmaAPI.ThingModelTypeSeparator + ThingTypeLibrary.LightSensorNonNormalized_ModelType },
             { "com.yodiwo.input.androidintent", ThingTypeLibrary.AndroidIntent_Type + PlegmaAPI.ThingModelTypeSeparatorPlusDefault },
-            { "com.yodiwo.input.leds.dimmable", ThingTypeLibrary.Lights_Type + PlegmaAPI.ThingModelTypeSeparator + ThingTypeLibrary.Lights_DimmerModelType },
-            { "com.yodiwo.output.sensors.rotation", ThingTypeLibrary.RotationEulerSensor_Type + PlegmaAPI.ThingModelTypeSeparatorPlusDefault },
+            { "com.yodiwo.input.leds.dimmable", ThingTypeLibrary.Lights_Type + PlegmaAPI.ThingModelTypeSeparator + ThingTypeLibrary.LightsDimmer_ModelType },
+            { "com.yodiwo.output.sensors.rotation", ThingTypeLibrary.RotationEulerSensor_ModelType + PlegmaAPI.ThingModelTypeSeparatorPlusDefault },
             { "com.yodiwo.output.beacon", ThingTypeLibrary.BeaconDetector + PlegmaAPI.ThingModelTypeSeparatorPlusDefault },
             { "com.yodiwo.input.lcds", ThingTypeLibrary.Lcd_Type + PlegmaAPI.ThingModelTypeSeparatorPlusDefault },
-            { "com.yodiwo.input.torches", ThingTypeLibrary.Lights_Type + PlegmaAPI.ThingModelTypeSeparator + ThingTypeLibrary.Lights_BooleanModelType },
+            { "com.yodiwo.input.torches", ThingTypeLibrary.Lights_Type + PlegmaAPI.ThingModelTypeSeparator + ThingTypeLibrary.LightsBoolean_ModelType },
             { "com.yodiwo.output.nfc", ThingTypeLibrary.Nfc_Type + PlegmaAPI.ThingModelTypeSeparatorPlusDefault },
-            { "com.yodiwo.output.sensors.proximity", ThingTypeLibrary.ProximitySensor_Type + PlegmaAPI.ThingModelTypeSeparatorPlusDefault },
-            { "com.yodiwo.output.sensors.gyroscope", ThingTypeLibrary.GyroscopeSensor_Type + PlegmaAPI.ThingModelTypeSeparatorPlusDefault },
-            { "com.yodiwo.input.seekbars", ThingTypeLibrary.Progressbar_Type + PlegmaAPI.ThingModelTypeSeparatorPlusDefault },
-            { "com.yodiwo.output.checkboxes", ThingTypeLibrary.SwitchActuator_Type + PlegmaAPI.ThingModelTypeSeparatorPlusDefault },
-            { "yodiwo.output.checkboxes", ThingTypeLibrary.SwitchActuator_Type + PlegmaAPI.ThingModelTypeSeparatorPlusDefault },
-            { "com.yodiwo.output.switches.onoff", ThingTypeLibrary.SwitchActuator_Type + PlegmaAPI.ThingModelTypeSeparatorPlusDefault },
+            { "com.yodiwo.output.sensors.proximity", ThingTypeLibrary.ProximitySensor_ModelType + PlegmaAPI.ThingModelTypeSeparatorPlusDefault },
+            { "com.yodiwo.output.sensors.gyroscope", ThingTypeLibrary.GyroscopeSensor_ModelType + PlegmaAPI.ThingModelTypeSeparatorPlusDefault },
+            { "com.yodiwo.input.seekbars", ThingTypeLibrary.Seekbar_Type + PlegmaAPI.ThingModelTypeSeparator + ThingTypeLibrary.SeekbarProgressbar_ModelType },
+            { "com.yodiwo.output.checkboxes", ThingTypeLibrary.SwitchActuator_ModelType + PlegmaAPI.ThingModelTypeSeparatorPlusDefault },
+            { "yodiwo.output.checkboxes", ThingTypeLibrary.SwitchActuator_ModelType + PlegmaAPI.ThingModelTypeSeparatorPlusDefault },
+            { "com.yodiwo.output.switches.onoff", ThingTypeLibrary.SwitchActuator_ModelType + PlegmaAPI.ThingModelTypeSeparatorPlusDefault },
             { "com.yodiwo.input.switches.onoff", ThingTypeLibrary.Switch_Type + PlegmaAPI.ThingModelTypeSeparatorPlusDefault },
-            { "yodiwo.output.switches.onoff", ThingTypeLibrary.SwitchActuator_Type + PlegmaAPI.ThingModelTypeSeparatorPlusDefault },
+            { "yodiwo.output.switches.onoff", ThingTypeLibrary.SwitchActuator_ModelType + PlegmaAPI.ThingModelTypeSeparatorPlusDefault },
             { "yodiwo.input.switches.onoff", ThingTypeLibrary.Switch_Type + PlegmaAPI.ThingModelTypeSeparatorPlusDefault },
             { "com.yodiwo.inputoutput.gpios", ThingTypeLibrary.Gpio_Type + PlegmaAPI.ThingModelTypeSeparatorPlusDefault },
             { "com.yodiwo.input.buzzers", ThingTypeLibrary.Buzzer_Type + PlegmaAPI.ThingModelTypeSeparatorPlusDefault },
-            { "com.yodiwo.input.lights.onoff", ThingTypeLibrary.Lights_Type + PlegmaAPI.ThingModelTypeSeparator + ThingTypeLibrary.Lights_BooleanModelType },
-            { "com.yodiwo.output.sensors.sound", ThingTypeLibrary.SoundSensor_Type + PlegmaAPI.ThingModelTypeSeparator + ThingTypeLibrary.Lights_BooleanModelType },
-            { "yodiwo.output.sensors.position", ThingTypeLibrary.PositionSensor_Type + PlegmaAPI.ThingModelTypeSeparatorPlusDefault },
-            { "yodiwo.output.gesture", ThingTypeLibrary.GestureSensor_Type + PlegmaAPI.ThingModelTypeSeparator + ThingTypeLibrary.Lights_BooleanModelType },
-            { "com.yodiwo.output.shakedetectors", ThingTypeLibrary.ShakeDetector_Type + PlegmaAPI.ThingModelTypeSeparatorPlusDefault },
-            { "com.yodiwo.output.text", ThingTypeLibrary.TextOut_Type + PlegmaAPI.ThingModelTypeSeparatorPlusDefault },
-            { "bulb", ThingTypeLibrary.Lights_Type + PlegmaAPI.ThingModelTypeSeparator + ThingTypeLibrary.Lights_DimmerModelType },
-            { "slider", ThingTypeLibrary.Slider_Type + PlegmaAPI.ThingModelTypeSeparatorPlusDefault },
-            { "yodiwo.input.console", ThingTypeLibrary.TextIn_Type + PlegmaAPI.ThingModelTypeSeparatorPlusDefault  },
-            { "yodiwo.input.text", ThingTypeLibrary.TextIn_Type + PlegmaAPI.ThingModelTypeSeparatorPlusDefault },
-            { "yodiwo.input.webconsole", ThingTypeLibrary.TextIn_Type + PlegmaAPI.ThingModelTypeSeparatorPlusDefault },
-            { "yodiwo.output.slider", ThingTypeLibrary.Slider_Type + PlegmaAPI.ThingModelTypeSeparatorPlusDefault },
+            { "com.yodiwo.input.lights.onoff", ThingTypeLibrary.Lights_Type + PlegmaAPI.ThingModelTypeSeparator + ThingTypeLibrary.LightsBoolean_ModelType },
+            { "com.yodiwo.output.sensors.sound", ThingTypeLibrary.SoundSensor_ModelType + PlegmaAPI.ThingModelTypeSeparator + ThingTypeLibrary.LightsBoolean_ModelType },
+            { "yodiwo.output.sensors.position", ThingTypeLibrary.PositionSensor_ModelType + PlegmaAPI.ThingModelTypeSeparatorPlusDefault },
+            { "yodiwo.output.gesture", ThingTypeLibrary.GestureSensor_ModelType + PlegmaAPI.ThingModelTypeSeparator + ThingTypeLibrary.LightsBoolean_ModelType },
+            { "com.yodiwo.output.shakedetectors", ThingTypeLibrary.Sensor_Type + PlegmaAPI.ThingModelTypeSeparator + ThingTypeLibrary.ShakeDetectorSensor_ModelType },
+            { "com.yodiwo.output.text", ThingTypeLibrary.Text_Type + PlegmaAPI.ThingModelTypeSeparatorPlusDefault },
+            { "bulb", ThingTypeLibrary.Lights_Type + PlegmaAPI.ThingModelTypeSeparator + ThingTypeLibrary.LightsDimmer_ModelType },
+            { "slider", ThingTypeLibrary.Seekbar_Type + PlegmaAPI.ThingModelTypeSeparatorPlusDefault },
+            { "yodiwo.input.console", ThingTypeLibrary.Text_Type + PlegmaAPI.ThingModelTypeSeparator + ThingTypeLibrary.TextConsole_ModelType  },
+            { "yodiwo.input.text", ThingTypeLibrary.Text_Type + PlegmaAPI.ThingModelTypeSeparator + ThingTypeLibrary.TextConsole_ModelType },
+            { "yodiwo.input.webconsole", ThingTypeLibrary.Text_Type + PlegmaAPI.ThingModelTypeSeparator + ThingTypeLibrary.TextConsole_ModelType },
+            { "yodiwo.output.slider", ThingTypeLibrary.Seekbar_Type + PlegmaAPI.ThingModelTypeSeparatorPlusDefault },
             { "yodiwo.output.speechrecognition", ThingTypeLibrary.SpeechRecognition_Type + PlegmaAPI.ThingModelTypeSeparatorPlusDefault },
             { "yodiwo.input.text2speech", ThingTypeLibrary.Text2Speech_Type + PlegmaAPI.ThingModelTypeSeparatorPlusDefault },
-            { "yodiwo.output.accelerometer", ThingTypeLibrary.AccelerometerSensor_Type + PlegmaAPI.ThingModelTypeSeparatorPlusDefault },
+            { "yodiwo.output.accelerometer", ThingTypeLibrary.AccelerometerSensor_ModelType + PlegmaAPI.ThingModelTypeSeparatorPlusDefault },
             { "yodiwo.output.nfc", ThingTypeLibrary.Nfc_Type + PlegmaAPI.ThingModelTypeSeparatorPlusDefault },
-            { "yodiwo.output.sensors.proximity", ThingTypeLibrary.ProximitySensor_Type + PlegmaAPI.ThingModelTypeSeparatorPlusDefault },
-            { "yodiwo.input.leds.dimmable", ThingTypeLibrary.Lights_Type + PlegmaAPI.ThingModelTypeSeparator + ThingTypeLibrary.Lights_DimmerModelType },
-            { "yodiwo.input.seekbars", ThingTypeLibrary.Progressbar_Type + PlegmaAPI.ThingModelTypeSeparatorPlusDefault },
+            { "yodiwo.output.sensors.proximity", ThingTypeLibrary.ProximitySensor_ModelType + PlegmaAPI.ThingModelTypeSeparatorPlusDefault },
+            { "yodiwo.input.leds.dimmable", ThingTypeLibrary.Lights_Type + PlegmaAPI.ThingModelTypeSeparator + ThingTypeLibrary.LightsDimmer_ModelType },
+            { "yodiwo.input.seekbars", ThingTypeLibrary.Seekbar_Type + PlegmaAPI.ThingModelTypeSeparator + ThingTypeLibrary.SeekbarProgressbar_ModelType},
             { "yodiwo.input.androidintent", ThingTypeLibrary.AndroidIntent_Type + PlegmaAPI.ThingModelTypeSeparatorPlusDefault },
-            { "yodiwo.output.sensors.gyroscope", ThingTypeLibrary.GyroscopeSensor_Type + PlegmaAPI.ThingModelTypeSeparatorPlusDefault },
+            { "yodiwo.output.sensors.gyroscope", ThingTypeLibrary.GyroscopeSensor_ModelType + PlegmaAPI.ThingModelTypeSeparatorPlusDefault },
             { "yodiwo.input.lcds", ThingTypeLibrary.Lcd_Type + PlegmaAPI.ThingModelTypeSeparatorPlusDefault },
-            { "yodiwo.output.sensors.rotation", ThingTypeLibrary.RotationEulerSensor_Type + PlegmaAPI.ThingModelTypeSeparatorPlusDefault },
-            { "yodiwo.output.sensors.light", ThingTypeLibrary.LightSensor_Type + PlegmaAPI.ThingModelTypeSeparator + ThingTypeLibrary.LightSensor_NonNormalizedModelType },
-            { "yodiwo.input.torches", ThingTypeLibrary.Lights_Type + PlegmaAPI.ThingModelTypeSeparator + ThingTypeLibrary.Lights_BooleanModelType },
-            { "yodiwo.output.text", ThingTypeLibrary.TextOut_Type + PlegmaAPI.ThingModelTypeSeparatorPlusDefault },
-            { "com.yodiwo.output.sensors.enviromental", ThingTypeLibrary.HTSensor_Type + PlegmaAPI.ThingModelTypeSeparatorPlusDefault },
-            { "com.yodiwo.output.sensors.ultrasonic", ThingTypeLibrary.ProximitySensor_Type + PlegmaAPI.ThingModelTypeSeparator + ThingTypeLibrary.ProximitySensor_UltrasonicModelType },
+            { "yodiwo.output.sensors.rotation", ThingTypeLibrary.RotationEulerSensor_ModelType + PlegmaAPI.ThingModelTypeSeparatorPlusDefault },
+            { "yodiwo.output.sensors.light", ThingTypeLibrary.LightSensor_ModelType + PlegmaAPI.ThingModelTypeSeparator + ThingTypeLibrary.LightSensorNonNormalized_ModelType },
+            { "yodiwo.input.torches", ThingTypeLibrary.Lights_Type + PlegmaAPI.ThingModelTypeSeparator + ThingTypeLibrary.LightsBoolean_ModelType },
+            { "yodiwo.output.text", ThingTypeLibrary.Text_Type + PlegmaAPI.ThingModelTypeSeparatorPlusDefault },
+            { "com.yodiwo.output.sensors.enviromental", ThingTypeLibrary.HTSensor_ModelType + PlegmaAPI.ThingModelTypeSeparatorPlusDefault },
+            { "com.yodiwo.output.sensors.ultrasonic", ThingTypeLibrary.ProximitySensor_ModelType + PlegmaAPI.ThingModelTypeSeparator + ThingTypeLibrary.ProximityUltrasonicSensor_ModelType },
             { "yahooweather:weather", "org.openhab.yahooweather.weather" },
             { "hue:bridge", "org.openhab.hue.bridge" },
             { "hue:LWB004", "org.openhab.hue.LWB004" },
