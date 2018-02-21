@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yodiwo.mNode", "mNodeCore\mNode\Yodiwo.mNode.csproj", "{A6763BAE-9AEC-4ABA-A4D1-66D0058E2481}"
 EndProject
@@ -37,9 +37,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yodiwo.mNode.Plugins.Integr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yodiwo.mNode.Plugins.Bridge_SerialPort", "Plugins\SerialPort\Yodiwo.mNode.Plugins.Bridge_SerialPort.csproj", "{7F17BD2D-9F8D-4199-BE4B-E9FF4B8CB317}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yodiwo.mNode.Plugins.Bridge_ZWave", "Plugins\ZWave\Yodiwo.mNode.Plugins.Bridge_ZWave.csproj", "{43397D02-F52F-4BB7-8BB6-9F80C6C3A729}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yodiwo.mNode.Plugins.CPP", "Plugins\CPP\CSharp\Yodiwo.mNode.Plugins.CPP.csproj", "{E048128E-718B-411B-8B43-3215028EE940}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yodiwo.mNode.Plugins.Bridge_OZWave", "Plugins\OpenZWave\Yodiwo.mNode.Plugins.Bridge_OZWave.csproj", "{ADE32038-C574-4E89-AD38-CB7499539814}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -107,14 +107,14 @@ Global
 		{7F17BD2D-9F8D-4199-BE4B-E9FF4B8CB317}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F17BD2D-9F8D-4199-BE4B-E9FF4B8CB317}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7F17BD2D-9F8D-4199-BE4B-E9FF4B8CB317}.Release|Any CPU.Build.0 = Release|Any CPU
-		{43397D02-F52F-4BB7-8BB6-9F80C6C3A729}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{43397D02-F52F-4BB7-8BB6-9F80C6C3A729}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{43397D02-F52F-4BB7-8BB6-9F80C6C3A729}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{43397D02-F52F-4BB7-8BB6-9F80C6C3A729}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E048128E-718B-411B-8B43-3215028EE940}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E048128E-718B-411B-8B43-3215028EE940}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E048128E-718B-411B-8B43-3215028EE940}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E048128E-718B-411B-8B43-3215028EE940}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ADE32038-C574-4E89-AD38-CB7499539814}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADE32038-C574-4E89-AD38-CB7499539814}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ADE32038-C574-4E89-AD38-CB7499539814}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ADE32038-C574-4E89-AD38-CB7499539814}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -134,7 +134,10 @@ Global
 		{94F4CE90-200F-40CE-BF83-E15D147924F7} = {FB615106-569F-4B4B-9B53-6069A9CDCCF8}
 		{E2298E17-B87D-42E9-B86E-E99284D3BE99} = {2D7FB04C-5D9A-467D-B524-F06A6F80F375}
 		{7F17BD2D-9F8D-4199-BE4B-E9FF4B8CB317} = {2D7FB04C-5D9A-467D-B524-F06A6F80F375}
-		{43397D02-F52F-4BB7-8BB6-9F80C6C3A729} = {2D7FB04C-5D9A-467D-B524-F06A6F80F375}
 		{E048128E-718B-411B-8B43-3215028EE940} = {2D7FB04C-5D9A-467D-B524-F06A6F80F375}
+		{ADE32038-C574-4E89-AD38-CB7499539814} = {2D7FB04C-5D9A-467D-B524-F06A6F80F375}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FDA8654E-1DD8-4044-AA0E-2D54A5E84338}
 	EndGlobalSection
 EndGlobal
