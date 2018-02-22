@@ -1,0 +1,21 @@
+{
+    "ActiveID": "dev4cyan",
+    "Configs": {
+        "dev4cyan": {
+            "NodeKey": " ",
+            "NodeName": "PyNode",
+            "NodeSecret": "",
+            "MqttBrokerCertFile": null,
+            "MqttBrokerHostname": "dev4cyan.yodiwo.com",
+            "MqttUseSsl": true
+        },
+        "tcyan": {
+            "NodeKey": "",
+            "NodeName": "PyNode",
+            "NodeSecret": "",
+            "MqttBrokerCertFile": null,
+            "MqttBrokerHostname": "tcyan.yodiwo.com",
+            "MqttUseSsl": true
+        }
+    }
+}
