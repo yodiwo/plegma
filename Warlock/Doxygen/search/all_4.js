@@ -8,6 +8,8 @@ var searchData=
   ['enable',['Enable',['../namespace_yodiwo_1_1_a_p_i_1_1_warlock.html#a6639e460b22abe574ea85da62c5a9dcea2faec1f9f8cc7f8f40d521c4dd574f49',1,'Yodiwo::API::Warlock']]],
   ['enabled',['Enabled',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_share_action_rsp_1_1_share_info.html#a519bdba66c66e66b22ef2901e9067828',1,'Yodiwo::API::Warlock::ShareActionRsp::ShareInfo']]],
   ['enabledisableapikey',['EnableDisableApiKey',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_enable_disable_api_key.html',1,'Yodiwo::API::Warlock']]],
+  ['enodepermissions',['eNodePermissions',['../namespace_yodiwo_1_1_a_p_i_1_1_warlock.html#a8790dedc337863ba6342a4a1375b1574',1,'Yodiwo::API::Warlock']]],
+  ['enodestatus',['eNodeStatus',['../namespace_yodiwo_1_1_a_p_i_1_1_warlock.html#a073a07ab77ccaf3ab6f79f7ad06ff59d',1,'Yodiwo::API::Warlock']]],
   ['enumeratesaveanddeployedgraphsreq',['EnumerateSaveandDeployedGraphsReq',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_enumerate_saveand_deployed_graphs_req.html',1,'Yodiwo::API::Warlock']]],
   ['erestparametertype',['eRestParameterType',['../namespace_yodiwo_1_1_a_p_i_1_1_warlock.html#a6fecb23eea49f8c19bdc419cfb85016e',1,'Yodiwo::API::Warlock']]],
   ['erestserviceroutemethod',['eRestServiceRouteMethod',['../namespace_yodiwo_1_1_a_p_i_1_1_warlock.html#a570c50f265934f3184d9011320b0b89f',1,'Yodiwo::API::Warlock']]],
