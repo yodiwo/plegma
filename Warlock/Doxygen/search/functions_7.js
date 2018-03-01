@@ -1,7 +1,0 @@
-var searchData=
-[
-  ['nodedescriptor',['NodeDescriptor',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_node_descriptor.html#a750477366e7dcf02854a56f7e94d882f',1,'Yodiwo::API::Warlock::NodeDescriptor']]],
-  ['nodeinfotimelineinfo',['NodeInfoTimelineInfo',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_private_1_1_node_info_timeline_info.html#aafc7a9fa9cac1a94aaf524980fc434fe',1,'Yodiwo.API.Warlock.Private.NodeInfoTimelineInfo.NodeInfoTimelineInfo()'],['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_private_1_1_node_info_timeline_info.html#a3c9cc68645bffa46f4823e7fa8bd3d71',1,'Yodiwo.API.Warlock.Private.NodeInfoTimelineInfo.NodeInfoTimelineInfo(Yodiwo.API.Warlock.NodeDescriptor desc)']]],
-  ['notificationdescriptor',['NotificationDescriptor',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor.html#a49801132db644a9fa6de2a06b8d7e2dd',1,'Yodiwo.API.Warlock.NotificationDescriptor.NotificationDescriptor()'],['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor.html#a3e876191d8fde442c84d10ea4b625b83',1,'Yodiwo.API.Warlock.NotificationDescriptor.NotificationDescriptor(NotificationDescriptorType type, NotificationDescriptorOperationType operation, NotificationDescriptorRelatedObject RelatedObject, string DescriptionMessage, eSeverity severity=eSeverity.Info, bool isModal=false)']]],
-  ['notificationdescriptorkey',['NotificationDescriptorKey',['../struct_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor_key.html#a5793484d43dbf46a39f7574abdc3f30f',1,'Yodiwo::API::Warlock::NotificationDescriptorKey']]]
-];

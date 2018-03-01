@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['graphs',['Graphs',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor.html#abcaf1490a03419bbced43381a22c0b79ab1f975d5e57f73d265bd450020825183',1,'Yodiwo.API.Warlock.NotificationDescriptor.Graphs()'],['../namespace_yodiwo_1_1_a_p_i_1_1_warlock_1_1_private.html#adea55a660a380b2830b38edcc869ab91ab1f975d5e57f73d265bd450020825183',1,'Yodiwo.API.Warlock.Private.Graphs()'],['../namespace_yodiwo_1_1_a_p_i_1_1_warlock.html#a35de56ae5a9369ac3302eddb915c7149ab1f975d5e57f73d265bd450020825183',1,'Yodiwo.API.Warlock.Graphs()']]],
-  ['groups',['Groups',['../namespace_yodiwo_1_1_a_p_i_1_1_warlock_1_1_private.html#adea55a660a380b2830b38edcc869ab91aa37ede293936e29279ed543129451ec3',1,'Yodiwo::API::Warlock::Private']]],
-  ['guest',['Guest',['../namespace_yodiwo_1_1_a_p_i_1_1_warlock.html#aef2bcf5e5ced422265a0493f30352585aadb831a7fdd83dd1e2a309ce7591dff8',1,'Yodiwo::API::Warlock']]]
+  ['none',['None',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_wrapper_msg.html#ad585e032e4ba74aa494f4db1a0f25c18a6adf97f83acf6453d4a6a4b1070f3754',1,'Yodiwo.API.Warlock.WrapperMsg.None()'],['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_web_socket_msg.html#a539ca6ed86f4b3b53ef062e73c6dc4b7a6adf97f83acf6453d4a6a4b1070f3754',1,'Yodiwo.API.Warlock.WebSocketMsg.None()']]]
 ];

@@ -30,12 +30,11 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="LOGO NO TAGLINE - 80p.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="icon-warlock-128.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Warlock API
-   &#160;<span id="projectnumber">v1.0</span>
+   &#160;<span id="projectnumber">v1</span>
    </div>
-   <div id="projectbrief">Alcyone &#39;Northbound&#39; API reference</div>
   </td>
  </tr>
  </tbody>
@@ -51,7 +50,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li><a href="namespaces.html"><span>Packages</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
-      <li><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -131,13 +129,11 @@ Static Public Attributes</h2></td></tr>
 <tr class="memitem:a29c7d8550b72537a74fa15ced0bba3a7"><td class="memItemLeft" align="right" valign="top">static readonly List&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_o_auth.html#a29c7d8550b72537a74fa15ced0bba3a7">Scopes</a></td></tr>
 <tr class="memdesc:a29c7d8550b72537a74fa15ced0bba3a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">all available oauth scopes  <a href="#a29c7d8550b72537a74fa15ced0bba3a7">More...</a><br /></td></tr>
 <tr class="separator:a29c7d8550b72537a74fa15ced0bba3a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2245c6a7c13088436d018f06f44a36af"><td class="memItemLeft" align="right" valign="top">static readonly DictionaryTS&lt; string, <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_o_auth_client_info.html">OAuthClientInfo</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_o_auth.html#a2245c6a7c13088436d018f06f44a36af">Clients</a></td></tr>
+<tr class="memitem:a2245c6a7c13088436d018f06f44a36af"><td class="memItemLeft" align="right" valign="top">static readonly DictionaryTS&lt; string, <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_o_auth_client_info.html">OAuthClientInfo</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>Clients</b></td></tr>
 <tr class="separator:a2245c6a7c13088436d018f06f44a36af"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>auxiliary class for <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_o_auth.html" title="auxiliary class for OAuth stuff ">OAuth</a> stuff </p>
-
-<p>Definition at line <a class="el" href="_o_auth_8cs_source.html#l00016">16</a> of file <a class="el" href="_o_auth_8cs_source.html">OAuth.cs</a>.</p>
 </div><h2 class="groupheader">Member Data Documentation</h2>
 <a class="anchor" id="a2245c6a7c13088436d018f06f44a36af"></a>
 <div class="memitem">
@@ -157,8 +153,6 @@ Static Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">= <span class="keyword">new</span> DictionaryTS&lt;string, OAuthClientInfo&gt;</div><div class="line">        {</div><div class="line">            {<span class="stringliteral">&quot;asdf&quot;</span>, <span class="keyword">new</span> OAuthClientInfo(<span class="stringliteral">&quot;asdf&quot;</span>, <span class="stringliteral">&quot;http://localhost:4321/placeholder&quot;</span>)},</div><div class="line">            {<span class="stringliteral">&quot;zxcv&quot;</span>, <span class="keyword">new</span> OAuthClientInfo(<span class="stringliteral">&quot;zxcv&quot;</span>, null) },</div><div class="line">        }</div></div><!-- fragment -->
-<p>Definition at line <a class="el" href="_o_auth_8cs_source.html#l00029">29</a> of file <a class="el" href="_o_auth_8cs_source.html">OAuth.cs</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a29c7d8550b72537a74fa15ced0bba3a7"></a>
@@ -181,8 +175,6 @@ Static Public Attributes</h2></td></tr>
 <b>Initial value:</b><div class="fragment"><div class="line">= <span class="keyword">new</span> List&lt;string&gt;</div><div class="line">        {</div><div class="line">            <span class="stringliteral">&quot;default&quot;</span></div><div class="line">        }</div></div><!-- fragment -->
 <p>all available oauth scopes </p>
 
-<p>Definition at line <a class="el" href="_o_auth_8cs_source.html#l00024">24</a> of file <a class="el" href="_o_auth_8cs_source.html">OAuth.cs</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="abe3245174e3dd81f3c0d6f001fae28e2"></a>
@@ -197,12 +189,10 @@ Static Public Attributes</h2></td></tr>
 
 <p>scope separator </p>
 
-<p>Definition at line <a class="el" href="_o_auth_8cs_source.html#l00038">38</a> of file <a class="el" href="_o_auth_8cs_source.html">OAuth.cs</a>.</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>E:/dev/sw_2.4.x/Yodiwo/APIs/Yodiwo.API.Warlock/<a class="el" href="_o_auth_8cs_source.html">OAuth.cs</a></li>
+<li>C:/DEV/sw/Yodiwo/APIs/Yodiwo.API.Warlock/OAuth.cs</li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

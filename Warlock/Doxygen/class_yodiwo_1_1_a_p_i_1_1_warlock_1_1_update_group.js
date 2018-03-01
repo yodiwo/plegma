@@ -1,9 +1,10 @@
 var class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_update_group =
 [
-    [ "AutoUpdate", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_update_group.html#ad19e30cbc84bfdaa0c199b96d55d78c2", null ],
-    [ "GroupKey", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_update_group.html#a1037666acdbeab748d225d6577943e33", null ],
-    [ "Icon", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_update_group.html#a13df37df6ce014aa229c6b09a5cacf81", null ],
-    [ "Name", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_update_group.html#a9b4cd6f5d0019bb06a1b5f05e6151581", null ],
-    [ "Tags", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_update_group.html#a23feb403514c7f0f932d1956a8abd379", null ],
-    [ "Type", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_update_group.html#aeb020a8ad1b119284a3d857f2b96f413", null ]
+    [ "autoUpdate", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_update_group.html#aa06df42e812c58abb05693d5b01b210a", null ],
+    [ "groupKey", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_update_group.html#ac6d970f00be34cd8794dc47cf0baa15e", null ],
+    [ "hierarchy", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_update_group.html#ad5b1c7dc3213c72bac8e89bc5e0367bc", null ],
+    [ "icon", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_update_group.html#a10b451100171d8d9e3eedfad4832ee54", null ],
+    [ "name", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_update_group.html#a45eb4e438d7b11bce67ed8cf27343184", null ],
+    [ "tags", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_update_group.html#af3b8b204de2594aee0457b533bdeed13", null ],
+    [ "type", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_update_group.html#a70427cfc107aa5235d8b002aba63fd30", null ]
 ];

@@ -1,6 +1,8 @@
 var class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_share_action_req =
 [
+    [ "ShareActionReq", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_share_action_req.html#a13336d2b35a19d36b2c671c46345564e", null ],
     [ "ToString", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_share_action_req.html#a14badf1fcedb9c9a1d11a996192fdd10", null ],
+    [ "Direction", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_share_action_req.html#a530b32cd43ecdb26052d54e860728064", null ],
     [ "Id", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_share_action_req.html#a8a9e08eccfde3e51edb33ee191b1d0bd", null ],
     [ "PendingToken", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_share_action_req.html#a96c609c8d7aac22f9d5c9872fb40db94", null ],
     [ "TargetUserToken", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_share_action_req.html#a25607129359b01b210701488067e550b", null ],

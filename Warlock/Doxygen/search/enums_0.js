@@ -1,19 +1,9 @@
 var searchData=
 [
-  ['eapikeytype',['eApiKeyType',['../namespace_yodiwo_1_1_a_p_i_1_1_warlock.html#adb1abad62f7913e541b9b4abd84cc33f',1,'Yodiwo::API::Warlock']]],
-  ['efriendaddopts',['eFriendAddOpts',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_user_options.html#a473258e4edc1788b47d5a22cf6bce6cc',1,'Yodiwo::API::Warlock::UserOptions']]],
   ['egraphactiontype',['eGraphActionType',['../namespace_yodiwo_1_1_a_p_i_1_1_warlock.html#aa2626ec25c86e51685457aa073079e39',1,'Yodiwo::API::Warlock']]],
   ['emsgflags',['eMsgFlags',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_wrapper_msg.html#ad585e032e4ba74aa494f4db1a0f25c18',1,'Yodiwo::API::Warlock::WrapperMsg']]],
-  ['enodepermissions',['eNodePermissions',['../namespace_yodiwo_1_1_a_p_i_1_1_warlock.html#a8790dedc337863ba6342a4a1375b1574',1,'Yodiwo::API::Warlock']]],
-  ['enodestatus',['eNodeStatus',['../namespace_yodiwo_1_1_a_p_i_1_1_warlock.html#a073a07ab77ccaf3ab6f79f7ad06ff59d',1,'Yodiwo::API::Warlock']]],
-  ['eprivilegelevel',['ePrivilegeLevel',['../namespace_yodiwo_1_1_a_p_i_1_1_warlock.html#aef2bcf5e5ced422265a0493f30352585',1,'Yodiwo::API::Warlock']]],
-  ['equotaflags',['eQuotaFlags',['../namespace_yodiwo_1_1_a_p_i_1_1_warlock.html#ad018f1babc5d08ab49d66511b0c2f952',1,'Yodiwo::API::Warlock']]],
-  ['equotatype',['eQuotaType',['../namespace_yodiwo_1_1_a_p_i_1_1_warlock.html#a5936a1aab585f253515a4386fa04ca10',1,'Yodiwo::API::Warlock']]],
-  ['eseverity',['eSeverity',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor.html#af9dafecc631b575464a1308645b11c82',1,'Yodiwo::API::Warlock::NotificationDescriptor']]],
+  ['erestparametertype',['eRestParameterType',['../namespace_yodiwo_1_1_a_p_i_1_1_warlock.html#a6fecb23eea49f8c19bdc419cfb85016e',1,'Yodiwo::API::Warlock']]],
+  ['erestserviceroutemethod',['eRestServiceRouteMethod',['../namespace_yodiwo_1_1_a_p_i_1_1_warlock.html#a570c50f265934f3184d9011320b0b89f',1,'Yodiwo::API::Warlock']]],
   ['eshareactiontype',['eShareActionType',['../namespace_yodiwo_1_1_a_p_i_1_1_warlock.html#a6639e460b22abe574ea85da62c5a9dce',1,'Yodiwo::API::Warlock']]],
-  ['esharingopts',['eSharingOpts',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_user_options.html#a47aa7e29f6148321b8a6a7d4d467ab4d',1,'Yodiwo::API::Warlock::UserOptions']]],
-  ['etimelinedescriptoroperationtype',['eTimelineDescriptorOperationType',['../namespace_yodiwo_1_1_a_p_i_1_1_warlock_1_1_private.html#a1ffc4e8cbacb66078906492d9de4dd9d',1,'Yodiwo::API::Warlock::Private']]],
-  ['etimelinedescriptortype',['eTimelineDescriptorType',['../namespace_yodiwo_1_1_a_p_i_1_1_warlock_1_1_private.html#adea55a660a380b2830b38edcc869ab91',1,'Yodiwo::API::Warlock::Private']]],
-  ['eventmsgtype',['EventMsgType',['../namespace_yodiwo_1_1_a_p_i_1_1_warlock.html#ac283b388e14fff447d97f1353eda0fe6',1,'Yodiwo::API::Warlock']]],
   ['ewsmsgid',['eWSMsgId',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_web_socket_msg.html#a539ca6ed86f4b3b53ef062e73c6dc4b7',1,'Yodiwo::API::Warlock::WebSocketMsg']]]
 ];

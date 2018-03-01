@@ -30,12 +30,11 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="LOGO NO TAGLINE - 80p.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="icon-warlock-128.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Warlock API
-   &#160;<span id="projectnumber">v1.0</span>
+   &#160;<span id="projectnumber">v1</span>
    </div>
-   <div id="projectbrief">Alcyone &#39;Northbound&#39; API reference</div>
   </td>
  </tr>
  </tbody>
@@ -51,7 +50,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li><a href="namespaces.html"><span>Packages</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
-      <li><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -134,6 +132,9 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a7e05e10b0987592ddccfc183a5dfc53e"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_graph_action_rsp.html#a7e05e10b0987592ddccfc183a5dfc53e">JsonData</a></td></tr>
 <tr class="memdesc:a7e05e10b0987592ddccfc183a5dfc53e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specific data resulting from this action Can contain:  <a href="#a7e05e10b0987592ddccfc183a5dfc53e">More...</a><br /></td></tr>
 <tr class="separator:a7e05e10b0987592ddccfc183a5dfc53e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac87a3bec1f331832b2c920e8ef3a680b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_graph_action_rsp.html#ac87a3bec1f331832b2c920e8ef3a680b">isPending</a></td></tr>
+<tr class="memdesc:ac87a3bec1f331832b2c920e8ef3a680b"><td class="mdescLeft">&#160;</td><td class="mdescRight">If true, the respective request was not completed because of an action pending on the receiver's part  <a href="#ac87a3bec1f331832b2c920e8ef3a680b">More...</a><br /></td></tr>
+<tr class="separator:ac87a3bec1f331832b2c920e8ef3a680b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_attribs_class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_generic_rsp"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_generic_rsp')"><img src="closed.png" alt="-"/>&#160;Public Attributes inherited from <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_generic_rsp.html">Yodiwo.API.Warlock.GenericRsp</a></td></tr>
 <tr class="memitem:a77f2226c0416a4781474f74585dd488c inherit pub_attribs_class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_generic_rsp"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_generic_rsp.html#a77f2226c0416a4781474f74585dd488c">IsSuccess</a></td></tr>
 <tr class="memdesc:a77f2226c0416a4781474f74585dd488c inherit pub_attribs_class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_generic_rsp"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marks whether the referenced by Id request was successful or not. A value of  means the request got handled but failed due to the reason provided in <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_generic_rsp.html#a286bbb093e06da9082f5745b91ac6ae4" title="An optional message for the result ">Message</a>  <a href="#a77f2226c0416a4781474f74585dd488c">More...</a><br /></td></tr>
@@ -145,8 +146,12 @@ Public Attributes</h2></td></tr>
 <tr class="memdesc:a286bbb093e06da9082f5745b91ac6ae4 inherit pub_attribs_class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_generic_rsp"><td class="mdescLeft">&#160;</td><td class="mdescRight">An optional message for the result  <a href="#a286bbb093e06da9082f5745b91ac6ae4">More...</a><br /></td></tr>
 <tr class="separator:a286bbb093e06da9082f5745b91ac6ae4 inherit pub_attribs_class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_generic_rsp"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_attribs_class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_warlock_api_msg"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_warlock_api_msg')"><img src="closed.png" alt="-"/>&#160;Public Attributes inherited from <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_warlock_api_msg.html">Yodiwo.API.Warlock.WarlockApiMsg</a></td></tr>
-<tr class="memitem:a02606b1c738be8d3b2265fcaf6245b3b inherit pub_attribs_class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_warlock_api_msg"><td class="memItemLeft" align="right" valign="top">UserKey&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_warlock_api_msg.html#a02606b1c738be8d3b2265fcaf6245b3b">UserKey</a></td></tr>
+<tr class="memitem:a02606b1c738be8d3b2265fcaf6245b3b inherit pub_attribs_class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_warlock_api_msg"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a02606b1c738be8d3b2265fcaf6245b3b"></a>
+UserKey&#160;</td><td class="memItemRight" valign="bottom"><b>UserKey</b></td></tr>
 <tr class="separator:a02606b1c738be8d3b2265fcaf6245b3b inherit pub_attribs_class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_warlock_api_msg"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a79c43ac4c46c4a1646e6da76da87be61 inherit pub_attribs_class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_warlock_api_msg"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a79c43ac4c46c4a1646e6da76da87be61"></a>
+SubUserKey&#160;</td><td class="memItemRight" valign="bottom"><b>SubUserKey</b></td></tr>
+<tr class="separator:a79c43ac4c46c4a1646e6da76da87be61 inherit pub_attribs_class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_warlock_api_msg"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
@@ -155,10 +160,7 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memdesc:a43e8fa5e77632f27e345a406f8547354 inherit pub_methods_class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_generic_rsp"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generic response constructor  <a href="#a43e8fa5e77632f27e345a406f8547354">More...</a><br /></td></tr>
 <tr class="separator:a43e8fa5e77632f27e345a406f8547354 inherit pub_methods_class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_generic_rsp"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p>Definition at line <a class="el" href="_public_8cs_source.html#l00518">518</a> of file <a class="el" href="_public_8cs_source.html">Public.cs</a>.</p>
-</div><h2 class="groupheader">Member Data Documentation</h2>
+<h2 class="groupheader">Member Data Documentation</h2>
 <a class="anchor" id="ad15dca83e789c38f6e1de44936e7b30a"></a>
 <div class="memitem">
 <div class="memproto">
@@ -171,7 +173,19 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Specific GraphDescriptorKey of GraphDescriptor see <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_graph_action_rsp.html#ad15dca83e789c38f6e1de44936e7b30a" title="Specific GraphDescriptorKey of GraphDescriptor see Yodiwo.API.Warlock.GraphActionRsp.GraphDescriptorKey that this action refers to ">Yodiwo.API.Warlock.GraphActionRsp.GraphDescriptorKey</a> that this action refers to </p>
 
-<p>Definition at line <a class="el" href="_public_8cs_source.html#l00523">523</a> of file <a class="el" href="_public_8cs_source.html">Public.cs</a>.</p>
+</div>
+</div>
+<a class="anchor" id="ac87a3bec1f331832b2c920e8ef3a680b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Yodiwo.API.Warlock.GraphActionRsp.isPending</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>If true, the respective request was not completed because of an action pending on the receiver's part </p>
 
 </div>
 </div>
@@ -187,16 +201,15 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Specific data resulting from this action Can contain: </p>
 <ul>
-<li>GraphDescriptor see <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_graph_action_rsp.html#ad15dca83e789c38f6e1de44936e7b30a" title="Specific GraphDescriptorKey of GraphDescriptor see Yodiwo.API.Warlock.GraphActionRsp.GraphDescriptorKey that this action refers to ">Yodiwo.API.Warlock.GraphActionRsp.GraphDescriptorKey</a></li>
-<li><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_graph_wrlk_descriptor.html">GraphWrlkDescriptor</a> see <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_graph_wrlk_descriptor.html">GraphWrlkDescriptor</a> </li>
+<li>GraphDescriptor <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_graph_action_rsp.html#ad15dca83e789c38f6e1de44936e7b30a" title="Specific GraphDescriptorKey of GraphDescriptor see Yodiwo.API.Warlock.GraphActionRsp.GraphDescriptorKey that this action refers to ">Yodiwo.API.Warlock.GraphActionRsp.GraphDescriptorKey</a></li>
+<li><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_graph_wrlk_descriptor.html">GraphWrlkDescriptor</a> <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_graph_wrlk_descriptor.html">GraphWrlkDescriptor</a></li>
+<li><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_deploy_response.html">DeployResponse</a> <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_deploy_response.html">DeployResponse</a> </li>
 </ul>
-
-<p>Definition at line <a class="el" href="_public_8cs_source.html#l00531">531</a> of file <a class="el" href="_public_8cs_source.html">Public.cs</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>E:/dev/sw_2.4.x/Yodiwo/APIs/Yodiwo.API.Warlock/<a class="el" href="_public_8cs_source.html">Public.cs</a></li>
+<li>C:/DEV/sw/Yodiwo/APIs/Yodiwo.API.Warlock/Public.cs</li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

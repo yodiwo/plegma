@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['monotonicallyincreasing',['MonotonicallyIncreasing',['../namespace_yodiwo_1_1_a_p_i_1_1_warlock.html#ad018f1babc5d08ab49d66511b0c2f952a5554928980d077321c2e8de17130df5e',1,'Yodiwo::API::Warlock']]]
+  ['undeploy',['Undeploy',['../namespace_yodiwo_1_1_a_p_i_1_1_warlock.html#aa2626ec25c86e51685457aa073079e39a5c029d45216c40bd44a51aae6df2476b',1,'Yodiwo::API::Warlock']]],
+  ['unshare',['Unshare',['../namespace_yodiwo_1_1_a_p_i_1_1_warlock.html#a6639e460b22abe574ea85da62c5a9dcea46fc8e2f604ad37fca9ea784c05d9a85',1,'Yodiwo::API::Warlock']]]
 ];

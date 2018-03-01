@@ -1,11 +1,12 @@
 var searchData=
 [
-  ['handled',['Handled',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_share_things_rsp.html#a5dee2af64c90648102ca99b513eb921d',1,'Yodiwo::API::Warlock::ShareThingsRsp']]],
-  ['hangout',['Hangout',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_user_social_accounts_descriptor.html#ad6f3c05fa6dde1e766192b233cfff5b4',1,'Yodiwo::API::Warlock::UserSocialAccountsDescriptor']]],
-  ['hasrelatedobject',['HasRelatedObject',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor.html#a6c0ec11fd93629c9c6577365a8cefb47',1,'Yodiwo::API::Warlock::NotificationDescriptor']]],
-  ['hasrules',['HasRules',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_port_descriptor.html#ae593a59909faa6d5fc987e6b5a30a361',1,'Yodiwo::API::Warlock::PortDescriptor']]],
-  ['hidden',['Hidden',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_thing_descriptor.html#ade5bba9cd937531151768621ff7f5cf6',1,'Yodiwo::API::Warlock::ThingDescriptor']]],
-  ['hierarchy',['Hierarchy',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_thing_descriptor.html#aa6c4bad8c0d8f98eb1a3aa7549e976fa',1,'Yodiwo::API::Warlock::ThingDescriptor']]],
-  ['host',['Host',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_user_sip_descriptor.html#a094516ba8fd6dfed266c54c0d850d68d',1,'Yodiwo::API::Warlock::UserSipDescriptor']]],
-  ['httpcontenttype',['HttpContentType',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_upload_request.html#a0324d59ff2270857fc7d907e21cb07b2',1,'Yodiwo::API::Warlock::UploadRequest']]]
+  ['id',['Id',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_web_socket_msg.html#a900bbb248efc288e7268468581ec5fc5',1,'Yodiwo.API.Warlock.WebSocketMsg.Id()'],['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_share_action_req.html#a8a9e08eccfde3e51edb33ee191b1d0bd',1,'Yodiwo.API.Warlock.ShareActionReq.Id()'],['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_share_action_rsp.html#ad26ff1366d61a9e5fdbf80d4f0c7b6a8',1,'Yodiwo.API.Warlock.ShareActionRsp.Id()']]],
+  ['includehiddenthings',['IncludeHiddenThings',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_thing_descriptors_query_req.html#a07e686fa2c6d69e6f514638df2ef2df0',1,'Yodiwo::API::Warlock::ThingDescriptorsQueryReq']]],
+  ['info',['Info',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_share_action_rsp.html#aa22a71ba8f1f394af7a972d76da79361',1,'Yodiwo::API::Warlock::ShareActionRsp']]],
+  ['infojson',['InfoJson',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_constant_descriptor.html#a417bb6d990115a2a2ebc7f8e4b568820',1,'Yodiwo::API::Warlock::ConstantDescriptor']]],
+  ['isfinished',['IsFinished',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_shared_graph_conf_rsp.html#a7c779885c34741352d731e5e9d741192',1,'Yodiwo::API::Warlock::SharedGraphConfRsp']]],
+  ['ispending',['isPending',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_graph_action_rsp.html#ac87a3bec1f331832b2c920e8ef3a680b',1,'Yodiwo.API.Warlock.GraphActionRsp.isPending()'],['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_share_action_rsp.html#a761491ae19f0c86650f0e542937dfec0',1,'Yodiwo.API.Warlock.ShareActionRsp.IsPending()']]],
+  ['isquestion',['IsQuestion',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_ev_thing_share_pending.html#a9ee546d114d070abc90c376b2b2eeb84',1,'Yodiwo::API::Warlock::EvThingSharePending']]],
+  ['issuccess',['IsSuccess',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_generic_rsp.html#a77f2226c0416a4781474f74585dd488c',1,'Yodiwo::API::Warlock::GenericRsp']]],
+  ['issuccessful',['IsSuccessful',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_share_notification.html#a883080600f4cdfaa622679c75b53a0d1',1,'Yodiwo::API::Warlock::ShareNotification']]]
 ];

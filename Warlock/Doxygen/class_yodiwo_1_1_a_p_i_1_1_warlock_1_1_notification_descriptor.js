@@ -11,11 +11,16 @@ var class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor =
       [ "UnsharedThing", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor.html#ad354f976c0575d3e22fa23806ad469e4a4b4f07a5a2ee56d0c9876b63f38bcb02", null ],
       [ "RemovedSampleGraphs", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor.html#ad354f976c0575d3e22fa23806ad469e4a1da1896afdee531f3984829db8982ac7", null ],
       [ "UserGraphException", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor.html#ad354f976c0575d3e22fa23806ad469e4afbd3c491708a4764d3688dd2cfc1c0e6", null ],
-      [ "UnDeployAfterSocialRemove", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor.html#ad354f976c0575d3e22fa23806ad469e4a764d94d7dda245626733be8a931172d3", null ],
+      [ "UnDeployAfterAccountRemove", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor.html#ad354f976c0575d3e22fa23806ad469e4aa40669dd9b86110a1bd9ba84cb980f52", null ],
       [ "QuotaLimitCrossed", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor.html#ad354f976c0575d3e22fa23806ad469e4a7bc5cce371e82602671eaaf570a6ab06", null ],
       [ "QuotaPercentageCrossed", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor.html#ad354f976c0575d3e22fa23806ad469e4a8ddb07f3fc420b8747f7569aa1f9f549", null ],
       [ "QuotaLimitUncrossed", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor.html#ad354f976c0575d3e22fa23806ad469e4ae63c903aae1424d1a3e9899b83c7e855", null ],
-      [ "UnDeployAfterGroupRemove", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor.html#ad354f976c0575d3e22fa23806ad469e4a8f516f113c274a3c24f825ec0f6a8039", null ]
+      [ "UnDeployAfterGroupRemove", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor.html#ad354f976c0575d3e22fa23806ad469e4a8f516f113c274a3c24f825ec0f6a8039", null ],
+      [ "SharedGraph", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor.html#ad354f976c0575d3e22fa23806ad469e4a6c83bf0cad049d93896a85d72f0e5ecc", null ],
+      [ "PendingReqExpired", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor.html#ad354f976c0575d3e22fa23806ad469e4a8c30bae275a26f7c311a325b5cf5f4ac", null ],
+      [ "LoraEvent", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor.html#ad354f976c0575d3e22fa23806ad469e4ad9be4f686be56fb9e99070b120fb50d8", null ],
+      [ "LoraThingUpdate", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor.html#ad354f976c0575d3e22fa23806ad469e4a26858f996b172b65f220a9fedb052238", null ],
+      [ "ScheduleRemoval", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor.html#ad354f976c0575d3e22fa23806ad469e4a6dd80b543f58ce1c78a817a9a4d5d27d", null ]
     ] ],
     [ "NotificationDescriptorType", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor.html#abcaf1490a03419bbced43381a22c0b79", [
       [ "Accounts", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor.html#abcaf1490a03419bbced43381a22c0b79a9b945efebb006547a94415eadaa12921", null ],
@@ -26,7 +31,8 @@ var class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor =
       [ "SampleGraphs", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor.html#abcaf1490a03419bbced43381a22c0b79aaadf5d26eb192ca10dd268a01d9bd795", null ],
       [ "Friends", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor.html#abcaf1490a03419bbced43381a22c0b79a3d594614f445f6b00014e9b77730b833", null ],
       [ "UserGraphException", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor.html#abcaf1490a03419bbced43381a22c0b79afbd3c491708a4764d3688dd2cfc1c0e6", null ],
-      [ "Quota", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor.html#abcaf1490a03419bbced43381a22c0b79ad2d5c3e087f684e56b5b81d6212d7ccb", null ]
+      [ "Quota", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor.html#abcaf1490a03419bbced43381a22c0b79ad2d5c3e087f684e56b5b81d6212d7ccb", null ],
+      [ "Schedules", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor.html#abcaf1490a03419bbced43381a22c0b79accdb7bf9d93e5652b57cabcc8c41e061", null ]
     ] ],
     [ "NotificationDescriptor", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor.html#a49801132db644a9fa6de2a06b8d7e2dd", null ],
     [ "NotificationDescriptor", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor.html#a3e876191d8fde442c84d10ea4b625b83", null ],

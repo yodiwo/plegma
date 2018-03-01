@@ -11,5 +11,6 @@ var class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_quota_descriptor =
     [ "Period", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_quota_descriptor.html#a3752382061b6321f911e04d38f83e4bd", null ],
     [ "QuotaCycleStartCurrent", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_quota_descriptor.html#af0e13280d308df23a3d1699c959db0cc", null ],
     [ "QuotaCycleStartNext", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_quota_descriptor.html#ab535ae95428d6d7abba361227dd0bbeb", null ],
+    [ "QuotaCycleTimeLeft", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_quota_descriptor.html#a776c4a4a1e1742193167ace1d124965d", null ],
     [ "TotalNumForPeriod", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_quota_descriptor.html#ae46f79bdb37f9296b0db2191efcb5d1a", null ]
 ];

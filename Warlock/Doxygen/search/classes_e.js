@@ -1,8 +1,12 @@
 var searchData=
 [
   ['samplegraphdescriptornotificationinfo',['SampleGraphDescriptorNotificationInfo',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_sample_graph_descriptor_notification_info.html',1,'Yodiwo::API::Warlock']]],
+  ['savegraphoptionsreq',['SaveGraphOptionsReq',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_save_graph_options_req.html',1,'Yodiwo::API::Warlock']]],
+  ['savegraphoptionsrsp',['SaveGraphOptionsRsp',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_save_graph_options_rsp.html',1,'Yodiwo::API::Warlock']]],
   ['scanreq',['ScanReq',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_scan_req.html',1,'Yodiwo::API::Warlock']]],
   ['scanrsp',['ScanRsp',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_scan_rsp.html',1,'Yodiwo::API::Warlock']]],
+  ['scheduleinfo',['ScheduleInfo',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_schedule_info.html',1,'Yodiwo::API::Warlock']]],
+  ['schedulenotificationinfo',['ScheduleNotificationInfo',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_schedule_notification_info.html',1,'Yodiwo::API::Warlock']]],
   ['setalertpercentage',['SetAlertPercentage',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_set_alert_percentage.html',1,'Yodiwo::API::Warlock']]],
   ['setalertpercentageforallquota',['SetAlertPercentageForAllQuota',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_set_alert_percentage_for_all_quota.html',1,'Yodiwo::API::Warlock']]],
   ['setdefyquotaflag',['SetDefyQuotaFlag',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_set_defy_quota_flag.html',1,'Yodiwo::API::Warlock']]],
@@ -14,11 +18,22 @@ var searchData=
   ['setusersettingsrsp',['SetUserSettingsRsp',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_set_user_settings_rsp.html',1,'Yodiwo::API::Warlock']]],
   ['shareactionreq',['ShareActionReq',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_share_action_req.html',1,'Yodiwo::API::Warlock']]],
   ['shareactionrsp',['ShareActionRsp',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_share_action_rsp.html',1,'Yodiwo::API::Warlock']]],
+  ['sharedgraphconfigreq',['SharedGraphConfigReq',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_shared_graph_config_req.html',1,'Yodiwo::API::Warlock']]],
+  ['sharedgraphconfreq',['SharedGraphConfReq',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_shared_graph_conf_req.html',1,'Yodiwo::API::Warlock']]],
+  ['sharedgraphconfrsp',['SharedGraphConfRsp',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_shared_graph_conf_rsp.html',1,'Yodiwo::API::Warlock']]],
+  ['sharedgraphnecessarythings',['SharedGraphNecessaryThings',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_shared_graph_necessary_things.html',1,'Yodiwo::API::Warlock']]],
+  ['sharegraphactionreq',['ShareGraphActionReq',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_share_graph_action_req.html',1,'Yodiwo::API::Warlock']]],
+  ['sharegraphreq',['ShareGraphReq',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_share_graph_req.html',1,'Yodiwo::API::Warlock']]],
+  ['shareinfo',['ShareInfo',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_share_action_rsp_1_1_share_info.html',1,'Yodiwo::API::Warlock::ShareActionRsp']]],
   ['sharenotification',['ShareNotification',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_share_notification.html',1,'Yodiwo::API::Warlock']]],
   ['sharenotifymsg',['ShareNotifyMsg',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_share_notify_msg.html',1,'Yodiwo::API::Warlock']]],
   ['sharethingsreq',['ShareThingsReq',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_share_things_req.html',1,'Yodiwo::API::Warlock']]],
   ['sharethingsrsp',['ShareThingsRsp',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_share_things_rsp.html',1,'Yodiwo::API::Warlock']]],
+  ['singlefileresp',['SingleFileResp',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_single_file_resp.html',1,'Yodiwo::API::Warlock']]],
   ['sipaccount',['SipAccount',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_sip_account.html',1,'Yodiwo::API::Warlock']]],
   ['socialaccountrsp',['SocialAccountRsp',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_social_account_rsp.html',1,'Yodiwo::API::Warlock']]],
-  ['socialaccountsrsp',['SocialAccountsRsp',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_social_accounts_rsp.html',1,'Yodiwo::API::Warlock']]]
+  ['socialaccountsrsp',['SocialAccountsRsp',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_social_accounts_rsp.html',1,'Yodiwo::API::Warlock']]],
+  ['storagereplacereq',['StorageReplaceReq',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_storage_replace_req.html',1,'Yodiwo::API::Warlock']]],
+  ['storageuploadreq',['StorageUploadReq',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_storage_upload_req.html',1,'Yodiwo::API::Warlock']]],
+  ['storageuploadresp',['StorageUploadResp',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_storage_upload_resp.html',1,'Yodiwo::API::Warlock']]]
 ];

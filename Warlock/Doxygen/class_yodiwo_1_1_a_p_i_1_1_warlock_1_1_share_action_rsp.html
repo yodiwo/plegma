@@ -30,12 +30,11 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="LOGO NO TAGLINE - 80p.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="icon-warlock-128.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Warlock API
-   &#160;<span id="projectnumber">v1.0</span>
+   &#160;<span id="projectnumber">v1</span>
    </div>
-   <div id="projectbrief">Alcyone &#39;Northbound&#39; API reference</div>
   </td>
  </tr>
  </tbody>
@@ -51,7 +50,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li><a href="namespaces.html"><span>Packages</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
-      <li><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -109,6 +107,7 @@ $(document).ready(function(){initNavTree('class_yodiwo_1_1_a_p_i_1_1_warlock_1_1
 
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_share_action_rsp-members.html">List of all members</a>  </div>
@@ -130,9 +129,16 @@ Inheritance diagram for Yodiwo.API.Warlock.ShareActionRsp:</div>
 </map>
  </div></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_share_action_rsp_1_1_share_info.html">ShareInfo</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Share info returned from <a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_warlock.html#a6639e460b22abe574ea85da62c5a9dceaa0b271a9d8aa8e7473922164d6a1c03c" title="Get sharing info for specified ThingKey. Specific ThingKey must be provided (no broadcast keys allowe...">eShareActionType.Ask</a> requests  <a href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_share_action_rsp_1_1_share_info.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ad5da8097a9771257d6e999a71092de8f"><td class="memItemLeft" align="right" valign="top">override string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_share_action_rsp.html#ad5da8097a9771257d6e999a71092de8f">ToString</a> ()</td></tr>
+<tr class="memitem:ad5da8097a9771257d6e999a71092de8f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad5da8097a9771257d6e999a71092de8f"></a>
+override string&#160;</td><td class="memItemRight" valign="bottom"><b>ToString</b> ()</td></tr>
 <tr class="separator:ad5da8097a9771257d6e999a71092de8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_generic_rsp"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_generic_rsp')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_generic_rsp.html">Yodiwo.API.Warlock.GenericRsp</a></td></tr>
 <tr class="memitem:a43e8fa5e77632f27e345a406f8547354 inherit pub_methods_class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_generic_rsp"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_generic_rsp.html#a43e8fa5e77632f27e345a406f8547354">GenericRsp</a> ()</td></tr>
@@ -156,9 +162,9 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:af7ddbebaec34fa4e2afcf49d0bff57ad"><td class="memItemLeft" align="right" valign="top">Dictionary&lt; string, List&lt; string &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_share_action_rsp.html#af7ddbebaec34fa4e2afcf49d0bff57ad">ThingKeysByOthers</a></td></tr>
 <tr class="memdesc:af7ddbebaec34fa4e2afcf49d0bff57ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains Things shared to the requesting user by other users. Used only when <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_share_action_req.html#a255f977b64ff68b589b68e5139ea3efd" title="Type of action requested; see eShareActionType ">ShareActionReq.Type</a> is <a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_warlock.html#a6639e460b22abe574ea85da62c5a9dceaa411d292f028dc15378e54e5b3146cbe" title="Used to receive two Things lists: ">eShareActionType.AskAll</a> Dictionary Key is the User Token of the shared-from users, Value is the list of that user's shared ThingKeys  <a href="#af7ddbebaec34fa4e2afcf49d0bff57ad">More...</a><br /></td></tr>
 <tr class="separator:af7ddbebaec34fa4e2afcf49d0bff57ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1c3c0d11344f8729290250d1de5502a7"><td class="memItemLeft" align="right" valign="top">string[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_share_action_rsp.html#a1c3c0d11344f8729290250d1de5502a7">Users</a></td></tr>
-<tr class="memdesc:a1c3c0d11344f8729290250d1de5502a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">(refers to <a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_warlock.html#a6639e460b22abe574ea85da62c5a9dceaa0b271a9d8aa8e7473922164d6a1c03c" title="Get sharing info for specified ThingKey. Specific ThingKey must be provided (no broadcast keys allowe...">eShareActionType.Ask</a> requests only) Array of Users that referenced ThingKey is currently shared with. May be empty.  <a href="#a1c3c0d11344f8729290250d1de5502a7">More...</a><br /></td></tr>
-<tr class="separator:a1c3c0d11344f8729290250d1de5502a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa22a71ba8f1f394af7a972d76da79361"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_share_action_rsp_1_1_share_info.html">ShareInfo</a>[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_share_action_rsp.html#aa22a71ba8f1f394af7a972d76da79361">Info</a></td></tr>
+<tr class="memdesc:aa22a71ba8f1f394af7a972d76da79361"><td class="mdescLeft">&#160;</td><td class="mdescRight">(refers to <a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_warlock.html#a6639e460b22abe574ea85da62c5a9dceaa0b271a9d8aa8e7473922164d6a1c03c" title="Get sharing info for specified ThingKey. Specific ThingKey must be provided (no broadcast keys allowe...">eShareActionType.Ask</a> requests only) Array of <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_share_action_rsp_1_1_share_info.html" title="Share info returned from eShareActionType.Ask requests ">ShareInfo</a> that referenced ThingKey is currently shared with. May be empty.  <a href="#aa22a71ba8f1f394af7a972d76da79361">More...</a><br /></td></tr>
+<tr class="separator:aa22a71ba8f1f394af7a972d76da79361"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_attribs_class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_generic_rsp"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_generic_rsp')"><img src="closed.png" alt="-"/>&#160;Public Attributes inherited from <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_generic_rsp.html">Yodiwo.API.Warlock.GenericRsp</a></td></tr>
 <tr class="memitem:a77f2226c0416a4781474f74585dd488c inherit pub_attribs_class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_generic_rsp"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_generic_rsp.html#a77f2226c0416a4781474f74585dd488c">IsSuccess</a></td></tr>
 <tr class="memdesc:a77f2226c0416a4781474f74585dd488c inherit pub_attribs_class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_generic_rsp"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marks whether the referenced by Id request was successful or not. A value of  means the request got handled but failed due to the reason provided in <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_generic_rsp.html#a286bbb093e06da9082f5745b91ac6ae4" title="An optional message for the result ">Message</a>  <a href="#a77f2226c0416a4781474f74585dd488c">More...</a><br /></td></tr>
@@ -170,32 +176,16 @@ Public Attributes</h2></td></tr>
 <tr class="memdesc:a286bbb093e06da9082f5745b91ac6ae4 inherit pub_attribs_class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_generic_rsp"><td class="mdescLeft">&#160;</td><td class="mdescRight">An optional message for the result  <a href="#a286bbb093e06da9082f5745b91ac6ae4">More...</a><br /></td></tr>
 <tr class="separator:a286bbb093e06da9082f5745b91ac6ae4 inherit pub_attribs_class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_generic_rsp"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_attribs_class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_warlock_api_msg"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_warlock_api_msg')"><img src="closed.png" alt="-"/>&#160;Public Attributes inherited from <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_warlock_api_msg.html">Yodiwo.API.Warlock.WarlockApiMsg</a></td></tr>
-<tr class="memitem:a02606b1c738be8d3b2265fcaf6245b3b inherit pub_attribs_class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_warlock_api_msg"><td class="memItemLeft" align="right" valign="top">UserKey&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_warlock_api_msg.html#a02606b1c738be8d3b2265fcaf6245b3b">UserKey</a></td></tr>
+<tr class="memitem:a02606b1c738be8d3b2265fcaf6245b3b inherit pub_attribs_class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_warlock_api_msg"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a02606b1c738be8d3b2265fcaf6245b3b"></a>
+UserKey&#160;</td><td class="memItemRight" valign="bottom"><b>UserKey</b></td></tr>
 <tr class="separator:a02606b1c738be8d3b2265fcaf6245b3b inherit pub_attribs_class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_warlock_api_msg"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a79c43ac4c46c4a1646e6da76da87be61 inherit pub_attribs_class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_warlock_api_msg"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a79c43ac4c46c4a1646e6da76da87be61"></a>
+SubUserKey&#160;</td><td class="memItemRight" valign="bottom"><b>SubUserKey</b></td></tr>
+<tr class="separator:a79c43ac4c46c4a1646e6da76da87be61 inherit pub_attribs_class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_warlock_api_msg"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Share Action Response class. Each <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_share_things_rsp.html" title="Response to a ShareThingsReq message ">ShareThingsRsp</a> message contains the same number of these as in the <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_share_things_req.html" title="Multiple share action requests.">ShareThingsReq</a> message it is responding to, and each <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_share_action_rsp.html#ad26ff1366d61a9e5fdbf80d4f0c7b6a8" title="Id of request that this response refers to ">ShareActionRsp.Id</a> corresponds to a <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_share_action_req.html#a8a9e08eccfde3e51edb33ee191b1d0bd" title="Id of specific sub-request. Can be ignored if Req consists of single action or requester doesn&#39;t requ...">ShareActionReq.Id</a> </p>
-
-<p>Definition at line <a class="el" href="_public_8cs_source.html#l00284">284</a> of file <a class="el" href="_public_8cs_source.html">Public.cs</a>.</p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="ad5da8097a9771257d6e999a71092de8f"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">override string Yodiwo.API.Warlock.ShareActionRsp.ToString </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="_public_8cs_source.html#l00323">323</a> of file <a class="el" href="_public_8cs_source.html">Public.cs</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
+</div><h2 class="groupheader">Member Data Documentation</h2>
 <a class="anchor" id="ad26ff1366d61a9e5fdbf80d4f0c7b6a8"></a>
 <div class="memitem">
 <div class="memproto">
@@ -208,7 +198,20 @@ Public Attributes</h2></td></tr>
 
 <p>Id of request that this response refers to </p>
 
-<p>Definition at line <a class="el" href="_public_8cs_source.html#l00289">289</a> of file <a class="el" href="_public_8cs_source.html">Public.cs</a>.</p>
+</div>
+</div>
+<a class="anchor" id="aa22a71ba8f1f394af7a972d76da79361"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_share_action_rsp_1_1_share_info.html">ShareInfo</a> [] Yodiwo.API.Warlock.ShareActionRsp.Info</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>(refers to <a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_warlock.html#a6639e460b22abe574ea85da62c5a9dceaa0b271a9d8aa8e7473922164d6a1c03c" title="Get sharing info for specified ThingKey. Specific ThingKey must be provided (no broadcast keys allowe...">eShareActionType.Ask</a> requests only) Array of <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_share_action_rsp_1_1_share_info.html" title="Share info returned from eShareActionType.Ask requests ">ShareInfo</a> that referenced ThingKey is currently shared with. May be empty. </p>
+<p>Is left empty for <a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_warlock.html#a6639e460b22abe574ea85da62c5a9dcea5a95a425f74314a96f13a2f136992178" title="Explicit share request, must include specific ThingKey and specific User Id to share to ...">eShareActionType.Share</a> and <a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_warlock.html#a6639e460b22abe574ea85da62c5a9dcea46fc8e2f604ad37fca9ea784c05d9a85" title="Explicit unshare request, must include specific ThingKey and either a specific User Id to unshare fro...">eShareActionType.Unshare</a> requests where the request outcome is derived from the <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_generic_rsp.html#a77f2226c0416a4781474f74585dd488c" title="Marks whether the referenced by Id request was successful or not. A value of  means the request got h...">GenericRsp.IsSuccess</a> and <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_generic_rsp.html#a286bbb093e06da9082f5745b91ac6ae4" title="An optional message for the result ">GenericRsp.Message</a> fields</p>
 
 </div>
 </div>
@@ -224,8 +227,6 @@ Public Attributes</h2></td></tr>
 
 <p>If true, the respective request was not completed because of an action pending on the receiver's part. In such a case <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_share_action_rsp.html#a1180f5caa859e58e7d365b677b330669" title="A token that can be used to match a currently pending operation to a future ShareNotifyMsg ...">PendingToken</a> will be set to a value that will be provided as reference in a future <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_share_notify_msg.html" title="Share notification message: sends one or more notifications about sharing events: ...">ShareNotifyMsg</a> </p>
 
-<p>Definition at line <a class="el" href="_public_8cs_source.html#l00295">295</a> of file <a class="el" href="_public_8cs_source.html">Public.cs</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a1180f5caa859e58e7d365b677b330669"></a>
@@ -239,8 +240,6 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>A token that can be used to match a currently pending operation to a future <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_share_notify_msg.html" title="Share notification message: sends one or more notifications about sharing events: ...">ShareNotifyMsg</a> </p>
-
-<p>Definition at line <a class="el" href="_public_8cs_source.html#l00300">300</a> of file <a class="el" href="_public_8cs_source.html">Public.cs</a>.</p>
 
 </div>
 </div>
@@ -256,8 +255,6 @@ Public Attributes</h2></td></tr>
 
 <p>Contains Things shared to the requesting user by other users. Used only when <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_share_action_req.html#a255f977b64ff68b589b68e5139ea3efd" title="Type of action requested; see eShareActionType ">ShareActionReq.Type</a> is <a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_warlock.html#a6639e460b22abe574ea85da62c5a9dceaa411d292f028dc15378e54e5b3146cbe" title="Used to receive two Things lists: ">eShareActionType.AskAll</a> Dictionary Key is the User Token of the shared-from users, Value is the list of that user's shared ThingKeys </p>
 
-<p>Definition at line <a class="el" href="_public_8cs_source.html#l00313">313</a> of file <a class="el" href="_public_8cs_source.html">Public.cs</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="aca2e789048699b8d6a315c7d6f42d5c6"></a>
@@ -272,29 +269,10 @@ Public Attributes</h2></td></tr>
 
 <p>Contains Things shared to other users by the requesting user. Used only when <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_share_action_req.html#a255f977b64ff68b589b68e5139ea3efd" title="Type of action requested; see eShareActionType ">ShareActionReq.Type</a> is <a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_warlock.html#a6639e460b22abe574ea85da62c5a9dceaa411d292f028dc15378e54e5b3146cbe" title="Used to receive two Things lists: ">eShareActionType.AskAll</a> Dictionary Key is the User Token of the shared-to user, Value is the list of ThingKeys that are being shared to this User Dictionary Key is the ThingKey that is being shared toward other users, Value is the list of User Tokens of the users that the thing is being shared to </p>
 
-<p>Definition at line <a class="el" href="_public_8cs_source.html#l00307">307</a> of file <a class="el" href="_public_8cs_source.html">Public.cs</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a1c3c0d11344f8729290250d1de5502a7"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">string [] Yodiwo.API.Warlock.ShareActionRsp.Users</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>(refers to <a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_warlock.html#a6639e460b22abe574ea85da62c5a9dceaa0b271a9d8aa8e7473922164d6a1c03c" title="Get sharing info for specified ThingKey. Specific ThingKey must be provided (no broadcast keys allowe...">eShareActionType.Ask</a> requests only) Array of Users that referenced ThingKey is currently shared with. May be empty. </p>
-<p>Is left empty for <a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_warlock.html#a6639e460b22abe574ea85da62c5a9dcea5a95a425f74314a96f13a2f136992178" title="Explicit share request, must include specific ThingKey and specific User Id to share to ...">eShareActionType.Share</a> and <a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_warlock.html#a6639e460b22abe574ea85da62c5a9dcea46fc8e2f604ad37fca9ea784c05d9a85" title="Explicit unshare request, must include specific ThingKey and either a specific User Id to unshare fro...">eShareActionType.Unshare</a> requests where the request outcome is derived from the <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_generic_rsp.html#a77f2226c0416a4781474f74585dd488c" title="Marks whether the referenced by Id request was successful or not. A value of  means the request got h...">GenericRsp.IsSuccess</a> and <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_generic_rsp.html#a286bbb093e06da9082f5745b91ac6ae4" title="An optional message for the result ">GenericRsp.Message</a> fields</p>
-
-<p>Definition at line <a class="el" href="_public_8cs_source.html#l00320">320</a> of file <a class="el" href="_public_8cs_source.html">Public.cs</a>.</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>E:/dev/sw_2.4.x/Yodiwo/APIs/Yodiwo.API.Warlock/<a class="el" href="_public_8cs_source.html">Public.cs</a></li>
+<li>C:/DEV/sw/Yodiwo/APIs/Yodiwo.API.Warlock/Public.cs</li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

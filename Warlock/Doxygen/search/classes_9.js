@@ -9,7 +9,6 @@ var searchData=
   ['nodeinfomodeldescriptor',['NodeInfoModelDescriptor',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_node_info_model_descriptor.html',1,'Yodiwo::API::Warlock']]],
   ['nodeinfonotificationinfo',['NodeInfoNotificationInfo',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_node_info_notification_info.html',1,'Yodiwo::API::Warlock']]],
   ['nodeinfotimelineinfo',['NodeInfoTimelineInfo',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_private_1_1_node_info_timeline_info.html',1,'Yodiwo::API::Warlock::Private']]],
-  ['nodelinkipinfo',['NodeLinkIpInfo',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_active_node_descriptor_1_1_node_link_ip_info.html',1,'Yodiwo::API::Warlock::ActiveNodeDescriptor']]],
   ['nodepairingcompetionrsp',['NodePairingCompetionRsp',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_node_pairing_competion_rsp.html',1,'Yodiwo::API::Warlock']]],
   ['nodepairingcompletereq',['NodePairingCompleteReq',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_node_pairing_complete_req.html',1,'Yodiwo::API::Warlock']]],
   ['nodepairingmodelview',['NodePairingModelView',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_node_pairing_model_view.html',1,'Yodiwo::API::Warlock']]],
@@ -23,5 +22,6 @@ var searchData=
   ['notificationdescriptorrelatedobject',['NotificationDescriptorRelatedObject',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor_related_object.html',1,'Yodiwo::API::Warlock']]],
   ['notificationmarkallasread',['NotificationMarkAllAsRead',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_mark_all_as_read.html',1,'Yodiwo::API::Warlock']]],
   ['notificationmarkasread',['NotificationMarkAsRead',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_mark_as_read.html',1,'Yodiwo::API::Warlock']]],
-  ['notificationofdeployedgraph',['NotificationofDeployedGraph',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notificationof_deployed_graph.html',1,'Yodiwo::API::Warlock']]]
+  ['notificationofdeployedgraph',['NotificationofDeployedGraph',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notificationof_deployed_graph.html',1,'Yodiwo::API::Warlock']]],
+  ['notificationuserdescriptor',['NotificationUserDescriptor',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_user_descriptor.html',1,'Yodiwo::API::Warlock']]]
 ];

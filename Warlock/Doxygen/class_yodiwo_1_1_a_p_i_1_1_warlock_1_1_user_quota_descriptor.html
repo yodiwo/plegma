@@ -30,12 +30,11 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="LOGO NO TAGLINE - 80p.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="icon-warlock-128.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Warlock API
-   &#160;<span id="projectnumber">v1.0</span>
+   &#160;<span id="projectnumber">v1</span>
    </div>
-   <div id="projectbrief">Alcyone &#39;Northbound&#39; API reference</div>
   </td>
  </tr>
  </tbody>
@@ -51,7 +50,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li><a href="namespaces.html"><span>Packages</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
-      <li><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -109,7 +107,6 @@ $(document).ready(function(){initNavTree('class_yodiwo_1_1_a_p_i_1_1_warlock_1_1
 
 <div class="header">
   <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_user_quota_descriptor-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -117,54 +114,83 @@ $(document).ready(function(){initNavTree('class_yodiwo_1_1_a_p_i_1_1_warlock_1_1
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a82db099feb662761d6101502c945688a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_user_quota_descriptor.html#a82db099feb662761d6101502c945688a">UserQuotaDescriptor</a> ()</td></tr>
-<tr class="separator:a82db099feb662761d6101502c945688a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:afe476660807e6e88308aaf8ea4d2a0a8"><td class="memItemLeft" align="right" valign="top">Dictionary&lt; <a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_warlock.html#a5936a1aab585f253515a4386fa04ca10">eQuotaType</a>, <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_quota_descriptor.html">QuotaDescriptor</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_user_quota_descriptor.html#afe476660807e6e88308aaf8ea4d2a0a8">Quota</a> = new Dictionary&lt;<a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_warlock.html#a5936a1aab585f253515a4386fa04ca10">eQuotaType</a>, <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_quota_descriptor.html">QuotaDescriptor</a>&gt;()</td></tr>
+<tr class="memitem:afe476660807e6e88308aaf8ea4d2a0a8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afe476660807e6e88308aaf8ea4d2a0a8"></a>
+Dictionary&lt; eQuotaType, <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_quota_descriptor.html">QuotaDescriptor</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>Quota</b> = new Dictionary&lt;eQuotaType, <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_quota_descriptor.html">QuotaDescriptor</a>&gt;()</td></tr>
 <tr class="separator:afe476660807e6e88308aaf8ea4d2a0a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad9967e7dd0436243dc62202949b64867"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_user_quota_descriptor.html#ad9967e7dd0436243dc62202949b64867">DefiesQuota</a></td></tr>
+<tr class="memdesc:ad9967e7dd0436243dc62202949b64867"><td class="mdescLeft">&#160;</td><td class="mdescRight">Depending on <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_user_quota_descriptor.html#a99ac9e4a6749b435faf0250710e8bf99" title="UserKey value if this message contains full user quota ">UserQuotaDescriptor.UserKey</a>,<a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_user_quota_descriptor.html#a2d9bd0a14547c77e085a3de17d8cbb3c" title="NodeKey value if this message contains node&#39;s quota ">UserQuotaDescriptor.NodeKey</a> and <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_user_quota_descriptor.html#ae268530c6e209cc14be948f24ff7a628" title="UserApiKey value if this message contains userapikey&#39;s quota. ">UserQuotaDescriptor.UserApiKey</a> values (only one them must be defined) represents whether the user|node|apikey can overpass their limits and just be invoiced for their usage.  <a href="#ad9967e7dd0436243dc62202949b64867">More...</a><br /></td></tr>
+<tr class="separator:ad9967e7dd0436243dc62202949b64867"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a99ac9e4a6749b435faf0250710e8bf99"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_user_quota_descriptor.html#a99ac9e4a6749b435faf0250710e8bf99">UserKey</a></td></tr>
+<tr class="memdesc:a99ac9e4a6749b435faf0250710e8bf99"><td class="mdescLeft">&#160;</td><td class="mdescRight">UserKey value if this message contains full user quota  <a href="#a99ac9e4a6749b435faf0250710e8bf99">More...</a><br /></td></tr>
+<tr class="separator:a99ac9e4a6749b435faf0250710e8bf99"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d9bd0a14547c77e085a3de17d8cbb3c"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_user_quota_descriptor.html#a2d9bd0a14547c77e085a3de17d8cbb3c">NodeKey</a></td></tr>
+<tr class="memdesc:a2d9bd0a14547c77e085a3de17d8cbb3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">NodeKey value if this message contains node's quota  <a href="#a2d9bd0a14547c77e085a3de17d8cbb3c">More...</a><br /></td></tr>
+<tr class="separator:a2d9bd0a14547c77e085a3de17d8cbb3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae268530c6e209cc14be948f24ff7a628"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_user_quota_descriptor.html#ae268530c6e209cc14be948f24ff7a628">UserApiKey</a></td></tr>
+<tr class="memdesc:ae268530c6e209cc14be948f24ff7a628"><td class="mdescLeft">&#160;</td><td class="mdescRight">UserApiKey value if this message contains userapikey's quota.  <a href="#ae268530c6e209cc14be948f24ff7a628">More...</a><br /></td></tr>
+<tr class="separator:ae268530c6e209cc14be948f24ff7a628"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p>Definition at line <a class="el" href="_quota_descriptors_8cs_source.html#l00064">64</a> of file <a class="el" href="_quota_descriptors_8cs_source.html">QuotaDescriptors.cs</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a82db099feb662761d6101502c945688a"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">Yodiwo.API.Warlock.UserQuotaDescriptor.UserQuotaDescriptor </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="_quota_descriptors_8cs_source.html#l00074">74</a> of file <a class="el" href="_quota_descriptors_8cs_source.html">QuotaDescriptors.cs</a>.</p>
-
-</div>
-</div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="afe476660807e6e88308aaf8ea4d2a0a8"></a>
+<a class="anchor" id="ad9967e7dd0436243dc62202949b64867"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">Dictionary&lt;<a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_warlock.html#a5936a1aab585f253515a4386fa04ca10">eQuotaType</a>, <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_quota_descriptor.html">QuotaDescriptor</a>&gt; Yodiwo.API.Warlock.UserQuotaDescriptor.Quota = new Dictionary&lt;<a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_warlock.html#a5936a1aab585f253515a4386fa04ca10">eQuotaType</a>, <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_quota_descriptor.html">QuotaDescriptor</a>&gt;()</td>
+          <td class="memname">bool Yodiwo.API.Warlock.UserQuotaDescriptor.DefiesQuota</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="_quota_descriptors_8cs_source.html#l00068">68</a> of file <a class="el" href="_quota_descriptors_8cs_source.html">QuotaDescriptors.cs</a>.</p>
+<p>Depending on <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_user_quota_descriptor.html#a99ac9e4a6749b435faf0250710e8bf99" title="UserKey value if this message contains full user quota ">UserQuotaDescriptor.UserKey</a>,<a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_user_quota_descriptor.html#a2d9bd0a14547c77e085a3de17d8cbb3c" title="NodeKey value if this message contains node&#39;s quota ">UserQuotaDescriptor.NodeKey</a> and <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_user_quota_descriptor.html#ae268530c6e209cc14be948f24ff7a628" title="UserApiKey value if this message contains userapikey&#39;s quota. ">UserQuotaDescriptor.UserApiKey</a> values (only one them must be defined) represents whether the user|node|apikey can overpass their limits and just be invoiced for their usage. </p>
+
+</div>
+</div>
+<a class="anchor" id="a2d9bd0a14547c77e085a3de17d8cbb3c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">string Yodiwo.API.Warlock.UserQuotaDescriptor.NodeKey</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>NodeKey value if this message contains node's quota </p>
+
+</div>
+</div>
+<a class="anchor" id="ae268530c6e209cc14be948f24ff7a628"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">string Yodiwo.API.Warlock.UserQuotaDescriptor.UserApiKey</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>UserApiKey value if this message contains userapikey's quota. </p>
+
+</div>
+</div>
+<a class="anchor" id="a99ac9e4a6749b435faf0250710e8bf99"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">string Yodiwo.API.Warlock.UserQuotaDescriptor.UserKey</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>UserKey value if this message contains full user quota </p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>E:/dev/sw_2.4.x/Yodiwo/APIs/Yodiwo.API.Warlock/<a class="el" href="_quota_descriptors_8cs_source.html">QuotaDescriptors.cs</a></li>
+<li>C:/DEV/sw/Yodiwo/APIs/Yodiwo.API.Warlock/QuotaDescriptors.cs</li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

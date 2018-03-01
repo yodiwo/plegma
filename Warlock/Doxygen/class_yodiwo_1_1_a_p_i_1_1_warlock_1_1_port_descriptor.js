@@ -2,6 +2,7 @@ var class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_port_descriptor =
 [
     [ "PortDescriptor", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_port_descriptor.html#a7641aefba6461917ce57f6b32be9bc1e", null ],
     [ "Color", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_port_descriptor.html#aa32dca026206bb7263b8933dbfc8ee66", null ],
+    [ "ConfFlags", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_port_descriptor.html#aa5cfc3c617b65ed64c6d618c396b78f2", null ],
     [ "Description", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_port_descriptor.html#a13640d48ef580666f05ad41110848227", null ],
     [ "Extra", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_port_descriptor.html#a084333bdb34e7ab86fa13d8b72a36bc1", null ],
     [ "HasRules", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_port_descriptor.html#ae593a59909faa6d5fc987e6b5a30a361", null ],
@@ -12,6 +13,7 @@ var class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_port_descriptor =
     [ "Name", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_port_descriptor.html#ad43f2b2e321d201fb5d9308f54a7ca73", null ],
     [ "Port", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_port_descriptor.html#a7a3e8a1f6fe8160d0a0fcee540bc0fb1", null ],
     [ "PortKey", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_port_descriptor.html#a98335f4b989fb0de9d9375cfe6d705d2", null ],
+    [ "PortModelId", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_port_descriptor.html#a7f58ebef96fdb83da007a3698d246c60", null ],
     [ "PortType", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_port_descriptor.html#a075ce94fc9be85e43d3d64a7eb6aaa71", null ],
     [ "RevNum", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_port_descriptor.html#a3940a1e501ac2e19839d7ed7e62e8cd8", null ],
     [ "Rules", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_port_descriptor.html#a367184a13efb9f9b7928eb51c6d5c958", null ],
