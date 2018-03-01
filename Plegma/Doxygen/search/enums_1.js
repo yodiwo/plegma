@@ -1,11 +1,8 @@
 var searchData=
 [
-  ['ea2mcuctrltype',['eA2mcuCtrlType',['../namespace_yodiwo_1_1_a_p_i_1_1_plegma.html#a23e45fb0799a4d170474e725037e49d5',1,'Yodiwo::API::Plegma']]],
   ['ebinaryresourcecontenttype',['eBinaryResourceContentType',['../namespace_yodiwo_1_1_a_p_i_1_1_plegma.html#a8e5e78636c17c7b659ba1521c6fb1d71',1,'Yodiwo::API::Plegma']]],
   ['ebinaryresourcelocationtype',['eBinaryResourceLocationType',['../namespace_yodiwo_1_1_a_p_i_1_1_plegma.html#a5e07fe3e6ddc6c08fb382c74cb18c7d2',1,'Yodiwo::API::Plegma']]],
   ['econnectionflags',['eConnectionFlags',['../namespace_yodiwo_1_1_a_p_i_1_1_plegma.html#adcafc2909911e815f7803361fcaa0886',1,'Yodiwo::API::Plegma']]],
-  ['edrivertype',['eDriverType',['../namespace_yodiwo_1_1_a_p_i_1_1_plegma.html#a642d9abc16e86759303e8e9fd966baf0',1,'Yodiwo::API::Plegma']]],
-  ['elistenertype',['eListenerType',['../struct_yodiwo_1_1_a_p_i_1_1_logic_1_1_listener_key.html#adaa5a9586c1117f8f83f30274c19779f',1,'Yodiwo::API::Logic::ListenerKey']]],
   ['emsgflags',['eMsgFlags',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_wrapper_msg.html#ae05b9626622af636efcb18fc1201ce37',1,'Yodiwo::API::Plegma::WrapperMsg']]],
   ['enodecapa',['eNodeCapa',['../namespace_yodiwo_1_1_a_p_i_1_1_plegma.html#a271b3fa13d183907501a8e75d21504ca',1,'Yodiwo::API::Plegma']]],
   ['enodenewstatus',['eNodeNewStatus',['../namespace_yodiwo_1_1_a_p_i_1_1_plegma.html#aed1bbbabc06dd6b39d0d65af14fb1c32',1,'Yodiwo::API::Plegma']]],

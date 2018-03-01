@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['deepclone',['DeepClone',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port.html#a175354b515f885b5e420d764c903782c',1,'Yodiwo.API.Plegma.Port.DeepClone()'],['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_thing.html#a7bc9f950dc5312547c90ddc246e90a69',1,'Yodiwo.API.Plegma.Thing.DeepClone()']]],
-  ['driverkey',['DriverKey',['../struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_driver_key.html#a8032d23bab3f0a06d43e3ed2a2ca93d4',1,'Yodiwo::API::Plegma::DriverKey']]]
+  ['genericrsp',['GenericRsp',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_generic_rsp.html#a821c19bafdb1c201908034f39d863151',1,'Yodiwo::API::Plegma::GenericRsp']]],
+  ['getbytes',['GetBytes',['../struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_node_key.html#a17060e2bc2c208ade032f1a4d5937ee5',1,'Yodiwo.API.Plegma.NodeKey.GetBytes()'],['../struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_sub_user_key.html#ae9ea59e42360d2f236488e5a5f5d6108',1,'Yodiwo.API.Plegma.SubUserKey.GetBytes()']]]
 ];

@@ -12,8 +12,6 @@ var searchData=
   ['videoserverconnectresponse',['VideoServerConnectResponse',['../class_yodiwo_1_1_a_p_i_1_1_media_streaming_1_1_video_server_connect_response.html',1,'Yodiwo::API::MediaStreaming']]],
   ['videoserverdisconnectrequest',['VideoServerDisconnectRequest',['../class_yodiwo_1_1_a_p_i_1_1_media_streaming_1_1_video_server_disconnect_request.html',1,'Yodiwo::API::MediaStreaming']]],
   ['videoserverdisconnectresponse',['VideoServerDisconnectResponse',['../class_yodiwo_1_1_a_p_i_1_1_media_streaming_1_1_video_server_disconnect_response.html',1,'Yodiwo::API::MediaStreaming']]],
-  ['videoserverfeedrequest',['VideoServerFeedRequest',['../class_yodiwo_1_1_a_p_i_1_1_media_streaming_1_1_video_server_feed_request.html',1,'Yodiwo::API::MediaStreaming']]],
-  ['videoserverfeedresponse',['VideoServerFeedResponse',['../class_yodiwo_1_1_a_p_i_1_1_media_streaming_1_1_video_server_feed_response.html',1,'Yodiwo::API::MediaStreaming']]],
   ['virtualblockevent',['VirtualBlockEvent',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_virtual_block_event.html',1,'Yodiwo::API::Plegma']]],
   ['virtualblockeventmsg',['VirtualBlockEventMsg',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_virtual_block_event_msg.html',1,'Yodiwo::API::Plegma']]]
 ];

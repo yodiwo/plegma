@@ -30,12 +30,11 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="LOGO NO TAGLINE - 80p.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="icon-plegma.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Plegma API
-   &#160;<span id="projectnumber">v1.0</span>
+   &#160;<span id="projectnumber">v1</span>
    </div>
-   <div id="projectbrief">Formal API reference. For a more descriptive view of this API please visit https://www.yodiwo.com/developers</div>
   </td>
  </tr>
  </tbody>
@@ -51,7 +50,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li><a href="namespaces.html"><span>Packages</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
-      <li><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -141,7 +139,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aac3832b1077a4d082f9d8f7731189091"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_virtual_block_event_msg.html#aac3832b1077a4d082f9d8f7731189091">VirtualBlockEventMsg</a> (int seqNo, <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_virtual_block_event.html">VirtualBlockEvent</a> ev)</td></tr>
 <tr class="memdesc:aac3832b1077a4d082f9d8f7731189091"><td class="mdescLeft">&#160;</td><td class="mdescRight">quick(er) constructor for a single-event <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_event_msg.html" title="asynchronous Port Event message The main API message to exchange events between Nodes and the Yodiwo ...">PortEventMsg</a>  <a href="#aac3832b1077a4d082f9d8f7731189091">More...</a><br /></td></tr>
 <tr class="separator:aac3832b1077a4d082f9d8f7731189091"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a70fa81416ca284cf5e75129e9db5fb50"><td class="memItemLeft" align="right" valign="top">override string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_virtual_block_event_msg.html#a70fa81416ca284cf5e75129e9db5fb50">ToString</a> ()</td></tr>
+<tr class="memitem:a70fa81416ca284cf5e75129e9db5fb50"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a70fa81416ca284cf5e75129e9db5fb50"></a>
+override string&#160;</td><td class="memItemRight" valign="bottom"><b>ToString</b> ()</td></tr>
 <tr class="separator:a70fa81416ca284cf5e75129e9db5fb50"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
@@ -157,8 +156,6 @@ Public Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>asynchronous <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port.html" title="Basic Input/Output entity of a Thing Creates and sends messages towards the Yodiwo cloud service...">Port</a> Event message The main <a class="el" href="namespace_yodiwo_1_1_a_p_i.html">API</a> message to exchange events between Nodes and the <a class="el" href="namespace_yodiwo.html">Yodiwo</a> Cloud Service </p>
 <p>Direction: bidirectional (Node-&gt;Cloud and Cloud-&gt;Node)</p>
-
-<p>Definition at line <a class="el" href="_public_8cs_source.html#l01026">1026</a> of file <a class="el" href="_public_8cs_source.html">Public.cs</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a579cc39518c18fd05f0b033a2f28167f"></a>
 <div class="memitem">
@@ -174,8 +171,6 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>parameterless constructor of PortEventMsgs </p>
-
-<p>Definition at line <a class="el" href="_public_8cs_source.html#l01036">1036</a> of file <a class="el" href="_public_8cs_source.html">Public.cs</a>.</p>
 
 </div>
 </div>
@@ -194,8 +189,6 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>constructor with sequence numbers </p>
-
-<p>Definition at line <a class="el" href="_public_8cs_source.html#l01044">1044</a> of file <a class="el" href="_public_8cs_source.html">Public.cs</a>.</p>
 
 </div>
 </div>
@@ -232,26 +225,6 @@ Public Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="_public_8cs_source.html#l01055">1055</a> of file <a class="el" href="_public_8cs_source.html">Public.cs</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="a70fa81416ca284cf5e75129e9db5fb50"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">override string Yodiwo.API.Plegma.VirtualBlockEventMsg.ToString </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="_public_8cs_source.html#l01061">1061</a> of file <a class="el" href="_public_8cs_source.html">Public.cs</a>.</p>
-
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
@@ -267,12 +240,10 @@ Public Attributes</h2></td></tr>
 
 <p>Array of <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_event.html" title="Port Event class: used to describe a new event that should trigger an endpoint, either towards a node...">PortEvent</a> messages </p>
 
-<p>Definition at line <a class="el" href="_public_8cs_source.html#l01031">1031</a> of file <a class="el" href="_public_8cs_source.html">Public.cs</a>.</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>E:/dev/sw_2.4.x/Yodiwo/APIs/Plegma/<a class="el" href="_public_8cs_source.html">Public.cs</a></li>
+<li>C:/DEV/sw/Yodiwo/APIs/Plegma/Public.cs</li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

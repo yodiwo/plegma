@@ -30,12 +30,11 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="LOGO NO TAGLINE - 80p.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="icon-plegma.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Plegma API
-   &#160;<span id="projectnumber">v1.0</span>
+   &#160;<span id="projectnumber">v1</span>
    </div>
-   <div id="projectbrief">Formal API reference. For a more descriptive view of this API please visit https://www.yodiwo.com/developers</div>
   </td>
  </tr>
  </tbody>
@@ -51,7 +50,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li class="current"><a href="namespaces.html"><span>Packages</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
-      <li><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -122,8 +120,6 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_node_pairing_1_1_pairing_node_get_tokens_request.html">PairingNodeGetTokensRequest</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_node_pairing_1_1_pairing_node_phase1_response.html">PairingNodePhase1Response</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_node_pairing_1_1_pairing_server_keys_response.html">PairingServerKeysResponse</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_node_pairing_1_1_pairing_server_tokens_response.html">PairingServerTokensResponse</a></td></tr>
@@ -131,78 +127,27 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:a2a79b236407288efc74a2555638f2231"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_plegma_1_1_node_pairing.html#a2a79b236407288efc74a2555638f2231">PairingStates</a> { <br />
-&#160;&#160;<a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_plegma_1_1_node_pairing.html#a2a79b236407288efc74a2555638f2231a4f2a91e15af2631ff9424564b8a45fb2">PairingStates.Initial</a>, 
-<a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_plegma_1_1_node_pairing.html#a2a79b236407288efc74a2555638f2231a098b846b8fb78489d3e9cc558a565f2b">PairingStates.StartRequested</a>, 
-<a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_plegma_1_1_node_pairing.html#a2a79b236407288efc74a2555638f2231a3cfcf9af5e4dab03276a1967cb1b3030">PairingStates.TokensRequested</a>, 
-<a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_plegma_1_1_node_pairing.html#a2a79b236407288efc74a2555638f2231abbaf60cca8b50452ed94ce5b74f26dab">PairingStates.TokensSentToNode</a>, 
+<tr class="memitem:a2a79b236407288efc74a2555638f2231"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2a79b236407288efc74a2555638f2231"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>PairingStates</b> { <br />
+&#160;&#160;<b>Initial</b>, 
+<b>StartRequested</b>, 
+<b>TokensRequested</b>, 
+<b>TokensSentToNode</b>, 
 <br />
-&#160;&#160;<a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_plegma_1_1_node_pairing.html#a2a79b236407288efc74a2555638f2231a76053b739d02ecb445fbc8ca696abd29">PairingStates.Token2SentToUser</a>, 
-<a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_plegma_1_1_node_pairing.html#a2a79b236407288efc74a2555638f2231ac23d94652be116c2a88fe67ccee58ae3">PairingStates.Token2PostedToServer</a>, 
-<a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_plegma_1_1_node_pairing.html#a2a79b236407288efc74a2555638f2231a8e064d3f013dad804655fa2a64b6fb59">PairingStates.UUIDEntryRedirect</a>, 
-<a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_plegma_1_1_node_pairing.html#a2a79b236407288efc74a2555638f2231a28bfc02d432da8d0b66cc21759d5cc13">PairingStates.Phase1Complete</a>, 
+&#160;&#160;<b>Token2SentToUser</b>, 
+<b>Token2PostedToServer</b>, 
+<b>UUIDEntryRedirect</b>, 
+<b>Phase1Complete</b>, 
 <br />
-&#160;&#160;<a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_plegma_1_1_node_pairing.html#a2a79b236407288efc74a2555638f2231a9bfa52076331ffb7a699c13e90618fe4">PairingStates.NextRequested</a>, 
-<a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_plegma_1_1_node_pairing.html#a2a79b236407288efc74a2555638f2231ad04ee225fd9ea8e7be053c5862f6c0e9">PairingStates.Token1PostedToServer</a>, 
-<a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_plegma_1_1_node_pairing.html#a2a79b236407288efc74a2555638f2231a8afc0ca57f571f79c6596e18ac9e5d64">PairingStates.KeysSentToNode</a>, 
-<a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_plegma_1_1_node_pairing.html#a2a79b236407288efc74a2555638f2231acac92ac2e78fc9171b82e8686e1c7e1f">PairingStates.Paired</a>, 
+&#160;&#160;<b>NextRequested</b>, 
+<b>Token1PostedToServer</b>, 
+<b>KeysSentToNode</b>, 
+<b>Paired</b>, 
 <br />
-&#160;&#160;<a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_plegma_1_1_node_pairing.html#a2a79b236407288efc74a2555638f2231ad7c8c85bf79bbe1b7188497c32c3b0ca">PairingStates.Failed</a>
+&#160;&#160;<b>Failed</b>
 <br />
  }</td></tr>
 <tr class="separator:a2a79b236407288efc74a2555638f2231"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Enumeration Type Documentation</h2>
-<a class="anchor" id="a2a79b236407288efc74a2555638f2231"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_plegma_1_1_node_pairing.html#a2a79b236407288efc74a2555638f2231">Yodiwo.API.Plegma.NodePairing.PairingStates</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a class="anchor" id="a2a79b236407288efc74a2555638f2231a4f2a91e15af2631ff9424564b8a45fb2"></a>Initial&#160;</td><td class="fielddoc">
-</td></tr>
-<tr><td class="fieldname"><a class="anchor" id="a2a79b236407288efc74a2555638f2231a098b846b8fb78489d3e9cc558a565f2b"></a>StartRequested&#160;</td><td class="fielddoc">
-</td></tr>
-<tr><td class="fieldname"><a class="anchor" id="a2a79b236407288efc74a2555638f2231a3cfcf9af5e4dab03276a1967cb1b3030"></a>TokensRequested&#160;</td><td class="fielddoc">
-</td></tr>
-<tr><td class="fieldname"><a class="anchor" id="a2a79b236407288efc74a2555638f2231abbaf60cca8b50452ed94ce5b74f26dab"></a>TokensSentToNode&#160;</td><td class="fielddoc">
-</td></tr>
-<tr><td class="fieldname"><a class="anchor" id="a2a79b236407288efc74a2555638f2231a76053b739d02ecb445fbc8ca696abd29"></a>Token2SentToUser&#160;</td><td class="fielddoc">
-</td></tr>
-<tr><td class="fieldname"><a class="anchor" id="a2a79b236407288efc74a2555638f2231ac23d94652be116c2a88fe67ccee58ae3"></a>Token2PostedToServer&#160;</td><td class="fielddoc">
-</td></tr>
-<tr><td class="fieldname"><a class="anchor" id="a2a79b236407288efc74a2555638f2231a8e064d3f013dad804655fa2a64b6fb59"></a>UUIDEntryRedirect&#160;</td><td class="fielddoc">
-</td></tr>
-<tr><td class="fieldname"><a class="anchor" id="a2a79b236407288efc74a2555638f2231a28bfc02d432da8d0b66cc21759d5cc13"></a>Phase1Complete&#160;</td><td class="fielddoc">
-</td></tr>
-<tr><td class="fieldname"><a class="anchor" id="a2a79b236407288efc74a2555638f2231a9bfa52076331ffb7a699c13e90618fe4"></a>NextRequested&#160;</td><td class="fielddoc">
-</td></tr>
-<tr><td class="fieldname"><a class="anchor" id="a2a79b236407288efc74a2555638f2231ad04ee225fd9ea8e7be053c5862f6c0e9"></a>Token1PostedToServer&#160;</td><td class="fielddoc">
-</td></tr>
-<tr><td class="fieldname"><a class="anchor" id="a2a79b236407288efc74a2555638f2231a8afc0ca57f571f79c6596e18ac9e5d64"></a>KeysSentToNode&#160;</td><td class="fielddoc">
-</td></tr>
-<tr><td class="fieldname"><a class="anchor" id="a2a79b236407288efc74a2555638f2231acac92ac2e78fc9171b82e8686e1c7e1f"></a>Paired&#160;</td><td class="fielddoc">
-</td></tr>
-<tr><td class="fieldname"><a class="anchor" id="a2a79b236407288efc74a2555638f2231ad7c8c85bf79bbe1b7188497c32c3b0ca"></a>Failed&#160;</td><td class="fielddoc">
-</td></tr>
-</table>
-
-<p>Definition at line <a class="el" href="_node_pairing_8cs_source.html#l00042">42</a> of file <a class="el" href="_node_pairing_8cs_source.html">NodePairing.cs</a>.</p>
-
-</div>
-</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

@@ -30,12 +30,11 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="LOGO NO TAGLINE - 80p.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="icon-plegma.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Plegma API
-   &#160;<span id="projectnumber">v1.0</span>
+   &#160;<span id="projectnumber">v1</span>
    </div>
-   <div id="projectbrief">Formal API reference. For a more descriptive view of this API please visit https://www.yodiwo.com/developers</div>
   </td>
  </tr>
  </tbody>
@@ -51,7 +50,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li><a href="namespaces.html"><span>Packages</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
-      <li><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -139,11 +137,12 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a22ac766a018bcf6171cef33cd7bbecc3"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_description.html#a22ac766a018bcf6171cef33cd7bbecc3">Semantics</a></td></tr>
 <tr class="memdesc:a22ac766a018bcf6171cef33cd7bbecc3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Describes the semantics of this port  <a href="#a22ac766a018bcf6171cef33cd7bbecc3">More...</a><br /></td></tr>
 <tr class="separator:a22ac766a018bcf6171cef33cd7bbecc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a060954c4c742dbd5fb9192c2c3282573"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_plegma.html#adf465054b1e1042fb0e75e46bfe615d1">ioPortDirection</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_description.html#a060954c4c742dbd5fb9192c2c3282573">ioDirection</a></td></tr>
+<tr class="memdesc:a060954c4c742dbd5fb9192c2c3282573"><td class="mdescLeft">&#160;</td><td class="mdescRight">Direction (<a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_plegma.html#adf465054b1e1042fb0e75e46bfe615d1" title="Direction of Port ">ioPortDirection</a>) of <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port.html" title="Basic Input/Output entity of a Thing Creates and sends messages towards the Yodiwo cloud service...">Port</a> <a href="#a060954c4c742dbd5fb9192c2c3282573">More...</a><br /></td></tr>
+<tr class="separator:a060954c4c742dbd5fb9192c2c3282573"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Describes restrictions and gives information of a port <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port.html" title="Basic Input/Output entity of a Thing Creates and sends messages towards the Yodiwo cloud service...">Port</a>. </p>
-
-<p>Definition at line <a class="el" href="_public_8cs_source.html#l00263">263</a> of file <a class="el" href="_public_8cs_source.html">Public.cs</a>.</p>
 </div><h2 class="groupheader">Member Data Documentation</h2>
 <a class="anchor" id="a6b94e78a6cbb8b05978f2257edf7a958"></a>
 <div class="memitem">
@@ -156,8 +155,6 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>the category of this port , e.g. "TEMPERATURE" </p>
-
-<p>Definition at line <a class="el" href="_public_8cs_source.html#l00280">280</a> of file <a class="el" href="_public_8cs_source.html">Public.cs</a>.</p>
 
 </div>
 </div>
@@ -173,8 +170,6 @@ Public Attributes</h2></td></tr>
 
 <p>Human readable description for this port (can be null) </p>
 
-<p>Definition at line <a class="el" href="_public_8cs_source.html#l00268">268</a> of file <a class="el" href="_public_8cs_source.html">Public.cs</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="ab57ddcb45f51c82257441b02989b7cb3"></a>
@@ -189,7 +184,19 @@ Public Attributes</h2></td></tr>
 
 <p>The unique identifier which identifies this port (must neither be null, nor empty) </p>
 
-<p>Definition at line <a class="el" href="_public_8cs_source.html#l00272">272</a> of file <a class="el" href="_public_8cs_source.html">Public.cs</a>.</p>
+</div>
+</div>
+<a class="anchor" id="a060954c4c742dbd5fb9192c2c3282573"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_plegma.html#adf465054b1e1042fb0e75e46bfe615d1">ioPortDirection</a> Yodiwo.API.Plegma.PortDescription.ioDirection</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Direction (<a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_plegma.html#adf465054b1e1042fb0e75e46bfe615d1" title="Direction of Port ">ioPortDirection</a>) of <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port.html" title="Basic Input/Output entity of a Thing Creates and sends messages towards the Yodiwo cloud service...">Port</a></p>
 
 </div>
 </div>
@@ -205,8 +212,6 @@ Public Attributes</h2></td></tr>
 
 <p>Human readable label (can be null) </p>
 
-<p>Definition at line <a class="el" href="_public_8cs_source.html#l00276">276</a> of file <a class="el" href="_public_8cs_source.html">Public.cs</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a22ac766a018bcf6171cef33cd7bbecc3"></a>
@@ -220,8 +225,6 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Describes the semantics of this port </p>
-
-<p>Definition at line <a class="el" href="_public_8cs_source.html#l00288">288</a> of file <a class="el" href="_public_8cs_source.html">Public.cs</a>.</p>
 
 </div>
 </div>
@@ -237,12 +240,10 @@ Public Attributes</h2></td></tr>
 
 <p>Describes the state of this port<a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_state_description.html">StateDescription</a> </p>
 
-<p>Definition at line <a class="el" href="_public_8cs_source.html#l00284">284</a> of file <a class="el" href="_public_8cs_source.html">Public.cs</a>.</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>E:/dev/sw_2.4.x/Yodiwo/APIs/Plegma/<a class="el" href="_public_8cs_source.html">Public.cs</a></li>
+<li>C:/DEV/sw/Yodiwo/APIs/Plegma/Public.cs</li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

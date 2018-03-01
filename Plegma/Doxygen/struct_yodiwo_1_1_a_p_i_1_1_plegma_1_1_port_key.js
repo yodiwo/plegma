@@ -11,6 +11,7 @@ var struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_key =
     [ "ToString", "struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_key.html#a34a413b6cadb80d1bd2c2e12e0436ab9", null ],
     [ "PortUID", "struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_key.html#aa99c182df45dc91dd143eb0d774875e9", null ],
     [ "ThingKey", "struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_key.html#a7f0baeab506c94fce3292c2b33c06415", null ],
+    [ "VirtThingTriggerPortId", "struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_key.html#a4b53bcf3ac125aaa749491f6338b1a0f", null ],
     [ "IsInvalid", "struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_key.html#adcd031c0ae51dc1a52abc6f370390e10", null ],
     [ "IsValid", "struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_key.html#a18fbb3a935d095cffc4895d2555f9b26", null ]
 ];

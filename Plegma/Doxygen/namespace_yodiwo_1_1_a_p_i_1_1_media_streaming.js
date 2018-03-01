@@ -10,8 +10,6 @@ var namespace_yodiwo_1_1_a_p_i_1_1_media_streaming =
     [ "AudioServerConnectResponse", "class_yodiwo_1_1_a_p_i_1_1_media_streaming_1_1_audio_server_connect_response.html", "class_yodiwo_1_1_a_p_i_1_1_media_streaming_1_1_audio_server_connect_response" ],
     [ "AudioServerDisconnectRequest", "class_yodiwo_1_1_a_p_i_1_1_media_streaming_1_1_audio_server_disconnect_request.html", "class_yodiwo_1_1_a_p_i_1_1_media_streaming_1_1_audio_server_disconnect_request" ],
     [ "AudioServerDisconnectResponse", "class_yodiwo_1_1_a_p_i_1_1_media_streaming_1_1_audio_server_disconnect_response.html", "class_yodiwo_1_1_a_p_i_1_1_media_streaming_1_1_audio_server_disconnect_response" ],
-    [ "AudioServerFeedRequest", "class_yodiwo_1_1_a_p_i_1_1_media_streaming_1_1_audio_server_feed_request.html", "class_yodiwo_1_1_a_p_i_1_1_media_streaming_1_1_audio_server_feed_request" ],
-    [ "AudioServerFeedResponse", "class_yodiwo_1_1_a_p_i_1_1_media_streaming_1_1_audio_server_feed_response.html", "class_yodiwo_1_1_a_p_i_1_1_media_streaming_1_1_audio_server_feed_response" ],
     [ "ErrorMessage", "class_yodiwo_1_1_a_p_i_1_1_media_streaming_1_1_error_message.html", "class_yodiwo_1_1_a_p_i_1_1_media_streaming_1_1_error_message" ],
     [ "InfoMessage", "class_yodiwo_1_1_a_p_i_1_1_media_streaming_1_1_info_message.html", "class_yodiwo_1_1_a_p_i_1_1_media_streaming_1_1_info_message" ],
     [ "OngoingMediaStreamDescriptor", "class_yodiwo_1_1_a_p_i_1_1_media_streaming_1_1_ongoing_media_stream_descriptor.html", "class_yodiwo_1_1_a_p_i_1_1_media_streaming_1_1_ongoing_media_stream_descriptor" ],
@@ -25,7 +23,5 @@ var namespace_yodiwo_1_1_a_p_i_1_1_media_streaming =
     [ "VideoServerConnectRequest", "class_yodiwo_1_1_a_p_i_1_1_media_streaming_1_1_video_server_connect_request.html", "class_yodiwo_1_1_a_p_i_1_1_media_streaming_1_1_video_server_connect_request" ],
     [ "VideoServerConnectResponse", "class_yodiwo_1_1_a_p_i_1_1_media_streaming_1_1_video_server_connect_response.html", "class_yodiwo_1_1_a_p_i_1_1_media_streaming_1_1_video_server_connect_response" ],
     [ "VideoServerDisconnectRequest", "class_yodiwo_1_1_a_p_i_1_1_media_streaming_1_1_video_server_disconnect_request.html", "class_yodiwo_1_1_a_p_i_1_1_media_streaming_1_1_video_server_disconnect_request" ],
-    [ "VideoServerDisconnectResponse", "class_yodiwo_1_1_a_p_i_1_1_media_streaming_1_1_video_server_disconnect_response.html", "class_yodiwo_1_1_a_p_i_1_1_media_streaming_1_1_video_server_disconnect_response" ],
-    [ "VideoServerFeedRequest", "class_yodiwo_1_1_a_p_i_1_1_media_streaming_1_1_video_server_feed_request.html", "class_yodiwo_1_1_a_p_i_1_1_media_streaming_1_1_video_server_feed_request" ],
-    [ "VideoServerFeedResponse", "class_yodiwo_1_1_a_p_i_1_1_media_streaming_1_1_video_server_feed_response.html", "class_yodiwo_1_1_a_p_i_1_1_media_streaming_1_1_video_server_feed_response" ]
+    [ "VideoServerDisconnectResponse", "class_yodiwo_1_1_a_p_i_1_1_media_streaming_1_1_video_server_disconnect_response.html", "class_yodiwo_1_1_a_p_i_1_1_media_streaming_1_1_video_server_disconnect_response" ]
 ];

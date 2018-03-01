@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['lcd',['LCD',['../namespace_yodiwo_1_1_a_p_i_1_1_plegma.html#a642d9abc16e86759303e8e9fd966baf0ad48d9783fee1f1e84a5acbd98169d047',1,'Yodiwo::API::Plegma']]],
-  ['lora',['LoRa',['../namespace_yodiwo_1_1_a_p_i_1_1_plegma.html#afe9a940d4e2334a18c45ac6f143c5161a987f947a83fbf1022695e132547e0e19',1,'Yodiwo::API::Plegma']]]
+  ['output',['Output',['../namespace_yodiwo_1_1_a_p_i_1_1_plegma.html#adf465054b1e1042fb0e75e46bfe615d1a29c2c02a361c9d7028472e5d92cd4a54',1,'Yodiwo::API::Plegma']]],
+  ['overwrite',['Overwrite',['../namespace_yodiwo_1_1_a_p_i_1_1_plegma.html#acac5d2ac97eb42e4f8e55c0ae240e2e7ada364eb37e143f6b2b5559aa03f5913a',1,'Yodiwo::API::Plegma']]]
 ];

@@ -8,5 +8,6 @@ var class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_node_pairing_1_1_pairing_node_get_toke
     [ "pathcss", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_node_pairing_1_1_pairing_node_get_tokens_request.html#a272d0b9141ae83e99e073430dadd3a19", null ],
     [ "PublicKey", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_node_pairing_1_1_pairing_node_get_tokens_request.html#ae1bfce1dc47160a740910b6e141446e1", null ],
     [ "RedirectUri", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_node_pairing_1_1_pairing_node_get_tokens_request.html#aad830ba9ec6089f96702f5d66ee0ac44", null ],
+    [ "TargetEmail", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_node_pairing_1_1_pairing_node_get_tokens_request.html#a6d8050145670f256aaf55beeb05e1314", null ],
     [ "uuid", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_node_pairing_1_1_pairing_node_get_tokens_request.html#add7052ed25081f6fe6c79a748592b8d1", null ]
 ];

@@ -14,25 +14,21 @@ var NAVTREE =
       [ "Class Hierarchy", "hierarchy.html", "hierarchy" ],
       [ "Class Members", "functions.html", [
         [ "All", "functions.html", "functions_dup" ],
-        [ "Functions", "functions_func.html", "functions_func" ],
-        [ "Variables", "functions_vars.html", "functions_vars" ],
+        [ "Functions", "functions_func.html", null ],
+        [ "Variables", "functions_vars.html", null ],
         [ "Enumerations", "functions_enum.html", null ],
         [ "Properties", "functions_prop.html", null ]
       ] ]
-    ] ],
-    [ "Files", null, [
-      [ "File List", "files.html", "files" ]
     ] ]
   ] ]
 ];
 
 var NAVTREEINDEX =
 [
-"_api_msg_8cs.html",
-"class_yodiwo_1_1_a_p_i_1_1_logic_1_1_live_execution_solve.html",
-"class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_login_rsp.html#a5a9e3182b4ec8173b659be68e6b7984c",
-"class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_thing_type.html#a07d1f02e922ff323e1824b1186144f38",
-"struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_group_key.html#acbc8b0959ca43a38ebcdb68249580e91"
+"annotated.html",
+"class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_image_content_descriptor.html",
+"class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port.html#ab23792b59f2f18b31fa080d268fcfa52",
+"struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_db_key.html#ae01f1a2385311481071ab7b126223d48"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

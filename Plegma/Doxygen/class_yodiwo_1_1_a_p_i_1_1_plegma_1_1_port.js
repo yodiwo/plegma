@@ -24,6 +24,9 @@ var class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port =
     [ "Semantics", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port.html#a5e713c20587ce059a53d4afaf26e6306", null ],
     [ "Size", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port.html#a4ec67b6c0d5cd24cc74de4016a61f12b", null ],
     [ "State", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port.html#a33c0b376ffd62540a911ff1f3e8c1c05", null ],
+    [ "Touch", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port.html#a2fb23cb43a7ca93e5f86b212ed66b8c6", null ],
     [ "Type", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port.html#a16b6d2de0ef7dfcf98fcee184ee6ed56", null ],
-    [ "Yport", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port.html#aa6be1a31fb86ef02dfd8f33bc66b0f1c", null ]
+    [ "Yport", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port.html#aa6be1a31fb86ef02dfd8f33bc66b0f1c", null ],
+    [ "IsInputPort", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port.html#a469b2c07316b2c913f1bb8ee4c620961", null ],
+    [ "IsOutputPort", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port.html#af07a321b99052915f0707544e6fe092f", null ]
 ];

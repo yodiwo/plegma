@@ -30,12 +30,11 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="LOGO NO TAGLINE - 80p.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="icon-plegma.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Plegma API
-   &#160;<span id="projectnumber">v1.0</span>
+   &#160;<span id="projectnumber">v1</span>
    </div>
-   <div id="projectbrief">Formal API reference. For a more descriptive view of this API please visit https://www.yodiwo.com/developers</div>
   </td>
  </tr>
  </tbody>
@@ -51,7 +50,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li><a href="namespaces.html"><span>Packages</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
-      <li><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -162,6 +160,12 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a8b385462eb82ee5dc939d536db9c4b3c"><td class="memItemLeft" align="right" valign="top">string[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_node_info_rsp.html#a8b385462eb82ee5dc939d536db9c4b3c">BlockLibraries</a></td></tr>
 <tr class="memdesc:a8b385462eb82ee5dc939d536db9c4b3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">List of BlockLibraries that this Node supports  <a href="#a8b385462eb82ee5dc939d536db9c4b3c">More...</a><br /></td></tr>
 <tr class="separator:a8b385462eb82ee5dc939d536db9c4b3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab63a8e2b466a61f3d351778102d7dae3"><td class="memItemLeft" align="right" valign="top">eEndpointRestrictions&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_node_info_rsp.html#ab63a8e2b466a61f3d351778102d7dae3">Restrictions</a></td></tr>
+<tr class="memdesc:ab63a8e2b466a61f3d351778102d7dae3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Guide Cloud Servers' behaviour for the duration of the connection; applies on a per node/endpoint basis and is allowed to change between connections; can be used by lower-powered nodes to ease connection overhead it is not saved to any database  <a href="#ab63a8e2b466a61f3d351778102d7dae3">More...</a><br /></td></tr>
+<tr class="separator:ab63a8e2b466a61f3d351778102d7dae3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a943178623c4c67fd6b908f70a364d57e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_node_info_rsp.html#a943178623c4c67fd6b908f70a364d57e">MaxMsgSize</a></td></tr>
+<tr class="memdesc:a943178623c4c67fd6b908f70a364d57e"><td class="mdescLeft">&#160;</td><td class="mdescRight">specify maximum number of message size (bytes) that node can accept; Cloud will (try to) break larger messages into smaller ones Zero or missing means no limit  <a href="#a943178623c4c67fd6b908f70a364d57e">More...</a><br /></td></tr>
+<tr class="separator:a943178623c4c67fd6b908f70a364d57e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abc145fb7c876f491562d39e9e82af546"><td class="memItemLeft" align="right" valign="top">Dictionary&lt; string, string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_node_info_rsp.html#abc145fb7c876f491562d39e9e82af546">TransientInfo</a></td></tr>
 <tr class="memdesc:abc145fb7c876f491562d39e9e82af546"><td class="mdescLeft">&#160;</td><td class="mdescRight">Additional transient info that the node chooses to provide at each connection This is shown / used by Workers, but is not saved in any database Allowed to be null / empty  <a href="#abc145fb7c876f491562d39e9e82af546">More...</a><br /></td></tr>
 <tr class="separator:abc145fb7c876f491562d39e9e82af546"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -177,8 +181,6 @@ Public Attributes</h2></td></tr>
 <div class="textblock"><p>Node Info Response Message that contains general information about a node including supported Node Types and Capabilities </p>
 <p>Direction: bidirectional (Node-&gt;Cloud and Cloud-&gt;Node)</p>
 <p>In response to a <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_node_info_req.html" title="Node Info Request Sent by cloud to a node, it is to request capabilities and supported types from the...">NodeInfoReq</a> </p>
-
-<p>Definition at line <a class="el" href="_public_8cs_source.html#l00432">432</a> of file <a class="el" href="_public_8cs_source.html">Public.cs</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a0125a19ee32b99ac0f1f23dfec32036b"></a>
 <div class="memitem">
@@ -194,8 +196,6 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Node Info Response constructor </p>
-
-<p>Definition at line <a class="el" href="_public_8cs_source.html#l00487">487</a> of file <a class="el" href="_public_8cs_source.html">Public.cs</a>.</p>
 
 </div>
 </div>
@@ -215,8 +215,6 @@ Public Attributes</h2></td></tr>
 
 <p>Node Info Response constructor </p>
 
-<p>Definition at line <a class="el" href="_public_8cs_source.html#l00495">495</a> of file <a class="el" href="_public_8cs_source.html">Public.cs</a>.</p>
-
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
@@ -232,8 +230,6 @@ Public Attributes</h2></td></tr>
 
 <p>Additional non-transient info that the node chooses to provide This is shown / used by Workers, and it is saved in the User Context database Existing keys will get their values updated. Unknown keys are created. Allowed to be null / empty </p>
 
-<p>Definition at line <a class="el" href="_public_8cs_source.html#l00482">482</a> of file <a class="el" href="_public_8cs_source.html">Public.cs</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a8b385462eb82ee5dc939d536db9c4b3c"></a>
@@ -247,8 +243,6 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>List of BlockLibraries that this Node supports </p>
-
-<p>Definition at line <a class="el" href="_public_8cs_source.html#l00467">467</a> of file <a class="el" href="_public_8cs_source.html">Public.cs</a>.</p>
 
 </div>
 </div>
@@ -264,7 +258,19 @@ Public Attributes</h2></td></tr>
 
 <p>Capabilities of this node </p>
 
-<p>Definition at line <a class="el" href="_public_8cs_source.html#l00447">447</a> of file <a class="el" href="_public_8cs_source.html">Public.cs</a>.</p>
+</div>
+</div>
+<a class="anchor" id="a943178623c4c67fd6b908f70a364d57e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Yodiwo.API.Plegma.NodeInfoRsp.MaxMsgSize</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>specify maximum number of message size (bytes) that node can accept; Cloud will (try to) break larger messages into smaller ones Zero or missing means no limit </p>
 
 </div>
 </div>
@@ -280,7 +286,19 @@ Public Attributes</h2></td></tr>
 
 <p>Friendly name of responding Node </p>
 
-<p>Definition at line <a class="el" href="_public_8cs_source.html#l00437">437</a> of file <a class="el" href="_public_8cs_source.html">Public.cs</a>.</p>
+</div>
+</div>
+<a class="anchor" id="ab63a8e2b466a61f3d351778102d7dae3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">eEndpointRestrictions Yodiwo.API.Plegma.NodeInfoRsp.Restrictions</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Guide Cloud Servers' behaviour for the duration of the connection; applies on a per node/endpoint basis and is allowed to change between connections; can be used by lower-powered nodes to ease connection overhead it is not saved to any database </p>
 
 </div>
 </div>
@@ -296,8 +314,6 @@ Public Attributes</h2></td></tr>
 
 <p>Revision number of supported <a class="el" href="namespace_yodiwo_1_1_a_p_i.html">API</a> version </p>
 
-<p>Definition at line <a class="el" href="_public_8cs_source.html#l00462">462</a> of file <a class="el" href="_public_8cs_source.html">Public.cs</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="acbb98cf33e5c531f03b5564e0e5e6177"></a>
@@ -311,8 +327,6 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Revision number of responding Node's Things </p>
-
-<p>Definition at line <a class="el" href="_public_8cs_source.html#l00457">457</a> of file <a class="el" href="_public_8cs_source.html">Public.cs</a>.</p>
 
 </div>
 </div>
@@ -328,8 +342,6 @@ Public Attributes</h2></td></tr>
 
 <p>List of <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_thing_type.html" title="Base class that describes a group of Thing Models ThingModelType ">ThingType</a>s that this Node presents and implements </p>
 
-<p>Definition at line <a class="el" href="_public_8cs_source.html#l00452">452</a> of file <a class="el" href="_public_8cs_source.html">Public.cs</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="abc145fb7c876f491562d39e9e82af546"></a>
@@ -343,8 +355,6 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Additional transient info that the node chooses to provide at each connection This is shown / used by Workers, but is not saved in any database Allowed to be null / empty </p>
-
-<p>Definition at line <a class="el" href="_public_8cs_source.html#l00474">474</a> of file <a class="el" href="_public_8cs_source.html">Public.cs</a>.</p>
 
 </div>
 </div>
@@ -360,12 +370,10 @@ Public Attributes</h2></td></tr>
 
 <p>Type (<a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_plegma.html#afe9a940d4e2334a18c45ac6f143c5161" title="Type of Node ">eNodeType</a>) of responding Node </p>
 
-<p>Definition at line <a class="el" href="_public_8cs_source.html#l00442">442</a> of file <a class="el" href="_public_8cs_source.html">Public.cs</a>.</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>E:/dev/sw_2.4.x/Yodiwo/APIs/Plegma/<a class="el" href="_public_8cs_source.html">Public.cs</a></li>
+<li>C:/DEV/sw/Yodiwo/APIs/Plegma/Public.cs</li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

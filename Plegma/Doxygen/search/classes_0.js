@@ -20,7 +20,5 @@ var searchData=
   ['audioserverconnectrequest',['AudioServerConnectRequest',['../class_yodiwo_1_1_a_p_i_1_1_media_streaming_1_1_audio_server_connect_request.html',1,'Yodiwo::API::MediaStreaming']]],
   ['audioserverconnectresponse',['AudioServerConnectResponse',['../class_yodiwo_1_1_a_p_i_1_1_media_streaming_1_1_audio_server_connect_response.html',1,'Yodiwo::API::MediaStreaming']]],
   ['audioserverdisconnectrequest',['AudioServerDisconnectRequest',['../class_yodiwo_1_1_a_p_i_1_1_media_streaming_1_1_audio_server_disconnect_request.html',1,'Yodiwo::API::MediaStreaming']]],
-  ['audioserverdisconnectresponse',['AudioServerDisconnectResponse',['../class_yodiwo_1_1_a_p_i_1_1_media_streaming_1_1_audio_server_disconnect_response.html',1,'Yodiwo::API::MediaStreaming']]],
-  ['audioserverfeedrequest',['AudioServerFeedRequest',['../class_yodiwo_1_1_a_p_i_1_1_media_streaming_1_1_audio_server_feed_request.html',1,'Yodiwo::API::MediaStreaming']]],
-  ['audioserverfeedresponse',['AudioServerFeedResponse',['../class_yodiwo_1_1_a_p_i_1_1_media_streaming_1_1_audio_server_feed_response.html',1,'Yodiwo::API::MediaStreaming']]]
+  ['audioserverdisconnectresponse',['AudioServerDisconnectResponse',['../class_yodiwo_1_1_a_p_i_1_1_media_streaming_1_1_audio_server_disconnect_response.html',1,'Yodiwo::API::MediaStreaming']]]
 ];

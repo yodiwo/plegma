@@ -8,7 +8,6 @@ var class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_thing =
     [ "GetConfigValue", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_thing.html#a7c165e20d57d8ab5939db16b39e88e14", null ],
     [ "GetPort", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_thing.html#ae0f13cf1c370035dd47a1f0a15606e9e", null ],
     [ "GetPort", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_thing.html#ae3ae09875d1561e3d45c03b1733ec675", null ],
-    [ "GetPortByName", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_thing.html#a2b01ff062612ecd9d1224e62da134c2e", null ],
     [ "GetReadOnlyValue", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_thing.html#ab0e47c677cecdf3fa217f7ab6b6fa86f", null ],
     [ "HasSameConfig", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_thing.html#a3067dc5057cb8cb4dfd1c3497d2d1c9f", null ],
     [ "IsSameType", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_thing.html#af0d84722009d7d780ce9ccfcda6703f3", null ],
@@ -27,5 +26,9 @@ var class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_thing =
     [ "ThingKey", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_thing.html#ae8c29189dc819bf289d135e72698c65a", null ],
     [ "Type", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_thing.html#a85aaa018ec1df6c89848e7590285ba6c", null ],
     [ "UIHints", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_thing.html#ad6a0319703c81d85efaf7286adbd4b97", null ],
-    [ "Ything", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_thing.html#a5d433d5b19c97243bd2fc852c4dd59d0", null ]
+    [ "Ything", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_thing.html#a5d433d5b19c97243bd2fc852c4dd59d0", null ],
+    [ "IsInput", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_thing.html#ad0faff03b907c043612a88f55cb61cbc", null ],
+    [ "IsInputOnly", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_thing.html#aa5f00062421e079221bb937641526b9b", null ],
+    [ "IsOutput", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_thing.html#adacd72e950100e9f4ad53b150d18cd83", null ],
+    [ "IsOutputOnly", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_thing.html#aea51b78b209465d7d0153c7c599dbf34", null ]
 ];
