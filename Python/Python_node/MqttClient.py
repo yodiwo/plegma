@@ -132,7 +132,7 @@ class MqttClient(object):
         payload = parsedmqttmsg["Payload"]
         apimsgtype = msg.topic.split("/")[-1]
         objmsg = self.plegmaapi.ApiMsgNamesToTypes[apimsgtype](**json.loads(payload))
-        wrapper_msg = MqttMsg(**parsedmqttmsg)
+        wrapper_msg = MqttMsg(SyncId=parsedmqttmsg["SyncId"], Payload=parsedmqttmsg["Payload"], Flags=parsedmqttmsg["Flags"], PayloadSize=parsedmqttmsg["PayloadSize"])
         syncid = int(parsedmqttmsg["SyncId"])
         if wrapper_msg.isRequest():
             return self._on_PlegmaReqArrived(objmsg, syncid)
