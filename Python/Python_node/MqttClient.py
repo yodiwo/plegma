@@ -131,8 +131,8 @@ class MqttClient(object):
         parsedmqttmsg = json.loads(str(msg.payload, "utf-8"))
         payload = parsedmqttmsg["Payload"]
         apimsgtype = msg.topic.split("/")[-1]
-        objmsg = self.plegmaapi.ApiMsgNamesToTypes[apimsgtype](**json.loads(payload))
-        wrapper_msg = MqttMsg(SyncId=parsedmqttmsg["SyncId"], Payload=parsedmqttmsg["Payload"], Flags=parsedmqttmsg["Flags"], PayloadSize=parsedmqttmsg["PayloadSize"])
+        objmsg = self.plegmaapi.ApiMsgNamesToTypes[apimsgtype].fromCloud(json.loads(payload))
+        wrapper_msg = MqttMsg.fromCloud(parsedmqttmsg)
         syncid = int(parsedmqttmsg["SyncId"])
         if wrapper_msg.isRequest():
             return self._on_PlegmaReqArrived(objmsg, syncid)
