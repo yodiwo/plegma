@@ -8,6 +8,7 @@ var struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_user_api_key =
     [ "FillFromString", "struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_user_api_key.html#a00a1657aa7a5418641c630c5fcd802b8", null ],
     [ "GetHashCode", "struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_user_api_key.html#a5d3f8884c2027a1407f70c3d000472c2", null ],
     [ "ToString", "struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_user_api_key.html#a3be7d8a5ba26ccc1c5f4362a23e36a78", null ],
+    [ "_IsValid", "struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_user_api_key.html#a09009de121f098f68a1c697d598f0df3", null ],
     [ "ApiUID", "struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_user_api_key.html#a51dc556e319214149fb8423727afa4e8", null ],
     [ "Userkey", "struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_user_api_key.html#aea4c7bd0f8bb354569e687adadf2e32a", null ],
     [ "IsInvalid", "struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_user_api_key.html#a2310a1f47b7da98c4a07b4d8d95a1fb7", null ],

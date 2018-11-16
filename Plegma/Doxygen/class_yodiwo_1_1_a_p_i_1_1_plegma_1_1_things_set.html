@@ -33,7 +33,7 @@
   <td id="projectlogo"><img alt="Logo" src="icon-plegma.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Plegma API
-   &#160;<span id="projectnumber">v1</span>
+   &#160;<span id="projectnumber">v2</span>
    </div>
   </td>
  </tr>
@@ -133,6 +133,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a6005d836c07a88eae3b068dc759924e7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_things_set.html#a6005d836c07a88eae3b068dc759924e7">ThingsSet</a> ()</td></tr>
 <tr class="memdesc:a6005d836c07a88eae3b068dc759924e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Things Message constructor (for asynchronous messages)  <a href="#a6005d836c07a88eae3b068dc759924e7">More...</a><br /></td></tr>
 <tr class="separator:a6005d836c07a88eae3b068dc759924e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01a1118dcfe0edbeb1241909f03ab08a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_things_set.html#a01a1118dcfe0edbeb1241909f03ab08a">ThingsSet</a> (int seqno)</td></tr>
+<tr class="memdesc:a01a1118dcfe0edbeb1241909f03ab08a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Things Message constructor with sequence counter  <a href="#a01a1118dcfe0edbeb1241909f03ab08a">More...</a><br /></td></tr>
+<tr class="separator:a01a1118dcfe0edbeb1241909f03ab08a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -145,6 +148,9 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:ac470847764020226ca814904d7f7bb87"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_thing.html">Thing</a>[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_things_set.html#ac470847764020226ca814904d7f7bb87">Data</a></td></tr>
 <tr class="memdesc:ac470847764020226ca814904d7f7bb87"><td class="mdescLeft">&#160;</td><td class="mdescRight">Array of <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_thing.html" title="Main representation of a Thing that can interact with the Yodiwo cloud service ">Thing</a>s that contain data related to the selected Operation, if applicable  <a href="#ac470847764020226ca814904d7f7bb87">More...</a><br /></td></tr>
 <tr class="separator:ac470847764020226ca814904d7f7bb87"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac896599fe83c87e6eeada0703fe7b7c3"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_things_set.html#ac896599fe83c87e6eeada0703fe7b7c3">Hierarchy</a></td></tr>
+<tr class="memdesc:ac896599fe83c87e6eeada0703fe7b7c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">(optional) If not empty, then the action of <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_things_set.html#a8302d65fc19416fd58bb27da0305d020" title="Identifier of this message&#39;s operation of type eThingsOperation Operation fields must match between R...">ThingsSet.Operation</a> should only apply to Things that hierarchically fall under this entry Useful to perform a "Full Resync" <a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_plegma.html#acac5d2ac97eb42e4f8e55c0ae240e2e7ada364eb37e143f6b2b5559aa03f5913a" title="referenced things are to be updated at receiver if they exist, created if not. Previously existing th...">eThingsOperation.Overwrite</a> operation that only applies to a specific hierarchy level  <a href="#ac896599fe83c87e6eeada0703fe7b7c3">More...</a><br /></td></tr>
+<tr class="separator:ac896599fe83c87e6eeada0703fe7b7c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae87f5fea348e6e2a806e6ba494abd496"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_things_set.html#ae87f5fea348e6e2a806e6ba494abd496">RevNum</a></td></tr>
 <tr class="memdesc:ae87f5fea348e6e2a806e6ba494abd496"><td class="mdescLeft">&#160;</td><td class="mdescRight">Things revision number of responder to a previous request; can be 0 if not available or applicable  <a href="#ae87f5fea348e6e2a806e6ba494abd496">More...</a><br /></td></tr>
 <tr class="separator:ae87f5fea348e6e2a806e6ba494abd496"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -179,6 +185,24 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a01a1118dcfe0edbeb1241909f03ab08a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Yodiwo.API.Plegma.ThingsSet.ThingsSet </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>seqno</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Things Message constructor with sequence counter </p>
+
+</div>
+</div>
 <h2 class="groupheader">Member Data Documentation</h2>
 <a class="anchor" id="ac470847764020226ca814904d7f7bb87"></a>
 <div class="memitem">
@@ -191,6 +215,20 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Array of <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_thing.html" title="Main representation of a Thing that can interact with the Yodiwo cloud service ">Thing</a>s that contain data related to the selected Operation, if applicable </p>
+
+</div>
+</div>
+<a class="anchor" id="ac896599fe83c87e6eeada0703fe7b7c3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">string Yodiwo.API.Plegma.ThingsSet.Hierarchy</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>(optional) If not empty, then the action of <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_things_set.html#a8302d65fc19416fd58bb27da0305d020" title="Identifier of this message&#39;s operation of type eThingsOperation Operation fields must match between R...">ThingsSet.Operation</a> should only apply to Things that hierarchically fall under this entry Useful to perform a "Full Resync" <a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_plegma.html#acac5d2ac97eb42e4f8e55c0ae240e2e7ada364eb37e143f6b2b5559aa03f5913a" title="referenced things are to be updated at receiver if they exist, created if not. Previously existing th...">eThingsOperation.Overwrite</a> operation that only applies to a specific hierarchy level </p>
 
 </div>
 </div>
@@ -237,7 +275,7 @@ Public Attributes</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/DEV/sw/Yodiwo/APIs/Plegma/Public.cs</li>
+<li>c:/DEV/sw_3.0.x/Yodiwo/APIs/Plegma/Public.cs</li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

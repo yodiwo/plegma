@@ -12,6 +12,7 @@ var struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_node_key =
     [ "ToString", "struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_node_key.html#a9373b2ee3f3ddf3bec40e3ae05894bfc", null ],
     [ "ToStringEx", "struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_node_key.html#a0f7be4caa232f63d0768804dfcde7e9e", null ],
     [ "ToStringFullSize", "struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_node_key.html#ae73baea7269b00d2993796fe8ac066c7", null ],
+    [ "_IsValid", "struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_node_key.html#a7a607223c7163793e4a0c701cf49d68a", null ],
     [ "CloudId", "struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_node_key.html#a8d07c331d04fabe35a3fac2efc31a0a0", null ],
     [ "MaxKeyLength", "struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_node_key.html#a69dcb7cb00a08527135d2f7ce29842fb", null ],
     [ "MaxNodeIDLength", "struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_node_key.html#ae0d07708a3c1c4a9d9cee18da55edc2f", null ],

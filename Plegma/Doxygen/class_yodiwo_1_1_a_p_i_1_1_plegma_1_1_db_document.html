@@ -33,7 +33,7 @@
   <td id="projectlogo"><img alt="Logo" src="icon-plegma.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Plegma API
-   &#160;<span id="projectnumber">v1</span>
+   &#160;<span id="projectnumber">v2</span>
    </div>
   </td>
  </tr>
@@ -133,6 +133,9 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>Touch</b> ()<
 <tr class="memitem:a065a28ab1e34e16dbfe67ea0cced0422"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a065a28ab1e34e16dbfe67ea0cced0422"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>Touch</b> (bool async)</td></tr>
 <tr class="separator:a065a28ab1e34e16dbfe67ea0cced0422"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a78278c1d9d7ba56c442339c04df05b20"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a78278c1d9d7ba56c442339c04df05b20"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SetFlushCB</b> (Func&lt; T, bool &gt; cb)</td></tr>
+<tr class="separator:a78278c1d9d7ba56c442339c04df05b20"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab8d8c5b53aa9de490a0bcc80ffcf80a3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab8d8c5b53aa9de490a0bcc80ffcf80a3"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>Flush</b> ()</td></tr>
 <tr class="separator:ab8d8c5b53aa9de490a0bcc80ffcf80a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -157,15 +160,9 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>EndInit</b> (
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:ac68c26ad85711335fbfa933b755ab23b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac68c26ad85711335fbfa933b755ab23b"></a>
-object&#160;</td><td class="memItemRight" valign="bottom"><b>_r_locker</b></td></tr>
-<tr class="separator:ac68c26ad85711335fbfa933b755ab23b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a340c207fbf22af2ad3667b8f78010a4e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a340c207fbf22af2ad3667b8f78010a4e"></a>
-object&#160;</td><td class="memItemRight" valign="bottom"><b>_w_locker</b></td></tr>
-<tr class="separator:a340c207fbf22af2ad3667b8f78010a4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac12f71457a5139833bf7bcf1b29ebd99"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac12f71457a5139833bf7bcf1b29ebd99"></a>
-Action&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>FlushCb</b></td></tr>
-<tr class="separator:ac12f71457a5139833bf7bcf1b29ebd99"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acbc25da8479bf6c0ceef235182430e04"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acbc25da8479bf6c0ceef235182430e04"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>ClassVersion</b> =&gt; _ClassVersion</td></tr>
+<tr class="separator:acbc25da8479bf6c0ceef235182430e04"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
@@ -193,9 +190,6 @@ DateTime&#160;</td><td class="memItemRight" valign="bottom"><b>UpdatedTimestamp<
 <tr class="memitem:a3e21166f468f5dbce1a3bd2569cf15ba"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3e21166f468f5dbce1a3bd2569cf15ba"></a>
 string&#160;</td><td class="memItemRight" valign="bottom"><b>_id</b><code> [get, protected set]</code></td></tr>
 <tr class="separator:a3e21166f468f5dbce1a3bd2569cf15ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acbc25da8479bf6c0ceef235182430e04"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acbc25da8479bf6c0ceef235182430e04"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>ClassVersion</b><code> [get]</code></td></tr>
-<tr class="separator:acbc25da8479bf6c0ceef235182430e04"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9c096fbe44b779234f67f1990e644438"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9c096fbe44b779234f67f1990e644438"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>Migrated</b><code> [get]</code></td></tr>
 <tr class="separator:a9c096fbe44b779234f67f1990e644438"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -204,7 +198,7 @@ IDictionary&lt; string, object &gt;&#160;</td><td class="memItemRight" valign="b
 <tr class="separator:a85e28046a4f04c2b6a47f6837c4d3dfb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/DEV/sw/Yodiwo/APIs/Plegma/DbDocument.cs</li>
+<li>c:/DEV/sw_3.0.x/Yodiwo/APIs/Plegma/DbDocument.cs</li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

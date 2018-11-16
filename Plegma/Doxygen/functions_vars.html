@@ -33,7 +33,7 @@
   <td id="projectlogo"><img alt="Logo" src="icon-plegma.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Plegma API
-   &#160;<span id="projectnumber">v1</span>
+   &#160;<span id="projectnumber">v2</span>
    </div>
   </td>
  </tr>
@@ -183,7 +183,9 @@ $(document).ready(function(){initNavTree('functions_vars.html','');});
 : <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_virtual_block_event_msg.html#a8ce41be2c9d40a360aff32641c26c0b8">Yodiwo.API.Plegma.VirtualBlockEventMsg</a>
 </li>
 <li>BlockKey
-: <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_virtual_block_event.html#aba7e5e53eb70a0dcf9c73547e0215fec">Yodiwo.API.Plegma.VirtualBlockEvent</a>
+: <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_block_event_feedback_msg.html#abf72335ab4c25decc3d179d45d902857">Yodiwo.API.Plegma.BlockEventFeedbackMsg</a>
+, <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_event_msg.html#a697dacb2d79ebcaea1e5c48118ceaf9d">Yodiwo.API.Plegma.PortEventMsg</a>
+, <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_virtual_block_event.html#aba7e5e53eb70a0dcf9c73547e0215fec">Yodiwo.API.Plegma.VirtualBlockEvent</a>
 </li>
 <li>BlockLibraries
 : <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_node_info_rsp.html#a8b385462eb82ee5dc939d536db9c4b3c">Yodiwo.API.Plegma.NodeInfoRsp</a>
@@ -280,6 +282,7 @@ $(document).ready(function(){initNavTree('functions_vars.html','');});
 <h3><a class="anchor" id="index_h"></a>- h -</h3><ul>
 <li>Hierarchy
 : <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_thing.html#a9f0fab8e352b62385fa1aaa4c04111b9">Yodiwo.API.Plegma.Thing</a>
+, <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_things_set.html#ac896599fe83c87e6eeada0703fe7b7c3">Yodiwo.API.Plegma.ThingsSet</a>
 </li>
 <li>HttpUrl
 : <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_media_streaming_1_1_video_descriptor.html#a6bcf4adc619c28d37d6b78c3d400b2d8">Yodiwo.API.MediaStreaming.VideoDescriptor</a>
@@ -292,12 +295,16 @@ $(document).ready(function(){initNavTree('functions_vars.html','');});
 : <a class="el" href="struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_thing_u_i_hints.html#a969263479be8d61a0d33b16881b0d7a4">Yodiwo.API.Plegma.ThingUIHints</a>
 </li>
 <li>Id
-: <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_description.html#ab57ddcb45f51c82257441b02989b7cb3">Yodiwo.API.Plegma.PortDescription</a>
+: <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_block_event_feedback_msg.html#a94dedf3ae9f41f7466733291c4c83050">Yodiwo.API.Plegma.BlockEventFeedbackMsg</a>
+, <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_description.html#ab57ddcb45f51c82257441b02989b7cb3">Yodiwo.API.Plegma.PortDescription</a>
 , <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_thing_model_type.html#a63d4095a63a428b43462e12f2a2cf614">Yodiwo.API.Plegma.ThingModelType</a>
 , <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_web_socket_msg.html#a1d72e306eccd9bc654c89850b03cdba1">Yodiwo.API.Plegma.WebSocketMsg</a>
 </li>
 <li>Indices
 : <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_virtual_block_event.html#a9c0313bef85c4ea503e1600265216269">Yodiwo.API.Plegma.VirtualBlockEvent</a>
+</li>
+<li>INeedAck
+: <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_event_msg.html#aa8165620978c071be59668cc60e79c3f">Yodiwo.API.Plegma.PortEventMsg</a>
 </li>
 <li>ioDirection
 : <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port.html#af7585ac3185d3450bdd396fb7c076cd1">Yodiwo.API.Plegma.Port</a>
@@ -324,9 +331,6 @@ $(document).ready(function(){initNavTree('functions_vars.html','');});
 <li>Label
 : <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_config_description.html#a1f4dfb0a4395e4d88d2824ae537a9f4d">Yodiwo.API.Plegma.ConfigDescription</a>
 , <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_description.html#a5ae5ba17701b62fff16f28d1fde52fed">Yodiwo.API.Plegma.PortDescription</a>
-</li>
-<li>LastUpdatedTimestamp
-: <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port.html#a636702754bc4e67f84ef5129b02651da">Yodiwo.API.Plegma.Port</a>
 </li>
 <li>LatestApiRev
 : <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_node_info_req.html#aa6580def094e114cf66af2f4e2d81e56">Yodiwo.API.Plegma.NodeInfoReq</a>
@@ -405,6 +409,9 @@ $(document).ready(function(){initNavTree('functions_vars.html','');});
 , <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_state_set.html#ad34845a5789d614e4bf25c1f32fbf797">Yodiwo.API.Plegma.PortStateSet</a>
 , <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_things_get.html#a2155903631386d3f9c63c083e575fb9b">Yodiwo.API.Plegma.ThingsGet</a>
 , <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_things_set.html#a8302d65fc19416fd58bb27da0305d020">Yodiwo.API.Plegma.ThingsSet</a>
+</li>
+<li>OrigSeqNo
+: <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_generic_rsp.html#a38359dcd4588da08793790e7670a09a9">Yodiwo.API.Plegma.GenericRsp</a>
 </li>
 </ul>
 
@@ -487,9 +494,9 @@ $(document).ready(function(){initNavTree('functions_vars.html','');});
 : <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_thing.html#a6c6fb913fc2661313054a0c37558758e">Yodiwo.API.Plegma.Thing</a>
 </li>
 <li>RevNum
-: <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port.html#a476f84fe28cbd3ce52a04ab6bcd46ca4">Yodiwo.API.Plegma.Port</a>
-, <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_event.html#ab29d4f5f47eb206ae723a01aac620d8a">Yodiwo.API.Plegma.PortEvent</a>
+: <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_event.html#ab29d4f5f47eb206ae723a01aac620d8a">Yodiwo.API.Plegma.PortEvent</a>
 , <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_state.html#a39a107da506057867b22186d38e876c4">Yodiwo.API.Plegma.PortState</a>
+, <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_state_triplet.html#a040d7f6b1f5fb8a3cc38dac2f29f2855">Yodiwo.API.Plegma.StateTriplet</a>
 , <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_things_get.html#a692ef23b26a7f7f4ca2f03078e265238">Yodiwo.API.Plegma.ThingsGet</a>
 , <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_things_set.html#ae87f5fea348e6e2a806e6ba494abd496">Yodiwo.API.Plegma.ThingsSet</a>
 , <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_virtual_block_event.html#a2017952c4145ec99cb5122a7ab2af3e8">Yodiwo.API.Plegma.VirtualBlockEvent</a>
@@ -539,10 +546,13 @@ $(document).ready(function(){initNavTree('functions_vars.html','');});
 : <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_incident_descriptor.html#acf57c67120b3eee5b2f0288477c33606">Yodiwo.API.Plegma.IncidentDescriptor</a>
 </li>
 <li>State
-: <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port.html#a33c0b376ffd62540a911ff1f3e8c1c05">Yodiwo.API.Plegma.Port</a>
-, <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_description.html#ad11d4123feea0d8bc4f69f4a878d05ce">Yodiwo.API.Plegma.PortDescription</a>
+: <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_description.html#ad11d4123feea0d8bc4f69f4a878d05ce">Yodiwo.API.Plegma.PortDescription</a>
 , <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_event.html#ae5e8eb90c5a29462f27393473e640f02">Yodiwo.API.Plegma.PortEvent</a>
 , <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_state.html#a0d564889baccdb4dcc3c4f65229bc639">Yodiwo.API.Plegma.PortState</a>
+, <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_state_triplet.html#a5bdb8c9fe5f253957d91a32717b3d8f9">Yodiwo.API.Plegma.StateTriplet</a>
+</li>
+<li>States
+: <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port.html#a4ceb529417459a5fe6d21272768796ba">Yodiwo.API.Plegma.Port</a>
 </li>
 <li>Status
 : <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_media_streaming_1_1_audio_data_resp.html#aaf286b9b8a5c6a3c9ef3a6ae5f69c2f5">Yodiwo.API.MediaStreaming.AudioDataResp</a>
@@ -554,7 +564,8 @@ $(document).ready(function(){initNavTree('functions_vars.html','');});
 , <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_things_set.html#aac40f8df0908e604046cc4cdd1481c3d">Yodiwo.API.Plegma.ThingsSet</a>
 </li>
 <li>StatusCode
-: <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_generic_rsp.html#a3c389fc61bbf336680b5d3809f52f2bc">Yodiwo.API.Plegma.GenericRsp</a>
+: <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_block_event_feedback_msg.html#aa134ce4cb772eeeaee60c8c4d827c5e1">Yodiwo.API.Plegma.BlockEventFeedbackMsg</a>
+, <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_generic_rsp.html#a3c389fc61bbf336680b5d3809f52f2bc">Yodiwo.API.Plegma.GenericRsp</a>
 </li>
 <li>Step
 : <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_state_description.html#a164641a8c9ec1ebd8506ff92ce1f7684">Yodiwo.API.Plegma.StateDescription</a>
@@ -579,7 +590,8 @@ $(document).ready(function(){initNavTree('functions_vars.html','');});
 : <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_incident_descriptor.html#a5cf0a89f69e0d0f63a1139d6cab00891">Yodiwo.API.Plegma.IncidentDescriptor</a>
 </li>
 <li>ThingKey
-: <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_thing.html#ae8c29189dc819bf289d135e72698c65a">Yodiwo.API.Plegma.Thing</a>
+: <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_block_event_feedback_msg.html#a3b3200e61bbea5e43cb7d00b23f976cd">Yodiwo.API.Plegma.BlockEventFeedbackMsg</a>
+, <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_thing.html#ae8c29189dc819bf289d135e72698c65a">Yodiwo.API.Plegma.Thing</a>
 , <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_things_get.html#af8e854a6c59355ebab9802e3272bc4a0">Yodiwo.API.Plegma.ThingsGet</a>
 </li>
 <li>ThingsRevNum
@@ -592,6 +604,7 @@ $(document).ready(function(){initNavTree('functions_vars.html','');});
 <li>Timestamp
 : <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_incident_descriptor.html#ad7207ad75f64cf1e911bb0a796e8b1ff">Yodiwo.API.Plegma.IncidentDescriptor</a>
 , <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_event.html#a4754dbfb0e01a01c3436a33b38ec56dd">Yodiwo.API.Plegma.PortEvent</a>
+, <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_state_triplet.html#ab701f79fa8d47eb11b16fdbf04a39276">Yodiwo.API.Plegma.StateTriplet</a>
 </li>
 <li>TransientInfo
 : <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_node_info_rsp.html#abc145fb7c876f491562d39e9e82af546">Yodiwo.API.Plegma.NodeInfoRsp</a>

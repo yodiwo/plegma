@@ -33,7 +33,7 @@
   <td id="projectlogo"><img alt="Logo" src="icon-plegma.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Plegma API
-   &#160;<span id="projectnumber">v1</span>
+   &#160;<span id="projectnumber">v2</span>
    </div>
   </td>
  </tr>
@@ -157,6 +157,9 @@ override int&#160;</td><td class="memItemRight" valign="bottom"><b>GetHashCode</
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
+<tr class="memitem:ae87973cd4586e00b63e53faa8644b7ec"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae87973cd4586e00b63e53faa8644b7ec"></a>
+static bool&#160;</td><td class="memItemRight" valign="bottom"><b>CheckValid</b> (<a class="el" href="struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_user_key.html">UserKey</a> ukey, string id)</td></tr>
+<tr class="separator:ae87973cd4586e00b63e53faa8644b7ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aad41f53513a0d92ae55075d906292eaf"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aad41f53513a0d92ae55075d906292eaf"></a>
 static implicit&#160;</td><td class="memItemRight" valign="bottom"><b>operator GraphDescriptorBaseKey</b> (<a class="el" href="struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_graph_descriptor_key.html">GraphDescriptorKey</a> key)</td></tr>
 <tr class="separator:aad41f53513a0d92ae55075d906292eaf"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -190,6 +193,21 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a5cfcb1c0b18ed1e42783ccbe142ced22"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5cfcb1c0b18ed1e42783ccbe142ced22"></a>
 string&#160;</td><td class="memItemRight" valign="bottom"><b>Id</b></td></tr>
 <tr class="separator:a5cfcb1c0b18ed1e42783ccbe142ced22"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa78c15fada7f2ef3785c0cc26f853c68"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa78c15fada7f2ef3785c0cc26f853c68"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>_IsValid</b></td></tr>
+<tr class="separator:aa78c15fada7f2ef3785c0cc26f853c68"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae2b06376c11c43f021222077afdd428f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae2b06376c11c43f021222077afdd428f"></a>
+const int&#160;</td><td class="memItemRight" valign="bottom"><b>MinIDLength</b> = 1</td></tr>
+<tr class="separator:ae2b06376c11c43f021222077afdd428f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38d4398b5459134fcf8c336a92f8da7f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a38d4398b5459134fcf8c336a92f8da7f"></a>
+const int&#160;</td><td class="memItemRight" valign="bottom"><b>MaxIDLength</b> = 32</td></tr>
+<tr class="separator:a38d4398b5459134fcf8c336a92f8da7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a84e9deac79ab7b7cc365b1bf9385430e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a84e9deac79ab7b7cc365b1bf9385430e"></a>
+const int&#160;</td><td class="memItemRight" valign="bottom"><b>MinKeyLength</b> = UserKey.MinKeyLength + 1 + MinIDLength</td></tr>
+<tr class="separator:a84e9deac79ab7b7cc365b1bf9385430e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d7d954267d1df7f897a7fa1e0c6fae7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8d7d954267d1df7f897a7fa1e0c6fae7"></a>
+const int&#160;</td><td class="memItemRight" valign="bottom"><b>MaxKeyLength</b> = UserKey.MaxKeyLength + 1 + MaxIDLength</td></tr>
+<tr class="separator:a8d7d954267d1df7f897a7fa1e0c6fae7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
 Properties</h2></td></tr>
@@ -201,7 +219,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsInvalid</b><code> [
 <tr class="separator:abf4b96fba8bf19e94b85027bc36e08ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>C:/DEV/sw/Yodiwo/APIs/Plegma/Keys.cs</li>
+<li>c:/DEV/sw_3.0.x/Yodiwo/APIs/Plegma/Keys.cs</li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

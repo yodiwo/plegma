@@ -33,7 +33,7 @@
   <td id="projectlogo"><img alt="Logo" src="icon-plegma.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Plegma API
-   &#160;<span id="projectnumber">v1</span>
+   &#160;<span id="projectnumber">v2</span>
    </div>
   </td>
  </tr>
@@ -130,9 +130,9 @@ Inheritance diagram for Yodiwo.API.Plegma.UserKey:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a155db285abf48d4e37263386bef5d5b9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a155db285abf48d4e37263386bef5d5b9"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>UserKey</b> (string UserID)</td></tr>
-<tr class="separator:a155db285abf48d4e37263386bef5d5b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3c61d162a8a9aa1bdeedf909468cabb"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac3c61d162a8a9aa1bdeedf909468cabb"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>UserKey</b> (string userID)</td></tr>
+<tr class="separator:ac3c61d162a8a9aa1bdeedf909468cabb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3543654e63b70711ec5096250edc22c6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3543654e63b70711ec5096250edc22c6"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>FillFromString</b> (string input)</td></tr>
 <tr class="separator:a3543654e63b70711ec5096250edc22c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -157,6 +157,9 @@ override int&#160;</td><td class="memItemRight" valign="bottom"><b>GetHashCode</
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a92b6b62f8932f17dc1360bb0793f61b0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a92b6b62f8932f17dc1360bb0793f61b0"></a>
+static bool&#160;</td><td class="memItemRight" valign="bottom"><b>CheckValid</b> (string userId)</td></tr>
+<tr class="separator:a92b6b62f8932f17dc1360bb0793f61b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a207e67693fd0887c15c258bedac84019"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a207e67693fd0887c15c258bedac84019"></a>
 static implicit&#160;</td><td class="memItemRight" valign="bottom"><b>operator UserKey</b> (string str)</td></tr>
 <tr class="separator:a207e67693fd0887c15c258bedac84019"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -178,6 +181,9 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a8208b409a36348191609a05889f84ff3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8208b409a36348191609a05889f84ff3"></a>
 string&#160;</td><td class="memItemRight" valign="bottom"><b>UserID</b></td></tr>
 <tr class="separator:a8208b409a36348191609a05889f84ff3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e555875b3f04165bc3f3a7d885f3720"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1e555875b3f04165bc3f3a7d885f3720"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>_IsValid</b></td></tr>
+<tr class="separator:a1e555875b3f04165bc3f3a7d885f3720"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a93ef1f0bec0e2c1b25a84e6dc42f4cef"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a93ef1f0bec0e2c1b25a84e6dc42f4cef"></a>
 const int&#160;</td><td class="memItemRight" valign="bottom"><b>MinUserIDLength</b> = 24</td></tr>
 <tr class="separator:a93ef1f0bec0e2c1b25a84e6dc42f4cef"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -206,7 +212,7 @@ static string&#160;</td><td class="memItemRight" valign="bottom"><b>BroadcastKey
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Globally unique identifier of a <a class="el" href="struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_user_key.html" title="Globally unique identifier of a Yodiwo.API.Plegma.UserKey ">Yodiwo.API.Plegma.UserKey</a> </p>
 </div><hr/>The documentation for this struct was generated from the following file:<ul>
-<li>C:/DEV/sw/Yodiwo/APIs/Plegma/Keys.cs</li>
+<li>c:/DEV/sw_3.0.x/Yodiwo/APIs/Plegma/Keys.cs</li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

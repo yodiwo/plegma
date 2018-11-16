@@ -9,5 +9,6 @@ var searchData=
   ['configparameter',['ConfigParameter',['../struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_config_parameter.html',1,'Yodiwo::API::Plegma']]],
   ['contentdescriptor',['ContentDescriptor',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_content_descriptor.html',1,'Yodiwo::API::Plegma']]],
   ['contentdescriptorjson',['ContentDescriptorJson',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_binary_resource_descriptor.html#aa02b6c2d8d5a3cad15528979fcf5ef55',1,'Yodiwo::API::Plegma::BinaryResourceDescriptor']]],
+  ['createnewendpoint',['CreateNewEndpoint',['../namespace_yodiwo_1_1_a_p_i_1_1_plegma.html#adcafc2909911e815f7803361fcaa0886a11a02c24a637ef30ea479fbc71fb45e9',1,'Yodiwo::API::Plegma']]],
   ['critical',['Critical',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_incident_descriptor.html#a6f61ec53e1384df6e84a388f4c32889ca278d01e5af56273bae1bb99a98b370cd',1,'Yodiwo::API::Plegma::IncidentDescriptor']]]
 ];

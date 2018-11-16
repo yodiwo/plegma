@@ -1,6 +1,6 @@
 var struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_driver_key =
 [
-    [ "DriverKey", "struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_driver_key.html#a8032d23bab3f0a06d43e3ed2a2ca93d4", null ],
+    [ "DriverKey", "struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_driver_key.html#af45e975a5959018538d1ad828ba28c26", null ],
     [ "Equals", "struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_driver_key.html#a29b0ad599110b10488cb091f17a6832e", null ],
     [ "Equals", "struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_driver_key.html#ae3b7a49d5e33717a6cce097748af3bf9", null ],
     [ "Equals", "struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_driver_key.html#aef9ccc71b101bddba9c8047a526132d8", null ],
@@ -8,6 +8,7 @@ var struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_driver_key =
     [ "GetHashCode", "struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_driver_key.html#a447279fb6d4c55763d860032f065c777", null ],
     [ "ToString", "struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_driver_key.html#a6b01d4bb4a1f3b34cdd2123d9e5f56c4", null ],
     [ "ToStringEx", "struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_driver_key.html#a7da92109613c9b043c962f1c40f8f6b5", null ],
+    [ "_IsValid", "struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_driver_key.html#a87f782088c7799a29dec26a5ba8c1a10", null ],
     [ "Id", "struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_driver_key.html#a637109a1bdfdf9f3833876f63f5372e6", null ],
     [ "Type", "struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_driver_key.html#aa2cef9b228cfe20a6be767d27681870c", null ],
     [ "IsInvalid", "struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_driver_key.html#a085b1717485e2dbeb73b5219337b075a", null ],

@@ -1,6 +1,6 @@
 var struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_user_key =
 [
-    [ "UserKey", "struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_user_key.html#a155db285abf48d4e37263386bef5d5b9", null ],
+    [ "UserKey", "struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_user_key.html#ac3c61d162a8a9aa1bdeedf909468cabb", null ],
     [ "Equals", "struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_user_key.html#a97cf63cbcdf79a8f4a7b4f331f6c7578", null ],
     [ "Equals", "struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_user_key.html#a2a7b884208c533e52ce2c404c3356b17", null ],
     [ "Equals", "struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_user_key.html#a3d437c676c71d1308a150b773c33cba9", null ],
@@ -8,6 +8,7 @@ var struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_user_key =
     [ "GetHashCode", "struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_user_key.html#a3dc3347c141404b10b5dc766d5118cb9", null ],
     [ "ToString", "struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_user_key.html#a03f44d18bb0758310fc4224bd463ca6e", null ],
     [ "ToStringEx", "struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_user_key.html#a304efa88762b9bc58f9511a0d50421a2", null ],
+    [ "_IsValid", "struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_user_key.html#a1e555875b3f04165bc3f3a7d885f3720", null ],
     [ "MaxKeyLength", "struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_user_key.html#a3f8e0b3ce22c99cb4e3b1ea4178da747", null ],
     [ "MaxUserIDLength", "struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_user_key.html#a663a9308aa2f8e2945df9ddd2eb95d38", null ],
     [ "MinKeyLength", "struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_user_key.html#afdc1bea9abb753f11a421de4f25ac137", null ],

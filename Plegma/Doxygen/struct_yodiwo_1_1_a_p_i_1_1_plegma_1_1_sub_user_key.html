@@ -33,7 +33,7 @@
   <td id="projectlogo"><img alt="Logo" src="icon-plegma.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Plegma API
-   &#160;<span id="projectnumber">v1</span>
+   &#160;<span id="projectnumber">v2</span>
    </div>
   </td>
  </tr>
@@ -130,12 +130,12 @@ Inheritance diagram for Yodiwo.API.Plegma.SubUserKey:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a662b8b0820b05b89b9a5a4bd61d91e0f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a662b8b0820b05b89b9a5a4bd61d91e0f"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>SubUserKey</b> (string userId, string SubUserID)</td></tr>
-<tr class="separator:a662b8b0820b05b89b9a5a4bd61d91e0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4afc227f835162950a1b4500ade77c40"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4afc227f835162950a1b4500ade77c40"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>SubUserKey</b> (<a class="el" href="struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_user_key.html">UserKey</a> userKey, string SubUserID)</td></tr>
-<tr class="separator:a4afc227f835162950a1b4500ade77c40"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a969397e67feba7c395af2cee090eb2fd"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a969397e67feba7c395af2cee090eb2fd"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>SubUserKey</b> (string userId, string subUserEmail)</td></tr>
+<tr class="separator:a969397e67feba7c395af2cee090eb2fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae5e981031b05f2dc8610293cf5a13175"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae5e981031b05f2dc8610293cf5a13175"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>SubUserKey</b> (<a class="el" href="struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_user_key.html">UserKey</a> userKey, string subUserEmail)</td></tr>
+<tr class="separator:ae5e981031b05f2dc8610293cf5a13175"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaa67ebf2bcae25a57bc73ea2fd0b1778"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aaa67ebf2bcae25a57bc73ea2fd0b1778"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>SubUserKey</b> (string str)</td></tr>
 <tr class="separator:aaa67ebf2bcae25a57bc73ea2fd0b1778"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -169,6 +169,9 @@ override int&#160;</td><td class="memItemRight" valign="bottom"><b>GetHashCode</
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a90b6fce6d21d6475ec8c36e173ad9126"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a90b6fce6d21d6475ec8c36e173ad9126"></a>
+static bool&#160;</td><td class="memItemRight" valign="bottom"><b>CheckValid</b> (<a class="el" href="struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_user_key.html">UserKey</a> userKey, string id)</td></tr>
+<tr class="separator:a90b6fce6d21d6475ec8c36e173ad9126"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa46d7f52c2397d35f170c6ad44037430"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa46d7f52c2397d35f170c6ad44037430"></a>
 static implicit&#160;</td><td class="memItemRight" valign="bottom"><b>operator SubUserKey</b> (string str)</td></tr>
 <tr class="separator:aa46d7f52c2397d35f170c6ad44037430"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -196,6 +199,9 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a7dd5c1b4aa8697779e8155f9b2248957"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7dd5c1b4aa8697779e8155f9b2248957"></a>
 string&#160;</td><td class="memItemRight" valign="bottom"><b>SubUserID</b></td></tr>
 <tr class="separator:a7dd5c1b4aa8697779e8155f9b2248957"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba127d20460eea9046df9a65f7f62831"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aba127d20460eea9046df9a65f7f62831"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>_IsValid</b></td></tr>
+<tr class="separator:aba127d20460eea9046df9a65f7f62831"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a59b669d97a22c4baa3c27ae9f398522e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a59b669d97a22c4baa3c27ae9f398522e"></a>
 const int&#160;</td><td class="memItemRight" valign="bottom"><b>MinSubUserIdLength</b> = 5</td></tr>
 <tr class="separator:a59b669d97a22c4baa3c27ae9f398522e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -211,6 +217,9 @@ const int&#160;</td><td class="memItemRight" valign="bottom"><b>MaxKeyLength</b>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
 Properties</h2></td></tr>
+<tr class="memitem:a592a2cf30677bbf5dc8e016e9feed479"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a592a2cf30677bbf5dc8e016e9feed479"></a>
+string&#160;</td><td class="memItemRight" valign="bottom"><b>SubUserEmail</b><code> [get]</code></td></tr>
+<tr class="separator:a592a2cf30677bbf5dc8e016e9feed479"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a64a766446081907700bfb8ee94c4a332"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a64a766446081907700bfb8ee94c4a332"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsValid</b><code> [get]</code></td></tr>
 <tr class="separator:a64a766446081907700bfb8ee94c4a332"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -320,7 +329,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsInvalid</b><code> [
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>C:/DEV/sw/Yodiwo/APIs/Plegma/Keys.cs</li>
+<li>c:/DEV/sw_3.0.x/Yodiwo/APIs/Plegma/Keys.cs</li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

@@ -33,7 +33,7 @@
   <td id="projectlogo"><img alt="Logo" src="icon-plegma.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Plegma API
-   &#160;<span id="projectnumber">v1</span>
+   &#160;<span id="projectnumber">v2</span>
    </div>
   </td>
  </tr>
@@ -133,9 +133,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a4b93a3f35a42288d4bb2e0a60babeae0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4b93a3f35a42288d4bb2e0a60babeae0"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>GraphDescriptorKey</b> (<a class="el" href="struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_user_key.html">UserKey</a> key, string name, int rev)</td></tr>
 <tr class="separator:a4b93a3f35a42288d4bb2e0a60babeae0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1ec6d3b0008822af55affa947d32fd4f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1ec6d3b0008822af55affa947d32fd4f"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>GraphDescriptorKey</b> (<a class="el" href="struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_graph_descriptor_base_key.html">GraphDescriptorBaseKey</a> desc, int rev)</td></tr>
-<tr class="separator:a1ec6d3b0008822af55affa947d32fd4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8bff383fc54db2549244cc2123da142c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8bff383fc54db2549244cc2123da142c"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>GraphDescriptorKey</b> (<a class="el" href="struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_graph_descriptor_base_key.html">GraphDescriptorBaseKey</a> bkey, int rev)</td></tr>
+<tr class="separator:a8bff383fc54db2549244cc2123da142c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a56c4d20f1b2b17085ab74765b6411cad"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a56c4d20f1b2b17085ab74765b6411cad"></a>
 override string&#160;</td><td class="memItemRight" valign="bottom"><b>ToString</b> ()</td></tr>
 <tr class="separator:a56c4d20f1b2b17085ab74765b6411cad"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -154,6 +154,9 @@ override int&#160;</td><td class="memItemRight" valign="bottom"><b>GetHashCode</
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
+<tr class="memitem:acb22fbed956f9db09151e52aee5cfcd6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acb22fbed956f9db09151e52aee5cfcd6"></a>
+static bool&#160;</td><td class="memItemRight" valign="bottom"><b>CheckValid</b> (<a class="el" href="struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_graph_descriptor_base_key.html">GraphDescriptorBaseKey</a> bkey, int rev)</td></tr>
+<tr class="separator:acb22fbed956f9db09151e52aee5cfcd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeeaa84ef081df582677a229e902b9fb5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aeeaa84ef081df582677a229e902b9fb5"></a>
 static implicit&#160;</td><td class="memItemRight" valign="bottom"><b>operator GraphDescriptorKey</b> (string str)</td></tr>
 <tr class="separator:aeeaa84ef081df582677a229e902b9fb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -178,6 +181,21 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:ad7de5a86058003f906467187d70ce733"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad7de5a86058003f906467187d70ce733"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>Revision</b></td></tr>
 <tr class="separator:ad7de5a86058003f906467187d70ce733"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae1090a22ce42fe468fad65f92ac30f19"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae1090a22ce42fe468fad65f92ac30f19"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>_IsValid</b></td></tr>
+<tr class="separator:ae1090a22ce42fe468fad65f92ac30f19"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a16369af83beede20422ce28c2bd0b74c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a16369af83beede20422ce28c2bd0b74c"></a>
+const int&#160;</td><td class="memItemRight" valign="bottom"><b>MinIDLength</b> = 1</td></tr>
+<tr class="separator:a16369af83beede20422ce28c2bd0b74c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4cd6f02082749e7df978d7134d3926e3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4cd6f02082749e7df978d7134d3926e3"></a>
+const int&#160;</td><td class="memItemRight" valign="bottom"><b>MaxIDLength</b> = 10</td></tr>
+<tr class="separator:a4cd6f02082749e7df978d7134d3926e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acbe376b1300a78ccb6be102283b03e3a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acbe376b1300a78ccb6be102283b03e3a"></a>
+const int&#160;</td><td class="memItemRight" valign="bottom"><b>MinKeyLength</b> = GraphDescriptorBaseKey.MinKeyLength + 1 + MinIDLength</td></tr>
+<tr class="separator:acbe376b1300a78ccb6be102283b03e3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a15428cf16e7eb5d394fd7078ff59a3f7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a15428cf16e7eb5d394fd7078ff59a3f7"></a>
+const int&#160;</td><td class="memItemRight" valign="bottom"><b>MaxKeyLength</b> = GraphDescriptorBaseKey.MaxKeyLength + 1 + MaxIDLength</td></tr>
+<tr class="separator:a15428cf16e7eb5d394fd7078ff59a3f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
 Properties</h2></td></tr>
@@ -197,7 +215,7 @@ string&#160;</td><td class="memItemRight" valign="bottom"><b>Id</b><code> [get]<
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Globally unique identifier of a <a class="el" href="struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_graph_descriptor_key.html" title="Globally unique identifier of a Yodiwo.API.Plegma.GraphDescriptorKey ">Yodiwo.API.Plegma.GraphDescriptorKey</a> </p>
 </div><hr/>The documentation for this struct was generated from the following file:<ul>
-<li>C:/DEV/sw/Yodiwo/APIs/Plegma/Keys.cs</li>
+<li>c:/DEV/sw_3.0.x/Yodiwo/APIs/Plegma/Keys.cs</li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

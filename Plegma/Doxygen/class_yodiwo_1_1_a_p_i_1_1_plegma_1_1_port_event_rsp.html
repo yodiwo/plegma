@@ -33,7 +33,7 @@
   <td id="projectlogo"><img alt="Logo" src="icon-plegma.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Plegma API
-   &#160;<span id="projectnumber">v1</span>
+   &#160;<span id="projectnumber">v2</span>
    </div>
   </td>
  </tr>
@@ -156,6 +156,12 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:ab8435f2c7f35480c781eb851e82ddde9 inherit pub_attribs_class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_event_msg"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_event.html">PortEvent</a>[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_event_msg.html#ab8435f2c7f35480c781eb851e82ddde9">PortEvents</a></td></tr>
 <tr class="memdesc:ab8435f2c7f35480c781eb851e82ddde9 inherit pub_attribs_class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_event_msg"><td class="mdescLeft">&#160;</td><td class="mdescRight">Array of <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_event.html" title="Port Event class: used to describe a new event that should trigger an endpoint, either towards a node...">PortEvent</a> messages  <a href="#ab8435f2c7f35480c781eb851e82ddde9">More...</a><br /></td></tr>
 <tr class="separator:ab8435f2c7f35480c781eb851e82ddde9 inherit pub_attribs_class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_event_msg"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a697dacb2d79ebcaea1e5c48118ceaf9d inherit pub_attribs_class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_event_msg"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_event_msg.html#a697dacb2d79ebcaea1e5c48118ceaf9d">BlockKey</a></td></tr>
+<tr class="memdesc:a697dacb2d79ebcaea1e5c48118ceaf9d inherit pub_attribs_class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_event_msg"><td class="mdescLeft">&#160;</td><td class="mdescRight">(optional) Block that this event refers to  <a href="#a697dacb2d79ebcaea1e5c48118ceaf9d">More...</a><br /></td></tr>
+<tr class="separator:a697dacb2d79ebcaea1e5c48118ceaf9d inherit pub_attribs_class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_event_msg"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa8165620978c071be59668cc60e79c3f inherit pub_attribs_class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_event_msg"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_event_msg.html#aa8165620978c071be59668cc60e79c3f">INeedAck</a></td></tr>
+<tr class="memdesc:aa8165620978c071be59668cc60e79c3f inherit pub_attribs_class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_event_msg"><td class="mdescLeft">&#160;</td><td class="mdescRight">(optional) Ask for acknowledgement of the packet. The recipient must reply with a <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_generic_rsp.html" title="General Response to request-type messages. Used to unblock requests waiting for responses that are of...">GenericRsp</a> carrying this packet's <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_api_msg.html#a0572f42a8b0026d3e1d391951ebb84d3" title="Sequence number of this message ">ApiMsg.SeqNo</a> in its <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_generic_rsp.html#a38359dcd4588da08793790e7670a09a9" title="(optional) Sequence number of packet that this one refers to">GenericRsp.OrigSeqNo</a> field.  <a href="#aa8165620978c071be59668cc60e79c3f">More...</a><br /></td></tr>
+<tr class="separator:aa8165620978c071be59668cc60e79c3f inherit pub_attribs_class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_event_msg"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_attribs_class_yodiwo_1_1_a_p_i_1_1_api_msg"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_class_yodiwo_1_1_a_p_i_1_1_api_msg')"><img src="closed.png" alt="-"/>&#160;Public Attributes inherited from <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_api_msg.html">Yodiwo.API.ApiMsg</a></td></tr>
 <tr class="memitem:a0572f42a8b0026d3e1d391951ebb84d3 inherit pub_attribs_class_yodiwo_1_1_a_p_i_1_1_api_msg"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_api_msg.html#a0572f42a8b0026d3e1d391951ebb84d3">SeqNo</a></td></tr>
 <tr class="memdesc:a0572f42a8b0026d3e1d391951ebb84d3 inherit pub_attribs_class_yodiwo_1_1_a_p_i_1_1_api_msg"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sequence number of this message  <a href="#a0572f42a8b0026d3e1d391951ebb84d3">More...</a><br /></td></tr>
@@ -233,7 +239,7 @@ Additional Inherited Members</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/DEV/sw/Yodiwo/APIs/Plegma/Public.cs</li>
+<li>c:/DEV/sw_3.0.x/Yodiwo/APIs/Plegma/Public.cs</li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

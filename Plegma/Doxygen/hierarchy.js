@@ -32,6 +32,7 @@ var hierarchy =
         [ "Yodiwo.API.Plegma.EndpointSyncReq", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_endpoint_sync_req.html", null ],
         [ "Yodiwo.API.Plegma.EndpointSyncRsp", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_endpoint_sync_rsp.html", null ],
         [ "Yodiwo.API.Plegma.GenericRsp", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_generic_rsp.html", [
+          [ "Yodiwo.API.Plegma.BlockEventFeedbackMsg", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_block_event_feedback_msg.html", null ],
           [ "Yodiwo.API.Plegma.NodePairing.PairingServerKeysResponse", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_node_pairing_1_1_pairing_server_keys_response.html", null ],
           [ "Yodiwo.API.Plegma.NodePairing.PairingServerTokensResponse", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_node_pairing_1_1_pairing_server_tokens_response.html", null ]
         ] ],
@@ -147,8 +148,10 @@ var hierarchy =
     [ "Yodiwo.API.Plegma.Port", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port.html", null ],
     [ "Yodiwo.API.Plegma.PortDescription", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_description.html", null ],
     [ "Yodiwo.API.Plegma.PortEvent", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_event.html", null ],
+    [ "Yodiwo.API.Plegma.PortModelLibrary", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_model_library.html", null ],
     [ "Yodiwo.API.Plegma.PortState", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_state.html", null ],
     [ "Yodiwo.API.Plegma.StateDescription", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_state_description.html", null ],
+    [ "Yodiwo.API.Plegma.StateTriplet", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_state_triplet.html", null ],
     [ "Yodiwo.API.Plegma.Thing", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_thing.html", null ],
     [ "Yodiwo.API.Plegma.ThingModelType", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_thing_model_type.html", null ],
     [ "Yodiwo.API.Plegma.ThingUIHints", "struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_thing_u_i_hints.html", null ],
@@ -156,11 +159,11 @@ var hierarchy =
     [ "Yodiwo.API.MediaStreaming.VideoDescriptor", "class_yodiwo_1_1_a_p_i_1_1_media_streaming_1_1_video_descriptor.html", null ],
     [ "Yodiwo.API.MediaStreaming.VideoMediaDescriptor", "class_yodiwo_1_1_a_p_i_1_1_media_streaming_1_1_video_media_descriptor.html", null ],
     [ "Yodiwo.API.Plegma.VirtualBlockEvent", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_virtual_block_event.html", null ],
+    [ "Yodiwo.API.Plegma.WrapperMsg", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_wrapper_msg.html", null ],
     [ "WrapperMsg", null, [
       [ "Yodiwo.API.Plegma.FcmMsg", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_fcm_msg.html", null ],
       [ "Yodiwo.API.Plegma.MqttMsg", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_mqtt_msg.html", null ],
       [ "Yodiwo.API.Plegma.WebSocketMsg", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_web_socket_msg.html", null ]
     ] ],
-    [ "Yodiwo.API.Plegma.WrapperMsg", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_wrapper_msg.html", null ],
     [ "Yodiwo.API.Plegma.YColor", "struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_y_color.html", null ]
 ];

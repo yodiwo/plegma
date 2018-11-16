@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['loginreq',['LoginReq',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_login_req.html#a0a349d39032568c6385e317c6c7745b6',1,'Yodiwo::API::Plegma::LoginReq']]],
-  ['loginrsp',['LoginRsp',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_login_rsp.html#a5a9e3182b4ec8173b659be68e6b7984c',1,'Yodiwo::API::Plegma::LoginRsp']]]
+  ['imagefileformatfromuri',['ImageFileFormatFromURI',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_image_content_descriptor.html#a664fd395878cbbfb4388bf29ebcc51b3',1,'Yodiwo::API::Plegma::ImageContentDescriptor']]],
+  ['imagetypefromuri',['ImageTypeFromURI',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_image_content_descriptor.html#aea8684d72a1d46fe6f145932315c49c0',1,'Yodiwo::API::Plegma::ImageContentDescriptor']]],
+  ['incidentdescriptor',['IncidentDescriptor',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_incident_descriptor.html#a881270056b854325130b7fedb5c34940',1,'Yodiwo::API::Plegma::IncidentDescriptor']]],
+  ['isimage',['IsImage',['../class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_binary_resource_descriptor.html#a923a7b50fdad1d9ce1ee66f0729f0e23',1,'Yodiwo::API::Plegma::BinaryResourceDescriptor']]]
 ];

@@ -4,5 +4,7 @@ var class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_event_msg =
     [ "PortEventMsg", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_event_msg.html#aa33e1282d2f27b8bc0aed057eb278826", null ],
     [ "PortEventMsg", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_event_msg.html#ae97d480589831bc2f027d6271c8c60d6", null ],
     [ "ToString", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_event_msg.html#a1f27131a925bc19fac6385ed28bf3e3e", null ],
+    [ "BlockKey", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_event_msg.html#a697dacb2d79ebcaea1e5c48118ceaf9d", null ],
+    [ "INeedAck", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_event_msg.html#aa8165620978c071be59668cc60e79c3f", null ],
     [ "PortEvents", "class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_event_msg.html#ab8435f2c7f35480c781eb851e82ddde9", null ]
 ];

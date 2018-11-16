@@ -33,7 +33,7 @@
   <td id="projectlogo"><img alt="Logo" src="icon-plegma.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Plegma API
-   &#160;<span id="projectnumber">v1</span>
+   &#160;<span id="projectnumber">v2</span>
    </div>
   </td>
  </tr>
@@ -133,10 +133,10 @@ Public Attributes</h2></td></tr>
 <tr class="memdesc:a4a11ea92b45811c5b21e3b76866bb9b7"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_key.html" title="Globally unique identifier of a Thing&#39;s Port ">PortKey</a> of the <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port.html" title="Basic Input/Output entity of a Thing Creates and sends messages towards the Yodiwo cloud service...">Port</a> this message refers to (either generating the event, or receiving the event)  <a href="#a4a11ea92b45811c5b21e3b76866bb9b7">More...</a><br /></td></tr>
 <tr class="separator:a4a11ea92b45811c5b21e3b76866bb9b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae5e8eb90c5a29462f27393473e640f02"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_event.html#ae5e8eb90c5a29462f27393473e640f02">State</a></td></tr>
-<tr class="memdesc:ae5e8eb90c5a29462f27393473e640f02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contents of the event in string form. See <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port.html#a33c0b376ffd62540a911ff1f3e8c1c05">Port.State</a>  <a href="#ae5e8eb90c5a29462f27393473e640f02">More...</a><br /></td></tr>
+<tr class="memdesc:ae5e8eb90c5a29462f27393473e640f02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contents of the event in string form. See Port.State  <a href="#ae5e8eb90c5a29462f27393473e640f02">More...</a><br /></td></tr>
 <tr class="separator:ae5e8eb90c5a29462f27393473e640f02"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab29d4f5f47eb206ae723a01aac620d8a"><td class="memItemLeft" align="right" valign="top">uint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_event.html#ab29d4f5f47eb206ae723a01aac620d8a">RevNum</a></td></tr>
-<tr class="memdesc:ab29d4f5f47eb206ae723a01aac620d8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Revision number of this update; matches the <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port.html" title="Basic Input/Output entity of a Thing Creates and sends messages towards the Yodiwo cloud service...">Port</a> State's internal sequence numbering. See <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port.html#a33c0b376ffd62540a911ff1f3e8c1c05">Port.State</a>  <a href="#ab29d4f5f47eb206ae723a01aac620d8a">More...</a><br /></td></tr>
+<tr class="memdesc:ab29d4f5f47eb206ae723a01aac620d8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Revision number of this update; matches the <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port.html" title="Basic Input/Output entity of a Thing Creates and sends messages towards the Yodiwo cloud service...">Port</a> State's internal sequence numbering. See Port.State  <a href="#ab29d4f5f47eb206ae723a01aac620d8a">More...</a><br /></td></tr>
 <tr class="separator:ab29d4f5f47eb206ae723a01aac620d8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4754dbfb0e01a01c3436a33b38ec56dd"><td class="memItemLeft" align="right" valign="top">ulong&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_event.html#a4754dbfb0e01a01c3436a33b38ec56dd">Timestamp</a></td></tr>
 <tr class="memdesc:a4754dbfb0e01a01c3436a33b38ec56dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Timestamp (in msec since Unix Epoch) of event creation  <a href="#a4754dbfb0e01a01c3436a33b38ec56dd">More...</a><br /></td></tr>
@@ -202,7 +202,7 @@ Public Attributes</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">pkey</td><td><a class="el" href="struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_key.html" title="Globally unique identifier of a Thing&#39;s Port ">PortKey</a> of <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port.html" title="Basic Input/Output entity of a Thing Creates and sends messages towards the Yodiwo cloud service...">Port</a> this event refers to</td></tr>
-    <tr><td class="paramname">state</td><td>State of <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port.html" title="Basic Input/Output entity of a Thing Creates and sends messages towards the Yodiwo cloud service...">Port</a> (i.e. contents of message, <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port.html#a33c0b376ffd62540a911ff1f3e8c1c05">Port.State</a></td></tr>
+    <tr><td class="paramname">state</td><td>State of <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port.html" title="Basic Input/Output entity of a Thing Creates and sends messages towards the Yodiwo cloud service...">Port</a> (i.e. contents of message, Port.State</td></tr>
     <tr><td class="paramname">revNum</td><td>Revision number of this event</td></tr>
     <tr><td class="paramname">timestamp</td><td>timestamp of this event in msec since Unix Epoch</td></tr>
   </table>
@@ -236,7 +236,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Revision number of this update; matches the <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port.html" title="Basic Input/Output entity of a Thing Creates and sends messages towards the Yodiwo cloud service...">Port</a> State's internal sequence numbering. See <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port.html#a33c0b376ffd62540a911ff1f3e8c1c05">Port.State</a> </p>
+<p>Revision number of this update; matches the <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port.html" title="Basic Input/Output entity of a Thing Creates and sends messages towards the Yodiwo cloud service...">Port</a> State's internal sequence numbering. See Port.State </p>
 
 </div>
 </div>
@@ -250,7 +250,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Contents of the event in string form. See <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port.html#a33c0b376ffd62540a911ff1f3e8c1c05">Port.State</a> </p>
+<p>Contents of the event in string form. See Port.State </p>
 
 </div>
 </div>
@@ -269,7 +269,7 @@ Public Attributes</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/DEV/sw/Yodiwo/APIs/Plegma/Public.cs</li>
+<li>c:/DEV/sw_3.0.x/Yodiwo/APIs/Plegma/Public.cs</li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

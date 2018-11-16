@@ -8,6 +8,8 @@ var searchData=
   ['integer',['Integer',['../namespace_yodiwo_1_1_a_p_i_1_1_plegma.html#ae6368ad6ca447ceaa73ce7dab1201523aa0faef0851b4294c06f2b94bb1cb2044',1,'Yodiwo::API::Plegma']]],
   ['invalid',['Invalid',['../namespace_yodiwo_1_1_a_p_i_1_1_plegma.html#acac5d2ac97eb42e4f8e55c0ae240e2e7a4bbb8f967da6d1a610596d7257179c2b',1,'Yodiwo.API.Plegma.Invalid()'],['../namespace_yodiwo_1_1_a_p_i_1_1_plegma.html#a914f481975b58752a14e17618393caa9a4bbb8f967da6d1a610596d7257179c2b',1,'Yodiwo.API.Plegma.Invalid()']]],
   ['invalidoperation',['InvalidOperation',['../namespace_yodiwo_1_1_a_p_i_1_1_plegma.html#a0ce128418f86cf6349b2147bc0513418a1cd5ecce6fe138df5c3f7e8854a1a66d',1,'Yodiwo.API.Plegma.InvalidOperation()'],['../namespace_yodiwo_1_1_a_p_i_1_1_plegma.html#abf9517ddc3c9d438ad0ccad39d8e6c45a1cd5ecce6fe138df5c3f7e8854a1a66d',1,'Yodiwo.API.Plegma.InvalidOperation()']]],
+  ['ismasterendpoint',['IsMasterEndpoint',['../namespace_yodiwo_1_1_a_p_i_1_1_plegma.html#adcafc2909911e815f7803361fcaa0886a6ebbf23358adab1e0ef5053caca02372',1,'Yodiwo::API::Plegma']]],
+  ['ismetadata',['IsMetadata',['../namespace_yodiwo_1_1_a_p_i_1_1_plegma.html#ab5f10c8a418882aac9908bd0e8e41bcaab27b6052f9f11a4af28df4b22b4c87bc',1,'Yodiwo::API::Plegma']]],
   ['isshellnode',['IsShellNode',['../namespace_yodiwo_1_1_a_p_i_1_1_plegma.html#a271b3fa13d183907501a8e75d21504caae0fac8660549cee85ed86699a1d6196e',1,'Yodiwo::API::Plegma']]],
   ['istrigger',['IsTrigger',['../namespace_yodiwo_1_1_a_p_i_1_1_plegma.html#ab5f10c8a418882aac9908bd0e8e41bcaa6ee4c4eaf7bff188c570a5e94ae325bf',1,'Yodiwo::API::Plegma']]],
   ['iswarlock',['IsWarlock',['../namespace_yodiwo_1_1_a_p_i_1_1_plegma.html#a271b3fa13d183907501a8e75d21504caafb7278715e2d656bdca6ed77e63f425e',1,'Yodiwo::API::Plegma']]]

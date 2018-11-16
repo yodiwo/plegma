@@ -33,7 +33,7 @@
   <td id="projectlogo"><img alt="Logo" src="icon-plegma.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Plegma API
-   &#160;<span id="projectnumber">v1</span>
+   &#160;<span id="projectnumber">v2</span>
    </div>
   </td>
  </tr>
@@ -122,6 +122,15 @@ $(document).ready(function(){initNavTree('class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:a3d57b201bc8fd8bc13d545bdfefaacb2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3d57b201bc8fd8bc13d545bdfefaacb2"></a>
+string&#160;</td><td class="memItemRight" valign="bottom"><b>PortState</b> (string epkey=null)</td></tr>
+<tr class="separator:a3d57b201bc8fd8bc13d545bdfefaacb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a543f4435a5f98c47b3d7a41eb8e7dc28"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a543f4435a5f98c47b3d7a41eb8e7dc28"></a>
+uint&#160;</td><td class="memItemRight" valign="bottom"><b>PortRevNum</b> (string epkey=null)</td></tr>
+<tr class="separator:a543f4435a5f98c47b3d7a41eb8e7dc28"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abfa854e8bb7504e52c2ba5f1c954cd34"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abfa854e8bb7504e52c2ba5f1c954cd34"></a>
+ulong&#160;</td><td class="memItemRight" valign="bottom"><b>PortTimestamp</b> (string epkey=null)</td></tr>
+<tr class="separator:abfa854e8bb7504e52c2ba5f1c954cd34"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1020753e7481c72546b0f8b7a82c4f79"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1020753e7481c72546b0f8b7a82c4f79"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>Port</b> (<a class="el" href="struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_key.html">PortKey</a> portKey, <a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_plegma.html#ae6368ad6ca447ceaa73ce7dab1201523">ePortType</a> type, <a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_plegma.html#adf465054b1e1042fb0e75e46bfe615d1">ioPortDirection</a> <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port.html#af7585ac3185d3450bdd396fb7c076cd1">ioDirection</a>, string portmodelid=null)</td></tr>
 <tr class="separator:a1020753e7481c72546b0f8b7a82c4f79"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -143,12 +152,12 @@ object&#160;</td><td class="memItemRight" valign="bottom"><b>GetStateObject</b> 
 <tr class="memitem:a2ce66c332a0741a2c7951d9361e7d778"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2ce66c332a0741a2c7951d9361e7d778"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsNumeric</b> ()</td></tr>
 <tr class="separator:a2ce66c332a0741a2c7951d9361e7d778"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7d0082e9658353afbda23fc199ee3bcf"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7d0082e9658353afbda23fc199ee3bcf"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>SetState</b> (string newState, DateTime?timestamp=null)</td></tr>
-<tr class="separator:a7d0082e9658353afbda23fc199ee3bcf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a67b8a61172e852807767341eed33b73d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a67b8a61172e852807767341eed33b73d"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>IncRevNum</b> ()</td></tr>
-<tr class="separator:a67b8a61172e852807767341eed33b73d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abfb6b0a86dc20cb08732c914507f33e3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abfb6b0a86dc20cb08732c914507f33e3"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SetState</b> (string newState, DateTime?timestamp=null, string epkey=null)</td></tr>
+<tr class="separator:abfb6b0a86dc20cb08732c914507f33e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3350f6afdefca1010c48f4066b135eef"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3350f6afdefca1010c48f4066b135eef"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>IncRevNum</b> (string epkey)</td></tr>
+<tr class="separator:a3350f6afdefca1010c48f4066b135eef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -185,17 +194,11 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:ad1b07026ce57d6fb23919b4f32cdb0ee"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port.html#ad1b07026ce57d6fb23919b4f32cdb0ee">PortModelId</a></td></tr>
 <tr class="memdesc:ad1b07026ce57d6fb23919b4f32cdb0ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">id of <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port.html" title="Basic Input/Output entity of a Thing Creates and sends messages towards the Yodiwo cloud service...">Port</a> that can Match to a <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_thing_model_type.html" title="Base class that describes the Model of a Thing Thing ">ThingModelType</a>  <a href="#ad1b07026ce57d6fb23919b4f32cdb0ee">More...</a><br /></td></tr>
 <tr class="separator:ad1b07026ce57d6fb23919b4f32cdb0ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a33c0b376ffd62540a911ff1f3e8c1c05"><td class="memItemLeft" align="right" valign="top">volatile string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port.html#a33c0b376ffd62540a911ff1f3e8c1c05">State</a></td></tr>
-<tr class="separator:a33c0b376ffd62540a911ff1f3e8c1c05"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a476f84fe28cbd3ce52a04ab6bcd46ca4"><td class="memItemLeft" align="right" valign="top">volatile uint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port.html#a476f84fe28cbd3ce52a04ab6bcd46ca4">RevNum</a></td></tr>
-<tr class="memdesc:a476f84fe28cbd3ce52a04ab6bcd46ca4"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port.html" title="Basic Input/Output entity of a Thing Creates and sends messages towards the Yodiwo cloud service...">Port</a> state sequence number: incremented by the Cloud server at every state update, so that Node and servers stay in sync  <a href="#a476f84fe28cbd3ce52a04ab6bcd46ca4">More...</a><br /></td></tr>
-<tr class="separator:a476f84fe28cbd3ce52a04ab6bcd46ca4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab23792b59f2f18b31fa080d268fcfa52"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_plegma.html#ab5f10c8a418882aac9908bd0e8e41bca">ePortConf</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port.html#ab23792b59f2f18b31fa080d268fcfa52">ConfFlags</a> = <a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_plegma.html#ab5f10c8a418882aac9908bd0e8e41bcaa26621d8f95ae57ad79f99e4fcea19cfe">ePortConf.PropagateAllEvents</a></td></tr>
+<tr class="memitem:a4ceb529417459a5fe6d21272768796ba"><td class="memItemLeft" align="right" valign="top">DictionaryTS&lt; string, <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_state_triplet.html">StateTriplet</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port.html#a4ceb529417459a5fe6d21272768796ba">States</a></td></tr>
+<tr class="separator:a4ceb529417459a5fe6d21272768796ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab23792b59f2f18b31fa080d268fcfa52"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_plegma.html#ab5f10c8a418882aac9908bd0e8e41bca">ePortConf</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port.html#ab23792b59f2f18b31fa080d268fcfa52">ConfFlags</a></td></tr>
 <tr class="memdesc:ab23792b59f2f18b31fa080d268fcfa52"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configuration flags for port <a href="#ab23792b59f2f18b31fa080d268fcfa52">More...</a><br /></td></tr>
 <tr class="separator:ab23792b59f2f18b31fa080d268fcfa52"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a636702754bc4e67f84ef5129b02651da"><td class="memItemLeft" align="right" valign="top">ulong&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port.html#a636702754bc4e67f84ef5129b02651da">LastUpdatedTimestamp</a></td></tr>
-<tr class="memdesc:a636702754bc4e67f84ef5129b02651da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Timestamp of the last action that updated the port value and/or revision number  <a href="#a636702754bc4e67f84ef5129b02651da">More...</a><br /></td></tr>
-<tr class="separator:a636702754bc4e67f84ef5129b02651da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afd838098a7e26fe8cb04fac42fe43c99"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port.html#afd838098a7e26fe8cb04fac42fe43c99">Color</a></td></tr>
 <tr class="memdesc:afd838098a7e26fe8cb04fac42fe43c99"><td class="mdescLeft">&#160;</td><td class="mdescRight">Color of port value  <a href="#afd838098a7e26fe8cb04fac42fe43c99">More...</a><br /></td></tr>
 <tr class="separator:afd838098a7e26fe8cb04fac42fe43c99"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -212,11 +215,23 @@ Action&lt; <a class="el" href="struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port_key.h
 <tr class="memdesc:abe447d028e0553aab09802b17b54d77c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Revnum indicating no tracking of revision numbers  <a href="#abe447d028e0553aab09802b17b54d77c">More...</a><br /></td></tr>
 <tr class="separator:abe447d028e0553aab09802b17b54d77c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a99847fac9a513a5538964087d43ae9b4"><td class="memItemLeft" align="right" valign="top">const uint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port.html#a99847fac9a513a5538964087d43ae9b4">RevNum_Initialize</a> = 1</td></tr>
-<tr class="memdesc:a99847fac9a513a5538964087d43ae9b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Revnum indicating initialization of port (as if portstate was followed by thing addditiong)  <a href="#a99847fac9a513a5538964087d43ae9b4">More...</a><br /></td></tr>
+<tr class="memdesc:a99847fac9a513a5538964087d43ae9b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Revnum indicating initialization of port (as if portstate was followed by thing addition)  <a href="#a99847fac9a513a5538964087d43ae9b4">More...</a><br /></td></tr>
 <tr class="separator:a99847fac9a513a5538964087d43ae9b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
 Properties</h2></td></tr>
+<tr class="memitem:a2d3113cdc3f8b8a26596bc6e1c551668"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2d3113cdc3f8b8a26596bc6e1c551668"></a>
+string&#160;</td><td class="memItemRight" valign="bottom"><b>State</b><code> [get, set]</code></td></tr>
+<tr class="separator:a2d3113cdc3f8b8a26596bc6e1c551668"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1820b66406cfe86a31819643f38ace80"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1820b66406cfe86a31819643f38ace80"></a>
+uint&#160;</td><td class="memItemRight" valign="bottom"><b>RevNum</b><code> [get, set]</code></td></tr>
+<tr class="separator:a1820b66406cfe86a31819643f38ace80"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a636702754bc4e67f84ef5129b02651da"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a636702754bc4e67f84ef5129b02651da"></a>
+ulong&#160;</td><td class="memItemRight" valign="bottom"><b>LastUpdatedTimestamp</b><code> [get, set]</code></td></tr>
+<tr class="separator:a636702754bc4e67f84ef5129b02651da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9209cc2707584710b1312d0d31b4649d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9209cc2707584710b1312d0d31b4649d"></a>
+<a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_state_triplet.html">StateTriplet</a>&#160;</td><td class="memItemRight" valign="bottom"><b>this[string epkey]</b><code> [get]</code></td></tr>
+<tr class="separator:a9209cc2707584710b1312d0d31b4649d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af07a321b99052915f0707544e6fe092f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af07a321b99052915f0707544e6fe092f"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsOutputPort</b><code> [get]</code></td></tr>
 <tr class="separator:af07a321b99052915f0707544e6fe092f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -246,7 +261,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsInputPort</b><code>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_plegma.html#ab5f10c8a418882aac9908bd0e8e41bca">ePortConf</a> Yodiwo.API.Plegma.Port.ConfFlags = <a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_plegma.html#ab5f10c8a418882aac9908bd0e8e41bcaa26621d8f95ae57ad79f99e4fcea19cfe">ePortConf.PropagateAllEvents</a></td>
+          <td class="memname"><a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_plegma.html#ab5f10c8a418882aac9908bd0e8e41bca">ePortConf</a> Yodiwo.API.Plegma.Port.ConfFlags</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -280,20 +295,6 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsInputPort</b><code>
 </div><div class="memdoc">
 
 <p>Direction (<a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_plegma.html#adf465054b1e1042fb0e75e46bfe615d1" title="Direction of Port ">ioPortDirection</a>) of <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port.html" title="Basic Input/Output entity of a Thing Creates and sends messages towards the Yodiwo cloud service...">Port</a></p>
-
-</div>
-</div>
-<a class="anchor" id="a636702754bc4e67f84ef5129b02651da"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">ulong Yodiwo.API.Plegma.Port.LastUpdatedTimestamp</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Timestamp of the last action that updated the port value and/or revision number </p>
 
 </div>
 </div>
@@ -339,20 +340,6 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsInputPort</b><code>
 
 </div>
 </div>
-<a class="anchor" id="a476f84fe28cbd3ce52a04ab6bcd46ca4"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">volatile uint Yodiwo.API.Plegma.Port.RevNum</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port.html" title="Basic Input/Output entity of a Thing Creates and sends messages towards the Yodiwo cloud service...">Port</a> state sequence number: incremented by the Cloud server at every state update, so that Node and servers stay in sync </p>
-
-</div>
-</div>
 <a class="anchor" id="a99847fac9a513a5538964087d43ae9b4"></a>
 <div class="memitem">
 <div class="memproto">
@@ -363,7 +350,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsInputPort</b><code>
       </table>
 </div><div class="memdoc">
 
-<p>Revnum indicating initialization of port (as if portstate was followed by thing addditiong) </p>
+<p>Revnum indicating initialization of port (as if portstate was followed by thing addition) </p>
 
 </div>
 </div>
@@ -409,16 +396,17 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsInputPort</b><code>
 
 </div>
 </div>
-<a class="anchor" id="a33c0b376ffd62540a911ff1f3e8c1c05"></a>
+<a class="anchor" id="a4ceb529417459a5fe6d21272768796ba"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">volatile string Yodiwo.API.Plegma.Port.State</td>
+          <td class="memname">DictionaryTS&lt;string, <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_state_triplet.html">StateTriplet</a>&gt; Yodiwo.API.Plegma.Port.States</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Current (at latest update/sampling/trigger/etc) value of <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port.html" title="Basic Input/Output entity of a Thing Creates and sends messages towards the Yodiwo cloud service...">Port</a> as String. Contains a string representation of the port's state, encoded according to the port's <a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_plegma.html#ae6368ad6ca447ceaa73ce7dab1201523" title="type of values that each Port sends / receives ">ePortType</a> On receiving events the Cloud Server will attempt to parse the State based on its <a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_plegma.html#ae6368ad6ca447ceaa73ce7dab1201523" title="type of values that each Port sends / receives ">ePortType</a> When sending events the Cloud Server will encode the new state into a string, again according to the <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_plegma_1_1_port.html" title="Basic Input/Output entity of a Thing Creates and sends messages towards the Yodiwo cloud service...">Port</a>'s <a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_plegma.html#ae6368ad6ca447ceaa73ce7dab1201523" title="type of values that each Port sends / receives ">ePortType</a> </p>
+
+<p></p>
 
 </div>
 </div>
@@ -437,7 +425,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsInputPort</b><code>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/DEV/sw/Yodiwo/APIs/Plegma/Port.cs</li>
+<li>c:/DEV/sw_3.0.x/Yodiwo/APIs/Plegma/Port.cs</li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

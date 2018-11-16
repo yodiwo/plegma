@@ -33,7 +33,7 @@
   <td id="projectlogo"><img alt="Logo" src="icon-plegma.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Plegma API
-   &#160;<span id="projectnumber">v1</span>
+   &#160;<span id="projectnumber">v2</span>
    </div>
   </td>
  </tr>
@@ -122,9 +122,9 @@ $(document).ready(function(){initNavTree('struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a4a507c237e4f660d54be62b6ec57237d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4a507c237e4f660d54be62b6ec57237d"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>ExternalServiceBlockKey</b> (<a class="el" href="struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_user_key.html">UserKey</a> userkey, string ServiceID, string BlockID)</td></tr>
-<tr class="separator:a4a507c237e4f660d54be62b6ec57237d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87792a6eadac4643b4ae8dcbf2ffe07f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a87792a6eadac4643b4ae8dcbf2ffe07f"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>ExternalServiceBlockKey</b> (<a class="el" href="struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_user_key.html">UserKey</a> userkey, string serviceID, string blockID)</td></tr>
+<tr class="separator:a87792a6eadac4643b4ae8dcbf2ffe07f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6d3fce9d64d061f3f09e47731ea8a558"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6d3fce9d64d061f3f09e47731ea8a558"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>FillFromString</b> (string input)</td></tr>
 <tr class="separator:a6d3fce9d64d061f3f09e47731ea8a558"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -146,6 +146,9 @@ override int&#160;</td><td class="memItemRight" valign="bottom"><b>GetHashCode</
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a70e0513330008236349887117211487e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a70e0513330008236349887117211487e"></a>
+static bool&#160;</td><td class="memItemRight" valign="bottom"><b>CheckValid</b> (<a class="el" href="struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_user_key.html">UserKey</a> userkey, string serviceID, string blockID)</td></tr>
+<tr class="separator:a70e0513330008236349887117211487e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a275b753bcf51053fca21747a159a1668"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a275b753bcf51053fca21747a159a1668"></a>
 static implicit&#160;</td><td class="memItemRight" valign="bottom"><b>operator string</b> (<a class="el" href="struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_external_service_block_key.html">ExternalServiceBlockKey</a> key)</td></tr>
 <tr class="separator:a275b753bcf51053fca21747a159a1668"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -173,6 +176,15 @@ string&#160;</td><td class="memItemRight" valign="bottom"><b>ServiceID</b></td><
 <tr class="memitem:a63c032fa6122a4296840163a627ef384"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a63c032fa6122a4296840163a627ef384"></a>
 string&#160;</td><td class="memItemRight" valign="bottom"><b>BlockID</b></td></tr>
 <tr class="separator:a63c032fa6122a4296840163a627ef384"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5185d48ad28d87a9d871226f0258b3f0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5185d48ad28d87a9d871226f0258b3f0"></a>
+const int&#160;</td><td class="memItemRight" valign="bottom"><b>MaxLength_ServiceID</b> = 32</td></tr>
+<tr class="separator:a5185d48ad28d87a9d871226f0258b3f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade99888db8adf1e1e1071e0b224a0355"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ade99888db8adf1e1e1071e0b224a0355"></a>
+const int&#160;</td><td class="memItemRight" valign="bottom"><b>MaxLength_BlockID</b> = 32</td></tr>
+<tr class="separator:ade99888db8adf1e1e1071e0b224a0355"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a13e3abeec2fe638c54685353d8a0bfd3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a13e3abeec2fe638c54685353d8a0bfd3"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>_IsValid</b></td></tr>
+<tr class="separator:a13e3abeec2fe638c54685353d8a0bfd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
 Properties</h2></td></tr>
@@ -186,7 +198,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsInvalid</b><code> [
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Globally unique identifier of an Api Key (<a class="el" href="struct_yodiwo_1_1_a_p_i_1_1_plegma_1_1_external_service_block_key.html" title="Globally unique identifier of an Api Key (Yodiwo.API.Plegma.ExternalServiceBlockKey) ...">Yodiwo.API.Plegma.ExternalServiceBlockKey</a>) </p>
 </div><hr/>The documentation for this struct was generated from the following file:<ul>
-<li>C:/DEV/sw/Yodiwo/APIs/Plegma/Keys.cs</li>
+<li>c:/DEV/sw_3.0.x/Yodiwo/APIs/Plegma/Keys.cs</li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
