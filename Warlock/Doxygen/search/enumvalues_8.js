@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['remove',['Remove',['../namespace_yodiwo_1_1_a_p_i_1_1_warlock.html#aa2626ec25c86e51685457aa073079e39a1063e38cb53d94d386f21227fcd84717',1,'Yodiwo::API::Warlock']]],
-  ['replace',['Replace',['../namespace_yodiwo_1_1_a_p_i_1_1_warlock.html#aa2626ec25c86e51685457aa073079e39a0ebe6df8a3ac338e0512acc741823fdb',1,'Yodiwo::API::Warlock']]],
-  ['request',['Request',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_wrapper_msg.html#ad585e032e4ba74aa494f4db1a0f25c18a15c2d85f1fae22a3c3a0594510a1f611',1,'Yodiwo::API::Warlock::WrapperMsg']]],
-  ['response',['Response',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_wrapper_msg.html#ad585e032e4ba74aa494f4db1a0f25c18ad64ed3e9c10229648e069f56e32f4c8e',1,'Yodiwo::API::Warlock::WrapperMsg']]]
+  ['none',['None',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_wrapper_msg.html#ad585e032e4ba74aa494f4db1a0f25c18a6adf97f83acf6453d4a6a4b1070f3754',1,'Yodiwo.API.Warlock.WrapperMsg.None()'],['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_web_socket_msg.html#a539ca6ed86f4b3b53ef062e73c6dc4b7a6adf97f83acf6453d4a6a4b1070f3754',1,'Yodiwo.API.Warlock.WebSocketMsg.None()']]],
+  ['nonplegma',['NonPlegma',['../namespace_yodiwo_1_1_a_p_i_1_1_warlock.html#a97a2b9a5b9d46011a63ae8a9a2d61fd6ab19618fab00c1a9e99d5f8862b0bc00d',1,'Yodiwo::API::Warlock']]],
+  ['nopermissions',['NoPermissions',['../namespace_yodiwo_1_1_a_p_i_1_1_warlock.html#a8790dedc337863ba6342a4a1375b1574ad61bb1ea0a4ed1dc32cc7186d39892da',1,'Yodiwo::API::Warlock']]]
 ];

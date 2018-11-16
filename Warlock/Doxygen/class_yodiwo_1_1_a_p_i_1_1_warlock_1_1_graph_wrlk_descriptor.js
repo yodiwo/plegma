@@ -1,6 +1,10 @@
 var class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_graph_wrlk_descriptor =
 [
     [ "GraphWrlkDescriptor", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_graph_wrlk_descriptor.html#a2225999a7f5ed83dd5bf147c3d253dc9", null ],
+    [ "GraphWrlkDescriptor", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_graph_wrlk_descriptor.html#ac59263a7f79d233f621f0abd0ee0771d", null ],
+    [ "GetLatestClassVersion", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_graph_wrlk_descriptor.html#ad1d98c45bdc060079412012543fedb2c", null ],
+    [ "Migrate", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_graph_wrlk_descriptor.html#aafd74a2bc3f36789ee5916b0ad815e80", null ],
+    [ "SetKey", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_graph_wrlk_descriptor.html#a50b8056f1e3cb8f08e148da8d44fac0d", null ],
     [ "AvailableGraphs", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_graph_wrlk_descriptor.html#ac5781f45f08f03a8035605bc2887dbca", null ],
     [ "ContainsAnyMacroBlocks", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_graph_wrlk_descriptor.html#a65fa068ec954082865585d1e29e1ec53", null ],
     [ "CreatedTimestamp", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_graph_wrlk_descriptor.html#a57e50b0d0b867b94997d0e140db5279e", null ],
@@ -13,5 +17,6 @@ var class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_graph_wrlk_descriptor =
     [ "LatestRevision", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_graph_wrlk_descriptor.html#ab6b81354737cea2f7cfa7723991266b6", null ],
     [ "Options", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_graph_wrlk_descriptor.html#a99cb8f08ed39ec0e082a3b51f9f4c3ff", null ],
     [ "Path", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_graph_wrlk_descriptor.html#a61272075ed92764740f847f924685bbd", null ],
-    [ "IsMacroBlock", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_graph_wrlk_descriptor.html#afd729e538184c515e1576dfa024318d4", null ]
+    [ "IsMacroBlock", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_graph_wrlk_descriptor.html#afd729e538184c515e1576dfa024318d4", null ],
+    [ "LatestRevisionKey", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_graph_wrlk_descriptor.html#a4f539e4bbdd6103f0b7972e262ac80eb", null ]
 ];

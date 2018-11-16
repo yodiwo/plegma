@@ -7,6 +7,7 @@ var searchData=
   ['scanrsp',['ScanRsp',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_scan_rsp.html',1,'Yodiwo::API::Warlock']]],
   ['scheduleinfo',['ScheduleInfo',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_schedule_info.html',1,'Yodiwo::API::Warlock']]],
   ['schedulenotificationinfo',['ScheduleNotificationInfo',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_schedule_notification_info.html',1,'Yodiwo::API::Warlock']]],
+  ['servicenodedescriptor',['ServiceNodeDescriptor',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_service_node_descriptor.html',1,'Yodiwo::API::Warlock']]],
   ['setalertpercentage',['SetAlertPercentage',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_set_alert_percentage.html',1,'Yodiwo::API::Warlock']]],
   ['setalertpercentageforallquota',['SetAlertPercentageForAllQuota',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_set_alert_percentage_for_all_quota.html',1,'Yodiwo::API::Warlock']]],
   ['setdefyquotaflag',['SetDefyQuotaFlag',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_set_defy_quota_flag.html',1,'Yodiwo::API::Warlock']]],

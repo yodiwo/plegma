@@ -127,10 +127,20 @@ Inheritance diagram for Yodiwo.API.Warlock.GraphActionRsp:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:ad15dca83e789c38f6e1de44936e7b30a"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_graph_action_rsp.html#ad15dca83e789c38f6e1de44936e7b30a">GraphDescriptorKey</a></td></tr>
-<tr class="memdesc:ad15dca83e789c38f6e1de44936e7b30a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specific GraphDescriptorKey of GraphDescriptor see <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_graph_action_rsp.html#ad15dca83e789c38f6e1de44936e7b30a" title="Specific GraphDescriptorKey of GraphDescriptor see Yodiwo.API.Warlock.GraphActionRsp.GraphDescriptorKey that this action refers to ">Yodiwo.API.Warlock.GraphActionRsp.GraphDescriptorKey</a> that this action refers to  <a href="#ad15dca83e789c38f6e1de44936e7b30a">More...</a><br /></td></tr>
+<tr class="memdesc:ad15dca83e789c38f6e1de44936e7b30a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specific GraphDescriptorKey of GraphDescriptor see <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_graph_action_rsp.html#ad15dca83e789c38f6e1de44936e7b30a" title="Specific GraphDescriptorKey of GraphDescriptor see Yodiwo.API.Warlock.GraphActionRsp.GraphDescriptorKey that this action is refering to. Note that this field is not filled a request of type eGraphActionType.ValidateBlockConfiguration. ">Yodiwo.API.Warlock.GraphActionRsp.GraphDescriptorKey</a> that this action is refering to. Note that this field is not filled a request of type <a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_warlock.html#aa2626ec25c86e51685457aa073079e39a4040e4f9892cde6ed14698bd7b1ba8b7" title="Validate block configuration action. This request must include a block descriptor in field GraphActio...">eGraphActionType.ValidateBlockConfiguration</a>.  <a href="#ad15dca83e789c38f6e1de44936e7b30a">More...</a><br /></td></tr>
 <tr class="separator:ad15dca83e789c38f6e1de44936e7b30a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7e05e10b0987592ddccfc183a5dfc53e"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_graph_action_rsp.html#a7e05e10b0987592ddccfc183a5dfc53e">JsonData</a></td></tr>
-<tr class="memdesc:a7e05e10b0987592ddccfc183a5dfc53e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specific data resulting from this action Can contain:  <a href="#a7e05e10b0987592ddccfc183a5dfc53e">More...</a><br /></td></tr>
+<tr class="memdesc:a7e05e10b0987592ddccfc183a5dfc53e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specific json string data resulting from this action <a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_warlock.html#aa2626ec25c86e51685457aa073079e39">eGraphActionType</a>. Based on action this field may contain objects of type below: </p><ul>
+<li>
+GraphDescriptor at requests  </li>
+<li>
+<a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_graph_wrlk_descriptor.html">GraphWrlkDescriptor</a> <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_graph_wrlk_descriptor.html">GraphWrlkDescriptor</a> </li>
+<li>
+<a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_deploy_response.html">DeployResponse</a> <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_deploy_response.html">DeployResponse</a> at requests of types <a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_warlock.html#aa2626ec25c86e51685457aa073079e39a507a3a88cebc46603ce2be8eaa924eee" title="Explicit deploy action. This request must include a GraphDescriptorKey in field GraphActionReq.GraphDescriptorKey. ">eGraphActionType.Deploy</a> and <a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_warlock.html#aa2626ec25c86e51685457aa073079e39aad3d06d03d94223fa652babc913de686" title="Validate graph descriptor action. This request must include a GraphDescriptor in field GraphActionReq...">eGraphActionType.Validate</a> </li>
+<li>
+BlockConfigurationRsp <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_validate_block_configuration_rsp.html">ValidateBlockConfigurationRsp</a> at requests of type <a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_warlock.html#aa2626ec25c86e51685457aa073079e39a4040e4f9892cde6ed14698bd7b1ba8b7" title="Validate block configuration action. This request must include a block descriptor in field GraphActio...">eGraphActionType.ValidateBlockConfiguration</a> </li>
+</ul>
+ <a href="#a7e05e10b0987592ddccfc183a5dfc53e">More...</a><br /></td></tr>
 <tr class="separator:a7e05e10b0987592ddccfc183a5dfc53e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac87a3bec1f331832b2c920e8ef3a680b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_graph_action_rsp.html#ac87a3bec1f331832b2c920e8ef3a680b">isPending</a></td></tr>
 <tr class="memdesc:ac87a3bec1f331832b2c920e8ef3a680b"><td class="mdescLeft">&#160;</td><td class="mdescRight">If true, the respective request was not completed because of an action pending on the receiver's part  <a href="#ac87a3bec1f331832b2c920e8ef3a680b">More...</a><br /></td></tr>
@@ -171,7 +181,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Specific GraphDescriptorKey of GraphDescriptor see <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_graph_action_rsp.html#ad15dca83e789c38f6e1de44936e7b30a" title="Specific GraphDescriptorKey of GraphDescriptor see Yodiwo.API.Warlock.GraphActionRsp.GraphDescriptorKey that this action refers to ">Yodiwo.API.Warlock.GraphActionRsp.GraphDescriptorKey</a> that this action refers to </p>
+<p>Specific GraphDescriptorKey of GraphDescriptor see <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_graph_action_rsp.html#ad15dca83e789c38f6e1de44936e7b30a" title="Specific GraphDescriptorKey of GraphDescriptor see Yodiwo.API.Warlock.GraphActionRsp.GraphDescriptorKey that this action is refering to. Note that this field is not filled a request of type eGraphActionType.ValidateBlockConfiguration. ">Yodiwo.API.Warlock.GraphActionRsp.GraphDescriptorKey</a> that this action is refering to. Note that this field is not filled a request of type <a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_warlock.html#aa2626ec25c86e51685457aa073079e39a4040e4f9892cde6ed14698bd7b1ba8b7" title="Validate block configuration action. This request must include a block descriptor in field GraphActio...">eGraphActionType.ValidateBlockConfiguration</a>. </p>
 
 </div>
 </div>
@@ -199,17 +209,22 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Specific data resulting from this action Can contain: </p>
-<ul>
-<li>GraphDescriptor <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_graph_action_rsp.html#ad15dca83e789c38f6e1de44936e7b30a" title="Specific GraphDescriptorKey of GraphDescriptor see Yodiwo.API.Warlock.GraphActionRsp.GraphDescriptorKey that this action refers to ">Yodiwo.API.Warlock.GraphActionRsp.GraphDescriptorKey</a></li>
-<li><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_graph_wrlk_descriptor.html">GraphWrlkDescriptor</a> <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_graph_wrlk_descriptor.html">GraphWrlkDescriptor</a></li>
-<li><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_deploy_response.html">DeployResponse</a> <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_deploy_response.html">DeployResponse</a> </li>
+<p>Specific json string data resulting from this action <a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_warlock.html#aa2626ec25c86e51685457aa073079e39">eGraphActionType</a>. Based on action this field may contain objects of type below: </p><ul>
+<li>
+GraphDescriptor at requests  </li>
+<li>
+<a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_graph_wrlk_descriptor.html">GraphWrlkDescriptor</a> <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_graph_wrlk_descriptor.html">GraphWrlkDescriptor</a> </li>
+<li>
+<a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_deploy_response.html">DeployResponse</a> <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_deploy_response.html">DeployResponse</a> at requests of types <a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_warlock.html#aa2626ec25c86e51685457aa073079e39a507a3a88cebc46603ce2be8eaa924eee" title="Explicit deploy action. This request must include a GraphDescriptorKey in field GraphActionReq.GraphDescriptorKey. ">eGraphActionType.Deploy</a> and <a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_warlock.html#aa2626ec25c86e51685457aa073079e39aad3d06d03d94223fa652babc913de686" title="Validate graph descriptor action. This request must include a GraphDescriptor in field GraphActionReq...">eGraphActionType.Validate</a> </li>
+<li>
+BlockConfigurationRsp <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_validate_block_configuration_rsp.html">ValidateBlockConfigurationRsp</a> at requests of type <a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_warlock.html#aa2626ec25c86e51685457aa073079e39a4040e4f9892cde6ed14698bd7b1ba8b7" title="Validate block configuration action. This request must include a block descriptor in field GraphActio...">eGraphActionType.ValidateBlockConfiguration</a> </li>
 </ul>
+</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/DEV/sw/Yodiwo/APIs/Yodiwo.API.Warlock/Public.cs</li>
+<li>Public.cs</li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

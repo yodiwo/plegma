@@ -5,6 +5,7 @@ var searchData=
   ['addconfiguredrestservice',['AddConfiguredRestService',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_add_configured_rest_service.html',1,'Yodiwo::API::Warlock']]],
   ['addfriendreq',['AddFriendReq',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_add_friend_req.html',1,'Yodiwo::API::Warlock']]],
   ['addnewlinkeduserreq',['AddNewLinkedUserReq',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_add_new_linked_user_req.html',1,'Yodiwo::API::Warlock']]],
+  ['addnotificationreq',['AddNotificationReq',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_add_notification_req.html',1,'Yodiwo::API::Warlock']]],
   ['addportrule',['AddPortRule',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_add_port_rule.html',1,'Yodiwo::API::Warlock']]],
   ['addresourcedescriptorrequest',['AddResourceDescriptorRequest',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_add_resource_descriptor_request.html',1,'Yodiwo::API::Warlock']]],
   ['addrestservicereq',['AddRestServiceReq',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_add_rest_service_req.html',1,'Yodiwo::API::Warlock']]],

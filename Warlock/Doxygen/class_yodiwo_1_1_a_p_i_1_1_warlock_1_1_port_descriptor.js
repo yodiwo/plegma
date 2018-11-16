@@ -19,5 +19,6 @@ var class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_port_descriptor =
     [ "Rules", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_port_descriptor.html#a367184a13efb9f9b7928eb51c6d5c958", null ],
     [ "Semantics", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_port_descriptor.html#a75ac72c869a4f0166840851e1a96644b", null ],
     [ "Size", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_port_descriptor.html#a41d7dbcdf174d52cf8a191e570befdcb", null ],
-    [ "State", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_port_descriptor.html#ad878e3113c4e4cd32d4ca1235027455a", null ]
+    [ "State", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_port_descriptor.html#ad878e3113c4e4cd32d4ca1235027455a", null ],
+    [ "States", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_port_descriptor.html#ab2eefee8beb61e2fa04f88129d6440c6", null ]
 ];

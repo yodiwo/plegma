@@ -13,5 +13,6 @@ var searchData=
   ['timelinedescriptorkeyconverter',['TimelineDescriptorKeyConverter',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_private_1_1_timeline_descriptor_key_converter.html',1,'Yodiwo::API::Warlock::Private']]],
   ['timelinedescriptorsquery',['TimelineDescriptorsQuery',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_private_1_1_timeline_descriptors_query.html',1,'Yodiwo::API::Warlock::Private']]],
   ['timelineinfo',['TimelineInfo',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_private_1_1_timeline_info.html',1,'Yodiwo::API::Warlock::Private']]],
+  ['toastrdescriptor',['ToastrDescriptor',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor_1_1_toastr_descriptor.html',1,'Yodiwo::API::Warlock::NotificationDescriptor']]],
   ['tokenresponse',['TokenResponse',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_token_response.html',1,'Yodiwo::API::Warlock']]]
 ];

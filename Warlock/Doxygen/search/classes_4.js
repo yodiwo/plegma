@@ -16,5 +16,9 @@ var searchData=
   ['evthingnameupdated',['EvThingNameUpdated',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_ev_thing_name_updated.html',1,'Yodiwo::API::Warlock']]],
   ['evthingshared',['EvThingShared',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_ev_thing_shared.html',1,'Yodiwo::API::Warlock']]],
   ['evthingsharepending',['EvThingSharePending',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_ev_thing_share_pending.html',1,'Yodiwo::API::Warlock']]],
-  ['evthingunshared',['EvThingUnshared',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_ev_thing_unshared.html',1,'Yodiwo::API::Warlock']]]
+  ['evthingunshared',['EvThingUnshared',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_ev_thing_unshared.html',1,'Yodiwo::API::Warlock']]],
+  ['externalserviceblockaddorupdate',['ExternalServiceBlockAddOrUpdate',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_external_service_block_add_or_update.html',1,'Yodiwo::API::Warlock']]],
+  ['externalserviceblockdelete',['ExternalServiceBlockDelete',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_external_service_block_delete.html',1,'Yodiwo::API::Warlock']]],
+  ['externalserviceblockkeylisting',['ExternalServiceBlockKeyListing',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_external_service_block_key_listing.html',1,'Yodiwo::API::Warlock']]],
+  ['externalserviceblocklistingresp',['ExternalServiceBlockListingResp',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_external_service_block_listing_resp.html',1,'Yodiwo::API::Warlock']]]
 ];

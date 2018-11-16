@@ -1,14 +1,10 @@
 var searchData=
 [
-  ['warlock',['Warlock',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_web_socket_msg.html#a539ca6ed86f4b3b53ef062e73c6dc4b7a21305b754e03843876abc27387a0e57e',1,'Yodiwo::API::Warlock::WebSocketMsg']]],
-  ['warlockapimsg',['WarlockApiMsg',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_warlock_api_msg.html',1,'Yodiwo::API::Warlock']]],
-  ['warlockauthenticationrequest',['WarlockAuthenticationRequest',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_private_1_1_warlock_authentication_request.html',1,'Yodiwo::API::Warlock::Private']]],
-  ['warlockauthenticationresponse',['WarlockAuthenticationResponse',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_private_1_1_warlock_authentication_response.html',1,'Yodiwo::API::Warlock::Private']]],
-  ['warlockdisplayattribute',['WarlockDisplayAttribute',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_private_1_1_warlock_display_attribute.html',1,'Yodiwo::API::Warlock::Private']]],
-  ['warlockhandlerattribute',['WarlockHandlerAttribute',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_private_1_1_warlock_handler_attribute.html',1,'Yodiwo::API::Warlock::Private']]],
-  ['warlocknotexposedhandlerattribute',['WarlockNotExposedHandlerAttribute',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_private_1_1_warlock_not_exposed_handler_attribute.html',1,'Yodiwo::API::Warlock::Private']]],
-  ['warlockpermissionattribute',['WarlockPermissionAttribute',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_private_1_1_warlock_permission_attribute.html',1,'Yodiwo::API::Warlock::Private']]],
-  ['websocketmsg',['WebSocketMsg',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_web_socket_msg.html',1,'Yodiwo::API::Warlock']]],
-  ['workereventnotification',['WorkerEventNotification',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_worker_event_notification.html',1,'Yodiwo::API::Warlock']]],
-  ['wrappermsg',['WrapperMsg',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_wrapper_msg.html',1,'Yodiwo::API::Warlock']]]
+  ['validate',['Validate',['../namespace_yodiwo_1_1_a_p_i_1_1_warlock.html#aa2626ec25c86e51685457aa073079e39aad3d06d03d94223fa652babc913de686',1,'Yodiwo::API::Warlock']]],
+  ['validateblockconfiguration',['ValidateBlockConfiguration',['../namespace_yodiwo_1_1_a_p_i_1_1_warlock.html#aa2626ec25c86e51685457aa073079e39a4040e4f9892cde6ed14698bd7b1ba8b7',1,'Yodiwo::API::Warlock']]],
+  ['validateblockconfigurationrsp',['ValidateBlockConfigurationRsp',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_validate_block_configuration_rsp.html',1,'Yodiwo::API::Warlock']]],
+  ['validationresdescriptor',['ValidationResDescriptor',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_validation_res_descriptor.html',1,'Yodiwo::API::Warlock']]],
+  ['validationresultdescriptor',['ValidationResultDescriptor',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_validation_result_descriptor.html',1,'Yodiwo::API::Warlock']]],
+  ['validationresults',['ValidationResults',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_validate_block_configuration_rsp.html#a570cf7fd91845a60ba6221b235205706',1,'Yodiwo::API::Warlock::ValidateBlockConfigurationRsp']]],
+  ['value',['Value',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_constant_descriptor.html#a87475824330e519a71c793e024abc227',1,'Yodiwo::API::Warlock::ConstantDescriptor']]]
 ];

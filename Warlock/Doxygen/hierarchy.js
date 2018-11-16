@@ -8,6 +8,7 @@ var hierarchy =
         [ "Yodiwo.API.Warlock.AddConfiguredRestService", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_add_configured_rest_service.html", null ],
         [ "Yodiwo.API.Warlock.AddFriendReq", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_add_friend_req.html", null ],
         [ "Yodiwo.API.Warlock.AddNewLinkedUserReq", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_add_new_linked_user_req.html", null ],
+        [ "Yodiwo.API.Warlock.AddNotificationReq", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_add_notification_req.html", null ],
         [ "Yodiwo.API.Warlock.AddPortRule", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_add_port_rule.html", null ],
         [ "Yodiwo.API.Warlock.AddResourceDescriptorRequest", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_add_resource_descriptor_request.html", null ],
         [ "Yodiwo.API.Warlock.AddRestServiceReq", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_add_rest_service_req.html", null ],
@@ -47,6 +48,9 @@ var hierarchy =
         [ "Yodiwo.API.Warlock.EjectUserReq", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_eject_user_req.html", null ],
         [ "Yodiwo.API.Warlock.EnableDisableApiKey", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_enable_disable_api_key.html", null ],
         [ "Yodiwo.API.Warlock.EnumerateSaveandDeployedGraphsReq", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_enumerate_saveand_deployed_graphs_req.html", null ],
+        [ "Yodiwo.API.Warlock.ExternalServiceBlockAddOrUpdate", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_external_service_block_add_or_update.html", null ],
+        [ "Yodiwo.API.Warlock.ExternalServiceBlockDelete", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_external_service_block_delete.html", null ],
+        [ "Yodiwo.API.Warlock.ExternalServiceBlockKeyListing", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_external_service_block_key_listing.html", null ],
         [ "Yodiwo.API.Warlock.GenerateGraphFromSwaggerAPI", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_generate_graph_from_swagger_a_p_i.html", null ],
         [ "Yodiwo.API.Warlock.GenericRsp", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_generic_rsp.html", [
           [ "Yodiwo.API.Warlock.ApiKeyRsp", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_api_key_rsp.html", null ],
@@ -83,6 +87,7 @@ var hierarchy =
           [ "Yodiwo.API.Warlock.SocialAccountsRsp", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_social_accounts_rsp.html", null ],
           [ "Yodiwo.API.Warlock.UserConstantsRsp", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_user_constants_rsp.html", null ],
           [ "Yodiwo.API.Warlock.UserLoginRsp", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_user_login_rsp.html", null ],
+          [ "Yodiwo.API.Warlock.ValidateBlockConfigurationRsp", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_validate_block_configuration_rsp.html", null ],
           [ "Yodiwo.API.Warlock.ValidationResultDescriptor", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_validation_result_descriptor.html", null ]
         ] ],
         [ "Yodiwo.API.Warlock.GetAllApiKeysReq", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_get_all_api_keys_req.html", null ],
@@ -107,6 +112,7 @@ var hierarchy =
         [ "Yodiwo.API.Warlock.GetImageReq", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_get_image_req.html", null ],
         [ "Yodiwo.API.Warlock.GetLinkedUsersReq", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_get_linked_users_req.html", null ],
         [ "Yodiwo.API.Warlock.GetMacroBlockDescriptorReq", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_get_macro_block_descriptor_req.html", null ],
+        [ "Yodiwo.API.Warlock.GetMacroBlockIOsInfoReq", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_get_macro_block_i_os_info_req.html", null ],
         [ "Yodiwo.API.Warlock.GetNewGroupsForThingReq", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_get_new_groups_for_thing_req.html", null ],
         [ "Yodiwo.API.Warlock.GetNewThingsForGroupReq", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_get_new_things_for_group_req.html", null ],
         [ "Yodiwo.API.Warlock.GetNodeDescriptorsReq", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_get_node_descriptors_req.html", null ],
@@ -205,6 +211,10 @@ var hierarchy =
       [ "Yodiwo.API.Warlock.DatabaseInfoDescriptor", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_database_info_descriptor.html", null ],
       [ "Yodiwo.API.Warlock.DatabaseUserInfoDescriptor", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_database_user_info_descriptor.html", null ]
     ] ],
+    [ "DbDocument", null, [
+      [ "Yodiwo.API.Warlock.GraphWrlkDescriptor", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_graph_wrlk_descriptor.html", null ],
+      [ "Yodiwo.API.Warlock.NotificationDescriptor", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor.html", null ]
+    ] ],
     [ "Yodiwo.API.Warlock.DescriptorsQueryReq< T >", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_descriptors_query_req.html", null ],
     [ "Yodiwo.API.Warlock.DescriptorsQueryReq< eNodeDescriptorReqThingsOrdering >", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_descriptors_query_req.html", [
       [ "Yodiwo.API.Warlock.ThingDescriptorsQueryReq", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_thing_descriptors_query_req.html", null ]
@@ -231,10 +241,13 @@ var hierarchy =
     [ "Yodiwo.API.Warlock.EventDateTime", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_event_date_time.html", null ],
     [ "Yodiwo.API.Warlock.FileDescriptor", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_file_descriptor.html", null ],
     [ "GenericRsp", null, [
-      [ "Yodiwo.API.Warlock.SingleFileResp", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_single_file_resp.html", null ],
+      [ "Yodiwo.API.Warlock.SingleFileResp", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_single_file_resp.html", [
+        [ "Yodiwo.API.Warlock.RestApiYodiUpDescriptor", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_rest_api_yodi_up_descriptor.html", null ]
+      ] ],
       [ "Yodiwo.API.Warlock.UploadFilesResp", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_upload_files_resp.html", null ]
     ] ],
     [ "GenericRsp", null, [
+      [ "Yodiwo.API.Warlock.ExternalServiceBlockListingResp", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_external_service_block_listing_resp.html", null ],
       [ "Yodiwo.API.Warlock.StorageUploadResp", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_storage_upload_resp.html", null ]
     ] ],
     [ "Yodiwo.API.Warlock.GenericValueST< ApiKeyDescriptor >", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_generic_value_s_t.html", [
@@ -272,6 +285,9 @@ var hierarchy =
     ] ],
     [ "GenericValueST< List< LinkedUserDescriptor >>", null, [
       [ "Yodiwo.API.Warlock.GetLinkedUserDescriptors", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_get_linked_user_descriptors.html", null ]
+    ] ],
+    [ "GenericValueST< List< MacroBlockIOInfo >>", null, [
+      [ "Yodiwo.API.Warlock.MacroBlockIOsInfo", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_macro_block_i_os_info.html", null ]
     ] ],
     [ "GenericValueST< List< NotificationUserDescriptor >>", null, [
       [ "Yodiwo.API.Warlock.GetNotificationUsersRsp", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_get_notification_users_rsp.html", null ]
@@ -329,7 +345,6 @@ var hierarchy =
       [ "Yodiwo.API.Warlock.GetUserQuotaRsp", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_get_user_quota_rsp.html", null ]
     ] ],
     [ "Yodiwo.API.Warlock.GraphActionUpdateReq", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_graph_action_update_req.html", null ],
-    [ "Yodiwo.API.Warlock.GraphWrlkDescriptor", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_graph_wrlk_descriptor.html", null ],
     [ "Yodiwo.API.Warlock.GroupDescriptor", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_group_descriptor.html", null ],
     [ "IEquatable", null, [
       [ "Yodiwo.API.Warlock.NotificationDescriptorKey", "struct_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor_key.html", null ],
@@ -342,10 +357,10 @@ var hierarchy =
     [ "Yodiwo.API.Warlock.LiveExecutionEvent", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_live_execution_event.html", null ],
     [ "Yodiwo.API.Warlock.LiveExecutionRemoveListeners", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_live_execution_remove_listeners.html", null ],
     [ "Yodiwo.API.Warlock.LiveValue", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_live_value.html", null ],
+    [ "Yodiwo.API.Warlock.MacroBlockIOInfo", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_macro_block_i_o_info.html", null ],
     [ "Yodiwo.API.Warlock.NodeDescriptor", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_node_descriptor.html", null ],
     [ "Yodiwo.API.Warlock.NodeInfoModelDescriptor", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_node_info_model_descriptor.html", null ],
     [ "Yodiwo.API.Warlock.NodePairingModelView", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_node_pairing_model_view.html", null ],
-    [ "Yodiwo.API.Warlock.NotificationDescriptor", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor.html", null ],
     [ "Yodiwo.API.Warlock.NotificationDescriptorRelatedObject", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor_related_object.html", [
       [ "Yodiwo.API.Warlock.GraphDescriptorAndGroupNotificationInfo", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_graph_descriptor_and_group_notification_info.html", null ],
       [ "Yodiwo.API.Warlock.GraphDescriptorAndThingNotificationInfo", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_graph_descriptor_and_thing_notification_info.html", null ],
@@ -391,6 +406,10 @@ var hierarchy =
     [ "Yodiwo.API.Warlock.SaveGraphOptionsReq", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_save_graph_options_req.html", null ],
     [ "Yodiwo.API.Warlock.SaveGraphOptionsRsp", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_save_graph_options_rsp.html", null ],
     [ "Yodiwo.API.Warlock.ScheduleInfo", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_schedule_info.html", null ],
+    [ "Yodiwo.API.Warlock.ServiceNodeDescriptor", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_service_node_descriptor.html", [
+      [ "Yodiwo.API.Warlock.UserFacebookDescriptor", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_user_facebook_descriptor.html", null ],
+      [ "Yodiwo.API.Warlock.UserSkypeDescriptor", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_user_skype_descriptor.html", null ]
+    ] ],
     [ "Yodiwo.API.Warlock.ShareActionReq", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_share_action_req.html", null ],
     [ "Yodiwo.API.Warlock.SharedGraphNecessaryThings", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_shared_graph_necessary_things.html", null ],
     [ "Yodiwo.API.Warlock.ShareGraphReq", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_share_graph_req.html", null ],
@@ -412,15 +431,16 @@ var hierarchy =
       [ "Yodiwo.API.Warlock.Private.ThingTimelineInfo", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_private_1_1_thing_timeline_info.html", null ],
       [ "Yodiwo.API.Warlock.Private.UserTimelineInfo", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_private_1_1_user_timeline_info.html", null ]
     ] ],
+    [ "Yodiwo.API.Warlock.NotificationDescriptor.ToastrDescriptor", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor_1_1_toastr_descriptor.html", null ],
     [ "Yodiwo.API.Warlock.TokenResponse", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_token_response.html", null ],
     [ "TypeConverter", null, [
       [ "Yodiwo.API.Warlock.NotificationDescriptorKeyConverter", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor_key_converter.html", null ],
       [ "Yodiwo.API.Warlock.Private.TimelineDescriptorKeyConverter", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_private_1_1_timeline_descriptor_key_converter.html", null ]
     ] ],
     [ "Yodiwo.API.Warlock.UnRegisterUserKey", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_un_register_user_key.html", null ],
+    [ "Yodiwo.API.Warlock.uploadCallback", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1upload_callback.html", null ],
     [ "Yodiwo.API.Warlock.UploadRequest", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_upload_request.html", null ],
     [ "Yodiwo.API.Warlock.UserDescriptor", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_user_descriptor.html", null ],
-    [ "Yodiwo.API.Warlock.UserFacebookDescriptor", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_user_facebook_descriptor.html", null ],
     [ "Yodiwo.API.Warlock.UserGmailDescriptor", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_user_gmail_descriptor.html", null ],
     [ "Yodiwo.API.Warlock.UserGsheetsDescriptor", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_user_gsheets_descriptor.html", null ],
     [ "Yodiwo.API.Warlock.UserHangoutsDescriptor", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_user_hangouts_descriptor.html", null ],
@@ -433,7 +453,6 @@ var hierarchy =
     [ "Yodiwo.API.Warlock.UserOptions", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_user_options.html", null ],
     [ "Yodiwo.API.Warlock.UserQuotaDescriptor", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_user_quota_descriptor.html", null ],
     [ "Yodiwo.API.Warlock.UserSipDescriptor", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_user_sip_descriptor.html", null ],
-    [ "Yodiwo.API.Warlock.UserSkypeDescriptor", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_user_skype_descriptor.html", null ],
     [ "Yodiwo.API.Warlock.UserSocialAccountsDescriptor", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_user_social_accounts_descriptor.html", null ],
     [ "Yodiwo.API.Warlock.ValidationResDescriptor", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_validation_res_descriptor.html", null ],
     [ "Yodiwo.API.Warlock.WorkerEventNotification", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_worker_event_notification.html", null ],

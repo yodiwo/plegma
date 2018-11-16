@@ -5,8 +5,9 @@ var searchData=
   ['info',['Info',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_share_action_rsp.html#aa22a71ba8f1f394af7a972d76da79361',1,'Yodiwo::API::Warlock::ShareActionRsp']]],
   ['infojson',['InfoJson',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_constant_descriptor.html#a417bb6d990115a2a2ebc7f8e4b568820',1,'Yodiwo::API::Warlock::ConstantDescriptor']]],
   ['isfinished',['IsFinished',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_shared_graph_conf_rsp.html#a7c779885c34741352d731e5e9d741192',1,'Yodiwo::API::Warlock::SharedGraphConfRsp']]],
-  ['ispending',['isPending',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_graph_action_rsp.html#ac87a3bec1f331832b2c920e8ef3a680b',1,'Yodiwo.API.Warlock.GraphActionRsp.isPending()'],['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_share_action_rsp.html#a761491ae19f0c86650f0e542937dfec0',1,'Yodiwo.API.Warlock.ShareActionRsp.IsPending()']]],
+  ['ispending',['isPending',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_graph_action_rsp.html#ac87a3bec1f331832b2c920e8ef3a680b',1,'Yodiwo.API.Warlock.GraphActionRsp.isPending()'],['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor.html#af24ce475e4345231342e27849e471f42',1,'Yodiwo.API.Warlock.NotificationDescriptor.IsPending()'],['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_share_action_rsp.html#a761491ae19f0c86650f0e542937dfec0',1,'Yodiwo.API.Warlock.ShareActionRsp.IsPending()']]],
   ['isquestion',['IsQuestion',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_ev_thing_share_pending.html#a9ee546d114d070abc90c376b2b2eeb84',1,'Yodiwo::API::Warlock::EvThingSharePending']]],
+  ['isread',['IsRead',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor.html#a2b5259631390925fa8bcea0f91ad70dc',1,'Yodiwo::API::Warlock::NotificationDescriptor']]],
   ['issuccess',['IsSuccess',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_generic_rsp.html#a77f2226c0416a4781474f74585dd488c',1,'Yodiwo::API::Warlock::GenericRsp']]],
   ['issuccessful',['IsSuccessful',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_share_notification.html#a883080600f4cdfaa622679c75b53a0d1',1,'Yodiwo::API::Warlock::ShareNotification']]]
 ];

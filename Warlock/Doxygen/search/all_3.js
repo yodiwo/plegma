@@ -9,6 +9,7 @@ var searchData=
   ['databasemultiactionrsp',['DatabaseMultiActionRsp',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_database_multi_action_rsp.html',1,'Yodiwo::API::Warlock']]],
   ['databaseuserinfodescriptor',['DatabaseUserInfoDescriptor',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_database_user_info_descriptor.html',1,'Yodiwo::API::Warlock']]],
   ['defiesquota',['DefiesQuota',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_user_quota_descriptor.html#ad9967e7dd0436243dc62202949b64867',1,'Yodiwo::API::Warlock::UserQuotaDescriptor']]],
+  ['defiesquotalimits',['DefiesQuotaLimits',['../namespace_yodiwo_1_1_a_p_i_1_1_warlock.html#a97a2b9a5b9d46011a63ae8a9a2d61fd6a3618252cc3b89f25b3f3feaddf8ccf64',1,'Yodiwo::API::Warlock']]],
   ['deletedescriptorrequest',['DeleteDescriptorRequest',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_delete_descriptor_request.html',1,'Yodiwo::API::Warlock']]],
   ['deletefriendreq',['DeleteFriendReq',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_delete_friend_req.html',1,'Yodiwo::API::Warlock']]],
   ['deletenotificationuserreq',['DeleteNotificationUserReq',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_delete_notification_user_req.html',1,'Yodiwo::API::Warlock']]],
@@ -23,5 +24,6 @@ var searchData=
   ['descriptorsqueryreq_3c_20enodedescriptorreqthingsordering_20_3e',['DescriptorsQueryReq&lt; eNodeDescriptorReqThingsOrdering &gt;',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_descriptors_query_req.html',1,'Yodiwo::API::Warlock']]],
   ['direction',['Direction',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_share_action_req.html#a530b32cd43ecdb26052d54e860728064',1,'Yodiwo.API.Warlock.ShareActionReq.Direction()'],['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_share_action_rsp_1_1_share_info.html#ab29644a75a2d98fc95d19a77e17094a4',1,'Yodiwo.API.Warlock.ShareActionRsp.ShareInfo.Direction()']]],
   ['disable',['Disable',['../namespace_yodiwo_1_1_a_p_i_1_1_warlock.html#a6639e460b22abe574ea85da62c5a9dceabcfaccebf745acfd5e75351095a5394a',1,'Yodiwo::API::Warlock']]],
+  ['disabled',['Disabled',['../namespace_yodiwo_1_1_a_p_i_1_1_warlock.html#a97a2b9a5b9d46011a63ae8a9a2d61fd6ab9f5c797ebbf55adccdd8539a65a0241',1,'Yodiwo::API::Warlock']]],
   ['documentationwrlkdescriptor',['DocumentationWrlkDescriptor',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_documentation_wrlk_descriptor.html',1,'Yodiwo::API::Warlock']]]
 ];

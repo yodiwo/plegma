@@ -14,6 +14,7 @@ var searchData=
   ['configureusertimezonereq',['ConfigureUserTimezoneReq',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_configure_user_timezone_req.html',1,'Yodiwo::API::Warlock']]],
   ['constantdescriptor',['ConstantDescriptor',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_constant_descriptor.html',1,'Yodiwo::API::Warlock']]],
   ['constantdescriptorhelper',['ConstantDescriptorHelper',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_constant_descriptor_helper.html',1,'Yodiwo::API::Warlock']]],
+  ['copy',['Copy',['../namespace_yodiwo_1_1_a_p_i_1_1_warlock.html#aa2626ec25c86e51685457aa073079e39a5fb63579fc981698f97d55bfecb213ea',1,'Yodiwo::API::Warlock']]],
   ['createapikeyreqforoauth',['CreateApiKeyReqForOAuth',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_create_api_key_req_for_o_auth.html',1,'Yodiwo::API::Warlock']]],
   ['createapikeyrsp',['CreateApiKeyRsp',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_create_api_key_rsp.html',1,'Yodiwo::API::Warlock']]],
   ['creategmailaccountreq',['CreateGmailAccountReq',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_create_gmail_account_req.html',1,'Yodiwo::API::Warlock']]],

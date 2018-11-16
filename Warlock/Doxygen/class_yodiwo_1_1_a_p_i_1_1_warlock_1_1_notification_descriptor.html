@@ -107,6 +107,7 @@ $(document).ready(function(){initNavTree('class_yodiwo_1_1_a_p_i_1_1_warlock_1_1
 
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
@@ -116,7 +117,20 @@ $(document).ready(function(){initNavTree('class_yodiwo_1_1_a_p_i_1_1_warlock_1_1
 <div class="title">Yodiwo.API.Warlock.NotificationDescriptor Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+<div class="dynheader">
+Inheritance diagram for Yodiwo.API.Warlock.NotificationDescriptor:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor.png" usemap="#Yodiwo.API.Warlock.NotificationDescriptor_map" alt=""/>
+  <map id="Yodiwo.API.Warlock.NotificationDescriptor_map" name="Yodiwo.API.Warlock.NotificationDescriptor_map">
+</map>
+ </div></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor_1_1_toastr_descriptor.html">ToastrDescriptor</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
 <tr class="memitem:abcaf1490a03419bbced43381a22c0b79"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abcaf1490a03419bbced43381a22c0b79"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>NotificationDescriptorType</b> { <br />
@@ -159,15 +173,32 @@ Public Types</h2></td></tr>
 <tr class="separator:ad354f976c0575d3e22fa23806ad469e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af9dafecc631b575464a1308645b11c82"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af9dafecc631b575464a1308645b11c82"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>eSeverity</b> { <b>Info</b>, 
 <b>Warning</b>, 
-<b>Error</b>
+<b>Error</b>, 
+<b>Success</b>
  }</td></tr>
 <tr class="separator:af9dafecc631b575464a1308645b11c82"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52ebefeb0483079b6ee87a1814078954"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a52ebefeb0483079b6ee87a1814078954"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>NotificationPlacement</b> : short { <b>Notification</b> = 1, 
+<b>Toast</b> = 2
+ }</td></tr>
+<tr class="separator:a52ebefeb0483079b6ee87a1814078954"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a3e876191d8fde442c84d10ea4b625b83"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor.html#a3e876191d8fde442c84d10ea4b625b83">NotificationDescriptor</a> (NotificationDescriptorType type, NotificationDescriptorOperationType operation, <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor_related_object.html">NotificationDescriptorRelatedObject</a> RelatedObject, string DescriptionMessage, eSeverity severity=eSeverity.Info, bool isModal=false)</td></tr>
-<tr class="memdesc:a3e876191d8fde442c84d10ea4b625b83"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate the graph model based on Logic.Graph.  <a href="#a3e876191d8fde442c84d10ea4b625b83">More...</a><br /></td></tr>
-<tr class="separator:a3e876191d8fde442c84d10ea4b625b83"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae9e5a71b8f97ce4cd3fdafaba7288668"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor.html#ae9e5a71b8f97ce4cd3fdafaba7288668">NotificationDescriptor</a> (NotificationDescriptorType type, NotificationDescriptorOperationType operation, <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor_related_object.html">NotificationDescriptorRelatedObject</a> RelatedObject, string DescriptionMessage, eSeverity severity=eSeverity.Info, bool isModal=false, NotificationPlacement placement=NotificationPlacement.Notification, <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor_1_1_toastr_descriptor.html">ToastrDescriptor</a> toastr=null)</td></tr>
+<tr class="memdesc:ae9e5a71b8f97ce4cd3fdafaba7288668"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate the graph model based on Logic.Graph.  <a href="#ae9e5a71b8f97ce4cd3fdafaba7288668">More...</a><br /></td></tr>
+<tr class="separator:ae9e5a71b8f97ce4cd3fdafaba7288668"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a320363ad8f9479d79483f33b5075e3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2a320363ad8f9479d79483f33b5075e3"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>Update</b> (<a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor.html">NotificationDescriptor</a> nd)</td></tr>
+<tr class="separator:a2a320363ad8f9479d79483f33b5075e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a399fbdbfa691acef19b38cf9932ef683"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a399fbdbfa691acef19b38cf9932ef683"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SetKey</b> (<a class="el" href="struct_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor_key.html">NotificationDescriptorKey</a> ndkey)</td></tr>
+<tr class="separator:a399fbdbfa691acef19b38cf9932ef683"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af503e24208d633a7a20c920c07ffa227"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af503e24208d633a7a20c920c07ffa227"></a>
+override int&#160;</td><td class="memItemRight" valign="bottom"><b>GetLatestClassVersion</b> ()</td></tr>
+<tr class="separator:af503e24208d633a7a20c920c07ffa227"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a922597b0d17adc2d5e85fed5beff9476"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a922597b0d17adc2d5e85fed5beff9476"></a>
+override void&#160;</td><td class="memItemRight" valign="bottom"><b>Migrate</b> ()</td></tr>
+<tr class="separator:a922597b0d17adc2d5e85fed5beff9476"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -192,11 +223,17 @@ eSeverity&#160;</td><td class="memItemRight" valign="bottom"><b>Severity</b></td
 <tr class="memitem:adc942587da332536d3be71a01a44bb48"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="adc942587da332536d3be71a01a44bb48"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsModal</b></td></tr>
 <tr class="separator:adc942587da332536d3be71a01a44bb48"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a47a3f5e30d3dd481f883fec50d8c2b44"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a47a3f5e30d3dd481f883fec50d8c2b44"></a>
-object&#160;</td><td class="memItemRight" valign="bottom"><b>NotificationDescriptorRelatedObject</b></td></tr>
+<tr class="memitem:a3f65df12e6df7f6fbc5a632215d56528"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3f65df12e6df7f6fbc5a632215d56528"></a>
+NotificationPlacement&#160;</td><td class="memItemRight" valign="bottom"><b>Placement</b></td></tr>
+<tr class="separator:a3f65df12e6df7f6fbc5a632215d56528"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a93486669214a0bdacd2ba5efa597ea69"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a93486669214a0bdacd2ba5efa597ea69"></a>
+<a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor_1_1_toastr_descriptor.html">ToastrDescriptor</a>&#160;</td><td class="memItemRight" valign="bottom"><b>ToastrDesc</b></td></tr>
+<tr class="separator:a93486669214a0bdacd2ba5efa597ea69"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a47a3f5e30d3dd481f883fec50d8c2b44"><td class="memItemLeft" align="right" valign="top">object&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor.html#a47a3f5e30d3dd481f883fec50d8c2b44">NotificationDescriptorRelatedObject</a></td></tr>
+<tr class="memdesc:a47a3f5e30d3dd481f883fec50d8c2b44"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains object instance that derives from <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor_related_object.html">NotificationDescriptorRelatedObject</a>  <a href="#a47a3f5e30d3dd481f883fec50d8c2b44">More...</a><br /></td></tr>
 <tr class="separator:a47a3f5e30d3dd481f883fec50d8c2b44"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2b5259631390925fa8bcea0f91ad70dc"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2b5259631390925fa8bcea0f91ad70dc"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsRead</b></td></tr>
+<tr class="memitem:a2b5259631390925fa8bcea0f91ad70dc"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor.html#a2b5259631390925fa8bcea0f91ad70dc">IsRead</a></td></tr>
+<tr class="memdesc:a2b5259631390925fa8bcea0f91ad70dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wheter the notification is read or not  <a href="#a2b5259631390925fa8bcea0f91ad70dc">More...</a><br /></td></tr>
 <tr class="separator:a2b5259631390925fa8bcea0f91ad70dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6c0ec11fd93629c9c6577365a8cefb47"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6c0ec11fd93629c9c6577365a8cefb47"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>HasRelatedObject</b></td></tr>
@@ -204,8 +241,8 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>HasRelatedObject</b><
 <tr class="memitem:aa021b6829971bd723400db37faa20007"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa021b6829971bd723400db37faa20007"></a>
 string&#160;</td><td class="memItemRight" valign="bottom"><b>PendingToken</b></td></tr>
 <tr class="separator:aa021b6829971bd723400db37faa20007"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af24ce475e4345231342e27849e471f42"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af24ce475e4345231342e27849e471f42"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsPending</b></td></tr>
+<tr class="memitem:af24ce475e4345231342e27849e471f42"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor.html#af24ce475e4345231342e27849e471f42">IsPending</a></td></tr>
+<tr class="memdesc:af24ce475e4345231342e27849e471f42"><td class="mdescLeft">&#160;</td><td class="mdescRight">if true, means that the user did not accepted/refused the request yet  <a href="#af24ce475e4345231342e27849e471f42">More...</a><br /></td></tr>
 <tr class="separator:af24ce475e4345231342e27849e471f42"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
@@ -215,7 +252,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsRequest</b><code> [
 <tr class="separator:a50c2c601f70ab6586f87090f6d0cc470"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a3e876191d8fde442c84d10ea4b625b83"></a>
+<a class="anchor" id="ae9e5a71b8f97ce4cd3fdafaba7288668"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -253,7 +290,19 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsRequest</b><code> [
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>isModal</em> = <code>false</code>&#160;</td>
+          <td class="paramname"><em>isModal</em> = <code>false</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">NotificationPlacement&#160;</td>
+          <td class="paramname"><em>placement</em> = <code>NotificationPlacement.Notification</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor_1_1_toastr_descriptor.html">ToastrDescriptor</a>&#160;</td>
+          <td class="paramname"><em>toastr</em> = <code>null</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -267,8 +316,51 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsRequest</b><code> [
 
 </div>
 </div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a class="anchor" id="af24ce475e4345231342e27849e471f42"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Yodiwo.API.Warlock.NotificationDescriptor.IsPending</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>if true, means that the user did not accepted/refused the request yet </p>
+
+</div>
+</div>
+<a class="anchor" id="a2b5259631390925fa8bcea0f91ad70dc"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Yodiwo.API.Warlock.NotificationDescriptor.IsRead</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Wheter the notification is read or not </p>
+
+</div>
+</div>
+<a class="anchor" id="a47a3f5e30d3dd481f883fec50d8c2b44"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">object Yodiwo.API.Warlock.NotificationDescriptor.NotificationDescriptorRelatedObject</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Contains object instance that derives from <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor_related_object.html">NotificationDescriptorRelatedObject</a> </p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/DEV/sw/Yodiwo/APIs/Yodiwo.API.Warlock/NotificationDescriptor.cs</li>
+<li>NotificationDescriptor.cs</li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

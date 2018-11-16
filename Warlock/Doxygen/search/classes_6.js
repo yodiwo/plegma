@@ -48,6 +48,7 @@ var searchData=
   ['getlinkeduserdescriptors',['GetLinkedUserDescriptors',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_get_linked_user_descriptors.html',1,'Yodiwo::API::Warlock']]],
   ['getlinkedusersreq',['GetLinkedUsersReq',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_get_linked_users_req.html',1,'Yodiwo::API::Warlock']]],
   ['getmacroblockdescriptorreq',['GetMacroBlockDescriptorReq',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_get_macro_block_descriptor_req.html',1,'Yodiwo::API::Warlock']]],
+  ['getmacroblockiosinforeq',['GetMacroBlockIOsInfoReq',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_get_macro_block_i_os_info_req.html',1,'Yodiwo::API::Warlock']]],
   ['getnewgroupsforthingreq',['GetNewGroupsForThingReq',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_get_new_groups_for_thing_req.html',1,'Yodiwo::API::Warlock']]],
   ['getnewthingsforgroupreq',['GetNewThingsForGroupReq',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_get_new_things_for_group_req.html',1,'Yodiwo::API::Warlock']]],
   ['getnodedescriptorsreq',['GetNodeDescriptorsReq',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_get_node_descriptors_req.html',1,'Yodiwo::API::Warlock']]],

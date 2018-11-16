@@ -132,7 +132,19 @@ Public Attributes</h2></td></tr>
 <tr class="memdesc:a560bd4a4a1a695e079c63742e8caae5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specific GraphDescriptorKey of GraphDescriptor see Yodiwo.API.Warlock.GraphDescriptorAndGroupNotificationInfo.GraphDescriptorKey that this action refers to  <a href="#a560bd4a4a1a695e079c63742e8caae5e">More...</a><br /></td></tr>
 <tr class="separator:a560bd4a4a1a695e079c63742e8caae5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9beb49f34bdb80d4f932a2f78ca18941"><td class="memItemLeft" align="right" valign="top">System.String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_graph_action_req.html#a9beb49f34bdb80d4f932a2f78ca18941">JsonData</a></td></tr>
-<tr class="memdesc:a9beb49f34bdb80d4f932a2f78ca18941"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specific data in json that this action refers to. Can contain:  <a href="#a9beb49f34bdb80d4f932a2f78ca18941">More...</a><br /></td></tr>
+<tr class="memdesc:a9beb49f34bdb80d4f932a2f78ca18941"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specific data in json that this action refers to. Can contain: </p><ul>
+<li>
+GraphDescriptor see <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_graph_action_req.html#a560bd4a4a1a695e079c63742e8caae5e" title="Specific GraphDescriptorKey of GraphDescriptor see Yodiwo.API.Warlock.GraphDescriptorAndGroupNotifica...">GraphDescriptorKey</a> </li>
+<li>
+<a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_graph_action_update_req.html">GraphActionUpdateReq</a> see <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_graph_action_update_req.html">GraphActionUpdateReq</a> at requests <a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_warlock.html#aa2626ec25c86e51685457aa073079e39a5fb63579fc981698f97d55bfecb213ea" title="Copy graph to specific full path. This request must include: a GraphDescriptorKey in field GraphActio...">eGraphActionType.Copy</a> and <a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_warlock.html#aa2626ec25c86e51685457aa073079e39a06933067aafd48425d67bcb01bba5cb6" title="Update graph&#39;s full path. This request must include: a GraphDescriptorKey in field GraphActionReq...">eGraphActionType.Update</a> </li>
+<li>
+MacroBlockUIHints see Yodiwo.API.Glue.MacroBlockUIHints at requests <a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_warlock.html#aa2626ec25c86e51685457aa073079e39ac40c72059662fc1c129dae249d43ab99" title="Retrieve macro block&#39;s UI hints action. This request must include a GraphDescriptorKey in field Graph...">eGraphActionType.MacroBlockUIHints</a> and <a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_warlock.html#aa2626ec25c86e51685457aa073079e39a3e42b4ebe1f2893c1a72c532814409d1" title="Set BlockMgr as dirty so as to create the new block and stores macro block&#39;s information in BlockMgr...">eGraphActionType.ExportAsMacroBlock</a> </li>
+<li>
+GraphOptions see GraphOptions at requests <a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_warlock.html#aa2626ec25c86e51685457aa073079e39a1c4b8aa10282131080f80304c55e2ccd" title="Save graph&#39;s options action. This request must include: specific GraphDescriptorKey in field GraphAct...">eGraphActionType.SaveOptions</a> </li>
+<li>
+BlockDescriptor at request <a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_warlock.html#aa2626ec25c86e51685457aa073079e39a4040e4f9892cde6ed14698bd7b1ba8b7" title="Validate block configuration action. This request must include a block descriptor in field GraphActio...">eGraphActionType.ValidateBlockConfiguration</a> </li>
+</ul>
+ <a href="#a9beb49f34bdb80d4f932a2f78ca18941">More...</a><br /></td></tr>
 <tr class="separator:a9beb49f34bdb80d4f932a2f78ca18941"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2a91da67101386a9493451b715bd3373"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_graph_action_req.html#a2a91da67101386a9493451b715bd3373">TargetUserEmail</a></td></tr>
 <tr class="memdesc:a2a91da67101386a9493451b715bd3373"><td class="mdescLeft">&#160;</td><td class="mdescRight">User's email to share to  <a href="#a2a91da67101386a9493451b715bd3373">More...</a><br /></td></tr>
@@ -184,13 +196,19 @@ SubUserKey&#160;</td><td class="memItemRight" valign="bottom"><b>SubUserKey</b><
       </table>
 </div><div class="memdoc">
 
-<p>Specific data in json that this action refers to. Can contain: </p>
-<ul>
-<li>GraphDescriptor see <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_graph_action_req.html#a560bd4a4a1a695e079c63742e8caae5e" title="Specific GraphDescriptorKey of GraphDescriptor see Yodiwo.API.Warlock.GraphDescriptorAndGroupNotifica...">GraphDescriptorKey</a></li>
-<li><a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_graph_action_update_req.html">GraphActionUpdateReq</a> see <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_graph_action_update_req.html">GraphActionUpdateReq</a> at requests eGraphActionType.Copy and <a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_warlock.html#aa2626ec25c86e51685457aa073079e39a0ebe6df8a3ac338e0512acc741823fdb" title="Replace graph request, must include GraphDescriptor in json and graph&#39;s GraphDescriptorKey that will ...">eGraphActionType.Replace</a></li>
-<li>MacroBlockUIHints see Yodiwo.API.Glue.MacroBlockUIHints at requests <a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_warlock.html#aa2626ec25c86e51685457aa073079e39ac40c72059662fc1c129dae249d43ab99" title="Retrieve macro block&#39;s UI hints. ">eGraphActionType.MacroBlockUIHints</a> and <a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_warlock.html#aa2626ec25c86e51685457aa073079e39a3e42b4ebe1f2893c1a72c532814409d1" title="This request sets BlockMgr as dirty so as to create the new block and stores macro block&#39;s informatio...">eGraphActionType.ExportAsMacroBlock</a></li>
-<li>GraphOptions see GraphOptions at requests <a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_warlock.html#aa2626ec25c86e51685457aa073079e39a1c4b8aa10282131080f80304c55e2ccd" title="Save graph&#39;s options. ">eGraphActionType.SaveOptions</a> </li>
+<p>Specific data in json that this action refers to. Can contain: </p><ul>
+<li>
+GraphDescriptor see <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_graph_action_req.html#a560bd4a4a1a695e079c63742e8caae5e" title="Specific GraphDescriptorKey of GraphDescriptor see Yodiwo.API.Warlock.GraphDescriptorAndGroupNotifica...">GraphDescriptorKey</a> </li>
+<li>
+<a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_graph_action_update_req.html">GraphActionUpdateReq</a> see <a class="el" href="class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_graph_action_update_req.html">GraphActionUpdateReq</a> at requests <a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_warlock.html#aa2626ec25c86e51685457aa073079e39a5fb63579fc981698f97d55bfecb213ea" title="Copy graph to specific full path. This request must include: a GraphDescriptorKey in field GraphActio...">eGraphActionType.Copy</a> and <a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_warlock.html#aa2626ec25c86e51685457aa073079e39a06933067aafd48425d67bcb01bba5cb6" title="Update graph&#39;s full path. This request must include: a GraphDescriptorKey in field GraphActionReq...">eGraphActionType.Update</a> </li>
+<li>
+MacroBlockUIHints see Yodiwo.API.Glue.MacroBlockUIHints at requests <a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_warlock.html#aa2626ec25c86e51685457aa073079e39ac40c72059662fc1c129dae249d43ab99" title="Retrieve macro block&#39;s UI hints action. This request must include a GraphDescriptorKey in field Graph...">eGraphActionType.MacroBlockUIHints</a> and <a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_warlock.html#aa2626ec25c86e51685457aa073079e39a3e42b4ebe1f2893c1a72c532814409d1" title="Set BlockMgr as dirty so as to create the new block and stores macro block&#39;s information in BlockMgr...">eGraphActionType.ExportAsMacroBlock</a> </li>
+<li>
+GraphOptions see GraphOptions at requests <a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_warlock.html#aa2626ec25c86e51685457aa073079e39a1c4b8aa10282131080f80304c55e2ccd" title="Save graph&#39;s options action. This request must include: specific GraphDescriptorKey in field GraphAct...">eGraphActionType.SaveOptions</a> </li>
+<li>
+BlockDescriptor at request <a class="el" href="namespace_yodiwo_1_1_a_p_i_1_1_warlock.html#aa2626ec25c86e51685457aa073079e39a4040e4f9892cde6ed14698bd7b1ba8b7" title="Validate block configuration action. This request must include a block descriptor in field GraphActio...">eGraphActionType.ValidateBlockConfiguration</a> </li>
 </ul>
+</p>
 
 </div>
 </div>
@@ -209,7 +227,7 @@ SubUserKey&#160;</td><td class="memItemRight" valign="bottom"><b>SubUserKey</b><
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/DEV/sw/Yodiwo/APIs/Yodiwo.API.Warlock/Public.cs</li>
+<li>Public.cs</li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

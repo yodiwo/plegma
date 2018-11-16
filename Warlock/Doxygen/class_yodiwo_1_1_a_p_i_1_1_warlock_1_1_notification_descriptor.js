@@ -1,9 +1,11 @@
 var class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor =
 [
+    [ "ToastrDescriptor", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor_1_1_toastr_descriptor.html", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor_1_1_toastr_descriptor" ],
     [ "eSeverity", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor.html#af9dafecc631b575464a1308645b11c82", [
       [ "Info", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor.html#af9dafecc631b575464a1308645b11c82a4059b0251f66a18cb56f544728796875", null ],
       [ "Warning", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor.html#af9dafecc631b575464a1308645b11c82a0eaadb4fcb48a0a0ed7bc9868be9fbaa", null ],
-      [ "Error", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor.html#af9dafecc631b575464a1308645b11c82a902b0d55fddef6f8d651fe1035b7d4bd", null ]
+      [ "Error", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor.html#af9dafecc631b575464a1308645b11c82a902b0d55fddef6f8d651fe1035b7d4bd", null ],
+      [ "Success", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor.html#af9dafecc631b575464a1308645b11c82a505a83f220c02df2f85c3810cd9ceb38", null ]
     ] ],
     [ "NotificationDescriptorOperationType", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor.html#ad354f976c0575d3e22fa23806ad469e4", [
       [ "UnDeployAfterThingRemove", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor.html#ad354f976c0575d3e22fa23806ad469e4a0d7352936cda7eee2dc70e8000b54581", null ],
@@ -34,8 +36,16 @@ var class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor =
       [ "Quota", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor.html#abcaf1490a03419bbced43381a22c0b79ad2d5c3e087f684e56b5b81d6212d7ccb", null ],
       [ "Schedules", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor.html#abcaf1490a03419bbced43381a22c0b79accdb7bf9d93e5652b57cabcc8c41e061", null ]
     ] ],
+    [ "NotificationPlacement", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor.html#a52ebefeb0483079b6ee87a1814078954", [
+      [ "Notification", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor.html#a52ebefeb0483079b6ee87a1814078954a96d008db67fc0b5551a926842bbb6a71", null ],
+      [ "Toast", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor.html#a52ebefeb0483079b6ee87a1814078954a5109e5186f58eddfd59aab2a43505faf", null ]
+    ] ],
     [ "NotificationDescriptor", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor.html#a49801132db644a9fa6de2a06b8d7e2dd", null ],
-    [ "NotificationDescriptor", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor.html#a3e876191d8fde442c84d10ea4b625b83", null ],
+    [ "NotificationDescriptor", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor.html#ae9e5a71b8f97ce4cd3fdafaba7288668", null ],
+    [ "GetLatestClassVersion", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor.html#af503e24208d633a7a20c920c07ffa227", null ],
+    [ "Migrate", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor.html#a922597b0d17adc2d5e85fed5beff9476", null ],
+    [ "SetKey", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor.html#a399fbdbfa691acef19b38cf9932ef683", null ],
+    [ "Update", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor.html#a2a320363ad8f9479d79483f33b5075e3", null ],
     [ "Description", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor.html#a6c29b5d5289f1442e5ed62f107f7624b", null ],
     [ "HasRelatedObject", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor.html#a6c0ec11fd93629c9c6577365a8cefb47", null ],
     [ "IsModal", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor.html#adc942587da332536d3be71a01a44bb48", null ],
@@ -45,8 +55,10 @@ var class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor =
     [ "NotificationDescriptorRelatedObject", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor.html#a47a3f5e30d3dd481f883fec50d8c2b44", null ],
     [ "Operation", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor.html#a80c67c0fc5ba6b57481436294334b59e", null ],
     [ "PendingToken", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor.html#aa021b6829971bd723400db37faa20007", null ],
+    [ "Placement", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor.html#a3f65df12e6df7f6fbc5a632215d56528", null ],
     [ "Severity", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor.html#a7c14cea6a7a1c650043b1b6ce6aba79e", null ],
     [ "Timestamp", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor.html#acdf67b972401cd998308ed46391df622", null ],
+    [ "ToastrDesc", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor.html#a93486669214a0bdacd2ba5efa597ea69", null ],
     [ "Type", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor.html#acc13d1915c89943a3d9a50745ce27347", null ],
     [ "IsRequest", "class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_notification_descriptor.html#a50c2c601f70ab6586f87090f6d0cc470", null ]
 ];

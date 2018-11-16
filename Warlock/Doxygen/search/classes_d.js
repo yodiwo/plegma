@@ -13,6 +13,7 @@ var searchData=
   ['requestexternalgraphaction',['RequestExternalGraphAction',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_request_external_graph_action.html',1,'Yodiwo::API::Warlock']]],
   ['rereadquotadatatablesreq',['RereadQuotaDataTablesReq',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_reread_quota_data_tables_req.html',1,'Yodiwo::API::Warlock']]],
   ['resetquotaperiod',['ResetQuotaPeriod',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_reset_quota_period.html',1,'Yodiwo::API::Warlock']]],
+  ['restapiyodiupdescriptor',['RestApiYodiUpDescriptor',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_rest_api_yodi_up_descriptor.html',1,'Yodiwo::API::Warlock']]],
   ['restauthreq',['RestAuthReq',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_rest_auth_req.html',1,'Yodiwo::API::Warlock']]],
   ['restauthrsp',['RestAuthRsp',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_rest_auth_rsp.html',1,'Yodiwo::API::Warlock']]],
   ['restformattedconfigparam',['RestFormattedConfigParam',['../class_yodiwo_1_1_a_p_i_1_1_warlock_1_1_rest_formatted_config_param.html',1,'Yodiwo::API::Warlock']]],
