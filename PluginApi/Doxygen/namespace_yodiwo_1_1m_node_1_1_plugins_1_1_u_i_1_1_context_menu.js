@@ -1,0 +1,4 @@
+var namespace_yodiwo_1_1m_node_1_1_plugins_1_1_u_i_1_1_context_menu =
+[
+    [ "MenuItemDescriptor", "class_yodiwo_1_1m_node_1_1_plugins_1_1_u_i_1_1_context_menu_1_1_menu_item_descriptor.html", "class_yodiwo_1_1m_node_1_1_plugins_1_1_u_i_1_1_context_menu_1_1_menu_item_descriptor" ]
+];
