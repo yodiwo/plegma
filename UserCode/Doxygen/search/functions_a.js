@@ -1,0 +1,7 @@
+var searchData=
+[
+  ['labelgauge',['LabelGauge',['../class_yodiwo_1_1_api_1_1_user_code_1_1_label_gauge.html#adf97bf6be0b6878c36d351162193e5e1',1,'Yodiwo.Api.UserCode.LabelGauge.LabelGauge()'],['../class_yodiwo_1_1_api_1_1_user_code_1_1_label_gauge.html#ac67c5abb38dad03105fd9f71d16e2472',1,'Yodiwo.Api.UserCode.LabelGauge.LabelGauge(double value, List&lt; Highlight &gt; highlights)']]],
+  ['layerinfo',['LayerInfo',['../class_yodiwo_1_1_api_1_1_user_code_1_1_layer_info.html#af3d962250bf106358775eed9576eeb8e',1,'Yodiwo.Api.UserCode.LayerInfo.LayerInfo()'],['../class_yodiwo_1_1_api_1_1_user_code_1_1_layer_info.html#ad0dc3ead486dd14ea2ec598f4180b48f',1,'Yodiwo.Api.UserCode.LayerInfo.LayerInfo(string tooltip)']]],
+  ['lineargauge',['LinearGauge',['../class_yodiwo_1_1_api_1_1_user_code_1_1_linear_gauge.html#a1a33886cac1a4aa342c113f31259bdcf',1,'Yodiwo.Api.UserCode.LinearGauge.LinearGauge()'],['../class_yodiwo_1_1_api_1_1_user_code_1_1_linear_gauge.html#ac19efcf3fffeb1b1542d1440d08f391d',1,'Yodiwo.Api.UserCode.LinearGauge.LinearGauge(double value)']]],
+  ['linechart',['LineChart',['../class_yodiwo_1_1_api_1_1_user_code_1_1_line_chart.html#a50ac4f55a09107e4c76b5cdf5bb8bc72',1,'Yodiwo.Api.UserCode.LineChart.LineChart()'],['../class_yodiwo_1_1_api_1_1_user_code_1_1_line_chart.html#a24c7f46dcda2e923ad5fcac335ebb9bb',1,'Yodiwo.Api.UserCode.LineChart.LineChart(List&lt; string &gt; labels, List&lt; ExtendedDataSet &gt; datasets)']]]
+];

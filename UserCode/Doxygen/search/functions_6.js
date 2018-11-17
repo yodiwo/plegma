@@ -1,0 +1,11 @@
+var searchData=
+[
+  ['gatewayinfo',['GatewayInfo',['../class_yodiwo_1_1_api_1_1_user_code_1_1_gateway_info.html#a7cdff8030ef7aac3ef788085d1abe63f',1,'Yodiwo.Api.UserCode.GatewayInfo.GatewayInfo()'],['../class_yodiwo_1_1_api_1_1_user_code_1_1_gateway_info.html#a02d360bd2dd7cef1071e10a8fc804ded',1,'Yodiwo.Api.UserCode.GatewayInfo.GatewayInfo(string Id, string FriendlyName, string Description, int LocationId, string Data)']]],
+  ['gatewaysinfo',['GatewaysInfo',['../class_yodiwo_1_1_api_1_1_user_code_1_1_gateways_info.html#a8fc9610bac0a668c7a1842b6e8c4556f',1,'Yodiwo::Api::UserCode::GatewaysInfo']]],
+  ['gauge',['Gauge',['../class_yodiwo_1_1_api_1_1_user_code_1_1_gauge.html#ae683297c78e20c64c21f1088352e45cf',1,'Yodiwo.Api.UserCode.Gauge.Gauge()'],['../class_yodiwo_1_1_api_1_1_user_code_1_1_gauge.html#a9cb4f43c79cec24330d22bc07bf0c1d8',1,'Yodiwo.Api.UserCode.Gauge.Gauge(double value)']]],
+  ['generatecheckbox',['GenerateCheckbox',['../class_yodiwo_1_1_api_1_1_user_code_1_1_info_tip_item.html#ac3fa1520bbc05aa0fb978e890f48165d',1,'Yodiwo::Api::UserCode::InfoTipItem']]],
+  ['generatepercentage',['GeneratePercentage',['../class_yodiwo_1_1_api_1_1_user_code_1_1_info_tip_item.html#a9e071bdd433da27a133ea16117650533',1,'Yodiwo::Api::UserCode::InfoTipItem']]],
+  ['geojson',['GeoJSON',['../class_yodiwo_1_1_api_1_1_user_code_1_1_geo_j_s_o_n.html#aa6e0efae7c67815f55fca5693f1eb9e2',1,'Yodiwo.Api.UserCode.GeoJSON.GeoJSON()'],['../class_yodiwo_1_1_api_1_1_user_code_1_1_geo_j_s_o_n.html#a2d7e40c9761ccd25a6c23fe9bbe80c50',1,'Yodiwo.Api.UserCode.GeoJSON.GeoJSON(List&lt; Feature &gt; features, Dictionary&lt; string, LayerInfo &gt; layers=null)']]],
+  ['geometry',['Geometry',['../class_yodiwo_1_1_api_1_1_user_code_1_1_geometry.html#a6d1a7cf12bfe49a795ecb1e22aa13871',1,'Yodiwo.Api.UserCode.Geometry.Geometry(float latitude, float longitude)'],['../class_yodiwo_1_1_api_1_1_user_code_1_1_geometry.html#a1a1f73e890f864e2531a7d9bf781640f',1,'Yodiwo.Api.UserCode.Geometry.Geometry(List&lt; List&lt; float &gt;&gt; shape)']]],
+  ['grid',['Grid',['../class_yodiwo_1_1_api_1_1_user_code_1_1_grid.html#aa48040c9081324be7d3bc22f122c9556',1,'Yodiwo.Api.UserCode.Grid.Grid()'],['../class_yodiwo_1_1_api_1_1_user_code_1_1_grid.html#a25068fac0b9b1c254dcc103de4becc82',1,'Yodiwo.Api.UserCode.Grid.Grid(double x, double y)']]]
+];

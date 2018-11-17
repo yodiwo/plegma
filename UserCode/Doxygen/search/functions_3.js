@@ -1,0 +1,5 @@
+var searchData=
+[
+  ['dataset',['DataSet',['../class_yodiwo_1_1_api_1_1_user_code_1_1_data_set.html#add3e4a15278f297155e51871493cf6ae',1,'Yodiwo.Api.UserCode.DataSet.DataSet()'],['../class_yodiwo_1_1_api_1_1_user_code_1_1_data_set.html#a34621808af10c8a1ab60ed12835d7ff9',1,'Yodiwo.Api.UserCode.DataSet.DataSet(List&lt; double &gt; data, string datasetName, List&lt; string &gt; color, List&lt; string &gt; borderColor=null, int borderWidth=0)'],['../class_yodiwo_1_1_api_1_1_user_code_1_1_data_set.html#a47d6d21c8d5cb3eb3ccdad2143af8409',1,'Yodiwo.Api.UserCode.DataSet.DataSet(List&lt; double &gt; data, string datasetName, string color, string borderColor=null, int borderWidth=0)']]],
+  ['doughnutchart',['DoughnutChart',['../class_yodiwo_1_1_api_1_1_user_code_1_1_doughnut_chart.html#a06d464e6599f0fb3ae64b3212d55e34b',1,'Yodiwo.Api.UserCode.DoughnutChart.DoughnutChart()'],['../class_yodiwo_1_1_api_1_1_user_code_1_1_doughnut_chart.html#ae60ed4d11fc0539bfbf15077aaa65b73',1,'Yodiwo.Api.UserCode.DoughnutChart.DoughnutChart(List&lt; string &gt; labels, List&lt; DataSet &gt; datasets)']]]
+];
