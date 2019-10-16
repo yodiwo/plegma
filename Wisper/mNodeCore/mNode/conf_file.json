@@ -1,5 +1,5 @@
 {
-  "ActiveID": "Staging",
+  "ActiveID": "DevMirror",
   "Configs": {
     "Local": {
       "Name": "mNode-$UserName$-$MachineName$",
@@ -47,7 +47,7 @@
       "Name": "mNode-$UserName$-$MachineName$",
       "Uuid": "1337mNode",
       "FrontendServer": "https://tcyan.yodiwo.com",
-      "ApiServer": "tcyan.yodiwo.com",
+      "ApiServer": "tapi.yodiwo.com",
       "PackageServer": "https://tcyan.yodiwo.com",
       "YpchannelPort": 14623,
       "YpchannelSecure": true,
@@ -68,7 +68,7 @@
       "Name": "mNode-$UserName$-$MachineName$",
       "Uuid": "1337mNode",
       "FrontendServer": "https://dev4cyan.yodiwo.com",
-      "ApiServer": "dev4cyan.yodiwo.com",
+      "ApiServer": "dev4api.yodiwo.com",
       "PackageServer": "https://dev4cyan.yodiwo.com",
       "YpchannelPort": 14623,
       "YpchannelSecure": true,
