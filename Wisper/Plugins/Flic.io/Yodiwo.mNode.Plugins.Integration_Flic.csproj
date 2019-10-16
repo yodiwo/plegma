@@ -59,6 +59,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\mNodeCore\mNode\YodiwoProjects\Yodiwo.API.Package\Yodiwo.API.Packages.csproj">
+      <Project>{153074d1-8c8f-4cb4-b18b-f80ff64513ff}</Project>
+      <Name>Yodiwo.API.Packages</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\mNodeCore\mNode\YodiwoProjects\YodiwoSharp\YodiwoSharp.csproj">
       <Project>{8ae66abd-d963-4e83-83a3-330156cd37a3}</Project>
       <Name>YodiwoSharp</Name>
