@@ -143,10 +143,10 @@ void initialize_things(char *nodeKey)
     text_reader->Config.elems = NULL;
     text_reader->Ports.num = 1;
     text_reader->Ports.elems = &text_reader_port;
-    text_reader->Type = "";
+    text_reader->Type = "com.yodiwo.text.default";
     text_reader->BlockType = "";
     text_reader->UIHints.Description = "";
-    text_reader->UIHints.IconURI = "/Content/VirtualGateway/img/icon-thing-genericbutton.png";
+    text_reader->UIHints.IconURI = "/Content/img/icons/Generic/thing-text.png";
 
     //TEXT LOGGER
     text_logger_port.ConfFlags = Yodiwo_ePortConf_IsTrigger;
@@ -164,10 +164,10 @@ void initialize_things(char *nodeKey)
     text_logger->Config.elems = NULL;
     text_logger->Ports.num = 1;
     text_logger->Ports.elems = &text_logger_port;
-    text_logger->Type = "";
+    text_logger->Type = "com.yodiwo.text.default";
     text_logger->BlockType = "";
     text_logger->UIHints.Description = "";
-    text_logger->UIHints.IconURI = "/Content/VirtualGateway/img/accelerometer.jpg";
+    text_logger->UIHints.IconURI = "/Content/img/icons/Generic/thing-text.png";
 
     //SENSOR
     sensor_port.ConfFlags = Yodiwo_ePortConf_None; //why not
@@ -185,10 +185,10 @@ void initialize_things(char *nodeKey)
     sensor->Config.elems = NULL;
     sensor->Ports.num = 1;
     sensor->Ports.elems = &sensor_port;
-    sensor->Type = "";
+    sensor->Type = "com.yodiwo.text.default";
     sensor->BlockType = "";
     sensor->UIHints.Description = "";
-    sensor->UIHints.IconURI = "/Content/VirtualGateway/img/icon-thing-genericlight.png";
+    sensor->UIHints.IconURI = "https://static.yodiwo.com/content/icons/status-monitor.png";
 
     things.num = THING_NUM;
     things.elems = _things;
