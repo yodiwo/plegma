@@ -6,7 +6,7 @@
             "NodeName": "PyNode",
             "NodeSecret": "",
             "MqttBrokerCertFile": null,
-            "MqttBrokerHostname": "dev4cyan.yodiwo.com",
+            "MqttBrokerHostname": "dev4api.yodiwo.com",
             "MqttUseSsl": true
         },
         "tcyan": {
@@ -14,7 +14,7 @@
             "NodeName": "PyNode",
             "NodeSecret": "",
             "MqttBrokerCertFile": null,
-            "MqttBrokerHostname": "tcyan.yodiwo.com",
+            "MqttBrokerHostname": "tapi.yodiwo.com",
             "MqttUseSsl": true
         }
     }
